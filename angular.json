@@ -24,9 +24,20 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/material-dashboard.min.css",
+              "src/assets/fonts/font-awesome.min.css",
+              "src/assets/fonts/roboto.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/core/jquery.min.js",
+              "src/assets/js/core/popper.min.js",
+              "src/assets/js/core/bootstrap-material-design.min.js",
+              "src/assets/js/plugins/perfect-scrollbar.jquery.min.js",
+              "src/assets/js/plugins/jquery.bootstrap-wizard.js",
+              "src/assets/js/app.js",
+              "src/assets/js/material-dashboard.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -119,6 +130,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "web-connecta-care"
+    }
+  },
+  "defaultProject": "web-connecta-care",
+  "cli": {
+    "analytics": false
+  }
 }

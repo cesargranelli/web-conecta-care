@@ -1,13 +1,27 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>WebConnectaCare</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Connecta</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
   <app-root></app-root>
 </body>
+
+<script>
+  $(document).ready(function () {
+    // Initialise the wizard
+    app.initMaterialWizard();
+    setTimeout(function () {
+      $('.card.card-wizard').addClass('active');
+    }, 600);
+  });
+</script>
+
 </html>
