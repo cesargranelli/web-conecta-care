@@ -30,13 +30,14 @@
               "src/assets/fonts/roboto.css"
             ],
             "scripts": [
-              "src/assets/js/core/jquery.min.js",
-              "src/assets/js/core/popper.min.js",
-              "src/assets/js/core/bootstrap-material-design.min.js",
-              "src/assets/js/plugins/perfect-scrollbar.jquery.min.js",
-              "src/assets/js/plugins/jquery.bootstrap-wizard.js",
-              "src/assets/js/app.js",
-              "src/assets/js/material-dashboard.min.js"
+              { "input": "src/assets/js/core/jquery.min.js", "bundleName": "jquery", "inject": false },
+              { "input": "src/assets/js/core/popper.min.js", "bundleName": "popper", "inject": false },
+              { "input": "src/assets/js/core/bootstrap-material-design.min.js", "bundleName": "bootstrap-material-design", "inject": false },
+              { "input": "src/assets/js/plugins/perfect-scrollbar.jquery.min.js", "bundleName": "perfect-scrollbar.jquery", "inject": false },
+              { "input": "src/assets/js/plugins/jquery.validate.min.js", "bundleName": "jquery.validate", "inject": false },
+              { "input": "src/assets/js/plugins/jquery.bootstrap-wizard.js", "bundleName": "jquery.bootstrap-wizard", "inject": false },
+              { "input": "src/assets/js/app.js", "bundleName": "app", "inject": false },
+              { "input": "src/assets/js/material-dashboard.min.js", "bundleName": "material-dashboard", "inject": false }
             ]
           },
           "configurations": {
