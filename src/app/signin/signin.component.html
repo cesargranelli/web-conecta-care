@@ -42,7 +42,7 @@
                         com sua operadora para realizar o cadastro</h5>
                     </div>
                   </div>
-                  <form action="" method="" novalidate="novalidate">
+                  <form [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
                     <div class="form-row justify-content-center">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
@@ -51,19 +51,29 @@
                               <i class="material-icons">face</i>
                             </span>
                           </div>
-                          <input type="text" class="form-control" id="inputCpfPaciente" name="cpfPaciente" placeholder="CPF (required)">
+                          <input type="text" class="form-control" id="cpfPaciente" name="cpfPaciente" autocomplete="off"
+                            placeholder="CPF (Obrigatório)" formControlName="cpf" [mask]="mascaraCpf">
                         </div>
                       </div>
                     </div>
                     <div class="form-row justify-content-center">
                       <div class="form-group">
-                        <button type="button" class="btn btn-rose" name="cadastrar">Cadastrar</button>
+                        <button type="submit" [disabled]="!pacienteForm.valid" class="btn btn-rose"
+                          [ngClass]="!pacienteForm.valid ? 'btn-link' : ''" name="btnCpfPaciente">Cadastrar</button>
+                      </div>
+                    </div>
+                    <div >
+                      <div class="text-center text-danger">
+                        <span *ngIf="pacienteForm.controls.cpf.invalid">* Dados inválidos</span>
+                      </div>
+                      <div class="text-center text-danger">
+                        <span *ngIf="pacienteForm.controls.cpf.errors?.required">* Dados obrigatórios</span>
                       </div>
                     </div>
                   </form>
                 </div>
                 <div class="tab-pane" id="profissional">
-                  <form action="" method="" novalidate="novalidate">
+                  <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit()">
                     <div class="form-row justify-content-center">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
@@ -72,19 +82,29 @@
                               <i class="material-icons">face</i>
                             </span>
                           </div>
-                          <input type="text" class="form-control" id="inputCpfProfissional" name="cpfProfissional" placeholder="CPF (required)">
+                          <input type="text" class="form-control" id="cpfProfissional" name="cpfProfissional"
+                            autocomplete="off" placeholder="CPF (Obrigatório)" formControlName="cpf"
+                            [mask]="mascaraCpf">
                         </div>
                       </div>
                     </div>
                     <div class="form-row justify-content-center">
                       <div class="form-group">
-                        <button type="button" class="btn btn-rose" name="cadastrar">Cadastrar</button>
+                        <button type="submit" [disabled]="!profissionalForm.valid" class="btn btn-rose" name="btnCpfProfissional">Cadastrar</button>
+                      </div>
+                    </div>
+                    <div >
+                      <div class="text-center text-danger">
+                        <span *ngIf="profissionalForm.controls.cpf.invalid">* Dados inválidos</span>
+                      </div>
+                      <div class="text-center text-danger">
+                        <span *ngIf="profissionalForm.controls.cpf.errors?.required">* Dados obrigatórios</span>
                       </div>
                     </div>
                   </form>
                 </div>
                 <div class="tab-pane" id="homecare">
-                  <form action="" method="" novalidate="novalidate">
+                  <form [formGroup]="homecareForm" (ngSubmit)="onSubmit()">
                     <div class="form-row justify-content-center">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
@@ -93,19 +113,29 @@
                               <i class="material-icons">face</i>
                             </span>
                           </div>
-                          <input type="text" class="form-control" id="inputCnpjHomecare" name="cnpjHomecare" placeholder="CNPJ (required)">
+                          <input type="text" class="form-control" id="cnpjHomecare" name="cnpjHomecare"
+                            autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
+                            [mask]="mascaraCnpj">
                         </div>
                       </div>
                     </div>
                     <div class="form-row justify-content-center">
                       <div class="form-group">
-                        <button type="button" class="btn btn-rose" name="cadastrar">Cadastrar</button>
+                        <button type="submit" [disabled]="!homecareForm.valid" class="btn btn-rose" name="btnCnpjHomecare">Cadastrar</button>
+                      </div>
+                    </div>
+                    <div >
+                      <div class="text-center text-danger">
+                        <span *ngIf="homecareForm.controls.cnpj.invalid">* Dados inválidos</span>
+                      </div>
+                      <div class="text-center text-danger">
+                        <span *ngIf="homecareForm.controls.cnpj.errors?.required">* Dados obrigatórios</span>
                       </div>
                     </div>
                   </form>
                 </div>
                 <div class="tab-pane" id="convenio">
-                  <form action="" method="" novalidate="novalidate">
+                  <form [formGroup]="convenioForm" (ngSubmit)="onSubmit()">
                     <div class="form-row justify-content-center">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
@@ -114,13 +144,22 @@
                               <i class="material-icons">face</i>
                             </span>
                           </div>
-                          <input type="text" class="form-control" id="inputCnpjConvenio" name="cnpjConvenio" placeholder="CNPJ (required)">
-                        </div>
+                          <input type="text" class="form-control" id="cnpjConvenio" name="cnpjConvenio"
+                            autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
+                            [mask]="mascaraCnpj"></div>
                       </div>
                     </div>
                     <div class="form-row justify-content-center">
                       <div class="form-group">
-                        <button type="button" class="btn btn-rose" name="cadastrar">Cadastrar</button>
+                        <button type="submit" [disabled]="!convenioForm.valid" class="btn btn-rose" name="btnCnpjConvenio">Cadastrar</button>
+                      </div>
+                    </div>
+                    <div >
+                      <div class="text-center text-danger">
+                        <span *ngIf="convenioForm.controls.cnpj.invalid">* Dados inválidos</span>
+                      </div>
+                      <div class="text-center text-danger">
+                        <span *ngIf="convenioForm.controls.cnpj.errors?.required">* Dados obrigatórios</span>
                       </div>
                     </div>
                   </form>
