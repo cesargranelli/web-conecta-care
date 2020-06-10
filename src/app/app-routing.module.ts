@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ConnectaComponent } from './connecta/connecta.component';
-import { SigninComponent } from './signin/signin.component';
+import { ConnectaComponent } from './views/connecta/connecta.component';
+import { SigninComponent } from './views/signin/signin.component';
 
 const routes: Routes = [
   { path: '', component: ConnectaComponent },

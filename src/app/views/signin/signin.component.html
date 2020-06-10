@@ -69,6 +69,9 @@
                       <div class="text-center text-danger">
                         <span *ngIf="pacienteForm.controls.cpf.errors?.required">* Dados obrigatórios</span>
                       </div>
+                      <div class="text-center text-danger">
+                        <span *ngIf="pacienteJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -99,6 +102,9 @@
                       </div>
                       <div class="text-center text-danger">
                         <span *ngIf="profissionalForm.controls.cpf.errors?.required">* Dados obrigatórios</span>
+                      </div>
+                      <div class="text-center text-danger">
+                        <span *ngIf="profissionalJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>
                     </div>
                   </form>
@@ -131,6 +137,9 @@
                       <div class="text-center text-danger">
                         <span *ngIf="homecareForm.controls.cnpj.errors?.required">* Dados obrigatórios</span>
                       </div>
+                      <div class="text-center text-danger">
+                        <span *ngIf="homecareJaCadastrada">*** CPF ou CNPJ já cadastrado ***</span>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -160,6 +169,9 @@
                       </div>
                       <div class="text-center text-danger">
                         <span *ngIf="convenioForm.controls.cnpj.errors?.required">* Dados obrigatórios</span>
+                      </div>
+                      <div class="text-center text-danger">
+                        <span *ngIf="convenioJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>
                     </div>
                   </form>
