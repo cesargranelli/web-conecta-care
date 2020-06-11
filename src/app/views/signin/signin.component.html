@@ -93,7 +93,8 @@
                     </div>
                     <div class="form-row justify-content-center">
                       <div class="form-group">
-                        <button type="submit" [disabled]="!profissionalForm.valid" class="btn btn-rose" name="btnCpfProfissional">Cadastrar</button>
+                        <button type="submit" [disabled]="!profissionalForm.valid" class="btn btn-rose"
+                        [ngClass]="!profissionalForm.valid ? 'btn-link' : ''" name="btnCpfProfissional">Cadastrar</button>
                       </div>
                     </div>
                     <div >
@@ -127,7 +128,8 @@
                     </div>
                     <div class="form-row justify-content-center">
                       <div class="form-group">
-                        <button type="submit" [disabled]="!homecareForm.valid" class="btn btn-rose" name="btnCnpjHomecare">Cadastrar</button>
+                        <button type="submit" [disabled]="!homecareForm.valid" class="btn btn-rose"
+                        [ngClass]="!homecareForm.valid ? 'btn-link' : ''" name="btnCnpjHomecare">Cadastrar</button>
                       </div>
                     </div>
                     <div >
@@ -160,7 +162,8 @@
                     </div>
                     <div class="form-row justify-content-center">
                       <div class="form-group">
-                        <button type="submit" [disabled]="!convenioForm.valid" class="btn btn-rose" name="btnCnpjConvenio">Cadastrar</button>
+                        <button type="submit" [disabled]="!convenioForm.valid" class="btn btn-rose"
+                        [ngClass]="!convenioForm.valid ? 'btn-link' : ''" name="btnCnpjConvenio">Cadastrar</button>
                       </div>
                     </div>
                     <div >

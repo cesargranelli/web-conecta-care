@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: '',
-  baseUrl: ''
+  apiUrl: 'http://api.factorysupport.systems'
 };

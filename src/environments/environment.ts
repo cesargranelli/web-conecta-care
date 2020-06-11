@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://local.factorysupport.systems',
-  baseUrl: '/api'
+  apiUrl: 'http://local.api.factorysupport.systems'
 };
 
 /*

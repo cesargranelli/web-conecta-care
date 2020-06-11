@@ -7,6 +7,7 @@ import { PacienteService } from 'src/app/services/paciente.service';
 import { ProfissionalService } from 'src/app/services/profissional.service';
 import { ValidadorCnpj } from '../../utils/validador-cnpj.utils';
 import { ValidadorCpf } from '../../utils/validador-cpf.utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -34,7 +35,8 @@ export class SigninComponent implements OnInit {
     private pacienteService: PacienteService,
     private profissionalService: ProfissionalService,
     private homecareService: HomecareService,
-    private convenioService: ConvenioService
+    private convenioService: ConvenioService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +59,7 @@ export class SigninComponent implements OnInit {
     if (this.pacienteForm.value.cpf) {
       this.pacienteService.pesquisarCpf(this.pacienteForm.value).subscribe(response => {
         if (response.status===NO_CONTENT) {
-          alert('Enviar para tela de cadastro de login');
+
         } else {
           this.pacienteJaCadastrado = true;
         }
@@ -67,7 +69,7 @@ export class SigninComponent implements OnInit {
     if (this.profissionalForm.value.cpf) {
       this.profissionalService.pesquisarCpf(this.profissionalForm.value).subscribe(response => {
         if (response.status===NO_CONTENT) {
-          alert('Enviar para tela de cadastro de login');
+          this.route.navigateByUrl('cadastro-profissional');
         } else {
           this.profissionalJaCadastrado = true;
         }
@@ -77,7 +79,6 @@ export class SigninComponent implements OnInit {
     if (this.homecareForm.value.cnpj) {
       this.homecareService.pesquisarCnpj(this.homecareForm.value).subscribe(response => {
         if (response.status===NO_CONTENT) {
-          alert('Enviar para tela de cadastro de login');
         } else {
           this.homecareJaCadastrada = true;
         }
