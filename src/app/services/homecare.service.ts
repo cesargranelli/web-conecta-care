@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../src/environments/environment';
 import { Documento } from './responses/documento-cnpj';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class HomecareService {
   constructor(private http: HttpClient) { }
 
   pesquisarCnpj(documento: Documento): Observable<HttpResponse<any>> {
-    return this.http.post<HttpResponse<Documento>>(`${environment.baseUrl}/homecares/cnpj`, documento,
+    return this.http.post<HttpResponse<Documento>>(`${environment.apiUrl}/homecares/cnpj`, documento,
       { observe: 'response' });
   }
 
