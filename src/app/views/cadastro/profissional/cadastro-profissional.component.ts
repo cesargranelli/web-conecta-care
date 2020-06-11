@@ -13,6 +13,14 @@ export class CadastroProfissionalComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.cadastroProfissionalForm = this.formBuilder.group({
+      email: ['', []],
+      confirmarEmail: ['', []],
+      senha: ['', []],
+      confirmarSenha: ['', []]
+    });
   }
+
+  onSubmit() {}
 
 }
