@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-cadastro-profissional',
@@ -8,17 +7,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class CadastroProfissionalComponent implements OnInit {
 
-  cadastroProfissionalForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.cadastroProfissionalForm = this.formBuilder.group({
-      email: ['', []],
-      confirmarEmail: ['', []],
-      senha: ['', []],
-      confirmarSenha: ['', []]
-    });
   }
 
   onSubmit() {}
