@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://api.factorysupport.systems'
+  apiUrl: 'http://api.factorysupport.systems',
+  siteKey: '6Lfr2gwTAAAAAGYyKWF9J2iWJI04Rs6Kel-o_HAt'
 };
 
 /*
