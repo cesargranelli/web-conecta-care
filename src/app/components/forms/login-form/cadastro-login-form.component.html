@@ -1,0 +1,46 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="form-row justify-content-start">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+      <div class="form-group bmd-form-group"
+        [ngClass]="loginForm.controls.email.invalid && loginForm.controls.email.touched ? 'has-danger' : ''">
+        <label for="email" class="bmd-label-floating"> Email *</label>
+        <input type="email" class="form-control" name="email" formControlName="email">
+      </div>
+      <div class="form-group bmd-form-group"
+        [ngClass]="loginForm.value.confirmarEmail != loginForm.value.email
+          && loginForm.controls.confirmarEmail.touched ? 'has-danger' : ''">
+        <label for="confirmarEmail" class="bmd-label-floating"> Confirmar Email *</label>
+        <input type="email" class="form-control" name="confirmarEmail" formControlName="confirmarEmail">
+      </div>
+      <div class="form-group bmd-form-group"
+        [ngClass]="loginForm.controls.password.invalid && loginForm.controls.password.touched ? 'has-danger' : ''">
+        <label for="password" class="bmd-label-floating"> Password *</label>
+        <input type="password" class="form-control" name="password" formControlName="password">
+      </div>
+      <div class="form-group bmd-form-group"
+        [ngClass]="loginForm.value.confirmarPassword != loginForm.value.password
+          && loginForm.controls.confirmarPassword.touched ? 'has-danger' : ''">
+        <label for="confirmarPassword" class="bmd-label-floating"> Confirmar Password *</label>
+        <input type="password" class="form-control" name="confirmarPassword" formControlName="confirmarPassword">
+      </div>
+      <div class="category form-category">* Campos obrigatórios</div>
+    </div>
+  </div>
+  <!-- <div class="text-danger">
+    <span *ngIf="loginForm.invalid && loginForm.touched">* Dados inválidos</span>
+  </div> -->
+  <!-- <div class="text-danger">
+    <span *ngIf="loginForm.touched">* Dados obrigatórios</span>
+  </div> -->
+  <div class="form-row mt-4">
+    <app-basic-recaptcha (captcha)="setCaptcha($event)"></app-basic-recaptcha>
+  </div>
+  <div class="form-row justify-content-between mt-4">
+    <div>
+      <button type="button" class="btn btn-gray">Cancelar</button>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-rose" [disabled]="!loginForm.valid || !captcha">Enviar</button>
+    </div>
+  </div>
+</form>

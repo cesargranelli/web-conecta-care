@@ -2,11 +2,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { NgxLoadingModule } from 'ngx-loading';
 import { NgxMaskModule } from 'ngx-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginFormComponent } from './components/forms/login-form/login-form.component';
+import { CadastroLoginFormComponent } from './components/forms/login-form/cadastro-login-form.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
@@ -22,7 +24,7 @@ import { SigninComponent } from './views/signin/signin.component';
     ConnectaComponent,
     SigninComponent,
     CadastroProfissionalComponent,
-    LoginFormComponent,
+    CadastroLoginFormComponent,
     BasicRecaptchaComponent
   ],
   imports: [
@@ -31,7 +33,9 @@ import { SigninComponent } from './views/signin/signin.component';
     AppRoutingModule,
     NgxMaskModule.forRoot(),
     HttpClientModule,
-    RecaptchaModule
+    RecaptchaModule,
+    NgxLoadingModule.forRoot({}),
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     ValidadorCpf,

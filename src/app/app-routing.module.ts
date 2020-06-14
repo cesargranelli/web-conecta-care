@@ -7,7 +7,8 @@ import { SigninComponent } from './views/signin/signin.component';
 const routes: Routes = [
   { path: '', component: ConnectaComponent },
   { path: 'cadastro', component: SigninComponent },
-  { path: 'cadastro-profissional', component: CadastroProfissionalComponent }
+  { path: 'cadastro-profissional', component: CadastroProfissionalComponent },
+  { path: 'cadastro-profissional/{token}', component: CadastroProfissionalComponent }
 ];
 
 @NgModule({

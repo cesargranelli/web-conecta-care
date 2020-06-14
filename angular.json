@@ -37,6 +37,7 @@
               { "input": "src/assets/js/plugins/perfect-scrollbar.jquery.min.js", "bundleName": "perfect-scrollbar.jquery", "inject": false },
               { "input": "src/assets/js/plugins/jquery.validate.min.js", "bundleName": "jquery.validate", "inject": false },
               { "input": "src/assets/js/plugins/jquery.bootstrap-wizard.js", "bundleName": "jquery.bootstrap-wizard", "inject": false },
+              { "input": "src/assets/js/plugins/sweetalert2.js", "bundleName": "sweetalert2", "inject": false },
               { "input": "src/assets/js/app.js", "bundleName": "app", "inject": false },
               { "input": "src/assets/js/material-dashboard.min.js", "bundleName": "material-dashboard", "inject": false }
             ]

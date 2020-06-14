@@ -7,11 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CadastroProfissionalComponent implements OnInit {
 
+  public loading = false;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {}
+
+  setLoading(loading: boolean) {
+    this.loading = loading;
+  }
 
 }
