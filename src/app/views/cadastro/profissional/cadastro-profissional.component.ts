@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-profissional',
@@ -9,9 +10,10 @@ export class CadastroProfissionalComponent implements OnInit {
 
   public loading = false;
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log(this.activatedRoute);
   }
 
   onSubmit() {}

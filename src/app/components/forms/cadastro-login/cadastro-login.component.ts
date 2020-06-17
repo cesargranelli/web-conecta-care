@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OK } from 'http-status-codes';
@@ -8,11 +8,11 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-cadastro-login-form',
-  templateUrl: './cadastro-login-form.component.html',
-  styleUrls: ['./cadastro-login-form.component.css']
+  selector: 'app-cadastro-login',
+  templateUrl: './cadastro-login.component.html',
+  styleUrls: ['./cadastro-login.component.css']
 })
-export class CadastroLoginFormComponent implements OnInit {
+export class CadastroLoginComponent implements OnInit {
 
   loginForm: FormGroup;
 

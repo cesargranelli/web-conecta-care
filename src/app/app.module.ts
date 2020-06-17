@@ -8,7 +8,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { NgxMaskModule } from 'ngx-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CadastroLoginFormComponent } from './components/forms/login-form/cadastro-login-form.component';
+import { CadastroLoginComponent } from './components/forms/cadastro-login/cadastro-login.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
@@ -24,7 +24,7 @@ import { SigninComponent } from './views/signin/signin.component';
     ConnectaComponent,
     SigninComponent,
     CadastroProfissionalComponent,
-    CadastroLoginFormComponent,
+    CadastroLoginComponent,
     BasicRecaptchaComponent
   ],
   imports: [
