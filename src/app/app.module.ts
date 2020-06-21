@@ -16,6 +16,13 @@ import { CadastroProfissionalComponent } from './views/cadastro/profissional/cad
 import { ConnectaComponent } from './views/connecta/connecta.component';
 import { MenuComponent } from './views/menu/menu.component';
 import { SigninComponent } from './views/signin/signin.component';
+import { InformacoesGeraisComponent } from './components/forms/profissional/informacoes-gerais/informacoes-gerais.component';
+import { EnderecoComponent } from './components/forms/endereco/endereco.component';
+import { ContatoComponent } from './components/forms/contato/contato.component';
+import { CarreiraComponent } from './components/forms/profissional/carreira/carreira.component';
+import { ExperienciaComponent } from './components/forms/profissional/experiencia/experiencia.component';
+import { EscolaridadeComponent } from './components/forms/profissional/escolaridade/escolaridade.component';
+import { ComplementoComponent } from './components/forms/profissional/complemento/complemento.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +32,14 @@ import { SigninComponent } from './views/signin/signin.component';
     SigninComponent,
     CadastroProfissionalComponent,
     CadastroLoginComponent,
-    BasicRecaptchaComponent
+    BasicRecaptchaComponent,
+    InformacoesGeraisComponent,
+    EnderecoComponent,
+    ContatoComponent,
+    CarreiraComponent,
+    ExperienciaComponent,
+    EscolaridadeComponent,
+    ComplementoComponent
   ],
   imports: [
     BrowserModule,
