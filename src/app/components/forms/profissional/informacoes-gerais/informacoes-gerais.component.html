@@ -1,1 +1,118 @@
-<p>informacoes-gerais works!</p>
+<form [formGroup]="profissionalForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+  <div class="row">
+    <label for="nome" class="col-lg-2 col-md-3 col-form-label"> Primeiro nome *</label>
+    <div class="form-group col-lg-9 col-md-8"
+      [ngClass]="profissionalForm.controls.nome.invalid && profissionalForm.controls.nome.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="nome" formControlName="nome">
+    </div>
+  </div>
+  <div class="row">
+    <label for="sobrenome" class="col-lg-2 col-md-3 col-form-label"> Sobrenome *</label>
+    <div class="form-group col-lg-9 col-md-8"
+      [ngClass]="profissionalForm.controls.sobrenome.invalid && profissionalForm.controls.sobrenome.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="sobrenome" formControlName="sobrenome">
+    </div>
+  </div>
+  <div class="row">
+    <label for="cpf" class="col-lg-2 col-md-3 col-form-label"> CPF *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.cpf.invalid && profissionalForm.controls.cpf.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="cpf" formControlName="cpf" [mask]="mascaraCpf">
+    </div>
+    <label for="dataNascimento" class="col-lg-3 col-md-3 col-form-label"> Data Nascimento *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.dataNascimento.invalid && profissionalForm.controls.dataNascimento.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="dataNascimento" formControlName="dataNascimento" [mask]="mascaraData">
+    </div>
+  </div>
+  <div class="row">
+    <label for="rg" class="col-lg-2 col-md-3 col-form-label"> RG</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.rg.invalid && profissionalForm.controls.rg.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="rg" formControlName="rg" [mask]="mascaraRg">
+    </div>
+    <label for="rgEmissor" class="col-lg-3 col-md-3 col-form-label"> Emissor *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.rgEmissor.invalid && profissionalForm.controls.rgEmissor.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="rgEmissor" formControlName="rgEmissor" [mask]="mascaraData">
+    </div>
+  </div>
+  <div class="row">
+    <label for="rgDataEmissao" class="col-lg-2 col-md-3 col-form-label"> Data Emissão RG</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.rgDataEmissao.invalid && profissionalForm.controls.rgDataEmissao.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="rgDataEmissao" formControlName="rgDataEmissao" [mask]="mascaraData">
+    </div>
+    <label for="pis" class="col-lg-3 col-md-3 col-form-label"> PIS</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.pis.invalid && profissionalForm.controls.pis.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="pis" formControlName="pis" [mask]="mascaraPIS">
+    </div>
+  </div>
+  <div class="row">
+    <label for="genero" class="col-lg-2 col-md-3 col-form-label"> Sexo *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.genero.invalid && profissionalForm.controls.genero.touched ? 'has-danger' : ''">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary btn-round btn-small dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Selecione
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="javascript:;">Itens</a>
+        </div>
+      </div>
+    </div>
+    <label for="tipoEmpresa" class="col-lg-3 col-md-3 col-form-label"> Tipo Empresa *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.tipoEmpresa.invalid && profissionalForm.controls.tipoEmpresa.touched ? 'has-danger' : ''">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary btn-round btn-small dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Selecione
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="javascript:;">Itens</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <label for="estadoCivil" class="col-lg-2 col-md-3 col-form-label"> Estado Civil *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.estadoCivil.invalid && profissionalForm.controls.estadoCivil.touched ? 'has-danger' : ''">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary btn-round btn-small dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Selecione
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="javascript:;">Itens</a>
+        </div>
+      </div>
+    </div>
+    <label for="cnpj" class="col-lg-3 col-md-3 col-form-label"> Nº CNPJ</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.cnpj.invalid && profissionalForm.controls.cnpj.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="cnpj" formControlName="cnpj" [mask]="mascaraCnpj">
+    </div>
+  </div>
+  <div class="row">
+    <label for="ctps" class="col-lg-2 col-md-3 col-form-label"> Nº CTPS *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.ctps.invalid && profissionalForm.controls.ctps.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="ctps" formControlName="ctps">
+    </div>
+    <label for="ctpsSerie" class="col-lg-3 col-md-3 col-form-label"> Nº Série CTPS *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="profissionalForm.controls.ctpsSerie.invalid && profissionalForm.controls.ctpsSerie.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="ctpsSerie" formControlName="ctpsSerie">
+    </div>
+  </div>
+  <div class="form-row justify-content-between mt-4">
+    <div>
+      <button type="button" class="btn btn-gray">Retornar</button>
+      <button type="button" class="btn btn-gray">Limpar</button>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-rose" [disabled]="!profissionalForm.valid">Avançar</button>
+    </div>
+  </div>
+</form>
