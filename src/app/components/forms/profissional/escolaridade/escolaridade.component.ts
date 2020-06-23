@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-escolaridade',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EscolaridadeComponent implements OnInit {
 
-  constructor() { }
+  escolaridadeForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.escolaridadeForm = this.formBuilder.group({
+      instrucao: ['', [Validators.required]],
+      instituicaoEnsino: ['', [Validators.required]],
+      anoConclusao: ['', [Validators.required, Validators.maxLength(60)]],
+    });
+  }
+
+  onSubmit() {
+
   }
 
 }

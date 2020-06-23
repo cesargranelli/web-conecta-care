@@ -1,1 +1,76 @@
-<p>endereco works!</p>
+<form [formGroup]="enderecoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+  <div class="row">
+    <label for="logradouro" class="col-lg-2 col-md-3 col-form-label"> Endereço *</label>
+    <div class="form-group col-lg-5 col-md-8"
+      [ngClass]="enderecoForm.controls.logradouro.invalid && enderecoForm.controls.logradouro.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="logradouro" formControlName="logradouro">
+    </div>
+    <label for="numero" class="col-lg-2 col-md-3 col-form-label"> Número *</label>
+    <div class="form-group col-lg-2 col-md-8"
+      [ngClass]="enderecoForm.controls.numero.invalid && enderecoForm.controls.numero.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="numero" formControlName="numero">
+    </div>
+  </div>
+  <div class="row">
+    <label for="complemento" class="col-lg-2 col-md-3 col-form-label"> Complemento</label>
+    <div class="form-group col-lg-5 col-md-8"
+      [ngClass]="enderecoForm.controls.complemento.invalid && enderecoForm.controls.complemento.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="complemento" formControlName="complemento">
+    </div>
+    <label for="cep" class="col-lg-2 col-md-3 col-form-label"> CEP *</label>
+    <div class="form-group col-lg-2 col-md-8"
+      [ngClass]="enderecoForm.controls.cep.invalid && enderecoForm.controls.cep.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="cep" formControlName="cep" [mask]="mascaraCep">
+    </div>
+  </div>
+  <div class="row">
+    <label for="bairro" class="col-lg-2 col-md-3 col-form-label"> Bairro *</label>
+    <div class="form-group col-lg-4 col-md-8"
+      [ngClass]="enderecoForm.controls.bairro.invalid && enderecoForm.controls.bairro.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="bairro" formControlName="bairro">
+    </div>
+    <label for="cidade" class="col-lg-2 col-md-3 col-form-label"> Cidade *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="enderecoForm.controls.cidade.invalid && enderecoForm.controls.cidade.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="cidade" formControlName="cidade">
+    </div>
+  </div>
+  <div class="row">
+    <label for="bairro" class="col-lg-2 col-md-3 col-form-label"> Comprovante *</label>
+    <div class="col-lg-5 col-md-8"
+      [ngClass]="enderecoForm.controls.comprovante.invalid && enderecoForm.controls.comprovante.touched ? 'has-danger' : ''">
+      <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+        <span class="btn btn-raised btn-round btn-rose btn-file">
+          <span class="fileinput-new">Selecionar imagem</span>
+          <span class="fileinput-exists">Trocar</span>
+          <input type="file" name="..." #comprovante>
+        </span>
+        <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+          <i class="fa fa-times"></i> Descartar
+        </a>
+      </div>
+    </div>
+    <label for="uf" class="col-lg-1 col-md-3 col-form-label"> UF *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="enderecoForm.controls.uf.invalid && enderecoForm.controls.uf.touched ? 'has-danger' : ''">
+      <select class="selectpicker" data-style="btn btn-primary btn-round" data-width="100%" title="Gênero">
+        <option disabled selected>Selecione</option>
+        <option value="2">Item 1</option>
+        <option value="3">Item 1</option>
+        <option value="4">Item 1</option>
+        <option value="5">Item 1</option>
+        <option value="6">Item 1</option>
+      </select>
+    </div>
+  </div>
+  <!-- <div>{{ comprovante.value }}</div> -->
+  <div class="form-row justify-content-between mt-4">
+    <div>
+      <button type="button" class="btn btn-gray">Retornar</button>
+      <button type="button" class="btn btn-gray">Limpar</button>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-rose" [disabled]="!enderecoForm.valid">Avançar</button>
+    </div>
+  </div>
+</form>

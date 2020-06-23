@@ -26,9 +26,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/material-dashboard.min.css",
-              "src/assets/fonts/font-awesome.min.css",
-              "src/assets/fonts/roboto.css"
+              "src/assets/css/material-dashboard.min.css"
             ],
             "scripts": [
               { "input": "src/assets/js/core/jquery.min.js", "bundleName": "jquery", "inject": false },
@@ -38,6 +36,8 @@
               { "input": "src/assets/js/plugins/jquery.validate.min.js", "bundleName": "jquery.validate", "inject": false },
               { "input": "src/assets/js/plugins/jquery.bootstrap-wizard.js", "bundleName": "jquery.bootstrap-wizard", "inject": false },
               { "input": "src/assets/js/plugins/sweetalert2.js", "bundleName": "sweetalert2", "inject": false },
+              { "input": "src/assets/js/plugins/bootstrap-selectpicker.js", "bundleName": "bootstrap-selectpicker", "inject": false },
+              { "input": "src/assets/js/plugins/jasny-bootstrap.min.js", "bundleName": "jasny-bootstrap", "inject": false },
               { "input": "src/assets/js/app.js", "bundleName": "app", "inject": false },
               { "input": "src/assets/js/material-dashboard.min.js", "bundleName": "material-dashboard", "inject": false }
             ]

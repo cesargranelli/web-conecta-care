@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-endereco',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EnderecoComponent implements OnInit {
 
-  constructor() { }
+  enderecoForm: FormGroup;
+
+  mascaraCep: string = '00000-000';
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.enderecoForm = this.formBuilder.group({
+      logradouro: ['', [Validators.required, Validators.maxLength(40)]],
+      numero: ['', [Validators.required, Validators.maxLength(60)]],
+      complemento: ['', [Validators.required]],
+      cep: ['', [Validators.required]],
+      bairro: ['', [Validators.required]],
+      cidade: ['', []],
+      comprovante: ['', [Validators.required]],
+      uf: ['', []],
+    });
+  }
+
+  onSubmit() {
+
   }
 
 }

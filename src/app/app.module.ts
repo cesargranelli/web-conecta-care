@@ -23,6 +23,7 @@ import { CarreiraComponent } from './components/forms/profissional/carreira/carr
 import { ExperienciaComponent } from './components/forms/profissional/experiencia/experiencia.component';
 import { EscolaridadeComponent } from './components/forms/profissional/escolaridade/escolaridade.component';
 import { ComplementoComponent } from './components/forms/profissional/complemento/complemento.component';
+import { ContaComponent } from './components/forms/conta/conta.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ComplementoComponent } from './components/forms/profissional/complement
     CarreiraComponent,
     ExperienciaComponent,
     EscolaridadeComponent,
-    ComplementoComponent
+    ComplementoComponent,
+    ContaComponent
   ],
   imports: [
     BrowserModule,

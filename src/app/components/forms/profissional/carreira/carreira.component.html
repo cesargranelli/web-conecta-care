@@ -1,1 +1,78 @@
-<p>informacoes-profissionais works!</p>
+<form [formGroup]="carreiraForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+  <div class="row">
+    <label for="conselho" class="col-lg-2 col-md-3 col-form-label">Conselho *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="carreiraForm.controls.conselho.invalid && carreiraForm.controls.conselho.touched ? 'has-danger' : ''">
+      <select class="selectpicker" data-style="btn btn-primary btn-round" data-width="100%" title="Conselho">
+        <option disabled selected>Selecione</option>
+        <option value="2">Item 1</option>
+      </select>
+    </div>
+    <label for="registroProfissional" class="col-lg-3 col-md-3 col-form-label">Nº Registro *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="carreiraForm.controls.registroProfissional.invalid && carreiraForm.controls.registroProfissional.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="registroProfissional" formControlName="registroProfissional">
+    </div>
+  </div>
+  <div class="row">
+    <label for="ufConselho" class="col-lg-2 col-md-3 col-form-label">UF Conselho *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="carreiraForm.controls.ufConselho.invalid && carreiraForm.controls.ufConselho.touched ? 'has-danger' : ''">
+      <select class="selectpicker" data-style="btn btn-primary btn-round" data-width="100%" title="UF Conselho">
+        <option disabled selected>Selecione</option>
+        <option value="2">Item 1</option>
+      </select>
+    </div>
+    <label for="areaAtendimento" class="col-lg-3 col-md-3 col-form-label">Área Atendimento *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="carreiraForm.controls.areaAtendimento.invalid && carreiraForm.controls.areaAtendimento.touched ? 'has-danger' : ''">
+      <select class="selectpicker" data-style="btn btn-primary btn-round" data-width="100%" title="Área Atendimento">
+        <option disabled selected>Selecione</option>
+        <option value="2">Item 1</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <label for="nomeReferencia1" class="col-lg-2 col-md-3 col-form-label">Referência Nome 1</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="carreiraForm.controls.nomeReferencia1.invalid && carreiraForm.controls.nomeReferencia1.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="nomeReferencia1" formControlName="nomeReferencia1">
+    </div>
+    <label for="telefoneReferencia1" class="col-lg-3 col-md-3 col-form-label">Referência Fone 1</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="carreiraForm.controls.telefoneReferencia1.invalid && carreiraForm.controls.telefoneReferencia1.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="telefoneReferencia1" formControlName="telefoneReferencia1" [mask]="mascaraCelular">
+    </div>
+  </div>
+  <div class="row">
+    <label for="nomeReferencia2" class="col-lg-2 col-md-3 col-form-label">Referência Nome 2</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="carreiraForm.controls.nomeReferencia2.invalid && carreiraForm.controls.nomeReferencia2.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="nomeReferencia2" formControlName="nomeReferencia2">
+    </div>
+    <label for="telefoneReferencia2" class="col-lg-3 col-md-3 col-form-label">Referência Fone 2</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="carreiraForm.controls.telefoneReferencia2.invalid && carreiraForm.controls.telefoneReferencia2.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="telefoneReferencia2" formControlName="telefoneReferencia2" [mask]="mascaraCelular">
+    </div>
+  </div>
+  <div class="row">
+    <label for="transporte" class="col-lg-2 col-md-3 col-form-label">Veículo utilizado para os atendimentos *</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="carreiraForm.controls.transporte.invalid && carreiraForm.controls.transporte.touched ? 'has-danger' : ''">
+      <select class="selectpicker" data-style="btn btn-primary btn-round" data-width="100%" title="Transporte">
+        <option disabled selected>Selecione</option>
+        <option value="2">Item 1</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row justify-content-between mt-4">
+    <div>
+      <button type="button" class="btn btn-gray">Retornar</button>
+      <button type="button" class="btn btn-gray">Limpar</button>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-rose" [disabled]="!carreiraForm.valid">Avançar</button>
+    </div>
+  </div>
+</form>

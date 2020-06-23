@@ -8,6 +8,11 @@
   <title>Connecta</title>
   <base href="/">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Fonts and icons -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
   <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="popper.js"></script>
   <script type="text/javascript" src="bootstrap-material-design.js"></script>
@@ -15,6 +20,8 @@
   <script type="text/javascript" src="jquery.validate.js"></script>
   <script type="text/javascript" src="jquery.bootstrap-wizard.js"></script>
   <script type="text/javascript" src="sweetalert2.js"></script>
+  <script type="text/javascript" src="bootstrap-selectpicker.js"></script>
+  <script type="text/javascript" src="jasny-bootstrap.js"></script>
   <script type="text/javascript" src="app.js"></script>
   <script type="text/javascript" src="material-dashboard.js"></script>
 </head>
@@ -31,6 +38,17 @@
     setTimeout(function () {
       $('.card.card-wizard').addClass('active');
     }, 600);
+  });
+
+  $('.bootstrap-switch').each(function(){
+    $this = $(this);
+    data_on_label = $this.data('on-label') || '';
+    data_off_label = $this.data('off-label') || '';
+
+    $this.bootstrapSwitch({
+        onText: data_on_label,
+        offText: data_off_label
+    });
   });
 
 </script>

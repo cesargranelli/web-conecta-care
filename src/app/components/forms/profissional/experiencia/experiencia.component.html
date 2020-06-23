@@ -1,1 +1,54 @@
-<p>experiencia works!</p>
+<form [formGroup]="experienciaForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+  <div class="row">
+    <label for="experiencia" class="col-lg-3 col-md-3 col-form-label"> Experiência Profissional *</label>
+    <div class="form-group col-lg-1 col-md-8"
+      [ngClass]="experienciaForm.controls.experiencia.invalid && experienciaForm.controls.experiencia.touched ? 'has-danger' : ''">
+      <div class="togglebutton">
+        <label>
+          <input type="checkbox">
+            <span class="toggle"></span>
+        </label>
+      </div>
+    </div>
+    <label for="observacao" class="col-lg-3 col-md-3 col-form-label">Observação</label>
+    <div class="form-group col-lg-4 col-md-8"
+      [ngClass]="experienciaForm.controls.observacao.invalid && experienciaForm.controls.observacao.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="observacao" formControlName="observacao">
+    </div>
+  </div>
+  <div class="row">
+    <label for="empresa" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 1</label>
+    <div class="form-group col-lg-8 col-md-8"
+      [ngClass]="experienciaForm.controls.empresa.invalid && experienciaForm.controls.empresa.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="empresa" formControlName="empresa">
+    </div>
+  </div>
+  <div class="row">
+    <label for="cargo" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 1</label>
+    <div class="form-group col-lg-8 col-md-8"
+      [ngClass]="experienciaForm.controls.cargo.invalid && experienciaForm.controls.cargo.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="cargo" formControlName="cargo">
+    </div>
+  </div>
+  <div class="row">
+    <label for="dataAdmissao" class="col-lg-3 col-md-3 col-form-label"> Data admissão 1</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="experienciaForm.controls.dataAdmissao.invalid && experienciaForm.controls.dataAdmissao.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="dataAdmissao" formControlName="dataAdmissao" [mask]="mascaraData">
+    </div>
+    <label for="dataDemissao" class="col-lg-2 col-md-3 col-form-label">Data demissão 1</label>
+    <div class="form-group col-lg-3 col-md-8"
+      [ngClass]="experienciaForm.controls.dataDemissao.invalid && experienciaForm.controls.dataDemissao.touched ? 'has-danger' : ''">
+      <input type="text" class="form-control" name="dataDemissao" formControlName="dataDemissao" [mask]="mascaraData">
+    </div>
+  </div>
+  <div class="form-row justify-content-between mt-4">
+    <div>
+      <button type="button" class="btn btn-gray">Retornar</button>
+      <button type="button" class="btn btn-gray">Limpar</button>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-rose" [disabled]="!experienciaForm.valid">Avançar</button>
+    </div>
+  </div>
+</form>
