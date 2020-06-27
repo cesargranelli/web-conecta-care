@@ -21,6 +21,8 @@
   <script type="text/javascript" src="jquery.bootstrap-wizard.js"></script>
   <script type="text/javascript" src="sweetalert2.js"></script>
   <script type="text/javascript" src="bootstrap-selectpicker.js"></script>
+  <script type="text/javascript" src="moment.js"></script>
+  <script type="text/javascript" src="bootstrap-datetimepicker.js"></script>
   <script type="text/javascript" src="jasny-bootstrap.js"></script>
   <script type="text/javascript" src="app.js"></script>
   <script type="text/javascript" src="material-dashboard.js"></script>
@@ -39,18 +41,6 @@
       $('.card.card-wizard').addClass('active');
     }, 600);
   });
-
-  $('.bootstrap-switch').each(function(){
-    $this = $(this);
-    data_on_label = $this.data('on-label') || '';
-    data_off_label = $this.data('off-label') || '';
-
-    $this.bootstrapSwitch({
-        onText: data_on_label,
-        offText: data_off_label
-    });
-  });
-
 </script>
 
 </html>

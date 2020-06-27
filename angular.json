@@ -37,6 +37,8 @@
               { "input": "src/assets/js/plugins/jquery.bootstrap-wizard.js", "bundleName": "jquery.bootstrap-wizard", "inject": false },
               { "input": "src/assets/js/plugins/sweetalert2.js", "bundleName": "sweetalert2", "inject": false },
               { "input": "src/assets/js/plugins/bootstrap-selectpicker.js", "bundleName": "bootstrap-selectpicker", "inject": false },
+              { "input": "src/assets/js/plugins/moment.min.js", "bundleName": "moment", "inject": false },
+              { "input": "src/assets/js/plugins/bootstrap-datetimepicker.min.js", "bundleName": "bootstrap-datetimepicker", "inject": false },
               { "input": "src/assets/js/plugins/jasny-bootstrap.min.js", "bundleName": "jasny-bootstrap", "inject": false },
               { "input": "src/assets/js/app.js", "bundleName": "app", "inject": false },
               { "input": "src/assets/js/material-dashboard.min.js", "bundleName": "material-dashboard", "inject": false }

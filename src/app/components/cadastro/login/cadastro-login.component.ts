@@ -2,10 +2,10 @@ import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@ang
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OK } from 'http-status-codes';
-import { Login } from 'src/app/classes/login.class';
 import { Role } from 'src/app/enums/role.enum';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
+import { Login } from 'src/app/class/login.class';
 
 @Component({
   selector: 'app-cadastro-login',

@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CadastroProfissionalComponent } from './views/cadastro/profissional/cadastro-profissional.component';
-import { ConnectaComponent } from './views/connecta/connecta.component';
-import { SigninComponent } from './views/signin/signin.component';
+import { CadastroProfissionalComponent } from './components/cadastro/profissional/cadastro-profissional.component';
+import { ConnectaComponent } from './components/connecta/connecta.component';
+import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
+import { EnderecoComponent } from './components/forms/endereco/endereco.component';
+import { CadastroLoginComponent } from './components/cadastro/login/cadastro-login.component';
 
 const routes: Routes = [
   { path: '', component: ConnectaComponent },
-  { path: 'cadastro', component: SigninComponent },
-  { path: 'cadastro-profissional', component: CadastroProfissionalComponent },
-  { path: 'cadastro-profissional/{token}', component: CadastroProfissionalComponent }
+  { path: 'cadastro', component: CadastroComponent },
+  { path: 'cadastro/login', component: CadastroLoginComponent },
+  { path: 'cadastro/profissional', component: CadastroProfissionalComponent },
+  { path: 'cadastro/profissional/{token}', component: CadastroProfissionalComponent },
+  { path: 'cadastro/profissional/informacoes-gerais', component: InformacoesGeraisComponent, data: {animation: 'HomePage'} },
+  { path: 'cadastro/profissional/endereco', component: EnderecoComponent, data: {animation: 'AboutPage'} }
 ];
 
 @NgModule({

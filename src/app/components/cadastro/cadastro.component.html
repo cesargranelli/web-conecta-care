@@ -6,7 +6,7 @@
         <div class="card card-wizard active" data-color="rose" id="wizardProfile">
             <div class="card-header text-center">
               <h3 class="card-title">
-                Selecione sua Categoria
+                Qual a categoria que definirá o nosso relacionamento ?
               </h3>
             </div>
             <div class="wizard-navigation">
@@ -28,7 +28,7 @@
                 </li>
                 <li class="nav-item" style="width: 25%;">
                   <a class="nav-link" href="#convenio" data-toggle="tab" role="tab">
-                    Convênio
+                    Plano de Saúde
                   </a>
                 </li>
               </ul>
@@ -38,8 +38,11 @@
                 <div class="tab-pane active" id="paciente">
                   <div class="row justify-content-center">
                     <div class="col-lg-10">
-                      <h5 class="info-text">Se você possui convênio médico entre em contato
-                        com sua operadora para realizar o cadastro</h5>
+                      <h5 class="info-text">Se o atendimento for através do seu Plano de Saúde,
+                        entre em contato com o seu convenio que realizará a primeira fase do cadastro,
+                        liberando o acesso ao sistema. Caso Contrário, Realize seu cadastro e solicite
+                        você mesmo seu atendimento
+                      </h5>
                     </div>
                   </div>
                   <form [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">

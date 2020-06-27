@@ -13,7 +13,7 @@ export class CadastroProfissionalComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
+    this.activatedRoute.params.subscribe(data => console.log('Rota ' + data.toString()));
   }
 
   onSubmit() {}

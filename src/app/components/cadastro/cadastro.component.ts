@@ -10,11 +10,11 @@ import { ValidadorCpf } from '../../utils/validador-cpf.utils';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css'],
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.component.html',
+  styleUrls: ['./cadastro.component.css'],
 })
-export class SigninComponent implements OnInit {
+export class CadastroComponent implements OnInit {
   mascaraCpf: string = '000.000.000-00';
   mascaraCnpj: string = '00.000.000/0000-00';
 
@@ -36,7 +36,7 @@ export class SigninComponent implements OnInit {
     private profissionalService: ProfissionalService,
     private homecareService: HomecareService,
     private convenioService: ConvenioService,
-    private route: Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class SigninComponent implements OnInit {
     if (this.profissionalForm.value.cpf) {
       this.profissionalService.pesquisarCpf(this.profissionalForm.value).subscribe(response => {
         if (response.status===NO_CONTENT) {
-          this.route.navigateByUrl('cadastro-profissional');
+          this.router.navigateByUrl('cadastro/profissional');
         } else {
           this.profissionalJaCadastrado = true;
         }
