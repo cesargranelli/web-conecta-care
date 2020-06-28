@@ -125,4 +125,44 @@ export class SigninComponent implements OnInit {
     };
   }
 
+  validaInputPaciente(): any {
+    if (this.pacienteForm.controls.cpf.pristine) {
+      return '';
+    } else if (this.pacienteForm.controls.cpf.invalid || this.pacienteForm.controls.cpf.errors?.required) {
+      return 'clear';
+    } else {
+      return 'done';
+    }
+  }
+
+  validaInputProfissional(): any {
+    if (this.profissionalForm.controls.cpf.pristine) {
+      return '';
+    } else if (this.profissionalForm.controls.cpf.invalid || this.profissionalForm.controls.cpf.errors?.required) {
+      return 'clear';
+    } else {
+      return 'done';
+    }
+  }
+
+  validaInputHomecare(): any {
+    if (this.homecareForm.controls.cnpj.pristine) {
+      return '';
+    } else if (this.homecareForm.controls.cnpj.invalid || this.homecareForm.controls.cnpj.errors?.required) {
+      return 'clear';
+    } else {
+      return 'done';
+    }
+  }
+
+  validaInputConvenio(): any {
+    if (this.convenioForm.controls.cnpj.pristine) {
+      return '';
+    } else if (this.convenioForm.controls.cnpj.invalid || this.convenioForm.controls.cnpj.errors?.required) {
+      return 'clear';
+    } else {
+      return 'done';
+    }
+  }
+
 }
