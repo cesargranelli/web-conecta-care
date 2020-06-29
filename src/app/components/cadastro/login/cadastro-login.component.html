@@ -1,40 +1,74 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="form-row justify-content-start">
-    <div class="col-lg-4 col-md-6 col-sm-8">
-      <div class="form-group bmd-form-group"
-        [ngClass]="loginForm.controls.email.invalid && loginForm.controls.email.touched ? 'has-danger' : ''">
-        <label for="email" class="bmd-label-floating"> Email *</label>
-        <input type="email" class="form-control" name="email" formControlName="email">
+<div class="wrapper wrapper-full-page">
+  <div class="page-header login-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="card card-login">
+              <div class="card-header card-header-rose text-center">
+                <div class="social-line">
+                  <i class="material-icons">fingerprint</i>
+                  <h4 class="card-title">Informações de Login</h4>
+                </div>
+              </div>
+              <div class="card-body">
+                <p class="card-description text-center"></p>
+                <span class="bmd-form-group is-filled">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">email</i>
+                      </span>
+                    </div>
+                    <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                  </div>
+                </span>
+                <span class="bmd-form-group is-filled">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">email</i>
+                      </span>
+                    </div>
+                    <input type="email" class="form-control" formControlName="confirmarEmail" placeholder="Confirmar Email">
+                  </div>
+                </span>
+                <span class="bmd-form-group is-filled">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">lock_outline</i>
+                      </span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                  </div>
+                </span>
+                <span class="bmd-form-group is-filled">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">lock_outline</i>
+                      </span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="confirmarPassword" placeholder="COnfirmar Password">
+                  </div>
+                </span>
+              </div>
+              <div class="form-row mt-4">
+                <app-basic-recaptcha (captcha)="setCaptcha($event)"></app-basic-recaptcha>
+              </div>
+              <div class="card-footer justify-content-between">
+                <span class="bmd-form-group is-filled">
+                  <button type="button" class="btn btn-gray">Cancelar</button>
+                </span>
+                <span class="bmd-form-group is-filled">
+                  <button type="submit" class="btn btn-rose" [disabled]="!loginForm.valid || !captcha">Enviar</button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="form-group bmd-form-group"
-        [ngClass]="loginForm.value.confirmarEmail != loginForm.value.email
-          && loginForm.controls.confirmarEmail.touched ? 'has-danger' : ''">
-        <label for="confirmarEmail" class="bmd-label-floating"> Confirmar Email *</label>
-        <input type="email" class="form-control" name="confirmarEmail" formControlName="confirmarEmail">
-      </div>
-      <div class="form-group bmd-form-group"
-        [ngClass]="loginForm.controls.password.invalid && loginForm.controls.password.touched ? 'has-danger' : ''">
-        <label for="password" class="bmd-label-floating"> Password *</label>
-        <input type="password" class="form-control" name="password" formControlName="password">
-      </div>
-      <div class="form-group bmd-form-group"
-        [ngClass]="loginForm.value.confirmarPassword != loginForm.value.password
-          && loginForm.controls.confirmarPassword.touched ? 'has-danger' : ''">
-        <label for="confirmarPassword" class="bmd-label-floating"> Confirmar Password *</label>
-        <input type="password" class="form-control" name="confirmarPassword" formControlName="confirmarPassword">
-      </div>
-      <div class="category form-category">* Campos obrigatórios</div>
     </div>
   </div>
-  <div class="form-row mt-4">
-    <app-basic-recaptcha (captcha)="setCaptcha($event)"></app-basic-recaptcha>
-  </div>
-  <div class="form-row justify-content-between mt-4">
-    <div>
-      <button type="button" class="btn btn-gray">Cancelar</button>
-    </div>
-    <div>
-      <button type="submit" class="btn btn-rose" [disabled]="!loginForm.valid || !captcha">Enviar</button>
-    </div>
-  </div>
-</form>
+</div>

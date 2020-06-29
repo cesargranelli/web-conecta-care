@@ -38,15 +38,15 @@
                 <div class="tab-pane active" id="paciente">
                   <div class="row justify-content-center">
                     <div class="col-lg-10">
-                      <h5 class="info-text">Se o atendimento for através do seu Plano de Saúde,
-                        entre em contato com o seu convenio que realizará a primeira fase do cadastro,
-                        liberando o acesso ao sistema. Caso Contrário, Realize seu cadastro e solicite
-                        você mesmo seu atendimento
+                      <h5 class="info-text">
+                        Se o atendimento for através do seu Plano de Saúde, entre em contato com o seu
+                        convenio que realizará a primeira fase do cadastro, liberando o acesso ao sistema.
+                        Caso Contrário, Realize seu cadastro e solicite você mesmo seu atendimento
                       </h5>
                     </div>
                   </div>
                   <form [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
-                    <div class="form-row justify-content-center">
+                    <div class="form-row justify-content-center" [ngClass]="validaInputPaciente()=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
                           <div class="input-group-prepend">
@@ -57,6 +57,9 @@
                           <input type="text" class="form-control" id="cpfPaciente" name="cpfPaciente" autocomplete="off"
                             placeholder="CPF (Obrigatório)" formControlName="cpf" [mask]="mascaraCpf">
                         </div>
+                        <span class="form-control-feedback">
+                          <i class="material-icons">{{ validaInputPaciente() }}</i>
+                        </span>
                       </div>
                     </div>
                     <div class="form-row justify-content-center">
@@ -65,13 +68,7 @@
                           [ngClass]="!pacienteForm.valid ? 'btn-link' : ''" name="btnCpfPaciente">Cadastrar</button>
                       </div>
                     </div>
-                    <div >
-                      <div class="text-center text-danger">
-                        <span *ngIf="pacienteForm.controls.cpf.invalid">* Dados inválidos</span>
-                      </div>
-                      <div class="text-center text-danger">
-                        <span *ngIf="pacienteForm.controls.cpf.errors?.required">* Dados obrigatórios</span>
-                      </div>
+                    <div>
                       <div class="text-center text-danger">
                         <span *ngIf="pacienteJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>
@@ -80,7 +77,7 @@
                 </div>
                 <div class="tab-pane" id="profissional">
                   <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit()">
-                    <div class="form-row justify-content-center">
+                    <div class="form-row justify-content-center" [ngClass]="validaInputProfissional()=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
                           <div class="input-group-prepend">
@@ -92,6 +89,9 @@
                             autocomplete="off" placeholder="CPF (Obrigatório)" formControlName="cpf"
                             [mask]="mascaraCpf">
                         </div>
+                        <span class="form-control-feedback">
+                          <i class="material-icons">{{ validaInputProfissional() }}</i>
+                        </span>
                       </div>
                     </div>
                     <div class="form-row justify-content-center">
@@ -102,12 +102,6 @@
                     </div>
                     <div >
                       <div class="text-center text-danger">
-                        <span *ngIf="profissionalForm.controls.cpf.invalid">* Dados inválidos</span>
-                      </div>
-                      <div class="text-center text-danger">
-                        <span *ngIf="profissionalForm.controls.cpf.errors?.required">* Dados obrigatórios</span>
-                      </div>
-                      <div class="text-center text-danger">
                         <span *ngIf="profissionalJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>
                     </div>
@@ -115,7 +109,7 @@
                 </div>
                 <div class="tab-pane" id="homecare">
                   <form [formGroup]="homecareForm" (ngSubmit)="onSubmit()">
-                    <div class="form-row justify-content-center">
+                    <div class="form-row justify-content-center" [ngClass]="validaInputHomecare()=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
                           <div class="input-group-prepend">
@@ -127,6 +121,9 @@
                             autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
                             [mask]="mascaraCnpj">
                         </div>
+                        <span class="form-control-feedback">
+                          <i class="material-icons">{{ validaInputHomecare() }}</i>
+                        </span>
                       </div>
                     </div>
                     <div class="form-row justify-content-center">
@@ -137,12 +134,6 @@
                     </div>
                     <div >
                       <div class="text-center text-danger">
-                        <span *ngIf="homecareForm.controls.cnpj.invalid">* Dados inválidos</span>
-                      </div>
-                      <div class="text-center text-danger">
-                        <span *ngIf="homecareForm.controls.cnpj.errors?.required">* Dados obrigatórios</span>
-                      </div>
-                      <div class="text-center text-danger">
                         <span *ngIf="homecareJaCadastrada">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>
                     </div>
@@ -150,7 +141,7 @@
                 </div>
                 <div class="tab-pane" id="convenio">
                   <form [formGroup]="convenioForm" (ngSubmit)="onSubmit()">
-                    <div class="form-row justify-content-center">
+                    <div class="form-row justify-content-center" [ngClass]="validaInputConvenio()=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
                           <div class="input-group-prepend">
@@ -160,7 +151,11 @@
                           </div>
                           <input type="text" class="form-control" id="cnpjConvenio" name="cnpjConvenio"
                             autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
-                            [mask]="mascaraCnpj"></div>
+                            [mask]="mascaraCnpj">
+                        </div>
+                        <span class="form-control-feedback">
+                          <i class="material-icons">{{ validaInputConvenio() }}</i>
+                        </span>
                       </div>
                     </div>
                     <div class="form-row justify-content-center">
@@ -170,12 +165,6 @@
                       </div>
                     </div>
                     <div >
-                      <div class="text-center text-danger">
-                        <span *ngIf="convenioForm.controls.cnpj.invalid">* Dados inválidos</span>
-                      </div>
-                      <div class="text-center text-danger">
-                        <span *ngIf="convenioForm.controls.cnpj.errors?.required">* Dados obrigatórios</span>
-                      </div>
                       <div class="text-center text-danger">
                         <span *ngIf="convenioJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>

@@ -1,132 +1,151 @@
-<form [formGroup]="profissionalForm" (ngSubmit)="onSubmit()" class="form-horizontal">
-  <div class="row">
-    <label for="nome" class="col-lg-2 col-md-3 col-form-label"> Primeiro nome *</label>
-    <div class="form-group col-lg-9 col-md-8"
-      [ngClass]="profissionalForm.controls.nome.invalid && profissionalForm.controls.nome.touched ? 'has-danger' : ''">
-      <input type="text" class="form-control" name="nome" formControlName="nome">
-    </div>
-  </div>
-  <div class="row">
-    <label for="sobrenome" class="col-lg-2 col-md-3 col-form-label"> Sobrenome *</label>
-    <div class="form-group col-lg-9 col-md-8"
-      [ngClass]="profissionalForm.controls.sobrenome.invalid && profissionalForm.controls.sobrenome.touched ? 'has-danger' : ''">
-      <input type="text" class="form-control" name="sobrenome" formControlName="sobrenome">
-    </div>
-  </div>
-  <div class="row">
-    <label for="cpf" class="col-lg-2 col-md-3 col-form-label"> CPF *</label>
-    <div class="form-group col-lg-3 col-md-8"
-      [ngClass]="profissionalForm.controls.cpf.invalid && profissionalForm.controls.cpf.touched ? 'has-danger' : ''">
-      <input type="text" class="form-control" name="cpf" formControlName="cpf" [mask]="mascaraCpf">
-    </div>
-    <label for="dataNascimento" class="col-lg-3 col-md-3 col-form-label"> Data Nascimento *</label>
-    <div class="form-group col-lg-3 col-md-8">
-      <input type="text" class="form-control datetimepicker" name="dataNascimento" formControlName="dataNascimento">
-    </div>
-  </div>
-  <div class="row">
-    <label for="rg" class="col-lg-2 col-md-3 col-form-label"> RG</label>
-    <div class="form-group col-lg-3 col-md-8"
-      [ngClass]="profissionalForm.controls.rg.invalid && profissionalForm.controls.rg.touched ? 'has-danger' : ''">
-      <input type="text" class="form-control" name="rg" formControlName="rg" [mask]="mascaraRg">
-    </div>
-    <label for="rgEmissor" class="col-lg-3 col-md-3 col-form-label"> Emissor *</label>
-    <div class="form-group col-lg-3 col-md-8"
-      [ngClass]="profissionalForm.controls.rgEmissor.invalid && profissionalForm.controls.rgEmissor.touched ? 'has-danger' : ''">
-      <input type="text" class="form-control" name="rgEmissor" formControlName="rgEmissor">
-    </div>
-  </div>
-  <div class="row">
-    <label for="rgDataEmissao" class="col-lg-2 col-md-3 col-form-label"> Data Emissão RG</label>
-    <div class="form-group col-lg-3 col-md-8">
-      <input type="text" class="form-control datetimepicker" name="rgDataEmissao" formControlName="rgDataEmissao">
-    </div>
-    <label for="pis" class="col-lg-3 col-md-3 col-form-label"> PIS</label>
-    <div class="form-group col-lg-3 col-md-8"
-      [ngClass]="profissionalForm.controls.pis.invalid && profissionalForm.controls.pis.touched ? 'has-danger' : ''">
-      <input type="text" class="form-control" name="pis" formControlName="pis" [mask]="mascaraPIS">
-    </div>
-  </div>
-  <div class="row">
-    <label for="genero" class="col-lg-2 col-md-3 col-form-label"> Sexo *</label>
-    <div class="form-group col-lg-3 col-md-8">
-      <select formControlName="genero" class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Gênero">
-        <option disabled selected>Selecione</option>
-        <option [ngValue]="genero" *ngFor="let genero of generos">{{ genero.descricao }}</option>
-      </select>
-    </div>
-    <label for="tipoEmpresa" class="col-lg-3 col-md-3 col-form-label"> Tipo Empresa *</label>
-    <div class="form-group col-lg-3 col-md-8">
-      <select formControlName="tipoEmpresa" class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Tipo Empresa">
-        <option disabled selected>Selecione</option>
-        <option [ngValue]="tipoEmpresa" *ngFor="let tipoEmpresa of tipoEmpresas">{{ tipoEmpresa.sigla + ' - ' + tipoEmpresa.tipo }}</option>
-      </select>
-    </div>
-  </div>
-  <div class="row">
-    <label for="estadoCivil" class="col-lg-2 col-md-3 col-form-label"> Estado Civil *</label>
-    <div class="form-group col-lg-3 col-md-8">
-      <select formControlName="estadoCivil" class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Estado Civil">
-        <option disabled selected>Selecione</option>
-        <option [ngValue]="estadoCivil" *ngFor="let estadoCivil of estadoCivis">{{ estadoCivil.tipo }}</option>
-      </select>
-    </div>
-    <label for="cnpj" class="col-lg-3 col-md-3 col-form-label"> Nº CNPJ</label>
-    <div class="form-group col-lg-3 col-md-8"
-      [ngClass]="profissionalForm.controls.cnpj.invalid && profissionalForm.controls.cnpj.touched ? 'has-danger' : ''">
-      <input type="text" class="form-control" name="cnpj" formControlName="cnpj" [mask]="mascaraCnpj">
-    </div>
-  </div>
-  <div class="row">
-    <label for="ctps" class="col-lg-2 col-md-3 col-form-label"> Nº CTPS *</label>
-    <div class="form-group col-lg-3 col-md-8"
-      [ngClass]="profissionalForm.controls.ctps.invalid && profissionalForm.controls.ctps.touched ? 'has-danger' : ''">
-      <input type="text" class="form-control" name="ctps" formControlName="ctps">
-    </div>
-    <label for="ctpsSerie" class="col-lg-3 col-md-3 col-form-label"> Nº Série CTPS *</label>
-    <div class="form-group col-lg-3 col-md-8"
-      [ngClass]="profissionalForm.controls.ctpsSerie.invalid && profissionalForm.controls.ctpsSerie.touched ? 'has-danger' : ''">
-      <input type="text" class="form-control" name="ctpsSerie" formControlName="ctpsSerie">
-    </div>
-  </div>
-  <div class="row">
-    <label for="fotoProfissional" class="col-lg-2 col-md-3 col-form-label"> Foto Profissional *</label>
-    <div class="col-lg-3 col-md-8">
-      <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-        <div class="fileinput-new thumbnail img-circle img-raised">
-          <img src="https://epicattorneymarketing.com/wp-content/uploads/2016/07/Headshot-Placeholder-1.png" rel="nofollow" alt="...">
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <h3 class="card-title">
+              Informações Gerais
+            </h3>
+            <i class="material-icons">info</i>
+          </div>
+          <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="row">
+                  <label for="nome" class="col-lg-2 col-md-3 col-form-label"> Primeiro nome *</label>
+                  <div class="form-group col-lg-9 col-md-8"
+                    [ngClass]="profissionalForm.controls.nome.invalid && profissionalForm.controls.nome.touched ? 'has-danger' : ''">
+                    <input type="text" class="form-control" name="nome" formControlName="nome">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="sobrenome" class="col-lg-2 col-md-3 col-form-label"> Sobrenome *</label>
+                  <div class="form-group col-lg-9 col-md-8"
+                    [ngClass]="profissionalForm.controls.sobrenome.invalid && profissionalForm.controls.sobrenome.touched ? 'has-danger' : ''">
+                    <input type="text" class="form-control" name="sobrenome" formControlName="sobrenome">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="cpf" class="col-lg-2 col-md-3 col-form-label"> CPF *</label>
+                  <div class="form-group col-lg-3 col-md-8"
+                    [ngClass]="profissionalForm.controls.cpf.invalid && profissionalForm.controls.cpf.touched ? 'has-danger' : ''">
+                    <input type="text" class="form-control" name="cpf" formControlName="cpf" [mask]="mascaraCpf">
+                  </div>
+                  <label for="dataNascimento" class="col-lg-3 col-md-3 col-form-label"> Data Nascimento *</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control datetimepicker" name="dataNascimento" formControlName="dataNascimento">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="rg" class="col-lg-2 col-md-3 col-form-label"> RG</label>
+                  <div class="form-group col-lg-3 col-md-8"
+                    [ngClass]="profissionalForm.controls.rg.invalid && profissionalForm.controls.rg.touched ? 'has-danger' : ''">
+                    <input type="text" class="form-control" name="rg" formControlName="rg" [mask]="mascaraRg">
+                  </div>
+                  <label for="rgEmissor" class="col-lg-3 col-md-3 col-form-label"> Emissor *</label>
+                  <div class="form-group col-lg-3 col-md-8"
+                    [ngClass]="profissionalForm.controls.rgEmissor.invalid && profissionalForm.controls.rgEmissor.touched ? 'has-danger' : ''">
+                    <input type="text" class="form-control" name="rgEmissor" formControlName="rgEmissor">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="rgDataEmissao" class="col-lg-2 col-md-3 col-form-label"> Data Emissão RG</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control datetimepicker" name="rgDataEmissao" formControlName="rgDataEmissao">
+                  </div>
+                  <label for="pis" class="col-lg-3 col-md-3 col-form-label"> PIS</label>
+                  <div class="form-group col-lg-3 col-md-8"
+                    [ngClass]="profissionalForm.controls.pis.invalid && profissionalForm.controls.pis.touched ? 'has-danger' : ''">
+                    <input type="text" class="form-control" name="pis" formControlName="pis" [mask]="mascaraPIS">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="genero" class="col-lg-2 col-md-3 col-form-label"> Sexo *</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <select formControlName="genero" class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Gênero">
+                      <option disabled selected>Selecione</option>
+                      <option [ngValue]="genero" *ngFor="let genero of generos">{{ genero.descricao }}</option>
+                    </select>
+                  </div>
+                  <label for="tipoEmpresa" class="col-lg-3 col-md-3 col-form-label"> Tipo Empresa *</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <select formControlName="tipoEmpresa" class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Tipo Empresa">
+                      <option disabled selected>Selecione</option>
+                      <option [ngValue]="tipoEmpresa" *ngFor="let tipoEmpresa of tipoEmpresas">{{ tipoEmpresa.sigla + ' - ' + tipoEmpresa.tipo }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="estadoCivil" class="col-lg-2 col-md-3 col-form-label"> Estado Civil *</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <select formControlName="estadoCivil" class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Estado Civil">
+                      <option disabled selected>Selecione</option>
+                      <option [ngValue]="estadoCivil" *ngFor="let estadoCivil of estadoCivis">{{ estadoCivil.tipo }}</option>
+                    </select>
+                  </div>
+                  <label for="cnpj" class="col-lg-3 col-md-3 col-form-label"> Nº CNPJ</label>
+                  <div class="form-group col-lg-3 col-md-8"
+                    [ngClass]="profissionalForm.controls.cnpj.invalid && profissionalForm.controls.cnpj.touched ? 'has-danger' : ''">
+                    <input type="text" class="form-control" name="cnpj" formControlName="cnpj" [mask]="mascaraCnpj">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="ctps" class="col-lg-2 col-md-3 col-form-label"> Nº CTPS *</label>
+                  <div class="form-group col-lg-3 col-md-8"
+                    [ngClass]="profissionalForm.controls.ctps.invalid && profissionalForm.controls.ctps.touched ? 'has-danger' : ''">
+                    <input type="text" class="form-control" name="ctps" formControlName="ctps">
+                  </div>
+                  <label for="ctpsSerie" class="col-lg-3 col-md-3 col-form-label"> Nº Série CTPS *</label>
+                  <div class="form-group col-lg-3 col-md-8"
+                    [ngClass]="profissionalForm.controls.ctpsSerie.invalid && profissionalForm.controls.ctpsSerie.touched ? 'has-danger' : ''">
+                    <input type="text" class="form-control" name="ctpsSerie" formControlName="ctpsSerie">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="fotoProfissional" class="col-lg-2 col-md-3 col-form-label"> Foto Profissional *</label>
+                  <div class="col-lg-3 col-md-8">
+                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                      <span class="btn btn-raised btn-round btn-rose btn-file">
+                        <span class="fileinput-new">Foto</span>
+                        <span class="fileinput-exists">Trocar</span>
+                        <input type="file" formControlName="fotoProfissional" (change)="onLoadFotoProfissional($event)">
+                      </span>
+                      <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                        <i class="fa fa-times"></i> Descartar
+                      </a>
+                    </div>
+                  </div>
+                  <label for="fotoRg" class="col-lg-3 col-md-3 col-form-label"> Foto RG *</label>
+                  <div class="col-lg-3 col-md-8">
+                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                      <span class="btn btn-raised btn-round btn-rose btn-file">
+                        <span class="fileinput-new">Foto RG</span>
+                        <span class="fileinput-exists">Trocar</span>
+                        <input type="file" formControlName="fotoRg" (change)="onLoadFotoRg($event)">
+                      </span>
+                      <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                        <i class="fa fa-times"></i> Descartar
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="row justify-content-between">
+                    <div>
+                      <button type="button" class="btn btn-gray">Retornar</button>
+                      <button type="button" class="btn btn-gray">Limpar</button>
+                    </div>
+                    <div>
+                      <button type="submit" class="btn btn-rose">Avançar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-        <span class="btn btn-raised btn-round btn-rose btn-file">
-          <span class="fileinput-new">Foto</span>
-          <span class="fileinput-exists">Trocar</span>
-          <input type="file" formControlName="fotoProfissional" (change)="onLoadFile($event)">
-        </span>
-        <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-          <i class="fa fa-times"></i> Descartar
-        </a>
-      </div>
-    </div>
-    <label for="fotoRg" class="col-lg-3 col-md-3 col-form-label"> Foto RG *</label>
-    <div class="col-lg-3 col-md-8">
-      <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-        <span class="btn btn-raised btn-round btn-rose btn-file">
-          <span class="fileinput-new">Foto RG</span>
-          <span class="fileinput-exists">Trocar</span>
-          <input type="file" formControlName="fotoRg">
-        </span>
-        <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-          <i class="fa fa-times"></i> Descartar
-        </a>
       </div>
     </div>
   </div>
-  <div class="form-row justify-content-between mt-4">
-    <div>
-      <button type="button" class="btn btn-gray">Retornar</button>
-      <button type="button" class="btn btn-gray">Limpar</button>
-    </div>
-    <div>
-      <button type="submit" class="btn btn-rose">Avançar</button>
-    </div>
-  </div>
-</form>
+</div>

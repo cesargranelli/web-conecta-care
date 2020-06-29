@@ -69,7 +69,7 @@ export class CadastroComponent implements OnInit {
     if (this.profissionalForm.value.cpf) {
       this.profissionalService.pesquisarCpf(this.profissionalForm.value).subscribe(response => {
         if (response.status===NO_CONTENT) {
-          this.router.navigateByUrl('cadastro/profissional');
+          this.router.navigateByUrl('cadastro/login');
         } else {
           this.profissionalJaCadastrado = true;
         }
@@ -123,6 +123,46 @@ export class CadastroComponent implements OnInit {
         }
       }
     };
+  }
+
+  validaInputPaciente(): any {
+    if (this.pacienteForm.controls.cpf.pristine) {
+      return '';
+    } else if (this.pacienteForm.controls.cpf.invalid || this.pacienteForm.controls.cpf.errors?.required) {
+      return 'clear';
+    } else {
+      return 'done';
+    }
+  }
+
+  validaInputProfissional(): any {
+    if (this.profissionalForm.controls.cpf.pristine) {
+      return '';
+    } else if (this.profissionalForm.controls.cpf.invalid || this.profissionalForm.controls.cpf.errors?.required) {
+      return 'clear';
+    } else {
+      return 'done';
+    }
+  }
+
+  validaInputHomecare(): any {
+    if (this.homecareForm.controls.cnpj.pristine) {
+      return '';
+    } else if (this.homecareForm.controls.cnpj.invalid || this.homecareForm.controls.cnpj.errors?.required) {
+      return 'clear';
+    } else {
+      return 'done';
+    }
+  }
+
+  validaInputConvenio(): any {
+    if (this.convenioForm.controls.cnpj.pristine) {
+      return '';
+    } else if (this.convenioForm.controls.cnpj.invalid || this.convenioForm.controls.cnpj.errors?.required) {
+      return 'clear';
+    } else {
+      return 'done';
+    }
   }
 
 }

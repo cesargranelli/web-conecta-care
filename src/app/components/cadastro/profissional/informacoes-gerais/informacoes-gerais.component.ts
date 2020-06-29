@@ -31,7 +31,7 @@ export class InformacoesGeraisComponent implements OnInit {
 
   public selectFile: File;
   public fotoProfissional: any;
-  public fotoRg: [];
+  public fotoRg: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -74,55 +74,39 @@ export class InformacoesGeraisComponent implements OnInit {
 
   }
 
-  onLoadFile(event:any) {
+  onLoadFotoProfissional(event:any) {
     const file: File = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = this.handlerReaderLoaded.bind(this);
+      reader.onload = this.handlerReaderLoadedProfissional.bind(this);
       reader.readAsBinaryString(file);
     }
   }
 
-  handlerReaderLoaded(e:any) {
+  handlerReaderLoadedProfissional(e:any) {
     this.fotoProfissional = btoa(e.target.result);
   }
 
-  base64textString:any = [];
-
-  onUploadChange(evt: any) {
-    const file: File = evt.target.files[0];
-
+  onLoadFotoRg(event:any) {
+    const file: File = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.onload = this.handlerReaderLoadedRg.bind(this);
       reader.readAsBinaryString(file);
     }
   }
 
-  handleReaderLoaded(e:any) {
-    let variavel = 'data:image/png;base64,' + btoa(e.target.result);
-    this.base64textString.push('data:image/png;base64,' + btoa(e.target.result));
-    console.log(this.base64textString);
+  handlerReaderLoadedRg(e:any) {
+    this.fotoRg = btoa(e.target.result);
   }
 
   onSubmit() {
     let profissional: Profissional = this.profissionalForm.value;
-    // profissional = this.profissionalForm.value;
 
     profissional.fotoProfissional = this.fotoProfissional;
-
-
-    // const fdFotoRg = new FormData();
-    // fdFotoRg.append('image', this.profissionalForm.value.fotoRg);
-
-    // profissional.fotoProfissional.append('fotoProfissional', this.selectFile, this.selectFile.name);
-    // profissional.fotoRg = fdFotoRg;
-
-    // console.log(profissional.fotoProfissional.get('fotoProfissional'));
-    console.log(profissional);
+    profissional.fotoRg = this.fotoRg;
 
     this._service.save(profissional).subscribe(response => {
-      console.log(profissional.fotoProfissional);
       console.log(response.body.data);
     });
   }

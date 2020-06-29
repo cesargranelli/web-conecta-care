@@ -11,10 +11,10 @@ const routes: Routes = [
   { path: '', component: ConnectaComponent },
   { path: 'cadastro', component: CadastroComponent },
   { path: 'cadastro/login', component: CadastroLoginComponent },
-  { path: 'cadastro/profissional', component: CadastroProfissionalComponent },
-  { path: 'cadastro/profissional/{token}', component: CadastroProfissionalComponent },
-  { path: 'cadastro/profissional/informacoes-gerais', component: InformacoesGeraisComponent, data: {animation: 'HomePage'} },
-  { path: 'cadastro/profissional/endereco', component: EnderecoComponent, data: {animation: 'AboutPage'} }
+  // { path: 'cadastro/profissionais', component: CadastroProfissionalComponent },
+  { path: 'cadastro/profissionais/{token}', component: CadastroProfissionalComponent },
+  { path: 'cadastro/profissionais/informacoes-gerais', component: InformacoesGeraisComponent, data: {animation: 'HomePage'} },
+  { path: 'cadastro/profissionais/endereco', component: EnderecoComponent, data: {animation: 'AboutPage'} }
 ];
 
 @NgModule({
