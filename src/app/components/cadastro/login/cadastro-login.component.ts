@@ -20,7 +20,7 @@ export class CadastroLoginComponent implements OnInit {
 
   emailEnviado: boolean = false;
 
-  @Output() loading = new EventEmitter<boolean>();
+  public loading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,7 +47,7 @@ export class CadastroLoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading.emit(true);
+    this.loading = true;
     let login: Login = new Login(
       this.loginForm.value.email,
       this.loginForm.value.password,
@@ -55,18 +55,17 @@ export class CadastroLoginComponent implements OnInit {
     );
 
     this.service.cadastrar(login).subscribe(response => {
+      console.debug('Response: ' + response.status)
       if (response.status===OK) {
-        console.log('Url: ' + response.body.data.url);
         this.emailEnviado = true;
-      // } else {
-        console.log('Continnuar mesmo sem o envio de e-mail');
-        // this.route.navigateByUrl(response.body.data.url);
-        setTimeout( () => {
-          this.loading.emit(false);
+        setTimeout(() => {
+          this.loading = false;
           this.onSuccess(response.body.data.message);
-        }, 10000 );
+          this.route.navigateByUrl(`espera-confirmacao-email`);
+        });
       }
     });
+
   }
 
   setCaptcha(captcha: boolean) {

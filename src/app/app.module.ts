@@ -24,6 +24,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
+import { EsperaConfirmacaoEmailComponent } from './components/pages/espera-confirmacao-email/espera-confirmacao-email.component';
+import { ConfirmacaoCadastroComponent } from './components/pages/confirmacao-cadastro/confirmacao-cadastro.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     ExperienciaComponent,
     EscolaridadeComponent,
     ComplementoComponent,
-    ContaComponent
+    ContaComponent,
+    EsperaConfirmacaoEmailComponent,
+    ConfirmacaoCadastroComponent
   ],
   imports: [
     BrowserModule,

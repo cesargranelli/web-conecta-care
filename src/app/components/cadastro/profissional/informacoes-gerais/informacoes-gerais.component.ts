@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Navigation, Router, RouterStateSnapshot } from '@angular/router';
 import { EstadoCivil } from 'src/app/class/estado-civil.class';
-import { Genero } from 'src/app/class/genero.class';
 import { Profissional } from 'src/app/class/profissional.class';
 import { TipoEmpresa } from 'src/app/class/tipo-empresa.class';
 import { DominioService } from 'src/app/services/dominio.service';
+import { Valid } from 'src/app/services/feat/Valid';
 import { ProfissionalService } from 'src/app/services/profissional.service';
 import { ValidadorCnpj } from '../../../../utils/validador-cnpj.utils';
 import { ValidadorCpf } from '../../../../utils/validador-cpf.utils';
+import { Role } from 'src/app/enums/role.enum';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-informacoes-gerais',
@@ -16,7 +19,7 @@ import { ValidadorCpf } from '../../../../utils/validador-cpf.utils';
 })
 export class InformacoesGeraisComponent implements OnInit {
 
-  private _loading: boolean = false;
+  private _loading: boolean = true;
 
   public profissionalForm: FormGroup;
 
@@ -25,23 +28,31 @@ export class InformacoesGeraisComponent implements OnInit {
   public mascaraRg: string = '000.000.000-00';
   public mascaraPIS: string = '000.0000.000-0';
   public mascaraCnpj: string = '00.000.000/0000-00';
-  public generos: Genero[];
+  public generos: any;
   public tipoEmpresas: TipoEmpresa[];
   public estadoCivis: EstadoCivil[];
 
   public selectFile: File;
   public fotoProfissional: any;
   public fotoRg: any;
+  public valid: Valid;
 
   constructor(
+    private _router: Router,
     private _formBuilder: FormBuilder,
     private _validadorCpf: ValidadorCpf,
     private _validadorCnpj: ValidadorCnpj,
     private _service: ProfissionalService,
     private _dominioService: DominioService
-  ) { }
+  ) {
+    const navigation: Navigation = this._router.getCurrentNavigation();
+    this.valid = navigation.extras.state?.valid;
+  }
 
   ngOnInit(): void {
+    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
+      this._router.navigateByUrl('/');
+    }
 
     this._dominioService.getGeneros().subscribe(response => {
       this.generos = response.body
@@ -62,15 +73,17 @@ export class InformacoesGeraisComponent implements OnInit {
       rgEmissor: ['', [Validators.required]],
       rgDataEmissao: ['', [Validators.required]],
       pis: ['', []],
-      genero: [this.generos, [Validators.required]],
-      tipoEmpresa: [this.tipoEmpresas, [Validators.required]],
-      estadoCivil: [this.estadoCivis, [Validators.required]],
+      genero: ['', [Validators.required]],
+      tipoEmpresa: ['', [Validators.required]],
+      estadoCivil: ['', [Validators.required]],
       cnpj: ['', [Validators.required, this.cnpjValidator()]],
       ctps: ['', [Validators.required]],
       ctpsSerie: ['', [Validators.required]],
       fotoProfissional: ['', [Validators.required]],
       fotoRg: ['', [Validators.required]],
     });
+
+    this._loading = false;
 
   }
 
@@ -101,13 +114,29 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   onSubmit() {
+    this._loading = true;
     let profissional: Profissional = this.profissionalForm.value;
 
     profissional.fotoProfissional = this.fotoProfissional;
     profissional.fotoRg = this.fotoRg;
 
     this._service.save(profissional).subscribe(response => {
-      console.log(response.body.data);
+      this.valid.id = response.body.profissionalId;
+      setTimeout(() => {
+        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/endereco`, {
+          state: { valid: this.valid }
+        });
+        this._loading = false;
+      });
+    },
+    (error: Error) => {
+      this._loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ocorreu um erro inexperado ao tentar inserir profissional',
+        showConfirmButton: true
+      });
     });
   }
 
