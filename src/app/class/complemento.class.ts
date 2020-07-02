@@ -1,6 +1,3 @@
-import { EstadoCivil } from './estado-civil.class';
-import { Genero } from './genero.class';
-import { TipoEmpresa } from './tipo-empresa.class';
 import { CategoriaCNH } from './categoria-cnh.class';
 
 export class Complemento {

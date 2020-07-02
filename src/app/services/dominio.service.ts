@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AreaAtendimento } from '../class/area-atendimento.class';
+import { Banco } from '../class/banco.class';
 import { CategoriaCNH } from '../class/categoria-cnh.class';
 import { Conselho } from '../class/conselho.class';
 import { EstadoCivil } from '../class/estado-civil.class';
 import { Estado } from '../class/estado.class';
 import { Genero } from '../class/genero.class';
 import { Instrucao } from '../class/instrucao.class';
+import { TipoConta } from '../class/tipo-conta.class';
 import { TipoEmpresa } from '../class/tipo-empresa.class';
 import { Transporte } from '../class/transporte.class';
 
@@ -65,6 +67,16 @@ export class DominioService {
 
   getCategoriasCNH(): Observable<HttpResponse<any>> {
     return this.http.get<HttpResponse<CategoriaCNH[]>>(`${this.endpoint}/categoria-cnh`,
+      { observe: 'response' });
+  }
+
+  getTipoContas(): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<TipoConta[]>>(`${this.endpoint}/tipo-conta`,
+      { observe: 'response' });
+  }
+
+  getBancos(): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<Banco[]>>(`${this.endpoint}/banco`,
       { observe: 'response' });
   }
 
