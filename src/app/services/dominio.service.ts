@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AreaAtendimento } from '../class/area-atendimento.class';
+import { CategoriaCNH } from '../class/categoria-cnh.class';
 import { Conselho } from '../class/conselho.class';
 import { EstadoCivil } from '../class/estado-civil.class';
 import { Estado } from '../class/estado.class';
 import { Genero } from '../class/genero.class';
+import { Instrucao } from '../class/instrucao.class';
 import { TipoEmpresa } from '../class/tipo-empresa.class';
 import { Transporte } from '../class/transporte.class';
 
@@ -53,6 +55,16 @@ export class DominioService {
 
   getTransportes(): Observable<HttpResponse<any>> {
     return this.http.get<HttpResponse<Transporte[]>>(`${this.endpoint}/transporte`,
+      { observe: 'response' });
+  }
+
+  getInstrucoes(): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<Instrucao[]>>(`${this.endpoint}/instrucao`,
+      { observe: 'response' });
+  }
+
+  getCategoriasCNH(): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<CategoriaCNH[]>>(`${this.endpoint}/categoria-cnh`,
       { observe: 'response' });
   }
 
