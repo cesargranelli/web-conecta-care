@@ -2,7 +2,7 @@
   <div class="page-header login-page">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+        <div class="col-lg-5 col-md-7 col-sm-9 ml-auto mr-auto">
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="card card-login">
               <div class="card-header card-header-rose text-center">
@@ -54,7 +54,7 @@
                   </div>
                 </span>
               </div>
-              <div class="card-footer">
+              <div class="card-footer justify-content-center">
                 <span class="bmd-form-group is-filled">
                   <app-basic-recaptcha (captcha)="setCaptcha($event)"></app-basic-recaptcha>
                 </span>

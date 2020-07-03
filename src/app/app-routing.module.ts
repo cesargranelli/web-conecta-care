@@ -12,8 +12,8 @@ import { ConnectaComponent } from './components/connecta/connecta.component';
 import { ContaComponent } from './components/forms/conta/conta.component';
 import { ContatoComponent } from './components/forms/contato/contato.component';
 import { EnderecoComponent } from './components/forms/endereco/endereco.component';
-import { ConfirmacaoCadastroComponent } from './components/pages/confirmacao-cadastro/confirmacao-cadastro.component';
-import { EsperaConfirmacaoEmailComponent } from './components/pages/espera-confirmacao-email/espera-confirmacao-email.component';
+import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
+import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
 
 const routes: Routes = [
   { path: '', component: ConnectaComponent },

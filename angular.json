@@ -26,22 +26,30 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/material-dashboard.min.css"
+              "src/assets/css/material-dashboard.css"
             ],
             "scripts": [
-              { "input": "src/assets/js/core/jquery.min.js", "bundleName": "jquery", "inject": false },
-              { "input": "src/assets/js/core/popper.min.js", "bundleName": "popper", "inject": false },
-              { "input": "src/assets/js/core/bootstrap-material-design.min.js", "bundleName": "bootstrap-material-design", "inject": false },
-              { "input": "src/assets/js/plugins/perfect-scrollbar.jquery.min.js", "bundleName": "perfect-scrollbar.jquery", "inject": false },
-              { "input": "src/assets/js/plugins/moment.min.js", "bundleName": "moment", "inject": false },
-              { "input": "src/assets/js/plugins/sweetalert2.js", "bundleName": "sweetalert2", "inject": false },
-              { "input": "src/assets/js/plugins/jquery.validate.min.js", "bundleName": "jquery.validate", "inject": false },
-              { "input": "src/assets/js/plugins/jquery.bootstrap-wizard.js", "bundleName": "jquery.bootstrap-wizard", "inject": false },
-              { "input": "src/assets/js/plugins/bootstrap-selectpicker.js", "bundleName": "bootstrap-selectpicker", "inject": false },
-              { "input": "src/assets/js/plugins/bootstrap-datetimepicker.min.js", "bundleName": "bootstrap-datetimepicker", "inject": false },
-              { "input": "src/assets/js/plugins/jasny-bootstrap.min.js", "bundleName": "jasny-bootstrap", "inject": false },
-              { "input": "src/assets/js/app.js", "bundleName": "app", "inject": false },
-              { "input": "src/assets/js/material-dashboard.min.js", "bundleName": "material-dashboard", "inject": false }
+              "src/assets/js/core/jquery.min.js",
+              "src/assets/js/core/popper.min.js",
+              "src/assets/js/core/bootstrap-material-design.min.js",
+              "src/assets/js/plugins/perfect-scrollbar.jquery.min.js",
+              "src/assets/js/plugins/moment.min.js",
+              "src/assets/js/plugins/sweetalert2.js",
+              "src/assets/js/plugins/jquery.validate.min.js",
+              "src/assets/js/plugins/jquery.bootstrap-wizard.js",
+              "src/assets/js/plugins/bootstrap-selectpicker.js",
+              "src/assets/js/plugins/bootstrap-datetimepicker.min.js",
+              "src/assets/js/plugins/jquery.datatables.min.js",
+              "src/assets/js/plugins/bootstrap-tagsinput.js",
+              "src/assets/js/plugins/jasny-bootstrap.min.js",
+              "src/assets/js/plugins/fullcalendar.min.js",
+              "src/assets/js/plugins/jquery-jvectormap.js",
+              "src/assets/js/plugins/nouislider.min.js",
+              "src/assets/js/plugins/core.js",
+              "src/assets/js/plugins/arrive.min.js",
+              "src/assets/js/plugins/bootstrap-notify.js",
+              "src/assets/js/app.js",
+              "src/assets/js/material-dashboard.min.js"
             ]
           },
           "configurations": {

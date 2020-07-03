@@ -227,3 +227,12 @@ app = {
   },
 
 }
+
+$(document).ready(function () {
+  // Initialise the wizard
+  app.initMaterialWizard();
+  app.showSwal();
+  setTimeout(function () {
+    $('.card.card-wizard').addClass('active');
+  }, 600);
+});
