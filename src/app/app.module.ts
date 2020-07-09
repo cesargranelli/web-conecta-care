@@ -16,18 +16,21 @@ import { ComplementoComponent } from './components/cadastro/profissional/complem
 import { EscolaridadeComponent } from './components/cadastro/profissional/escolaridade/escolaridade.component';
 import { ExperienciaComponent } from './components/cadastro/profissional/experiencia/experiencia.component';
 import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
+import { ConnectaComponent } from './components/connecta/connecta.component';
 import { ContaComponent } from './components/forms/conta/conta.component';
 import { ContatoComponent } from './components/forms/contato/contato.component';
 import { EnderecoComponent } from './components/forms/endereco/endereco.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
+import { ConveniosModule } from './convenios/convenios.module';
+import { HomecaresModule } from './homecares/homecares.module';
+import { PacientesModule } from './pacientes/pacientes.module';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
-import { ConnectaComponent } from './components/connecta/connecta.component';
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
+import { ProfissionaisModule } from './profissionais/profissionais.module';
 import { ProfissionalService } from './services/profissional.service';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
-import { ProfissionaisModule } from './profissionais/profissionais.module';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import { ProfissionaisModule } from './profissionais/profissionais.module';
     RecaptchaModule,
     NgxLoadingModule.forRoot({}),
     SweetAlert2Module.forRoot(),
-    ProfissionaisModule
+    ProfissionaisModule,
+    PacientesModule,
+    HomecaresModule,
+    ConveniosModule
   ],
   providers: [
     ValidadorCpf,
