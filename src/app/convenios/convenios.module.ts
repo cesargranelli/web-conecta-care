@@ -1,11 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ConveniosComponent } from './convenios.component';
 
-
+const routes: Routes = [
+  { path: 'convenios/:id', component: ConveniosComponent }
+];
 
 @NgModule({
-  declarations: [],
+  declarations: [ConveniosComponent],
   imports: [
+    RouterModule.forChild(routes),
     CommonModule
   ]
 })
