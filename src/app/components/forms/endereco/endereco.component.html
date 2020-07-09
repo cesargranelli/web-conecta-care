@@ -4,56 +4,50 @@
       <div class="wizard-container">
         <div class="card card-wizard active">
           <div class="card-header card-header-rose text-center">
+            <i class="material-icons">house</i>
             <h3 class="card-title">
               Endereço
             </h3>
-            <i class="material-icons">house</i>
           </div>
           <form [formGroup]="enderecoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
                   <label for="logradouro" class="col-lg-2 col-md-3 col-form-label">Endereço *</label>
-                  <div class="form-group col-lg-5 col-md-8"
-                    [ngClass]="enderecoForm.controls.logradouro.invalid ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="logradouro" formControlName="logradouro"
+                  <div class="form-group col-lg-5 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.logradouro)">
+                    <input type="text" class="form-control" formControlName="logradouro"
                     [value]="enderecoForm.get('logradouro').value | titlecase">
                   </div>
                   <label for="numero" class="col-lg-2 col-md-3 col-form-label">Número *</label>
-                  <div class="form-group col-lg-2 col-md-8"
-                    [ngClass]="enderecoForm.controls.numero.invalid ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="numero" formControlName="numero">
+                  <div class="form-group col-lg-2 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.numero)">
+                    <input type="text" class="form-control" formControlName="numero" mask="0*">
                   </div>
                 </div>
                 <div class="row">
                   <label for="complemento" class="col-lg-2 col-md-3 col-form-label">Complemento</label>
                   <div class="form-group col-lg-5 col-md-8">
-                    <input type="text" class="form-control" name="complemento" formControlName="complemento">
+                    <input type="text" class="form-control" formControlName="complemento">
                   </div>
                   <label for="cep" class="col-lg-2 col-md-3 col-form-label">CEP *</label>
-                  <div class="form-group col-lg-2 col-md-8"
-                    [ngClass]="enderecoForm.controls.cep.invalid ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="cep" formControlName="cep" mask="00000-000">
+                  <div class="form-group col-lg-2 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.cep)">
+                    <input type="text" class="form-control" formControlName="cep" mask="00000-000">
                   </div>
                 </div>
                 <div class="row">
                   <label for="bairro" class="col-lg-2 col-md-3 col-form-label">Bairro *</label>
-                  <div class="form-group col-lg-4 col-md-8"
-                    [ngClass]="enderecoForm.controls.bairro.invalid ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="bairro" formControlName="bairro"
+                  <div class="form-group col-lg-4 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.bairro)">
+                    <input type="text" class="form-control" formControlName="bairro"
                     [value]="enderecoForm.get('bairro').value | titlecase">
                   </div>
                   <label for="cidade" class="col-lg-2 col-md-3 col-form-label">Cidade *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                    [ngClass]="enderecoForm.controls.cidade.invalid ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="cidade" formControlName="cidade"
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.cidade)">
+                    <input type="text" class="form-control" formControlName="cidade"
                     [value]="enderecoForm.get('cidade').value | titlecase">
                   </div>
                 </div>
                 <div class="row">
                   <label for="comprovante" class="col-lg-2 col-md-3 col-form-label">Comprovante *</label>
-                  <div class="col-lg-5 col-md-8"
-                    [ngClass]="enderecoForm.controls.comprovante.invalid ? 'has-danger' : ''">
+                  <div class="col-lg-5 col-md-8">
                     <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                       <span class="btn btn-raised btn-round btn-rose btn-file">
                         <span class="fileinput-new">Selecionar imagem</span>
@@ -67,7 +61,7 @@
                   </div>
                   <label for="estado" class="col-lg-1 col-md-3 col-form-label">UF *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Gênero" formControlName="estado">
+                    <select class="custom-select" formControlName="estado" data-style="btn btn-rose" data-width="100%" title="Gênero">
                       <option disabled selected>Selecione</option>
                       <option [ngValue]="estado" *ngFor="let estado of estados">{{ estado.uf }}</option>
                     </select>
@@ -77,11 +71,11 @@
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button type="button" class="btn btn-gray">Retornar</button>
-                <button type="button" class="btn btn-gray">Limpar</button>
+                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
+                <button type="button" class="btn btn-gray" (click)="enderecoForm.reset()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="enderecoForm.invalid">Avançar</button>
+                <button type="submit" class="btn btn-rose" [disabled]="!enderecoForm.valid">Avançar</button>
               </span>
             </div>
           </form>

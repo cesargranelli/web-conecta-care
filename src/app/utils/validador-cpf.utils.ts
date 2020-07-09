@@ -5,17 +5,19 @@ export class ValidadorCpf {
   private modulo11: number = 11;
 
   validar(numero: string): boolean {
-    let pesoPrimeiroDV: number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2];
-    let pesoSegundoDV: number[] = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
-    this.primeiroDigito = this.digitoVerificador(numero, pesoPrimeiroDV);
-    this.segundoDigito = this.digitoVerificador(numero.concat(String(this.primeiroDigito)), pesoSegundoDV);
-    let digitoVerificador: string = String(this.primeiroDigito).concat(
-      String(this.segundoDigito)
-    );
-    if (digitoVerificador == numero.substr(9, 2)) {
-      return true;
-    } else {
-      return false;
+    if (numero != '' && numero != null) {
+      let pesoPrimeiroDV: number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+      let pesoSegundoDV: number[] = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
+      this.primeiroDigito = this.digitoVerificador(numero, pesoPrimeiroDV);
+      this.segundoDigito = this.digitoVerificador(numero.concat(String(this.primeiroDigito)), pesoSegundoDV);
+      let digitoVerificador: string = String(this.primeiroDigito).concat(
+        String(this.segundoDigito)
+      );
+      if (digitoVerificador == numero.substr(9, 2)) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 

@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://api.factorysupport.systems',
-  siteKey: '6Lfr2gwTAAAAABG4nDVqifJ15HJT7EeXwDTvtch9'
+  siteKey: '6Lfr2gwTAAAAABG4nDVqifJ15HJT7EeXwDTvtch9',
+  name: 'HOMOLOGAÇÃO'
 };
 
 /*

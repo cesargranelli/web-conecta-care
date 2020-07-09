@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NO_CONTENT } from 'http-status-codes';
 import { ConvenioService } from 'src/app/services/convenio.service';
 import { HomecareService } from 'src/app/services/homecare.service';
+import { DoumentoService } from 'src/app/services/interfaces/documento-interface.service';
 import { PacienteService } from 'src/app/services/paciente.service';
-import { ProfissionalService } from 'src/app/services/profissional.service';
-import { ValidadorCnpj } from '../../utils/validador-cnpj.utils';
-import { ValidadorCpf } from '../../utils/validador-cpf.utils';
-import { Router } from '@angular/router';
+import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
+import { InputValidation } from '../../shared/validations/input-validation';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -15,49 +17,61 @@ import { Router } from '@angular/router';
   styleUrls: ['./cadastro.component.css'],
 })
 export class CadastroComponent implements OnInit {
-  mascaraCpf: string = '000.000.000-00';
-  mascaraCnpj: string = '00.000.000/0000-00';
 
-  pacienteForm: FormGroup;
-  profissionalForm: FormGroup;
-  homecareForm: FormGroup;
-  convenioForm: FormGroup;
+  @Output() loadingEvent = new EventEmitter<boolean>();
 
-  pacienteJaCadastrado: boolean = false;
-  profissionalJaCadastrado: boolean = false;
-  homecareJaCadastrada: boolean = false;
-  convenioJaCadastrado: boolean = false;
+  public pacienteForm: FormGroup;
+  public profissionalForm: FormGroup;
+  public homecareForm: FormGroup;
+  public convenioForm: FormGroup;
+
+  public pacienteJaCadastrado: boolean = false;
+  public profissionalJaCadastrado: boolean = false;
+  public homecareJaCadastrada: boolean = false;
+  public convenioJaCadastrado: boolean = false;
+  public input: InputValidation = new InputValidation();
 
   constructor(
-    private formBuilder: FormBuilder,
-    private validadorCpf: ValidadorCpf,
-    private validadorCnpj: ValidadorCnpj,
-    private pacienteService: PacienteService,
-    private profissionalService: ProfissionalService,
-    private homecareService: HomecareService,
-    private convenioService: ConvenioService,
-    private router: Router
+    private _formBuilder: FormBuilder,
+    @Inject('DoumentoService') private _documentoService: DoumentoService,
+    private _pacienteService: PacienteService,
+    private _homecareService: HomecareService,
+    private _convenioService: ConvenioService,
+    private _router: Router,
+    private _sharedLoagingService: SharedLoadingService
   ) {}
 
   ngOnInit(): void {
-    this.pacienteForm = this.formBuilder.group({
-      cpf: ['', [Validators.required, this.cpfValidator()]],
+    this.pacienteForm = this._formBuilder.group({
+      cpf: ['', [Validators.required, validCpf()]],
     });
-    this.profissionalForm = this.formBuilder.group({
-      cpf: ['', [Validators.required, this.cpfValidator()]],
+    this.profissionalForm = this._formBuilder.group({
+      cpf: ['', [Validators.required, validCpf()]],
     });
-    this.homecareForm = this.formBuilder.group({
-      cnpj: ['', [Validators.required, this.cnpjValidator()]],
+    this.homecareForm = this._formBuilder.group({
+      cnpj: ['', [Validators.required, validCnpj()]],
     });
-    this.convenioForm = this.formBuilder.group({
-      cnpj: ['', [Validators.required, this.cnpjValidator()]],
+    this.convenioForm = this._formBuilder.group({
+      cnpj: ['', [Validators.required, validCnpj()]],
     });
+  }
+
+  onSubmit_(form: FormGroup) {
+    this._sharedLoagingService.emitChange(true);
+    this._documentoService.pesquisar(form.value).subscribe(response => {
+      this._sharedLoagingService.emitChange(false);
+      if (response.status===NO_CONTENT) {
+        this._router.navigateByUrl('cadastro/login');
+      } else {
+        this.profissionalJaCadastrado = true;
+      }
+    }, error => this._sharedLoagingService.emitChange(false));
   }
 
   onSubmit() {
 
     if (this.pacienteForm.value.cpf) {
-      this.pacienteService.pesquisarCpf(this.pacienteForm.value).subscribe(response => {
+      this._pacienteService.pesquisarCpf(this.pacienteForm.value).subscribe(response => {
         if (response.status===NO_CONTENT) {
 
         } else {
@@ -66,18 +80,8 @@ export class CadastroComponent implements OnInit {
       });
     }
 
-    if (this.profissionalForm.value.cpf) {
-      this.profissionalService.pesquisarCpf(this.profissionalForm.value).subscribe(response => {
-        if (response.status===NO_CONTENT) {
-          this.router.navigateByUrl('cadastro/login');
-        } else {
-          this.profissionalJaCadastrado = true;
-        }
-      });
-    }
-
     if (this.homecareForm.value.cnpj) {
-      this.homecareService.pesquisarCnpj(this.homecareForm.value).subscribe(response => {
+      this._homecareService.pesquisarCnpj(this.homecareForm.value).subscribe(response => {
         if (response.status===NO_CONTENT) {
         } else {
           this.homecareJaCadastrada = true;
@@ -86,7 +90,7 @@ export class CadastroComponent implements OnInit {
     }
 
     if (this.convenioForm.value.cnpj) {
-      this.convenioService.pesquisarCnpj(this.convenioForm.value).subscribe(response => {
+      this._convenioService.pesquisarCnpj(this.convenioForm.value).subscribe(response => {
         if (response.status===NO_CONTENT) {
           alert('Enviar para tela de cadastro de login');
         } else {
@@ -95,74 +99,6 @@ export class CadastroComponent implements OnInit {
       });
     }
 
-  }
-
-  cpfValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value.length != 11) {
-        return { cpfInvalido: control.value };
-      } else {
-        if (!this.validadorCpf.validar(control.value)) {
-          return { cpfInvalido: control.value };
-        } else {
-          return null;
-        }
-      }
-    };
-  }
-
-  cnpjValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value.length != 14) {
-        return { cnpjInvalido: control.value };
-      } else {
-        if (!this.validadorCnpj.validar(control.value)) {
-          return { cnpjInvalido: control.value };
-        } else {
-          return null;
-        }
-      }
-    };
-  }
-
-  validaInputPaciente(): any {
-    if (this.pacienteForm.controls.cpf.pristine) {
-      return '';
-    } else if (this.pacienteForm.controls.cpf.invalid || this.pacienteForm.controls.cpf.errors?.required) {
-      return 'clear';
-    } else {
-      return 'done';
-    }
-  }
-
-  validaInputProfissional(): any {
-    if (this.profissionalForm.controls.cpf.pristine) {
-      return '';
-    } else if (this.profissionalForm.controls.cpf.invalid || this.profissionalForm.controls.cpf.errors?.required) {
-      return 'clear';
-    } else {
-      return 'done';
-    }
-  }
-
-  validaInputHomecare(): any {
-    if (this.homecareForm.controls.cnpj.pristine) {
-      return '';
-    } else if (this.homecareForm.controls.cnpj.invalid || this.homecareForm.controls.cnpj.errors?.required) {
-      return 'clear';
-    } else {
-      return 'done';
-    }
-  }
-
-  validaInputConvenio(): any {
-    if (this.convenioForm.controls.cnpj.pristine) {
-      return '';
-    } else if (this.convenioForm.controls.cnpj.invalid || this.convenioForm.controls.cnpj.errors?.required) {
-      return 'clear';
-    } else {
-      return 'done';
-    }
   }
 
 }

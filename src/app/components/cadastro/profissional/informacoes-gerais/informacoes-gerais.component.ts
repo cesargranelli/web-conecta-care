@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Navigation, Router, RouterStateSnapshot } from '@angular/router';
-import { EstadoCivil } from 'src/app/class/estado-civil.class';
-import { Profissional } from 'src/app/class/profissional.class';
-import { TipoEmpresa } from 'src/app/class/tipo-empresa.class';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Navigation, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { EstadoCivil } from 'src/app/classes/estado-civil.class';
+import { Genero } from 'src/app/classes/genero.class';
+import { Profissional } from 'src/app/classes/profissional.class';
+import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
+import { Role } from 'src/app/enums/role.enum';
 import { DominioService } from 'src/app/services/dominio.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { ProfissionalService } from 'src/app/services/profissional.service';
-import { ValidadorCnpj } from '../../../../utils/validador-cnpj.utils';
-import { ValidadorCpf } from '../../../../utils/validador-cpf.utils';
-import { Role } from 'src/app/enums/role.enum';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
 
 @Component({
   selector: 'app-informacoes-gerais',
@@ -19,16 +24,11 @@ import Swal from 'sweetalert2';
 })
 export class InformacoesGeraisComponent implements OnInit {
 
-  private _loading: boolean = true;
+  @Output() loadingEvent = new EventEmitter<boolean>();
 
   public profissionalForm: FormGroup;
 
-  public mascaraCpf: string = '000.000.000-00';
-  public mascaraData: string = '00/00/0000';
-  public mascaraRg: string = '000.000.000-00';
-  public mascaraPIS: string = '000.0000.000-0';
-  public mascaraCnpj: string = '00.000.000/0000-00';
-  public generos: any;
+  public generos: Observable<Genero[]>;
   public tipoEmpresas: TipoEmpresa[];
   public estadoCivis: EstadoCivil[];
 
@@ -36,59 +36,71 @@ export class InformacoesGeraisComponent implements OnInit {
   public fotoProfissional: any;
   public fotoRg: any;
   public valid: Valid;
+  public validationHas: InputValidationHas = new InputValidationHas();
+
+  private _extensaoFotoProfissional: string;
+  private _extensaoFotoRg: string;
 
   constructor(
     private _router: Router,
     private _formBuilder: FormBuilder,
-    private _validadorCpf: ValidadorCpf,
-    private _validadorCnpj: ValidadorCnpj,
     private _service: ProfissionalService,
-    private _dominioService: DominioService
+    private _dominioService: DominioService,
+    private _sharedLoadingService: SharedLoadingService,
+    private _cadastro: CadastroProfissionaisService
   ) {
     const navigation: Navigation = this._router.getCurrentNavigation();
     this.valid = navigation.extras.state?.valid;
   }
 
   ngOnInit(): void {
+
+    this._sharedLoadingService.emitChange(true);
+
     if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
-      this._router.navigateByUrl('/');
+      // this._router.navigateByUrl('/');
     }
 
-    this._dominioService.getGeneros().subscribe(response => {
-      this.generos = response.body
-    });
+    this.generos = this._dominioService.getGeneros();
     this._dominioService.getTipoEmpresas().subscribe(response => {
-      this.tipoEmpresas = response.body
+      this.tipoEmpresas = response.body;
     });
     this._dominioService.getEstadoCivis().subscribe(response => {
-      this.estadoCivis = response.body
+      this.estadoCivis = response.body;
     });
 
     this.profissionalForm = this._formBuilder.group({
-      nome: ['', [Validators.required, Validators.maxLength(40)]],
-      sobrenome: ['', [Validators.required, Validators.maxLength(60)]],
-      cpf: ['', [Validators.required, this.cpfValidator()]],
-      dataNascimento: ['', [Validators.required]],
-      rg: ['', []],
-      rgEmissor: ['', [Validators.required]],
-      rgDataEmissao: ['', [Validators.required]],
-      pis: ['', []],
+      nome: [this._cadastro.profissional?.nome, [Validators.required]],
+      sobrenome: [this._cadastro.profissional?.sobrenome, [Validators.required, Validators.maxLength(60)]],
+      cpf: [this._cadastro.profissional?.cpf, [Validators.required, validCpf()]],
+      dataNascimento: [this._cadastro.profissional?.dataNascimento, [Validators.required]],
+      rg: [this._cadastro.profissional?.rg],
+      rgEmissor: [this._cadastro.profissional?.rgEmissor],
+      rgDataEmissao: [this._cadastro.profissional?.rgDataEmissao],
+      pis: [this._cadastro.profissional?.pis],
       genero: ['', [Validators.required]],
       tipoEmpresa: ['', [Validators.required]],
       estadoCivil: ['', [Validators.required]],
-      cnpj: ['', [Validators.required, this.cnpjValidator()]],
-      ctps: ['', [Validators.required]],
-      ctpsSerie: ['', [Validators.required]],
+      cnpj: [this._cadastro.profissional?.cnpj, [Validators.required, validCnpj()]],
+      ctps: [this._cadastro.profissional?.ctps, [Validators.required]],
+      ctpsSerie: [this._cadastro.profissional?.ctpsSerie, [Validators.required]],
       fotoProfissional: ['', [Validators.required]],
       fotoRg: ['', [Validators.required]],
     });
 
-    this._loading = false;
+    this._sharedLoadingService.emitChange(false);
 
+  }
+
+  onClick() {
+    this.generos = this._dominioService.getGeneros();
+    console.log(this.generos);
   }
 
   onLoadFotoProfissional(event:any) {
     const file: File = event.target.files[0];
+    let type: string[] = file.type.split('/');
+    this._extensaoFotoProfissional = type[1].padEnd(5, ' ');
     if (file) {
       const reader = new FileReader();
       reader.onload = this.handlerReaderLoadedProfissional.bind(this);
@@ -102,6 +114,8 @@ export class InformacoesGeraisComponent implements OnInit {
 
   onLoadFotoRg(event:any) {
     const file: File = event.target.files[0];
+    let type: string[] = file.type.split('/');
+    this._extensaoFotoRg = type[1].padEnd(5, ' ');
     if (file) {
       const reader = new FileReader();
       reader.onload = this.handlerReaderLoadedRg.bind(this);
@@ -114,23 +128,25 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   onSubmit() {
-    this._loading = true;
+    this._sharedLoadingService.emitChange(true);
     let profissional: Profissional = this.profissionalForm.value;
 
-    profissional.fotoProfissional = this.fotoProfissional;
-    profissional.fotoRg = this.fotoRg;
+    profissional.fotoProfissional = this._extensaoFotoProfissional + this.fotoProfissional;
+
+    profissional.fotoRg = this._extensaoFotoRg + this.fotoRg;
 
     this._service.save(profissional).subscribe(response => {
       this.valid.id = response.body.profissionalId;
       setTimeout(() => {
+        this._cadastro.profissional = profissional;
         this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/endereco`, {
           state: { valid: this.valid }
         });
-        this._loading = false;
+        this._sharedLoadingService.emitChange(false);
       });
     },
     (error: Error) => {
-      this._loading = false;
+      this._sharedLoadingService.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -138,34 +154,6 @@ export class InformacoesGeraisComponent implements OnInit {
         showConfirmButton: true
       });
     });
-  }
-
-  cpfValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value.length != 11) {
-        return { cpfInvalido: control.value };
-      } else {
-        if (!this._validadorCpf.validar(control.value)) {
-          return { cpfInvalido: control.value };
-        } else {
-          return null;
-        }
-      }
-    };
-  }
-
-  cnpjValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value.length != 14) {
-        return { cnpjInvalido: control.value };
-      } else {
-        if (!this._validadorCnpj.validar(control.value)) {
-          return { cnpjInvalido: control.value };
-        } else {
-          return null;
-        }
-      }
-    };
   }
 
 }

@@ -1,18 +1,19 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { AreaAtendimento } from '../class/area-atendimento.class';
-import { Banco } from '../class/banco.class';
-import { CategoriaCNH } from '../class/categoria-cnh.class';
-import { Conselho } from '../class/conselho.class';
-import { EstadoCivil } from '../class/estado-civil.class';
-import { Estado } from '../class/estado.class';
-import { Genero } from '../class/genero.class';
-import { Instrucao } from '../class/instrucao.class';
-import { TipoConta } from '../class/tipo-conta.class';
-import { TipoEmpresa } from '../class/tipo-empresa.class';
-import { Transporte } from '../class/transporte.class';
+import { AreaAtendimento } from '../classes/area-atendimento.class';
+import { Banco } from '../classes/banco.class';
+import { CategoriaCNH } from '../classes/categoria-cnh.class';
+import { Conselho } from '../classes/conselho.class';
+import { EstadoCivil } from '../classes/estado-civil.class';
+import { Estado } from '../classes/estado.class';
+import { Genero } from '../classes/genero.class';
+import { Instrucao } from '../classes/instrucao.class';
+import { TipoConta } from '../classes/tipo-conta.class';
+import { TipoEmpresa } from '../classes/tipo-empresa.class';
+import { Transporte } from '../classes/transporte.class';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,63 +22,66 @@ import { Transporte } from '../class/transporte.class';
 @Injectable()
 export class DominioService {
 
+  private _headers: HttpHeaders = new HttpHeaders();
+
   private endpoint: string = `${environment.apiUrl}/dominio`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private _http: HttpClient, private _tokenService: TokenService) {
+    this._headers = this._headers.set('Token', 'Bearer ' + this._tokenService.getToken());
+  }
 
-  getGeneros(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<Genero[]>>(`${this.endpoint}/genero`,
-      { observe: 'response' });
+  getGeneros(): Observable<Genero[]> {
+    return this._http.get<Genero[]>(`${this.endpoint}/genero`, { headers: this._headers });
   }
 
   getTipoEmpresas(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<TipoEmpresa[]>>(`${this.endpoint}/tipo-empresa`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<TipoEmpresa[]>>(`${this.endpoint}/tipo-empresa`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getEstadoCivis(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<EstadoCivil[]>>(`${this.endpoint}/estado-civil`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<EstadoCivil[]>>(`${this.endpoint}/estado-civil`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getEstados(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<Estado[]>>(`${this.endpoint}/estado`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<Estado[]>>(`${this.endpoint}/estado`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getConselhos(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<Conselho[]>>(`${this.endpoint}/conselho`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<Conselho[]>>(`${this.endpoint}/conselho`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getAreasAtendimento(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<AreaAtendimento[]>>(`${this.endpoint}/area-atendimento`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<AreaAtendimento[]>>(`${this.endpoint}/area-atendimento`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getTransportes(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<Transporte[]>>(`${this.endpoint}/transporte`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<Transporte[]>>(`${this.endpoint}/transporte`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getInstrucoes(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<Instrucao[]>>(`${this.endpoint}/instrucao`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<Instrucao[]>>(`${this.endpoint}/instrucao`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getCategoriasCNH(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<CategoriaCNH[]>>(`${this.endpoint}/categoria-cnh`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<CategoriaCNH[]>>(`${this.endpoint}/categoria-cnh`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getTipoContas(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<TipoConta[]>>(`${this.endpoint}/tipo-conta`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<TipoConta[]>>(`${this.endpoint}/tipo-conta`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getBancos(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<Banco[]>>(`${this.endpoint}/banco`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<Banco[]>>(`${this.endpoint}/banco`,
+      { headers: this._headers, observe: 'response' });
   }
 
 }

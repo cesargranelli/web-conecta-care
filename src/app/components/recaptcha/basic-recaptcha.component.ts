@@ -8,8 +8,6 @@ import { environment } from '../../../environments/environment';
 })
 export class BasicRecaptchaComponent implements OnInit {
 
-  private captchaTest: boolean = false;
-
   public siteKey: string;
   @Output() captcha = new EventEmitter<boolean>();
 

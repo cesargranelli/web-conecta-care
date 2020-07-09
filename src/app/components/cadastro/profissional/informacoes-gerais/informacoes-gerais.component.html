@@ -4,71 +4,65 @@
       <div class="wizard-container">
         <div class="card card-wizard active">
           <div class="card-header card-header-rose text-center">
+            <i class="material-icons">info</i>
             <h3 class="card-title">
               Informações Gerais
             </h3>
-            <i class="material-icons">info</i>
           </div>
           <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit()" class="form-horizontal">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
-                  <label for="nome" class="col-lg-2 col-md-3 col-form-label"> Primeiro nome *</label>
-                  <div class="form-group col-lg-9 col-md-8"
-                    [ngClass]="profissionalForm.controls.nome.invalid && profissionalForm.controls.nome.touched ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="nome" formControlName="nome">
+                  <label for="nome" class="col-lg-2 col-md-3 col-form-label">Primeiro nome *</label>
+                  <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.nome)">
+                    <input type="text" class="form-control" formControlName="nome">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="sobrenome" class="col-lg-2 col-md-3 col-form-label"> Sobrenome *</label>
-                  <div class="form-group col-lg-9 col-md-8"
-                    [ngClass]="profissionalForm.controls.sobrenome.invalid && profissionalForm.controls.sobrenome.touched ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="sobrenome" formControlName="sobrenome">
+                  <label for="sobrenome" class="col-lg-2 col-md-3 col-form-label">Sobrenome *</label>
+                  <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.sobrenome)">
+                    <input type="text" class="form-control" formControlName="sobrenome">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="cpf" class="col-lg-2 col-md-3 col-form-label"> CPF *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                    [ngClass]="profissionalForm.controls.cpf.invalid && profissionalForm.controls.cpf.touched ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="cpf" formControlName="cpf" [mask]="mascaraCpf">
+                  <label for="cpf" class="col-lg-2 col-md-3 col-form-label">CPF *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.cpf)">
+                    <input type="text" class="form-control" formControlName="cpf" mask="000.000.000-00">
                   </div>
-                  <label for="dataNascimento" class="col-lg-3 col-md-3 col-form-label"> Data Nascimento *</label>
+                  <label for="dataNascimento" class="col-lg-3 col-md-3 col-form-label">Data Nascimento *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.dataNascimento)">
+                    <input type="text" class="form-control" formControlName="dataNascimento" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="rg" class="col-lg-2 col-md-3 col-form-label">RG</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control datetimepicker" name="dataNascimento" formControlName="dataNascimento">
+                    <input type="text" class="form-control" formControlName="rg" mask="009.009.009-09">
                   </div>
-                </div>
-                <div class="row">
-                  <label for="rg" class="col-lg-2 col-md-3 col-form-label"> RG</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                    [ngClass]="profissionalForm.controls.rg.invalid && profissionalForm.controls.rg.touched ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="rg" formControlName="rg" [mask]="mascaraRg">
-                  </div>
-                  <label for="rgEmissor" class="col-lg-3 col-md-3 col-form-label"> Emissor *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                    [ngClass]="profissionalForm.controls.rgEmissor.invalid && profissionalForm.controls.rgEmissor.touched ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="rgEmissor" formControlName="rgEmissor">
-                  </div>
-                </div>
-                <div class="row">
-                  <label for="rgDataEmissao" class="col-lg-2 col-md-3 col-form-label"> Data Emissão RG</label>
+                  <label for="rgEmissor" class="col-lg-3 col-md-3 col-form-label">Emissor</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control datetimepicker" name="rgDataEmissao" formControlName="rgDataEmissao">
-                  </div>
-                  <label for="pis" class="col-lg-3 col-md-3 col-form-label"> PIS</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                    [ngClass]="profissionalForm.controls.pis.invalid && profissionalForm.controls.pis.touched ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="pis" formControlName="pis" [mask]="mascaraPIS">
+                    <input type="text" class="form-control" formControlName="rgEmissor">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="genero" class="col-lg-2 col-md-3 col-form-label"> Sexo *</label>
+                  <label for="rgDataEmissao" class="col-lg-2 col-md-3 col-form-label">Data Emissão RG</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.rgDataEmissao)">
+                    <input type="text" class="form-control" formControlName="rgDataEmissao" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="09/09/0009">
+                  </div>
+                  <label for="pis" class="col-lg-3 col-md-3 col-form-label">PIS</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select formControlName="genero" class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Gênero">
+                    <input type="text" class="form-control" formControlName="pis" mask="009.0009.009-9">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="genero" class="col-lg-2 col-md-3 col-form-label">Sexo *</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <select formControlName="genero" class="custom-select" data-style="btn btn-rose" data-width="100%" title="Gênero">
                       <option disabled selected>Selecione</option>
-                      <option [ngValue]="genero" *ngFor="let genero of generos">{{ genero.descricao }}</option>
+                      <option [ngValue]="genero" *ngFor="let genero of generos | async">{{ genero.descricao }}</option>
                     </select>
                   </div>
-                  <label for="tipoEmpresa" class="col-lg-3 col-md-3 col-form-label"> Tipo Empresa *</label>
+                  <label for="tipoEmpresa" class="col-lg-3 col-md-3 col-form-label">Tipo Empresa *</label>
                   <div class="form-group col-lg-3 col-md-8">
                     <select formControlName="tipoEmpresa" class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Tipo Empresa">
                       <option disabled selected>Selecione</option>
@@ -77,33 +71,30 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="estadoCivil" class="col-lg-2 col-md-3 col-form-label"> Estado Civil *</label>
+                  <label for="estadoCivil" class="col-lg-2 col-md-3 col-form-label">Estado Civil *</label>
                   <div class="form-group col-lg-3 col-md-8">
                     <select formControlName="estadoCivil" class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Estado Civil">
                       <option disabled selected>Selecione</option>
                       <option [ngValue]="estadoCivil" *ngFor="let estadoCivil of estadoCivis">{{ estadoCivil.tipo }}</option>
                     </select>
                   </div>
-                  <label for="cnpj" class="col-lg-3 col-md-3 col-form-label"> Nº CNPJ</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                    [ngClass]="profissionalForm.controls.cnpj.invalid && profissionalForm.controls.cnpj.touched ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="cnpj" formControlName="cnpj" [mask]="mascaraCnpj">
+                  <label for="cnpj" class="col-lg-3 col-md-3 col-form-label">Nº CNPJ *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.cnpj)">
+                    <input type="text" class="form-control" formControlName="cnpj" mask="00.000.000/0000-00">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="ctps" class="col-lg-2 col-md-3 col-form-label"> Nº CTPS *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                    [ngClass]="profissionalForm.controls.ctps.invalid && profissionalForm.controls.ctps.touched ? 'has-danger' : ''">
-                    <input type="text" class="form-control" name="ctps" formControlName="ctps">
+                  <label for="ctps" class="col-lg-2 col-md-3 col-form-label">Nº CTPS *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.ctps)">
+                    <input type="text" class="form-control" formControlName="ctps">
                   </div>
-                  <label for="ctpsSerie" class="col-lg-3 col-md-3 col-form-label"> Nº Série CTPS *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                    [ngClass]="profissionalForm.controls.ctpsSerie.invalid && profissionalForm.controls.ctpsSerie.touched ? 'has-danger' : ''">
+                  <label for="ctpsSerie" class="col-lg-3 col-md-3 col-form-label">Nº Série CTPS *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.ctpsSerie)">
                     <input type="text" class="form-control" name="ctpsSerie" formControlName="ctpsSerie">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="fotoProfissional" class="col-lg-2 col-md-3 col-form-label"> Foto Profissional *</label>
+                  <label for="fotoProfissional" class="col-lg-2 col-md-3 col-form-label">Foto Profissional *</label>
                   <div class="col-lg-3 col-md-8">
                     <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                       <span class="btn btn-raised btn-round btn-rose btn-file">
@@ -116,7 +107,7 @@
                       </a>
                     </div>
                   </div>
-                  <label for="fotoRg" class="col-lg-3 col-md-3 col-form-label"> Foto RG *</label>
+                  <label for="fotoRg" class="col-lg-3 col-md-3 col-form-label">Foto RG *</label>
                   <div class="col-lg-3 col-md-8">
                     <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                       <span class="btn btn-raised btn-round btn-rose btn-file">
@@ -130,18 +121,15 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-footer">
-                  <div class="row justify-content-between">
-                    <div>
-                      <button type="button" class="btn btn-gray">Retornar</button>
-                      <button type="button" class="btn btn-gray">Limpar</button>
-                    </div>
-                    <div>
-                      <button type="submit" class="btn btn-rose">Avançar</button>
-                    </div>
-                  </div>
-                </div>
               </div>
+            </div>
+            <div class="card-footer justify-content-between">
+              <span class="bmd-form-group is-filled">
+                <button type="button" class="btn btn-gray" (click)="profissionalForm.reset()">Limpar</button>
+              </span>
+              <span class="bmd-form-group is-filled">
+                <button type="submit" class="btn btn-rose" [disabled]="!profissionalForm.valid">Avançar</button>
+              </span>
             </div>
           </form>
         </div>

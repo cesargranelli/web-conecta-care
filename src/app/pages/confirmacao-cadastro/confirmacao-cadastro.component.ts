@@ -1,9 +1,11 @@
-import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { CadastroService } from 'src/app/services/cadastro.service';
+import { Authorization } from 'src/app/services/feat/token';
 import { Valid } from 'src/app/services/feat/Valid';
+import Swal from 'sweetalert2';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-confirmacao-cadastro',
@@ -16,33 +18,43 @@ export class ConfirmacaoCadastroComponent implements OnInit {
 
   public loading = true;
   public loadingTemplate: TemplateRef<any>;
-  public token: Token;
+  public authorization: Authorization = new Authorization();
   public valid: Valid;
 
   constructor(
-    private activateRoute: ActivatedRoute,
-    private router: Router,
-    private cadastroService: CadastroService
+    private _activateRoute: ActivatedRoute,
+    private _tokenService: TokenService,
+    private _router: Router,
+    private _cadastroService: CadastroService
   ) { }
 
   ngOnInit(): void {
-    this.activateRoute.params.subscribe(value => {
-      this.token = value.token;
-      this.cadastroService.validar(this.token).subscribe(response => {
+    this._activateRoute.params.subscribe(value => {
+      this.authorization.token = value.token;
+      this._tokenService.setToken(value.token);
+      this._cadastroService.validar(this.authorization).subscribe(response => {
         this.valid = response.body;
         setTimeout(() => {
           if (this.valid != null) {
             console.log(`Perfil do usuário: ${this.valid.role}`);
-            this.router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/informacoes-gerais`, {
+            this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/informacoes-gerais`, {
               state: { valid: this.valid }
             });
           }
           this.loading = false;
         });
       },
-      error => {
+      () => {
         this.loading = false;
-        this.router.navigateByUrl(`/`);
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Não foi possível realizar o acesso ao cadastro',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true
+        });
+        this._router.navigateByUrl(`/`);
       });
     });
   }

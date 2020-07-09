@@ -7,7 +7,7 @@ export class Endereco {
   bairro: String;
   cidade: String;
   cep: String;
-  comprovante: [];
+  comprovante: string;
   estado: Estado;
   proprietarioId: Number;
 }

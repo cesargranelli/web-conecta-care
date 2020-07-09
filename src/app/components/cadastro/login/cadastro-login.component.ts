@@ -1,11 +1,12 @@
-import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OK } from 'http-status-codes';
+import { Usuario } from 'src/app/classes/usuario.class';
 import { Role } from 'src/app/enums/role.enum';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
-import { Login } from 'src/app/class/login.class';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 
 @Component({
   selector: 'app-cadastro-login',
@@ -14,28 +15,31 @@ import { Login } from 'src/app/class/login.class';
 })
 export class CadastroLoginComponent implements OnInit {
 
-  loginForm: FormGroup;
-
-  captcha: boolean = false;
-
-  emailEnviado: boolean = false;
-
-  public loading = false;
+  @Output() loadingEvent = new EventEmitter<boolean>();
+  public loginForm: FormGroup;
+  public captcha: boolean = false;
+  public emailEnviado: boolean = false;
+  public email: string;
+  public confirmarEmail: string;
+  public password: string;
+  public confirmarPassword: string;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private service: UsuarioService,
-    private route: Router
+    private _formBuilder: FormBuilder,
+    private _service: UsuarioService,
+    private _router: Router,
+    private _sharedLoadingService: SharedLoadingService
   ) { }
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
+
+    this.loginForm = this._formBuilder.group({
       email: ['', [
         Validators.required,
         Validators.email,
         Validators.maxLength(100)
       ]],
-      confirmarEmail: ['', [Validators.required]],
+      confirmarEmail: ['', [Validators.required, this.equalsEmail()]],
       password: ['', [
         Validators.required,
         Validators.minLength(8),
@@ -44,27 +48,25 @@ export class CadastroLoginComponent implements OnInit {
       ]],
       confirmarPassword: ['', [Validators.required]]
     });
+
   }
 
   onSubmit() {
-    this.loading = true;
-    let login: Login = new Login(
+    this._sharedLoadingService.emitChange(true);
+    let login: Usuario = new Usuario(
       this.loginForm.value.email,
       this.loginForm.value.password,
       Role.Profissional
     );
 
-    this.service.cadastrar(login).subscribe(response => {
-      console.debug('Response: ' + response.status)
-      if (response.status===OK) {
-        this.emailEnviado = true;
-        setTimeout(() => {
-          this.loading = false;
-          this.onSuccess(response.body.data.message);
-          this.route.navigateByUrl(`espera-confirmacao-email`);
-        });
-      }
-    });
+    this._service.cadastrar(login).subscribe(response => {
+      this.emailEnviado = true;
+      setTimeout(() => {
+        this._sharedLoadingService.emitChange(false);
+        this.onSuccess(response.body.data.message);
+        this._router.navigateByUrl(`espera-confirmacao-email`);
+      });
+    }, () => this._sharedLoadingService.emitChange(false));
 
   }
 
@@ -81,6 +83,16 @@ export class CadastroLoginComponent implements OnInit {
       timer: 3000,
       timerProgressBar: true
     });
+  }
+
+  equalsEmail(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value == this.loginForm?.controls.email.value) {
+        return null;
+      } else {
+        return { invalid: control.value }
+      }
+    };
   }
 
 }

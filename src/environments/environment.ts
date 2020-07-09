@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://local.api.factorysupport.systems',
-  siteKey: '6LdHIw0TAAAAABnNAHy9zb_byPAfz64FK17FPRME'
+  siteKey: '6LdHIw0TAAAAABnNAHy9zb_byPAfz64FK17FPRME',
+  name: 'DESENVOLVIMENTO'
 };
 
 /*

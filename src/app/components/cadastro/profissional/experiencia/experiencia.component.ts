@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, Navigation } from '@angular/router';
-import { Experiencia } from 'src/app/class/experiencia.class';
+import { Navigation, Router } from '@angular/router';
+import { Experiencia } from 'src/app/classes/experiencia.class';
 import { Role } from 'src/app/enums/role.enum';
 import { ExperienciaService } from 'src/app/services/experiencia.service';
 import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
 
 @Component({
   selector: 'app-experiencia',
@@ -14,20 +17,24 @@ import Swal from 'sweetalert2';
 })
 export class ExperienciaComponent implements OnInit {
 
+  @Output() loadingEvent = new EventEmitter<boolean>();
+
   experienciaForm: FormGroup;
 
-  private _loading: boolean = true;
   private _valid: Valid;
   private _experiencia: Experiencia[] = [];
 
   public experiencia1: Experiencia = new Experiencia();
   public experiencia2: Experiencia = new Experiencia();
   public experiencia3: Experiencia = new Experiencia();
+  public validationHas: InputValidationHas = new InputValidationHas();
 
   constructor(
     private _router: Router,
     private _formBuilder: FormBuilder,
-    private _service: ExperienciaService
+    private _service: ExperienciaService,
+    private _sharedLoadingService: SharedLoadingService,
+    private _cadastro: CadastroProfissionaisService
   ) {
     const navigation: Navigation = this._router.getCurrentNavigation();
     this._valid = navigation.extras.state?.valid;
@@ -59,7 +66,7 @@ export class ExperienciaComponent implements OnInit {
   }
 
   onSubmit() {
-    this._loading = true;
+    this._sharedLoadingService.emitChange(true);
 
     if (this.experienciaForm.value.experiencia) {
 
@@ -97,24 +104,39 @@ export class ExperienciaComponent implements OnInit {
 
       this._service.save(this._experiencia).subscribe(response => {
         setTimeout(() => {
+          this._cadastro.experiencia = this._experiencia;
           this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/escolaridade`, {
             state: { valid: this._valid }
           });
-          this._loading = false;
+          this._sharedLoadingService.emitChange(false);
         });
       },
       (error: Error) => {
-        this._loading = false;
+        this._sharedLoadingService.emitChange(false);
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'Ocorreu um erro inexperado ao tentar inserir profissional',
+          title: 'Ocorreu um erro inexperado ao tentar inserir experiência profissional',
           showConfirmButton: true
         });
       });
 
     }
 
+    setTimeout(() => {
+      this._cadastro.experiencia = this._experiencia;
+      this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/escolaridade`, {
+        state: { valid: this._valid }
+      });
+      this._sharedLoadingService.emitChange(false);
+    });
+
+  }
+
+  onReturn() {
+    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/carreira`, {
+      state: { valid: this._valid }
+    });
   }
 
 }

@@ -8,11 +8,11 @@ import { ComplementoComponent } from './components/cadastro/profissional/complem
 import { EscolaridadeComponent } from './components/cadastro/profissional/escolaridade/escolaridade.component';
 import { ExperienciaComponent } from './components/cadastro/profissional/experiencia/experiencia.component';
 import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
-import { ConnectaComponent } from './components/connecta/connecta.component';
 import { ContaComponent } from './components/forms/conta/conta.component';
 import { ContatoComponent } from './components/forms/contato/contato.component';
 import { EnderecoComponent } from './components/forms/endereco/endereco.component';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
+import { ConnectaComponent } from './components/connecta/connecta.component';
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
 
 const routes: Routes = [

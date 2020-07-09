@@ -46,7 +46,7 @@
                     </div>
                   </div>
                   <form [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
-                    <div class="form-row justify-content-center" [ngClass]="validaInputPaciente()=='done' ? 'has-success' : 'has-danger'">
+                    <div class="form-row justify-content-center" [ngClass]="input.validation(pacienteForm)=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
                           <div class="input-group-prepend">
@@ -54,11 +54,11 @@
                               <i class="material-icons">face</i>
                             </span>
                           </div>
-                          <input type="text" class="form-control" id="cpfPaciente" name="cpfPaciente" autocomplete="off"
-                            placeholder="CPF (Obrigatório)" formControlName="cpf" [mask]="mascaraCpf">
+                          <input type="text" class="form-control" #cpfPaciente id="cpfPaciente" name="cpfPaciente" autocomplete="off"
+                            placeholder="CPF (Obrigatório)" formControlName="cpf" mask="000.000.000-00">
                         </div>
                         <span class="form-control-feedback">
-                          <i class="material-icons">{{ validaInputPaciente() }}</i>
+                          <i class="material-icons">{{ input.validation(pacienteForm) }}</i>
                         </span>
                       </div>
                     </div>
@@ -76,8 +76,8 @@
                   </form>
                 </div>
                 <div class="tab-pane" id="profissional">
-                  <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit()">
-                    <div class="form-row justify-content-center" [ngClass]="validaInputProfissional()=='done' ? 'has-success' : 'has-danger'">
+                  <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit_(profissionalForm)">
+                    <div class="form-row justify-content-center" [ngClass]="input.validation(profissionalForm)=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
                           <div class="input-group-prepend">
@@ -87,10 +87,10 @@
                           </div>
                           <input type="text" class="form-control" id="cpfProfissional" name="cpfProfissional"
                             autocomplete="off" placeholder="CPF (Obrigatório)" formControlName="cpf"
-                            [mask]="mascaraCpf">
+                            mask="000.000.000-00">
                         </div>
                         <span class="form-control-feedback">
-                          <i class="material-icons">{{ validaInputProfissional() }}</i>
+                          <i class="material-icons">{{ input.validation(profissionalForm) }}</i>
                         </span>
                       </div>
                     </div>
@@ -108,8 +108,8 @@
                   </form>
                 </div>
                 <div class="tab-pane" id="homecare">
-                  <form [formGroup]="homecareForm" (ngSubmit)="onSubmit()">
-                    <div class="form-row justify-content-center" [ngClass]="validaInputHomecare()=='done' ? 'has-success' : 'has-danger'">
+                  <form [formGroup]="homecareForm" (ngSubmit)="onSubmit_(profissionalForm)">
+                    <div class="form-row justify-content-center" [ngClass]="input.validation(homecareForm)=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
                           <div class="input-group-prepend">
@@ -119,10 +119,10 @@
                           </div>
                           <input type="text" class="form-control" id="cnpjHomecare" name="cnpjHomecare"
                             autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
-                            [mask]="mascaraCnpj">
+                            mask="00.000.000/0000-00">
                         </div>
                         <span class="form-control-feedback">
-                          <i class="material-icons">{{ validaInputHomecare() }}</i>
+                          <i class="material-icons">{{ input.validation(homecareForm) }}</i>
                         </span>
                       </div>
                     </div>
@@ -141,7 +141,7 @@
                 </div>
                 <div class="tab-pane" id="convenio">
                   <form [formGroup]="convenioForm" (ngSubmit)="onSubmit()">
-                    <div class="form-row justify-content-center" [ngClass]="validaInputConvenio()=='done' ? 'has-success' : 'has-danger'">
+                    <div class="form-row justify-content-center" [ngClass]="input.validation(convenioForm)=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
                           <div class="input-group-prepend">
@@ -151,10 +151,10 @@
                           </div>
                           <input type="text" class="form-control" id="cnpjConvenio" name="cnpjConvenio"
                             autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
-                            [mask]="mascaraCnpj">
+                            mask="00.000.000/0000-00">
                         </div>
                         <span class="form-control-feedback">
-                          <i class="material-icons">{{ validaInputConvenio() }}</i>
+                          <i class="material-icons">{{ input.validation(convenioForm) }}</i>
                         </span>
                       </div>
                     </div>

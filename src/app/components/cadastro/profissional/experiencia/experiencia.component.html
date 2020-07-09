@@ -4,10 +4,10 @@
       <div class="wizard-container">
         <div class="card card-wizard active">
           <div class="card-header card-header-rose text-center">
+            <i class="material-icons">build</i>
             <h3 class="card-title">
               Experiência Profissional
             </h3>
-            <i class="material-icons">build</i>
           </div>
           <form [formGroup]="experienciaForm" (ngSubmit)="onSubmit()" class="form-horizontal">
             <div class="card-body">
@@ -43,11 +43,13 @@
                 <div class="row">
                   <label for="dataAdmissao1" class="col-lg-3 col-md-3 col-form-label">Data admissão 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="dataAdmissao1" mask="00/00/0000">
+                    <input type="text" class="form-control" formControlName="dataAdmissao1"
+                      [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$"
+                      mask="00/00/0000">
                   </div>
                   <label for="dataDemissao1" class="col-lg-2 col-md-3 col-form-label">Data demissão 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="dataDemissao1" mask="00/00/0000">
+                    <input type="text" class="form-control" formControlName="dataDemissao1" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
                   </div>
                 </div>
 
@@ -66,11 +68,11 @@
                 <div class="row">
                   <label for="dataAdmissao2" class="col-lg-3 col-md-3 col-form-label">Data admissão 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="dataAdmissao2" mask="00/00/0000">
+                    <input type="text" class="form-control" formControlName="dataAdmissao2" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
                   </div>
                   <label for="dataDemissao2" class="col-lg-2 col-md-3 col-form-label">Data demissão 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="dataDemissao2" mask="00/00/0000">
+                    <input type="text" class="form-control" formControlName="dataDemissao2" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
                   </div>
                 </div>
 
@@ -89,11 +91,11 @@
                 <div class="row">
                   <label for="dataAdmissao3" class="col-lg-3 col-md-3 col-form-label">Data admissão 3</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="dataAdmissao3" mask="00/00/0000">
+                    <input type="text" class="form-control" formControlName="dataAdmissao3" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
                   </div>
                   <label for="dataDemissao3" class="col-lg-2 col-md-3 col-form-label">Data demissão 3</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="dataDemissao3" mask="00/00/0000">
+                    <input type="text" class="form-control" formControlName="dataDemissao3" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
                   </div>
                 </div>
 
@@ -101,8 +103,8 @@
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button type="button" class="btn btn-gray">Retornar</button>
-                <button type="button" class="btn btn-gray">Limpar</button>
+                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
+                <button type="button" class="btn btn-gray" (click)="experienciaForm.reset()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
                 <button type="submit" class="btn btn-rose" [disabled]="experienciaForm.invalid">Avançar</button>

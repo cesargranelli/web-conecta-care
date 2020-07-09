@@ -18,5 +18,5 @@ export class Profissional {
   ctps: Number;
   ctpsSerie: Number;
   fotoProfissional: String;
-  fotoRg: [];
+  fotoRg: String;
 }
