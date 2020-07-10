@@ -20,6 +20,7 @@ import { ConnectaComponent } from './components/connecta/connecta.component';
 import { ContaComponent } from './components/forms/conta/conta.component';
 import { ContatoComponent } from './components/forms/contato/contato.component';
 import { EnderecoComponent } from './components/forms/endereco/endereco.component';
+import { MenuLogadoComponent } from './components/menu/menu-logado/menu-logado.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
 import { ConveniosModule } from './convenios/convenios.module';
@@ -38,6 +39,7 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
   declarations: [
     AppComponent,
     MenuComponent,
+    MenuLogadoComponent,
     ConnectaComponent,
     CadastroComponent,
     CadastroLoginComponent,
