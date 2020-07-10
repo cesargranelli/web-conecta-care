@@ -31,6 +31,7 @@ import { ProfissionaisModule } from './profissionais/profissionais.module';
 import { ProfissionalService } from './services/profissional.service';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     ComplementoComponent,
     ContaComponent,
     EsperaConfirmacaoEmailComponent,
-    ConfirmacaoCadastroComponent
+    ConfirmacaoCadastroComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
