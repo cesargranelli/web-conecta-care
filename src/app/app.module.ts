@@ -24,6 +24,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
 import { ConveniosModule } from './convenios/convenios.module';
 import { HomecaresModule } from './homecares/homecares.module';
+import { EsqueciMinhaSenhaComponent } from './login/esqueci-minha-senha/esqueci-minha-senha.component';
+import { LoginComponent } from './login/login.component';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
@@ -31,7 +33,6 @@ import { ProfissionaisModule } from './profissionais/profissionais.module';
 import { ProfissionalService } from './services/profissional.service';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
-import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { LoginComponent } from './login/login.component';
     ContaComponent,
     EsperaConfirmacaoEmailComponent,
     ConfirmacaoCadastroComponent,
-    LoginComponent
+    LoginComponent,
+    EsqueciMinhaSenhaComponent
   ],
   imports: [
     BrowserModule,

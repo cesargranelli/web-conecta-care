@@ -1,0 +1,29 @@
+<div class="card-body">
+  <div class="form-row justify-content-center">
+    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+      <div class="form-row form-control-lg" [ngClass]="inputHas.validation(emailForm.controls.email)">
+        <div class="col-lg-12 col-md-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">email</i>
+              </span>
+            </div>
+            <input type="text" class="form-control" formControlName="email" placeholder="Email..." >
+          </div>
+          <span class="form-control-feedback">
+            <i class="material-icons">{{ input.validation(emailForm.controls.email) }}</i>
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card-footer justify-content-center">
+  <div class="form-row">
+    <div class="form-group">
+      <button type="submit" [disabled]="!emailForm.valid" class="btn btn-rose"
+        [ngClass]="!emailForm.valid ? 'btn-link' : ''">Enviar</button>
+    </div>
+  </div>
+</div>
