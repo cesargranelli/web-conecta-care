@@ -58,7 +58,7 @@ export class InformacoesGeraisComponent implements OnInit {
     this._sharedLoadingService.emitChange(true);
 
     if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
-      // this._router.navigateByUrl('/');
+      this._router.navigateByUrl('/');
     }
 
     this.generos = this._dominioService.getGeneros();

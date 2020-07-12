@@ -13,12 +13,16 @@ import { ContaComponent } from './components/forms/conta/conta.component';
 import { ContatoComponent } from './components/forms/contato/contato.component';
 import { EnderecoComponent } from './components/forms/endereco/endereco.component';
 import { LoginComponent } from './login/login.component';
+import { NovaSenhaComponent } from './login/nova-senha/nova-senha.component';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
+import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
 
 const routes: Routes = [
   { path: '', component: ConnectaComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'confirmacao-nova-senha/:token', component: ConfirmacaoNovaSenhaComponent },
+  { path: 'login/nova-senha/:id', component: NovaSenhaComponent },
   { path: 'cadastro', component: CadastroComponent },
   { path: 'cadastro/login', component: CadastroLoginComponent },
   { path: 'espera-confirmacao-email', component: EsperaConfirmacaoEmailComponent },

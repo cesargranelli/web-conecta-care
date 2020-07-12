@@ -1,12 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { OK } from 'http-status-codes';
 import { Usuario } from 'src/app/classes/usuario.class';
 import { Role } from 'src/app/enums/role.enum';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import Swal from 'sweetalert2';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
+import Swal from 'sweetalert2';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 @Component({
   selector: 'app-cadastro-login',
@@ -23,6 +24,7 @@ export class CadastroLoginComponent implements OnInit {
   public confirmarEmail: string;
   public password: string;
   public confirmarPassword: string;
+  public validationHas: InputValidationHas = new InputValidationHas();
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -37,17 +39,17 @@ export class CadastroLoginComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.email,
-        Validators.maxLength(100)
+        Validators.maxLength(100),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,20}$')
       ]],
       confirmarEmail: ['', [Validators.required, this.equalsEmail()]],
       password: ['', [
         Validators.required,
         Validators.minLength(8),
-        Validators.maxLength(20),
-        Validators.pattern('^.*((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$')
+        Validators.maxLength(20)
       ]],
       confirmarPassword: ['', [Validators.required]]
-    });
+    }, { validators: [validEqualsEmail, validEqualsPassword] });
 
   }
 

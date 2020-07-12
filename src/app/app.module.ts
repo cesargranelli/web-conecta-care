@@ -27,8 +27,10 @@ import { ConveniosModule } from './convenios/convenios.module';
 import { HomecaresModule } from './homecares/homecares.module';
 import { EsqueciMinhaSenhaComponent } from './login/esqueci-minha-senha/esqueci-minha-senha.component';
 import { LoginComponent } from './login/login.component';
+import { NovaSenhaComponent } from './login/nova-senha/nova-senha.component';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
+import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
 import { ProfissionaisModule } from './profissionais/profissionais.module';
 import { ProfissionalService } from './services/profissional.service';
@@ -55,8 +57,10 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     ContaComponent,
     EsperaConfirmacaoEmailComponent,
     ConfirmacaoCadastroComponent,
+    ConfirmacaoNovaSenhaComponent,
     LoginComponent,
-    EsqueciMinhaSenhaComponent
+    EsqueciMinhaSenhaComponent,
+    NovaSenhaComponent
   ],
   imports: [
     BrowserModule,

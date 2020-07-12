@@ -34,7 +34,7 @@
                   </div>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <div class="input-group">
+                  <div class="input-group" [ngClass]="validationHas.validation(loginForm.controls.password)">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="material-icons">lock_outline</i>
@@ -44,7 +44,7 @@
                   </div>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <div class="input-group">
+                  <div class="input-group" [ngClass]="validationHas.validation(loginForm.controls.confirmarPassword)">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="material-icons">lock_outline</i>
