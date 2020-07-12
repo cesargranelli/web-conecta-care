@@ -11,22 +11,22 @@
           </div>
           <div class="wizard-navigation">
             <ul class="nav nav-pills nav-fill">
-              <li class="nav-item" style="width: 25%;" id="paciente" #paciente (click)="setRole(paciente.id)">
+              <li class="nav-item" style="width: 25%;" id="pacientes" #paciente (click)="setRole(paciente.id)">
                 <a class="nav-link active" href="#login" data-toggle="tab" role="tab">
                   Paciente
                 </a>
               </li>
-              <li class="nav-item" style="width: 25%;" id="profissional" #profissional (click)="setRole(profissional.id)">
+              <li class="nav-item" style="width: 25%;" id="profissionais" #profissional (click)="setRole(profissional.id)">
                 <a class="nav-link" href="#login" data-toggle="tab" role="tab">
                   Profissional
                 </a>
               </li>
-              <li class="nav-item" style="width: 25%;" id="homecare" #homecare (click)="setRole(homecare.id)">
+              <li class="nav-item" style="width: 25%;" id="homecares" #homecare (click)="setRole(homecare.id)">
                 <a class="nav-link" href="#login" data-toggle="tab" role="tab">
                   Homecare
                 </a>
               </li>
-              <li class="nav-item" style="width: 25%;" id="convenio" #convenio (click)="setRole(convenio.id)">
+              <li class="nav-item" style="width: 25%;" id="convenios" #convenio (click)="setRole(convenio.id)">
                 <a class="nav-link" href="#login" data-toggle="tab" role="tab">
                   Plano de Saúde
                 </a>
@@ -60,7 +60,7 @@
                         </div>
                       </div>
                       <div class="form-row justify-content-center form-control-lg" [ngClass]="inputHas.validation(loginForm.controls.password)">
-                        <div class="col-lg-8 col-md-8">
+                        <div class="col-lg-6 col-md-8">
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">

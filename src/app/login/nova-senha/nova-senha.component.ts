@@ -1,16 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, Navigation } from '@angular/router';
+import { Navigation, Router } from '@angular/router';
 import { NovaSenha } from 'src/app/classes/nova-senha';
+import { Perfil } from 'src/app/classes/perfil';
+import { Valid } from 'src/app/services/feat/Valid';
 import { LoginService } from 'src/app/services/login.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
 import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { ResponseApi } from 'src/app/services/feat/response-api';
-import { Valid } from 'src/app/services/feat/Valid';
-import { Perfil } from 'src/app/classes/perfil';
 
 @Component({
   selector: 'app-nova-senha',
@@ -67,7 +66,7 @@ export class NovaSenhaComponent implements OnInit {
         console.log(response.headers);
         this._loading.emitChange(false);
         let perfil = new Perfil(this._valid.role);
-        this._router.navigateByUrl(`${perfil.getRole()}/${this._valid.id}`, {
+        this._router.navigateByUrl(`${perfil.getPerfil()}/${this._valid.id}`, {
           state: { valid: this._valid }
         });
       });

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EsqueciMinhaSenha } from 'src/app/classes/esqueci-senha';
-import { LoginService } from 'src/app/services/login.service';
 import { SharedLoadingService } from '../../shared/services/shared-loading.service';
 import { InputValidation } from '../../shared/validations/input-validation';
 import { InputValidationHas } from '../../shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-esqueci-minha-senha',

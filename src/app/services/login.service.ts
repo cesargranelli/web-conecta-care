@@ -7,6 +7,7 @@ import { NovaSenha } from '../classes/nova-senha';
 import { ResponseApi } from './feat/response-api';
 import { Authorization } from './feat/token';
 import { TokenService } from './token.service';
+import { Login } from '../classes/login.class';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,11 @@ export class LoginService {
 
   constructor(private _http: HttpClient, private _tokenService: TokenService) {
     this._headers = this._headers.set('Token', 'Bearer ' + this._tokenService.getToken());
+  }
+
+  login(login: Login): Observable<HttpResponse<any>> {
+    return this._http.post<HttpResponse<ResponseApi>>(`${this._endpoint}`, login,
+      { headers: this._headers, observe: 'response' });
   }
 
   esqueciMinhaSenha(esqueciMinhaSenha: EsqueciMinhaSenha): Observable<HttpResponse<any>> {

@@ -8,7 +8,7 @@ export class Perfil {
     this.role = role;
   }
 
-  public getRole(): string {
+  public getPerfil(): string {
     return this.getContexto(this.role);
   }
 
