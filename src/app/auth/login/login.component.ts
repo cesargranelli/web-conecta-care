@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Login } from '../classes/login.class';
-import { Role } from '../classes/role';
-import { LoginService } from '../services/login.service';
-import { TokenService } from '../services/token.service';
-import { SharedLoadingService } from '../shared/services/shared-loading.service';
-import { InputValidation } from '../shared/validations/input-validation';
-import { InputValidationHas } from '../shared/validations/input-validation-has';
-import { SharedEventTokenService } from '../shared/services/shared-event-token.service';
+import { Login } from '../../classes/login.class';
+import { Role } from '../../classes/role';
+import { LoginService } from '../../services/login.service';
+import { TokenService } from '../../services/token.service';
+import { SharedLoadingService } from '../../shared/services/shared-loading.service';
+import { InputValidation } from '../../shared/validations/input-validation';
+import { InputValidationHas } from '../../shared/validations/input-validation-has';
+import { SharedEventTokenService } from '../../shared/services/shared-event-token.service';
 
 @Component({
   selector: 'app-login',

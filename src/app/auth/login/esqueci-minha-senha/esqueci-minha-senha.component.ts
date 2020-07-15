@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EsqueciMinhaSenha } from 'src/app/classes/esqueci-senha';
-import { SharedLoadingService } from '../../shared/services/shared-loading.service';
-import { InputValidation } from '../../shared/validations/input-validation';
-import { InputValidationHas } from '../../shared/validations/input-validation-has';
-import Swal from 'sweetalert2';
 import { LoginService } from 'src/app/services/login.service';
+import Swal from 'sweetalert2';
+import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
+import { InputValidation } from '../../../shared/validations/input-validation';
+import { InputValidationHas } from '../../../shared/validations/input-validation-has';
 
 @Component({
   selector: 'app-esqueci-minha-senha',
@@ -52,18 +52,15 @@ export class EsqueciMinhaSenhaComponent implements OnInit {
           position: 'center',
           icon: 'success',
           title: response.body.data.message,
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true
-        });
+          showConfirmButton: true
+        }).then(() => this._router.navigateByUrl(`login`));
       });
-    }, (error: Error) => {
-      console.log(error);
+    }, err => {
       this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
-        icon: 'success',
-        title: error.message,
+        icon: 'error',
+        title: err.error.data.message,
         showConfirmButton: true
       });
     });

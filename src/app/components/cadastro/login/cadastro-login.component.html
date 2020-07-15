@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-5 col-md-7 col-sm-9 ml-auto mr-auto">
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="cadastroLoginForm" (ngSubmit)="onSubmit()">
             <div class="card card-login">
               <div class="card-header card-header-rose text-center">
                 <div class="social-line">
@@ -34,7 +34,7 @@
                   </div>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <div class="input-group" [ngClass]="validationHas.validation(loginForm.controls.password)">
+                  <div class="input-group" [ngClass]="validationHas.validation(cadastroLoginForm.controls.password)">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="material-icons">lock_outline</i>
@@ -44,7 +44,7 @@
                   </div>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <div class="input-group" [ngClass]="validationHas.validation(loginForm.controls.confirmarPassword)">
+                  <div class="input-group" [ngClass]="validationHas.validation(cadastroLoginForm.controls.confirmarPassword)">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="material-icons">lock_outline</i>
@@ -64,7 +64,7 @@
                   <button type="button" class="btn btn-gray">Cancelar</button>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <button type="submit" class="btn btn-rose" [disabled]="!loginForm.valid || !captcha">Enviar</button>
+                  <button type="submit" class="btn btn-rose" [disabled]="!cadastroLoginForm.valid || !captcha">Enviar</button>
                 </span>
               </div>
             </div>

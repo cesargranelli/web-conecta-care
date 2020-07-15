@@ -17,7 +17,7 @@ import { InputValidationHas } from 'src/app/shared/validations/input-validation-
 export class CadastroLoginComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-  public loginForm: FormGroup;
+  public cadastroLoginForm: FormGroup;
   public captcha: boolean = false;
   public emailEnviado: boolean = false;
   public email: string;
@@ -35,7 +35,7 @@ export class CadastroLoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.loginForm = this._formBuilder.group({
+    this.cadastroLoginForm = this._formBuilder.group({
       email: ['', [
         Validators.required,
         Validators.email,
@@ -56,8 +56,8 @@ export class CadastroLoginComponent implements OnInit {
   onSubmit() {
     this._sharedLoadingService.emitChange(true);
     let login: Usuario = new Usuario(
-      this.loginForm.value.email,
-      this.loginForm.value.password,
+      this.cadastroLoginForm.value.email,
+      this.cadastroLoginForm.value.password,
       Role.Profissional
     );
 
@@ -89,7 +89,7 @@ export class CadastroLoginComponent implements OnInit {
 
   equalsEmail(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value == this.loginForm?.controls.email.value) {
+      if (control.value == this.cadastroLoginForm?.controls.email.value) {
         return null;
       } else {
         return { invalid: control.value }

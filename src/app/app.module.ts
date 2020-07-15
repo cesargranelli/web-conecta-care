@@ -8,6 +8,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { NgxMaskModule } from 'ngx-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthModule } from './auth/auth.module';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { CadastroLoginComponent } from './components/cadastro/login/cadastro-login.component';
 import { CadastroProfissionalComponent } from './components/cadastro/profissional/cadastro-profissional.component';
@@ -25,9 +26,6 @@ import { MenuComponent } from './components/menu/menu.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
 import { ConveniosModule } from './convenios/convenios.module';
 import { HomecaresModule } from './homecares/homecares.module';
-import { EsqueciMinhaSenhaComponent } from './login/esqueci-minha-senha/esqueci-minha-senha.component';
-import { LoginComponent } from './login/login.component';
-import { NovaSenhaComponent } from './login/nova-senha/nova-senha.component';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
 import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
@@ -57,10 +55,7 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     ContaComponent,
     EsperaConfirmacaoEmailComponent,
     ConfirmacaoCadastroComponent,
-    ConfirmacaoNovaSenhaComponent,
-    LoginComponent,
-    EsqueciMinhaSenhaComponent,
-    NovaSenhaComponent
+    ConfirmacaoNovaSenhaComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +69,8 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     ProfissionaisModule,
     PacientesModule,
     HomecaresModule,
-    ConveniosModule
+    ConveniosModule,
+    AuthModule
   ],
   providers: [
     ValidadorCpf,

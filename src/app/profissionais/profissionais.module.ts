@@ -5,12 +5,19 @@ import { ProfissionaisComponent } from './profissionais.component';
 import { DadosProfissionaisComponent } from './dados-profissionais/dados-profissionais.component';
 import { ProfissionalComponent } from './dados-profissionais/profissional/profissional.component';
 import { LoginComponent } from './dados-profissionais/profissional/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [ProfissionaisComponent, DadosProfissionaisComponent, ProfissionalComponent, LoginComponent],
+  declarations: [
+    ProfissionaisComponent,
+    DadosProfissionaisComponent,
+    ProfissionalComponent,
+    LoginComponent
+  ],
   imports: [
     ProfissionaisRoutingModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ]
 })
 export class ProfissionaisModule { }

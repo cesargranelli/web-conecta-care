@@ -26,7 +26,7 @@
                   </div>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <div class="input-group" [ngClass]="validationHas.validation(loginForm.controls.password)">
+                  <div class="input-group" [ngClass]="inputHas.validation(loginForm.controls.password)">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="material-icons">lock_outline</i>
@@ -36,7 +36,7 @@
                   </div>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <div class="input-group" [ngClass]="validationHas.validation(loginForm.controls.confirmarPassword)">
+                  <div class="input-group" [ngClass]="inputHas.validation(loginForm.controls.confirmarPassword)">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="material-icons">lock_outline</i>
@@ -56,7 +56,7 @@
                   <button type="button" class="btn btn-gray">Cancelar</button>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <button type="submit" class="btn btn-rose" [disabled]="!loginForm.valid || !captcha">Enviar</button>
+                  <button type="submit" class="btn btn-rose" [disabled]="!loginForm.valid">Enviar</button>
                 </span>
               </div>
             </form>
