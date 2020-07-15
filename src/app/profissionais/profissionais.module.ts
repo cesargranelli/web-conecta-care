@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ProfissionaisRoutingModule } from './profissionais-routing.module';
 import { ProfissionaisComponent } from './profissionais.component';
-
-const routes: Routes = [
-  { path: 'profissionais/:id', component: ProfissionaisComponent }
-];
+import { DadosProfissionaisComponent } from './dados-profissionais/dados-profissionais.component';
+import { ProfissionalComponent } from './dados-profissionais/profissional/profissional.component';
+import { LoginComponent } from './dados-profissionais/profissional/login/login.component';
 
 @NgModule({
-  declarations: [ProfissionaisComponent],
+  declarations: [ProfissionaisComponent, DadosProfissionaisComponent, ProfissionalComponent, LoginComponent],
   imports: [
-    RouterModule.forChild(routes),
+    ProfissionaisRoutingModule,
     CommonModule
   ]
 })

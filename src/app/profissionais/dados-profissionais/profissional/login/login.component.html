@@ -1,0 +1,66 @@
+<div id="login" class="collapse" aria-labelledby="headingLogin" data-parent="#accordion">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5 col-md-7 col-sm-9 ml-auto mr-auto">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="card-body">
+                <p class="card-description text-center"></p>
+                <span class="bmd-form-group is-filled">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">email</i>
+                      </span>
+                    </div>
+                    <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                  </div>
+                </span>
+                <span class="bmd-form-group is-filled">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">email</i>
+                      </span>
+                    </div>
+                    <input type="email" class="form-control" formControlName="confirmarEmail" placeholder="Confirmar Email">
+                  </div>
+                </span>
+                <span class="bmd-form-group is-filled">
+                  <div class="input-group" [ngClass]="validationHas.validation(loginForm.controls.password)">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">lock_outline</i>
+                      </span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                  </div>
+                </span>
+                <span class="bmd-form-group is-filled">
+                  <div class="input-group" [ngClass]="validationHas.validation(loginForm.controls.confirmarPassword)">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">lock_outline</i>
+                      </span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="confirmarPassword" placeholder="Confirmar Password">
+                  </div>
+                </span>
+              </div>
+              <div class="card-footer justify-content-center">
+                <span class="bmd-form-group is-filled">
+                  <!-- <app-basic-recaptcha (captcha)="setCaptcha($event)"></app-basic-recaptcha> -->
+                </span>
+              </div>
+              <div class="card-footer justify-content-between">
+                <span class="bmd-form-group is-filled">
+                  <button type="button" class="btn btn-gray">Cancelar</button>
+                </span>
+                <span class="bmd-form-group is-filled">
+                  <button type="submit" class="btn btn-rose" [disabled]="!loginForm.valid || !captcha">Enviar</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
