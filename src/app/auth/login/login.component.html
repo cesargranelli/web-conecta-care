@@ -38,7 +38,7 @@
               <div class="tab-pane active" id="login">
                 <div class="row justify-content-center">
                   <div class="col-lg-6 col-md-8">
-                    <h5 class="info-text">Preencha seus dados para as suas ferramentas</h5>
+                    <h5 class="info-text">Escolha a forma, insira seus dados e entre no sistema</h5>
                   </div>
                 </div>
                 <div class="row justify-content-center">
@@ -67,7 +67,8 @@
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input type="password" class="form-control" formControlName="password" placeholder="Password...">
+                            <input type="password" class="form-control" formControlName="password" placeholder="Password..."
+                            data-toggle="tooltip" data-placement="top" data-html="true" data-trigger="click" [title]="mensagemToolTip">
                           </div>
                           <span class="form-control-feedback">
                             <i class="material-icons">{{ input.validation(loginForm.controls.password) }}</i>

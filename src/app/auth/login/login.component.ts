@@ -25,6 +25,13 @@ export class LoginComponent implements OnInit {
   public inputHas: InputValidationHas = new InputValidationHas();
   public perfil: string = 'pacientes';
 
+  public mensagemToolTip = `<div style="font-size:70%;">Mínimo de 8 caracteres<br>
+  Máximo de 20 caracteres<br>
+  Ao menos 1 letra maiúscula<br>
+  Ao menos 1 letra minúscula<br>
+  Ao menos 1 número<br>
+  Ao menos 1 caracter especial</div>`;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _service: LoginService,

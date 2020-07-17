@@ -236,3 +236,7 @@ $(document).ready(function () {
     $('.card.card-wizard').addClass('active');
   }, 600);
 });
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
