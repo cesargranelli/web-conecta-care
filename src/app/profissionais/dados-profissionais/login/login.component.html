@@ -1,0 +1,94 @@
+<div class="wrapper wrapper-full-page">
+  <div class="page-header login-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-md-7 col-sm-9 ml-auto mr-auto">
+          <form [formGroup]="cadastroLoginForm" (ngSubmit)="onSubmit()">
+            <div class="card card-login">
+              <div class="card-header card-header-rose text-center">
+                <div class="social-line">
+                  <i class="material-icons">fingerprint</i>
+                  <h4 class="card-title">Informações de Login</h4>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-8 ml-auto mr-auto">
+                <p class="card-description text-center"></p>
+                <div class="form-row justify-content-center form-control-lg">
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="input-group" [ngClass]="inputHas.validation(cadastroLoginForm.controls.email)">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">email</i>
+                        </span>
+                      </div>
+                      <input type="email" class="form-control" formControlName="email" placeholder="Email" autocomplete="false">
+                      <span class="form-control-feedback">
+                        <i class="material-icons">{{ input.validation(cadastroLoginForm.controls.email) }}</i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row justify-content-center form-control-lg">
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="input-group" [ngClass]="inputHas.validation(cadastroLoginForm.controls.confirmarEmail)">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">email</i>
+                        </span>
+                      </div>
+                      <input type="email" class="form-control" formControlName="confirmarEmail" placeholder="Confirmar Email" autocomplete="false">
+                      <span class="form-control-feedback">
+                        <i class="material-icons">{{ input.validation(cadastroLoginForm.controls.confirmarEmail) }}</i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row justify-content-center form-control-lg">
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="input-group" [ngClass]="inputHas.validation(cadastroLoginForm.controls.password)">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">lock_outline</i>
+                        </span>
+                      </div>
+                      <input type="password" class="form-control" formControlName="password" placeholder="Password"
+                        data-toggle="tooltip" data-placement="top" data-html="true" data-trigger="click" [title]="mensagemToolTip">
+                      <span class="form-control-feedback">
+                        <i class="material-icons">{{ input.validation(cadastroLoginForm.controls.password) }}</i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row justify-content-center form-control-lg">
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="input-group" [ngClass]="inputHas.validation(cadastroLoginForm.controls.confirmarPassword)">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">lock_outline</i>
+                        </span>
+                      </div>
+                      <input type="password" class="form-control" formControlName="confirmarPassword" placeholder="Confirmar Password"
+                      data-toggle="tooltip" data-placement="top" data-html="true" data-trigger="click" [title]="mensagemToolTip">
+                      <span class="form-control-feedback">
+                        <i class="material-icons">{{ input.validation(cadastroLoginForm.controls.confirmarPassword) }}</i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer justify-content-between">
+                <span class="bmd-form-group is-filled">
+                  <button type="button" class="btn btn-gray" [routerLink]="['/']">Cancelar</button>
+                </span>
+                <span class="bmd-form-group is-filled">
+                  <button type="submit" class="btn btn-rose" [disabled]="!cadastroLoginForm.valid || !captcha">Enviar</button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

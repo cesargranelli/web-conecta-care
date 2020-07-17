@@ -1,0 +1,65 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">account_balance</i>
+            <h3 class="card-title">
+              Informações Bancárias
+            </h3>
+          </div>
+          <form [formGroup]="contaForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="row">
+                  <label for="tipo" class="col-lg-3 col-md-3 col-form-label">Tipo conta bancária *</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <select class="custom-select" formControlName="tipo" data-style="btn btn-primary btn-round" data-width="100%" title="Tipo">
+                      <option disabled selected>Selecione</option>
+                      <option [ngValue]="tipoConta" *ngFor="let tipoConta of tipoContas">{{ tipoConta.codigo }} - {{ tipoConta.descricao }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="banco" class="col-lg-3 col-md-3 col-form-label">Banco conta *</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <select class="custom-select" formControlName="banco" data-style="btn btn-primary btn-round" data-width="100%" title="Instrução">
+                      <option disabled selected>Selecione</option>
+                      <option [ngValue]="banco" *ngFor="let banco of bancos">{{ banco.codigo }} - {{ banco.descricao }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="agencia" class="col-lg-3 col-md-3 col-form-label">Nº Agência *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(contaForm.controls?.agencia)">
+                    <input type="text" class="form-control" name="agencia" formControlName="agencia" mask="9{5}">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="numero" class="col-lg-3 col-md-3 col-form-label">Nº Conta *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(contaForm.controls?.numero)">
+                    <input type="text" class="form-control" name="numero" formControlName="numero" mask="9{12}">
+                  </div>
+                  <label for="digito" class="col-lg-3 col-md-3 col-form-label">Nº Dígito Conta *</label>
+                  <div class="form-group col-lg-2 col-md-8" [ngClass]="validationHas.validation(contaForm.controls?.digito)">
+                    <input type="text" class="form-control" name="digito" formControlName="digito" mask="9{2}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer justify-content-between">
+              <span class="bmd-form-group is-filled">
+                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
+                <button type="button" class="btn btn-gray" (click)="contaForm.reset()">Limpar</button>
+              </span>
+              <span class="bmd-form-group is-filled">
+                <button type="submit" class="btn btn-rose" [disabled]="!contaForm.valid">Avançar</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,23 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CarreiraComponent } from './dados-profissionais/carreira/carreira.component';
+import { ComplementoComponent } from './dados-profissionais/complemento/complemento.component';
+import { ContaComponent } from './dados-profissionais/conta/conta.component';
+import { ContatoComponent } from './dados-profissionais/contato/contato.component';
+import { DadosProfissionaisComponent } from './dados-profissionais/dados-profissionais.component';
+import { EnderecoComponent } from './dados-profissionais/endereco/endereco.component';
+import { EscolaridadeComponent } from './dados-profissionais/escolaridade/escolaridade.component';
+import { ExperienciaComponent } from './dados-profissionais/experiencia/experiencia.component';
+import { LoginComponent } from './dados-profissionais/login/login.component';
+import { ProfissionalComponent } from './dados-profissionais/profissional/profissional.component';
 import { ProfissionaisRoutingModule } from './profissionais-routing.module';
 import { ProfissionaisComponent } from './profissionais.component';
-import { DadosProfissionaisComponent } from './dados-profissionais/dados-profissionais.component';
-import { ProfissionalComponent } from './dados-profissionais/profissional/profissional.component';
-import { LoginComponent } from './dados-profissionais/profissional/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     ProfissionaisComponent,
     DadosProfissionaisComponent,
     ProfissionalComponent,
-    LoginComponent
+    LoginComponent,
+    ProfissionalComponent,
+    EnderecoComponent,
+    ContatoComponent,
+    CarreiraComponent,
+    ExperienciaComponent,
+    EscolaridadeComponent,
+    ComplementoComponent,
+    ContaComponent
   ],
   imports: [
-    ProfissionaisRoutingModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ProfissionaisRoutingModule
   ]
 })
 export class ProfissionaisModule { }
