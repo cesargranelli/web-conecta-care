@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { CadastroLoginComponent } from './components/cadastro/login/cadastro-login.component';
-import { CadastroProfissionalComponent } from './components/cadastro/profissional/cadastro-profissional.component';
 import { CarreiraComponent } from './components/cadastro/profissional/carreira/carreira.component';
 import { ComplementoComponent } from './components/cadastro/profissional/complemento/complemento.component';
 import { EscolaridadeComponent } from './components/cadastro/profissional/escolaridade/escolaridade.component';
@@ -43,7 +42,6 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     ConnectaComponent,
     CadastroComponent,
     CadastroLoginComponent,
-    CadastroProfissionalComponent,
     BasicRecaptchaComponent,
     InformacoesGeraisComponent,
     EnderecoComponent,

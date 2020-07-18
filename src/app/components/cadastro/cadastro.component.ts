@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NO_CONTENT } from 'http-status-codes';
@@ -6,10 +6,11 @@ import { ConvenioService } from 'src/app/services/convenio.service';
 import { HomecareService } from 'src/app/services/homecare.service';
 import { DoumentoService } from 'src/app/services/interfaces/documento-interface.service';
 import { PacienteService } from 'src/app/services/paciente.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedStatusPageService } from 'src/app/shared/services/shared-status-page.service';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import { InputValidation } from '../../shared/validations/input-validation';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -38,7 +39,8 @@ export class CadastroComponent implements OnInit {
     private _homecareService: HomecareService,
     private _convenioService: ConvenioService,
     private _router: Router,
-    private _sharedLoagingService: SharedLoadingService
+    private _sharedLoagingService: SharedLoadingService,
+    private _status: SharedStatusPageService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,11 @@ export class CadastroComponent implements OnInit {
     this.convenioForm = this._formBuilder.group({
       cnpj: ['', [Validators.required, validCnpj()]],
     });
+
+    if (this._status.hasLoadControl()) {
+      this._status.removeLoadControl();
+      document.location.reload();
+    }
   }
 
   onSubmit_(form: FormGroup) {
@@ -99,6 +106,10 @@ export class CadastroComponent implements OnInit {
       });
     }
 
+  }
+
+  ngOnDestroy() {
+    this._status.setLoadControl('load');
   }
 
 }
