@@ -1,0 +1,45 @@
+<div class="wrapper wrapper-full-page">
+  <div class="page-header login-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-md-7 ml-auto mr-auto">
+          <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+            <div class="card card-login">
+              <div class="card-header card-header-rose text-center">
+                <div class="social-line">
+                  <h4 class="card-title">{{ cardTitle }}</h4>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-row justify-content-center">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">email</i>
+                    </span>
+                  </div>
+                  <div class="col-sm-10">
+                    <div class="form-group bmd-form-group" [ngClass]="inputHas.validation(emailForm.controls.email)">
+                      <input type="email" class="form-control" formControlName="email" placeholder="Email...">
+                      <span class="form-control-feedback">
+                        <i class="material-icons">{{ input.validation(emailForm.controls.email) }}</i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+               </div>
+              <div class="card-footer justify-content-center">
+                <div class="form-row">
+                  <div class="form-group">
+                    <button type="submit" [disabled]="!emailForm.valid" class="btn btn-rose"
+                      [ngClass]="!emailForm.valid ? 'btn-link' : ''" (click)="onSubmit()">Enviar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
