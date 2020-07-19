@@ -39,7 +39,7 @@ export class CadastroComponent implements OnInit {
     private _homecareService: HomecareService,
     private _convenioService: ConvenioService,
     private _router: Router,
-    private _sharedLoagingService: SharedLoadingService,
+    private _loading: SharedLoadingService,
     private _status: SharedStatusPageService
   ) {}
 
@@ -64,15 +64,17 @@ export class CadastroComponent implements OnInit {
   }
 
   onSubmit_(form: FormGroup) {
-    this._sharedLoagingService.emitChange(true);
-    this._documentoService.pesquisar(form.value).subscribe(response => {
-      this._sharedLoagingService.emitChange(false);
-      if (response.status===NO_CONTENT) {
-        this._router.navigateByUrl('cadastro/login');
+    this._loading.emitChange(true);
+    this._documentoService.registrar(form.value).subscribe(response => {
+      this._loading.emitChange(false);
+      if (response.body.data?.id != undefined) {
+        this._router.navigateByUrl(`cadastro/login`, {
+          state: { register: response.body.data }
+        });
       } else {
         this.profissionalJaCadastrado = true;
       }
-    }, error => this._sharedLoagingService.emitChange(false));
+    }, error => this._loading.emitChange(false));
   }
 
   onSubmit() {
