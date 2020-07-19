@@ -6,7 +6,7 @@
           <div class="card-header card-header-rose text-center">
             <i class="material-icons">info</i>
             <h3 class="card-title">
-              Informações Gerais
+              Conclusão do cadastro dos seus dados
             </h3>
           </div>
           <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit()" class="form-horizontal">
@@ -25,11 +25,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="cpf" class="col-lg-2 col-md-3 col-form-label">CPF *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.cpf)">
-                    <input type="text" class="form-control" formControlName="cpf" mask="000.000.000-00">
-                  </div>
-                  <label for="dataNascimento" class="col-lg-3 col-md-3 col-form-label">Data Nascimento *</label>
+                  <label for="dataNascimento" class="col-lg-2 col-md-3 col-form-label">Data Nascimento *</label>
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.dataNascimento)">
                     <input type="text" class="form-control" formControlName="dataNascimento" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
                   </div>
@@ -37,7 +33,7 @@
                 <div class="row">
                   <label for="rg" class="col-lg-2 col-md-3 col-form-label">RG</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="rg" mask="009.009.009-09">
+                    <input type="text" class="form-control" formControlName="rg" mask="00.000.000-0" (blur)="lpadZero(profissionalForm.controls?.rg)">
                   </div>
                   <label for="rgEmissor" class="col-lg-3 col-md-3 col-form-label">Emissor</label>
                   <div class="form-group col-lg-3 col-md-8">
@@ -58,8 +54,8 @@
                   <label for="genero" class="col-lg-2 col-md-3 col-form-label">Sexo *</label>
                   <div class="form-group col-lg-3 col-md-8">
                     <select formControlName="genero" class="custom-select" data-style="btn btn-rose" data-width="100%" title="Gênero">
-                      <option disabled selected>Selecione</option>
-                      <option [ngValue]="genero" *ngFor="let genero of generos | async">{{ genero.descricao }}</option>
+                      <option disabled>Selecione</option>
+                      <option [ngValue]="genero" *ngFor="let genero of generos">{{ genero.descricao }}</option>
                     </select>
                   </div>
                   <label for="tipoEmpresa" class="col-lg-3 col-md-3 col-form-label">Tipo Empresa *</label>
@@ -94,30 +90,34 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="fotoProfissional" class="col-lg-2 col-md-3 col-form-label">Foto Profissional *</label>
-                  <div class="col-lg-3 col-md-8">
-                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                  <label for="fotoProfissional" class="col-lg-6 col-md-6 col-form-label">Foto da página da CPTS com sua foto *</label>
+                  <div class="col-lg-6 col-md-6">
+                    <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputProfissional">
+                      <div class="thumbnail img-circle img-raised" [ngClass]="fileInputProfissional">
+                        <img [src]="imagemFotoProfissional" rel="nofollow" alt="...">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised" style="max-width: 100px; max-height: 100px;"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Foto</span>
+                        <span class="fileinput-new">Foto Profissional</span>
                         <span class="fileinput-exists">Trocar</span>
-                        <input type="file" formControlName="fotoProfissional" (change)="onLoadFotoProfissional($event)">
+                        <input type="file" data-max-size="2" formControlName="fotoProfissional" (change)="onLoadFotoProfissional($event)">
                       </span>
-                      <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-                        <i class="fa fa-times"></i> Descartar
-                      </a>
                     </div>
                   </div>
-                  <label for="fotoRg" class="col-lg-3 col-md-3 col-form-label">Foto RG *</label>
-                  <div class="col-lg-3 col-md-8">
-                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                </div>
+                <div class="row">
+                  <label for="fotoRg" class="col-lg-6 col-md-6 col-form-label">Foto da parte da frente do seu RG *</label>
+                  <div class="col-lg-6 col-md-6">
+                    <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputRg">
+                      <div class="thumbnail img-circle img-raised" [ngClass]="fileInputRg">
+                        <img [src]="imagemFotoRg" rel="nofollow" alt="...">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised" style="max-width: 100px; max-height: 100px;"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
                         <span class="fileinput-new">Foto RG</span>
                         <span class="fileinput-exists">Trocar</span>
-                        <input type="file" formControlName="fotoRg" (change)="onLoadFotoRg($event)">
+                        <input type="file" data-max-size="2" formControlName="fotoRg" (change)="onLoadFotoRg($event)">
                       </span>
-                      <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-                        <i class="fa fa-times"></i> Descartar
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -125,7 +125,7 @@
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button type="button" class="btn btn-gray" (click)="profissionalForm.reset()">Limpar</button>
+                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
                 <button type="submit" class="btn btn-rose" [disabled]="!profissionalForm.valid">Avançar</button>

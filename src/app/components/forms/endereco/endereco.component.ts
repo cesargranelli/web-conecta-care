@@ -49,7 +49,7 @@ export class EnderecoComponent implements OnInit {
     this._sharedLoadingService.emitChange(true);
 
     if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
-      this._router.navigateByUrl('/');
+      // this._router.navigateByUrl('/');
     }
 
     this._dominioService.getEstados().subscribe(response => {

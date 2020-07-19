@@ -33,7 +33,7 @@ export class ConfirmacaoCadastroComponent implements OnInit {
       this.authorization.token = value.token;
       this._tokenService.setToken(value.token);
       this._cadastroService.validar(this.authorization).subscribe(response => {
-        this.valid = response.body;
+        this.valid = response.body.data;
         setTimeout(() => {
           if (this.valid != null) {
             console.log(`Perfil do usuário: ${this.valid.role}`);

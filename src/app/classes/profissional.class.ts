@@ -3,7 +3,7 @@ import { Genero } from './genero.class';
 import { TipoEmpresa } from './tipo-empresa.class';
 
 export class Profissional {
-  cpf: Number;
+  id: number;
   nome: String;
   sobrenome: String;
   dataNascimento: Date;
@@ -17,6 +17,6 @@ export class Profissional {
   cnpj: Number;
   ctps: Number;
   ctpsSerie: Number;
-  fotoProfissional: String;
-  fotoRg: String;
+  fotoProfissional: any;
+  fotoRg: any;
 }

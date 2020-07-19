@@ -30,9 +30,10 @@ export class DominioService {
     this._headers = this._headers.set('Token', 'Bearer ' + this._tokenService.getToken());
   }
 
-  getGeneros(): Observable<Genero[]> {
-    return this._http.get<Genero[]>(`${this.endpoint}/genero`, { headers: this._headers });
-  }
+  getGeneros(): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<Genero[]>>(`${this.endpoint}/genero`,
+    { headers: this._headers, observe: 'response' });
+}
 
   getTipoEmpresas(): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<TipoEmpresa[]>>(`${this.endpoint}/tipo-empresa`,
