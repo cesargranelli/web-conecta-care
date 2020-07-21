@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Navigation, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { EstadoCivil } from 'src/app/classes/estado-civil.class';
 import { Genero } from 'src/app/classes/genero.class';
 import { Profissional } from 'src/app/classes/profissional.class';
@@ -16,6 +15,8 @@ import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.dire
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-informacoes-gerais',
   templateUrl: './informacoes-gerais.component.html',
@@ -27,7 +28,7 @@ export class InformacoesGeraisComponent implements OnInit {
 
   public profissionalForm: FormGroup;
 
-  public generos: Observable<Genero[]>;
+  public generos: Genero[];
   public tipoEmpresas: TipoEmpresa[];
   public estadoCivis: EstadoCivil[];
 
@@ -43,6 +44,11 @@ export class InformacoesGeraisComponent implements OnInit {
   public fileInputRg: string = 'fileinput-new';
   public imagemFotoProfissional: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
   public imagemFotoRg: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
+
+  teste: boolean = false;
+  generoId: number;
+  tipoEmpresaId: number;
+  estadoCivilId: number;
 
   constructor(
     private _router: Router,
@@ -65,12 +71,26 @@ export class InformacoesGeraisComponent implements OnInit {
 
     this._dominioService.getGeneros().subscribe(response => {
       this.generos = response.body;
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='genero']").selectpicker("refresh");
+      })
     });
+
     this._dominioService.getTipoEmpresas().subscribe(response => {
       this.tipoEmpresas = response.body;
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='tipoEmpresa']").selectpicker('refresh');
+      })
     });
+
     this._dominioService.getEstadoCivis().subscribe(response => {
       this.estadoCivis = response.body;
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='estadoCivil']").selectpicker('refresh');
+      })
     });
 
     this.profissionalForm = this._formBuilder.group({
@@ -92,6 +112,7 @@ export class InformacoesGeraisComponent implements OnInit {
     });
 
     this._loading.emitChange(false);
+
     if (this._cadastro.profissional?.fotoProfissional) {
       this.imagemFotoProfissional = this._cadastro.profissional?.fotoProfissional;
       this.fileInputProfissional = 'fileinput-exists';
@@ -100,6 +121,11 @@ export class InformacoesGeraisComponent implements OnInit {
       this.imagemFotoRg = this._cadastro.profissional?.fotoRg;
       this.fileInputRg = 'fileinput-exists';
     }
+
+    this.generoId = this._cadastro.profissional?.genero.id;
+    this.tipoEmpresaId = this._cadastro.profissional?.tipoEmpresa.id;
+    this.estadoCivilId = this._cadastro.profissional?.estadoCivil.id;
+
   }
 
   onLoadFotoProfissional(event: any) {
@@ -122,7 +148,7 @@ export class InformacoesGeraisComponent implements OnInit {
 
   onSubmit() {
     let profissional: Profissional = this.profissionalForm.value;
-    profissional.id = Number(String(this.valid.id));
+    profissional.id = 29;//Number(String(this.valid.id));
 
     profissional.fotoProfissional = this.fotoProfissional;
     profissional.fotoRg = this.fotoRg;
@@ -156,7 +182,7 @@ export class InformacoesGeraisComponent implements OnInit {
 
   limpar() {
     this.profissionalForm.reset();
-    $('.fileinput').fileinput('clear');
+    jQuery('.fileinput').fileinput('clear');
   }
 
 }

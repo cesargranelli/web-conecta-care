@@ -15,7 +15,7 @@
       "es2018",
       "dom"
     ],
-    "noImplicitAny": false
+    "noImplicitAny": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
