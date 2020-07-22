@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { CadastroService } from 'src/app/services/cadastro.service';
 import { Authorization } from 'src/app/services/feat/token';
-import { Valid } from 'src/app/services/feat/Valid';
-import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/services/token.service';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-confirmacao-cadastro',
@@ -14,15 +14,15 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class ConfirmacaoCadastroComponent implements OnInit {
 
-  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
-  public loading = true;
-  public loadingTemplate: TemplateRef<any>;
-  public authorization: Authorization = new Authorization();
-  public valid: Valid;
+  loading = true;
+  loadingTemplate: TemplateRef<any>;
+  authorization: Authorization = new Authorization();
 
   constructor(
     private _activateRoute: ActivatedRoute,
+    private _validService: ValidService,
     private _tokenService: TokenService,
     private _router: Router,
     private _cadastroService: CadastroService
@@ -33,13 +33,12 @@ export class ConfirmacaoCadastroComponent implements OnInit {
       this.authorization.token = value.token;
       this._tokenService.setToken(value.token);
       this._cadastroService.validar(this.authorization).subscribe(response => {
-        this.valid = response.body.data;
+        let valid = response.body.data;
+        this._validService.setValid(valid);
         setTimeout(() => {
-          if (this.valid != null) {
-            console.log(`Perfil do usuário: ${this.valid.role}`);
-            this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/informacoes-gerais`, {
-              state: { valid: this.valid }
-            });
+          if (valid != null) {
+            console.log(`Perfil do usuário: ${valid.role}`);
+            this._router.navigateByUrl(`cadastro/profissionais/${valid.id}/informacoes-gerais`);
           }
           this.loading = false;
         });

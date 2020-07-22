@@ -48,21 +48,21 @@
                 <div class="row">
                   <label for="comprovante" class="col-lg-2 col-md-3 col-form-label">Comprovante *</label>
                   <div class="col-lg-5 col-md-8">
-                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                    <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputComprovante">
+                      <div class="thumbnail img-circle img-raised" [ngClass]="fileInputComprovante">
+                        <img [src]="imagemComprovante" rel="nofollow" alt="...">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised" style="max-width: 100px; max-height: 100px;"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Selecionar imagem</span>
+                        <span class="fileinput-new">Selecionar comprovante</span>
                         <span class="fileinput-exists">Trocar</span>
-                        <input type="file" (change)="onLoad($event)" formControlName="comprovante">
+                        <input type="file" (change)="onLoadComprovante($event)" formControlName="comprovante">
                       </span>
-                      <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-                        <i class="fa fa-times"></i> Descartar
-                      </a>
                     </div>
                   </div>
                   <label for="estado" class="col-lg-1 col-md-3 col-form-label">UF *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="custom-select" formControlName="estado" data-style="btn btn-rose" data-width="100%" title="Gênero">
-                      <option disabled selected>Selecione</option>
+                    <select class="selectpicker" formControlName="estado" id="estado" data-style="btn btn-primary" data-width="100%" title="Estado">
                       <option [ngValue]="estado" *ngFor="let estado of estados">{{ estado.uf }}</option>
                     </select>
                   </div>
@@ -72,7 +72,7 @@
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
                 <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-                <button type="button" class="btn btn-gray" (click)="enderecoForm.reset()">Limpar</button>
+                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
                 <button type="submit" class="btn btn-rose" [disabled]="!enderecoForm.valid">Avançar</button>

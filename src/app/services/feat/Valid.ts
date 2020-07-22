@@ -1,7 +1,7 @@
 import { Role } from 'src/app/enums/role.enum';
 
 export interface Valid {
-  token: String;
+  email: string;
   role: Role;
-  id: Number;
+  id: number;
 }

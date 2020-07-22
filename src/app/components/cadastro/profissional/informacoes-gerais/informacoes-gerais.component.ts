@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Navigation, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { EstadoCivil } from 'src/app/classes/estado-civil.class';
 import { Genero } from 'src/app/classes/genero.class';
 import { Profissional } from 'src/app/classes/profissional.class';
@@ -11,6 +11,7 @@ import { DominioService } from 'src/app/services/dominio.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { ProfissionalService } from 'src/app/services/profissional.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
@@ -52,14 +53,14 @@ export class InformacoesGeraisComponent implements OnInit {
 
   constructor(
     private _router: Router,
+    private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _service: ProfissionalService,
     private _dominioService: DominioService,
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this.valid = navigation.extras.state?.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
@@ -147,20 +148,18 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   onSubmit() {
+    this._loading.emitChange(true);
     let profissional: Profissional = this.profissionalForm.value;
-    profissional.id = 29;//Number(String(this.valid.id));
+    profissional.id = this.valid.id;
 
     profissional.fotoProfissional = this.fotoProfissional;
     profissional.fotoRg = this.fotoRg;
 
     this._service.save(profissional).subscribe(response => {
-      this._loading.emitChange(true);
       this.valid.id = response.body.profissionalId;
       setTimeout(() => {
         this._cadastro.profissional = profissional;
-        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/endereco`, {
-          state: { valid: this.valid }
-        });
+        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/endereco`);
         this._loading.emitChange(false);
       });
     },
@@ -183,6 +182,7 @@ export class InformacoesGeraisComponent implements OnInit {
   limpar() {
     this.profissionalForm.reset();
     jQuery('.fileinput').fileinput('clear');
+    jQuery(".selectpicker").selectpicker('refresh');
   }
 
 }
