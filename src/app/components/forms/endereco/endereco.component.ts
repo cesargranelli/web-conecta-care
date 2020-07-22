@@ -49,7 +49,7 @@ export class EnderecoComponent implements OnInit {
     this._sharedLoadingService.emitChange(true);
 
     if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
-      // this._router.navigateByUrl('/');
+      this._router.navigateByUrl('/');
     }
 
     this._dominioService.getEstados().subscribe(response => {
@@ -114,9 +114,8 @@ export class EnderecoComponent implements OnInit {
   }
 
   onReturn() {
-    // this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/informacoes-gerais`, {
-    this._router.navigateByUrl(`cadastro/profissionais/29/informacoes-gerais`, {
-      // state: { valid: this._valid }
+    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/informacoes-gerais`, {
+      state: { valid: this._valid }
     });
   }
 
