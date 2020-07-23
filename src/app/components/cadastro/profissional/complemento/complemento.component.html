@@ -39,22 +39,22 @@
                 <div class="row">
                   <label for="categoriaCNH" class="col-lg-2 col-md-3 col-form-label">Categoria *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="custom-select" formControlName="categoriaCNH" data-style="btn btn-primary btn-round" data-width="100%" title="Instrução">
-                      <option disabled selected>Selecione</option>
+                    <select class="selectpicker" id="categoriaCNH" formControlName="categoriaCNH" data-style="btn btn-primary" data-width="100%" title="Selecione">
                       <option [ngValue]="categoriaCNH" *ngFor="let categoriaCNH of categoriasCNH">{{ categoriaCNH.sigla }}</option>
                     </select>
                   </div>
                   <label for="fotoCNH" class="col-lg-2 col-md-3 col-form-label">Foto CNH *</label>
                   <div class="col-lg-5 col-md-3">
-                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                    <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputFotoCNH">
+                      <div class="thumbnail img-circle img-raised" [ngClass]="fileInputFotoCNH">
+                        <img [src]="imagemFotoCNH" rel="nofollow" alt="...">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised" style="max-width: 100px; max-height: 100px;"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Selecionar imagem</span>
+                        <span class="fileinput-new">Foto CNH</span>
                         <span class="fileinput-exists">Trocar</span>
                         <input type="file" formControlName="fotoCNH" (change)="onLoadFotoCNH($event)">
                       </span>
-                      <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-                        <i class="fa fa-times"></i> Descartar
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -116,7 +116,7 @@
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
                 <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-                <button type="button" class="btn btn-gray" (click)="complementoForm.reset()">Limpar</button>
+                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
                 <button type="submit" class="btn btn-rose" [disabled]="!complementoForm.valid">Avançar</button>

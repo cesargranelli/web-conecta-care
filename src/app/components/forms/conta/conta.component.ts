@@ -12,6 +12,9 @@ import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-conta',
@@ -24,8 +27,8 @@ export class ContaComponent implements OnInit {
 
   contaForm: FormGroup;
 
-  private _valid: Valid;
-  private _conta: Conta = new Conta();
+  private valid: Valid;
+  private conta: Conta = new Conta();
 
   public tipoContas: TipoConta[];
   public bancos: Banco[];
@@ -33,28 +36,36 @@ export class ContaComponent implements OnInit {
 
   constructor(
     private _router: Router,
+    private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: ContaService,
-    private _sharedLoadingService: SharedLoadingService,
+    private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this._valid = navigation.extras.state?.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
 
-    if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
+    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
     this._dominioService.getTipoContas().subscribe(response => {
       this.tipoContas = response.body
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='tipoConta']").selectpicker('refresh');
+      })
     });
 
     this._dominioService.getBancos().subscribe(response => {
       this.bancos = response.body
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='banco']").selectpicker('refresh');
+      })
     });
 
     this.contaForm = this._formBuilder.group({
@@ -68,14 +79,14 @@ export class ContaComponent implements OnInit {
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
-    this._conta = this.contaForm.value;
+    this._loading.emitChange(true);
+    this.conta = this.contaForm.value;
 
-    this._conta.proprietarioId = this._valid.id;
+    this.conta.proprietarioId = this.valid.id;
 
-    this._service.save(this._conta).subscribe(response => {
+    this._service.save(this.conta).subscribe(response => {
       setTimeout(() => {
-        this._sharedLoadingService.emitChange(false);
+        this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -83,15 +94,13 @@ export class ContaComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
-        this._cadastro.conta = this._conta;
-        this._router.navigateByUrl(`profissionais/${this._valid.id}`, {
-          state: { valid: this._valid }
-        });
-        this._sharedLoadingService.emitChange(false);
+        this._cadastro.conta = this.conta;
+        this._router.navigateByUrl(`profissionais/${this.valid.id}`);
+        this._loading.emitChange(false);
       });
     },
     (error: Error) => {
-      this._sharedLoadingService.emitChange(false);
+      this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -103,9 +112,12 @@ export class ContaComponent implements OnInit {
   }
 
   onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/complemento`, {
-      state: { valid: this._valid }
-    });
+    this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/complemento`);
+  }
+
+  limpar() {
+    this.contaForm.reset();
+    jQuery(".selectpicker").selectpicker('refresh');
   }
 
 }

@@ -11,6 +11,9 @@ import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-complemento',
@@ -23,34 +26,45 @@ export class ComplementoComponent implements OnInit {
 
   complementoForm: FormGroup;
 
-  private _valid: Valid;
-  private _complemento: Complemento = new Complemento();
-  private _extensaoFotoCNH: string;
+  private valid: Valid;
+  private complemento: Complemento = new Complemento();
+  private extensaoFotoCNH: string;
+  private fileFotoCNH: File;
 
   public categoriasCNH: CategoriaCNH[];
   public fotoCNH: any;
   public validationHas: InputValidationHas = new InputValidationHas();
 
+  public fotoProfissional: any;
+  public fotoRg: any;
+
+  public fileInputFotoCNH: string = 'fileinput-new';
+  public imagemFotoCNH: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
+
   constructor(
     private _router: Router,
+    private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: ComplementoService,
     private _sharedLoadingService: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this._valid = navigation.extras.state?.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
 
-    if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
+    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
     this._dominioService.getCategoriasCNH().subscribe(response => {
       this.categoriasCNH = response.body
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='categoriaCNH']").selectpicker('refresh');
+      })
     });
 
     this.complementoForm = this._formBuilder.group({
@@ -72,22 +86,25 @@ export class ComplementoComponent implements OnInit {
       carteiraVacinacao: ['', [Validators.required]],
     });
 
+    if (this._cadastro.complemento?.fotoCNH) {
+      this.imagemFotoCNH = this._cadastro.complemento?.fotoCNH;
+      this.fileInputFotoCNH = 'fileinput-exists';
+    }
+
   }
 
   onSubmit() {
     this._sharedLoadingService.emitChange(true);
-    this._complemento = this.complementoForm.value;
+    this.complemento = this.complementoForm.value;
 
-    this._complemento.fotoCNH = this._extensaoFotoCNH + this.fotoCNH;
+    this.complemento.fotoCNH = this.extensaoFotoCNH + this.fotoCNH;
 
-    this._complemento.proprietarioId = this._valid.id;
+    this.complemento.proprietarioId = this.valid.id;
 
-    this._service.save(this._complemento).subscribe(response => {
+    this._service.save(this.complemento).subscribe(response => {
       setTimeout(() => {
-        this._cadastro.complemento = this._complemento;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/conta`, {
-          state: { valid: this._valid }
-        });
+        this._cadastro.complemento = this.complemento;
+        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/conta`);
         this._sharedLoadingService.emitChange(false);
       });
     },
@@ -103,25 +120,24 @@ export class ComplementoComponent implements OnInit {
 
   }
 
-  onLoadFotoCNH(event:any) {
-    const file: File = event.target.files[0];
-    let type: string[] = file.type.split('/');
-    this._extensaoFotoCNH = type[1].padEnd(5, ' ');
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = this.handlerReaderLoadedProfissional.bind(this);
-      reader.readAsBinaryString(file);
-    }
-  }
-
-  handlerReaderLoadedProfissional(e:any) {
-    this.fotoCNH = btoa(e.target.result);
+  onLoadFotoCNH(event: any) {
+    this.fileFotoCNH = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileFotoCNH);
+    reader.onload = () => {
+      this.fotoCNH = reader.result;
+    };
   }
 
   onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/escolaridade`, {
-      state: { valid: this._valid }
-    });
+    this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/escolaridade`);
+  }
+
+  limpar() {
+    this.complementoForm.reset();
+    jQuery('.fileinput').fileinput('clear');
+    jQuery(".selectpicker").selectpicker('refresh');
+    this.imagemFotoCNH = '../../../../../assets/img/Headshot-Doc-1.png';
   }
 
 }

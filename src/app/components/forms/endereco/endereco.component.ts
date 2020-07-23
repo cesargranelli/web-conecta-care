@@ -124,9 +124,7 @@ export class EnderecoComponent implements OnInit {
   }
 
   onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/informacoes-gerais`, {
-      state: { valid: this.valid }
-    });
+    this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/informacoes-gerais`);
   }
 
   limpar() {
