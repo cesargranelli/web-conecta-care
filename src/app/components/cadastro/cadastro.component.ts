@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NO_CONTENT } from 'http-status-codes';
@@ -6,10 +6,11 @@ import { ConvenioService } from 'src/app/services/convenio.service';
 import { HomecareService } from 'src/app/services/homecare.service';
 import { DoumentoService } from 'src/app/services/interfaces/documento-interface.service';
 import { PacienteService } from 'src/app/services/paciente.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedStatusPageService } from 'src/app/shared/services/shared-status-page.service';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import { InputValidation } from '../../shared/validations/input-validation';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -38,7 +39,8 @@ export class CadastroComponent implements OnInit {
     private _homecareService: HomecareService,
     private _convenioService: ConvenioService,
     private _router: Router,
-    private _sharedLoagingService: SharedLoadingService
+    private _loading: SharedLoadingService,
+    private _status: SharedStatusPageService
   ) {}
 
   ngOnInit(): void {
@@ -54,18 +56,25 @@ export class CadastroComponent implements OnInit {
     this.convenioForm = this._formBuilder.group({
       cnpj: ['', [Validators.required, validCnpj()]],
     });
+
+    if (this._status.hasLoadControl()) {
+      this._status.removeLoadControl();
+      document.location.reload();
+    }
   }
 
   onSubmit_(form: FormGroup) {
-    this._sharedLoagingService.emitChange(true);
-    this._documentoService.pesquisar(form.value).subscribe(response => {
-      this._sharedLoagingService.emitChange(false);
-      if (response.status===NO_CONTENT) {
-        this._router.navigateByUrl('cadastro/login');
+    this._loading.emitChange(true);
+    this._documentoService.registrar(form.value).subscribe(response => {
+      this._loading.emitChange(false);
+      if (response.body.data?.id != undefined) {
+        this._router.navigateByUrl(`cadastro/login`, {
+          state: { register: response.body.data }
+        });
       } else {
         this.profissionalJaCadastrado = true;
       }
-    }, error => this._sharedLoagingService.emitChange(false));
+    }, error => this._loading.emitChange(false));
   }
 
   onSubmit() {
@@ -99,6 +108,10 @@ export class CadastroComponent implements OnInit {
       });
     }
 
+  }
+
+  ngOnDestroy() {
+    this._status.setLoadControl('load');
   }
 
 }

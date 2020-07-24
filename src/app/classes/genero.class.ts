@@ -1,5 +1,5 @@
 export class Genero {
-  id: Number;
-  tipo: String;
-  descricao: String;
+  id: number;
+  tipo: string;
+  descricao: string;
 }

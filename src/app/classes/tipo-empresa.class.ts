@@ -1,5 +1,5 @@
 export class TipoEmpresa {
-  id: Number;
-  sigla: String;
-  tipo: String;
+  id: number;
+  sigla: string;
+  tipo: string;
 }

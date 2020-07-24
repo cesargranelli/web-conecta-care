@@ -11,6 +11,9 @@ import Swal from 'sweetalert2';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-escolaridade',
@@ -23,32 +26,36 @@ export class EscolaridadeComponent implements OnInit {
 
   escolaridadeForm: FormGroup;
 
-  private _valid: Valid;
-  private _escolaridade: Escolaridade = new Escolaridade();
+  private valid: Valid;
+  private escolaridade: Escolaridade = new Escolaridade();
 
   public instrucoes: Instrucao[] = [];
   public validationHas: InputValidationHas = new InputValidationHas();
 
   constructor(
     private _router: Router,
+    private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: EscolaridadeService,
     private _sharedLoadingService: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this._valid = navigation.extras.state?.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
 
-    if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
+    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
     this._dominioService.getInstrucoes().subscribe(response => {
       this.instrucoes = response.body
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='instrucao']").selectpicker('refresh');
+      })
     });
 
     this.escolaridadeForm = this._formBuilder.group({
@@ -65,24 +72,22 @@ export class EscolaridadeComponent implements OnInit {
 
   onSubmit() {
     this._sharedLoadingService.emitChange(true);
-    this._escolaridade.instrucao = this.escolaridadeForm.value.instrucao;
+    this.escolaridade.instrucao = this.escolaridadeForm.value.instrucao;
 
-    this._escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino1);
-    this._escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino2);
-    this._escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino3);
+    this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino1);
+    this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino2);
+    this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino3);
 
-    this._escolaridade.anoConclusao.push(this.escolaridadeForm.value.anoConclusao1);
-    this._escolaridade.anoConclusao.push(this.escolaridadeForm.value.anoConclusao2);
-    this._escolaridade.anoConclusao.push(this.escolaridadeForm.value.anoConclusao3);
+    this.escolaridade.anoConclusao.push(this.escolaridadeForm.value.anoConclusao1);
+    this.escolaridade.anoConclusao.push(this.escolaridadeForm.value.anoConclusao2);
+    this.escolaridade.anoConclusao.push(this.escolaridadeForm.value.anoConclusao3);
 
-    this._escolaridade.proprietarioId = this._valid.id;
+    this.escolaridade.proprietarioId = this.valid.id;
 
-    this._service.save(this._escolaridade).subscribe(response => {
+    this._service.save(this.escolaridade).subscribe(response => {
       setTimeout(() => {
-        this._cadastro.escolaridade = this._escolaridade;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/complemento`, {
-          state: { valid: this._valid }
-        });
+        this._cadastro.escolaridade = this.escolaridade;
+        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/complemento`);
         this._sharedLoadingService.emitChange(false);
       });
     },
@@ -99,9 +104,12 @@ export class EscolaridadeComponent implements OnInit {
   }
 
   onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/experiencia`, {
-      state: { valid: this._valid }
-    });
+    this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/experiencia`);
+  }
+
+  limpar() {
+    this.escolaridadeForm.reset();
+    jQuery(".selectpicker").selectpicker('refresh');
   }
 
 }

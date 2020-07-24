@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Navigation, Router } from '@angular/router';
 import { Usuario } from 'src/app/classes/usuario.class';
 import { Role } from 'src/app/enums/role.enum';
+import { Registro } from 'src/app/services/feat/registro';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
@@ -35,12 +36,17 @@ export class CadastroLoginComponent implements OnInit {
   Ao menos 1 número<br>
   Ao menos 1 caracter especial</div>`;
 
+  private _registro: Registro;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _service: UsuarioService,
     private _router: Router,
     private _sharedLoadingService: SharedLoadingService
-  ) { }
+  ) {
+    const navigation: Navigation = this._router.getCurrentNavigation();
+    this._registro = navigation.extras.state?.register;
+  }
 
   ngOnInit(): void {
 
@@ -78,7 +84,8 @@ export class CadastroLoginComponent implements OnInit {
     let login: Usuario = new Usuario(
       this.cadastroLoginForm.value.email,
       this.cadastroLoginForm.value.password,
-      Role.Profissional
+      Role.Profissional,
+      this._registro.id
     );
 
     this._service.cadastrar(login).subscribe(response => {
@@ -100,10 +107,8 @@ export class CadastroLoginComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: 'success',
-      title: message,
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true
+      text: message,
+      showConfirmButton: true
     });
   }
 

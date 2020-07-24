@@ -14,6 +14,9 @@ import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-carreira',
@@ -25,8 +28,8 @@ export class CarreiraComponent implements OnInit {
   carreiraForm: FormGroup;
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-  private _valid: Valid;
-  private _carreira: Carreira;
+  private valid: Valid;
+  private carreira: Carreira;
 
   public conselhos: Conselho[];
   public estados: Estado[];
@@ -36,33 +39,52 @@ export class CarreiraComponent implements OnInit {
 
   constructor(
     private _router: Router,
+    private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: CarreiraService,
-    private _sharedLoadingService: SharedLoadingService,
+    private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this._valid = navigation.extras.state?.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
 
-    if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
+    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
     this._dominioService.getConselhos().subscribe(response => {
       this.conselhos = response.body
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='conselho']").selectpicker('refresh');
+      })
     });
+
     this._dominioService.getEstados().subscribe(response => {
       this.estados = response.body
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='ufConselho']").selectpicker('refresh');
+      })
     });
+
     this._dominioService.getAreasAtendimento().subscribe(response => {
       this.areasAtendimento = response.body
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='areaAtendimento']").selectpicker('refresh');
+      })
     });
+
     this._dominioService.getTransportes().subscribe(response => {
       this.transportes = response.body
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='transporte']").selectpicker('refresh');
+      })
     });
 
     this.carreiraForm = this._formBuilder.group({
@@ -80,22 +102,20 @@ export class CarreiraComponent implements OnInit {
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
-    this._carreira = this.carreiraForm.value;
+    this._loading.emitChange(true);
+    this.carreira = this.carreiraForm.value;
 
-    this._carreira.proprietarioId = this._valid.id;
+    this.carreira.proprietarioId = this.valid.id;
 
-    this._service.save(this._carreira).subscribe(response => {
+    this._service.save(this.carreira).subscribe(response => {
       setTimeout(() => {
-        this._cadastro.carreira = this._carreira;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/experiencia`, {
-          state: { valid: this._valid }
-        });
-        this._sharedLoadingService.emitChange(false);
+        this._cadastro.carreira = this.carreira;
+        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/experiencia`);
+        this._loading.emitChange(false);
       });
     },
     (error: Error) => {
-      this._sharedLoadingService.emitChange(false);
+      this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -106,9 +126,12 @@ export class CarreiraComponent implements OnInit {
   }
 
   onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/contato`, {
-      state: { valid: this._valid }
-    });
+    this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/contato`);
+  }
+
+  limpar() {
+    this.carreiraForm.reset();
+    jQuery(".selectpicker").selectpicker('refresh');
   }
 
 }

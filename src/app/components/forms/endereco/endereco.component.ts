@@ -1,16 +1,19 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Navigation, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Endereco } from 'src/app/classes/endereco.class';
 import { Estado } from 'src/app/classes/estado.class';
 import { Role } from 'src/app/enums/role.enum';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { EnderecoService } from 'src/app/services/endereco.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-endereco',
@@ -23,37 +26,44 @@ export class EnderecoComponent implements OnInit {
 
   enderecoForm: FormGroup;
 
-  public _valid: Valid;
   private _endereco: Endereco;
+  private _fileComprovante: File;
+
+  public estados: Estado[];
+  public valid: Valid;
+
+  public comprovante: any;
+  public fileInputComprovante: string = 'fileinput-new';
+  public imagemComprovante: string = '../../../../../assets/img/Headshot-Doc-1.png';
 
   public validationHas: InputValidationHas = new InputValidationHas();
-  public estados: Estado;
-  public comprovante: any;
-
-  private _extensaoComprovante: string;
 
   constructor(
     private _router: Router,
+    private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: EnderecoService,
-    private _sharedLoadingService: SharedLoadingService,
+    private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this._valid = navigation.extras.state?.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
 
-    this._sharedLoadingService.emitChange(true);
+    this._loading.emitChange(true);
 
-    if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
+    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
     this._dominioService.getEstados().subscribe(response => {
       this.estados = response.body
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='estado']").selectpicker('refresh');
+      })
     });
 
     this.enderecoForm = this._formBuilder.group({
@@ -67,28 +77,34 @@ export class EnderecoComponent implements OnInit {
       estado: ['', [Validators.required]],
     });
 
-    this._sharedLoadingService.emitChange(false);
+    if (this._cadastro.endereco?.comprovante) {
+      this.imagemComprovante = '../../../../../assets/img/Headshot-Doc-1.png';
+      this.comprovante = this._cadastro.endereco?.comprovante;
+      this.fileInputComprovante = 'fileinput-exists';
+    }
+
+    this._loading.emitChange(false);
 
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
+    this._loading.emitChange(true);
     this._endereco = this.enderecoForm.value;
 
-    this._endereco.comprovante = this._extensaoComprovante + this.comprovante;
-    this._endereco.proprietarioId = this._valid.id;
+    this._endereco.comprovante = this.comprovante;
+    this._endereco.proprietarioId = this.valid.id;
 
     this._service.save(this._endereco).subscribe(response => {
       setTimeout(() => {
         this._cadastro.endereco = this._endereco;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/contato`, {
-          state: { valid: this._valid }
+        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/contato`, {
+          state: { valid: this.valid }
         });
-        this._sharedLoadingService.emitChange(false);
+        this._loading.emitChange(false);
       });
     },
     (error: Error) => {
-      this._sharedLoadingService.emitChange(false);
+      this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -98,25 +114,24 @@ export class EnderecoComponent implements OnInit {
     });
   }
 
-  onLoad(event:any) {
-    const file: File = event.target.files[0];
-    let type: string[] = file.type.split('/');
-    this._extensaoComprovante = type[1].padEnd(5, ' ');
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = this.handlerReaderLoadedProfissional.bind(this);
-      reader.readAsBinaryString(file);
-    }
-  }
-
-  handlerReaderLoadedProfissional(e:any) {
-    this.comprovante = btoa(e.target.result);
+  onLoadComprovante(event: any) {
+    this._fileComprovante = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this._fileComprovante);
+    reader.onload = () => {
+      this.comprovante = reader.result;
+    };
   }
 
   onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/informacoes-gerais`, {
-      state: { valid: this._valid }
-    });
+    this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/informacoes-gerais`);
+  }
+
+  limpar() {
+    this.enderecoForm.reset();
+    jQuery('.fileinput').fileinput('clear');
+    jQuery(".selectpicker").selectpicker('refresh');
+    this.imagemComprovante = '../../../../../assets/img/Headshot-Doc-1.png';
   }
 
 }

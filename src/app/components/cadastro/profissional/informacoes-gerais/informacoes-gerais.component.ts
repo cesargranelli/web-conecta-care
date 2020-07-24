@@ -1,21 +1,22 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Navigation, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { EstadoCivil } from 'src/app/classes/estado-civil.class';
 import { Genero } from 'src/app/classes/genero.class';
 import { Profissional } from 'src/app/classes/profissional.class';
 import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
 import { Role } from 'src/app/enums/role.enum';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { ProfissionalService } from 'src/app/services/profissional.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-informacoes-gerais',
@@ -28,51 +29,74 @@ export class InformacoesGeraisComponent implements OnInit {
 
   public profissionalForm: FormGroup;
 
-  public generos: Observable<Genero[]>;
+  public generos: Genero[];
   public tipoEmpresas: TipoEmpresa[];
   public estadoCivis: EstadoCivil[];
 
-  public selectFile: File;
   public fotoProfissional: any;
   public fotoRg: any;
   public valid: Valid;
   public validationHas: InputValidationHas = new InputValidationHas();
 
-  private _extensaoFotoProfissional: string;
-  private _extensaoFotoRg: string;
+  private _fileProfissional: File;
+  private _fileRg: File;
+
+  public fileInputProfissional: string = 'fileinput-new';
+  public fileInputRg: string = 'fileinput-new';
+  public imagemFotoProfissional: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
+  public imagemFotoRg: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
+
+  teste: boolean = false;
+  generoId: number;
+  tipoEmpresaId: number;
+  estadoCivilId: number;
 
   constructor(
     private _router: Router,
+    private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _service: ProfissionalService,
     private _dominioService: DominioService,
-    private _sharedLoadingService: SharedLoadingService,
+    private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this.valid = navigation.extras.state?.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
-
-    this._sharedLoadingService.emitChange(true);
+    this._loading.emitChange(true);
 
     if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
-    this.generos = this._dominioService.getGeneros();
+    this._dominioService.getGeneros().subscribe(response => {
+      this.generos = response.body;
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='genero']").selectpicker("refresh");
+      })
+    });
+
     this._dominioService.getTipoEmpresas().subscribe(response => {
       this.tipoEmpresas = response.body;
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='tipoEmpresa']").selectpicker('refresh');
+      })
     });
+
     this._dominioService.getEstadoCivis().subscribe(response => {
       this.estadoCivis = response.body;
+    }, null, () => {
+      setTimeout(() => {
+        jQuery("select[id='estadoCivil']").selectpicker('refresh');
+      })
     });
 
     this.profissionalForm = this._formBuilder.group({
       nome: [this._cadastro.profissional?.nome, [Validators.required]],
       sobrenome: [this._cadastro.profissional?.sobrenome, [Validators.required, Validators.maxLength(60)]],
-      cpf: [this._cadastro.profissional?.cpf, [Validators.required, validCpf()]],
       dataNascimento: [this._cadastro.profissional?.dataNascimento, [Validators.required]],
       rg: [this._cadastro.profissional?.rg],
       rgEmissor: [this._cadastro.profissional?.rgEmissor],
@@ -88,65 +112,59 @@ export class InformacoesGeraisComponent implements OnInit {
       fotoRg: ['', [Validators.required]],
     });
 
-    this._sharedLoadingService.emitChange(false);
+    this._loading.emitChange(false);
 
-  }
-
-  onClick() {
-    this.generos = this._dominioService.getGeneros();
-    console.log(this.generos);
-  }
-
-  onLoadFotoProfissional(event:any) {
-    const file: File = event.target.files[0];
-    let type: string[] = file.type.split('/');
-    this._extensaoFotoProfissional = type[1].padEnd(5, ' ');
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = this.handlerReaderLoadedProfissional.bind(this);
-      reader.readAsBinaryString(file);
+    if (this._cadastro.profissional?.fotoProfissional) {
+      this.imagemFotoProfissional = this._cadastro.profissional?.fotoProfissional;
+      this.fileInputProfissional = 'fileinput-exists';
     }
+    if (this._cadastro.profissional?.fotoRg) {
+      this.imagemFotoRg = this._cadastro.profissional?.fotoRg;
+      this.fileInputRg = 'fileinput-exists';
+    }
+
+    this.generoId = this._cadastro.profissional?.genero.id;
+    this.tipoEmpresaId = this._cadastro.profissional?.tipoEmpresa.id;
+    this.estadoCivilId = this._cadastro.profissional?.estadoCivil.id;
+
   }
 
-  handlerReaderLoadedProfissional(e:any) {
-    this.fotoProfissional = btoa(e.target.result);
+  onLoadFotoProfissional(event: any) {
+    this._fileProfissional = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this._fileProfissional);
+    reader.onload = () => {
+      this.fotoProfissional = reader.result;
+    };
   }
 
   onLoadFotoRg(event:any) {
-    const file: File = event.target.files[0];
-    let type: string[] = file.type.split('/');
-    this._extensaoFotoRg = type[1].padEnd(5, ' ');
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = this.handlerReaderLoadedRg.bind(this);
-      reader.readAsBinaryString(file);
-    }
-  }
-
-  handlerReaderLoadedRg(e:any) {
-    this.fotoRg = btoa(e.target.result);
+    this._fileRg = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this._fileRg);
+    reader.onload = () => {
+      this.fotoRg = reader.result;
+    };
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
+    this._loading.emitChange(true);
     let profissional: Profissional = this.profissionalForm.value;
+    profissional.id = this.valid.id;
 
-    profissional.fotoProfissional = this._extensaoFotoProfissional + this.fotoProfissional;
-
-    profissional.fotoRg = this._extensaoFotoRg + this.fotoRg;
+    profissional.fotoProfissional = this.fotoProfissional;
+    profissional.fotoRg = this.fotoRg;
 
     this._service.save(profissional).subscribe(response => {
       this.valid.id = response.body.profissionalId;
       setTimeout(() => {
         this._cadastro.profissional = profissional;
-        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/endereco`, {
-          state: { valid: this.valid }
-        });
-        this._sharedLoadingService.emitChange(false);
+        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/endereco`);
+        this._loading.emitChange(false);
       });
     },
     (error: Error) => {
-      this._sharedLoadingService.emitChange(false);
+      this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -154,6 +172,17 @@ export class InformacoesGeraisComponent implements OnInit {
         showConfirmButton: true
       });
     });
+  }
+
+  lpadZero(control: AbstractControl) {
+    let valor = String(Number(control.value)).padStart(9, '0');
+    this.profissionalForm.controls.rg.setValue(valor);
+  }
+
+  limpar() {
+    this.profissionalForm.reset();
+    jQuery('.fileinput').fileinput('clear');
+    jQuery(".selectpicker").selectpicker('refresh');
   }
 
 }

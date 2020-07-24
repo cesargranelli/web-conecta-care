@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { CadastroLoginComponent } from './components/cadastro/login/cadastro-login.component';
-import { CadastroProfissionalComponent } from './components/cadastro/profissional/cadastro-profissional.component';
 import { CarreiraComponent } from './components/cadastro/profissional/carreira/carreira.component';
 import { ComplementoComponent } from './components/cadastro/profissional/complemento/complemento.component';
 import { EscolaridadeComponent } from './components/cadastro/profissional/escolaridade/escolaridade.component';
@@ -23,7 +22,6 @@ const routes: Routes = [
   { path: 'cadastro/login', component: CadastroLoginComponent },
   { path: 'espera-confirmacao-email', component: EsperaConfirmacaoEmailComponent },
   { path: 'confirmacao-cadastro/:token', component: ConfirmacaoCadastroComponent },
-  { path: 'cadastro/profissionais/{token}', component: CadastroProfissionalComponent },
   { path: 'cadastro/profissionais/:id/informacoes-gerais', component: InformacoesGeraisComponent },
   { path: 'cadastro/profissionais/:id/endereco', component: EnderecoComponent },
   { path: 'cadastro/profissionais/:id/contato', component: ContatoComponent },

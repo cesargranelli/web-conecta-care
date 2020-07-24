@@ -15,8 +15,7 @@
                 <div class="row">
                   <label for="tipo" class="col-lg-3 col-md-3 col-form-label">Tipo conta bancária *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="custom-select" formControlName="tipo" data-style="btn btn-primary btn-round" data-width="100%" title="Tipo">
-                      <option disabled selected>Selecione</option>
+                    <select class="selectpicker" id="tipoConta" formControlName="tipo" data-style="btn btn-primary" data-width="100%" title="Selecione">
                       <option [ngValue]="tipoConta" *ngFor="let tipoConta of tipoContas">{{ tipoConta.codigo }} - {{ tipoConta.descricao }}</option>
                     </select>
                   </div>
@@ -24,8 +23,7 @@
                 <div class="row">
                   <label for="banco" class="col-lg-3 col-md-3 col-form-label">Banco conta *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="custom-select" formControlName="banco" data-style="btn btn-primary btn-round" data-width="100%" title="Instrução">
-                      <option disabled selected>Selecione</option>
+                    <select class="selectpicker" id="banco" formControlName="banco" data-style="btn btn-primary" data-width="100%" title="Selecione">
                       <option [ngValue]="banco" *ngFor="let banco of bancos">{{ banco.codigo }} - {{ banco.descricao }}</option>
                     </select>
                   </div>
@@ -51,7 +49,7 @@
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
                 <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-                <button type="button" class="btn btn-gray" (click)="contaForm.reset()">Limpar</button>
+                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
                 <button type="submit" class="btn btn-rose" [disabled]="!contaForm.valid">Avançar</button>

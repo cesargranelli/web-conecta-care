@@ -9,6 +9,7 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
 
 @Component({
   selector: 'app-experiencia',
@@ -21,8 +22,8 @@ export class ExperienciaComponent implements OnInit {
 
   experienciaForm: FormGroup;
 
-  private _valid: Valid;
-  private _experiencia: Experiencia[] = [];
+  private valid: Valid;
+  private experiencia: Experiencia[] = [];
 
   public experiencia1: Experiencia = new Experiencia();
   public experiencia2: Experiencia = new Experiencia();
@@ -31,18 +32,18 @@ export class ExperienciaComponent implements OnInit {
 
   constructor(
     private _router: Router,
+    private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _service: ExperienciaService,
-    private _sharedLoadingService: SharedLoadingService,
+    private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this._valid = navigation.extras.state?.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
 
-    if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
+    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
@@ -66,7 +67,7 @@ export class ExperienciaComponent implements OnInit {
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
+    this._loading.emitChange(true);
 
     if (this.experienciaForm.value.experiencia) {
 
@@ -94,25 +95,23 @@ export class ExperienciaComponent implements OnInit {
       this.experiencia2.dataDemissao = this.experienciaForm.value.dataDemissao2;
       this.experiencia3.dataDemissao = this.experienciaForm.value.dataDemissao3;
 
-      this.experiencia1.profissionalId = this._valid.id;
-      this.experiencia2.profissionalId = this._valid.id;
-      this.experiencia3.profissionalId = this._valid.id;
+      this.experiencia1.profissionalId = this.valid.id;
+      this.experiencia2.profissionalId = this.valid.id;
+      this.experiencia3.profissionalId = this.valid.id;
 
-      this._experiencia.push(this.experiencia1);
-      this._experiencia.push(this.experiencia2);
-      this._experiencia.push(this.experiencia3);
+      this.experiencia.push(this.experiencia1);
+      this.experiencia.push(this.experiencia2);
+      this.experiencia.push(this.experiencia3);
 
-      this._service.save(this._experiencia).subscribe(response => {
+      this._service.save(this.experiencia).subscribe(response => {
         setTimeout(() => {
-          this._cadastro.experiencia = this._experiencia;
-          this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/escolaridade`, {
-            state: { valid: this._valid }
-          });
-          this._sharedLoadingService.emitChange(false);
+          this._cadastro.experiencia = this.experiencia;
+          this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/escolaridade`);
+          this._loading.emitChange(false);
         });
       },
       (error: Error) => {
-        this._sharedLoadingService.emitChange(false);
+        this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -124,19 +123,15 @@ export class ExperienciaComponent implements OnInit {
     }
 
     setTimeout(() => {
-      this._cadastro.experiencia = this._experiencia;
-      this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/escolaridade`, {
-        state: { valid: this._valid }
-      });
-      this._sharedLoadingService.emitChange(false);
+      this._cadastro.experiencia = this.experiencia;
+      this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/escolaridade`);
+      this._loading.emitChange(false);
     });
 
   }
 
   onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/carreira`, {
-      state: { valid: this._valid }
-    });
+    this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/carreira`);
   }
 
 }

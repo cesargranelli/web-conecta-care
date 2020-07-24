@@ -7,7 +7,7 @@ export class Complemento {
   numeroHabilitacao: Number;
   dataValidadeHabilitacao: Date;
   categoriaCNH: CategoriaCNH;
-  fotoCNH: String;
+  fotoCNH: any;
   numeroReservista: Number;
   nomeMae: String;
   profissaoMae: String;
