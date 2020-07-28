@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CardVerDadosComponent } from './components/card/card-ver-dados/card-ver-dados.component';
 import { CarreiraComponent } from './dados-profissionais/carreira/carreira.component';
 import { ComplementoComponent } from './dados-profissionais/complemento/complemento.component';
 import { ContaComponent } from './dados-profissionais/conta/conta.component';
@@ -27,12 +28,16 @@ import { ProfissionaisComponent } from './profissionais.component';
     ExperienciaComponent,
     EscolaridadeComponent,
     ComplementoComponent,
-    ContaComponent
+    ContaComponent,
+    CardVerDadosComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     ProfissionaisRoutingModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class ProfissionaisModule { }

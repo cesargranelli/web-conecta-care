@@ -4,6 +4,8 @@ import { Navigation, Router } from '@angular/router';
 import { LoginService } from 'src/app/auth/services/login.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { Role } from 'src/app/enums/role.enum';
 
 @Component({
   selector: 'pr-login',
@@ -13,31 +15,31 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 export class LoginComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-  private _valid: Valid;
+  private valid: Valid;
 
   public loginForm: FormGroup;
   public habilitarEdicao: boolean = false;
 
   constructor(
+    private router: Router,
+    private _validService: ValidService,
     private formBuilder: FormBuilder,
     private service: LoginService,
-    private router: Router,
     private loading: SharedLoadingService
   ) {
-    const navigation: Navigation = this.router.getCurrentNavigation();
-    this._valid = navigation.extras.state?.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
 
     this.loading.emitChange(true);
 
-    // if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
-    //   this._router.navigateByUrl('/');
-    // }
+    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
+      this.router.navigateByUrl('/');
+    }
 
     this.loginForm = this.formBuilder.group({
-      email: ['']
+      email: [{value: '', disabled: true }]
     });
 
     this.service.verLogin().subscribe(response => {
