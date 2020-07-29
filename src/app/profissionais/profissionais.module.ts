@@ -12,6 +12,7 @@ import { EscolaridadeComponent } from './dados-profissionais/escolaridade/escola
 import { ExperienciaComponent } from './dados-profissionais/experiencia/experiencia.component';
 import { LoginComponent } from './dados-profissionais/login/login.component';
 import { ProfissionalComponent } from './dados-profissionais/profissional/profissional.component';
+import { EventosComponent } from './eventos/eventos.component';
 import { ProfissionaisRoutingModule } from './profissionais-routing.module';
 import { ProfissionaisComponent } from './profissionais.component';
 
@@ -29,15 +30,10 @@ import { ProfissionaisComponent } from './profissionais.component';
     EscolaridadeComponent,
     ComplementoComponent,
     ContaComponent,
-    CardVerDadosComponent
+    CardVerDadosComponent,
+    EventosComponent,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ProfissionaisRoutingModule
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ]
+  imports: [CommonModule, ReactiveFormsModule, ProfissionaisRoutingModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ProfissionaisModule { }
+export class ProfissionaisModule {}
