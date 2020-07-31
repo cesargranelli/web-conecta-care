@@ -27,7 +27,7 @@
                 <div class="row">
                   <label for="dataNascimento" class="col-lg-2 col-md-3 col-form-label">Data Nascimento *</label>
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.dataNascimento)">
-                    <input type="text" class="form-control" formControlName="dataNascimento" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                    <input type="text" class="form-control datetimepicker" formControlName="dataNascimento">
                   </div>
                 </div>
                 <div class="row">
@@ -42,8 +42,8 @@
                 </div>
                 <div class="row">
                   <label for="rgDataEmissao" class="col-lg-2 col-md-3 col-form-label">Data Emissão RG</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.rgDataEmissao)">
-                    <input type="text" class="form-control" formControlName="rgDataEmissao" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="09/09/0009">
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control datetimepicker" formControlName="rgDataEmissao">
                   </div>
                   <label for="pis" class="col-lg-3 col-md-3 col-form-label">PIS</label>
                   <div class="form-group col-lg-3 col-md-8">
@@ -125,7 +125,8 @@
                 <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!profissionalForm.valid">Avançar</button>
+                <!-- <button type="submit" class="btn btn-rose" [disabled]="!profissionalForm.valid">Avançar</button> -->
+                <button type="submit" class="btn btn-rose">Avançar</button>
               </span>
             </div>
           </form>
