@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Banco} from 'src/app/classes/banco.class';
 import {Conta} from 'src/app/classes/conta.class';
@@ -10,9 +10,9 @@ import {DominioService} from 'src/app/services/dominio.service';
 import {Valid} from 'src/app/services/feat/Valid';
 import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import Swal from 'sweetalert2';
 import {ValidService} from '../../../shared/services/shared-valid.service';
 import {Subscription} from 'rxjs';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
@@ -21,17 +21,16 @@ declare var jQuery: any;
   templateUrl: './conta.component.html',
   styleUrls: ['./conta.component.css']
 })
-export class ContaComponent implements OnInit, OnDestroy {
+export class ContaComponent implements OnInit, OnDestroy, AfterViewInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   private _dadosLocalStorage: Valid;
-
-  private _conta: Conta;
   private _serviceSubscription: Subscription;
-  public tipoContas: TipoConta[];
 
-  public bancos: Banco[];
-  public validationHas: InputValidationHas = new InputValidationHas();
+  public conta: Conta;
+  public tipoContas: Array<TipoConta>;
+  public bancos: Array<Banco>;
+  public validationHas: InputValidationHas;
   public contaForm: FormGroup;
 
   constructor(
@@ -44,38 +43,8 @@ export class ContaComponent implements OnInit, OnDestroy {
     private _cadastro: CadastroProfissionaisService,
     private _changeDetector: ChangeDetectorRef,
   ) {
-  }
-
-  ngOnInit(): void {
-    // this.teste = "saopdsakdoas";
-    this._dadosLocalStorage = this._validService.getValid();
-    this.contaForm = this._formBuilder.group(new FormControl());
-    this._serviceSubscription = this._service.getDados(this._dadosLocalStorage.id).subscribe(dadosConta => {
-      this._conta = dadosConta;
-      console.log(this._conta);
-      this.popularFormBuilder();
-      setTimeout(() => {
-        jQuery('.selectpicker').selectpicker('refresh');
-      });
-    });
-
-    // if (this?._dadosLocalStorage?.role != Role.Profissional || !this?._dadosLocalStorage?.role) {
-    //   this._router.navigateByUrl('/');
-    // }
-
-    this._dominioService.getTipoContas().subscribe(response => {
-      console.log(response.body);
-      this.tipoContas = response.body;
-    });
-
-    // this._dominioService.getBancos().subscribe(response => {
-    //   this.bancos = response.body
-    // });
-  }
-
-  popularFormBuilder() {
     this.contaForm = this._formBuilder.group({
-      tipo: [this._conta.tipo, [Validators.required]],
+      tipo: [null, [Validators.required]],
       banco: [null, [Validators.required]],
       agencia: [null, [Validators.required, Validators.maxLength(5)]],
       numero: [null, [Validators.required, Validators.maxLength(12)]],
@@ -83,13 +52,59 @@ export class ContaComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnInit(): void {
+    this.validationHas = new InputValidationHas();
+    this._dadosLocalStorage = this._validService.getValid();
+    this._serviceSubscription = this._service.getDados(this._dadosLocalStorage.id).subscribe(dadosConta => {
+      this.conta = dadosConta;
+      this.popularFormBuilder();
+    });
+
+    this._dominioService.getTipoContas().subscribe({
+      next: (response) => {
+        this.tipoContas = response.body;
+      },
+      complete: () => {
+        setTimeout(() => {
+          jQuery('select[id=\'tipo\']').selectpicker('refresh');
+        });
+      },
+    });
+
+    this._dominioService.getBancos().subscribe({
+      next: (response) => {
+        this.bancos = response.body;
+      },
+      complete: () => {
+        setTimeout(() => {
+          jQuery('select[id=\'banco\']').selectpicker('refresh');
+        });
+      },
+    });
+  }
+
+  popularFormBuilder() {
+    this.contaForm.patchValue({
+      tipo: this.conta.tipo,
+      banco: this.conta.banco,
+      agencia: this.conta.agencia,
+      numero: this.conta.numero,
+      digito: this.conta.digito,
+    });
+  }
+
+  //Atualiza selects
+  ngAfterViewInit(): void {
+    jQuery('.selectpicker').selectpicker('refresh');
+  }
+
   onSubmit() {
     this._sharedLoadingService.emitChange(true);
-    this._conta = this.contaForm.value;
+    this.conta = this.contaForm.value;
 
-    this._conta.proprietarioId = this._dadosLocalStorage.id;
+    this.conta.proprietarioId = this._dadosLocalStorage.id;
 
-    this._service.save(this._conta).subscribe(response => {
+    this._service.save(this.conta).subscribe(response => {
         setTimeout(() => {
           this._sharedLoadingService.emitChange(false);
           Swal.fire({
@@ -99,7 +114,7 @@ export class ContaComponent implements OnInit, OnDestroy {
             showConfirmButton: false,
             timer: 2000
           });
-          this._cadastro.conta = this._conta;
+          this._cadastro.conta = this.conta;
           this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
             state: {valid: this._dadosLocalStorage}
           });
