@@ -64,7 +64,7 @@
                 <button type="button" class="btn btn-gray" (click)="contaForm.reset()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose">Avançar</button>
+                <button type="submit" class="btn btn-rose" [disabled]="!contaForm.valid">Avançar</button>
               </span>
             </div>
           </form>
