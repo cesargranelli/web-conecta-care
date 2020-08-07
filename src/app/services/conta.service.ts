@@ -38,9 +38,3 @@ export class ContaService {
     );
   }
 }
-
-interface teste {
-  data: Conta,
-  status: number,
-  success: boolean
-}

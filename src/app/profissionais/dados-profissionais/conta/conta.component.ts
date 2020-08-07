@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Banco} from 'src/app/classes/banco.class';
@@ -13,6 +13,7 @@ import {InputValidationHas} from 'src/app/shared/validations/input-validation-ha
 import {ValidService} from '../../../shared/services/shared-valid.service';
 import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
+import {concatMap, map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -21,11 +22,12 @@ declare var jQuery: any;
   templateUrl: './conta.component.html',
   styleUrls: ['./conta.component.css']
 })
-export class ContaComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ContaComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   private _dadosLocalStorage: Valid;
   private _serviceSubscription: Subscription;
+  private _dominioSubscription: Subscription;
 
   public conta: Conta;
   public tipoContas: Array<TipoConta>;
@@ -44,8 +46,8 @@ export class ContaComponent implements OnInit, OnDestroy, AfterViewInit {
     private _changeDetector: ChangeDetectorRef,
   ) {
     this.contaForm = this._formBuilder.group({
-      tipo: [null, [Validators.required]],
-      banco: [null, [Validators.required]],
+      tipo: [null, Validators.required],
+      banco: [null, Validators.required],
       agencia: [null, [Validators.required, Validators.maxLength(5)]],
       numero: [null, [Validators.required, Validators.maxLength(12)]],
       digito: [null, [Validators.required, Validators.maxLength(2)]],
@@ -55,35 +57,28 @@ export class ContaComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
     this._dadosLocalStorage = this._validService.getValid();
-    this._serviceSubscription = this._service.getDados(this._dadosLocalStorage.id).subscribe(dadosConta => {
-      this.conta = dadosConta;
-      this.popularFormBuilder();
-    });
 
-    this._dominioService.getTipoContas().subscribe({
-      next: (response) => {
+    this._dominioService.getTipoContas().pipe(
+      map(response => {
         this.tipoContas = response.body;
-      },
-      complete: () => {
-        setTimeout(() => {
-          jQuery('select[id=\'tipo\']').selectpicker('refresh');
-        });
-      },
-    });
-
-    this._dominioService.getBancos().subscribe({
-      next: (response) => {
-        this.bancos = response.body;
-      },
-      complete: () => {
-        setTimeout(() => {
-          jQuery('select[id=\'banco\']').selectpicker('refresh');
-        });
-      },
+      }),
+      concatMap(() => this._dominioService.getBancos().pipe(
+        map(value => {
+          this.bancos = value.body;
+        }))
+      ),
+      concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
+    ).subscribe(dadosConta => {
+      this.conta = dadosConta;
+      this.popularForm();
+      setTimeout(() => {
+        jQuery('select[id=\'banco\']').selectpicker('refresh');
+        jQuery('select[id=\'tipo\']').selectpicker('refresh');
+      });
     });
   }
 
-  popularFormBuilder() {
+  popularForm() {
     this.contaForm.patchValue({
       tipo: this.conta.tipo,
       banco: this.conta.banco,
@@ -91,11 +86,6 @@ export class ContaComponent implements OnInit, OnDestroy, AfterViewInit {
       numero: this.conta.numero,
       digito: this.conta.digito,
     });
-  }
-
-  //Atualiza selects
-  ngAfterViewInit(): void {
-    jQuery('.selectpicker').selectpicker('refresh');
   }
 
   onSubmit() {
@@ -137,10 +127,6 @@ export class ContaComponent implements OnInit, OnDestroy, AfterViewInit {
     this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/complemento`, {
       state: {valid: this._dadosLocalStorage}
     });
-  }
-
-  ngOnDestroy(): void {
-    this._serviceSubscription.unsubscribe();
   }
 
 }
