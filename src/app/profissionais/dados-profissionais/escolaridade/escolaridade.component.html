@@ -18,21 +18,22 @@
                     <select formControlName="instrucao" id="instrucao" class="selectpicker" data-style="btn btn-primary"
                             data-width="100%">
                       <option disabled selected>Selecione</option>
-                      <option [ngValue]="instrucao" *ngFor="let instrucao of instrucoes">{{ instrucao.grau }}</option>
+                      <option [ngValue]="instrucao" *ngFor="let instrucao of instrucoes"
+                              [selected]="instrucao.id===escolaridade?.instrucao.id">{{ instrucao.grau }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
                   <label for="instituicaoEnsino1" class="col-lg-3 col-md-3 col-form-label">Instituição de ensino
                     1</label>
-                  <div class="form-group col-lg-8 col-md-8">
+                  <div class="form-group col-lg-8 col-md-8" [ngClass]="validationHas.validation(escolaridadeForm.controls?.instituicaoEnsino1)">
                     <input id="instituicaoEnsino1" type="text" class="form-control"
                            formControlName="instituicaoEnsino1">
                   </div>
                 </div>
                 <div class="row">
                   <label for="anoConclusao1" class="col-lg-3 col-md-3 col-form-label">Ano conclusão 1</label>
-                  <div class="form-group col-lg-3 col-md-8">
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(escolaridadeForm.controls?.anoConclusao1)">
                     <input id="anoConclusao1" type="text" class="form-control" formControlName="anoConclusao1"
                            mask="9{4}">
                   </div>
@@ -41,14 +42,14 @@
                 <div class="row">
                   <label for="instituicaoEnsino2" class="col-lg-3 col-md-3 col-form-label">Instituição de ensino
                     2</label>
-                  <div class="form-group col-lg-8 col-md-8">
+                  <div class="form-group col-lg-8 col-md-8" [ngClass]="validationHas.validation(escolaridadeForm.controls?.instituicaoEnsino2)">
                     <input id="instituicaoEnsino2" type="text" class="form-control"
                            formControlName="instituicaoEnsino2">
                   </div>
                 </div>
                 <div class="row">
                   <label for="anoConclusao2" class="col-lg-3 col-md-3 col-form-label">Ano conclusão 2</label>
-                  <div class="form-group col-lg-3 col-md-8">
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(escolaridadeForm.controls?.anoConclusao2)">
                     <input id="anoConclusao2" type="text" class="form-control" formControlName="anoConclusao2"
                            mask="9{4}">
                   </div>
@@ -57,19 +58,18 @@
                 <div class="row">
                   <label for="instituicaoEnsino3" class="col-lg-3 col-md-3 col-form-label">Instituição de ensino
                     3</label>
-                  <div class="form-group col-lg-8 col-md-8">
+                  <div class="form-group col-lg-8 col-md-8" [ngClass]="validationHas.validation(escolaridadeForm.controls?.instituicaoEnsino3)">
                     <input id="instituicaoEnsino3" type="text" class="form-control"
                            formControlName="instituicaoEnsino3">
                   </div>
                 </div>
                 <div class="row">
                   <label for="anoConclusao3" class="col-lg-3 col-md-3 col-form-label">Ano conclusão 3</label>
-                  <div class="form-group col-lg-3 col-md-8">
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(escolaridadeForm.controls?.anoConclusao3)">
                     <input id="anoConclusao3" type="text" class="form-control" formControlName="anoConclusao3"
                            mask="9{4}">
                   </div>
                 </div>
-
               </div>
             </div>
             <div class="card-footer justify-content-between">
