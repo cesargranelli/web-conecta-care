@@ -22,7 +22,7 @@ declare var jQuery: any;
   templateUrl: './conta.component.html',
   styleUrls: ['./conta.component.css']
 })
-export class ContaComponent implements OnInit, OnDestroy {
+export class ContaComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   private _dadosLocalStorage: Valid;
@@ -127,11 +127,6 @@ export class ContaComponent implements OnInit, OnDestroy {
     this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/complemento`, {
       state: {valid: this._dadosLocalStorage}
     });
-  }
-
-  ngOnDestroy(): void {
-    this._serviceSubscription.unsubscribe();
-    this._dominioSubscription.unsubscribe();
   }
 
 }

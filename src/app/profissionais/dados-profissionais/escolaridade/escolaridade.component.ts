@@ -21,7 +21,7 @@ declare var jQuery: any;
   templateUrl: './escolaridade.component.html',
   styleUrls: ['./escolaridade.component.css']
 })
-export class EscolaridadeComponent implements OnInit, OnDestroy {
+export class EscolaridadeComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   private _dadosLocalStorage: Valid;
@@ -124,11 +124,6 @@ export class EscolaridadeComponent implements OnInit, OnDestroy {
     this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/experiencia`, {
       state: {valid: this._dadosLocalStorage}
     });
-  }
-
-  ngOnDestroy() {
-    this._serviceSubscription.unsubscribe();
-    this._dominioSubscription.unsubscribe();
   }
 
 }
