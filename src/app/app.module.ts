@@ -33,6 +33,7 @@ import { ProfissionaisModule } from './profissionais/profissionais.module';
 import { ProfissionalService } from './services/profissional.service';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     PacientesModule,
     HomecaresModule,
     ConveniosModule,
-    AuthModule
+    AuthModule,
+    AdminModule
   ],
   providers: [
     ValidadorCpf,
