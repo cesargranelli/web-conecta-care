@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Conta} from '../classes/conta.class';
 import {TokenService} from './token.service';
-import {ContaResponse} from './response/contaResponse.module';
+import {ContaResponseInterface} from './response/contaResponse.interface';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class ContaService {
     return this._http.get(`${this.endpointGetDados}/${id}`,
       {
         headers: this._headers
-      }).pipe(map((contaResponse: ContaResponse) => {
+      }).pipe(map((contaResponse: ContaResponseInterface) => {
         return contaResponse.data;
       })
     );

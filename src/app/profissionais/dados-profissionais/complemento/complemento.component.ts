@@ -9,6 +9,10 @@ import {DominioService} from 'src/app/services/dominio.service';
 import {Valid} from 'src/app/services/feat/Valid';
 import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import {ValidService} from '../../../shared/services/shared-valid.service';
+import {concatMap, map} from 'rxjs/operators';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-complemento',
@@ -20,14 +24,14 @@ export class ComplementoComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   private _valid: Valid;
-  private _extensaoFotoCNH: string;
-
+  private _dadosLocalStorage: Valid;
+  private _fileProfissional: File;
+  private _dataValidadeHabilitacaoFinal: Date;
 
   public complementoForm: FormGroup;
-  public categoriasCNH: CategoriaCNH[];
-  public fotoCNH: any;
-  public validationHas: InputValidationHas = new InputValidationHas();
-  public dummyImage: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
+  public categoriasCNH: Array<CategoriaCNH>;
+  public validationHas: InputValidationHas;
+  public fotoCNH: string | ArrayBuffer = '../../../../../assets/img/Headshot-Placeholder-1.png';
   public fileInputCnh: string = 'fileinput-new';
   public complemento: Complemento;
 
@@ -37,64 +41,91 @@ export class ComplementoComponent implements OnInit {
     private _dominioService: DominioService,
     private _service: ComplementoService,
     private _sharedLoadingService: SharedLoadingService,
-    private _cadastro: CadastroProfissionaisService
+    private _cadastro: CadastroProfissionaisService,
+    private _validService: ValidService
   ) {
     this.complementoForm = this._formBuilder.group({
-      tituloEleitoral: [this._cadastro.complemento?.tituloEleitoral, [Validators.maxLength(11)]],
-      zonaEleitoral: [this._cadastro.complemento?.zonaEleitoral, [Validators.maxLength(3)]],
-      secaoEleitoral: [this._cadastro.complemento?.secaoEleitoral, [Validators.maxLength(4)]],
-      numeroHabilitacao: [this._cadastro.complemento?.numeroHabilitacao, [Validators.required, Validators.maxLength(11)]],
-      dataValidadeHabilitacao: [this._cadastro.complemento?.dataValidadeHabilitacao, [Validators.required]],
-      categoriaCNH: ['', [Validators.required]],
-      fotoCNH: ['', [Validators.required]],
-      numeroReservista: [this._cadastro.complemento?.numeroReservista],
-      nomeMae: [this._cadastro.complemento?.nomeMae, [Validators.required, Validators.maxLength(100)]],
-      profissaoMae: [this._cadastro.complemento?.profissaoMae, [Validators.maxLength(60)]],
-      nomePai: [this._cadastro.complemento?.nomePai, [Validators.required, Validators.maxLength(100)]],
-      profissaoPai: [this._cadastro.complemento?.profissaoPai, [Validators.maxLength(60)]],
-      nomeConjuge: [this._cadastro.complemento?.nomeConjuge, [Validators.required, Validators.maxLength(100)]],
-      profissaoConjuge: [this._cadastro.complemento?.profissaoConjuge, [Validators.maxLength(60)]],
-      filhos: [{}],
-      carteiraVacinacao: ['', [Validators.required]],
+      tituloEleitoral: [null, Validators.maxLength(11)],
+      zonaEleitoral: [null, Validators.maxLength(3)],
+      secaoEleitoral: [null, Validators.maxLength(4)],
+      numeroHabilitacao: [null, [Validators.required, Validators.maxLength(11)]],
+      dataValidadeHabilitacao: [null, Validators.required],
+      categoriaCNH: [null, Validators.required],
+      fotoCNH: [null, Validators.required],
+      numeroReservista: [null],
+      nomeMae: [null, [Validators.required, Validators.maxLength(100)]],
+      profissaoMae: [null, Validators.maxLength(60)],
+      nomePai: [null, [Validators.required, Validators.maxLength(100)]],
+      profissaoPai: [null, Validators.maxLength(60)],
+      nomeConjuge: [null, [Validators.required, Validators.maxLength(100)]],
+      profissaoConjuge: [null, Validators.maxLength(60)],
+      filhos: [null],
+      carteiraVacinacao: [null, Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.complemento = new Complemento();
+    this._dadosLocalStorage = this._validService.getValid();
+    this.validationHas = new InputValidationHas();
+    this._dataValidadeHabilitacaoFinal = new Date();
 
-    this.fileInputCnh = 'fileinput-exists';
-
-    // if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
-    //   this._router.navigateByUrl('/');
-    // }
-
-    // this._dominioService.getCategoriasCNH().subscribe(response => {
-    //   this.categoriasCNH = response.body
-    // });
-
+    this._dominioService.getCategoriasCNH().pipe(
+      map(categoriasCNH => {
+        this.categoriasCNH = categoriasCNH.body;
+      }),
+      concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
+    ).subscribe(dadosComplemento => {
+        this.complemento = dadosComplemento;
+        if (this.complemento.fotoCNH) {
+          this.fileInputCnh = 'fileinput-exists';
+          this.fotoCNH = this.complemento.fotoCNH;
+        }
+        this.popularForm();
+        setTimeout(() => {
+          jQuery('select[id=\'categoriaCNH\']').selectpicker('refresh');
+        });
+      }
+    );
 
   }
 
-  onSubmit() {
+  popularForm() {
+    this.complementoForm.patchValue({
+      tituloEleitoral: this.complemento.tituloEleitoral,
+      zonaEleitoral: this.complemento.zonaEleitoral,
+      numeroHabilitacao: this.complemento.numeroHabilitacao,
+      categoriaCNH: this.complemento.categoriaCNH,
+      secaoEleitoral: this.complemento.secaoEleitoral,
+      dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao.date),
+      numeroReservista: this.complemento.numeroReservista,
+      nomeMae: this.complemento.nomeMae,
+      profissaoMae: this.complemento.profissaoMae,
+      nomePai: this.complemento.nomePai,
+      profissaoPai: this.complemento.profissaoPai,
+      nomeConjuge: this.complemento.nomeConjuge,
+      profissaoConjuge: this.complemento.profissaoConjuge,
+      filhos: this.complemento.filhos,
+      carteiraVacinacao: this.complemento.carteiraVacinacao,
+    });
+  }
 
-    console.log(this.complementoForm.value);
-    // this._sharedLoadingService.emitChange(true);
-    // this._complemento = this.complementoForm.value;
-    //
-    // this._complemento.fotoCNH = this._extensaoFotoCNH + this.fotoCNH;
-    //
-    // this._complemento.proprietarioId = this._valid.id;
-    //
-    // this._service.save(this._complemento).subscribe(response => {
+  onSubmit() {
+    this._sharedLoadingService.emitChange(true);
+
+    this.complemento = this.complementoForm.value;
+    this.complemento.fotoCNH = this.fotoCNH;
+    this.complemento.proprietarioId = this._dadosLocalStorage.id;
+    // this._service.save(this.complemento).subscribe(() => {
     //     setTimeout(() => {
-    //       this._cadastro.complemento = this._complemento;
+    //       this._cadastro.complemento = this.complemento;
     //       this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/conta`, {
     //         state: {valid: this._valid}
     //       });
     //       this._sharedLoadingService.emitChange(false);
     //     });
     //   },
-    //   (error: Error) => {
+    //   () => {
     //     this._sharedLoadingService.emitChange(false);
     //     Swal.fire({
     //       position: 'center',
@@ -103,18 +134,34 @@ export class ComplementoComponent implements OnInit {
     //       showConfirmButton: true
     //     });
     //   });
-
   }
 
+  converterDataExibicao(data: string): string {
+    let dia: string = data.slice(8, 10);
+    let mes: string = data.slice(5, 7);
+    let ano: string = data.slice(0, 4);
+    return dia + '/' + mes + '/' + ano;
+  }
+
+  // converterData(data: string): string {
+  //   let dia: number = Number(data.slice(0, 2));
+  //   let mes: number = Number(data.slice(2, 4));
+  //   let ano: number = Number(data.slice(4, 8));
+  //   console.log('dia: ' + dia);
+  //   console.log('mes: ' + mes);
+  //   console.log('ano: ' + ano);
+  //   console.log(this._dataValidadeHabilitacaoFinal.setFullYear(ano, mes, dia));
+  //   return ' ';
+  //
+  // }
+
   onLoadFotoCNH(event: any) {
-    const file: File = event.target.files[0];
-    let type: string[] = file.type.split('/');
-    this._extensaoFotoCNH = type[1].padEnd(5, ' ');
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = this.handlerReaderLoadedProfissional.bind(this);
-      reader.readAsBinaryString(file);
-    }
+    this._fileProfissional = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this._fileProfissional);
+    reader.onload = () => {
+      this.fotoCNH = reader.result;
+    };
   }
 
   handlerReaderLoadedProfissional(e: any) {

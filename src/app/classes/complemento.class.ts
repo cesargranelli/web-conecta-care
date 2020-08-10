@@ -1,21 +1,27 @@
-import { CategoriaCNH } from './categoria-cnh.class';
+import {CategoriaCNH} from './categoria-cnh.class';
 
 export class Complemento {
-  tituloEleitoral: Number;
-  zonaEleitoral: String;
-  secaoEleitoral: String;
-  numeroHabilitacao: Number;
-  dataValidadeHabilitacao: Date;
+  tituloEleitoral: number;
+  zonaEleitoral: string;
+  secaoEleitoral: string;
+  numeroHabilitacao: number;
+  dataValidadeHabilitacao: DataValidadeHabilitacao;
   categoriaCNH: CategoriaCNH;
   fotoCNH: any;
-  numeroReservista: Number;
-  nomeMae: String;
-  profissaoMae: String;
-  nomePai: String;
-  profissaoPai: String;
-  nomeConjuge: String;
-  profissaoConjuge: String;
+  numeroReservista: number;
+  nomeMae: string;
+  profissaoMae: string;
+  nomePai: string;
+  profissaoPai: string;
+  nomeConjuge: string;
+  profissaoConjuge: string;
   filhos: Array<string>;
-  carteiraVacinacao: Boolean;
-  proprietarioId: Number;
+  carteiraVacinacao: boolean;
+  proprietarioId: number;
+}
+
+class DataValidadeHabilitacao {
+  date: string;
+  timezone: string;
+  timezone_type: number;
 }
