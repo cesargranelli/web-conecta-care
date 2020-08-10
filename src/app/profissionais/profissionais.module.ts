@@ -15,6 +15,7 @@ import { ProfissionalComponent } from './dados-profissionais/profissional/profis
 import { EventosComponent } from './eventos/eventos.component';
 import { ProfissionaisRoutingModule } from './profissionais-routing.module';
 import { ProfissionaisComponent } from './profissionais.component';
+import {NgxMaskModule} from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { ProfissionaisComponent } from './profissionais.component';
     CardVerDadosComponent,
     EventosComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, ProfissionaisRoutingModule],
+    imports: [CommonModule, ReactiveFormsModule, ProfissionaisRoutingModule, NgxMaskModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProfissionaisModule {}

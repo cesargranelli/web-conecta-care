@@ -26,8 +26,6 @@ export class ContaComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   private _dadosLocalStorage: Valid;
-  private _serviceSubscription: Subscription;
-  private _dominioSubscription: Subscription;
 
   public conta: Conta;
   public tipoContas: Array<TipoConta>;

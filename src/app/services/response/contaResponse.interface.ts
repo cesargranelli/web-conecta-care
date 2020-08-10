@@ -1,6 +1,6 @@
 import {Conta} from '../../classes/conta.class';
 
-export interface ContaResponse {
+export interface ContaResponseInterface {
   data: Conta,
   status: number,
   success: boolean

@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import {Escolaridade} from '../classes/escolaridade.class';
 import {TokenService} from './token.service';
 import {map} from 'rxjs/operators';
-import {EscolaridadeResponse} from './response/escolaridadeResponse.module';
+import {EscolaridadeResponse} from './response/escolaridadeResponse.interface';
 
 @Injectable({
   providedIn: 'root'

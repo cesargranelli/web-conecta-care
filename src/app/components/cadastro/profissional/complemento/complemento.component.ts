@@ -27,7 +27,7 @@ export class ComplementoComponent implements OnInit {
   complementoForm: FormGroup;
 
   private valid: Valid;
-  private complemento: Complemento = new Complemento();
+  private complemento: Complemento;
   private extensaoFotoCNH: string;
   private fileFotoCNH: File;
 

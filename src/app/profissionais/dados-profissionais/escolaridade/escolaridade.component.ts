@@ -25,9 +25,6 @@ export class EscolaridadeComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   private _dadosLocalStorage: Valid;
-  private _serviceSubscription: Subscription;
-  private _dominioSubscription: Subscription;
-  private _flatSubscription: Subscription;
 
   public instrucoes: Array<Instrucao>;
   public validationHas: InputValidationHas;
