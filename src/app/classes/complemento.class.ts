@@ -15,7 +15,7 @@ export class Complemento {
   profissaoPai: String;
   nomeConjuge: String;
   profissaoConjuge: String;
-  filhos: String[];
+  filhos: Array<string>;
   carteiraVacinacao: Boolean;
   proprietarioId: Number;
 }
