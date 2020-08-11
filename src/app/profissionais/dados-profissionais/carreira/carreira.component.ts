@@ -14,7 +14,7 @@ import {Valid} from 'src/app/services/feat/Valid';
 import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import {ValidService} from '../../../shared/services/shared-valid.service';
-import {concatMap, map, mergeMap} from 'rxjs/operators';
+import {concatMap, map} from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -70,14 +70,15 @@ export class CarreiraComponent implements OnInit {
 
     this._dominioService.getConselhos().pipe(
       map(conselhos => this.conselhos = conselhos.body),
-      mergeMap(() => this._dominioService.getEstados().pipe(map(estados => this.estados = estados.body))),
-      mergeMap(() => this._dominioService.getAreasAtendimento().pipe(map(areasAtentimento => this.areasAtendimento = areasAtentimento.body))),
-      mergeMap(() => this._dominioService.getTransportes().pipe(map(transportes => this.transportes = transportes.body))),
+      concatMap(() => this._dominioService.getEstados().pipe(map(estados => this.estados = estados.body))),
+      concatMap(() => this._dominioService.getAreasAtendimento().pipe(map(areasAtentimento => this.areasAtendimento = areasAtentimento.body))),
+      concatMap(() => this._dominioService.getTransportes().pipe(map(transportes => this.transportes = transportes.body))),
       concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
     ).subscribe(dadosCarreira => {
       this.carreira = dadosCarreira;
       this.popularForm();
       this.carregarAreasAtendimento();
+      jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
       });
