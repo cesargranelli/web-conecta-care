@@ -1,4 +1,4 @@
 export class Estado {
-  id: Number;
-  uf: String;
+  id: number;
+  uf: string;
 }

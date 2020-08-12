@@ -33,7 +33,7 @@
               "src/assets/js/core/popper.min.js",
               "src/assets/js/core/bootstrap-material-design.min.js",
               "src/assets/js/plugins/perfect-scrollbar.jquery.min.js",
-              "src/assets/js/plugins/moment.min.js",
+              "src/assets/js/plugins/moment-with-locales.js",
               "src/assets/js/plugins/sweetalert2.js",
               "src/assets/js/plugins/jquery.validate.min.js",
               "src/assets/js/plugins/jquery.bootstrap-wizard.js",
