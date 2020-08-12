@@ -15,35 +15,45 @@
                 <div class="row">
                   <label for="tipo" class="col-lg-3 col-md-3 col-form-label">Tipo conta bancária *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="custom-select" formControlName="tipo" data-style="btn btn-primary btn-round" data-width="100%" title="Tipo">
-                      <option disabled selected>Selecione</option>
-                      <option [ngValue]="tipoConta" *ngFor="let tipoConta of tipoContas">{{ tipoConta.codigo }} - {{ tipoConta.descricao }}</option>
+                    <select formControlName="tipo" id="tipo" class="selectpicker" data-style="btn btn-primary"
+                            data-width="100%">
+                      <option [ngValue]="tipoConta" *ngFor="let tipoConta of tipoContas"
+                              [selected]="tipoConta.codigo===conta?.tipo.codigo">{{ tipoConta.codigo }}
+                        - {{ tipoConta.descricao }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
                   <label for="banco" class="col-lg-3 col-md-3 col-form-label">Banco conta *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="custom-select" formControlName="banco" data-style="btn btn-primary btn-round" data-width="100%" title="Instrução">
+                    <select formControlName="banco" id="banco" class="selectpicker" data-style="btn btn-primary"
+                            data-width="100%">
                       <option disabled selected>Selecione</option>
-                      <option [ngValue]="banco" *ngFor="let banco of bancos">{{ banco.codigo }} - {{ banco.descricao }}</option>
+                      <option [ngValue]="banco" *ngFor="let banco of bancos" [selected]="banco.codigo===conta?.banco.codigo">{{ banco.codigo }}
+                        - {{ banco.descricao }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
                   <label for="agencia" class="col-lg-3 col-md-3 col-form-label">Nº Agência *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(contaForm.controls?.agencia)">
-                    <input type="text" class="form-control" name="agencia" formControlName="agencia" mask="9{5}">
+                  <div class="form-group col-lg-3 col-md-8"
+                       [ngClass]="validationHas.validation(contaForm.controls?.agencia)">
+                    <input type="text" class="form-control" id="agencia" name="agencia" formControlName="agencia"
+                           mask="9{5}">
                   </div>
                 </div>
                 <div class="row">
                   <label for="numero" class="col-lg-3 col-md-3 col-form-label">Nº Conta *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(contaForm.controls?.numero)">
-                    <input type="text" class="form-control" name="numero" formControlName="numero" mask="9{12}">
+                  <div class="form-group col-lg-3 col-md-8"
+                       [ngClass]="validationHas.validation(contaForm.controls?.numero)">
+                    <input type="text" class="form-control" id="numero" name="numero" formControlName="numero"
+                           mask="9{12}">
                   </div>
                   <label for="digito" class="col-lg-3 col-md-3 col-form-label">Nº Dígito Conta *</label>
-                  <div class="form-group col-lg-2 col-md-8" [ngClass]="validationHas.validation(contaForm.controls?.digito)">
-                    <input type="text" class="form-control" name="digito" formControlName="digito" mask="9{2}">
+                  <div class="form-group col-lg-2 col-md-8"
+                       [ngClass]="validationHas.validation(contaForm.controls?.digito)">
+                    <input type="text" class="form-control" id="digito" name="digito" formControlName="digito"
+                           mask="9{2}">
                   </div>
                 </div>
               </div>

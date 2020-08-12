@@ -14,59 +14,73 @@
               <div class="tab-content">
                 <div class="row">
                   <label for="conselho" class="col-lg-2 col-md-3 col-form-label">Conselho *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.conselho)">
-                    <select class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Conselho" formControlName="conselho">
-                      <option disabled selected>Selecione</option>
-                      <option [ngValue]="conselho" *ngFor="let conselho of conselhos">{{ conselho.sigla }}</option>
+                  <div class="form-group col-lg-3 col-md-8"
+                       [ngClass]="validationHas.validation(carreiraForm.controls?.conselho)">
+                    <select class="selectpicker" id="conselho" data-style="btn btn-primary" data-width="100%"
+                            title="Selecione" formControlName="conselho">
+                      <option [ngValue]="conselho" *ngFor="let conselho of conselhos"
+                              [selected]="conselho.id===carreira?.conselho?.id">{{ conselho.sigla }}</option>
                     </select>
                   </div>
                   <label for="registroProfissional" class="col-lg-3 col-md-3 col-form-label">Nº Registro</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.registroProfissional)">
-                    <input type="text" class="form-control" formControlName="registroProfissional" mask="999999999999999">
+                  <div class="form-group col-lg-3 col-md-8"
+                       [ngClass]="validationHas.validation(carreiraForm.controls?.registroProfissional)">
+                    <input type="text" id="registroProfissional" class="form-control"
+                           formControlName="registroProfissional" mask="999999999999999">
                   </div>
                 </div>
                 <div class="row">
                   <label for="ufConselho" class="col-lg-2 col-md-3 col-form-label">UF Conselho *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.ufConselho)">
-                    <select class="custom-select"  data-style="btn btn-primary btn-round" data-width="100%" title="UF Conselho" formControlName="ufConselho">
+                  <div class="form-group col-lg-3 col-md-8"
+                       [ngClass]="validationHas.validation(carreiraForm.controls?.ufConselho)">
+                    <select class="selectpicker" id="ufConselho" data-style="btn btn-primary" data-width="100%"
+                            title="Selecione" formControlName="ufConselho">
                       <option disabled selected>Selecione</option>
-                      <option [ngValue]="ufConselho" *ngFor="let ufConselho of estados">{{ ufConselho.uf }}</option>
+                      <option [ngValue]="ufConselho" *ngFor="let ufConselho of estados"
+                              [selected]="ufConselho.id===carreira?.ufConselho?.id">{{ ufConselho.uf }}</option>
                     </select>
                   </div>
-                  <label for="areaAtendimento" class="col-lg-3 col-md-3 col-form-label">Área Atendimento *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.areaAtendimento)">
-                    <select class="custom-select" multiple="multiple" data-style="btn btn-primary btn-round" data-width="100%" title="Área Atendimento" formControlName="areaAtendimento">
-                      <option disabled selected>Selecione</option>
-                      <option [ngValue]="areaAtendimento" *ngFor="let areaAtendimento of areasAtendimento">{{ areaAtendimento.nome | uppercase }}</option>
+                  <label for="areasAtendimento" class="col-lg-3 col-md-3 col-form-label">Área Atendimento *</label>
+                  <div class="form-group col-lg-3 col-md-8"
+                       [ngClass]="validationHas.validation(carreiraForm.controls?.areasAtendimento)">
+                    <select class="selectpicker" id="areasAtendimento" multiple="multiple" data-style="btn btn-primary"
+                            data-width="100%" title="Selecione" formControlName="areasAtendimento">
+                      <option
+                        *ngFor="let areaAtendimento of areasAtendimento"
+                      >{{ areaAtendimento.nome | uppercase }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
                   <label for="nomeReferencia1" class="col-lg-2 col-md-3 col-form-label">Referência Nome 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="nomeReferencia1">
+                    <input type="text" id="nomeReferencia1" class="form-control" formControlName="nomeReferencia1">
                   </div>
                   <label for="telefoneReferencia1" class="col-lg-3 col-md-3 col-form-label">Referência Fone 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="telefoneReferencia1" mask="(00) 00000-0000">
+                    <input type="text" id="telefoneReferencia1" class="form-control"
+                           formControlName="telefoneReferencia1" mask="(00) 00000-0000">
                   </div>
                 </div>
                 <div class="row">
                   <label for="nomeReferencia2" class="col-lg-2 col-md-3 col-form-label">Referência Nome 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="nomeReferencia2">
+                    <input type="text" id="nomeReferencia2" class="form-control" formControlName="nomeReferencia2">
                   </div>
                   <label for="telefoneReferencia2" class="col-lg-3 col-md-3 col-form-label">Referência Fone 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="telefoneReferencia2" mask="(00) 00000-0000">
+                    <input type="text" id="telefoneReferencia2" class="form-control"
+                           formControlName="telefoneReferencia2" mask="(00) 00000-0000">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="transporte" class="col-lg-2 col-md-3 col-form-label">Veículo utilizado para os atendimentos *</label>
+                  <label for="transporte" class="col-lg-2 col-md-3 col-form-label">Veículo utilizado para os
+                    atendimentos *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="custom-select" data-style="btn btn-primary btn-round" data-width="100%" title="Transporte" formControlName="transporte">
-                      <option disabled selected>Selecione</option>
-                      <option [ngValue]="transporte" *ngFor="let transporte of transportes">{{ transporte.tipo }}</option>
+                    <select class="selectpicker" id="transporte" data-style="btn btn-primary" data-width="100%"
+                            title="Selecione" formControlName="transporte">
+                      <option [ngValue]="transporte" *ngFor="let transporte of transportes"
+                              [selected]="transporte.id===carreira?.transporte?.id">{{ transporte.tipo }}</option>
                     </select>
                   </div>
                 </div>
@@ -75,7 +89,7 @@
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
                 <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-                <button type="button" class="btn btn-gray" (click)="carreiraForm.reset()">Limpar</button>
+                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
                 <button type="submit" class="btn btn-rose" [disabled]="!carreiraForm.valid">Avançar</button>

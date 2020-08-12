@@ -15,98 +15,140 @@
                 <div class="row">
                   <label for="tituloEleitoral" class="col-lg-2 col-md-3 col-form-label">Título eleitoral</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="tituloEleitoral" mask="99999999999">
+                    <input type="text" id="tituloEleitoral" class="form-control" formControlName="tituloEleitoral"
+                           mask="99999999999">
                   </div>
                   <label for="zonaEleitoral" class="col-lg-1 col-md-3 col-form-label">Zona</label>
                   <div class="form-group col-lg-2 col-md-8">
-                    <input type="text" class="form-control" formControlName="zonaEleitoral" mask="999">
+                    <input type="text" id="zonaEleitoral" class="form-control" formControlName="zonaEleitoral"
+                           mask="999">
                   </div>
                   <label for="secaoEleitoral" class="col-lg-1 col-md-3 col-form-label">Seção</label>
                   <div class="form-group col-lg-2 col-md-8">
-                    <input type="text" class="form-control" formControlName="secaoEleitoral" mask="9999">
+                    <input type="text" id="secaoEleitoral" class="form-control" formControlName="secaoEleitoral"
+                           mask="9999">
                   </div>
                 </div>
                 <div class="row">
                   <label for="numeroHabilitacao" class="col-lg-2 col-md-3 col-form-label">Nº Habilitação *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.numeroHabilitacao)">
-                    <input type="text" class="form-control" formControlName="numeroHabilitacao" mask="99999999999">
+                  <div class="form-group col-lg-3 col-md-8"
+                       [ngClass]="validationHas.validation(complementoForm.controls?.numeroHabilitacao)">
+                    <input type="text" id="numeroHabilitacao" class="form-control" formControlName="numeroHabilitacao"
+                           mask="99999999999">
                   </div>
                   <label for="dataValidadeHabilitacao" class="col-lg-2 col-md-3 col-form-label">Validade *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.dataValidadeHabilitacao)">
-                    <!-- <input type="text" class="form-control" formControlName="dataValidadeHabilitacao" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000"> -->
+                  <div class="form-group col-lg-3 col-md-8"
+                       [ngClass]="validationHas.validation(complementoForm.controls?.dataValidadeHabilitacao)">
+                    <input type="text" id="dataValidadeHabilitacao" class="form-control"
+                           formControlName="dataValidadeHabilitacao" [dropSpecialCharacters]="false"
+                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
                   </div>
                 </div>
                 <div class="row">
                   <label for="categoriaCNH" class="col-lg-2 col-md-3 col-form-label">Categoria *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="custom-select" formControlName="categoriaCNH" data-style="btn btn-primary btn-round" data-width="100%" title="Instrução">
+                    <select formControlName="categoriaCNH" id="categoriaCNH" class="selectpicker"
+                            data-style="btn btn-primary" data-width="100%">
                       <option disabled selected>Selecione</option>
-                      <option [ngValue]="categoriaCNH" *ngFor="let categoriaCNH of categoriasCNH">{{ categoriaCNH.sigla }}</option>
+                      <option [ngValue]="categoriaCNH" *ngFor="let categoriaCNH of categoriasCNH"
+                              [selected]="categoriaCNH.id===complemento?.categoriaCNH?.id">{{ categoriaCNH.sigla }}</option>
                     </select>
                   </div>
                   <label for="fotoCNH" class="col-lg-2 col-md-3 col-form-label">Foto CNH *</label>
                   <div class="col-lg-5 col-md-3">
-                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                    <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputCnh">
+                      <div class="thumbnail img-circle img-raised" [ngClass]="fileInputCnh">
+                        <img [src]="fotoCNH" rel="nofollow" style="max-width: 100px; max-height: 100px;">
+                      </div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Selecionar imagem</span>
+                        <span class="fileinput-new">Foto CNH</span>
                         <span class="fileinput-exists">Trocar</span>
-                        <input type="file" formControlName="fotoCNH" (change)="onLoadFotoCNH($event)">
+                        <input type="file" id="fotoCNH" data-max-size="2" formControlName="fotoCNH"
+                               (change)="onLoadFotoCNH($event)">
                       </span>
-                      <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-                        <i class="fa fa-times"></i> Descartar
-                      </a>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <label for="numeroReservista" class="col-lg-2 col-md-3 col-form-label">Nº Reservista</label>
+                  <label for="numeroReservista" class="col-lg-2 col-md-3 col-form-label">Nº
+                    Reservista</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="numeroReservista" mask="999999999999">
+                    <input type="text" id="numeroReservista" class="form-control"
+                           formControlName="numeroReservista"
+                           mask="999999999999">
                   </div>
                 </div>
                 <div class="row">
                   <label for="nomeMae" class="col-lg-2 col-md-3 col-form-label">Nome mãe *</label>
-                  <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.nomeMae)">
-                    <input type="text" [value]="complementoForm.get('nomeMae').value | titlecase" class="form-control" formControlName="nomeMae">
+                  <div class="form-group col-lg-9 col-md-8"
+                       [ngClass]="validationHas.validation(complementoForm.controls?.nomeMae)">
+                    <input type="text" id="nomeMae" class="form-control" formControlName="nomeMae">
                   </div>
                 </div>
                 <div class="row">
                   <label for="profissaoMae" class="col-lg-2 col-md-3 col-form-label">Profissão mãe</label>
-                  <div class="form-group col-lg-9 col-md-8">
-                    <input type="text" [value]="complementoForm.get('profissaoMae').value | titlecase" class="form-control" formControlName="profissaoMae">
+                  <div class="form-group col-lg-9 col-md-8"
+                       [ngClass]="validationHas.validation(complementoForm.controls?.profissaoMae)">
+                    <input type="text" id="profissaoMae" class="form-control" formControlName="profissaoMae">
                   </div>
                 </div>
                 <div class="row">
                   <label for="nomePai" class="col-lg-2 col-md-3 col-form-label">Nome pai *</label>
-                  <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.nomePai)">
-                    <input type="text" [value]="complementoForm.get('nomePai').value | titlecase" class="form-control" formControlName="nomePai">
+                  <div class="form-group col-lg-9 col-md-8"
+                       [ngClass]="validationHas.validation(complementoForm.controls?.nomePai)">
+                    <input type="text" id="nomePai" class="form-control" formControlName="nomePai">
                   </div>
                 </div>
                 <div class="row">
                   <label for="profissaoPai" class="col-lg-2 col-md-3 col-form-label">Profissão pai</label>
                   <div class="form-group col-lg-9 col-md-8">
-                    <input type="text" [value]="complementoForm.get('profissaoPai').value | titlecase" class="form-control" formControlName="profissaoPai">
+                    <input type="text" id="profissaoPai" class="form-control" formControlName="profissaoPai">
                   </div>
                 </div>
                 <div class="row">
                   <label for="nomeConjuge" class="col-lg-2 col-md-3 col-form-label">Nome cônjuge *</label>
-                  <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.nomeConjuge)">
-                    <input type="text" [value]="complementoForm.get('nomeConjuge').value | titlecase" class="form-control" formControlName="nomeConjuge">
+                  <div class="form-group col-lg-9 col-md-8"
+                       [ngClass]="validationHas.validation(complementoForm.controls?.nomeConjuge)">
+                    <input type="text" id="nomeConjuge" class="form-control" formControlName="nomeConjuge">
                   </div>
                 </div>
                 <div class="row">
                   <label for="profissaoConjuge" class="col-lg-2 col-md-3 col-form-label">Profissão cônjuge</label>
                   <div class="form-group col-lg-9 col-md-8">
-                    <input type="text" [value]="complementoForm.get('profissaoConjuge').value | titlecase" class="form-control" formControlName="profissaoConjuge">
+                    <input type="text" id="profissaoConjuge" class="form-control" formControlName="profissaoConjuge">
                   </div>
                 </div>
+<!--                <div class="row">-->
+<!--                  <label for="filhos" class="col-lg-2 col-form-label">Filhos *</label>-->
+<!--                  <div class="form-group col-lg-3">-->
+<!--                    <div class="togglebutton">-->
+<!--                      <label>-->
+<!--                        <input type="checkbox" id="filhos" formControlName="filhos">-->
+<!--                        <span class="toggle"></span>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <label for="numeroFilhos" class="col-lg-2 col-form-label">No filhos</label>-->
+<!--                  <div class="form-group col-lg-2">-->
+<!--                    <input type="text" id="numeroFilhos" class="form-control" formControlName="nomePai">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                  <label for="dataNascimentoFilhos" class="col-lg-2 col-form-label">Data de nascimento dos-->
+<!--                    filhos</label>-->
+<!--                  <div class="form-group col-lg-3">-->
+<!--                    <input type="text" id="dataNascimentoFilhos" class="form-control"-->
+<!--                           formControlName="profissaoConjuge">-->
+<!--                  </div>-->
+<!--                </div>-->
                 <div class="row">
-                  <label for="carteiraVacinacao" class="col-lg-3 col-md-3 col-form-label">Carteira de Vacinação *</label>
+                  <label for="carteiraVacinacao" class="col-lg-2 col-md-3 col-form-label">Carteira de Vacinação
+                    *</label>
                   <div class="form-group col-lg-1 col-md-8">
                     <div class="togglebutton">
                       <label>
-                        <input type="checkbox" formControlName="carteiraVacinacao">
-                          <span class="toggle"></span>
+                        <input type="checkbox" id="carteiraVacinacao" formControlName="carteiraVacinacao">
+                        <span class="toggle"></span>
                       </label>
                     </div>
                   </div>
@@ -119,7 +161,7 @@
                 <button type="button" class="btn btn-gray" (click)="complementoForm.reset()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!complementoForm.valid">Avançar</button>
+                <button type="submit" class="btn btn-rose">Avançar</button>
               </span>
             </div>
           </form>
