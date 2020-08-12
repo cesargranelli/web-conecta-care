@@ -1,17 +1,18 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
 import { map } from 'rxjs/internal/operators/map';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
 import { Estado } from 'src/app/classes/estado.class';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
-import { formatDate } from '@angular/common';
+import Swal from 'sweetalert2';
+import { EventoService } from '../services/evento.service';
+import { Evento } from './models/evento.class';
 
 declare var jQuery: any;
 
@@ -31,13 +32,14 @@ export class EventoComponent implements OnInit {
   public especialidades: Array<AreaAtendimento>;
   public validationHas: InputValidationHas = new InputValidationHas();
   public eventoForm: FormGroup;
+  public evento: Evento;
 
   constructor(
     private _router: Router,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _loading: SharedLoadingService,
-    private _cadastro: CadastroProfissionaisService
+    private _eventoService: EventoService
   ) {
     this.eventoForm = this._formBuilder.group({
       titulo: [null, [Validators.required, Validators.maxLength(50)]],
@@ -45,7 +47,7 @@ export class EventoComponent implements OnInit {
       local: [null, [Validators.required, Validators.maxLength(255)]],
       data: [null, Validators.required],
       hora: [null, Validators.required],
-      estados: [null, Validators.required],
+      estado: [null, Validators.required],
       especialidades: [null, Validators.required],
     });
   }
@@ -98,45 +100,45 @@ export class EventoComponent implements OnInit {
 
   dateChange(form: FormGroup) {
     jQuery("#datepicker").on("dp.change", function (event: any) {
-      form.controls.data.setValue(event.date._d.toLocaleDateString());
+      if (event.date)
+        form.controls.data.setValue(event.date?._d.toLocaleDateString());
     });
   }
 
   timeChange(form: FormGroup) {
     jQuery("#timepicker").on("dp.change", function (event: any) {
-      form.controls.hora.setValue(event.date._d.toTimeString().substring(0, 5));
+      if (event.date)
+        form.controls.hora.setValue(event.date?._d.toTimeString().substring(0, 5));
     });
   }
 
   onSubmit() {
-    console.log(this.eventoForm.controls.data.value);
-    console.log(this.eventoForm.controls.hora.value);
-    // this._loading.emitChange(true);
-    // this.conta = this.eventoForm.value;
-
-    // this._service.save(this.conta).subscribe(response => {
-    //     setTimeout(() => {
-    //       this._loading.emitChange(false);
-    //       Swal.fire({
-    //         position: 'center',
-    //         icon: 'success',
-    //         title: 'Cadastro realizado com sucesso!',
-    //         showConfirmButton: false,
-    //         timer: 2000
-    //       });
-    //       this._cadastro.conta = this.conta;
-    //       this._loading.emitChange(false);
-    //     });
-    //   },
-    //   (error: Error) => {
-    //     this._loading.emitChange(false);
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'Ocorreu um erro inexperado ao tentar inserir conta',
-    //       showConfirmButton: true
-    //     });
-    //   });
+    this._loading.emitChange(true);
+    this.evento = this.eventoForm.value;
+    console.log(this.evento);
+    this._eventoService.save(this.evento).subscribe(response => {
+      setTimeout(() => {
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Evento publicado com sucesso!',
+          showConfirmButton: true
+        }).then(() => {
+          this.eventoForm.reset();
+          jQuery(`select[id='estado']`).selectpicker('refresh');
+          jQuery(`select[id='especialidade']`).selectpicker('refresh');
+        });
+      });
+    },
+    () => {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Não foi possível publicar o novo evento!',
+        showConfirmButton: true
+      });
+    });
   }
-
 }
