@@ -1,14 +1,14 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Navigation, Router } from '@angular/router';
-import { Contato } from 'src/app/classes/contato.class';
-import { Role } from 'src/app/enums/role.enum';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { ContatoService } from 'src/app/services/contato.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Contato} from 'src/app/classes/contato.class';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {ContatoService} from 'src/app/services/contato.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import {ValidService} from '../../../shared/services/shared-valid.service';
 
 @Component({
   selector: 'app-contato',
@@ -19,59 +19,65 @@ export class ContatoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
-  private _valid: Valid;
-  private _contato: Contato;
+  private _dadosLocalStorage: Valid;
 
-  public validationHas: InputValidationHas = new InputValidationHas();
-
-  contatoForm: FormGroup;
+  public contato: Contato;
+  public validationHas: InputValidationHas;
+  public contatoForm: FormGroup;
 
   constructor(
     private _router: Router,
     private _formBuilder: FormBuilder,
     private _service: ContatoService,
     private _sharedLoadingService: SharedLoadingService,
-    private _cadastro: CadastroProfissionaisService
+    private _cadastro: CadastroProfissionaisService,
+    private _validService: ValidService
   ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this._valid = navigation.extras.state?.valid;
+    this._sharedLoadingService.emitChange(true);
+    this.contatoForm = this._formBuilder.group({
+      telefoneFixo: [null, Validators.maxLength(10)],
+      telefoneRecado: [null, Validators.maxLength(10)],
+      celularPrincipal: [null, [Validators.required, Validators.maxLength(11)]],
+      celularSecundario: [null, Validators.maxLength(11)],
+    });
   }
 
   ngOnInit(): void {
+    this.validationHas = new InputValidationHas();
+    this._dadosLocalStorage = this._validService.getValid();
 
-    this._sharedLoadingService.emitChange(true);
-
-    // if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
-    //   this._router.navigateByUrl('/');
-    // }
-
-    this.contatoForm = this._formBuilder.group({
-      telefoneFixo: [this._cadastro.contato?.telefoneFixo, Validators.maxLength(10)],
-      telefoneRecado: [this._cadastro.contato?.telefoneRecado, Validators.maxLength(10)],
-      celularPrincipal: [this._cadastro.contato?.celularPrincipal, [Validators.required, Validators.maxLength(11)]],
-      celularSecundario: [this._cadastro.contato?.celularSecundario, Validators.maxLength(11)],
+    this._service.getDados(this._dadosLocalStorage.id).subscribe(dadosContato => {
+      this.contato = dadosContato;
+      this.popularForm();
+      this._sharedLoadingService.emitChange(false);
     });
 
-    this._sharedLoadingService.emitChange(false);
+  }
 
+  popularForm() {
+    this.contatoForm.patchValue({
+      telefoneFixo: this.contato.telefoneFixo,
+      telefoneRecado: this.contato.telefoneRecado,
+      celularPrincipal: this.contato.celularPrincipal,
+      celularSecundario: this.contato.celularSecundario
+    });
   }
 
   onSubmit() {
     this._sharedLoadingService.emitChange(true);
-    this._contato = this.contatoForm.value;
+    this.contato = this.contatoForm.value;
 
-    this._contato.proprietarioId = this._valid.id;
+    this.contato.proprietarioId = this._dadosLocalStorage.id;
 
-    this._service.save(this._contato).subscribe(response => {
+    this._service.save(this.contato).subscribe(response => {
       setTimeout(() => {
-        this._cadastro.contato = this._contato;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/carreira`, {
-          state: { valid: this._valid }
+        this._cadastro.contato = this.contato;
+        this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/carreira`, {
+          state: {valid: this._dadosLocalStorage}
         });
         this._sharedLoadingService.emitChange(false);
       });
-    },
-    (error: Error) => {
+    }, () => {
       this._sharedLoadingService.emitChange(false);
       Swal.fire({
         position: 'center',
@@ -83,8 +89,8 @@ export class ContatoComponent implements OnInit {
   }
 
   onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/endereco`, {
-      state: { valid: this._valid }
+    this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/endereco`, {
+      state: {valid: this._dadosLocalStorage}
     });
   }
 

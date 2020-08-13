@@ -8,7 +8,6 @@ export class Experiencia {
   profissionalId: number;
 }
 
-
 class EstruturaData {
   date: string;
   timezone: string;
