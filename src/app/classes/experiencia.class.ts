@@ -1,9 +1,16 @@
 export class Experiencia {
-  posicao: Number;
-  empresa: String;
-  cargo: String;
-  dataAdmissao: Date;
-  dataDemissao: Date;
-  observacao: String;
-  profissionalId: Number;
+  posicao: number;
+  empresa: string;
+  cargo: string;
+  dataAdmissao: EstruturaData;
+  dataDemissao: EstruturaData;
+  observacao: string;
+  profissionalId: number;
+}
+
+
+class EstruturaData {
+  date: string;
+  timezone: string;
+  timezone_type: number;
 }
