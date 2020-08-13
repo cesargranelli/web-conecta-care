@@ -76,7 +76,7 @@ export class ExperienciaComponent implements OnInit {
   }
 
   popularForm() {
-    if (this.experiencias) {
+    if (this.experiencias.length > 0) {
       this.experienciaForm.patchValue({
         experiencia: true,
         observacao: this.experiencias[0].observacao,
