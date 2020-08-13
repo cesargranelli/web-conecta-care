@@ -180,7 +180,7 @@ export class ExperienciaComponent implements OnInit {
     setTimeout(() => {
       this._cadastro.experiencia = this.experiencias;
       this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/escolaridade`);
-      this._loading.emitChange(false);
+      this._sharedLoadingService.emitChange(false);
     });
 
   }
