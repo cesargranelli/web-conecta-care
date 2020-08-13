@@ -9,6 +9,7 @@ import {SharedLoadingService} from 'src/app/shared/services/shared-loading.servi
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
 import {ValidService} from '../../../shared/services/shared-valid.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-experiencia',
@@ -68,9 +69,7 @@ export class ExperienciaComponent implements OnInit {
     this._service.getDados(this._dadosLocalStorage.id).subscribe({
       next: experiencia => {
         this.experiencias = experiencia;
-        console.log(this.experiencias);
         this.popularForm();
-        console.log(this.experiencias);
       }
     });
 
@@ -115,7 +114,6 @@ export class ExperienciaComponent implements OnInit {
   }
 
   converterDataExibicao(data: string): string {
-    console.log(data);
     let dia: string = data.slice(8, 10);
     let mes: string = data.slice(5, 7);
     let ano: string = data.slice(0, 4);
@@ -123,67 +121,65 @@ export class ExperienciaComponent implements OnInit {
   }
 
   onSubmit() {
-    // this._loading.emitChange(true);
-    console.log(this.experienciaForm.value);
+    this._loading.emitChange(true);
 
+    if (this.experienciaForm.value.experiencia) {
 
-    // if (this.experienciaForm.value.experiencia) {
-    //
-    //   this.experiencia1.posicao = 1;
-    //   this.experiencia2.posicao = 2;
-    //   this.experiencia3.posicao = 3;
-    //
-    //   this.experiencia1.observacao = this.experienciaForm.value.observacao;
-    //   this.experiencia2.observacao = this.experienciaForm.value.observacao;
-    //   this.experiencia3.observacao = this.experienciaForm.value.observacao;
-    //
-    //   this.experiencia1.empresa = this.experienciaForm.value.empresa1;
-    //   this.experiencia2.empresa = this.experienciaForm.value.empresa2;
-    //   this.experiencia3.empresa = this.experienciaForm.value.empresa3;
-    //
-    //   this.experiencia1.cargo = this.experienciaForm.value.cargo1;
-    //   this.experiencia2.cargo = this.experienciaForm.value.cargo2;
-    //   this.experiencia3.cargo = this.experienciaForm.value.cargo3;
-    //
-    //   this.experiencia1.dataAdmissao = this.experienciaForm.value.dataAdmissao1;
-    //   this.experiencia2.dataAdmissao = this.experienciaForm.value.dataAdmissao2;
-    //   this.experiencia3.dataAdmissao = this.experienciaForm.value.dataAdmissao3;
-    //
-    //   this.experiencia1.dataDemissao = this.experienciaForm.value.dataDemissao1;
-    //   this.experiencia2.dataDemissao = this.experienciaForm.value.dataDemissao2;
-    //   this.experiencia3.dataDemissao = this.experienciaForm.value.dataDemissao3;
-    //
-    //   this.experiencia1.profissionalId = this._dadosLocalStorage.id;
-    //   this.experiencia2.profissionalId = this._dadosLocalStorage.id;
-    //   this.experiencia3.profissionalId = this._dadosLocalStorage.id;
-    //
-    //   this.experiencias.push(this.experiencia1);
-    //   this.experiencias.push(this.experiencia2);
-    //   this.experiencias.push(this.experiencia3);
-    //
-    //   this._service.save(this.experiencias).subscribe(response => {
-    //     setTimeout(() => {
-    //       this._cadastro.experiencia = this.experiencias;
-    //       this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/escolaridade`);
-    //       this._loading.emitChange(false);
-    //     });
-    //   }, () => {
-    //     this._loading.emitChange(false);
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'Ocorreu um erro inexperado ao tentar inserir experiência profissional',
-    //       showConfirmButton: true
-    //     });
-    //   });
-    //
-    // }
-    //
-    // setTimeout(() => {
-    //   this._cadastro.experiencia = this.experiencias;
-    //   this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/escolaridade`);
-    //   this._loading.emitChange(false);
-    // });
+      this.experiencia1.posicao = 1;
+      this.experiencia2.posicao = 2;
+      this.experiencia3.posicao = 3;
+
+      this.experiencia1.observacao = this.experienciaForm.value.observacao;
+      this.experiencia2.observacao = this.experienciaForm.value.observacao;
+      this.experiencia3.observacao = this.experienciaForm.value.observacao;
+
+      this.experiencia1.empresa = this.experienciaForm.value.empresa1;
+      this.experiencia2.empresa = this.experienciaForm.value.empresa2;
+      this.experiencia3.empresa = this.experienciaForm.value.empresa3;
+
+      this.experiencia1.cargo = this.experienciaForm.value.cargo1;
+      this.experiencia2.cargo = this.experienciaForm.value.cargo2;
+      this.experiencia3.cargo = this.experienciaForm.value.cargo3;
+
+      this.experiencia1.dataAdmissao = this.experienciaForm.value.dataAdmissao1;
+      this.experiencia2.dataAdmissao = this.experienciaForm.value.dataAdmissao2;
+      this.experiencia3.dataAdmissao = this.experienciaForm.value.dataAdmissao3;
+
+      this.experiencia1.dataDemissao = this.experienciaForm.value.dataDemissao1;
+      this.experiencia2.dataDemissao = this.experienciaForm.value.dataDemissao2;
+      this.experiencia3.dataDemissao = this.experienciaForm.value.dataDemissao3;
+
+      this.experiencia1.profissionalId = this._dadosLocalStorage.id;
+      this.experiencia2.profissionalId = this._dadosLocalStorage.id;
+      this.experiencia3.profissionalId = this._dadosLocalStorage.id;
+
+      this.experiencias.push(this.experiencia1);
+      this.experiencias.push(this.experiencia2);
+      this.experiencias.push(this.experiencia3);
+
+      this._service.save(this.experiencias).subscribe(response => {
+        setTimeout(() => {
+          this._cadastro.experiencia = this.experiencias;
+          this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/escolaridade`);
+          this._loading.emitChange(false);
+        });
+      }, () => {
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocorreu um erro inexperado ao tentar inserir experiência profissional',
+          showConfirmButton: true
+        });
+      });
+
+    }
+
+    setTimeout(() => {
+      this._cadastro.experiencia = this.experiencias;
+      this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/escolaridade`);
+      this._loading.emitChange(false);
+    });
 
   }
 
