@@ -1,11 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Navigation, Router } from '@angular/router';
-import { LoginService } from 'src/app/auth/services/login.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
-import { Role } from 'src/app/enums/role.enum';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {LoginService} from 'src/app/auth/services/login.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {ValidService} from 'src/app/shared/services/shared-valid.service';
+import {Role} from 'src/app/enums/role.enum';
 
 @Component({
   selector: 'pr-login',
@@ -25,28 +25,26 @@ export class LoginComponent implements OnInit {
     private _validService: ValidService,
     private formBuilder: FormBuilder,
     private service: LoginService,
-    private loading: SharedLoadingService
+    private _sharedLoadingService: SharedLoadingService
   ) {
+    this._sharedLoadingService.emitChange(true);
     this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
-
-    this.loading.emitChange(true);
-
     if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this.router.navigateByUrl('/');
     }
 
     this.loginForm = this.formBuilder.group({
-      email: [{value: '', disabled: true }]
+      email: [{value: '', disabled: true}]
     });
 
     this.service.verLogin().subscribe(response => {
       this.loginForm.controls.email.setValue(response.body.email);
     });
 
-    this.loading.emitChange(false);
+    this._sharedLoadingService.emitChange(false);
 
   }
 

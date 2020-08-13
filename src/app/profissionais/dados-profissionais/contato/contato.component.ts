@@ -55,12 +55,14 @@ export class ContatoComponent implements OnInit {
   }
 
   popularForm() {
-    this.contatoForm.patchValue({
-      telefoneFixo: this.contato.telefoneFixo,
-      telefoneRecado: this.contato.telefoneRecado,
-      celularPrincipal: this.contato.celularPrincipal,
-      celularSecundario: this.contato.celularSecundario
-    });
+    if (this.contato) {
+      this.contatoForm.patchValue({
+        telefoneFixo: this.contato.telefoneFixo,
+        telefoneRecado: this.contato.telefoneRecado,
+        celularPrincipal: this.contato.celularPrincipal,
+        celularSecundario: this.contato.celularSecundario
+      });
+    }
   }
 
   onSubmit() {

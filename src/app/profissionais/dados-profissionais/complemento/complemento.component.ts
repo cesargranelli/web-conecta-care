@@ -44,6 +44,7 @@ export class ComplementoComponent implements OnInit {
     private _cadastro: CadastroProfissionaisService,
     private _validService: ValidService
   ) {
+    this._sharedLoadingService.emitChange(true);
     this.complementoForm = this._formBuilder.group({
       tituloEleitoral: [null, Validators.maxLength(11)],
       zonaEleitoral: [null, Validators.maxLength(3)],
@@ -84,6 +85,7 @@ export class ComplementoComponent implements OnInit {
         this.popularForm();
         setTimeout(() => {
           jQuery('select[id=\'categoriaCNH\']').selectpicker('refresh');
+          this._sharedLoadingService.emitChange(false);
         });
       }
     );

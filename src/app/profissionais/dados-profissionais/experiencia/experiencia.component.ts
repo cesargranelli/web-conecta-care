@@ -34,9 +34,10 @@ export class ExperienciaComponent implements OnInit {
     private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _service: ExperienciaService,
-    private _loading: SharedLoadingService,
+    private _sharedLoadingService: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
+    this._sharedLoadingService.emitChange(true);
     this.experienciaForm = this._formBuilder.group({
       experiencia: [null],
       observacao: [null],
@@ -70,6 +71,7 @@ export class ExperienciaComponent implements OnInit {
       next: experiencia => {
         this.experiencias = experiencia;
         this.popularForm();
+        this._sharedLoadingService.emitChange(false);
       }
     });
 
@@ -121,7 +123,7 @@ export class ExperienciaComponent implements OnInit {
   }
 
   onSubmit() {
-    this._loading.emitChange(true);
+    this._sharedLoadingService.emitChange(true);
 
     if (this.experienciaForm.value.experiencia) {
 
@@ -161,10 +163,10 @@ export class ExperienciaComponent implements OnInit {
         setTimeout(() => {
           this._cadastro.experiencia = this.experiencias;
           this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/escolaridade`);
-          this._loading.emitChange(false);
+          this._sharedLoadingService.emitChange(false);
         });
       }, () => {
-        this._loading.emitChange(false);
+        this._sharedLoadingService.emitChange(false);
         Swal.fire({
           position: 'center',
           icon: 'error',
