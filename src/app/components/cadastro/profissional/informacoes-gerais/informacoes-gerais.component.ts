@@ -1,19 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { EstadoCivil } from 'src/app/classes/estado-civil.class';
-import { Genero } from 'src/app/classes/genero.class';
-import { Profissional } from 'src/app/classes/profissional.class';
-import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
-import { Role } from 'src/app/enums/role.enum';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { ProfissionalService } from 'src/app/services/profissional.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
-import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {EstadoCivil} from 'src/app/classes/estado-civil.class';
+import {Genero} from 'src/app/classes/genero.class';
+import {Profissional} from 'src/app/classes/profissional.class';
+import {TipoEmpresa} from 'src/app/classes/tipo-empresa.class';
+import {Role} from 'src/app/enums/role.enum';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {ProfissionalService} from 'src/app/services/profissional.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {ValidService} from 'src/app/shared/services/shared-valid.service';
+import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -74,24 +74,24 @@ export class InformacoesGeraisComponent implements OnInit {
       this.generos = response.body;
     }, null, () => {
       setTimeout(() => {
-        jQuery("select[id='genero']").selectpicker("refresh");
-      })
+        jQuery('select[id=\'genero\']').selectpicker('refresh');
+      });
     });
 
     this._dominioService.getTipoEmpresas().subscribe(response => {
       this.tipoEmpresas = response.body;
     }, null, () => {
       setTimeout(() => {
-        jQuery("select[id='tipoEmpresa']").selectpicker('refresh');
-      })
+        jQuery('select[id=\'tipoEmpresa\']').selectpicker('refresh');
+      });
     });
 
     this._dominioService.getEstadoCivis().subscribe(response => {
       this.estadoCivis = response.body;
     }, null, () => {
       setTimeout(() => {
-        jQuery("select[id='estadoCivil']").selectpicker('refresh');
-      })
+        jQuery('select[id=\'estadoCivil\']').selectpicker('refresh');
+      });
     });
 
     this.profissionalForm = this._formBuilder.group({
@@ -132,13 +132,15 @@ export class InformacoesGeraisComponent implements OnInit {
   onLoadFotoProfissional(event: any) {
     this._fileProfissional = event.target.files[0];
     var reader = new FileReader();
-    reader.readAsDataURL(this._fileProfissional);
+    if (this._fileProfissional) {
+      reader.readAsDataURL(this._fileProfissional);
+    }
     reader.onload = () => {
       this.fotoProfissional = reader.result;
     };
   }
 
-  onLoadFotoRg(event:any) {
+  onLoadFotoRg(event: any) {
     this._fileRg = event.target.files[0];
     var reader = new FileReader();
     reader.readAsDataURL(this._fileRg);
@@ -156,22 +158,22 @@ export class InformacoesGeraisComponent implements OnInit {
     profissional.fotoRg = this.fotoRg;
 
     this._service.save(profissional).subscribe(response => {
-      this.valid.id = response.body.profissionalId;
-      setTimeout(() => {
-        this._cadastro.profissional = profissional;
-        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/endereco`);
+        this.valid.id = response.body.profissionalId;
+        setTimeout(() => {
+          this._cadastro.profissional = profissional;
+          this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/endereco`);
+          this._loading.emitChange(false);
+        });
+      },
+      (error: Error) => {
         this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocorreu um erro inexperado ao tentar inserir profissional',
+          showConfirmButton: true
+        });
       });
-    },
-    (error: Error) => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar inserir profissional',
-        showConfirmButton: true
-      });
-    });
   }
 
   lpadZero(control: AbstractControl) {
@@ -182,7 +184,7 @@ export class InformacoesGeraisComponent implements OnInit {
   limpar() {
     this.profissionalForm.reset();
     jQuery('.fileinput').fileinput('clear');
-    jQuery(".selectpicker").selectpicker('refresh');
+    jQuery('.selectpicker').selectpicker('refresh');
   }
 
 }

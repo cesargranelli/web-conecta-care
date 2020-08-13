@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import {Contato} from '../classes/contato.class';
 import {TokenService} from './token.service';
 import {map} from 'rxjs/operators';
-import {ContatoResponseInterface} from './response/ContatoResponse.interface';
+import {ContatoResponseInterface} from './response/contatoResponse.interface';
 
 @Injectable({
   providedIn: 'root'
