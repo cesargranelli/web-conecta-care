@@ -27,13 +27,15 @@
                 <div class="row">
                   <label for="dataNascimento" class="col-lg-2 col-md-3 col-form-label">Data Nascimento *</label>
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.dataNascimento)">
-                    <input type="text" class="form-control datetimepicker" formControlName="dataNascimento">
+                    <input type="text" class="form-control datetimepicker" id="dataNascimento"
+                      formControlName="dataNascimento" (focus)="dateChange(profissionalForm.controls?.dataNascimento, 'dataNascimento')"
+                      autocomplete="none">
                   </div>
                 </div>
                 <div class="row">
                   <label for="rg" class="col-lg-2 col-md-3 col-form-label">RG</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="rg" mask="00.000.000-0" (blur)="lpadZero(profissionalForm.controls?.rg)">
+                    <input type="text" class="form-control" formControlName="rg" mask="AA.AAA.AAA-A" (blur)="lpadZero(profissionalForm.controls?.rg)">
                   </div>
                   <label for="rgEmissor" class="col-lg-3 col-md-3 col-form-label">Emissor</label>
                   <div class="form-group col-lg-3 col-md-8">
@@ -43,7 +45,9 @@
                 <div class="row">
                   <label for="rgDataEmissao" class="col-lg-2 col-md-3 col-form-label">Data Emissão RG</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control datetimepicker" formControlName="rgDataEmissao">
+                    <input type="text" class="form-control datetimepicker" id="rgDataEmissao"
+                      formControlName="rgDataEmissao" (focus)="dateChange(profissionalForm.controls?.rgDataEmissao, 'rgDataEmissao')"
+                      autocomplete="none">
                   </div>
                   <label for="pis" class="col-lg-3 col-md-3 col-form-label">PIS</label>
                   <div class="form-group col-lg-3 col-md-8">
@@ -125,8 +129,8 @@
                 <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <!-- <button type="submit" class="btn btn-rose" [disabled]="!profissionalForm.valid">Avançar</button> -->
-                <button type="submit" class="btn btn-rose">Avançar</button>
+                <button type="submit" class="btn btn-rose" [disabled]="!profissionalForm.valid">Avançar</button>
+                <!-- <button type="submit" class="btn btn-rose">Avançar</button> -->
               </span>
             </div>
           </form>
