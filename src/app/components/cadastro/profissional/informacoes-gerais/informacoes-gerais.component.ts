@@ -143,7 +143,9 @@ export class InformacoesGeraisComponent implements OnInit {
   onLoadFotoRg(event: any) {
     this._fileRg = event.target.files[0];
     var reader = new FileReader();
-    reader.readAsDataURL(this._fileRg);
+    if (this._fileRg) {
+      reader.readAsDataURL(this._fileRg);
+    }
     reader.onload = () => {
       this.fotoRg = reader.result;
     };

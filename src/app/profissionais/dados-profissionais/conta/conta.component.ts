@@ -69,6 +69,7 @@ export class ContaComponent implements OnInit {
     ).subscribe(dadosConta => {
       this.conta = dadosConta;
       this.popularForm();
+      jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
         this._sharedLoadingService.emitChange(false);

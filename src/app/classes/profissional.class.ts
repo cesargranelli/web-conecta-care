@@ -1,15 +1,15 @@
-import { EstadoCivil } from './estado-civil.class';
-import { Genero } from './genero.class';
-import { TipoEmpresa } from './tipo-empresa.class';
+import {EstadoCivil} from './estado-civil.class';
+import {Genero} from './genero.class';
+import {TipoEmpresa} from './tipo-empresa.class';
 
 export class Profissional {
   id: number;
   nome: String;
   sobrenome: String;
-  dataNascimento: Date;
+  dataNascimento: Data;
   rg: Number;
   rgEmissor: String;
-  rgDataEmissao: Date;
+  rgDataEmissao: Data;
   pis: Number;
   genero: Genero;
   tipoEmpresa: TipoEmpresa;
@@ -19,4 +19,10 @@ export class Profissional {
   ctpsSerie: Number;
   fotoProfissional: any;
   fotoRg: any;
+}
+
+class Data {
+  date: string;
+  timezone: string;
+  timezone_type: number;
 }

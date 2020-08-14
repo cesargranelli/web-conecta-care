@@ -83,6 +83,7 @@ export class ComplementoComponent implements OnInit {
           this.fotoCNH = this.complemento.fotoCNH;
         }
         this.popularForm();
+        jQuery('select').selectpicker('render');
         setTimeout(() => {
           jQuery('select[id=\'categoriaCNH\']').selectpicker('refresh');
           this._sharedLoadingService.emitChange(false);
@@ -163,6 +164,7 @@ export class ComplementoComponent implements OnInit {
     this._fileProfissional = event.target.files[0];
     let reader = new FileReader();
     if (this._fileProfissional) {
+      this.fileInputCnh = 'fileinput-exists';
       reader.readAsDataURL(this._fileProfissional);
     }
     reader.onload = () => {

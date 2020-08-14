@@ -125,6 +125,7 @@ export class EnderecoComponent implements OnInit {
     this._fileComprovante = event.target.files[0];
     let reader = new FileReader();
     if (this._fileComprovante) {
+      this.fileInputComprovante = 'fileinput-exists';
       reader.readAsDataURL(this._fileComprovante);
     }
     reader.onload = () => {
