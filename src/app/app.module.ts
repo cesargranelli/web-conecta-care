@@ -64,7 +64,9 @@ import { AdminModule } from './admin/admin.module';
     NgxMaskModule.forRoot(),
     HttpClientModule,
     RecaptchaModule,
-    NgxLoadingModule.forRoot({}),
+    NgxLoadingModule.forRoot({
+      fullScreenBackdrop: true
+    }),
     SweetAlert2Module.forRoot(),
     ProfissionaisModule,
     PacientesModule,

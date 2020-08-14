@@ -38,6 +38,8 @@ export class EnderecoComponent implements OnInit {
 
   public validationHas: InputValidationHas = new InputValidationHas();
 
+  public showForm: boolean = true;
+
   constructor(
     private _router: Router,
     private _validService: ValidService,

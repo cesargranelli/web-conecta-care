@@ -1,9 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
-
-
-  FormControl, FormGroup,
+  FormControl,
+  FormGroup,
   Validators
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -40,6 +39,8 @@ export class InformacoesGeraisComponent implements OnInit {
   public tipoEmpresas: TipoEmpresa[];
   public estadoCivis: EstadoCivil[];
 
+  public generoSelecionado: Genero;
+
   public fotoProfissional: any;
   public fotoRg: any;
   public valid: Valid;
@@ -55,10 +56,7 @@ export class InformacoesGeraisComponent implements OnInit {
   public imagemFotoRg: string =
     '../../../../../assets/img/Headshot-Placeholder-1.png';
 
-  teste: boolean = false;
-  generoId: number;
-  tipoEmpresaId: number;
-  estadoCivilId: number;
+  public showForm: boolean = true;
 
   constructor(
     private _router: Router,
@@ -92,7 +90,7 @@ export class InformacoesGeraisComponent implements OnInit {
 
   ngOnInit(): void {
     if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
-      // this._router.navigateByUrl('/');
+      this._router.navigateByUrl('/');
     }
 
     this._dominioService.getGeneros().pipe(
@@ -110,17 +108,23 @@ export class InformacoesGeraisComponent implements OnInit {
           this.estadoCivis = response.body;
         }))
       )
-    ).subscribe(() => {
-      this.popularForm();
-      setTimeout(() => {
-        jQuery(`select[id='genero']`).selectpicker('refresh');
-        jQuery(`select[id='tipoEmpresa']`).selectpicker('refresh');
-        jQuery("select[id='estadoCivil']").selectpicker('refresh');
-        this._loading.emitChange(false);
-      });
-    }, () => {
-      this._loading.emitChange(false);
+    ).subscribe(
+      null,
+      null,
+      () => {
+        setTimeout(() => {
+          jQuery(`select[id='genero']`).selectpicker('refresh');
+          jQuery(`select[id='genero']`).selectpicker('val', this._cadastro.profissional?.genero);
+          jQuery(`select[id='tipoEmpresa']`).selectpicker('refresh');
+          jQuery(`select[id='tipoEmpresa']`).selectpicker('val', this._cadastro.profissional?.tipoEmpresa);
+          jQuery("select[id='estadoCivil']").selectpicker('refresh');
+          jQuery(`select[id='estadoCivil']`).selectpicker('val', this._cadastro.profissional?.estadoCivil);
+          this._loading.emitChange(false);
+        });
+        this.showForm = false;
     });
+
+    this.popularForm();
 
     jQuery('.datetimepicker').datetimepicker({
       format: 'DD/MM/YYYY',
@@ -131,36 +135,27 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   popularForm() {
-    this.profissionalForm.patchValue({
-      nome: this._cadastro.profissional?.nome,
-      sobrenome: this._cadastro.profissional?.sobrenome,
-      dataNascimento: this._cadastro.profissional?.dataNascimento,
-      rg: this._cadastro.profissional?.rg,
-      rgEmissor: this._cadastro.profissional?.rgEmissor,
-      rgDataEmissao: this._cadastro.profissional?.rgDataEmissao,
-      pis: this._cadastro.profissional?.pis,
-      // genero: ['', [Validators.required]],
-      // tipoEmpresa: ['', [Validators.required]],
-      // estadoCivil: ['', [Validators.required]],
-      cnpj: this._cadastro.profissional?.cnpj,
-      ctps: this._cadastro.profissional?.ctps,
-      ctpsSerie: this._cadastro.profissional?.ctpsSerie,
-      // fotoProfissional: ['', [Validators.required]],
-      // fotoRg:
-    });
+    this.profissionalForm.controls.nome.setValue(this._cadastro.profissional?.nome);
+    this.profissionalForm.controls.sobrenome.setValue(this._cadastro.profissional?.sobrenome);
+    this.profissionalForm.controls.dataNascimento.setValue(this._cadastro.profissional?.dataNascimento);
+    this.profissionalForm.controls.rg.setValue(this._cadastro.profissional?.rg);
+    this.profissionalForm.controls.rgEmissor.setValue(this._cadastro.profissional?.rgEmissor);
+    this.profissionalForm.controls.rgDataEmissao.setValue(this._cadastro.profissional?.rgDataEmissao);
+    this.profissionalForm.controls.pis.setValue(this._cadastro.profissional?.pis);
+    this.profissionalForm.controls.cnpj.setValue(this._cadastro.profissional?.cnpj);
+    this.profissionalForm.controls.ctps.setValue(this._cadastro.profissional?.ctps);
+    this.profissionalForm.controls.ctpsSerie.setValue(this._cadastro.profissional?.ctpsSerie);
 
-    if (this._cadastro.profissional?.fotoProfissional) {
+    if (this._cadastro.profissional?.fotoProfissional) {this.fotoProfissional
+      this.fotoProfissional = this._cadastro.profissional?.fotoProfissional;
       this.imagemFotoProfissional = this._cadastro.profissional?.fotoProfissional;
       this.fileInputProfissional = 'fileinput-exists';
     }
     if (this._cadastro.profissional?.fotoRg) {
+      this.fotoRg = this._cadastro.profissional?.fotoRg;
       this.imagemFotoRg = this._cadastro.profissional?.fotoRg;
       this.fileInputRg = 'fileinput-exists';
     }
-
-    this.generoId = this._cadastro.profissional?.genero.id;
-    this.tipoEmpresaId = this._cadastro.profissional?.tipoEmpresa.id;
-    this.estadoCivilId = this._cadastro.profissional?.estadoCivil.id;
   }
 
   onLoadFotoProfissional(event: any) {
@@ -234,14 +229,14 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   validacoes() {
-    if (this.profissionalForm.controls.rgDataEmissao < this.profissionalForm.controls.dataNascimento) {
+    if (this.profissionalForm.controls.rgDataEmissao.value < this.profissionalForm.controls.dataNascimento.value) {
       return true;
     }
   }
 
   dateChange(control: FormControl, name: string) {
     jQuery(`#${name}`).on("dp.change", function (event: any) {
-      control.setValue(event?.date?._d.toLocaleDateString());
+      control.setValue(event?.date?._d?.toLocaleDateString());
     });
   }
 
