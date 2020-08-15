@@ -146,15 +146,13 @@ export class InformacoesGeraisComponent implements OnInit {
     this.profissionalForm.controls.ctps.setValue(this._cadastro.profissional?.ctps);
     this.profissionalForm.controls.ctpsSerie.setValue(this._cadastro.profissional?.ctpsSerie);
 
-    if (this._cadastro.profissional?.fotoProfissional) {this.fotoProfissional
+    if (this._cadastro.profissional?.fotoProfissional) {
       this.fotoProfissional = this._cadastro.profissional?.fotoProfissional;
       this.imagemFotoProfissional = this._cadastro.profissional?.fotoProfissional;
-      this.fileInputProfissional = 'fileinput-exists';
     }
     if (this._cadastro.profissional?.fotoRg) {
       this.fotoRg = this._cadastro.profissional?.fotoRg;
       this.imagemFotoRg = this._cadastro.profissional?.fotoRg;
-      this.fileInputRg = 'fileinput-exists';
     }
   }
 

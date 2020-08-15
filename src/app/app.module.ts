@@ -17,9 +17,9 @@ import { EscolaridadeComponent } from './components/cadastro/profissional/escola
 import { ExperienciaComponent } from './components/cadastro/profissional/experiencia/experiencia.component';
 import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
 import { ConnectaComponent } from './components/connecta/connecta.component';
-import { ContaComponent } from './components/forms/conta/conta.component';
-import { ContatoComponent } from './components/forms/contato/contato.component';
-import { EnderecoComponent } from './components/forms/endereco/endereco.component';
+import { ContaComponent } from './components/cadastro/profissional/conta/conta.component';
+import { ContatoComponent } from './components/cadastro/profissional/contato/contato.component';
+import { EnderecoComponent } from './components/cadastro/profissional/endereco/endereco.component';
 import { MenuLogadoComponent } from './components/menu/menu-logado/menu-logado.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
