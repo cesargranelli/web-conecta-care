@@ -13,23 +13,55 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="row">
-                    <label for="telefoneFixo" class="col-lg-2 col-md-3 col-form-label">Fone Fixo</label>
-                    <div class="form-group col-lg-3 col-md-8">
-                      <input type="text" class="form-control" formControlName="telefoneFixo" placeholder="(99) 9999-9999" mask="(00) 0000-0000">
-                    </div>
-                    <label for="celularPrincipal" class="col-lg-3 col-md-3 col-form-label">Celular Principal *</label>
-                    <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(contatoForm.controls?.celularPrincipal)">
-                      <input type="text" class="form-control" formControlName="celularPrincipal" placeholder="(99) 99999-9999" mask="(00) 00000-0000">
+                    <label for="telefoneFixo" class="col-lg-3 col-md-3 col-form-label">Fone Fixo</label>
+                    <div class="form-group col-lg-6 col-md-6">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            {{ codigoPais }}
+                          </span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="telefoneFixo" placeholder="(99) 99999-9999" mask="(00) 0000-0000">
+                      </div>
                     </div>
                   </div>
                   <div class="row">
-                    <label for="telefoneRecado" class="col-lg-2 col-md-3 col-form-label">Fone Recado</label>
-                    <div class="form-group col-lg-3 col-md-8">
-                      <input type="text" class="form-control" formControlName="telefoneRecado" placeholder="(99) 9999-9999" mask="(00) 0000-0000">
+                    <label for="celularPrincipal" class="col-lg-3 col-md-3 col-form-label">Celular Principal *</label>
+                    <div class="form-group col-lg-6 col-md-6" [ngClass]="validationHas.validation(contatoForm.controls?.celularPrincipal)">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            {{ codigoPais }}
+                          </span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="celularPrincipal" placeholder="(99) 99999-9999" mask="(00) 00000-0000">
+                      </div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <label for="telefoneRecado" class="col-lg-3 col-md-3 col-form-label">Fone Recado</label>
+                    <div class="form-group col-lg-6 col-md-6">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            {{ codigoPais }}
+                          </span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="telefoneRecado" placeholder="(99) 99999-9999" mask="(00) 0000-0000">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
                     <label for="celularSecundario" class="col-lg-3 col-md-3 col-form-label">Celular Secundário</label>
-                    <div class="form-group col-lg-3 col-md-8">
-                      <input type="text" class="form-control" formControlName="celularSecundario" placeholder="(99) 99999-9999" mask="(00) 00000-0000">
+                    <div class="form-group col-lg-6 col-md-6">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            {{ codigoPais }}
+                          </span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="celularSecundario" placeholder="(99) 99999-9999" mask="00 00000-0000">
+                      </div>
                     </div>
                   </div>
                 </div>
