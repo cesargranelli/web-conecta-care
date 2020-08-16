@@ -31,6 +31,7 @@ export class ExperienciaComponent implements OnInit {
   public experiencia2: Experiencia = new Experiencia();
   public experiencia3: Experiencia = new Experiencia();
   public validationHas: InputValidationHas = new InputValidationHas();
+  public showForm: boolean = true;
   public toogleEstado: boolean = true;
 
   constructor(
@@ -74,6 +75,7 @@ export class ExperienciaComponent implements OnInit {
       format: 'DD/MM/YYYY',
       maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
     });
+    this.showForm = false;
   }
 
   popularForm() {

@@ -9,7 +9,7 @@
               Experiência Profissional
             </h3>
           </div>
-          <form [formGroup]="experienciaForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="experienciaForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">

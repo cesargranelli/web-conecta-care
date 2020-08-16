@@ -9,56 +9,54 @@
               Informações Acadêmicas
             </h3>
           </div>
-          <form [formGroup]="escolaridadeForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="escolaridadeForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
                   <label for="instrucao" class="col-lg-3 col-md-3 col-form-label">Grau de instrução *</label>
-                  <div class="form-group col-lg-3 col-md-8">
-                    <select class="selectpicker" id="instrucao" formControlName="instrucao" data-style="btn btn-primary" data-width="100%" title="Selecione">
-                      <option [ngValue]="instrucao" *ngFor="let instrucao of instrucoes">{{ instrucao.grau }}</option>
+                  <div class="form-group col-lg-8 col-md-8">
+                    <select class="selectpicker" id="instrucao" formControlName="instrucao" data-style="btn btn-primary"
+                      data-width="100%" title="Selecione" (change)="toogle()">
+                      <option [value]="instrucao.id" *ngFor="let instrucao of instrucoes">{{ instrucao.grau }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
                   <label for="instituicaoEnsino1" class="col-lg-3 col-md-3 col-form-label">Instituição de ensino 1</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="instituicaoEnsino1">
+                    <input type="text" class="form-control" formControlName="instituicaoEnsino1" [readonly]="toogleEstado">
                   </div>
                 </div>
                 <div class="row">
                   <label for="anoConclusao1" class="col-lg-3 col-md-3 col-form-label">Ano conclusão 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="anoConclusao1" mask="9{4}">
+                    <input type="text" class="form-control" formControlName="anoConclusao1" mask="9{4}" [readonly]="toogleEstado">
                   </div>
                 </div>
-
                 <div class="row">
                   <label for="instituicaoEnsino2" class="col-lg-3 col-md-3 col-form-label">Instituição de ensino 2</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="instituicaoEnsino2">
+                    <input type="text" class="form-control" formControlName="instituicaoEnsino2" [readonly]="toogleEstado">
                   </div>
                 </div>
                 <div class="row">
                   <label for="anoConclusao2" class="col-lg-3 col-md-3 col-form-label">Ano conclusão 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="anoConclusao2" mask="9{4}">
+                    <input type="text" class="form-control" formControlName="anoConclusao2" mask="9{4}" [readonly]="toogleEstado">
                   </div>
                 </div>
-
                 <div class="row">
                   <label for="instituicaoEnsino3" class="col-lg-3 col-md-3 col-form-label">Instituição de ensino 3</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="instituicaoEnsino3">
+                    <input type="text" class="form-control" formControlName="instituicaoEnsino3" [readonly]="toogleEstado">
                   </div>
                 </div>
                 <div class="row">
                   <label for="anoConclusao3" class="col-lg-3 col-md-3 col-form-label">Ano conclusão 3</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="anoConclusao3" mask="9{4}">
+                    <input type="text" class="form-control" formControlName="anoConclusao3" mask="9{4}" [readonly]="toogleEstado">
                   </div>
                 </div>
-
               </div>
             </div>
             <div class="card-footer justify-content-between">
