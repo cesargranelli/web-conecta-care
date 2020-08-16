@@ -1,9 +1,9 @@
 export class Experiencia {
-  posicao: Number;
-  empresa: String;
-  cargo: String;
+  posicao: number;
+  empresa: string;
+  cargo: string;
   dataAdmissao: Date;
   dataDemissao: Date;
-  observacao: String;
-  profissionalId: Number;
+  observacao: string;
+  profissionalId: number;
 }
