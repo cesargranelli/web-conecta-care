@@ -4,19 +4,19 @@ import {TipoEmpresa} from './tipo-empresa.class';
 
 export class Profissional {
   id: number;
-  nome: String;
-  sobrenome: String;
+  nome: string;
+  sobrenome: string;
   dataNascimento: Data;
-  rg: Number;
-  rgEmissor: String;
+  rg: number;
+  rgEmissor: string;
   rgDataEmissao: Data;
-  pis: Number;
+  pis: number;
   genero: Genero;
   tipoEmpresa: TipoEmpresa;
   estadoCivil: EstadoCivil;
-  cnpj: Number;
-  ctps: Number;
-  ctpsSerie: Number;
+  cnpj: number;
+  ctps: number;
+  ctpsSerie: number;
   fotoProfissional: any;
   fotoRg: any;
 }

@@ -1,17 +1,18 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Navigation, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/internal/operators/map';
 import { Escolaridade } from 'src/app/classes/escolaridade.class';
 import { Instrucao } from 'src/app/classes/instrucao.class';
 import { Role } from 'src/app/enums/role.enum';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { EscolaridadeService } from 'src/app/services/escolaridade.service';
 import { Valid } from 'src/app/services/feat/Valid';
-import Swal from 'sweetalert2';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
 import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
@@ -31,6 +32,8 @@ export class EscolaridadeComponent implements OnInit {
 
   public instrucoes: Instrucao[] = [];
   public validationHas: InputValidationHas = new InputValidationHas();
+  public showForm: boolean = true;
+  public toogleEstado: boolean = true;
 
   constructor(
     private _router: Router,
@@ -38,40 +41,74 @@ export class EscolaridadeComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: EscolaridadeService,
-    private _sharedLoadingService: SharedLoadingService,
+    private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
     this.valid = this._validService.getValid();
+
+    this.escolaridadeForm = this._formBuilder.group({
+      instrucao: [null, [Validators.required]],
+      instituicaoEnsino1: [null, [Validators.maxLength(50)]],
+      anoConclusao1: [null, [Validators.maxLength(4)]],
+      instituicaoEnsino2: [null, [Validators.maxLength(50)]],
+      anoConclusao2: [null, [Validators.maxLength(4)]],
+      instituicaoEnsino3: [null, [Validators.maxLength(50)]],
+      anoConclusao3: [null, [Validators.maxLength(4)]],
+    });
   }
 
   ngOnInit(): void {
-
     if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
-    this._dominioService.getInstrucoes().subscribe(response => {
-      this.instrucoes = response.body
-    }, null, () => {
-      setTimeout(() => {
-        jQuery("select[id='instrucao']").selectpicker('refresh');
+    if (this._cadastro.experiencia?.length > 0) {
+      this.escolaridadeForm.controls.instituicaoEnsino1.setValidators(Validators.required);
+      this.escolaridadeForm.controls.anoConclusao1.setValidators(Validators.required);
+    }
+
+    this._dominioService.getInstrucoes().pipe(
+      map(response => {
+        this._loading.emitChange(true);
+        this.instrucoes = response.body;
       })
-    });
+    ).subscribe(
+      null,
+      null,
+      () => {
+      this.popularForm();
+        setTimeout(() => {
+          jQuery("select[id='instrucao']").selectpicker('refresh');
+          jQuery("select[id='instrucao']").selectpicker('val', this._cadastro?.escolaridade?.instrucao);
+          this._loading.emitChange(false);
+        });
+        this.showForm = false;
+      });
+  }
 
-    this.escolaridadeForm = this._formBuilder.group({
-      instrucao: ['', [Validators.required]],
-      instituicaoEnsino1: ['', [Validators.maxLength(50)]],
-      anoConclusao1: ['', [Validators.maxLength(4)]],
-      instituicaoEnsino2: ['', [Validators.maxLength(50)]],
-      anoConclusao2: ['', [Validators.maxLength(4)]],
-      instituicaoEnsino3: ['', [Validators.maxLength(50)]],
-      anoConclusao3: ['', [Validators.maxLength(4)]],
+  popularForm() {
+    this.escolaridadeForm.patchValue({
+      instituicaoEnsino1: this._cadastro?.escolaridade?.instituicaoEnsino[0],
+      anoConclusao1: this._cadastro?.escolaridade?.anoConclusao[0],
+      instituicaoEnsino2: this._cadastro?.escolaridade?.instituicaoEnsino[1],
+      anoConclusao2: this._cadastro?.escolaridade?.anoConclusao[1],
+      instituicaoEnsino3: this._cadastro?.escolaridade?.instituicaoEnsino[2],
+      anoConclusao3: this._cadastro?.escolaridade?.anoConclusao[2]
     });
-
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
+    if (this.validacoes()) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Os anos de conclusão devem obedecer a ordem de precedência',
+        showConfirmButton: true,
+      });
+      return;
+    }
+
+    this._loading.emitChange(true);
     this.escolaridade.instrucao = this.escolaridadeForm.value.instrucao;
 
     this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino1);
@@ -88,11 +125,11 @@ export class EscolaridadeComponent implements OnInit {
       setTimeout(() => {
         this._cadastro.escolaridade = this.escolaridade;
         this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/complemento`);
-        this._sharedLoadingService.emitChange(false);
+        this._loading.emitChange(false);
       });
     },
     (error: Error) => {
-      this._sharedLoadingService.emitChange(false);
+      this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -100,7 +137,10 @@ export class EscolaridadeComponent implements OnInit {
         showConfirmButton: true
       });
     });
+  }
 
+  toogle() {
+    this.toogleEstado = !this.escolaridadeForm.controls.instrucao.valid;
   }
 
   onReturn() {
@@ -110,6 +150,27 @@ export class EscolaridadeComponent implements OnInit {
   limpar() {
     this.escolaridadeForm.reset();
     jQuery(".selectpicker").selectpicker('refresh');
+  }
+
+  validacoes(): boolean {
+    if (this.escolaridadeForm.controls.anoConclusao1.value &&
+      this.escolaridadeForm.controls.anoConclusao2.value &&
+      this.escolaridadeForm.controls.anoConclusao3.value) {
+        return !(this.escolaridadeForm.controls.anoConclusao1.value <= this.escolaridadeForm.controls.anoConclusao2.value &&
+        this.escolaridadeForm.controls.anoConclusao2.value <= this.escolaridadeForm.controls.anoConclusao3.value);
+    }
+
+    if (this.escolaridadeForm.controls.anoConclusao1.value && this.escolaridadeForm.controls.anoConclusao2.value) {
+        return !(this.escolaridadeForm.controls.anoConclusao1.value <= this.escolaridadeForm.controls.anoConclusao2.value);
+    }
+
+    if (this.escolaridadeForm.controls.anoConclusao1.value && this.escolaridadeForm.controls.anoConclusao3.value) {
+        return !(this.escolaridadeForm.controls.anoConclusao1.value <= this.escolaridadeForm.controls.anoConclusao3.value);
+    }
+
+    if (this.escolaridadeForm.controls.anoConclusao2.value && this.escolaridadeForm.controls.anoConclusao3.value) {
+        return !(this.escolaridadeForm.controls.anoConclusao2.value <= this.escolaridadeForm.controls.anoConclusao3.value);
+    }
   }
 
 }

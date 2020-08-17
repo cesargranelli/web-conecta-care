@@ -86,8 +86,8 @@ export class LoginComponent implements OnInit {
       this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
-        icon: 'success',
-        title: error.message,
+        icon: 'error',
+        title: 'Usuário ou senha inválidos',
         showConfirmButton: true
       });
     });

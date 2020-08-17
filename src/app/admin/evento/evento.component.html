@@ -1,0 +1,77 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">mail</i>
+            <h3 class="card-title">
+              Cadastrar Evento
+            </h3>
+          </div>
+          <form [formGroup]="eventoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="row">
+                  <label for="titulo" class="col-lg-2 col-md-2 col-form-label">Título *</label>
+                  <div class="form-group col-lg-9 col-md-9" [ngClass]="validationHas.validation(eventoForm.controls?.titulo)">
+                    <input type="text" class="form-control" formControlName="titulo">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="descricao" class="col-lg-2 col-md-2 col-form-label">Descrição *</label>
+                  <div class="form-group col-lg-9 col-md-9" [ngClass]="validationHas.validation(eventoForm.controls?.descricao)">
+                    <input type="text" class="form-control" formControlName="descricao">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="local" class="col-lg-2 col-md-2 col-form-label">Local *</label>
+                  <div class="form-group col-lg-9 col-md-9" [ngClass]="validationHas.validation(eventoForm.controls?.local)">
+                    <input type="text" class="form-control" formControlName="local">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="data" class="col-lg-2 col-md-2 col-form-label">Data *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.data)">
+                    <input type="text" class="form-control" id="datepicker" formControlName="data" autocomplete="false" (focus)="dateChange(eventoForm)">
+                  </div>
+                  <label for="hora" class="col-lg-3 col-md-3 col-form-label">Hora *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.hora)">
+                    <input type="text" class="form-control" id="timepicker" formControlName="hora" autocomplete="false" (focus)="timeChange(eventoForm)">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="estados" class="col-lg-2 col-md-3 col-form-label">Região *</label>
+                  <div class="form-group col-lg-4 col-md-8">
+                    <select formControlName="estado" id="estado" class="selectpicker" data-style="btn btn-primary"
+                            data-width="100%" title="Selecione">
+                      <option [ngValue]="estado" *ngFor="let estado of estados">{{ estado.uf }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="especialidades" class="col-lg-2 col-md-3 col-form-label">Especialidade *</label>
+                  <div class="form-group col-lg-4 col-md-8">
+                    <select formControlName="especialidades" id="especialidade" multiple="multiple" class="selectpicker" data-style="btn btn-primary"
+                            data-width="100%" title="Selecione">
+                      <option disabled selected>Selecione</option>
+                      <option [ngValue]="especialidade" *ngFor="let especialidade of especialidades">{{ especialidade.nome }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer justify-content-between">
+              <span class="bmd-form-group is-filled">
+                <button type="button" class="btn btn-gray">Cancelar</button>
+              </span>
+              <span class="bmd-form-group is-filled">
+                <button type="submit" class="btn btn-rose" [disabled]="!eventoForm.valid">Publicar</button><!-- [disabled]="!eventoForm.valid" -->
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

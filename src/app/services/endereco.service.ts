@@ -1,11 +1,11 @@
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {Endereco} from '../classes/endereco.class';
-import {TokenService} from './token.service';
-import {map} from 'rxjs/operators';
-import {EnderecoResponseInterface} from './response/enderecoResponse.interface';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../../src/environments/environment';
+import { Endereco } from '../classes/endereco.class';
+import { EnderecoResponseInterface } from './response/enderecoResponse.interface';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,15 @@ export class EnderecoService {
   readonly _headers: HttpHeaders = new HttpHeaders();
 
   private endpoint: string = `${environment.apiUrl}/enderecos`;
+  private endpointViaCep: string = `${environment.apiCep}/ws/{cep}/json`;
 
   constructor(private _http: HttpClient, private _tokenService: TokenService) {
     this._headers = this._headers.set('Token', 'Bearer ' + this._tokenService.getToken());
+  }
+
+  findViaCep(pathParam: string): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<any>>(`${this.endpointViaCep.replace('{cep}', pathParam)}`,
+      { headers: this._headers, observe: 'response' });
   }
 
   getDados(id: number): Observable<Endereco> {
