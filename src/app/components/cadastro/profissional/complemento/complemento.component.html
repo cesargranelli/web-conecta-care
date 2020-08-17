@@ -9,7 +9,7 @@
               Informações Complementares
             </h3>
           </div>
-          <form [formGroup]="complementoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="complementoForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
@@ -27,23 +27,25 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="numeroHabilitacao" class="col-lg-2 col-md-3 col-form-label">Nº Habilitação *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.numeroHabilitacao)">
+                  <label for="numeroHabilitacao" class="col-lg-2 col-md-3 col-form-label">Nº Habilitação</label>
+                  <div class="form-group col-lg-3 col-md-8">
                     <input type="text" class="form-control" formControlName="numeroHabilitacao" mask="99999999999">
                   </div>
-                  <label for="dataValidadeHabilitacao" class="col-lg-2 col-md-3 col-form-label">Validade *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.dataValidadeHabilitacao)">
-                    <input type="text" class="form-control" formControlName="dataValidadeHabilitacao" [dropSpecialCharacters]="false" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                  <label for="dataValidadeHabilitacao" class="col-lg-3 col-md-3 col-form-label">Data Validade</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control datetimepicker" id="dataValidadeHabilitacao"
+                      formControlName="dataValidadeHabilitacao" autocomplete="none"
+                      (focus)="dateChange(complementoForm.controls?.dataValidadeHabilitacao, 'dataValidadeHabilitacao')">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="categoriaCNH" class="col-lg-2 col-md-3 col-form-label">Categoria *</label>
+                  <label for="categoriaCNH" class="col-lg-2 col-md-3 col-form-label">Categoria</label>
                   <div class="form-group col-lg-3 col-md-8">
                     <select class="selectpicker" id="categoriaCNH" formControlName="categoriaCNH" data-style="btn btn-primary" data-width="100%" title="Selecione">
-                      <option [ngValue]="categoriaCNH" *ngFor="let categoriaCNH of categoriasCNH">{{ categoriaCNH.sigla }}</option>
+                      <option [value]="categoriaCNH.id" *ngFor="let categoriaCNH of categoriasCNH">{{ categoriaCNH.sigla }}</option>
                     </select>
                   </div>
-                  <label for="fotoCNH" class="col-lg-2 col-md-3 col-form-label">Foto CNH *</label>
+                  <label for="fotoCNH" class="col-lg-2 col-md-3 col-form-label">Foto CNH</label>
                   <div class="col-lg-5 col-md-3">
                     <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputFotoCNH">
                       <div class="thumbnail img-circle img-raised" [ngClass]="fileInputFotoCNH">
@@ -119,7 +121,8 @@
                 <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!complementoForm.valid">Avançar</button>
+                <!-- <button type="submit" class="btn btn-rose" [disabled]="!complementoForm.valid">Avançar</button> -->
+                <button type="submit" class="btn btn-rose">Avançar</button>
               </span>
             </div>
           </form>

@@ -6,6 +6,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { NgxLoadingModule } from 'ngx-loading';
 import { NgxMaskModule } from 'ngx-mask';
+import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
@@ -13,13 +14,13 @@ import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { CadastroLoginComponent } from './components/cadastro/login/cadastro-login.component';
 import { CarreiraComponent } from './components/cadastro/profissional/carreira/carreira.component';
 import { ComplementoComponent } from './components/cadastro/profissional/complemento/complemento.component';
+import { ContaComponent } from './components/cadastro/profissional/conta/conta.component';
+import { ContatoComponent } from './components/cadastro/profissional/contato/contato.component';
+import { EnderecoComponent } from './components/cadastro/profissional/endereco/endereco.component';
 import { EscolaridadeComponent } from './components/cadastro/profissional/escolaridade/escolaridade.component';
 import { ExperienciaComponent } from './components/cadastro/profissional/experiencia/experiencia.component';
 import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
 import { ConnectaComponent } from './components/connecta/connecta.component';
-import { ContaComponent } from './components/forms/conta/conta.component';
-import { ContatoComponent } from './components/forms/contato/contato.component';
-import { EnderecoComponent } from './components/forms/endereco/endereco.component';
 import { MenuLogadoComponent } from './components/menu/menu-logado/menu-logado.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
@@ -63,13 +64,16 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     NgxMaskModule.forRoot(),
     HttpClientModule,
     RecaptchaModule,
-    NgxLoadingModule.forRoot({}),
+    NgxLoadingModule.forRoot({
+      fullScreenBackdrop: true
+    }),
     SweetAlert2Module.forRoot(),
     ProfissionaisModule,
     PacientesModule,
     HomecaresModule,
     ConveniosModule,
-    AuthModule
+    AuthModule,
+    AdminModule
   ],
   providers: [
     ValidadorCpf,

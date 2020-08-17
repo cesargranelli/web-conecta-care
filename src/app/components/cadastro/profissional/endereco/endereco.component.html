@@ -9,9 +9,19 @@
               Endereço
             </h3>
           </div>
-          <form [formGroup]="enderecoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="enderecoForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
             <div class="card-body">
               <div class="tab-content">
+                <div class="row">
+                  <label for="cep" class="col-lg-2 col-md-2 col-form-label">CEP *</label>
+                  <div class="form-group col-lg-5 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.cep)">
+                    <input type="text" class="form-control" formControlName="cep" mask="00000-000" autocomplete="none">
+                  </div>
+                  <button type="button" class="btn btn-social btn-just-icon btn-round btn-rose"
+                    (click)="pesquisarCep()" [disabled]="!enderecoForm.controls.cep.valid">
+                    <i class="material-icons">search</i>
+                  </button>
+                </div>
                 <div class="row">
                   <label for="logradouro" class="col-lg-2 col-md-3 col-form-label">Endereço *</label>
                   <div class="form-group col-lg-5 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.logradouro)">
@@ -28,10 +38,6 @@
                   <div class="form-group col-lg-5 col-md-8">
                     <input type="text" class="form-control" formControlName="complemento">
                   </div>
-                  <label for="cep" class="col-lg-2 col-md-3 col-form-label">CEP *</label>
-                  <div class="form-group col-lg-2 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.cep)">
-                    <input type="text" class="form-control" formControlName="cep" mask="00000-000">
-                  </div>
                 </div>
                 <div class="row">
                   <label for="bairro" class="col-lg-2 col-md-3 col-form-label">Bairro *</label>
@@ -46,6 +52,22 @@
                   </div>
                 </div>
                 <div class="row">
+                  <label for="pais" class="col-lg-2 col-md-3 col-form-label">País *</label>
+                  <div class="form-group col-lg-4 col-md-8">
+                    <select class="selectpicker" formControlName="pais" id="pais" data-style="btn btn-primary"
+                      data-width="100%" title="País" data-live-search="true">
+                      <option [value]="pais.id" *ngFor="let pais of paises">{{ pais.nome | uppercase }}</option>
+                    </select>
+                  </div>
+                  <label for="estado" class="col-lg-1 col-md-3 col-form-label">UF *</label>
+                  <div class="form-group col-lg-4 col-md-8">
+                    <select class="selectpicker" formControlName="estado" id="estado" data-style="btn btn-primary"
+                      data-width="100%" title="Estado" data-live-search="true">
+                      <option [value]="estado.id" *ngFor="let estado of estados">{{ estado.uf }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
                   <label for="comprovante" class="col-lg-2 col-md-3 col-form-label">Comprovante *</label>
                   <div class="col-lg-5 col-md-8">
                     <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputComprovante">
@@ -56,15 +78,9 @@
                       <span class="btn btn-raised btn-round btn-rose btn-file">
                         <span class="fileinput-new">Selecionar comprovante</span>
                         <span class="fileinput-exists">Trocar</span>
-                        <input type="file" (change)="onLoadComprovante($event)" formControlName="comprovante">
+                        <input type="file" data-max-size="2" (change)="onLoadComprovante($event)" formControlName="comprovante">
                       </span>
                     </div>
-                  </div>
-                  <label for="estado" class="col-lg-1 col-md-3 col-form-label">UF *</label>
-                  <div class="form-group col-lg-3 col-md-8">
-                    <select class="selectpicker" formControlName="estado" id="estado" data-style="btn btn-primary" data-width="100%" title="Estado">
-                      <option [ngValue]="estado" *ngFor="let estado of estados">{{ estado.uf }}</option>
-                    </select>
                   </div>
                 </div>
               </div>

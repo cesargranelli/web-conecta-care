@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -10,6 +10,7 @@ import { EstadoCivil } from '../classes/estado-civil.class';
 import { Estado } from '../classes/estado.class';
 import { Genero } from '../classes/genero.class';
 import { Instrucao } from '../classes/instrucao.class';
+import { Pais } from '../classes/pais.class';
 import { TipoConta } from '../classes/tipo-conta.class';
 import { TipoEmpresa } from '../classes/tipo-empresa.class';
 import { Transporte } from '../classes/transporte.class';
@@ -82,6 +83,11 @@ export class DominioService {
 
   getBancos(): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<Banco[]>>(`${this.endpoint}/banco`,
+      { headers: this._headers, observe: 'response' });
+  }
+
+  getPaises(): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<Pais[]>>(`${this.endpoint}/pais`,
       { headers: this._headers, observe: 'response' });
   }
 
