@@ -13,6 +13,8 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { map } from 'rxjs/internal/operators/map';
+import { concatMap } from 'rxjs/internal/operators/concatMap';
 
 declare var jQuery: any;
 
@@ -33,6 +35,7 @@ export class ContaComponent implements OnInit {
   public tipoContas: TipoConta[];
   public bancos: Banco[];
   public validationHas: InputValidationHas = new InputValidationHas();
+  public showForm: boolean = true;
 
   constructor(
     private _router: Router,
@@ -44,38 +47,55 @@ export class ContaComponent implements OnInit {
     private _cadastro: CadastroProfissionaisService
   ) {
     this.valid = this._validService.getValid();
+
+    this.contaForm = this._formBuilder.group({
+      tipo: [null, [Validators.required]],
+      banco: [null, [Validators.required]],
+      agencia: [null, [Validators.required, Validators.maxLength(5)]],
+      numero: [null, [Validators.required, Validators.maxLength(12)]],
+      digito: [null, [Validators.required, Validators.maxLength(2)]]
+    });
   }
 
   ngOnInit(): void {
-
     if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
-    this._dominioService.getTipoContas().subscribe(response => {
-      this.tipoContas = response.body
-    }, null, () => {
-      setTimeout(() => {
-        jQuery("select[id='tipoConta']").selectpicker('refresh');
-      })
-    });
+    this._dominioService.getTipoContas().pipe(
+      map(response => {
+        this._loading.emitChange(true);
+        this.tipoContas = response.body;
+      }),
+      concatMap(() => this._dominioService.getBancos().pipe(
+        map(response => {
+          this.bancos = response.body;
+        }))
+      )
+    ).subscribe(
+      null,
+      null,
+      () => {
+        setTimeout(() => {
+          jQuery("select[id='tipoConta']").selectpicker('refresh');
+          jQuery(`select[id='tipoConta']`).selectpicker('val', this._cadastro.conta?.tipo);
+          jQuery("select[id='banco']").selectpicker('refresh');
+          jQuery(`select[id='banco']`).selectpicker('val', this._cadastro.conta?.banco);
+          this._loading.emitChange(false);
+        });
+        this.showForm = false;
+      });
 
-    this._dominioService.getBancos().subscribe(response => {
-      this.bancos = response.body
-    }, null, () => {
-      setTimeout(() => {
-        jQuery("select[id='banco']").selectpicker('refresh');
-      })
-    });
+  }
 
-    this.contaForm = this._formBuilder.group({
+  popularForm() {
+    this.contaForm.patchValue({
       tipo: [this._cadastro.conta?.tipo, [Validators.required]],
       banco: ['', [Validators.required]],
       agencia: [this._cadastro.conta?.agencia, [Validators.required, Validators.maxLength(5)]],
       numero: [this._cadastro.conta?.numero, [Validators.required, Validators.maxLength(12)]],
-      digito: [this._cadastro.conta?.digito, [Validators.required, Validators.maxLength(2)]],
+      digito: [this._cadastro.conta?.digito, [Validators.required, Validators.maxLength(2)]]
     });
-
   }
 
   onSubmit() {
