@@ -44,9 +44,10 @@ export class CarreiraComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: CarreiraService,
-    private _loading: SharedLoadingService,
-    private _cadastro: CadastroProfissionaisService
+    private _sharedLoadingService: SharedLoadingService,
+    private _cadastro: CadastroProfissionaisService,
   ) {
+    this._sharedLoadingService.emitChange(true);
     this.carreiraForm = this._formBuilder.group({
       conselho: ['', Validators.required],
       registroProfissional: [this._cadastro.carreira?.registroProfissional, Validators.maxLength(15)],
@@ -81,21 +82,24 @@ export class CarreiraComponent implements OnInit {
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
+        this._sharedLoadingService.emitChange(false);
       });
     });
   }
 
   popularForm(): void {
-    this.carreiraForm.patchValue({
-      conselho: this.carreira.conselho,
-      registroProfissional: this.carreira.registroProfissional,
-      ufConselho: this.carreira.ufConselho,
-      nomeReferencia1: this.carreira.nomeReferencia1,
-      telefoneReferencia1: this.carreira.telefoneReferencia1,
-      nomeReferencia2: this.carreira.nomeReferencia2,
-      telefoneReferencia2: this.carreira.telefoneReferencia2,
-      transporte: this.carreira.transporte,
-    });
+    if (this.carreira) {
+      this.carreiraForm.patchValue({
+        conselho: this.carreira.conselho,
+        registroProfissional: this.carreira.registroProfissional,
+        ufConselho: this.carreira.ufConselho,
+        nomeReferencia1: this.carreira.nomeReferencia1,
+        telefoneReferencia1: this.carreira.telefoneReferencia1,
+        nomeReferencia2: this.carreira.nomeReferencia2,
+        telefoneReferencia2: this.carreira.telefoneReferencia2,
+        transporte: this.carreira.transporte,
+      });
+    }
   }
 
   carregarAreasAtendimento(): void {
@@ -132,7 +136,7 @@ export class CarreiraComponent implements OnInit {
   }
 
   onSubmit() {
-    this._loading.emitChange(true);
+    this._sharedLoadingService.emitChange(true);
 
     this.carreira = this.carreiraForm.value;
     this.carreira.areaAtendimento = this.lerAreasAtendimento();
@@ -142,10 +146,10 @@ export class CarreiraComponent implements OnInit {
       setTimeout(() => {
         this._cadastro.carreira = this.carreira;
         this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/experiencia`);
-        this._loading.emitChange(false);
+        this._sharedLoadingService.emitChange(false);
       });
     }, () => {
-      this._loading.emitChange(false);
+      this._sharedLoadingService.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',

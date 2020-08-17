@@ -23,11 +23,6 @@ export class ContaService {
     this._headers = this._headers.set('Token', 'Bearer ' + this._tokenService.getToken());
   }
 
-  save(payload: Conta): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload,
-      {headers: this._headers, observe: 'response'});
-  }
-
   getDados(id: number): Observable<Conta> {
     return this._http.get(`${this.endpointGetDados}/${id}`,
       {
@@ -37,4 +32,10 @@ export class ContaService {
       })
     );
   }
+
+  save(payload: Conta): Observable<HttpResponse<any>> {
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload,
+      {headers: this._headers, observe: 'response'});
+  }
+
 }

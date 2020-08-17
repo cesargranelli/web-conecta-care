@@ -44,6 +44,7 @@ export class ComplementoComponent implements OnInit {
     private _cadastro: CadastroProfissionaisService,
     private _validService: ValidService
   ) {
+    this._sharedLoadingService.emitChange(true);
     this.complementoForm = this._formBuilder.group({
       tituloEleitoral: [null, Validators.maxLength(11)],
       zonaEleitoral: [null, Validators.maxLength(3)],
@@ -77,13 +78,15 @@ export class ComplementoComponent implements OnInit {
       concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
     ).subscribe(dadosComplemento => {
         this.complemento = dadosComplemento;
-        if (this.complemento.fotoCNH) {
+        if (this.complemento && this.complemento.fotoCNH) {
           this.fileInputCnh = 'fileinput-exists';
           this.fotoCNH = this.complemento.fotoCNH;
         }
         this.popularForm();
+        jQuery('select').selectpicker('render');
         setTimeout(() => {
           jQuery('select[id=\'categoriaCNH\']').selectpicker('refresh');
+          this._sharedLoadingService.emitChange(false);
         });
       }
     );
@@ -91,23 +94,25 @@ export class ComplementoComponent implements OnInit {
   }
 
   popularForm() {
-    this.complementoForm.patchValue({
-      tituloEleitoral: this.complemento.tituloEleitoral,
-      zonaEleitoral: this.complemento.zonaEleitoral,
-      numeroHabilitacao: this.complemento.numeroHabilitacao,
-      categoriaCNH: this.complemento.categoriaCNH,
-      secaoEleitoral: this.complemento.secaoEleitoral,
-      dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao.date),
-      numeroReservista: this.complemento.numeroReservista,
-      nomeMae: this.complemento.nomeMae,
-      profissaoMae: this.complemento.profissaoMae,
-      nomePai: this.complemento.nomePai,
-      profissaoPai: this.complemento.profissaoPai,
-      nomeConjuge: this.complemento.nomeConjuge,
-      profissaoConjuge: this.complemento.profissaoConjuge,
-      filhos: this.complemento.filhos,
-      carteiraVacinacao: this.complemento.carteiraVacinacao,
-    });
+    if (this.complemento) {
+      this.complementoForm.patchValue({
+        tituloEleitoral: this.complemento.tituloEleitoral,
+        zonaEleitoral: this.complemento.zonaEleitoral,
+        numeroHabilitacao: this.complemento.numeroHabilitacao,
+        categoriaCNH: this.complemento.categoriaCNH,
+        secaoEleitoral: this.complemento.secaoEleitoral,
+        dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao.date),
+        numeroReservista: this.complemento.numeroReservista,
+        nomeMae: this.complemento.nomeMae,
+        profissaoMae: this.complemento.profissaoMae,
+        nomePai: this.complemento.nomePai,
+        profissaoPai: this.complemento.profissaoPai,
+        nomeConjuge: this.complemento.nomeConjuge,
+        profissaoConjuge: this.complemento.profissaoConjuge,
+        filhos: this.complemento.filhos,
+        carteiraVacinacao: this.complemento.carteiraVacinacao,
+      });
+    }
   }
 
   onSubmit() {
@@ -157,8 +162,11 @@ export class ComplementoComponent implements OnInit {
 
   onLoadFotoCNH(event: any) {
     this._fileProfissional = event.target.files[0];
-    var reader = new FileReader();
-    reader.readAsDataURL(this._fileProfissional);
+    let reader = new FileReader();
+    if (this._fileProfissional) {
+      this.fileInputCnh = 'fileinput-exists';
+      reader.readAsDataURL(this._fileProfissional);
+    }
     reader.onload = () => {
       this.fotoCNH = reader.result;
     };

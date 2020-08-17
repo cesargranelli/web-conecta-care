@@ -9,7 +9,7 @@ export class DadosProfissionaisComponent implements OnInit {
 
   cards = [
     { icon: "fingerprint", link: "login", value: "Ver", stats: "Informações de Login" },
-    { icon: "info", link: "profissional", value: "Ver", stats: "Informações Gerais" },
+    { icon: "info", link: "informacoes-gerais", value: "Ver", stats: "Informações Gerais" },
     { icon: "house", link: "endereco", value: "Ver", stats: "Endereço" },
     { icon: "contact_phone", link: "contato", value: "Ver", stats: "Informações de Contato" },
     { icon: "work", link: "carreira", value: "Ver", stats: "Informações Profissionais" },

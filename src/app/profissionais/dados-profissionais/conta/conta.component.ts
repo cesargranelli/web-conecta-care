@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Banco} from 'src/app/classes/banco.class';
@@ -11,7 +11,6 @@ import {Valid} from 'src/app/services/feat/Valid';
 import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import {ValidService} from '../../../shared/services/shared-valid.service';
-import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
 import {concatMap, map} from 'rxjs/operators';
 
@@ -43,6 +42,7 @@ export class ContaComponent implements OnInit {
     private _cadastro: CadastroProfissionaisService,
     private _changeDetector: ChangeDetectorRef,
   ) {
+    this._sharedLoadingService.emitChange(true);
     this.contaForm = this._formBuilder.group({
       tipo: [null, Validators.required],
       banco: [null, Validators.required],
@@ -69,21 +69,24 @@ export class ContaComponent implements OnInit {
     ).subscribe(dadosConta => {
       this.conta = dadosConta;
       this.popularForm();
+      jQuery('select').selectpicker('render');
       setTimeout(() => {
-        jQuery('select[id=\'banco\']').selectpicker('refresh');
-        jQuery('select[id=\'tipo\']').selectpicker('refresh');
+        jQuery('select').selectpicker('refresh');
+        this._sharedLoadingService.emitChange(false);
       });
     });
   }
 
   popularForm() {
-    this.contaForm.patchValue({
-      tipo: this.conta.tipo,
-      banco: this.conta.banco,
-      agencia: this.conta.agencia,
-      numero: this.conta.numero,
-      digito: this.conta.digito,
-    });
+    if (this.conta) {
+      this.contaForm.patchValue({
+        tipo: this.conta.tipo,
+        banco: this.conta.banco,
+        agencia: this.conta.agencia,
+        numero: this.conta.numero,
+        digito: this.conta.digito,
+      });
+    }
   }
 
   onSubmit() {

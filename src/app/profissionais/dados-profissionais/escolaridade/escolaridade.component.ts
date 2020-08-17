@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Escolaridade} from 'src/app/classes/escolaridade.class';
@@ -10,7 +10,6 @@ import {InputValidationHas} from 'src/app/shared/validations/input-validation-ha
 import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
 import {ValidService} from '../../../shared/services/shared-valid.service';
-import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
 import {concatMap, map} from 'rxjs/operators';
 
@@ -40,6 +39,7 @@ export class EscolaridadeComponent implements OnInit {
     private _sharedLoadingService: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
+    this._sharedLoadingService.emitChange(true);
     this.escolaridadeForm = this._formBuilder.group({
       instrucao: [null, Validators.required],
       instituicaoEnsino1: [null, Validators.maxLength(50)],
@@ -66,21 +66,24 @@ export class EscolaridadeComponent implements OnInit {
       this.popularForm();
       setTimeout(() => {
         jQuery('select[id=\'instrucao\']').selectpicker('refresh');
+        this._sharedLoadingService.emitChange(false);
       });
     });
 
   }
 
   popularForm() {
-    this.escolaridadeForm.patchValue({
-      instrucao: this.escolaridade.instrucao,
-      instituicaoEnsino1: this.escolaridade.instituicaoEnsino[0],
-      anoConclusao1: this.escolaridade.anoConclusao[0],
-      instituicaoEnsino2: this.escolaridade.instituicaoEnsino[1],
-      anoConclusao2: this.escolaridade.anoConclusao[1],
-      instituicaoEnsino3: this.escolaridade.instituicaoEnsino[2],
-      anoConclusao3: this.escolaridade.anoConclusao[2]
-    });
+    if (this.escolaridade) {
+      this.escolaridadeForm.patchValue({
+        instrucao: this.escolaridade.instrucao,
+        instituicaoEnsino1: this.escolaridade.instituicaoEnsino[0],
+        anoConclusao1: this.escolaridade.anoConclusao[0],
+        instituicaoEnsino2: this.escolaridade.instituicaoEnsino[1],
+        anoConclusao2: this.escolaridade.anoConclusao[1],
+        instituicaoEnsino3: this.escolaridade.instituicaoEnsino[2],
+        anoConclusao3: this.escolaridade.anoConclusao[2]
+      });
+    }
   }
 
   onSubmit() {
