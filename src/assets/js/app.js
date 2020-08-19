@@ -111,16 +111,21 @@ app = {
 
 }
 
-$(window).on("load", function () {
-  if (document.location.pathname === "/login") {
-    // Initialise the wizard
-    app.initMaterialWizard();
-    setTimeout(function () {
-      $('.card.card-wizard').addClass('active');
-    }, 600);
-  }
-});
+function carregarTarjaAzul() {
+  // Initialise the wizard
+  app.initMaterialWizard();
+  setTimeout(function () {
+    $('.card.card-wizard').addClass('active');
+  }, 600);
+}
 
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-});
+function hideToolTip() {
+  $('[role="tooltip"]').tooltip("hide");
+}
+
+function injetaToolTip() {
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+}
+
