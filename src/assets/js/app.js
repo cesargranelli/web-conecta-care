@@ -1,14 +1,6 @@
-$(document).ready(function () {
-  // Initialise the wizard
-  app.initMaterialWizard();
-  setTimeout(function () {
-    $('.card.card-wizard').addClass('active');
-  }, 600);
-});
-
 app = {
 
-  initMaterialWizard: function() {
+  initMaterialWizard: function () {
 
     // Wizard Initialization
     $('.card-wizard').bootstrapWizard({
@@ -16,7 +8,7 @@ app = {
       'nextSelector': '.btn-next',
       'previousSelector': '.btn-previous',
 
-      onInit: function(tab, navigation, index) {
+      onInit: function (tab, navigation, index) {
         //check number of tabs and fill the entire row
         // let $total = navigation.find('li').length;
         let $wizard = navigation.closest('.card-wizard');
@@ -30,13 +22,13 @@ app = {
         $('.moving-tab').css('transition', 'transform 0s');
       },
 
-      onTabShow: function(tab, navigation, index) {
+      onTabShow: function (tab, navigation, index) {
         let $current = index + 1;
         let $wizard = navigation.closest('.card-wizard');
 
         button_text = navigation.find('li:nth-child(' + $current + ') a').html();
 
-        setTimeout(function() {
+        setTimeout(function () {
           $('.moving-tab').text(button_text);
         }, 150);
 
@@ -61,8 +53,8 @@ app = {
 
     $('.set-full-height').css('height', 'auto');
 
-    $(window).resize(function() {
-      $('.card-wizard').each(function() {
+    $(window).resize(function () {
+      $('.card-wizard').each(function () {
         $wizard = $(this);
 
         index = $wizard.bootstrapWizard('currentIndex');
@@ -118,6 +110,16 @@ app = {
   },
 
 }
+
+$(window).on("load", function () {
+  if (document.location.pathname === "/login") {
+    // Initialise the wizard
+    app.initMaterialWizard();
+    setTimeout(function () {
+      $('.card.card-wizard').addClass('active');
+    }, 600);
+  }
+});
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
