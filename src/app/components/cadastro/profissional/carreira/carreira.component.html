@@ -9,17 +9,17 @@
               Informações Profissionais
             </h3>
           </div>
-          <form [formGroup]="carreiraForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="carreiraForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
                   <label for="conselho" class="col-lg-2 col-md-3 col-form-label">Conselho *</label>
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.conselho)">
-                    <select class="selectpicker" id="conselho" data-style="btn btn-primary" data-width="100%" title="Selecione" formControlName="conselho">
-                      <option [ngValue]="conselho" *ngFor="let conselho of conselhos">{{ conselho.sigla }}</option>
+                    <select class="selectpicker" id="conselho" data-style="btn btn-primary" data-width="100%" title="Selecione" formControlName="conselho" (change)="labelRegistroSelecao()">
+                      <option [value]="conselho.id" *ngFor="let conselho of conselhos">{{ conselho.sigla }}</option>
                     </select>
                   </div>
-                  <label for="registroProfissional" class="col-lg-3 col-md-3 col-form-label">Nº Registro</label>
+                  <label for="registroProfissional" class="col-lg-3 col-md-3 col-form-label">{{ labelRegistro }}</label>
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.registroProfissional)">
                     <input type="text" class="form-control" formControlName="registroProfissional" mask="999999999999999">
                   </div>
@@ -29,13 +29,13 @@
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.ufConselho)">
                     <select class="selectpicker" id="ufConselho" data-style="btn btn-primary" data-width="100%" title="Selecione" formControlName="ufConselho">
                       <option disabled selected>Selecione</option>
-                      <option [ngValue]="ufConselho" *ngFor="let ufConselho of estados">{{ ufConselho.uf }}</option>
+                      <option [value]="ufConselho.id" *ngFor="let ufConselho of estados">{{ ufConselho.uf }}</option>
                     </select>
                   </div>
                   <label for="areaAtendimento" class="col-lg-3 col-md-3 col-form-label">Área Atendimento *</label>
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.areaAtendimento)">
                     <select class="selectpicker" id="areaAtendimento" multiple="multiple" data-style="btn btn-primary" data-width="100%" title="Selecione" formControlName="areaAtendimento">
-                      <option [ngValue]="areaAtendimento" *ngFor="let areaAtendimento of areasAtendimento">{{ areaAtendimento.nome | uppercase }}</option>
+                      <option *ngFor="let areaAtendimento of areasAtendimento">{{ areaAtendimento.nome | uppercase }}</option>
                     </select>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
                   <label for="transporte" class="col-lg-2 col-md-3 col-form-label">Veículo utilizado para os atendimentos *</label>
                   <div class="form-group col-lg-3 col-md-8">
                     <select class="selectpicker" id="transporte" data-style="btn btn-primary" data-width="100%" title="Selecione" formControlName="transporte">
-                      <option [ngValue]="transporte" *ngFor="let transporte of transportes">{{ transporte.tipo }}</option>
+                      <option [value]="transporte.id" *ngFor="let transporte of transportes">{{ transporte.tipo }}</option>
                     </select>
                   </div>
                 </div>

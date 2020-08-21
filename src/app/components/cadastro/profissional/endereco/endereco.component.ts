@@ -71,9 +71,6 @@ export class EnderecoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this._loading.emitChange(true);
-
     if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
