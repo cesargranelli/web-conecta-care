@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Valid } from 'src/app/services/feat/Valid';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Valid} from 'src/app/services/feat/Valid';
+import {ValidService} from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
-import { Login } from '../../classes/login.class';
-import { Role } from '../../classes/role';
-import { LoginService } from '../../services/login.service';
-import { TokenService } from '../../services/token.service';
-import { SharedEventTokenService } from '../../shared/services/shared-event-token.service';
-import { SharedLoadingService } from '../../shared/services/shared-loading.service';
-import { InputValidation } from '../../shared/validations/input-validation';
-import { InputValidationHas } from '../../shared/validations/input-validation-has';
+import {Login} from '../../classes/login.class';
+import {Role} from '../../classes/role';
+import {LoginService} from '../../services/login.service';
+import {TokenService} from '../../services/token.service';
+import {SharedEventTokenService} from '../../shared/services/shared-event-token.service';
+import {SharedLoadingService} from '../../shared/services/shared-loading.service';
+import {InputValidation} from '../../shared/validations/input-validation';
+import {InputValidationHas} from '../../shared/validations/input-validation-has';
+
+declare function carregarTarjaAzul(): void; //Carrega a funcao carregarTarjaAzul() do app.js
+declare function hideToolTip(): void; //Carrega a funcao hideToolTip() do app.js
+declare function injetaToolTip(): void; //Carrega a funcao injetaToolTip() do app.js
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   private _role: Role = new Role('pacientes');
 
@@ -42,9 +46,7 @@ export class LoginComponent implements OnInit {
     private _tokenService: TokenService,
     private _loading: SharedLoadingService,
     private _eventToken: SharedEventTokenService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.loginForm = this._formBuilder.group({
       email: ['', [
         Validators.required,
@@ -58,6 +60,11 @@ export class LoginComponent implements OnInit {
         Validators.pattern('^.*((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*[0-9])((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$')
       ]]
     });
+  }
+
+  ngOnInit(): void {
+    carregarTarjaAzul();
+    injetaToolTip();
   }
 
   setRole(perfil: string) {
@@ -100,4 +107,7 @@ export class LoginComponent implements OnInit {
     this._validService.setValid(valid);
   }
 
+  ngOnDestroy() {
+    hideToolTip();
+  }
 }

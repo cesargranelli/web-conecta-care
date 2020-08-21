@@ -16,7 +16,8 @@
                   Paciente
                 </a>
               </li>
-              <li class="nav-item" style="width: 25%;" id="profissionais" #profissional (click)="setRole(profissional.id)">
+              <li class="nav-item" style="width: 25%;" id="profissionais" #profissional
+                  (click)="setRole(profissional.id)">
                 <a class="nav-link" href="#login" data-toggle="tab" role="tab">
                   Profissional
                 </a>
@@ -44,7 +45,8 @@
                 <div class="row justify-content-center">
                   <div class="container">
                     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                      <div class="form-row justify-content-center form-control-lg" [ngClass]="inputHas.validation(loginForm.controls.email)">
+                      <div class="form-row justify-content-center form-control-lg"
+                           [ngClass]="inputHas.validation(loginForm.controls.email)">
                         <div class="col-lg-6 col-md-8">
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -52,14 +54,15 @@
                                 <i class="material-icons">email</i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" formControlName="email" placeholder="Email..." >
+                            <input type="text" class="form-control" formControlName="email" placeholder="Email...">
                           </div>
                           <span class="form-control-feedback">
                             <i class="material-icons">{{ input.validation(loginForm.controls.email) }}</i>
                           </span>
                         </div>
                       </div>
-                      <div class="form-row justify-content-center form-control-lg" [ngClass]="inputHas.validation(loginForm.controls.password)">
+                      <div class="form-row justify-content-center form-control-lg"
+                           [ngClass]="inputHas.validation(loginForm.controls.password)">
                         <div class="col-lg-6 col-md-8">
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -67,8 +70,10 @@
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input type="password" class="form-control" formControlName="password" placeholder="Password..."
-                            data-toggle="tooltip" data-placement="top" data-html="true" data-trigger="click" [title]="mensagemToolTip">
+                            <input type="password" class="form-control" formControlName="password"
+                                   placeholder="Password..."
+                                   data-toggle="tooltip" data-placement="top" data-html="true" data-trigger="click"
+                                   [title]="mensagemToolTip">
                           </div>
                           <span class="form-control-feedback">
                             <i class="material-icons">{{ input.validation(loginForm.controls.password) }}</i>
@@ -78,7 +83,15 @@
                       <div class="form-row justify-content-center form-control-lg">
                         <div class="form-group">
                           <button type="submit" [disabled]="!loginForm.valid" class="btn btn-rose"
-                            [ngClass]="!loginForm.valid ? 'btn-link' : ''">Entrar</button>
+                                  [ngClass]="!loginForm.valid ? 'btn-link' : ''">Entrar
+                          </button>
+                        </div>
+                      </div>
+                      <div class="form-row justify-content-center">
+                        <div class="form-group">
+                          <a class="btn btn-rose btn-link" [routerLink]="['esqueci-minha-senha']">
+                            Esqueci minha Senha
+                          </a>
                         </div>
                       </div>
                       <div class="form-row justify-content-center form-control-lg">
@@ -102,13 +115,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="form-row justify-content-center">
-            <div class="form-group">
-              <a class="btn btn-rose btn-link" [routerLink]="['esqueci-minha-senha']">
-                Esqueci minha Senha
-              </a>
             </div>
           </div>
         </div>
