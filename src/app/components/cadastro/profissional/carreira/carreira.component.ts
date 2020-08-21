@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Navigation, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
 import { Carreira } from 'src/app/classes/carreira.class';
 import { Conselho } from 'src/app/classes/conselho.class';
@@ -12,9 +12,11 @@ import { CarreiraService } from 'src/app/services/carreira.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { ValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { map } from 'rxjs/internal/operators/map';
+import { concatMap } from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -36,6 +38,8 @@ export class CarreiraComponent implements OnInit {
   public areasAtendimento: AreaAtendimento[];
   public transportes: Transporte[];
   public validationHas: InputValidationHas = new InputValidationHas();
+  public showForm: boolean = true;
+  public labelRegistro: string = 'Selecione ao lado';
 
   constructor(
     private _router: Router,
@@ -47,63 +51,91 @@ export class CarreiraComponent implements OnInit {
     private _cadastro: CadastroProfissionaisService
   ) {
     this.valid = this._validService.getValid();
+
+    this.carreiraForm = this._formBuilder.group({
+      conselho: [null, [Validators.required]],
+      registroProfissional: [null, [Validators.maxLength(15)]],
+      ufConselho: [null, [Validators.required]],
+      areaAtendimento: [null, [Validators.required]],
+      nomeReferencia1: [null, [Validators.maxLength(100)]],
+      telefoneReferencia1: [null, [Validators.maxLength(11)]],
+      nomeReferencia2: [null, [Validators.maxLength(100)]],
+      telefoneReferencia2: [null, [Validators.maxLength(11)]],
+      transporte: [null, [Validators.required]]
+    });
   }
 
   ngOnInit(): void {
-
     if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
       this._router.navigateByUrl('/');
     }
 
-    this._dominioService.getConselhos().subscribe(response => {
-      this.conselhos = response.body
-    }, null, () => {
-      setTimeout(() => {
-        jQuery("select[id='conselho']").selectpicker('refresh');
-      })
+    this._dominioService.getConselhos().pipe(
+      map(response => {
+        this._loading.emitChange(true);
+        this.conselhos = response.body;
+      }),
+      concatMap(() => this._dominioService.getEstados().pipe(map(response => this.estados = response.body))),
+      concatMap(() => this._dominioService.getAreasAtendimento().pipe(map(response => this.areasAtendimento = response.body))),
+      concatMap(() => this._dominioService.getTransportes().pipe(map(response => this.transportes = response.body)))
+    ).subscribe(null, null, () => {
+      this.populaForm();
+      this.carregarAreasAtendimento();
+        setTimeout(() => {
+          jQuery("select[id='conselho']").selectpicker('refresh');
+          jQuery(`select[id='conselho']`).selectpicker('val', this._cadastro.carreira?.conselho);
+          jQuery("select[id='ufConselho']").selectpicker('refresh');
+          jQuery(`select[id='ufConselho']`).selectpicker('val', this._cadastro.carreira?.ufConselho);
+          jQuery("select[id='transporte']").selectpicker('refresh');
+          jQuery(`select[id='transporte']`).selectpicker('val', this._cadastro.carreira?.transporte);
+          jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
+          this.carregarAreasAtendimento();
+          this._loading.emitChange(false);
+        });
+      this.showForm = false;
     });
+    this._loading.emitChange(false);
+  }
 
-    this._dominioService.getEstados().subscribe(response => {
-      this.estados = response.body
-    }, null, () => {
-      setTimeout(() => {
-        jQuery("select[id='ufConselho']").selectpicker('refresh');
-      })
+  populaForm() {
+    this.carreiraForm.patchValue({
+      registroProfissional: this._cadastro.carreira?.registroProfissional,
+      nomeReferencia1: this._cadastro.carreira?.nomeReferencia1,
+      telefoneReferencia1: this._cadastro.carreira?.telefoneReferencia1,
+      nomeReferencia2: this._cadastro.carreira?.nomeReferencia2,
+      telefoneReferencia2: this._cadastro.carreira?.telefoneReferencia2
     });
+  }
 
-    this._dominioService.getAreasAtendimento().subscribe(response => {
-      this.areasAtendimento = response.body
-    }, null, () => {
-      setTimeout(() => {
-        jQuery("select[id='areaAtendimento']").selectpicker('refresh');
-      })
-    });
+  carregarAreasAtendimento(): void {
+    if (this._cadastro.carreira?.areaAtendimento) {
+      let nomesAreaAtendimento: Array<string> = new Array<string>();
+      for (const areaAtendimentoKey of this._cadastro.carreira?.areaAtendimento) {
+        nomesAreaAtendimento.push(areaAtendimentoKey.nome.toUpperCase());
+      }
+      this.carreiraForm.patchValue({
+        areaAtendimento: nomesAreaAtendimento
+      });
+      jQuery(`select[id='areaAtendimento']`).val(nomesAreaAtendimento);
+      jQuery(`select[id='areaAtendimento']`).selectpicker('render');
+    }
+  }
 
-    this._dominioService.getTransportes().subscribe(response => {
-      this.transportes = response.body
-    }, null, () => {
-      setTimeout(() => {
-        jQuery("select[id='transporte']").selectpicker('refresh');
-      })
-    });
-
-    this.carreiraForm = this._formBuilder.group({
-      conselho: ['', [Validators.required]],
-      registroProfissional: [this._cadastro.carreira?.registroProfissional, [Validators.maxLength(15)]],
-      ufConselho: ['', [Validators.required]],
-      areaAtendimento: ['', [Validators.required]],
-      nomeReferencia1: [this._cadastro.carreira?.nomeReferencia1, [Validators.maxLength(100)]],
-      telefoneReferencia1: [this._cadastro.carreira?.telefoneReferencia1, [Validators.maxLength(11)]],
-      nomeReferencia2: [this._cadastro.carreira?.nomeReferencia2, [Validators.maxLength(100)]],
-      telefoneReferencia2: [this._cadastro.carreira?.telefoneReferencia2, [Validators.maxLength(11)]],
-      transporte: ['', [Validators.required]],
-    });
-
+  labelRegistroSelecao() {
+    let conselho = this.conselhos.filter(conselho => conselho.id == this.carreiraForm.controls.conselho.value);
+    this.labelRegistro = 'Nº Registro em '.concat(conselho[0].descricao.toString());
   }
 
   onSubmit() {
     this._loading.emitChange(true);
     this.carreira = this.carreiraForm.value;
+
+    let areasAtendimento: Array<AreaAtendimento> = new Array<AreaAtendimento>();
+    this.carreiraForm.controls.areaAtendimento.value.forEach((area: any) => {
+      areasAtendimento.push(this.areasAtendimento.filter(areaAtendimento => areaAtendimento.nome.toUpperCase() == area)[0]);
+    });
+
+    this.carreira.areaAtendimento = areasAtendimento;
 
     this.carreira.proprietarioId = this.valid.id;
 
