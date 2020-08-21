@@ -21,7 +21,7 @@ export class LoginService {
 
   private _endpoint: string = `${environment.apiUrl}/login`;
 
-  private _authLocalStorage: string = window.localStorage.getItem('auth');
+  private _authLocalStorage: string;
 
   constructor(private _http: HttpClient, private _tokenService: TokenService, private _validService: ValidService) {
     this._headers = this._headers.set('Token', 'Bearer ' + this._authLocalStorage);
@@ -43,6 +43,8 @@ export class LoginService {
   }
 
   novaSenha(novaSenha: NovaSenha): Observable<HttpResponse<any>> {
+    this._authLocalStorage = window.localStorage.getItem('auth');
+    this._headers = this._headers.set('Token', 'Bearer ' + this._authLocalStorage);
     return this._http.patch<HttpResponse<ResponseApi>>(`${this._endpoint}/nova-senha`, novaSenha,
       {headers: this._headers, observe: 'response'});
   }
