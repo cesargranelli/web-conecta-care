@@ -124,10 +124,4 @@ export class ContaComponent implements OnInit {
     });
   }
 
-  onReturn() {
-    this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
-      state: {valid: this._dadosLocalStorage}
-    });
-  }
-
 }

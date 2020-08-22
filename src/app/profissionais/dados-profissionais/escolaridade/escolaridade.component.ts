@@ -10,8 +10,8 @@ import {InputValidationHas} from 'src/app/shared/validations/input-validation-ha
 import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
 import {ValidService} from '../../../shared/services/shared-valid.service';
-import Swal from 'sweetalert2';
 import {concatMap, map} from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
@@ -53,7 +53,13 @@ export class EscolaridadeComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
-    this.escolaridade = new Escolaridade();
+    // console.log(this.escolaridade);
+    // this.escolaridade = new Escolaridade();
+    // console.log(this.escolaridade);
+    // console.log('sadaddsa');
+
+    // this.escolaridade.instrucao = new Instrucao();
+
     this._dadosLocalStorage = this._validService.getValid();
 
     this._dominioService.getInstrucoes().pipe(
@@ -62,10 +68,11 @@ export class EscolaridadeComponent implements OnInit {
       }),
       concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
     ).subscribe(escolaridade => {
-      this.escolaridade = escolaridade;
+      this.escolaridade = escolaridade ? escolaridade : new Escolaridade();
       this.popularForm();
+      jQuery('select').selectpicker('render');
       setTimeout(() => {
-        jQuery('select[id=\'instrucao\']').selectpicker('refresh');
+        jQuery('select').selectpicker('refresh');
         this._sharedLoadingService.emitChange(false);
       });
     });
@@ -73,7 +80,7 @@ export class EscolaridadeComponent implements OnInit {
   }
 
   popularForm() {
-    if (this.escolaridade) {
+    if (this.escolaridade.instrucao) {
       this.escolaridadeForm.patchValue({
         instrucao: this.escolaridade.instrucao,
         instituicaoEnsino1: this.escolaridade.instituicaoEnsino[0],
@@ -102,7 +109,7 @@ export class EscolaridadeComponent implements OnInit {
       next: () => {
         setTimeout(() => {
           this._cadastro.escolaridade = this.escolaridade;
-          this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/complemento`, {
+          this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
             state: {valid: this._dadosLocalStorage}
           });
           this._sharedLoadingService.emitChange(false);
@@ -117,12 +124,6 @@ export class EscolaridadeComponent implements OnInit {
           showConfirmButton: true
         });
       }
-    });
-  }
-
-  onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/experiencia`, {
-      state: {valid: this._dadosLocalStorage}
     });
   }
 

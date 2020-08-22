@@ -1,8 +1,8 @@
-import { Instrucao } from './instrucao.class';
+import {Instrucao} from './instrucao.class';
 
 export class Escolaridade {
-  instrucao: number;
-  instituicaoEnsino: string[] = [];
-  anoConclusao: string[] = [];
+  instrucao: Instrucao;
+  instituicaoEnsino: Array<string> = new Array<string>(3);
+  anoConclusao: Array<string> = new Array<string>(3);
   proprietarioId: number;
 }
