@@ -7,5 +7,5 @@ export class Conta {
   agencia: String;
   numero: String;
   digito: String;
-  proprietarioId: Number;
+  proprietarioId: number;
 }
