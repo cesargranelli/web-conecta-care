@@ -53,8 +53,8 @@
                       </div>
                       <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised" style="max-width: 100px; max-height: 100px;"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Foto CNH</span>
-                        <span class="fileinput-exists">Trocar</span>
+                        <span [hidden]="complementoForm.controls.fotoCNH.valid">Selecionar foto CNH</span>
+                        <span [hidden]="complementoForm.controls.fotoCNH.invalid">Trocar</span>
                         <input type="file" formControlName="fotoCNH" (change)="onLoadFotoCNH($event)">
                       </span>
                     </div>

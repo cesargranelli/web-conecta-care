@@ -74,10 +74,10 @@
                       <div class="thumbnail img-circle img-raised" [ngClass]="fileInputComprovante">
                         <img [src]="imagemComprovante" rel="nofollow" alt="...">
                       </div>
-                      <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised" style="max-width: 100px; max-height: 100px;"></div>
+                      <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Selecionar comprovante</span>
-                        <span class="fileinput-exists">Trocar</span>
+                        <span [hidden]="enderecoForm.controls.comprovante.valid">Selecionar comprovante</span>
+                        <span [hidden]="enderecoForm.controls.comprovante.invalid">Trocar</span>
                         <input type="file" data-max-size="2" (change)="onLoadComprovante($event)" formControlName="comprovante">
                       </span>
                     </div>

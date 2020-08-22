@@ -32,7 +32,7 @@ export class ExperienciaComponent implements OnInit {
   public experiencia3: Experiencia = new Experiencia();
   public validationHas: InputValidationHas = new InputValidationHas();
   public showForm: boolean = true;
-  public toogleEstado: boolean = true;
+  public somenteLeitura: boolean = true;
 
   constructor(
     private _router: Router,
@@ -79,7 +79,9 @@ export class ExperienciaComponent implements OnInit {
   }
 
   popularForm() {
+    this.somenteLeitura = false;
     this.experienciaForm.patchValue({
+      experiencia: true,
       empresa1: this._cadastro?.experiencia[0]?.empresa,
       cargo1: this._cadastro?.experiencia[0]?.cargo,
       dataAdmissao1: this._cadastro?.experiencia[0]?.dataAdmissao,
@@ -169,7 +171,7 @@ export class ExperienciaComponent implements OnInit {
   }
 
   toogle() {
-    this.toogleEstado = this.experienciaForm.controls.experiencia.value;
+    this.somenteLeitura = this.experienciaForm.controls.experiencia.value;
   }
 
   onReturn() {

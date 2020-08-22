@@ -64,7 +64,7 @@ export class EnderecoComponent implements OnInit {
       cep: [null, [Validators.required, Validators.maxLength(8)]],
       bairro: [null, [Validators.required, Validators.maxLength(50)]],
       cidade: [null, [Validators.required, Validators.maxLength(50)]],
-      comprovante: [null],
+      comprovante: [null, [Validators.required]],
       estado: [null, [Validators.required]],
       pais: [null, [Validators.required]]
     });
@@ -89,17 +89,19 @@ export class EnderecoComponent implements OnInit {
       null,
       null,
       () => {
-      setTimeout(() => {
-        jQuery("select[id='estado']").selectpicker('refresh');
-        jQuery(`select[id='estado']`).selectpicker('val', this._cadastro.endereco?.estado);
-        jQuery("select[id='pais']").selectpicker('refresh');
-        jQuery(`select[id='pais']`).selectpicker('val', this._cadastro.endereco?.pais);
-        this._loading.emitChange(false);
-      });
+        if (this._cadastro.endereco) {
+          this.popularForm();
+        }
+        setTimeout(() => {
+          jQuery("select[id='estado']").selectpicker('refresh');
+          jQuery(`select[id='estado']`).selectpicker('val', this._cadastro.endereco?.estado);
+          jQuery("select[id='pais']").selectpicker('refresh');
+          jQuery(`select[id='pais']`).selectpicker('val', this._cadastro.endereco?.pais);
+          this._loading.emitChange(false);
+        });
       this.showForm = false;
     });
 
-    this.popularForm();
     this._loading.emitChange(false);
   }
 
@@ -113,6 +115,7 @@ export class EnderecoComponent implements OnInit {
     if (this._cadastro.endereco?.comprovante) {
       this.comprovante = this._cadastro.endereco?.comprovante;
       this.imagemComprovante = this.comprovante;
+      this.enderecoForm.controls.comprovante.setValue(this._cadastro.endereco?.comprovante, {emitModelToViewChange: false});
     }
   }
 

@@ -11,6 +11,9 @@ import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { ValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import Swal from 'sweetalert2';
+import { pipe } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-contato',
@@ -26,6 +29,8 @@ export class ContatoComponent implements OnInit {
 
   public validationHas: InputValidationHas = new InputValidationHas();
   public codigoPais: string = '+55';
+
+  public showForm: boolean = true;
 
   contatoForm: FormGroup;
 
@@ -49,45 +54,76 @@ export class ContatoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._loading.emitChange(true);
-
     if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
       this._router.navigateByUrl('/');
     }
 
     if (this._cadastro.endereco?.pais) {
-      this._dominioService.getPaises().subscribe(response => {
-        let paises: Pais[] = response.body;
-        const pais = paises.find(pais => pais.id == Number(this._cadastro.endereco?.pais));
-        this.codigoPais = '+' + Number(pais.codigo);
+      this._dominioService.getPaises().pipe(
+        map((response) => {
+          this._loading.emitChange(true);
+          let paises: Pais[] = response.body;
+          const pais = paises.find(pais => pais.id == Number(this._cadastro.endereco?.pais));
+          this.codigoPais = '+' + Number(pais.codigo);
+        })
+      ).subscribe(null, null,
+        () => {
+          setTimeout(() => {
+            this._loading.emitChange(false);
+          });
       });
+    } else {
+      this._service.getDados(this._valid.id).pipe(
+        map(response => {
+          this._cadastro.contato = response;
+          this._loading.emitChange(true);
+        })
+      ).subscribe(null, null,
+        () => {
+          this.popularForm();
+          setTimeout(() => {
+            this._loading.emitChange(false);
+          });
+        });
     }
+    this.showForm = false;
+  }
 
-    this._loading.emitChange(false);
+  popularForm() {
+    this.codigoPais = '+' + String(this._cadastro.contato?.celularPrincipal).substring(0, 2);
+    this.contatoForm.patchValue({
+      telefoneFixo: String(this._cadastro.contato?.telefoneFixo).substring(2),
+      telefoneRecado: String(this._cadastro.contato?.telefoneRecado).substring(2),
+      celularPrincipal: String(this._cadastro.contato?.celularPrincipal).substring(2),
+      celularSecundario: String(this._cadastro.contato?.celularSecundario).substring(2)
+    });
   }
 
   onSubmit() {
     this._loading.emitChange(true);
     this._contato = this.contatoForm.value;
-
+    this._contato.celularPrincipal = Number(this.codigoPais.replace('+', '') + this._contato.celularPrincipal);
+    this._contato.celularSecundario = Number(this.codigoPais.replace('+', '') + this._contato.celularSecundario);
+    this._contato.telefoneFixo = Number(this.codigoPais.replace('+', '') + this._contato.telefoneFixo);
+    this._contato.telefoneRecado = Number(this.codigoPais.replace('+', '') + this._contato.telefoneRecado);
     this._contato.proprietarioId = this._valid.id;
 
-    // this._service.save(this._contato).subscribe(response => {
-    //   setTimeout(() => {
+    this._service.save(this._contato).subscribe(response => {
+      setTimeout(() => {
         this._cadastro.contato = this._contato;
         this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/carreira`);
         this._loading.emitChange(false);
-    //   });
-    // },
-    // (error: Error) => {
-    //   this._loading.emitChange(false);
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'Ocorreu um erro inexperado ao tentar inserir contatos',
-    //     showConfirmButton: true
-    //   });
-    // });
+      });
+    },
+    (error: Error) => {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ocorreu um erro inexperado ao tentar inserir contatos',
+        showConfirmButton: true
+      });
+    });
   }
 
   onReturn() {
