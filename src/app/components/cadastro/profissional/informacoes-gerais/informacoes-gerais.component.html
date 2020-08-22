@@ -99,8 +99,8 @@
                       </div>
                       <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised" style="max-width: 100px; max-height: 100px;"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Foto Profissional</span>
-                        <span class="fileinput-exists">Trocar</span>
+                        <span [hidden]="profissionalForm.controls.fotoProfissional.valid">Selecionar foto profissional</span>
+                        <span [hidden]="profissionalForm.controls.fotoProfissional.invalid">Trocar</span>
                         <input type="file" data-max-size="2" formControlName="fotoProfissional" (change)="onLoadFotoProfissional($event)">
                       </span>
                     </div>
@@ -115,8 +115,8 @@
                       </div>
                       <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised" style="max-width: 100px; max-height: 100px;"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Foto RG</span>
-                        <span class="fileinput-exists">Trocar</span>
+                        <span [hidden]="profissionalForm.controls.fotoRg.valid">Selecionar foto RG</span>
+                        <span [hidden]="profissionalForm.controls.fotoRg.invalid">Trocar</span>
                         <input type="file" data-max-size="2" formControlName="fotoRg" (change)="onLoadFotoRg($event)">
                       </span>
                     </div>

@@ -112,6 +112,7 @@ export class InformacoesGeraisComponent implements OnInit {
       null,
       null,
       () => {
+        this.popularForm();
         setTimeout(() => {
           jQuery(`select[id='genero']`).selectpicker('refresh');
           jQuery(`select[id='genero']`).selectpicker('val', this._cadastro.profissional?.genero);
@@ -123,8 +124,6 @@ export class InformacoesGeraisComponent implements OnInit {
         });
         this.showForm = false;
     });
-
-    this.popularForm();
 
     jQuery('.datetimepicker').datetimepicker({
       format: 'DD/MM/YYYY',
@@ -149,10 +148,12 @@ export class InformacoesGeraisComponent implements OnInit {
     if (this._cadastro.profissional?.fotoProfissional) {
       this.fotoProfissional = this._cadastro.profissional?.fotoProfissional;
       this.imagemFotoProfissional = this._cadastro.profissional?.fotoProfissional;
+      this.profissionalForm.controls.fotoProfissional.setValue(this._cadastro.profissional?.fotoProfissional, {emitModelToViewChange: false});
     }
     if (this._cadastro.profissional?.fotoRg) {
       this.fotoRg = this._cadastro.profissional?.fotoRg;
       this.imagemFotoRg = this._cadastro.profissional?.fotoRg;
+      this.profissionalForm.controls.fotoRg.setValue(this._cadastro.profissional?.fotoRg, {emitModelToViewChange: false});
     }
   }
 

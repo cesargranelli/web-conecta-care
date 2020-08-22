@@ -1,7 +1,7 @@
 export class Contato {
-  telefoneFixo: Number;
-  telefoneRecado: Number;
-  celularPrincipal: Number;
-  celularSecundario: Number;
-  proprietarioId: Number;
+  telefoneFixo: number;
+  telefoneRecado: number;
+  celularPrincipal: number;
+  celularSecundario: number;
+  proprietarioId: number;
 }

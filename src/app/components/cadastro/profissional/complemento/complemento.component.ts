@@ -58,7 +58,7 @@ export class ComplementoComponent implements OnInit {
       numeroHabilitacao: [null, [Validators.maxLength(11)]],
       dataValidadeHabilitacao: [null],
       categoriaCNH: [null],
-      fotoCNH: [null],
+      fotoCNH: [null, [Validators.required]],
       numeroReservista: [null],
       nomeMae: [null, [Validators.required, Validators.maxLength(100)]],
       profissaoMae: [null, [Validators.maxLength(60)]],
@@ -119,6 +119,7 @@ export class ComplementoComponent implements OnInit {
     if (this._cadastro.complemento?.fotoCNH) {
       this.imagemFotoCNH = this._cadastro.complemento?.fotoCNH;
       this.fotoCNH = this._cadastro.complemento?.fotoCNH;
+      this.complementoForm.controls.fotoCNH.setValue(this._cadastro.complemento?.fotoCNH, {emitModelToViewChange: false});
     }
   }
 
