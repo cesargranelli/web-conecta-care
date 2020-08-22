@@ -6,10 +6,10 @@ export class Profissional {
   id: number;
   nome: string;
   sobrenome: string;
-  dataNascimento: Data;
+  dataNascimento: string;
   rg: number;
   rgEmissor: string;
-  rgDataEmissao: Data;
+  rgDataEmissao: string;
   pis: number;
   genero: Genero;
   tipoEmpresa: TipoEmpresa;
@@ -19,10 +19,4 @@ export class Profissional {
   ctpsSerie: number;
   fotoProfissional: any;
   fotoRg: any;
-}
-
-class Data {
-  date: string;
-  timezone: string;
-  timezone_type: number;
 }

@@ -104,10 +104,10 @@ export class InformacoesGeraisComponent implements OnInit {
       this.profissionalForm.patchValue({
         nome: this.profissional.nome,
         sobrenome: this.profissional.sobrenome,
-        dataNascimento: this.converterDataExibicao(this.profissional.dataNascimento.date),
+        dataNascimento: this.profissional.dataNascimento,
         rg: this.profissional.rg,
         rgEmissor: this.profissional.rgEmissor,
-        rgDataEmissao: this.converterDataExibicao(this.profissional.rgDataEmissao.date),
+        rgDataEmissao: this.profissional.rgDataEmissao,
         pis: this.profissional.pis,
         genero: this.profissional.genero,
         tipoEmpresa: this.profissional.tipoEmpresa,
@@ -142,13 +142,6 @@ export class InformacoesGeraisComponent implements OnInit {
     reader.onload = () => {
       this.fotoRg = reader.result;
     };
-  }
-
-  converterDataExibicao(data: string): string {
-    let dia: string = data.slice(8, 10);
-    let mes: string = data.slice(5, 7);
-    let ano: string = data.slice(0, 4);
-    return dia + '/' + mes + '/' + ano;
   }
 
   onSubmit() {
