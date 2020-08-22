@@ -28,8 +28,9 @@ export class EventoComponent implements OnInit {
   private _serviceSubscription: Subscription;
   private _dominioSubscription: Subscription;
 
+  public escondeFormulario: boolean = true;
   public estados: Array<Estado>;
-  public especialidades: Array<AreaAtendimento>;
+  public areasAtendimento: Array<AreaAtendimento>;
   public validationHas: InputValidationHas = new InputValidationHas();
   public eventoForm: FormGroup;
   public evento: Evento;
@@ -42,13 +43,16 @@ export class EventoComponent implements OnInit {
     private _eventoService: EventoService
   ) {
     this.eventoForm = this._formBuilder.group({
-      titulo: [null, [Validators.required, Validators.maxLength(50)]],
-      descricao: [null, [Validators.required, Validators.maxLength(255)]],
+      titulo: [null, [Validators.required, Validators.maxLength(25)]],
+      descricao: [null, [Validators.required, Validators.maxLength(100)]],
+      detalhe: [null, [Validators.required, Validators.maxLength(255)]],
       local: [null, [Validators.required, Validators.maxLength(255)]],
       data: [null, Validators.required],
       hora: [null, Validators.required],
+      duracao: [1, Validators.required],
+      vagas: [1, Validators.required],
       estado: [null, Validators.required],
-      especialidades: [null, Validators.required],
+      areaAtendimento: [null, Validators.required],
     });
   }
 
@@ -60,14 +64,15 @@ export class EventoComponent implements OnInit {
       }),
       concatMap(() => this._dominioService.getAreasAtendimento().pipe(
         map(response => {
-          this.especialidades = response.body;
+          this.areasAtendimento = response.body;
         }))
       )
     ).subscribe(() => {
       setTimeout(() => {
         jQuery(`select[id='estado']`).selectpicker('refresh');
-        jQuery(`select[id='especialidade']`).selectpicker('refresh');
+        jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
         this._loading.emitChange(false);
+        this.escondeFormulario = false;
       });
     }, () => {
       this._loading.emitChange(false);
@@ -85,7 +90,7 @@ export class EventoComponent implements OnInit {
         previous: 'fa fa-chevron-left',
         next: 'fa fa-chevron-right',
         today: 'fa fa-screenshot'
-    }
+      }
     });
     jQuery('#timepicker').datetimepicker({
       format: 'LT',
@@ -94,28 +99,30 @@ export class EventoComponent implements OnInit {
         time: 'fa fa-clock-o',
         up: 'fa fa-chevron-up',
         down: 'fa fa-chevron-down'
-    }
+      }
     });
   }
 
   dateChange(form: FormGroup) {
     jQuery("#datepicker").on("dp.change", function (event: any) {
-      if (event.date)
+      if (event.date) {
         form.controls.data.setValue(event.date?._d.toLocaleDateString());
+      }
     });
   }
 
   timeChange(form: FormGroup) {
     jQuery("#timepicker").on("dp.change", function (event: any) {
-      if (event.date)
+      if (event.date) {
         form.controls.hora.setValue(event.date?._d.toTimeString().substring(0, 5));
+      }
     });
   }
 
   onSubmit() {
     this._loading.emitChange(true);
     this.evento = this.eventoForm.value;
-    console.log(this.evento);
+    this.evento.data = new Date(Number(this.evento.data.split('/')[2]), Number(this.evento.data.split('/')[1]) - 1, Number(this.evento.data.split('/')[0])).toISOString();
     this._eventoService.save(this.evento).subscribe(response => {
       setTimeout(() => {
         this._loading.emitChange(false);
@@ -127,7 +134,7 @@ export class EventoComponent implements OnInit {
         }).then(() => {
           this.eventoForm.reset();
           jQuery(`select[id='estado']`).selectpicker('refresh');
-          jQuery(`select[id='especialidade']`).selectpicker('refresh');
+          jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
         });
       });
     },

@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskModule } from 'ngx-mask';
 import { AdminRoutingModule } from './admin-routing.module';
 import { EventoComponent } from './evento/evento.component';
-import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { NgxMaskModule } from 'ngx-mask';
     CommonModule,
     ReactiveFormsModule,
     AdminRoutingModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule
   ]
 })
 export class AdminModule { }

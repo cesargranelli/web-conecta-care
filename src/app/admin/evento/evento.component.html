@@ -9,7 +9,7 @@
               Cadastrar Evento
             </h3>
           </div>
-          <form [formGroup]="eventoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="eventoForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="escondeFormulario">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
@@ -25,6 +25,12 @@
                   </div>
                 </div>
                 <div class="row">
+                  <label for="detalhe" class="col-lg-2 col-md-2 col-form-label">Detalhe *</label>
+                  <div class="form-group col-lg-9 col-md-9" [ngClass]="validationHas.validation(eventoForm.controls?.detalhe)">
+                    <textarea class="form-control" formControlName="detalhe" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="row">
                   <label for="local" class="col-lg-2 col-md-2 col-form-label">Local *</label>
                   <div class="form-group col-lg-9 col-md-9" [ngClass]="validationHas.validation(eventoForm.controls?.local)">
                     <input type="text" class="form-control" formControlName="local">
@@ -35,27 +41,35 @@
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.data)">
                     <input type="text" class="form-control" id="datepicker" formControlName="data" autocomplete="false" (focus)="dateChange(eventoForm)">
                   </div>
-                  <label for="hora" class="col-lg-3 col-md-3 col-form-label">Hora *</label>
+                  <label for="hora" class="col-lg-3 col-md-2 col-form-label">Hora *</label>
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.hora)">
                     <input type="text" class="form-control" id="timepicker" formControlName="hora" autocomplete="false" (focus)="timeChange(eventoForm)">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="estados" class="col-lg-2 col-md-3 col-form-label">Região *</label>
+                  <label for="vagas" class="col-lg-2 col-md-2 col-form-label">Vagas *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.vagas)">
+                    <input type="text" class="form-control" formControlName="vagas" autocomplete="false" mask="0999">
+                  </div>
+                  <label for="duracao" class="col-lg-3 col-md-2 col-form-label">Duração em Horas *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.duracao)">
+                    <input type="text" class="form-control" formControlName="duracao" autocomplete="false" mask="09" pattern="^[0-2]{0,1}[0-4]{0,1}$">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="areaAtendimento" class="col-lg-2 col-md-3 col-form-label">Especialidade *</label>
+                  <div class="form-group col-lg-4 col-md-8">
+                    <select formControlName="areaAtendimento" id="areaAtendimento" multiple="multiple" class="selectpicker" data-style="btn btn-primary"
+                            data-width="100%" title="Selecione">
+                      <option disabled selected>Selecione</option>
+                      <option [ngValue]="areaAtendimento" *ngFor="let areaAtendimento of areasAtendimento">{{ areaAtendimento.nome }}</option>
+                    </select>
+                  </div>
+                  <label for="estados" class="col-lg-1 col-md-2 col-form-label">Região *</label>
                   <div class="form-group col-lg-4 col-md-8">
                     <select formControlName="estado" id="estado" class="selectpicker" data-style="btn btn-primary"
                             data-width="100%" title="Selecione">
                       <option [ngValue]="estado" *ngFor="let estado of estados">{{ estado.uf }}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <label for="especialidades" class="col-lg-2 col-md-3 col-form-label">Especialidade *</label>
-                  <div class="form-group col-lg-4 col-md-8">
-                    <select formControlName="especialidades" id="especialidade" multiple="multiple" class="selectpicker" data-style="btn btn-primary"
-                            data-width="100%" title="Selecione">
-                      <option disabled selected>Selecione</option>
-                      <option [ngValue]="especialidade" *ngFor="let especialidade of especialidades">{{ especialidade.nome }}</option>
                     </select>
                   </div>
                 </div>
@@ -66,7 +80,7 @@
                 <button type="button" class="btn btn-gray">Cancelar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!eventoForm.valid">Publicar</button><!-- [disabled]="!eventoForm.valid" -->
+                <button type="submit" class="btn btn-rose" [disabled]="!eventoForm.valid">Cadastrar</button><!-- [disabled]="!eventoForm.valid" -->
               </span>
             </div>
           </form>
