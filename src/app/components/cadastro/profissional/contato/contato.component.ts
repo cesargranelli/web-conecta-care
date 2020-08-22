@@ -81,6 +81,7 @@ export class ContatoComponent implements OnInit {
         })
       ).subscribe(null, null,
         () => {
+          this.codigoPais = '+' + String(this._cadastro.contato?.celularPrincipal).substring(0, 2);
           this.popularForm();
           setTimeout(() => {
             this._loading.emitChange(false);
@@ -91,7 +92,6 @@ export class ContatoComponent implements OnInit {
   }
 
   popularForm() {
-    this.codigoPais = '+' + String(this._cadastro.contato?.celularPrincipal).substring(0, 2);
     this.contatoForm.patchValue({
       telefoneFixo: String(this._cadastro.contato?.telefoneFixo).substring(2),
       telefoneRecado: String(this._cadastro.contato?.telefoneRecado).substring(2),
