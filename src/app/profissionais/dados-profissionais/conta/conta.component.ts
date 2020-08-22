@@ -92,10 +92,10 @@ export class ContaComponent implements OnInit {
   onSubmit() {
     this._sharedLoadingService.emitChange(true);
     this.conta = this.contaForm.value;
-
     this.conta.proprietarioId = this._dadosLocalStorage.id;
 
-    this._service.save(this.conta).subscribe(response => {
+    this._service.save(this.conta).subscribe({
+      complete: () => {
         setTimeout(() => {
           this._sharedLoadingService.emitChange(false);
           Swal.fire({
@@ -112,7 +112,7 @@ export class ContaComponent implements OnInit {
           this._sharedLoadingService.emitChange(false);
         });
       },
-      (error: Error) => {
+      error: () => {
         this._sharedLoadingService.emitChange(false);
         Swal.fire({
           position: 'center',
@@ -120,12 +120,12 @@ export class ContaComponent implements OnInit {
           title: 'Ocorreu um erro inexperado ao tentar inserir conta',
           showConfirmButton: true
         });
-      });
-
+      }
+    });
   }
 
   onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/complemento`, {
+    this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
       state: {valid: this._dadosLocalStorage}
     });
   }
