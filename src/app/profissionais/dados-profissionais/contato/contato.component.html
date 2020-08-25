@@ -9,43 +9,51 @@
               Informações de Contato
             </h3>
           </div>
-            <form [formGroup]="contatoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
-              <div class="card-body">
-                <div class="tab-content">
-                  <div class="row">
-                    <label for="telefoneFixo" class="col-lg-2 col-md-3 col-form-label">Fone Fixo</label>
-                    <div class="form-group col-lg-3 col-md-8">
-                      <input type="text" class="form-control" formControlName="telefoneFixo" placeholder="(99) 9999-9999" mask="(00) 0000-0000">
-                    </div>
-                    <label for="celularPrincipal" class="col-lg-3 col-md-3 col-form-label">Celular Principal *</label>
-                    <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(contatoForm.controls?.celularPrincipal)">
-                      <input type="text" class="form-control" formControlName="celularPrincipal" placeholder="(99) 99999-9999" mask="(00) 00000-0000">
-                    </div>
+          <form [formGroup]="contatoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="row">
+                  <label for="telefoneFixo" class="col-lg-2 col-md-3 col-form-label">Fone Fixo</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" id="telefoneFixo" class="form-control" formControlName="telefoneFixo"
+                           placeholder="(99) 9999-9999"
+                           mask="(00) 0000-0000">
                   </div>
-                  <div class="row">
-                    <label for="telefoneRecado" class="col-lg-2 col-md-3 col-form-label">Fone Recado</label>
-                    <div class="form-group col-lg-3 col-md-8">
-                      <input type="text" class="form-control" formControlName="telefoneRecado" placeholder="(99) 9999-9999" mask="(00) 0000-0000">
-                    </div>
-                    <label for="celularSecundario" class="col-lg-3 col-md-3 col-form-label">Celular Secundário</label>
-                    <div class="form-group col-lg-3 col-md-8">
-                      <input type="text" class="form-control" formControlName="celularSecundario" placeholder="(99) 99999-9999" mask="(00) 00000-0000">
-                    </div>
+                  <label for="celularPrincipal" class="col-lg-3 col-md-3 col-form-label">Celular Principal *</label>
+                  <div class="form-group col-lg-3 col-md-8"
+                       [ngClass]="validationHas.validation(contatoForm.controls?.celularPrincipal)">
+                    <input type="text" id="celularPrincipal" class="form-control" formControlName="celularPrincipal"
+                           placeholder="(99) 99999-9999" mask="(00) 00000-0000">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="telefoneRecado" class="col-lg-2 col-md-3 col-form-label">Fone Recado</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" id="telefoneRecado" class="form-control" formControlName="telefoneRecado"
+                           placeholder="(99) 9999-9999" mask="(00) 0000-0000">
+                  </div>
+                  <label for="celularSecundario" class="col-lg-3 col-md-3 col-form-label">Celular Secundário</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" id="celularSecundario" class="form-control" formControlName="celularSecundario"
+                           placeholder="(99) 99999-9999" mask="(00) 00000-0000">
                   </div>
                 </div>
               </div>
-              <div class="card-footer justify-content-between">
+            </div>
+            <div class="card-footer justify-content-between">
                 <span class="bmd-form-group is-filled">
-                  <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
+                  <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
+                  <i class="material-icons">arrow_back</i>
+                </button>
                   <button type="button" class="btn btn-gray" (click)="contatoForm.reset()">Limpar</button>
                 </span>
-                <span class="bmd-form-group is-filled">
+              <span class="bmd-form-group is-filled">
                   <button type="submit" class="btn btn-rose" [disabled]="!contatoForm.valid">Avançar</button>
                 </span>
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>
