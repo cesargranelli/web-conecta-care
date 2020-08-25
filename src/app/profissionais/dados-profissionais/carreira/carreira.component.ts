@@ -78,7 +78,9 @@ export class CarreiraComponent implements OnInit {
     ).subscribe(dadosCarreira => {
       this.carreira = dadosCarreira;
       this.popularForm();
-      this.carregarAreasAtendimento();
+      if (this.carreira && this.carreira.areasAtendimento) {
+        this.carregarAreasAtendimento();
+      }
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
@@ -142,6 +144,7 @@ export class CarreiraComponent implements OnInit {
 
     this.carreira = this.carreiraForm.value;
     this.carreira.areasAtendimento = this.lerAreasAtendimento();
+    this.carreira.registroProfissional = Number(this.carreiraForm.value.registroProfissional);
     this.carreira.proprietarioId = this._dadosLocalStorage.id;
 
 
