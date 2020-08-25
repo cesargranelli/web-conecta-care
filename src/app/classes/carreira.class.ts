@@ -7,7 +7,7 @@ export class Carreira {
   conselho: Conselho;
   registroProfissional: number;
   ufConselho: Estado;
-  areaAtendimento: Array<AreaAtendimento>;
+  areasAtendimento: Array<AreaAtendimento>;
   nomeReferencia1: string;
   nomeReferencia2: string;
   telefoneReferencia1: string;

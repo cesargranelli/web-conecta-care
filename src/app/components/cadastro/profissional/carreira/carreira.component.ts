@@ -108,9 +108,9 @@ export class CarreiraComponent implements OnInit {
   }
 
   carregarAreasAtendimento(): void {
-    if (this._cadastro.carreira?.areaAtendimento) {
+    if (this._cadastro.carreira?.areasAtendimento) {
       let nomesAreaAtendimento: Array<string> = new Array<string>();
-      for (const areaAtendimentoKey of this._cadastro.carreira?.areaAtendimento) {
+      for (const areaAtendimentoKey of this._cadastro.carreira?.areasAtendimento) {
         nomesAreaAtendimento.push(areaAtendimentoKey.nome.toUpperCase());
       }
       this.carreiraForm.patchValue({
@@ -135,7 +135,7 @@ export class CarreiraComponent implements OnInit {
       areasAtendimento.push(this.areasAtendimento.filter(areaAtendimento => areaAtendimento.nome.toUpperCase() == area)[0]);
     });
 
-    this.carreira.areaAtendimento = areasAtendimento;
+    this.carreira.areasAtendimento = areasAtendimento;
 
     this.carreira.proprietarioId = this.valid.id;
 

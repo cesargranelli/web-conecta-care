@@ -88,7 +88,9 @@
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
+                <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
+                  <i class="material-icons">arrow_back</i>
+                </button>
                 <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">

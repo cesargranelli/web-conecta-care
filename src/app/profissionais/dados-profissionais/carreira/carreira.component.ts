@@ -103,12 +103,14 @@ export class CarreiraComponent implements OnInit {
   }
 
   carregarAreasAtendimento(): void {
-    for (const areaAtendimentoKey of this.carreira.areaAtendimento) {
-      this.carreiraForm.patchValue({
-        areasAtendimento: areaAtendimentoKey.nome.toUpperCase()
-      });
-      jQuery('select[id=\'areasAtendimento\']').val([areaAtendimentoKey.nome.toUpperCase()]);
+    let areasAtendimento: Array<string> = new Array<string>();
+    for (const areaAtendimentoKey of this.carreira.areasAtendimento) {
+      areasAtendimento.push(areaAtendimentoKey.nome.toUpperCase());
     }
+    this.carreiraForm.patchValue({
+      areasAtendimento: areasAtendimento
+    });
+    jQuery('select[id=\'areasAtendimento\']').val(areasAtendimento);
   }
 
   lerAreasAtendimento(): Array<AreaAtendimento> {
@@ -139,9 +141,11 @@ export class CarreiraComponent implements OnInit {
     this._sharedLoadingService.emitChange(true);
 
     this.carreira = this.carreiraForm.value;
-    this.carreira.areaAtendimento = this.lerAreasAtendimento();
+    this.carreira.areasAtendimento = this.lerAreasAtendimento();
     this.carreira.proprietarioId = this._dadosLocalStorage.id;
 
+
+    console.log(this.carreira);
     this._service.save(this.carreira).subscribe(response => {
       setTimeout(() => {
         this._cadastro.carreira = this.carreira;
