@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { AfterContentInit, Component } from '@angular/core';
 import { environment } from './../environments/environment';
+import { TokenService } from './services/token.service';
 import { SharedEventTokenService } from './shared/services/shared-event-token.service';
 import { SharedLoadingService } from './shared/services/shared-loading.service';
-import { TokenService } from './services/token.service';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-root',

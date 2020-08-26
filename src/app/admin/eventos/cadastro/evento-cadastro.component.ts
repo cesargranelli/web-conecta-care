@@ -1,32 +1,26 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
 import { map } from 'rxjs/internal/operators/map';
+import { Evento } from 'src/app/admin/eventos/models/evento.class';
+import { EventoService } from 'src/app/admin/eventos/services/evento.service';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
 import { Estado } from 'src/app/classes/estado.class';
 import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { EventoService } from '../services/evento.service';
-import { Evento } from './models/evento.class';
 
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-evento',
-  templateUrl: './evento.component.html',
-  styleUrls: ['./evento.component.css']
+  selector: 'app-evento-cadastro',
+  templateUrl: './evento-cadastro.component.html',
+  styleUrls: ['./evento-cadastro.component.css']
 })
-export class EventoComponent implements OnInit {
+export class EventoCadastroComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
-
-  private _dadosLocalStorage: Valid;
-  private _serviceSubscription: Subscription;
-  private _dominioSubscription: Subscription;
 
   public escondeFormulario: boolean = true;
   public estados: Array<Estado>;
@@ -43,7 +37,7 @@ export class EventoComponent implements OnInit {
     private _eventoService: EventoService
   ) {
     this.eventoForm = this._formBuilder.group({
-      titulo: [null, [Validators.required, Validators.maxLength(25)]],
+      titulo: [null, [Validators.required, Validators.maxLength(50)]],
       descricao: [null, [Validators.required, Validators.maxLength(100)]],
       detalhe: [null, [Validators.required, Validators.maxLength(255)]],
       local: [null, [Validators.required, Validators.maxLength(255)]],
@@ -123,7 +117,7 @@ export class EventoComponent implements OnInit {
     this._loading.emitChange(true);
     this.evento = this.eventoForm.value;
     this.evento.data = new Date(Number(this.evento.data.split('/')[2]), Number(this.evento.data.split('/')[1]) - 1, Number(this.evento.data.split('/')[0])).toISOString();
-    this._eventoService.save(this.evento).subscribe(response => {
+    this._eventoService.cadastrar(this.evento).subscribe(response => {
       setTimeout(() => {
         this._loading.emitChange(false);
         Swal.fire({
@@ -135,6 +129,7 @@ export class EventoComponent implements OnInit {
           this.eventoForm.reset();
           jQuery(`select[id='estado']`).selectpicker('refresh');
           jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
+          this._router.navigateByUrl(`admin/eventos`);
         });
       });
     },
@@ -147,5 +142,6 @@ export class EventoComponent implements OnInit {
         showConfirmButton: true
       });
     });
+    this._loading.emitChange(false);
   }
 }
