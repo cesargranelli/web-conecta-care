@@ -1,6 +1,9 @@
-import { AfterContentInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, AfterContentInit } from '@angular/core';
+import { map } from 'rxjs/internal/operators/map';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { Evento } from './models/evento.class';
 import { EventoService } from './services/evento.service';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
@@ -13,6 +16,7 @@ export class EventosComponent implements OnInit, AfterContentInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   public escondeTabela: boolean = true;
+  public eventosFuturos: Array<Evento>;
 
   constructor(
     private _loading: SharedLoadingService,
@@ -20,29 +24,59 @@ export class EventosComponent implements OnInit, AfterContentInit {
   ) { }
 
   ngOnInit(): void {
-    // this._eventoService.().pipe(
-    //   map(response => {
-    //     this._loading.emitChange(true);
-    //     this.estados = response.body;
-    //   }),
-    //   concatMap(() => this._dominioService.getAreasAtendimento().pipe(
-    //     map(response => {
-    //       this.areasAtendimento = response.body;
-    //     }))
-    //   )
-    // ).subscribe(() => {
-    //   setTimeout(() => {
-    //     jQuery(`select[id='estado']`).selectpicker('refresh');
-    //     jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
-    //     this._loading.emitChange(false);
-    //     this.escondeFormulario = false;
-    //   });
-    // }, () => {
-    //   this._loading.emitChange(false);
-    // });
   }
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
+    this._eventoService.listarFuturos().pipe(
+      map(response => {
+        this._loading.emitChange(true);
+        this.eventosFuturos = response.body.data;
+      })
+    ).subscribe(
+      null, null, () => {
+      setTimeout(() => {
+        this.inicializarDataTable();
+        this.inicializarTooltip();
+        this.status(this.eventosFuturos);
+        this._loading.emitChange(false);
+        this.escondeTabela = false;
+      });
+    });
+  }
+
+  enviarSms(id: number) {
+    this._eventoService.enviar(id).subscribe(() => {
+      this._loading.emitChange(true);
+      setTimeout(() => {
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Evento publicado com sucesso!',
+          showConfirmButton: true
+        });
+      });
+    },
+    () => {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Não foi possível publicar o novo evento!',
+        showConfirmButton: true
+      });
+    });
+  }
+
+  cancelarSms(id: number) {
+    console.log('Cancelar: ' + id);
+  }
+
+  status(eventos: Array<Evento>) {
+    eventos.map(evento => evento.status = (evento.status == 'ABERTO') ? false : true);
+  }
+
+  inicializarDataTable() {
     jQuery(document).ready(function() {
       jQuery('#datatables').DataTable({
         "pagingType": "full_numbers",
@@ -53,30 +87,15 @@ export class EventosComponent implements OnInit, AfterContentInit {
         responsive: true,
         language: {
           search: "_INPUT_",
-          searchPlaceholder: "Search records",
+          searchPlaceholder: "Pesquisar",
         }
       });
+    });
+  }
 
-      var table = jQuery('#datatable').DataTable();
-
-      // Edit record
-      table.on('click', '.edit', function() {
-        let tr = jQuery(this).closest('tr');
-        var data = table.row(tr).data();
-        alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-      });
-
-      // Delete a record
-      table.on('click', '.remove', function(event: any) {
-        let tr = jQuery(this).closest('tr');
-        table.row(tr).remove().draw();
-        event.preventDefault();
-      });
-
-      //Like record
-      table.on('click', '.like', function() {
-        alert('You clicked on Like button');
-      });
+  inicializarTooltip() {
+    jQuery(function () {
+      jQuery('.btn').tooltip()
     });
   }
 

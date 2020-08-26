@@ -14,7 +14,7 @@
               <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                   <div class="col-sm-12">
-                    <table id="datatables" class="table table-striped" cellspacing="0" width="100%" style="width:100%">
+                    <table id="datatables" class="table table-striped" cellspacing="0" width="100%" style="width:100%" [hidden]="escondeTabela">
                       <thead>
                         <tr>
                           <th>Evento</th>
@@ -24,24 +24,26 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
+                        <tr *ngFor="let evento of eventosFuturos">
+                          <td>{{ evento.titulo }}</td>
+                          <td>{{ evento.data }}</td>
+                          <td>{{ evento.hora }}</td>
                           <td class="text-right">
-                            <a href="#" class="btn btn-rose btn-just-icon"><i class="material-icons">visibility</i></a>
-                            <a href="#" class="btn btn-success btn-just-icon"><i class="material-icons">send</i></a>
-                            <a href="#" class="btn btn-danger btn-just-icon"><i class="material-icons">cancel_schedule_send</i></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Garrett Winters</td>
-                          <td>Accountant</td>
-                          <td>Tokyo</td>
-                          <td class="text-right">
-                            <a href="#" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">favorite</i></a>
-                            <a href="#" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>
-                            <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                            <button class="btn btn-link btn-rose btn-just-icon" title="Ver detalhes">
+                              <i class="material-icons">visibility</i>
+                            </button>
+                            <button type="button" class="btn btn-link btn-just-icon"
+                              (click)="enviarSms(evento.id)"
+                              [ngClass]="(!evento.status) ? 'btn-success' : ''"
+                              [disabled]="evento.status" title="Enviar">
+                              <i class="material-icons">send</i>
+                            </button>
+                            <button type="button" class="btn btn-link btn-just-icon"
+                              (click)="cancelarSms(evento.id)"
+                              [ngClass]="(!evento.status) ? 'btn-danger' : ''"
+                              [disabled]="evento.status" title="Cancelar">
+                              <i class="material-icons">cancel_schedule_send</i>
+                            </button>
                           </td>
                         </tr>
                       </tbody>

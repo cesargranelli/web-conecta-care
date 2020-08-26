@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
 import { map } from 'rxjs/internal/operators/map';
 import { Evento } from 'src/app/admin/eventos/models/evento.class';
@@ -29,13 +30,14 @@ export class EventoCadastroComponent implements OnInit {
   public evento: Evento;
 
   constructor(
+    private _router: Router,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _loading: SharedLoadingService,
     private _eventoService: EventoService
   ) {
     this.eventoForm = this._formBuilder.group({
-      titulo: [null, [Validators.required, Validators.maxLength(25)]],
+      titulo: [null, [Validators.required, Validators.maxLength(50)]],
       descricao: [null, [Validators.required, Validators.maxLength(100)]],
       detalhe: [null, [Validators.required, Validators.maxLength(255)]],
       local: [null, [Validators.required, Validators.maxLength(255)]],
@@ -115,7 +117,7 @@ export class EventoCadastroComponent implements OnInit {
     this._loading.emitChange(true);
     this.evento = this.eventoForm.value;
     this.evento.data = new Date(Number(this.evento.data.split('/')[2]), Number(this.evento.data.split('/')[1]) - 1, Number(this.evento.data.split('/')[0])).toISOString();
-    this._eventoService.save(this.evento).subscribe(response => {
+    this._eventoService.cadastrar(this.evento).subscribe(response => {
       setTimeout(() => {
         this._loading.emitChange(false);
         Swal.fire({
@@ -127,6 +129,7 @@ export class EventoCadastroComponent implements OnInit {
           this.eventoForm.reset();
           jQuery(`select[id='estado']`).selectpicker('refresh');
           jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
+          this._router.navigateByUrl(`admin/eventos`);
         });
       });
     },
@@ -139,5 +142,6 @@ export class EventoCadastroComponent implements OnInit {
         showConfirmButton: true
       });
     });
+    this._loading.emitChange(false);
   }
 }
