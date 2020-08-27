@@ -22,6 +22,7 @@ import { ExperienciaComponent } from './components/cadastro/profissional/experie
 import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
 import { ConnectaComponent } from './components/connecta/connecta.component';
 import { MenuLogadoComponent } from './components/menu/menu-logado/menu-logado.component';
+import { MenuProfissionaisComponent } from './components/menu/menu-profissionais/menu-profissionais.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
 import { ConveniosModule } from './convenios/convenios.module';
@@ -40,6 +41,7 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     AppComponent,
     MenuComponent,
     MenuLogadoComponent,
+    MenuProfissionaisComponent,
     ConnectaComponent,
     CadastroComponent,
     CadastroLoginComponent,
