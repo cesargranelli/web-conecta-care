@@ -8,10 +8,12 @@ import {Valid} from 'src/app/services/feat/Valid';
 import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
 import {concatMap, map} from 'rxjs/operators';
 import {ValidService} from '../../../shared/services/shared-valid.service';
 import {Estado} from '../../../classes/estado.class';
+import {Pais} from '../../../classes/pais.class';
+import {Role} from '../../../enums/role.enum';
+import {EnderecoViaCep} from '../../../classes/endereco-via-cep.class';
 
 declare var jQuery: any;
 
@@ -24,94 +26,110 @@ export class EnderecoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
-  private _dadosLocalStorage: Valid;
-  private _extensaoComprovante: string;
+  enderecoForm: FormGroup;
+
   private _fileComprovante: File;
 
-  public validationHas: InputValidationHas;
-  public fotoComprovante: string | ArrayBuffer = '../../../../../assets/img/Headshot-Placeholder-1.png';
-  public fileInputComprovante: string = 'fileinput-new';
-  public enderecoForm: FormGroup;
-  public endereco: Endereco;
   public estados: Array<Estado>;
+  public paises: Array<Pais>;
+  public valid: Valid;
+  public estadoViaCep: Estado;
+  public endereco: Endereco;
+
+  public comprovante: any;
+  public fileInputComprovante: string = 'fileinput-new';
+  public imagemComprovante: any = '../../../../../assets/img/Headshot-Doc-1.png';
+
+  public validationHas: InputValidationHas = new InputValidationHas();
+
+  public showForm: boolean = true;
 
   constructor(
     private _router: Router,
+    private _validService: ValidService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: EnderecoService,
-    private _sharedLoadingService: SharedLoadingService,
-    private _cadastro: CadastroProfissionaisService,
-    private _validService: ValidService
+    private _loading: SharedLoadingService
   ) {
-    this._sharedLoadingService.emitChange(true);
+    this.valid = this._validService.getValid();
+    this._loading.emitChange(true);
 
     this.enderecoForm = this._formBuilder.group({
       logradouro: [null, [Validators.required, Validators.maxLength(60)]],
       numero: [null, [Validators.required, Validators.maxLength(10)]],
-      complemento: [null, Validators.maxLength(60)],
+      complemento: [null, [Validators.maxLength(60)]],
       cep: [null, [Validators.required, Validators.maxLength(8)]],
       bairro: [null, [Validators.required, Validators.maxLength(50)]],
       cidade: [null, [Validators.required, Validators.maxLength(50)]],
-      comprovante: [null, Validators.required],
-      estado: [null, Validators.required],
+      comprovante: [null, [Validators.required]],
+      estado: [null, [Validators.required]],
+      pais: [null, [Validators.required]]
     });
-
   }
 
   ngOnInit(): void {
-    this.validationHas = new InputValidationHas();
-    this._dadosLocalStorage = this._validService.getValid();
+    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
+      this._router.navigateByUrl('/');
+    }
 
     this._dominioService.getEstados().pipe(
-      map(estados => this.estados = estados.body),
-      concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
-    ).subscribe(endereco => {
-      this.endereco = endereco;
-      this.popularForm();
-      if (this.endereco && this.endereco.comprovante) {
-        this.fileInputComprovante = 'fileinput-exists';
-        this.fotoComprovante = this.endereco.comprovante;
-      }
-      setTimeout(() => {
-        jQuery('select').selectpicker('refresh');
-        this._sharedLoadingService.emitChange(false);
+      map((response) => {
+        this.estados = response.body;
+      }),
+      concatMap(() => this._dominioService.getPaises().pipe(map(response => {
+        this.paises = response.body;
+      }))),
+      concatMap(() => this._service.getDados(this.valid.id))
+    ).subscribe(
+      dadosEndereco => {
+        this.endereco = dadosEndereco;
+        this.popularForm();
+        jQuery('select').selectpicker('render');
+        setTimeout(() => {
+          jQuery('select').selectpicker('refresh');
+          this._loading.emitChange(false);
+        });
+        this.showForm = false;
+        this._loading.emitChange(false);
       });
-    });
   }
 
   popularForm() {
-    if (this.endereco) {
-      this.enderecoForm.patchValue({
-        logradouro: this.endereco.logradouro,
-        numero: this.endereco.numero,
-        complemento: this.endereco.complemento,
-        cep: this.endereco.cep,
-        bairro: this.endereco.bairro,
-        cidade: this.endereco.cidade,
-        estado: this.endereco.estado
-      });
+    if (this.endereco.cep) {
+      this.enderecoForm.controls.logradouro.setValue(this.endereco.logradouro);
+      this.enderecoForm.controls.numero.setValue(this.endereco.numero);
+      this.enderecoForm.controls.complemento.setValue(this.endereco.complemento);
+      this.enderecoForm.controls.cep.setValue(this.endereco.cep);
+      this.enderecoForm.controls.bairro.setValue(this.endereco.bairro);
+      this.enderecoForm.controls.cidade.setValue(this.endereco.cidade);
+      this.enderecoForm.controls.estado.setValue(this.endereco.estado.id);
+      this.enderecoForm.controls.pais.setValue(this.endereco.pais.id);
+      if (this.endereco.comprovante) {
+        this.comprovante = this.endereco.comprovante;
+        this.imagemComprovante = this.comprovante;
+        this.enderecoForm.controls.comprovante.setValue(this.endereco.comprovante, {emitModelToViewChange: false});
+      }
     }
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
-    this.endereco = this.enderecoForm.value;
+    this._loading.emitChange(true);
 
-    this.endereco.comprovante = this._extensaoComprovante + this.fotoComprovante;
-    this.endereco.proprietarioId = this._dadosLocalStorage.id;
+    this.endereco = this.enderecoForm.value;
+    this.endereco.comprovante = this.comprovante;
+    this.endereco.proprietarioId = this.valid.id;
 
     this._service.save(this.endereco).subscribe(() => {
         setTimeout(() => {
-          this._cadastro.endereco = this.endereco;
-          this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/contato`, {
-            state: {valid: this._dadosLocalStorage}
+          this._loading.emitChange(false);
+          this._router.navigateByUrl(`profissionais/${this.valid.id}`, {
+            state: {valid: this.valid}
           });
-          this._sharedLoadingService.emitChange(false);
         });
       },
       () => {
-        this._sharedLoadingService.emitChange(false);
+        this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -121,26 +139,53 @@ export class EnderecoComponent implements OnInit {
       });
   }
 
-  onLoadFotoComprovante(event: any) {
+  onLoadComprovante(event: any) {
     this._fileComprovante = event.target.files[0];
-    let reader = new FileReader();
-    if (this._fileComprovante) {
-      this.fileInputComprovante = 'fileinput-exists';
-      reader.readAsDataURL(this._fileComprovante);
-    }
+    var reader = new FileReader();
+    reader.readAsDataURL(this._fileComprovante);
     reader.onload = () => {
-      this.fotoComprovante = reader.result;
+      this.comprovante = reader.result;
     };
   }
 
-  handlerReaderLoadedProfissional(e: any) {
-    this.fotoComprovante = btoa(e.target.result);
+  limpar() {
+    this.enderecoForm.reset();
+    jQuery('.fileinput').fileinput('clear');
+    jQuery('.selectpicker').selectpicker('refresh');
+    this.imagemComprovante = '../../../../../assets/img/Headshot-Doc-1.png';
   }
 
-  onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/informacoes-gerais`, {
-      state: {valid: this._dadosLocalStorage}
-    });
+  pesquisarCep() {
+    this._service.findViaCep(this.enderecoForm.controls.cep.value).subscribe(
+      response => {
+        if (response.body?.erro) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '400-CEP Não localizado!',
+            showConfirmButton: true,
+          });
+        }
+        this._loading.emitChange(true);
+        let enderecoViaCep: EnderecoViaCep = response.body;
+        this.enderecoForm.controls.logradouro.setValue(enderecoViaCep.logradouro);
+        this.enderecoForm.controls.bairro.setValue(enderecoViaCep.bairro);
+        this.enderecoForm.controls.cidade.setValue(enderecoViaCep.localidade);
+        this.estadoViaCep = this.estados.find(estado => estado.uf == enderecoViaCep.uf);
+      },
+      (error: Error) => Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: error.message,
+        showConfirmButton: true,
+      }),
+      () => {
+        setTimeout(() => {
+          jQuery('select[id=\'estado\']').selectpicker('refresh');
+          jQuery('select[id=\'estado\']').selectpicker('val', this.estadoViaCep.id);
+          this._loading.emitChange(false);
+        });
+      });
   }
 
 }
