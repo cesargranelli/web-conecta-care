@@ -9,7 +9,7 @@
               Experiência Profissional
             </h3>
           </div>
-          <form [formGroup]="experienciaForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="experienciaForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
@@ -17,108 +17,113 @@
                   <div class="form-group col-lg-1 col-md-8">
                     <div class="togglebutton">
                       <label>
-                        <input type="checkbox" id="experiencia" formControlName="experiencia">
+                        <input type="checkbox" formControlName="experiencia" (click)="toogle()" checked>
                         <span class="toggle"></span>
                       </label>
                     </div>
                   </div>
-                  <label for="observacao" class="col-lg-3 col-md-3 col-form-label">Observação</label>
-                  <div class="form-group col-lg-4 col-md-8">
-                    <input type="text" id="observacao" class="form-control" formControlName="observacao">
-                  </div>
                 </div>
-
                 <div class="row">
                   <label for="empresa1" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 1</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="empresa1" class="form-control" formControlName="empresa1">
+                    <input type="text" class="form-control" formControlName="empresa1" [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
                   <label for="cargo1" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 1</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="cargo1" class="form-control" formControlName="cargo1">
+                    <input type="text" class="form-control" formControlName="cargo1" [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
                   <label for="dataAdmissao1" class="col-lg-3 col-md-3 col-form-label">Data admissão 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="dataAdmissao1" class="form-control" formControlName="dataAdmissao1"
-                           [dropSpecialCharacters]="false"
-                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$"
-                           mask="00/00/0000">
+                    <input type="text" class="form-control datetimepicker" id="dataAdmissao1"
+                           formControlName="dataAdmissao1" [readonly]="somenteLeitura"
+                           (focus)="dateChange(experienciaForm.controls?.dataAdmissao1, 'dataAdmissao1')"
+                           autocomplete="none">
                   </div>
                   <label for="dataDemissao1" class="col-lg-2 col-md-3 col-form-label">Data demissão 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="dataDemissao1" class="form-control" formControlName="dataDemissao1"
-                           [dropSpecialCharacters]="false"
-                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                    <input type="text" class="form-control datetimepicker" id="dataDemissao1"
+                           formControlName="dataDemissao1" [readonly]="somenteLeitura"
+                           (focus)="dateChange(experienciaForm.controls?.dataDemissao1, 'dataDemissao1')"
+                           autocomplete="none">
                   </div>
                 </div>
-
                 <div class="row">
                   <label for="empresa2" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 2</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="empresa2" class="form-control" formControlName="empresa2">
+                    <input type="text" class="form-control" formControlName="empresa2" [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
                   <label for="cargo2" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 2</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="cargo2" class="form-control" formControlName="cargo2">
+                    <input type="text" class="form-control" formControlName="cargo2" [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
                   <label for="dataAdmissao2" class="col-lg-3 col-md-3 col-form-label">Data admissão 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="dataAdmissao2" class="form-control" formControlName="dataAdmissao2"
-                           [dropSpecialCharacters]="false"
-                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                    <input type="text" class="form-control datetimepicker" id="dataAdmissao2"
+                           formControlName="dataAdmissao2" [readonly]="somenteLeitura"
+                           (focus)="dateChange(experienciaForm.controls?.dataAdmissao2, 'dataAdmissao2')"
+                           autocomplete="none">
                   </div>
                   <label for="dataDemissao2" class="col-lg-2 col-md-3 col-form-label">Data demissão 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="dataDemissao2" class="form-control" formControlName="dataDemissao2"
-                           [dropSpecialCharacters]="false"
-                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                    <input type="text" class="form-control datetimepicker" id="dataDemissao2"
+                           formControlName="dataDemissao2" [readonly]="somenteLeitura"
+                           (focus)="dateChange(experienciaForm.controls?.dataDemissao2, 'dataDemissao2')"
+                           autocomplete="none">
                   </div>
                 </div>
-
                 <div class="row">
                   <label for="empresa3" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 3</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="empresa3" class="form-control" formControlName="empresa3">
+                    <input type="text" class="form-control" formControlName="empresa3" [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
                   <label for="cargo3" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 3</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="cargo3" class="form-control" formControlName="cargo3">
+                    <input type="text" class="form-control" formControlName="cargo3" [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
                   <label for="dataAdmissao3" class="col-lg-3 col-md-3 col-form-label">Data admissão 3</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="dataAdmissao3" class="form-control" formControlName="dataAdmissao3"
-                           [dropSpecialCharacters]="false"
-                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                    <input type="text" class="form-control datetimepicker" id="dataAdmissao3"
+                           formControlName="dataAdmissao3" [readonly]="somenteLeitura"
+                           (focus)="dateChange(experienciaForm.controls?.dataAdmissao3, 'dataAdmissao3')"
+                           autocomplete="none">
                   </div>
                   <label for="dataDemissao3" class="col-lg-2 col-md-3 col-form-label">Data demissão 3</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="dataDemissao3" class="form-control" formControlName="dataDemissao3"
-                           [dropSpecialCharacters]="false"
-                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                    <input type="text" class="form-control datetimepicker" id="dataDemissao3"
+                           formControlName="dataDemissao3" [readonly]="somenteLeitura"
+                           (focus)="dateChange(experienciaForm.controls?.dataDemissao3, 'dataDemissao3')"
+                           autocomplete="none">
                   </div>
                 </div>
-
+                <div class="row">
+                  <label for="observacao" class="col-lg-3 col-md-3 col-form-label">Observação</label>
+                  <div class="form-group col-lg-8 col-md-8">
+                    <textarea class="form-control" formControlName="observacao" [readonly]="somenteLeitura"></textarea>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-                <button type="button" class="btn btn-gray" (click)="experienciaForm.reset()">Limpar</button>
+                <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
+                  <i class="material-icons">arrow_back</i>
+                </button>
+                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="experienciaForm.invalid">Avançar</button>
+                <button type="submit" class="btn btn-rose" [disabled]="!experienciaForm.valid">Avançar</button>
               </span>
             </div>
           </form>
