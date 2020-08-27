@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { AdminRoutingModule } from './admin-routing.module';
-import { EventoComponent } from './evento/evento.component';
+import { EventoCadastroComponent } from './eventos/cadastro/evento-cadastro.component';
+import { EventosComponent } from './eventos/eventos.component';
 
 @NgModule({
   declarations: [
-    EventoComponent
+    EventosComponent,
+    EventoCadastroComponent
   ],
   imports: [
     CommonModule,
