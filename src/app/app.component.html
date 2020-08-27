@@ -1,5 +1,6 @@
 <app-menu *ngIf="!token"></app-menu>
-<app-menu-logado *ngIf="token"></app-menu-logado>
+<!-- <app-menu-logado *ngIf="token"></app-menu-logado> -->
+<app-menu-profissionais *ngIf="valid?.role?.toString()=='ROLE_PROFISSIONAL'"></app-menu-profissionais>
 
 <router-outlet></router-outlet>
 
