@@ -115,15 +115,15 @@ export class EventosComponent implements OnInit {
   inicializarDataTable() {
     jQuery(document).ready(function() {
       jQuery('#datatables').DataTable({
-        "pagingType": "full_numbers",
-        "lengthMenu": [
+        'pagingType': 'full_numbers',
+        'lengthMenu': [
           [10, 25, 50, -1],
-          [10, 25, 50, "All"]
+          [10, 25, 50, 'All']
         ],
         responsive: true,
         language: {
-          search: "_INPUT_",
-          searchPlaceholder: "Pesquisar",
+          search: '_INPUT_',
+          searchPlaceholder: 'Pesquisar',
           lengthMenu: 'Mostrar _MENU_',
           info: 'Mostrando _START_ à _END_ de _TOTAL_ registros'
         }
@@ -132,9 +132,9 @@ export class EventosComponent implements OnInit {
   }
 
   inicializarTooltip() {
-    jQuery(function () {
-      jQuery('.btn').tooltip()
-    });
+    // jQuery(function () {
+    //   jQuery('.btn').tooltip();
+    // });
   }
 
 }
