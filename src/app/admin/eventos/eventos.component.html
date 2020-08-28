@@ -4,12 +4,12 @@
       <div class="wizard-container">
         <div class="card card-wizard active">
           <div class="card-header card-header-rose text-center">
-            <i class="material-icons">mail</i>
+            <i class="material-icons">pending_actions</i>
             <h3 class="card-title">
               Eventos
             </h3>
           </div>
-          <div class="card-body">
+          <div class="card-body" [hidden]="escondeTabela">
             <div class="material-datatables">
               <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">

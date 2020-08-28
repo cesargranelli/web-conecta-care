@@ -38,22 +38,22 @@
                 </div>
                 <div class="row">
                   <label for="data" class="col-lg-2 col-md-2 col-form-label">Data *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.data)">
-                    <input type="text" class="form-control" id="datepicker" formControlName="data" autocomplete="false" (focus)="dateChange(eventoForm)">
+                  <div class="form-group col-lg-3 col-md-3" [ngClass]="validationHas.validation(eventoForm.controls?.data)">
+                    <input type="text" class="form-control date" id="datepicker" formControlName="data" autocomplete="false" (focus)="dateChange(eventoForm)">
                   </div>
-                  <label for="hora" class="col-lg-3 col-md-2 col-form-label">Hora *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.hora)">
-                    <input type="text" class="form-control" id="timepicker" formControlName="hora" autocomplete="false" (focus)="timeChange(eventoForm)">
+                  <label for="hora" class="col-lg-3 col-md-3 col-form-label">Hora *</label>
+                  <div class="form-group col-lg-3 col-md-3" [ngClass]="validationHas.validation(eventoForm.controls?.hora)">
+                    <input type="text" class="form-control time" id="timepicker" formControlName="hora" autocomplete="false" (focus)="timeChange(eventoForm)">
                   </div>
                 </div>
                 <div class="row">
                   <label for="vagas" class="col-lg-2 col-md-2 col-form-label">Vagas *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.vagas)">
-                    <input type="text" class="form-control" formControlName="vagas" autocomplete="false" mask="0999">
+                  <div class="form-group col-lg-3 col-md-3" [ngClass]="validationHas.validation(eventoForm.controls?.vagas)">
+                    <input type="text" class="form-control" formControlName="vagas" autocomplete="false" mask="0999" pattern="^[1-9]{1,1}[0-9]{0,1}[0-9]{0,1}[0-9]{0,1}$">
                   </div>
-                  <label for="duracao" class="col-lg-3 col-md-2 col-form-label">Duração em Horas *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(eventoForm.controls?.duracao)">
-                    <input type="text" class="form-control" formControlName="duracao" autocomplete="false" mask="09" pattern="^[0-2]{0,1}[0-4]{0,1}$">
+                  <label for="duracao" class="col-lg-3 col-md-3 col-form-label">Duração em Horas *</label>
+                  <div class="form-group col-lg-3 col-md-3" [ngClass]="validationHas.validation(eventoForm.controls?.duracao)">
+                    <input type="text" class="form-control" formControlName="duracao" autocomplete="false" mask="09" pattern="^[1-2]{1,1}[0-4]{0,1}$">
                   </div>
                 </div>
                 <div class="row">
@@ -65,7 +65,7 @@
                       <option [ngValue]="areaAtendimento" *ngFor="let areaAtendimento of areasAtendimento">{{ areaAtendimento.nome }}</option>
                     </select>
                   </div>
-                  <label for="estados" class="col-lg-1 col-md-2 col-form-label">Região *</label>
+                  <label for="estados" class="col-lg-1 col-md-3 col-form-label">Região *</label>
                   <div class="form-group col-lg-4 col-md-8">
                     <select formControlName="estado" id="estado" class="selectpicker" data-style="btn btn-primary"
                             data-width="100%" title="Selecione">
@@ -80,7 +80,7 @@
                 <button type="button" class="btn btn-gray" routerLink="/admin/eventos">Cancelar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!eventoForm.valid">Cadastrar</button><!-- [disabled]="!eventoForm.valid" -->
+                <button type="submit" class="btn btn-rose" [disabled]="!eventoForm.valid">Cadastrar</button>
               </span>
             </div>
           </form>
