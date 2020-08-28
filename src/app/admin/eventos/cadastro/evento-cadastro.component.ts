@@ -63,6 +63,7 @@ export class EventoCadastroComponent implements OnInit {
       )
     ).subscribe(() => {
       setTimeout(() => {
+        this.initDateTimePicker();
         jQuery(`select[id='estado']`).selectpicker('refresh');
         jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
         this._loading.emitChange(false);
@@ -72,11 +73,11 @@ export class EventoCadastroComponent implements OnInit {
       this._loading.emitChange(false);
     });
 
-    this.initDateTimePicker();
   }
 
   initDateTimePicker() {
     jQuery('#datepicker').datetimepicker({
+      minDate: Date.now(),
       format: 'L',
       locale: 'pt-br',
       icons: {
