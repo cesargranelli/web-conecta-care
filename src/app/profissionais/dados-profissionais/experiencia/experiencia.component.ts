@@ -132,7 +132,6 @@ export class ExperienciaComponent implements OnInit {
 
   onSubmit() {
     this._sharedLoadingService.emitChange(true);
-    console.log(this.experienciaForm);
     this.experiencias = new Array<Experiencia>();
     if (this.validacoes()) {
       this._sharedLoadingService.emitChange(false);
@@ -177,8 +176,6 @@ export class ExperienciaComponent implements OnInit {
     this.experiencias.push(this.experiencia2);
     this.experiencias.push(this.experiencia3);
 
-    console.log(this.experiencias);
-
     this._service.save(this.experiencias).subscribe(response => {
       setTimeout(() => {
         this._cadastro.experiencia = this.experiencias;
@@ -205,7 +202,6 @@ export class ExperienciaComponent implements OnInit {
   }
 
   dateChange(control: FormControl, name: string) {
-    console.log(name);
     jQuery(`#${name}`).on('dp.change', function(event: any) {
       control.setValue(jQuery('#' + name)[0].value);
     });

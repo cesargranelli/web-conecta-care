@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {EstadoCivil} from 'src/app/classes/estado-civil.class';
 import {Genero} from 'src/app/classes/genero.class';
@@ -96,6 +96,10 @@ export class InformacoesGeraisComponent implements OnInit {
         jQuery('select').selectpicker('refresh');
         this._loading.emitChange(false);
       });
+      jQuery('.datetimepicker').datetimepicker({
+        format: 'DD/MM/YYYY',
+        maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+      });
     });
   }
 
@@ -167,6 +171,13 @@ export class InformacoesGeraisComponent implements OnInit {
         title: 'Ocorreu um erro inexperado ao tentar inserir profissional',
         showConfirmButton: true
       });
+    });
+  }
+
+  dateChange(control: FormControl, name: string) {
+    console.log(name);
+    jQuery(`#${name}`).on('dp.change', function(event: any) {
+      control.setValue(jQuery('#' + name)[0].value);
     });
   }
 
