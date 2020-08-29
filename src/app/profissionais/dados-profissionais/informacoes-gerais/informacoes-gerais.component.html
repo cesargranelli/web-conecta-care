@@ -30,9 +30,10 @@
                   <label for="dataNascimento" class="col-lg-2 col-md-3 col-form-label">Data Nascimento *</label>
                   <div class="form-group col-lg-3 col-md-8"
                        [ngClass]="validationHas.validation(profissionalForm.controls?.dataNascimento)">
-                    <input type="text" id="dataNascimento" class="form-control" formControlName="dataNascimento"
-                           [dropSpecialCharacters]="false"
-                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                    <input type="text" class="form-control datetimepicker" id="dataNascimento"
+                           formControlName="dataNascimento"
+                           (focus)="dateChange(profissionalForm.controls?.dataNascimento, 'dataNascimento')"
+                           autocomplete="none">
                   </div>
                 </div>
                 <div class="row">
@@ -50,9 +51,10 @@
                   <label for="rgDataEmissao" class="col-lg-2 col-md-3 col-form-label">Data Emissão RG</label>
                   <div class="form-group col-lg-3 col-md-8"
                        [ngClass]="validationHas.validation(profissionalForm.controls?.rgDataEmissao)">
-                    <input type="text" id="rgDataEmissao" class="form-control" formControlName="rgDataEmissao"
-                           [dropSpecialCharacters]="false"
-                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="09/09/0009">
+                    <input type="text" class="form-control datetimepicker" id="rgDataEmissao"
+                           formControlName="rgDataEmissao"
+                           (focus)="dateChange(profissionalForm.controls?.rgDataEmissao, 'rgDataEmissao')"
+                           autocomplete="none">
                   </div>
                   <label for="pis" class="col-lg-3 col-md-3 col-form-label">PIS</label>
                   <div class="form-group col-lg-3 col-md-8">
