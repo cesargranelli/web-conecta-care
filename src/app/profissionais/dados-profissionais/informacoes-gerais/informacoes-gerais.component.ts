@@ -13,8 +13,8 @@ import {SharedLoadingService} from 'src/app/shared/services/shared-loading.servi
 import {ValidService} from 'src/app/shared/services/shared-valid.service';
 import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import Swal from 'sweetalert2';
 import {concatMap, map} from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
@@ -42,6 +42,7 @@ export class InformacoesGeraisComponent implements OnInit {
   private _fileProfissional: File;
   private _fileRg: File;
   private _dadosLocalStorage: Valid;
+  private _dataAtual: Date;
 
   constructor(
     private _router: Router,
@@ -58,10 +59,10 @@ export class InformacoesGeraisComponent implements OnInit {
     this.profissionalForm = this._formBuilder.group({
       nome: [null, Validators.required],
       sobrenome: [null, [Validators.required, Validators.maxLength(60)]],
-      dataNascimento: [null, Validators.required],
+      dataNascimento: [null, Validators.minLength(10)],
       rg: [null],
       rgEmissor: [null],
-      rgDataEmissao: [null],
+      rgDataEmissao: [null, [Validators.minLength(10), Validators.maxLength(10)]],
       pis: [null],
       genero: [null, Validators.required],
       tipoEmpresa: [null, Validators.required],
@@ -75,6 +76,7 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
     this._dominioService.getGeneros().pipe(
       map(response => this.generos = response.body),
       concatMap(() => this._dominioService.getTipoEmpresas().pipe(map(response => this.tipoEmpresas = response.body))),
@@ -96,10 +98,10 @@ export class InformacoesGeraisComponent implements OnInit {
         jQuery('select').selectpicker('refresh');
         this._loading.emitChange(false);
       });
-      jQuery('.datetimepicker').datetimepicker({
-        format: 'DD/MM/YYYY',
-        maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
-      });
+    });
+    jQuery('.datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY',
+      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
     });
   }
 
@@ -111,7 +113,7 @@ export class InformacoesGeraisComponent implements OnInit {
         dataNascimento: this.profissional.dataNascimento,
         rg: this.profissional.rg,
         rgEmissor: this.profissional.rgEmissor,
-        rgDataEmissao: this.profissional.rgDataEmissao,
+        rgDataEmissao: this.profissional.rgDataEmissao ? this.profissional.rgDataEmissao : this._dataAtual,
         pis: this.profissional.pis,
         genero: this.profissional.genero,
         tipoEmpresa: this.profissional.tipoEmpresa,
@@ -120,6 +122,8 @@ export class InformacoesGeraisComponent implements OnInit {
         ctps: this.profissional.ctps,
         ctpsSerie: this.profissional.ctpsSerie
       });
+      this.profissionalForm.controls.fotoRg.setValue(this.profissional.fotoRg, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoProfissional.setValue(this.profissional.fotoProfissional, {emitModelToViewChange: false});
     }
   }
 
@@ -149,6 +153,9 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.profissional);
+    console.log('Form:');
+    console.log(this.profissionalForm.value);
     this._loading.emitChange(true);
     let profissional: Profissional = this.profissionalForm.value;
     profissional.id = this._dadosLocalStorage.id;
