@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.service.verLogin().subscribe(response => {
-      this.loginForm.controls.email.setValue(response.body.email);
+      this.loginForm.controls.email.setValue(response.body?.email);
       this._sharedLoadingService.emitChange(false);
     });
 
