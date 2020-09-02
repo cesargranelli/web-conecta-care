@@ -152,7 +152,7 @@ export class CarreiraComponent implements OnInit {
     this._service.save(this.carreira).subscribe(response => {
       setTimeout(() => {
         this._cadastro.carreira = this.carreira;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}`);
+        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`);
         Swal.fire({
           position: 'center',
           icon: 'success',
