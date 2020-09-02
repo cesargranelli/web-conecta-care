@@ -31,7 +31,7 @@
                   <div class="form-group col-lg-3 col-md-8"
                        [ngClass]="validationHas.validation(profissionalForm.controls?.dataNascimento)">
                     <input type="text" class="form-control datetimepicker" id="dataNascimento"
-                           formControlName="dataNascimento"
+                           formControlName="dataNascimento" maxlength="10"
                            (focus)="dateChange(profissionalForm.controls?.dataNascimento, 'dataNascimento')"
                            autocomplete="none">
                   </div>
@@ -52,7 +52,7 @@
                   <div class="form-group col-lg-3 col-md-8"
                        [ngClass]="validationHas.validation(profissionalForm.controls?.rgDataEmissao)">
                     <input type="text" class="form-control datetimepicker" id="rgDataEmissao"
-                           formControlName="rgDataEmissao"
+                           formControlName="rgDataEmissao" maxlength="10"
                            (focus)="dateChange(profissionalForm.controls?.rgDataEmissao, 'rgDataEmissao')"
                            autocomplete="none">
                   </div>
@@ -66,7 +66,7 @@
                   <div class="form-group col-lg-3 col-md-8">
                     <select formControlName="genero" id="genero" class="selectpicker" data-style="btn btn-primary"
                             data-width="100%" title="Selecione">
-                      <option [ngValue]="genero" *ngFor="let genero of generos"
+                      <option [ngValue]="genero.id" *ngFor="let genero of generos"
                               [selected]="genero.id === profissional?.genero.id">{{ genero.descricao }}</option>
                     </select>
                   </div>
@@ -74,7 +74,7 @@
                   <div class="form-group col-lg-3 col-md-8">
                     <select formControlName="tipoEmpresa" id="tipoEmpresa" class="selectpicker"
                             data-style="btn btn-primary" data-width="100%" title="Selecione">
-                      <option [ngValue]="tipoEmpresa" *ngFor="let tipoEmpresa of tipoEmpresas"
+                      <option [ngValue]="tipoEmpresa.id" *ngFor="let tipoEmpresa of tipoEmpresas"
                               [selected]="tipoEmpresa.id === profissional?.tipoEmpresa.id">{{ tipoEmpresa.sigla }}
                         - {{ tipoEmpresa.tipo }}</option>
                     </select>
@@ -85,7 +85,7 @@
                   <div class="form-group col-lg-3 col-md-8">
                     <select formControlName="estadoCivil" id="estadoCivil" class="selectpicker"
                             data-style="btn btn-primary" data-width="100%" title="Selecione">
-                      <option [ngValue]="estadoCivil" *ngFor="let estadoCivil of estadoCivis"
+                      <option [ngValue]="estadoCivil.id" *ngFor="let estadoCivil of estadoCivis"
                               [selected]="estadoCivil.id === profissional?.estadoCivil.id">{{ estadoCivil.tipo }}</option>
                     </select>
                   </div>

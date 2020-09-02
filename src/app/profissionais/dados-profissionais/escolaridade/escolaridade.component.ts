@@ -79,7 +79,7 @@ export class EscolaridadeComponent implements OnInit {
 
   }
 
-  popularForm() {
+  popularForm(): void {
     if (this.escolaridade.instrucao) {
       this.escolaridadeForm.patchValue({
         instrucao: this.escolaridade.instrucao,
@@ -93,7 +93,7 @@ export class EscolaridadeComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this._sharedLoadingService.emitChange(true);
 
     this.escolaridade.instrucao = this.escolaridadeForm.value.instrucao;
@@ -112,6 +112,13 @@ export class EscolaridadeComponent implements OnInit {
           this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
             state: {valid: this._dadosLocalStorage}
           });
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Alteração realizada com sucesso!',
+            showConfirmButton: false,
+            timer: 2000
+          });
           this._sharedLoadingService.emitChange(false);
         });
       },
@@ -120,11 +127,16 @@ export class EscolaridadeComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'Ocorreu um erro inexperado ao tentar inserir escolaridade',
+          title: 'Ocorreu um erro inexperado ao tentar alterar os dados de escolaridade',
           showConfirmButton: true
         });
       }
     });
+  }
+
+  limpar(): void {
+    this.escolaridadeForm.reset();
+    jQuery('select').selectpicker('refresh');
   }
 
 }

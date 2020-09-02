@@ -101,7 +101,7 @@ export class ContaComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Cadastro realizado com sucesso!',
+            title: 'Alteração realizada com sucesso!',
             showConfirmButton: false,
             timer: 2000
           });
@@ -117,11 +117,15 @@ export class ContaComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'Ocorreu um erro inexperado ao tentar inserir conta',
+          title: 'Ocorreu um erro inexperado ao tentar alterar os dados da conta',
           showConfirmButton: true
         });
       }
     });
   }
 
+  limpar(): void {
+    this.contaForm.reset();
+    jQuery('select').selectpicker('refresh');
+  }
 }

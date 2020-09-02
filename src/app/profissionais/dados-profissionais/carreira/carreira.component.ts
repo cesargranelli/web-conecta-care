@@ -26,8 +26,6 @@ declare var jQuery: any;
 })
 export class CarreiraComponent implements OnInit {
 
-  carreiraForm: FormGroup;
-
   @Output() loadingEvent = new EventEmitter<boolean>();
   private _dadosLocalStorage: Valid;
 
@@ -37,6 +35,7 @@ export class CarreiraComponent implements OnInit {
   public transportes: Array<Transporte>;
   public validationHas: InputValidationHas;
   public carreira: Carreira;
+  public carreiraForm: FormGroup;
 
   constructor(
     private _router: Router,
@@ -147,12 +146,17 @@ export class CarreiraComponent implements OnInit {
     this.carreira.registroProfissional = Number(this.carreiraForm.value.registroProfissional);
     this.carreira.proprietarioId = this._dadosLocalStorage.id;
 
-
-    console.log(this.carreira);
     this._service.save(this.carreira).subscribe(response => {
       setTimeout(() => {
         this._cadastro.carreira = this.carreira;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/experiencia`);
+        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Alteração realizada com sucesso!',
+          showConfirmButton: false,
+          timer: 2000
+        });
         this._sharedLoadingService.emitChange(false);
       });
     }, () => {
@@ -160,7 +164,7 @@ export class CarreiraComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar inserir carreira',
+        title: 'Ocorreu um erro inexperado ao tentar altearar os dados de carreira',
         showConfirmButton: true
       });
     });

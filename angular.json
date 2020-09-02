@@ -12,6 +12,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
+          "outputHashing": "all",
           "options": {
             "outputPath": "dist/web-connecta",
             "index": "src/index.html",
@@ -93,6 +94,7 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "outputHashing": "all",
           "options": {
             "browserTarget": "web-connecta:build"
           },
