@@ -74,8 +74,15 @@ export class ContatoComponent implements OnInit {
     this._service.save(this.contato).subscribe(response => {
       setTimeout(() => {
         this._cadastro.contato = this.contato;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/carreira`, {
+        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
           state: {valid: this._dadosLocalStorage}
+        });
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Alteração realizada com sucesso!',
+          showConfirmButton: false,
+          timer: 2000
         });
         this._sharedLoadingService.emitChange(false);
       });
@@ -84,7 +91,7 @@ export class ContatoComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar inserir contatos',
+        title: 'Ocorreu um erro inexperado ao tentar alterar os dados de contato',
         showConfirmButton: true
       });
     });
