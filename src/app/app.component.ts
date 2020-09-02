@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from './../environments/environment';
+import { AuthService } from './admin/auth/services/auth.service';
 import { Role } from './enums/role.enum';
 import { Valid } from './services/feat/Valid';
 import { TokenService } from './services/token.service';
@@ -28,14 +29,23 @@ export class AppComponent {
     private _token: SharedEventTokenService,
     private _valid: SharedEventValidService,
     private _tokenService: TokenService,
-    private _validService: ValidService
+    private _validService: ValidService,
+    private _authService: AuthService
   ) {
     console.log(environment.name); // Logs false for default environment
     this._loading.changeEmitted$.subscribe(eventLoading => this.loading = eventLoading);
     this._token.changeEmitted$.subscribe(token => this.token = token);
-    this._valid.changeEmitted$.subscribe(valid => this.valid = valid);
+    this._valid.changeEmitted$.subscribe((valid: Valid) => this.valid = valid);
     this.token = this._tokenService.hasToken();
     this.valid = this._validService.getValid();
+  }
+
+  get login(): boolean {
+    return this._authService.isLoggedIn();
+  }
+
+  get storageValid(): any {
+    return this._authService.getValid();
   }
 
 }

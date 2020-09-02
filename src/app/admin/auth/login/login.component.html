@@ -1,0 +1,79 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-lg-6 col-md-6 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">lock_outline</i>
+            <h3 class="card-title">
+              Login Administrador
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="login">
+                <div class="row justify-content-center">
+                  <div class="col-lg-8 col-md-8">
+                    <h5 class="info-text">Insira seus dados para entrar no sistema</h5>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="container">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                      <div class="form-row justify-content-center form-control-lg"
+                           [ngClass]="inputHas.validation(loginForm.controls.email)">
+                        <div class="col-lg-8 col-md-10">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">email</i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" formControlName="email" placeholder="Email...">
+                          </div>
+                          <span class="form-control-feedback">
+                            <i class="material-icons">{{ input.validation(loginForm.controls.email) }}</i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="form-row justify-content-center form-control-lg"
+                           [ngClass]="inputHas.validation(loginForm.controls.password)">
+                        <div class="col-lg-8 col-md-10">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">lock_outline</i>
+                              </span>
+                            </div>
+                            <input type="password" class="form-control" formControlName="password" placeholder="Password...">
+                          </div>
+                          <span class="form-control-feedback">
+                            <i class="material-icons">{{ input.validation(loginForm.controls.password) }}</i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="form-row justify-content-center form-control-lg">
+                        <div class="form-group">
+                          <button type="submit" [disabled]="!loginForm.valid" class="btn btn-rose"
+                                  [ngClass]="!loginForm.valid ? 'btn-link' : ''">Entrar
+                          </button>
+                        </div>
+                      </div>
+                      <div class="form-row justify-content-center">
+                        <div class="form-group">
+                          <a class="btn btn-rose btn-link" [routerLink]="['../../login/esqueci-minha-senha']">
+                            Esqueci minha Senha
+                          </a>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

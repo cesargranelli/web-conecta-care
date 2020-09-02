@@ -18,7 +18,7 @@ export class EventoService {
   private endpoint: string = `${environment.apiUrl}/eventos`;
 
   constructor(private _http: HttpClient, private _tokenService: TokenService) {
-    this._headers = this._headers.set('Token', 'Bearer ' + this._tokenService.getToken());
+    // this._headers = this._headers.set('Token', 'Bearer ' + this._tokenService.getToken());
   }
 
   cadastrar(payload: Evento): Observable<HttpResponse<any>> {
@@ -28,7 +28,7 @@ export class EventoService {
 
   listarFuturos(): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<any>>(`${this.endpoint}`,
-      { headers: this._headers, observe: 'response' });
+      { observe: 'response' });
   }
 
   detalhes(id: number): Observable<HttpResponse<any>> {
