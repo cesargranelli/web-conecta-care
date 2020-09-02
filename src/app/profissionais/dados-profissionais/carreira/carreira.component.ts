@@ -26,8 +26,6 @@ declare var jQuery: any;
 })
 export class CarreiraComponent implements OnInit {
 
-  carreiraForm: FormGroup;
-
   @Output() loadingEvent = new EventEmitter<boolean>();
   private _dadosLocalStorage: Valid;
 
@@ -37,6 +35,7 @@ export class CarreiraComponent implements OnInit {
   public transportes: Array<Transporte>;
   public validationHas: InputValidationHas;
   public carreira: Carreira;
+  public carreiraForm: FormGroup;
 
   constructor(
     private _router: Router,
@@ -147,8 +146,6 @@ export class CarreiraComponent implements OnInit {
     this.carreira.registroProfissional = Number(this.carreiraForm.value.registroProfissional);
     this.carreira.proprietarioId = this._dadosLocalStorage.id;
 
-
-    console.log(this.carreira);
     this._service.save(this.carreira).subscribe(response => {
       setTimeout(() => {
         this._cadastro.carreira = this.carreira;

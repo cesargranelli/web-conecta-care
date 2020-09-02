@@ -22,7 +22,11 @@
                               [selected]="conselho.id===carreira?.conselho?.id">{{ conselho.sigla }}</option>
                     </select>
                   </div>
-                  <label for="registroProfissional" class="col-lg-3 col-md-3 col-form-label">Nº Registro</label>
+                  <label for="registroProfissional"
+                         class="col-lg-3 col-md-3 col-form-label">
+                    Nº {{this.carreiraForm.controls?.conselho.value ?
+                    this.carreiraForm.controls.conselho.value.sigla : 'Registro'}}
+                  </label>
                   <div class="form-group col-lg-3 col-md-8"
                        [ngClass]="validationHas.validation(carreiraForm.controls?.registroProfissional)">
                     <input type="text" id="registroProfissional" class="form-control"
