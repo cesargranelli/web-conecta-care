@@ -22,14 +22,14 @@ const routes: Routes = [
   {path: 'cadastro/login', component: CadastroLoginComponent},
   {path: 'espera-confirmacao-email', component: EsperaConfirmacaoEmailComponent},
   {path: 'confirmacao-cadastro/:token', component: ConfirmacaoCadastroComponent},
-  {path: 'profissionais/:id/dados-profissionais/informacoes-gerais', component: InformacoesGeraisComponent},
-  {path: 'profissionais/:id/dados-profissionais/endereco', component: EnderecoComponent},
-  {path: 'profissionais/:id/dados-profissionais/contato', component: ContatoComponent},
-  {path: 'profissionais/:id/dados-profissionais/carreira', component: CarreiraComponent},
-  {path: 'profissionais/:id/dados-profissionais/experiencia', component: ExperienciaComponent},
-  {path: 'profissionais/:id/dados-profissionais/escolaridade', component: EscolaridadeComponent},
-  {path: 'profissionais/:id/dados-profissionais/complemento', component: ComplementoComponent},
-  {path: 'profissionais/:id/dados-profissionais/conta', component: ContaComponent}
+  {path: 'cadastro/profissionais/:id/informacoes-gerais', component: InformacoesGeraisComponent},
+  {path: 'cadastro/profissionais/:id/endereco', component: EnderecoComponent},
+  {path: 'cadastro/profissionais/:id/contato', component: ContatoComponent},
+  {path: 'cadastro/profissionais/:id/carreira', component: CarreiraComponent},
+  {path: 'cadastro/profissionais/:id/experiencia', component: ExperienciaComponent},
+  {path: 'cadastro/profissionais/:id/escolaridade', component: EscolaridadeComponent},
+  {path: 'cadastro/profissionais/:id/complemento', component: ComplementoComponent},
+  {path: 'cadastro/profissionais/:id/conta', component: ContaComponent}
 ];
 
 @NgModule({
