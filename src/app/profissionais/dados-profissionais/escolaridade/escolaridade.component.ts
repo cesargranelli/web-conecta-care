@@ -135,10 +135,8 @@ export class EscolaridadeComponent implements OnInit {
   }
 
   limpar(): void {
-    setTimeout(() => {
-      jQuery('select').selectpicker('refresh');
-    });
     this.escolaridadeForm.reset();
+    jQuery('select').selectpicker('refresh');
   }
 
 }

@@ -17,7 +17,8 @@
                   <div class="form-group col-lg-1 col-md-8">
                     <div class="togglebutton">
                       <label>
-                        <input type="checkbox" formControlName="experiencia" (click)="toogle()" checked>
+                        <input type="checkbox" id="experiencia" formControlName="experiencia" (click)="toogle()"
+                               checked>
                         <span class="toggle"></span>
                       </label>
                     </div>
@@ -26,13 +27,15 @@
                 <div class="row">
                   <label for="empresa1" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 1</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="empresa1" [readonly]="somenteLeitura">
+                    <input type="text" id="empresa1" class="form-control" formControlName="empresa1"
+                           [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
                   <label for="cargo1" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 1</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="cargo1" [readonly]="somenteLeitura">
+                    <input type="text" id="cargo1" class="form-control" formControlName="cargo1"
+                           [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
@@ -54,13 +57,15 @@
                 <div class="row">
                   <label for="empresa2" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 2</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="empresa2" [readonly]="somenteLeitura">
+                    <input type="text" id="empresa2" class="form-control" formControlName="empresa2"
+                           [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
                   <label for="cargo2" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 2</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="cargo2" [readonly]="somenteLeitura">
+                    <input type="text" id="cargo2" class="form-control" formControlName="cargo2"
+                           [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
@@ -82,13 +87,15 @@
                 <div class="row">
                   <label for="empresa3" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 3</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="empresa3" [readonly]="somenteLeitura">
+                    <input type="text" id="empresa3" class="form-control" formControlName="empresa3"
+                           [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
                   <label for="cargo3" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 3</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="cargo3" [readonly]="somenteLeitura">
+                    <input type="text" id="cargo3" class="form-control" formControlName="cargo3"
+                           [readonly]="somenteLeitura">
                   </div>
                 </div>
                 <div class="row">
@@ -110,7 +117,8 @@
                 <div class="row">
                   <label for="observacao" class="col-lg-3 col-md-3 col-form-label">Observação</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <textarea class="form-control" formControlName="observacao" [readonly]="somenteLeitura"></textarea>
+                    <textarea class="form-control" id="observacao" formControlName="observacao"
+                              [readonly]="somenteLeitura"></textarea>
                   </div>
                 </div>
               </div>
@@ -123,7 +131,7 @@
                 <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!experienciaForm.valid">Avançar</button>
+                <button type="submit" class="btn btn-rose" [disabled]="!experienciaForm.valid">Alterar</button>
               </span>
             </div>
           </form>

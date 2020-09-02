@@ -125,9 +125,7 @@ export class ContaComponent implements OnInit {
   }
 
   limpar(): void {
-    setTimeout(() => {
-      jQuery('select').selectpicker('refresh');
-    });
     this.contaForm.reset();
+    jQuery('select').selectpicker('refresh');
   }
 }

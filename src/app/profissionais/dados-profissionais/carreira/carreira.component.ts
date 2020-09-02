@@ -152,7 +152,14 @@ export class CarreiraComponent implements OnInit {
     this._service.save(this.carreira).subscribe(response => {
       setTimeout(() => {
         this._cadastro.carreira = this.carreira;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/experiencia`);
+        this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}`);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Alteração realizada com sucesso!',
+          showConfirmButton: false,
+          timer: 2000
+        });
         this._sharedLoadingService.emitChange(false);
       });
     }, () => {
@@ -160,7 +167,7 @@ export class CarreiraComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar inserir carreira',
+        title: 'Ocorreu um erro inexperado ao tentar altearar os dados de carreira',
         showConfirmButton: true
       });
     });
