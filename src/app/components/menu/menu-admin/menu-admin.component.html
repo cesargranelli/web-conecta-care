@@ -3,7 +3,7 @@
     <div class="container">
       <div class="navbar-wrapper">
         <div class="container">
-          <a class="navbar-brand font-weight-bold" routerLink="/admin">
+          <a class="navbar-brand font-weight-bold" href="admin">
             <i class="material-icons">home</i>
             Home
           </a>
@@ -24,8 +24,14 @@
               Eventos
             </a>
           </li>
+          <li class="nav-item">
+            <a routerLink="admin/eventos/cadastro" class="nav-link">
+              <i class="material-icons">mail</i>
+              Cadastrar evento
+            </a>
+          </li>
           <li class="nav-item active">
-            <a href class="nav-link" (click)="logout()">
+            <a routerLink="admin" class="nav-link" (click)="logout()">
               <i class="material-icons">exit_to_app</i>
               Sair
             </a>

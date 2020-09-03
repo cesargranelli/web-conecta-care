@@ -6,8 +6,10 @@ import { map } from 'rxjs/internal/operators/map';
 import { Evento } from 'src/app/admin/eventos/models/evento.class';
 import { EventoService } from 'src/app/admin/eventos/services/evento.service';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
+import { EnderecoViaCep } from 'src/app/classes/endereco-via-cep.class';
 import { Estado } from 'src/app/classes/estado.class';
 import { DominioService } from 'src/app/services/dominio.service';
+import { EnderecoService } from 'src/app/services/endereco.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
@@ -28,19 +30,28 @@ export class EventoCadastroComponent implements OnInit {
   public validationHas: InputValidationHas = new InputValidationHas();
   public eventoForm: FormGroup;
   public evento: Evento;
+  public estadoViaCep: Estado;
 
   constructor(
     private _router: Router,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _loading: SharedLoadingService,
-    private _eventoService: EventoService
+    private _eventoService: EventoService,
+    private _serviceEndereco: EnderecoService
   ) {
+    jQuery('html').removeClass('nav-open');
+    jQuery('button').removeClass('toggled');
+
     this.eventoForm = this._formBuilder.group({
       titulo: [null, [Validators.required, Validators.maxLength(50)]],
       descricao: [null, [Validators.required, Validators.maxLength(100)]],
       detalhe: [null, [Validators.required, Validators.maxLength(255)]],
-      local: [null, [Validators.required, Validators.maxLength(255)]],
+      cep: [null, [Validators.required, Validators.maxLength(8)]],
+      logradouro: [null, [Validators.required, Validators.maxLength(255)]],
+      numero: [null, [Validators.required, Validators.maxLength(10)]],
+      bairro: [null, [Validators.required]],
+      cidade: [null, [Validators.required]],
       data: [null, Validators.required],
       hora: [null, Validators.required],
       duracao: [1, Validators.required],
@@ -144,5 +155,38 @@ export class EventoCadastroComponent implements OnInit {
       });
     });
     this._loading.emitChange(false);
+  }
+
+  pesquisarCep() {
+    this._serviceEndereco.findViaCep(this.eventoForm.controls.cep.value).subscribe(
+      response => {
+        if (response.body?.erro) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '400-CEP Não localizado!',
+            showConfirmButton: true,
+          });
+        }
+        this._loading.emitChange(true);
+        let enderecoViaCep: EnderecoViaCep = response.body;
+        this.eventoForm.controls.logradouro.setValue(enderecoViaCep.logradouro);
+        this.eventoForm.controls.bairro.setValue(enderecoViaCep.bairro);
+        this.eventoForm.controls.cidade.setValue(enderecoViaCep.localidade);
+        this.estadoViaCep = this.estados.find(estado => estado.uf == enderecoViaCep.uf);
+      },
+      (error: Error) => Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: error.message,
+        showConfirmButton: true,
+      }),
+      () => {
+      setTimeout(() => {
+        jQuery("select[id='estado']").selectpicker('refresh');
+        jQuery("select[id='estado']").selectpicker('val', this.estadoViaCep.id);
+        this._loading.emitChange(false);
+      })
+    });
   }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/admin/auth/services/auth.service';
 import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-menu-admin',
@@ -14,8 +14,6 @@ export class MenuAdminComponent implements OnInit {
   public valid: Valid;
 
   constructor(
-    private _router: Router,
-    private _loading: SharedLoadingService,
     private _authService: AuthService
   ) { }
 
@@ -28,7 +26,7 @@ export class MenuAdminComponent implements OnInit {
 
   logout() {
     this._authService.logout();
-    this._router.navigateByUrl(`/admin`);
+    jQuery('html').removeClass('nav-open');
   }
 
 }
