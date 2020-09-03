@@ -21,7 +21,10 @@ export class EventosComponent implements OnInit {
   constructor(
     private _loading: SharedLoadingService,
     private _eventoService: EventoService
-  ) { }
+  ) {
+    jQuery('html').removeClass('nav-open');
+    jQuery('button').removeClass('toggled');
+  }
 
   ngOnInit(): void {
     this._eventoService.listarFuturos().pipe(
@@ -58,16 +61,16 @@ export class EventosComponent implements OnInit {
   }
 
   enviarSms(id: number) {
+    this._loading.emitChange(true);
     this._eventoService.enviar(id).subscribe(() => {
-      this._loading.emitChange(true);
       setTimeout(() => {
+        this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
           icon: 'success',
           title: 'Evento de SMS para profissionais elegíveis!',
           showConfirmButton: true
         });
-        this._loading.emitChange(false);
       });
     },
     () => {
@@ -82,8 +85,8 @@ export class EventosComponent implements OnInit {
   }
 
   cancelarSms(id: number) {
+    this._loading.emitChange(true);
     this._eventoService.cancelar(id).subscribe(() => {
-      this._loading.emitChange(true);
       setTimeout(() => {
         this._loading.emitChange(false);
         Swal.fire({

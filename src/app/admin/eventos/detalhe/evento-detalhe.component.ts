@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
+import { tap } from 'rxjs/operators';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { Evento } from '../models/evento.class';
 import { EventoService } from '../services/evento.service';
@@ -26,8 +27,8 @@ export class EventoDetalheComponent implements OnInit {
 
   ngOnInit(): void {
     this._eventoService.detalhes(this.idEvento).pipe(
+      tap(() => this._loading.emitChange(true)),
       map(response => {
-        this._loading.emitChange(true);
         this.detalheEvento = response.body.data;
       })
     ).subscribe(
