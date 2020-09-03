@@ -118,29 +118,6 @@
                     <input type="text" id="profissaoConjuge" class="form-control" formControlName="profissaoConjuge">
                   </div>
                 </div>
-<!--                <div class="row">-->
-<!--                  <label for="filhos" class="col-lg-2 col-form-label">Filhos *</label>-->
-<!--                  <div class="form-group col-lg-3">-->
-<!--                    <div class="togglebutton">-->
-<!--                      <label>-->
-<!--                        <input type="checkbox" id="filhos" formControlName="filhos">-->
-<!--                        <span class="toggle"></span>-->
-<!--                      </label>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <label for="numeroFilhos" class="col-lg-2 col-form-label">No filhos</label>-->
-<!--                  <div class="form-group col-lg-2">-->
-<!--                    <input type="text" id="numeroFilhos" class="form-control" formControlName="nomePai">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                  <label for="dataNascimentoFilhos" class="col-lg-2 col-form-label">Data de nascimento dos-->
-<!--                    filhos</label>-->
-<!--                  <div class="form-group col-lg-3">-->
-<!--                    <input type="text" id="dataNascimentoFilhos" class="form-control"-->
-<!--                           formControlName="profissaoConjuge">-->
-<!--                  </div>-->
-<!--                </div>-->
                 <div class="row">
                   <label for="carteiraVacinacao" class="col-lg-2 col-md-3 col-form-label">Carteira de Vacinação
                     *</label>
@@ -157,11 +134,13 @@
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
+                <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
+                  <i class="material-icons">arrow_back</i>
+                </button>
                 <button type="button" class="btn btn-gray" (click)="complementoForm.reset()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose">Avançar</button>
+                <button type="submit" class="btn btn-rose">Alterar</button>
               </span>
             </div>
           </form>

@@ -176,10 +176,4 @@ export class ComplementoComponent implements OnInit {
     this.fotoCNH = btoa(e.target.result);
   }
 
-  onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/escolaridade`, {
-      state: {valid: this._valid}
-    });
-  }
-
 }
