@@ -162,7 +162,6 @@ export class InformacoesGeraisComponent implements OnInit {
     profissional.fotoProfissional = this.fotoProfissional;
     profissional.fotoRg = this.fotoRg;
 
-    console.log(profissional);
     this._service.save(profissional).subscribe(response => {
       this._dadosLocalStorage.id = response.body.profissionalId;
       setTimeout(() => {
