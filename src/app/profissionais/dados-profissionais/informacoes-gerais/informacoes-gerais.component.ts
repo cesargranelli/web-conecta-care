@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {EstadoCivil} from 'src/app/classes/estado-civil.class';
 import {Genero} from 'src/app/classes/genero.class';
@@ -27,18 +27,20 @@ export class InformacoesGeraisComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
-  public profissionalForm: FormGroup;
+  private readonly CAMINHO_IMAGEM_DUMMY: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
 
+  public profissionalForm: FormGroup;
   public generos: Array<Genero>;
   public tipoEmpresas: Array<TipoEmpresa>;
   public estadoCivis: Array<EstadoCivil>;
-  public fotoProfissional: string | ArrayBuffer = '../../../../../assets/img/Headshot-Placeholder-1.png';
-  public fotoRg: string | ArrayBuffer = '../../../../../assets/img/Headshot-Placeholder-1.png';
+  public fotoProfissional: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
+  public fotoRg: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   public validationHas: InputValidationHas = new InputValidationHas();
   public fileInputProfissional: string = 'fileinput-new';
   public fileInputRg: string = 'fileinput-new';
-  public profissional: Profissional;
+  public showForm: boolean = true;
 
+  public profissional: Profissional;
   private _fileProfissional: File;
   private _fileRg: File;
   private _dadosLocalStorage: Valid;
@@ -96,6 +98,7 @@ export class InformacoesGeraisComponent implements OnInit {
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
+        this.showForm = false;
         this._loading.emitChange(false);
       });
     });
@@ -113,11 +116,11 @@ export class InformacoesGeraisComponent implements OnInit {
         dataNascimento: this.profissional.dataNascimento,
         rg: this.profissional.rg,
         rgEmissor: this.profissional.rgEmissor,
-        rgDataEmissao: this.profissional.rgDataEmissao ? this.profissional.rgDataEmissao : this._dataAtual,
+        rgDataEmissao: this.profissional.rgDataEmissao,
         pis: this.profissional.pis,
-        genero: this.profissional.genero,
-        tipoEmpresa: this.profissional.tipoEmpresa,
-        estadoCivil: this.profissional.estadoCivil,
+        genero: this.profissional.genero.id,
+        tipoEmpresa: this.profissional.tipoEmpresa.id,
+        estadoCivil: this.profissional.estadoCivil.id,
         cnpj: this.profissional.cnpj,
         ctps: this.profissional.ctps,
         ctpsSerie: this.profissional.ctpsSerie
@@ -141,7 +144,6 @@ export class InformacoesGeraisComponent implements OnInit {
 
   onLoadFotoRg(event: any) {
     this._fileRg = event.target.files[0];
-    console.log(this._fileRg);
     var reader = new FileReader();
     if (this._fileRg) {
       reader.readAsDataURL(this._fileRg);
@@ -153,21 +155,26 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.profissional);
-    console.log('Form:');
-    console.log(this.profissionalForm.value);
     this._loading.emitChange(true);
-    let profissional: Profissional = this.profissionalForm.value;
-    profissional.id = this._dadosLocalStorage.id;
+    let profissional = this.profissionalForm.value;
 
+    profissional.id = this._dadosLocalStorage.id;
     profissional.fotoProfissional = this.fotoProfissional;
     profissional.fotoRg = this.fotoRg;
 
+    console.log(profissional);
     this._service.save(profissional).subscribe(response => {
       this._dadosLocalStorage.id = response.body.profissionalId;
       setTimeout(() => {
         this._cadastro.profissional = profissional;
-        this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/endereco`);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Alteração realizada com sucesso!',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`);
         this._loading.emitChange(false);
       });
     }, () => {
@@ -175,22 +182,16 @@ export class InformacoesGeraisComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar inserir profissional',
+        title: 'Ocorreu um erro inexperado ao tentar alterar as informações do profissional',
         showConfirmButton: true
       });
     });
   }
 
   dateChange(control: FormControl, name: string) {
-    console.log(name);
     jQuery(`#${name}`).on('dp.change', function(event: any) {
       control.setValue(jQuery('#' + name)[0].value);
     });
-  }
-
-  lpadZero(control: AbstractControl) {
-    let valor = String(Number(control.value)).padStart(9, '0');
-    this.profissionalForm.controls.rg.setValue(valor);
   }
 
   limpar() {
