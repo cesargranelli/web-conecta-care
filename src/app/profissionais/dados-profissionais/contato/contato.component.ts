@@ -24,6 +24,7 @@ export class ContatoComponent implements OnInit {
   public contato: Contato;
   public validationHas: InputValidationHas;
   public contatoForm: FormGroup;
+  public showForm: boolean = true;
 
   constructor(
     private _router: Router,
@@ -49,6 +50,7 @@ export class ContatoComponent implements OnInit {
     this._service.getDados(this._dadosLocalStorage.id).subscribe(dadosContato => {
       this.contato = dadosContato;
       this.popularForm();
+      this.showForm = false;
       this._sharedLoadingService.emitChange(false);
     });
 

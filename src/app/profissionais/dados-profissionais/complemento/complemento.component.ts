@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CategoriaCNH} from 'src/app/classes/categoria-cnh.class';
 import {Complemento} from 'src/app/classes/complemento.class';
@@ -11,6 +11,7 @@ import {SharedLoadingService} from 'src/app/shared/services/shared-loading.servi
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import {ValidService} from '../../../shared/services/shared-valid.service';
 import {concatMap, map} from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
@@ -23,7 +24,6 @@ export class ComplementoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
-  private _valid: Valid;
   private _dadosLocalStorage: Valid;
   private _fileProfissional: File;
   private _dataValidadeHabilitacaoFinal: Date;
@@ -34,6 +34,7 @@ export class ComplementoComponent implements OnInit {
   public fotoCNH: string | ArrayBuffer = '../../../../../assets/img/Headshot-Placeholder-1.png';
   public fileInputCnh: string = 'fileinput-new';
   public complemento: Complemento;
+  public showForm: boolean = true;
 
   constructor(
     private _router: Router,
@@ -50,7 +51,7 @@ export class ComplementoComponent implements OnInit {
       zonaEleitoral: [null, Validators.maxLength(3)],
       secaoEleitoral: [null, Validators.maxLength(4)],
       numeroHabilitacao: [null, [Validators.required, Validators.maxLength(11)]],
-      dataValidadeHabilitacao: [null, Validators.required],
+      dataValidadeHabilitacao: [null, [Validators.minLength(10), Validators.maxLength(10), Validators.required]],
       categoriaCNH: [null, Validators.required],
       fotoCNH: [null, Validators.required],
       numeroReservista: [null],
@@ -86,11 +87,14 @@ export class ComplementoComponent implements OnInit {
         jQuery('select').selectpicker('render');
         setTimeout(() => {
           jQuery('select[id=\'categoriaCNH\']').selectpicker('refresh');
+          this.showForm = false;
           this._sharedLoadingService.emitChange(false);
         });
       }
     );
-
+    jQuery('.datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY'
+    });
   }
 
   popularForm() {
@@ -99,7 +103,7 @@ export class ComplementoComponent implements OnInit {
         tituloEleitoral: this.complemento.tituloEleitoral,
         zonaEleitoral: this.complemento.zonaEleitoral,
         numeroHabilitacao: this.complemento.numeroHabilitacao,
-        categoriaCNH: this.complemento.categoriaCNH,
+        categoriaCNH: this.complemento.categoriaCNH.id,
         secaoEleitoral: this.complemento.secaoEleitoral,
         dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao.date),
         numeroReservista: this.complemento.numeroReservista,
@@ -112,6 +116,10 @@ export class ComplementoComponent implements OnInit {
         filhos: this.complemento.filhos,
         carteiraVacinacao: this.complemento.carteiraVacinacao,
       });
+      if (this.complemento.fotoCNH) {
+        this.fotoCNH = this.complemento.fotoCNH;
+        this.complementoForm.controls.fotoCNH.setValue(this.complemento.fotoCNH, {emitModelToViewChange: false});
+      }
     }
   }
 
@@ -121,24 +129,32 @@ export class ComplementoComponent implements OnInit {
     this.complemento = this.complementoForm.value;
     this.complemento.fotoCNH = this.fotoCNH;
     this.complemento.proprietarioId = this._dadosLocalStorage.id;
-    // this._service.save(this.complemento).subscribe(() => {
-    //     setTimeout(() => {
-    //       this._cadastro.complemento = this.complemento;
-    //       this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/conta`, {
-    //         state: {valid: this._valid}
-    //       });
-    //       this._sharedLoadingService.emitChange(false);
-    //     });
-    //   },
-    //   () => {
-    //     this._sharedLoadingService.emitChange(false);
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'Ocorreu um erro inexperado ao tentar inserir complemento',
-    //       showConfirmButton: true
-    //     });
-    //   });
+
+    this._service.save(this.complemento).subscribe(() => {
+        setTimeout(() => {
+          this._cadastro.complemento = this.complemento;
+          this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
+            state: {valid: this._dadosLocalStorage}
+          });
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Alteração realizada com sucesso!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          this._sharedLoadingService.emitChange(false);
+        });
+      },
+      () => {
+        this._sharedLoadingService.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocorreu um erro inexperado ao tentar alterar os dados complementares',
+          showConfirmButton: true
+        });
+      });
   }
 
   converterDataExibicao(data: string): string {
@@ -148,17 +164,11 @@ export class ComplementoComponent implements OnInit {
     return dia + '/' + mes + '/' + ano;
   }
 
-  // converterData(data: string): string {
-  //   let dia: number = Number(data.slice(0, 2));
-  //   let mes: number = Number(data.slice(2, 4));
-  //   let ano: number = Number(data.slice(4, 8));
-  //   console.log('dia: ' + dia);
-  //   console.log('mes: ' + mes);
-  //   console.log('ano: ' + ano);
-  //   console.log(this._dataValidadeHabilitacaoFinal.setFullYear(ano, mes, dia));
-  //   return ' ';
-  //
-  // }
+  dateChange(control: FormControl, name: string) {
+    jQuery(`#${name}`).on('dp.change', function(event: any) {
+      control.setValue(jQuery('#' + name)[0].value);
+    });
+  }
 
   onLoadFotoCNH(event: any) {
     this._fileProfissional = event.target.files[0];
@@ -170,6 +180,13 @@ export class ComplementoComponent implements OnInit {
     reader.onload = () => {
       this.fotoCNH = reader.result;
     };
+  }
+
+  limpar() {
+    this.complementoForm.reset();
+    jQuery('.fileinput').fileinput('clear');
+    jQuery('.selectpicker').selectpicker('refresh');
+    this.fotoCNH = '../../../../../assets/img/Headshot-Doc-1.png';
   }
 
   handlerReaderLoadedProfissional(e: any) {

@@ -36,6 +36,7 @@ export class CarreiraComponent implements OnInit {
   public validationHas: InputValidationHas;
   public carreira: Carreira;
   public carreiraForm: FormGroup;
+  public showForm: boolean = true;
 
   constructor(
     private _router: Router,
@@ -83,6 +84,7 @@ export class CarreiraComponent implements OnInit {
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
+        this.showForm = false;
         this._sharedLoadingService.emitChange(false);
       });
     });

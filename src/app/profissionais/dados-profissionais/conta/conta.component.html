@@ -9,7 +9,7 @@
               Informações Bancárias
             </h3>
           </div>
-          <form [formGroup]="contaForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="contaForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
@@ -67,7 +67,7 @@
                 <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" >Alterar</button>
+                <button type="submit" class="btn btn-rose" [disabled]="!contaForm.valid">Alterar</button>
               </span>
             </div>
           </form>

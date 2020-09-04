@@ -9,7 +9,7 @@
               Informações Complementares
             </h3>
           </div>
-          <form [formGroup]="complementoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="complementoForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
@@ -39,9 +39,10 @@
                   <label for="dataValidadeHabilitacao" class="col-lg-2 col-md-3 col-form-label">Validade *</label>
                   <div class="form-group col-lg-3 col-md-8"
                        [ngClass]="validationHas.validation(complementoForm.controls?.dataValidadeHabilitacao)">
-                    <input type="text" id="dataValidadeHabilitacao" class="form-control"
-                           formControlName="dataValidadeHabilitacao" [dropSpecialCharacters]="false"
-                           pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" mask="00/00/0000">
+                    <input type="text" class="form-control datetimepicker" id="dataValidadeHabilitacao"
+                           formControlName="dataValidadeHabilitacao" maxlength="10"
+                           (focus)="dateChange(complementoForm.controls?.dataValidadeHabilitacao, 'dataValidadeHabilitacao')"
+                           autocomplete="none">
                   </div>
                 </div>
                 <div class="row">
@@ -50,7 +51,7 @@
                     <select formControlName="categoriaCNH" id="categoriaCNH" class="selectpicker"
                             data-style="btn btn-primary" data-width="100%">
                       <option disabled selected>Selecione</option>
-                      <option [ngValue]="categoriaCNH" *ngFor="let categoriaCNH of categoriasCNH"
+                      <option [ngValue]="categoriaCNH.id" *ngFor="let categoriaCNH of categoriasCNH"
                               [selected]="categoriaCNH.id===complemento?.categoriaCNH?.id">{{ categoriaCNH.sigla }}</option>
                     </select>
                   </div>
@@ -137,10 +138,10 @@
                 <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
                   <i class="material-icons">arrow_back</i>
                 </button>
-                <button type="button" class="btn btn-gray" (click)="complementoForm.reset()">Limpar</button>
+                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose">Alterar</button>
+                <button type="submit" class="btn btn-rose" [disabled]="!complementoForm.valid">Alterar</button>
               </span>
             </div>
           </form>

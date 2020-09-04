@@ -31,6 +31,7 @@ export class ExperienciaComponent implements OnInit {
   public experiencias: Array<Experiencia>;
   public validationHas: InputValidationHas;
   public somenteLeitura: boolean = true;
+  public showForm: boolean = true;
 
   constructor(
     private _router: Router,
@@ -74,6 +75,7 @@ export class ExperienciaComponent implements OnInit {
       next: experiencia => {
         this.experiencias = experiencia;
         this.popularForm();
+        this.showForm = false;
         this._sharedLoadingService.emitChange(false);
       }
     });

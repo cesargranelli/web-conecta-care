@@ -9,7 +9,7 @@
               Informações de Contato
             </h3>
           </div>
-          <form [formGroup]="contatoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <form [formGroup]="contatoForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">

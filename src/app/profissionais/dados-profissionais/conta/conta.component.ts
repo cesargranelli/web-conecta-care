@@ -31,6 +31,7 @@ export class ContaComponent implements OnInit {
   public bancos: Array<Banco>;
   public validationHas: InputValidationHas;
   public contaForm: FormGroup;
+  public showForm: boolean = true;
 
   constructor(
     private _router: Router,
@@ -72,6 +73,7 @@ export class ContaComponent implements OnInit {
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
+        this.showForm = false;
         this._sharedLoadingService.emitChange(false);
       });
     });

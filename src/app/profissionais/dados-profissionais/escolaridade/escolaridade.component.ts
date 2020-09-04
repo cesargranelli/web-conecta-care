@@ -29,6 +29,7 @@ export class EscolaridadeComponent implements OnInit {
   public validationHas: InputValidationHas;
   public escolaridadeForm: FormGroup;
   public escolaridade: Escolaridade;
+  public showForm: boolean = true;
 
   constructor(
     private _router: Router,
@@ -53,13 +54,6 @@ export class EscolaridadeComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
-    // console.log(this.escolaridade);
-    // this.escolaridade = new Escolaridade();
-    // console.log(this.escolaridade);
-    // console.log('sadaddsa');
-
-    // this.escolaridade.instrucao = new Instrucao();
-
     this._dadosLocalStorage = this._validService.getValid();
 
     this._dominioService.getInstrucoes().pipe(
@@ -73,6 +67,7 @@ export class EscolaridadeComponent implements OnInit {
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
+        this.showForm = false;
         this._sharedLoadingService.emitChange(false);
       });
     });
