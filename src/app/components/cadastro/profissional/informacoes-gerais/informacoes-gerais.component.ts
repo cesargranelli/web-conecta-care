@@ -18,7 +18,7 @@ import { DominioService } from 'src/app/services/dominio.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { ProfissionalService } from 'src/app/services/profissional.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
@@ -60,7 +60,7 @@ export class InformacoesGeraisComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _service: ProfissionalService,
     private _dominioService: DominioService,

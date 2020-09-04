@@ -4,7 +4,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { SharedEventTokenService } from 'src/app/shared/services/shared-event-token.service';
 import { SharedEventValidService } from 'src/app/shared/services/shared-event-valid.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { Valid } from 'src/app/services/feat/Valid';
 
 @Component({
@@ -18,7 +18,7 @@ export class MenuProfissionaisComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _tokenService: TokenService,
     private _loading: SharedLoadingService,
     private _eventToken: SharedEventTokenService,
@@ -37,7 +37,7 @@ export class MenuProfissionaisComponent implements OnInit {
   logout() {
     this._loading.emitChange(true);
     this._tokenService.removeToken();
-    this._validService.removeValid();
+    // this._validService.removeValid();
     this._eventToken.emitChange(false);
     this._eventValid.emitChange(false);
     this._router.navigateByUrl(`/`);

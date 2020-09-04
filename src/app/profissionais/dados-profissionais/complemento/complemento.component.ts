@@ -1,16 +1,16 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {CategoriaCNH} from 'src/app/classes/categoria-cnh.class';
-import {Complemento} from 'src/app/classes/complemento.class';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
-import {ComplementoService} from 'src/app/services/complemento.service';
-import {DominioService} from 'src/app/services/dominio.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import {ValidService} from '../../../shared/services/shared-valid.service';
-import {concatMap, map} from 'rxjs/operators';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
+import { CategoriaCNH } from 'src/app/classes/categoria-cnh.class';
+import { Complemento } from 'src/app/classes/complemento.class';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { ComplementoService } from 'src/app/services/complemento.service';
+import { DominioService } from 'src/app/services/dominio.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 declare var jQuery: any;
 
@@ -42,7 +42,7 @@ export class ComplementoComponent implements OnInit {
     private _service: ComplementoService,
     private _sharedLoadingService: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService,
-    private _validService: ValidService
+    private _validService: SharedValidService
   ) {
     this._sharedLoadingService.emitChange(true);
     this.complementoForm = this._formBuilder.group({

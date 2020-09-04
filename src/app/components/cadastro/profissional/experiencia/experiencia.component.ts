@@ -7,7 +7,7 @@ import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissi
 import { ExperienciaService } from 'src/app/services/experiencia.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
@@ -36,7 +36,7 @@ export class ExperienciaComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _service: ExperienciaService,
     private _loading: SharedLoadingService,

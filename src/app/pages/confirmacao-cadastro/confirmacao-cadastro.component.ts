@@ -4,7 +4,7 @@ import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { CadastroService } from 'src/app/services/cadastro.service';
 import { Authorization } from 'src/app/services/feat/token';
 import { TokenService } from 'src/app/services/token.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +22,7 @@ export class ConfirmacaoCadastroComponent implements OnInit {
 
   constructor(
     private _activateRoute: ActivatedRoute,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _tokenService: TokenService,
     private _router: Router,
     private _cadastroService: CadastroService
@@ -34,7 +34,7 @@ export class ConfirmacaoCadastroComponent implements OnInit {
       this._tokenService.setToken(value.token);
       this._cadastroService.validar(this.authorization).subscribe(response => {
         let valid = response.body.data;
-        this._validService.setValid(valid);
+        // this._validService.setValid(valid); TODO: arrumar aqui
         setTimeout(() => {
           if (valid != null) {
             console.log(`Perfil do usuário: ${valid.role}`);

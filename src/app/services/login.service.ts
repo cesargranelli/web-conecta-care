@@ -1,14 +1,14 @@
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {EsqueciMinhaSenha as EsqueciMinhaSenha} from '../classes/esqueci-senha';
-import {NovaSenha} from '../classes/nova-senha';
-import {ResponseApi} from './feat/response-api';
-import {Authorization} from './feat/token';
-import {TokenService} from './token.service';
-import {Login} from '../classes/login.class';
-import {ValidService} from '../shared/services/shared-valid.service';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { EsqueciMinhaSenha as EsqueciMinhaSenha } from '../classes/esqueci-senha';
+import { Login } from '../classes/login.class';
+import { NovaSenha } from '../classes/nova-senha';
+import { SharedValidService } from '../shared/services/shared-valid.service';
+import { ResponseApi } from './feat/response-api';
+import { Authorization } from './feat/token';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class LoginService {
 
   private _authLocalStorage: string;
 
-  constructor(private _http: HttpClient, private _tokenService: TokenService, private _validService: ValidService) {
+  constructor(private _http: HttpClient, private _tokenService: TokenService, private _validService: SharedValidService) {
     this._headers = this._headers.set('Token', 'Bearer ' + this._authLocalStorage);
   }
 

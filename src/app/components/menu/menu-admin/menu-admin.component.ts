@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/admin/auth/services/auth.service';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Valid } from 'src/app/services/feat/Valid';
+import { AuthInterfaceService } from 'src/app/services/interfaces/auth-interface.service';
 
 declare var jQuery: any;
 
@@ -14,7 +14,7 @@ export class MenuAdminComponent implements OnInit {
   public valid: Valid;
 
   constructor(
-    private _authService: AuthService
+    @Inject('AuthInterfaceService') private _authService: AuthInterfaceService
   ) { }
 
   ngOnInit(): void {

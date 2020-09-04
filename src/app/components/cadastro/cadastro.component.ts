@@ -1,16 +1,16 @@
-import {Component, EventEmitter, Inject, OnDestroy, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {NO_CONTENT} from 'http-status-codes';
-import {ConvenioService} from 'src/app/services/convenio.service';
-import {HomecareService} from 'src/app/services/homecare.service';
-import {DoumentoService} from 'src/app/services/interfaces/documento-interface.service';
-import {PacienteService} from 'src/app/services/paciente.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedStatusPageService} from 'src/app/shared/services/shared-status-page.service';
-import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import {validCpf} from 'src/app/shared/validations/directives/valid-cpf.directive';
-import {InputValidation} from '../../shared/validations/input-validation';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NO_CONTENT } from 'http-status-codes';
+import { ConvenioService } from 'src/app/services/convenio.service';
+import { HomecareService } from 'src/app/services/homecare.service';
+import { DocumentoService } from 'src/app/services/interfaces/documento-interface.service';
+import { PacienteService } from 'src/app/services/paciente.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedStatusPageService } from 'src/app/shared/services/shared-status-page.service';
+import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
+import { InputValidation } from '../../shared/validations/input-validation';
 
 declare function carregarTarjaAzul(): void; //Carrega a funcao carregarTarjaAzul() do app.js
 declare function hideToolTip(): void; //Carrega a funcao hideToolTip() do app.js
@@ -38,7 +38,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   constructor(
     private _formBuilder: FormBuilder,
-    @Inject('DoumentoService') private _documentoService: DoumentoService,
+    @Inject('DoumentoService') private _documentoService: DocumentoService,
     private _pacienteService: PacienteService,
     private _homecareService: HomecareService,
     private _convenioService: ConvenioService,

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedEventValidService } from 'src/app/shared/services/shared-event-valid.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 import { Login } from '../../classes/login.class';
 import { Role } from '../../classes/role';
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _service: LoginService,
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _tokenService: TokenService,
     private _loading: SharedLoadingService,
     private _eventToken: SharedEventTokenService,
@@ -107,7 +107,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   setValid(response: any) {
     let valid: Valid = response;
-    this._validService.setValid(valid);
+    // this._validService.setValid(valid);
   }
 
   ngOnDestroy() {

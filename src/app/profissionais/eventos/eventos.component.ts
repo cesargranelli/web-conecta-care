@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 import { ProfissionalService } from '../services/profissional.service';
 
@@ -17,7 +17,7 @@ export class EventosComponent implements OnInit {
 
   constructor(
     private _service: ProfissionalService,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _loading: SharedLoadingService
   ) {
     this.valid = this._validService.getValid();
