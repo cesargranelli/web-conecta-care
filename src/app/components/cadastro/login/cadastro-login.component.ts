@@ -11,6 +11,8 @@ import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-cadastro-login',
   templateUrl: './cadastro-login.component.html',
@@ -44,6 +46,9 @@ export class CadastroLoginComponent implements OnInit {
     private _router: Router,
     private _sharedLoadingService: SharedLoadingService
   ) {
+    jQuery('html').removeClass('nav-open');
+    jQuery('button').removeClass('toggled');
+
     const navigation: Navigation = this._router.getCurrentNavigation();
     this._registro = navigation.extras.state?.register;
   }

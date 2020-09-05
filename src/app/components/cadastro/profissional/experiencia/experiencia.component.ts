@@ -42,7 +42,7 @@ export class ExperienciaComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
 
     this.experienciaForm = this._formBuilder.group({
       experiencia: [null],

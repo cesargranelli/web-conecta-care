@@ -26,10 +26,8 @@ export class ProfissionalService implements DocumentoService {
   }
 
   getDados(id: number): Observable<Profissional> {
-    return this._http.get(`${this.endpoint}/${id}`,
-      {
-        headers: this._headers
-      }).pipe(map((profissionalResponseInterface: ProfissionalResponseInterface) => {
+    return this._http.get(`${this.endpoint}/${id}`)
+      .pipe(map((profissionalResponseInterface: ProfissionalResponseInterface) => {
         return profissionalResponseInterface.data;
       })
     );

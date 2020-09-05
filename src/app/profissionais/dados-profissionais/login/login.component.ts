@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     private _sharedLoadingService: SharedLoadingService
   ) {
     this._sharedLoadingService.emitChange(true);
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
   }
 
   ngOnInit(): void {

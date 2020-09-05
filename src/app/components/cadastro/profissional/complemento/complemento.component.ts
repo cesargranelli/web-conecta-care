@@ -49,7 +49,7 @@ export class ComplementoComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
 
     this.complementoForm = this._formBuilder.group({
       tituloEleitoral: [null, [Validators.maxLength(11)]],

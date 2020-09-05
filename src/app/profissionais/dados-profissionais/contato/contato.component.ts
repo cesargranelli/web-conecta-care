@@ -44,7 +44,7 @@ export class ContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
 
     this._service.getDados(this._dadosLocalStorage.id).subscribe(dadosContato => {
       this.contato = dadosContato;

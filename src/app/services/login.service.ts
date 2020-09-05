@@ -29,7 +29,7 @@ export class LoginService {
 
   login(login: Login): Observable<HttpResponse<any>> {
     return this._http.post<HttpResponse<ResponseApi>>(`${this._endpoint}`, login,
-      {headers: this._headers, observe: 'response'});
+      {observe: 'response'});
   }
 
   esqueciMinhaSenha(esqueciMinhaSenha: EsqueciMinhaSenha): Observable<HttpResponse<any>> {

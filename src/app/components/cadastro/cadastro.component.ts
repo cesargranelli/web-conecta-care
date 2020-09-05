@@ -7,10 +7,11 @@ import { HomecareService } from 'src/app/services/homecare.service';
 import { DocumentoService } from 'src/app/services/interfaces/documento-interface.service';
 import { PacienteService } from 'src/app/services/paciente.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedStatusPageService } from 'src/app/shared/services/shared-status-page.service';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import { InputValidation } from '../../shared/validations/input-validation';
+
+declare var jQuery: any;
 
 declare function carregarTarjaAzul(): void; //Carrega a funcao carregarTarjaAzul() do app.js
 declare function hideToolTip(): void; //Carrega a funcao hideToolTip() do app.js
@@ -43,9 +44,10 @@ export class CadastroComponent implements OnInit, OnDestroy {
     private _homecareService: HomecareService,
     private _convenioService: ConvenioService,
     private _router: Router,
-    private _loading: SharedLoadingService,
-    private _status: SharedStatusPageService
+    private _loading: SharedLoadingService
   ) {
+    jQuery('html').removeClass('nav-open');
+    jQuery('button').removeClass('toggled');
   }
 
   ngOnInit(): void {
@@ -62,10 +64,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
       cnpj: ['', [Validators.required, validCnpj()]],
     });
 
-    if (this._status.hasLoadControl()) {
-      this._status.removeLoadControl();
-      document.location.reload();
-    }
     carregarTarjaAzul();
     injetaToolTip();
   }
@@ -119,7 +117,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     hideToolTip();
-    this._status.setLoadControl('load');
   }
 
 }

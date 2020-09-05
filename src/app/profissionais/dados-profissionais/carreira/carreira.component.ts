@@ -61,7 +61,7 @@ export class CarreiraComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
     this.validationHas = new InputValidationHas();
 
     if (this?._dadosLocalStorage?.role != Role.Profissional || !this?._dadosLocalStorage?.role) {

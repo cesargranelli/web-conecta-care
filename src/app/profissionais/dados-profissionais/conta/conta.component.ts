@@ -54,7 +54,7 @@ export class ContaComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
 
     this._dominioService.getTipoContas().pipe(
       map(response => {

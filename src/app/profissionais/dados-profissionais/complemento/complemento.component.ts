@@ -67,7 +67,7 @@ export class ComplementoComponent implements OnInit {
 
   ngOnInit(): void {
     this.complemento = new Complemento();
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
     this.validationHas = new InputValidationHas();
     this._dataValidadeHabilitacaoFinal = new Date();
 

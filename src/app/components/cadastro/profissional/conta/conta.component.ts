@@ -46,7 +46,7 @@ export class ContaComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
 
     this.contaForm = this._formBuilder.group({
       tipo: [null, [Validators.required]],

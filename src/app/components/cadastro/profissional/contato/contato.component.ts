@@ -42,7 +42,7 @@ export class ContatoComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this._valid = this._validService.getValid();
+    this._valid = this._validService.valid;
 
     this.contatoForm = this._formBuilder.group({
       telefoneFixo: [null, Validators.maxLength(10)],

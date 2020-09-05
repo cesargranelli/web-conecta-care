@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthAdminService } from 'src/app/admin/auth/services/auth.service';
 import { LoginAdmin } from 'src/app/admin/models/login-admin.model';
+import { AuthAdminService } from 'src/app/auth/services/auth-admin.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
@@ -10,10 +10,10 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login-admin',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login-admin.component.html',
+  styleUrls: ['./login-admin.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginAdminComponent implements OnInit {
 
   public loginForm: FormGroup;
   public input: InputValidation = new InputValidation();

@@ -52,7 +52,7 @@ export class EnderecoComponent implements OnInit {
     private _service: EnderecoService,
     private _loading: SharedLoadingService
   ) {
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
     this._loading.emitChange(true);
 
     this.enderecoForm = this._formBuilder.group({

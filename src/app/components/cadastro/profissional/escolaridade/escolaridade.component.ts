@@ -44,7 +44,7 @@ export class EscolaridadeComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
 
     this.escolaridadeForm = this._formBuilder.group({
       instrucao: [null, [Validators.required]],

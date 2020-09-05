@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-dados-profissionais',
   templateUrl: './dados-profissionais.component.html',
@@ -19,7 +21,10 @@ export class DadosProfissionaisComponent implements OnInit {
     { icon: "account_balance", link: "./conta", value: "Ver", stats: "Informações Bancárias" }
   ];
 
-  constructor() { }
+  constructor() {
+    jQuery('html').removeClass('nav-open');
+    jQuery('button').removeClass('toggled');
+  }
 
   ngOnInit(): void {
   }

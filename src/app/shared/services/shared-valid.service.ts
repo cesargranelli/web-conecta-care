@@ -5,13 +5,13 @@ import { Valid } from 'src/app/services/feat/Valid';
   providedIn: 'root'
 })
 export class SharedValidService {
-  private readonly valid = 'valid';
+  private readonly key = 'valid';
 
-  isValidate() {
-    return !!this.getValid();
+  get validate() {
+    return !!this.valid;
   }
 
-  getValid(): Valid {
-    return JSON.parse(window.localStorage.getItem(this.valid));
+  get valid(): Valid {
+    return JSON.parse(window.localStorage.getItem(this.key));
   }
 }

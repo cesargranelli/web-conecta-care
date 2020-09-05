@@ -60,7 +60,7 @@ export class EscolaridadeComponent implements OnInit {
 
     // this.escolaridade.instrucao = new Instrucao();
 
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
 
     this._dominioService.getInstrucoes().pipe(
       map(instrucoes => {

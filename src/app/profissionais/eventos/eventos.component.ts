@@ -20,7 +20,7 @@ export class EventosComponent implements OnInit {
     private _validService: SharedValidService,
     private _loading: SharedLoadingService
   ) {
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
   }
 
   ngOnInit(): void {
