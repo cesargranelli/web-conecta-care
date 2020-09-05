@@ -2,17 +2,17 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthService } from './services/auth.service';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(public authService: AuthService) { }
+  constructor(public _tokenService: SharedTokenService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (this.authService.getJwtToken()) {
-      request = this.addToken(request, this.authService.getJwtToken());
+    if (this._tokenService.getToken()) {
+      request = this.addToken(request, this._tokenService.getToken());
     }
 
     return next.handle(request).pipe(catchError(error => {
@@ -33,6 +33,6 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    return next.handle(this.addToken(request, this.authService.getJwtToken()));
+    return next.handle(this.addToken(request, this._tokenService.getToken()));
   }
 }

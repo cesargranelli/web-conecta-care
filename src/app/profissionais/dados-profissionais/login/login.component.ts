@@ -1,11 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {LoginService} from 'src/app/auth/services/login.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {ValidService} from 'src/app/shared/services/shared-valid.service';
-import {Role} from 'src/app/enums/role.enum';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/auth/services/login.service';
+import { Role } from 'src/app/enums/role.enum';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 
 @Component({
   selector: 'pr-login',
@@ -22,13 +22,13 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private formBuilder: FormBuilder,
     private service: LoginService,
     private _sharedLoadingService: SharedLoadingService
   ) {
     this._sharedLoadingService.emitChange(true);
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
   }
 
   ngOnInit(): void {

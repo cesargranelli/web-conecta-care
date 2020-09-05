@@ -1,27 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Valid } from 'src/app/services/feat/Valid';
 
-const KEY = 'valid';
-
 @Injectable({
   providedIn: 'root'
 })
-export class ValidService {
+export class SharedValidService {
+  private readonly key = 'valid';
 
-  hasValid() {
-    return !!window.localStorage.getItem(KEY);
+  get validate() {
+    return !!this.valid;
   }
 
-  setValid(valid: Valid) {
-    window.localStorage.setItem(KEY, JSON.stringify(valid));
+  get valid(): Valid {
+    return JSON.parse(window.localStorage.getItem(this.key));
   }
-
-  getValid(): Valid {
-    return JSON.parse(window.localStorage.getItem(KEY));
-  }
-
-  removeValid() {
-    window.localStorage.removeItem(KEY);
-  }
-
 }

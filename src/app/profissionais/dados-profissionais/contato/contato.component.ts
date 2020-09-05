@@ -1,14 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Contato} from 'src/app/classes/contato.class';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
-import {ContatoService} from 'src/app/services/contato.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Contato } from 'src/app/classes/contato.class';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { ContatoService } from 'src/app/services/contato.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import {ValidService} from '../../../shared/services/shared-valid.service';
 
 @Component({
   selector: 'app-contato',
@@ -32,7 +32,7 @@ export class ContatoComponent implements OnInit {
     private _service: ContatoService,
     private _sharedLoadingService: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService,
-    private _validService: ValidService
+    private _validService: SharedValidService
   ) {
     this._sharedLoadingService.emitChange(true);
     this.contatoForm = this._formBuilder.group({
@@ -45,7 +45,7 @@ export class ContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
 
     this._service.getDados(this._dadosLocalStorage.id).subscribe(dadosContato => {
       this.contato = dadosContato;

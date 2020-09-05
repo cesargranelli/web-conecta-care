@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Login } from 'src/app/classes/login.class';
+import { Role } from 'src/app/classes/role';
 import { Valid } from 'src/app/services/feat/Valid';
-import { SharedEventValidService } from 'src/app/shared/services/shared-event-valid.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidation } from 'src/app/shared/validations/input-validation';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import { RoleConverter } from 'src/app/utils/role.converter';
 import Swal from 'sweetalert2';
-import { Login } from '../../classes/login.class';
-import { Role } from '../../classes/role';
-import { LoginService } from '../../services/login.service';
-import { TokenService } from '../../services/token.service';
-import { SharedEventTokenService } from '../../shared/services/shared-event-token.service';
-import { SharedLoadingService } from '../../shared/services/shared-loading.service';
-import { InputValidation } from '../../shared/validations/input-validation';
-import { InputValidationHas } from '../../shared/validations/input-validation-has';
+import { AuthService } from '../../services/auth.service';
+
+declare var jQuery: any;
 
 declare function carregarTarjaAzul(): void; //Carrega a funcao carregarTarjaAzul() do app.js
 declare function hideToolTip(): void; //Carrega a funcao hideToolTip() do app.js
@@ -24,8 +24,6 @@ declare function injetaToolTip(): void; //Carrega a funcao injetaToolTip() do ap
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-
-  private _role: Role = new Role('pacientes');
 
   public loginForm: FormGroup;
   public input: InputValidation = new InputValidation();
@@ -39,16 +37,19 @@ export class LoginComponent implements OnInit, OnDestroy {
   Ao menos 1 número<br>
   Ao menos 1 caracter especial</div>`;
 
+  private _role: Role = new Role('pacientes');
+  private converter: RoleConverter = new RoleConverter();
+
   constructor(
-    private _formBuilder: FormBuilder,
-    private _service: LoginService,
     private _router: Router,
-    private _validService: ValidService,
-    private _tokenService: TokenService,
     private _loading: SharedLoadingService,
-    private _eventToken: SharedEventTokenService,
-    private _eventValid: SharedEventValidService
+    private _formBuilder: FormBuilder,
+    private _authService: AuthService,
+    private _validService: SharedValidService
   ) {
+    jQuery('html').removeClass('nav-open');
+    jQuery('button').removeClass('toggled');
+
     this.loginForm = this._formBuilder.group({
       email: ['', [
         Validators.required,
@@ -82,14 +83,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this._role.getRole()
     );
 
-    this._service.login(login).subscribe(response => {
+    this._authService.login(login).subscribe(() => {
+      this._loading.emitChange(true);
       setTimeout(() => {
-        this.setValid(response.body.data);
-        this._tokenService.setToken(response.body.data.token);
-        this._eventToken.emitChange(this._tokenService.hasToken());
-        this._eventValid.emitChange(this._validService.getValid());
         this._loading.emitChange(false);
-        this._router.navigateByUrl(`${this._role.getPerfil()}/${response.body.data.id}`);
+        let component = this.converter.toComponent(this._validService.valid.role);
+        this._router.navigateByUrl(`${component}/${this._validService.valid.id}`);
       });
     }, (error: Error) => {
       console.log(error);
@@ -102,12 +101,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
     });
 
-    this._loading.emitChange(false);
   }
 
   setValid(response: any) {
     let valid: Valid = response;
-    this._validService.setValid(valid);
+    // this._validService.setValid(valid);
   }
 
   ngOnDestroy() {

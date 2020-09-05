@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from 'src/app/services/token.service';
-import { SharedEventTokenService } from 'src/app/shared/services/shared-event-token.service';
-import { SharedEventValidService } from 'src/app/shared/services/shared-event-valid.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { Valid } from 'src/app/services/feat/Valid';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-menu-profissionais',
@@ -18,13 +17,10 @@ export class MenuProfissionaisComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
-    private _tokenService: TokenService,
-    private _loading: SharedLoadingService,
-    private _eventToken: SharedEventTokenService,
-    private _eventValid: SharedEventValidService
+    private _authService: AuthService,
+    private _validService: SharedValidService
   ) {
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
   }
 
   ngOnInit(): void {
@@ -35,13 +31,8 @@ export class MenuProfissionaisComponent implements OnInit {
   }
 
   logout() {
-    this._loading.emitChange(true);
-    this._tokenService.removeToken();
-    this._validService.removeValid();
-    this._eventToken.emitChange(false);
-    this._eventValid.emitChange(false);
-    this._router.navigateByUrl(`/`);
-    this._loading.emitChange(false);
+    this._authService.logout();
+    jQuery('html').removeClass('nav-open');
   }
 
 }

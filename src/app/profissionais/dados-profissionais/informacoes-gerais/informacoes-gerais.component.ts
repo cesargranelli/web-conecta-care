@@ -1,19 +1,19 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {EstadoCivil} from 'src/app/classes/estado-civil.class';
-import {Genero} from 'src/app/classes/genero.class';
-import {Profissional} from 'src/app/classes/profissional.class';
-import {TipoEmpresa} from 'src/app/classes/tipo-empresa.class';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
-import {DominioService} from 'src/app/services/dominio.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {ProfissionalService} from 'src/app/services/profissional.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {ValidService} from 'src/app/shared/services/shared-valid.service';
-import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import {concatMap, map} from 'rxjs/operators';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
+import { EstadoCivil } from 'src/app/classes/estado-civil.class';
+import { Genero } from 'src/app/classes/genero.class';
+import { Profissional } from 'src/app/classes/profissional.class';
+import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { DominioService } from 'src/app/services/dominio.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { ProfissionalService } from 'src/app/services/profissional.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -48,14 +48,14 @@ export class InformacoesGeraisComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _service: ProfissionalService,
     private _dominioService: DominioService,
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
     this._loading.emitChange(true);
 
     this.profissionalForm = this._formBuilder.group({

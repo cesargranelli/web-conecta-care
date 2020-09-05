@@ -1,16 +1,16 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Escolaridade} from 'src/app/classes/escolaridade.class';
-import {Instrucao} from 'src/app/classes/instrucao.class';
-import {DominioService} from 'src/app/services/dominio.service';
-import {EscolaridadeService} from 'src/app/services/escolaridade.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
-import {ValidService} from '../../../shared/services/shared-valid.service';
-import {concatMap, map} from 'rxjs/operators';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
+import { Escolaridade } from 'src/app/classes/escolaridade.class';
+import { Instrucao } from 'src/app/classes/instrucao.class';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { DominioService } from 'src/app/services/dominio.service';
+import { EscolaridadeService } from 'src/app/services/escolaridade.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -35,7 +35,7 @@ export class EscolaridadeComponent implements OnInit {
     private _router: Router,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _service: EscolaridadeService,
     private _sharedLoadingService: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
@@ -54,7 +54,7 @@ export class EscolaridadeComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
 
     this._dominioService.getInstrucoes().pipe(
       map(instrucoes => {

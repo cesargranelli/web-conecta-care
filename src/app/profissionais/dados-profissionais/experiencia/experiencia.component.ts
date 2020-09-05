@@ -1,14 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Experiencia} from 'src/app/classes/experiencia.class';
-import {Role} from 'src/app/enums/role.enum';
-import {ExperienciaService} from 'src/app/services/experiencia.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
-import {ValidService} from '../../../shared/services/shared-valid.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Experiencia } from 'src/app/classes/experiencia.class';
+import { Role } from 'src/app/enums/role.enum';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { ExperienciaService } from 'src/app/services/experiencia.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -35,7 +35,7 @@ export class ExperienciaComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _service: ExperienciaService,
     private _sharedLoadingService: SharedLoadingService,
@@ -65,7 +65,7 @@ export class ExperienciaComponent implements OnInit {
     this.experiencia2 = new Experiencia();
     this.experiencia3 = new Experiencia();
     this.validationHas = new InputValidationHas();
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
 
     if (this?._dadosLocalStorage?.role != Role.Profissional || !this?._dadosLocalStorage?.role) {
       this._router.navigateByUrl('/');

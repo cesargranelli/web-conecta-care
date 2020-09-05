@@ -1,21 +1,21 @@
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {Profissional} from '../classes/profissional.class';
-import {Documento} from './feat/documento';
-import {Registro} from './feat/registro';
-import {DoumentoService} from './interfaces/documento-interface.service';
-import {TokenService} from './token.service';
-import {map} from 'rxjs/operators';
-import {ProfissionalResponseInterface} from './response/profissionalResponse.interface';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Profissional } from '../classes/profissional.class';
+import { Documento } from './feat/documento';
+import { Registro } from './feat/registro';
+import { DocumentoService } from './interfaces/documento-interface.service';
+import { ProfissionalResponseInterface } from './response/profissionalResponse.interface';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 @Injectable()
-export class ProfissionalService implements DoumentoService {
+export class ProfissionalService implements DocumentoService {
 
   private _headers: HttpHeaders = new HttpHeaders();
 
@@ -26,10 +26,8 @@ export class ProfissionalService implements DoumentoService {
   }
 
   getDados(id: number): Observable<Profissional> {
-    return this._http.get(`${this.endpoint}/${id}`,
-      {
-        headers: this._headers
-      }).pipe(map((profissionalResponseInterface: ProfissionalResponseInterface) => {
+    return this._http.get(`${this.endpoint}/${id}`)
+      .pipe(map((profissionalResponseInterface: ProfissionalResponseInterface) => {
         return profissionalResponseInterface.data;
       })
     );

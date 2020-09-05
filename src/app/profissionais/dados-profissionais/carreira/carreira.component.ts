@@ -1,20 +1,20 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AreaAtendimento} from 'src/app/classes/area-atendimento.class';
-import {Carreira} from 'src/app/classes/carreira.class';
-import {Conselho} from 'src/app/classes/conselho.class';
-import {Estado} from 'src/app/classes/estado.class';
-import {Transporte} from 'src/app/classes/transporte.class';
-import {Role} from 'src/app/enums/role.enum';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
-import {CarreiraService} from 'src/app/services/carreira.service';
-import {DominioService} from 'src/app/services/dominio.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import {ValidService} from '../../../shared/services/shared-valid.service';
-import {concatMap, map} from 'rxjs/operators';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
+import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
+import { Carreira } from 'src/app/classes/carreira.class';
+import { Conselho } from 'src/app/classes/conselho.class';
+import { Estado } from 'src/app/classes/estado.class';
+import { Transporte } from 'src/app/classes/transporte.class';
+import { Role } from 'src/app/enums/role.enum';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { CarreiraService } from 'src/app/services/carreira.service';
+import { DominioService } from 'src/app/services/dominio.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -40,14 +40,14 @@ export class CarreiraComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: CarreiraService,
-    private _sharedLoadingService: SharedLoadingService,
+    private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService,
   ) {
-    this._sharedLoadingService.emitChange(true);
+    this._loading.emitChange(true);
     this.carreiraForm = this._formBuilder.group({
       conselho: ['', Validators.required],
       registroProfissional: [this._cadastro.carreira?.registroProfissional, Validators.maxLength(15)],
@@ -62,7 +62,7 @@ export class CarreiraComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.valid;
     this.validationHas = new InputValidationHas();
 
     if (this?._dadosLocalStorage?.role != Role.Profissional || !this?._dadosLocalStorage?.role) {
@@ -84,8 +84,7 @@ export class CarreiraComponent implements OnInit {
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
-        this.showForm = false;
-        this._sharedLoadingService.emitChange(false);
+        this._loading.emitChange(false);
       });
     });
   }
@@ -141,7 +140,7 @@ export class CarreiraComponent implements OnInit {
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
+    this._loading.emitChange(true);
 
     this.carreira = this.carreiraForm.value;
     this.carreira.areasAtendimento = this.lerAreasAtendimento();
@@ -159,10 +158,10 @@ export class CarreiraComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
-        this._sharedLoadingService.emitChange(false);
+        this._loading.emitChange(false);
       });
     }, () => {
-      this._sharedLoadingService.emitChange(false);
+      this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',

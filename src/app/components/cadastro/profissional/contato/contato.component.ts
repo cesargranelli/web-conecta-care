@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/internal/operators/map';
 import { Contato } from 'src/app/classes/contato.class';
 import { Pais } from 'src/app/classes/pais.class';
 import { Role } from 'src/app/enums/role.enum';
@@ -9,11 +10,9 @@ import { ContatoService } from 'src/app/services/contato.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { pipe } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-contato',
@@ -36,14 +35,14 @@ export class ContatoComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _service: ContatoService,
     private _dominioService: DominioService,
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this._valid = this._validService.getValid();
+    this._valid = this._validService.valid;
 
     this.contatoForm = this._formBuilder.group({
       telefoneFixo: [null, Validators.maxLength(10)],

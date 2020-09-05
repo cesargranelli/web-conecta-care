@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Navigation, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { concatMap } from 'rxjs/internal/operators/concatMap';
+import { map } from 'rxjs/internal/operators/map';
 import { Banco } from 'src/app/classes/banco.class';
 import { Conta } from 'src/app/classes/conta.class';
 import { TipoConta } from 'src/app/classes/tipo-conta.class';
@@ -10,11 +12,9 @@ import { ContaService } from 'src/app/services/conta.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { ValidService } from 'src/app/shared/services/shared-valid.service';
-import { map } from 'rxjs/internal/operators/map';
-import { concatMap } from 'rxjs/internal/operators/concatMap';
 
 declare var jQuery: any;
 
@@ -39,14 +39,14 @@ export class ContaComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: ContaService,
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
 
     this.contaForm = this._formBuilder.group({
       tipo: [null, [Validators.required]],

@@ -1,19 +1,19 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Endereco} from 'src/app/classes/endereco.class';
-import {DominioService} from 'src/app/services/dominio.service';
-import {EnderecoService} from 'src/app/services/endereco.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
+import { Endereco } from 'src/app/classes/endereco.class';
+import { DominioService } from 'src/app/services/dominio.service';
+import { EnderecoService } from 'src/app/services/endereco.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import {concatMap, map} from 'rxjs/operators';
-import {ValidService} from '../../../shared/services/shared-valid.service';
-import {Estado} from '../../../classes/estado.class';
-import {Pais} from '../../../classes/pais.class';
-import {Role} from '../../../enums/role.enum';
-import {EnderecoViaCep} from '../../../classes/endereco-via-cep.class';
+import { EnderecoViaCep } from '../../../classes/endereco-via-cep.class';
+import { Estado } from '../../../classes/estado.class';
+import { Pais } from '../../../classes/pais.class';
+import { Role } from '../../../enums/role.enum';
 
 declare var jQuery: any;
 
@@ -46,13 +46,13 @@ export class EnderecoComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: ValidService,
+    private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _service: EnderecoService,
     private _loading: SharedLoadingService
   ) {
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.valid;
     this._loading.emitChange(true);
 
     this.enderecoForm = this._formBuilder.group({
