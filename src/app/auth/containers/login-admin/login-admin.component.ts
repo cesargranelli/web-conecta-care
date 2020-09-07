@@ -49,21 +49,15 @@ export class LoginAdminComponent implements OnInit {
       this.loginForm.value.password
     );
 
-    this._authService.login(login).subscribe(() => {
+    this._authService.login(login).subscribe(response => {
       this._loading.emitChange(true);
-      setTimeout(() => {
-        this._loading.emitChange(false);
-        this._router.navigateByUrl(`admin/eventos`);
-      });
-    }, (error: Error) => {
-      console.log(error);
+      if (response) {
+        setTimeout(() => {
+          this._loading.emitChange(false);
+          this._router.navigateByUrl(`admin/eventos`);
+        });
+      }
       this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Usuário ou senha inválidos',
-        showConfirmButton: true
-      });
     });
   }
 

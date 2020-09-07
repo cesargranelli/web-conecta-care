@@ -83,22 +83,16 @@ export class LoginComponent implements OnInit, OnDestroy {
       this._role.getRole()
     );
 
-    this._authService.login(login).subscribe(() => {
+    this._authService.login(login).subscribe(response => {
       this._loading.emitChange(true);
-      setTimeout(() => {
-        this._loading.emitChange(false);
-        let component = this.converter.toComponent(this._validService.valid.role);
-        this._router.navigateByUrl(`${component}/${this._validService.valid.id}`);
-      });
-    }, (error: Error) => {
-      console.log(error);
+      if (response) {
+        setTimeout(() => {
+          this._loading.emitChange(false);
+          let component = this.converter.toComponent(this._validService.valid.role);
+          this._router.navigateByUrl(`${component}/${this._validService.valid.id}`);
+        });
+      }
       this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Usuário ou senha inválidos',
-        showConfirmButton: true
-      });
     });
 
   }

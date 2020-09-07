@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
@@ -35,11 +35,11 @@ export class AuthService {
       .pipe(
         tap(response => this.doLoginUser(response.data)),
         mapTo(true),
-        catchError(error => {
+        catchError(httpResponse => {
           Swal.fire({
             position: 'center',
             icon: 'error',
-            title: error.message,
+            title: this.handlerError(httpResponse),
             showConfirmButton: true
           });
           return of(false);
@@ -67,6 +67,10 @@ export class AuthService {
   private removeTokens(): void {
     localStorage.removeItem(this.token);
     localStorage.removeItem(this.valid);
+  }
+
+  private handlerError(httpErrorResponse: HttpErrorResponse): string {
+    return httpErrorResponse.error.data.message;
   }
 
 }
