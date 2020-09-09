@@ -50,7 +50,7 @@ export class CarreiraComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.valid;
+    this.valid = this._validService.getValid();
 
     this.carreiraForm = this._formBuilder.group({
       conselho: [null, [Validators.required]],
@@ -83,11 +83,11 @@ export class CarreiraComponent implements OnInit {
       this.carregarAreasAtendimento();
         setTimeout(() => {
           jQuery("select[id='conselho']").selectpicker('refresh');
-          jQuery(`select[id='conselho']`).selectpicker('val', this._cadastro.carreira?.conselho);
+          jQuery(`select[id='conselho']`).selectpicker('val', this._cadastro.carreira?.conselho.id);
           jQuery("select[id='ufConselho']").selectpicker('refresh');
-          jQuery(`select[id='ufConselho']`).selectpicker('val', this._cadastro.carreira?.ufConselho);
+          jQuery(`select[id='ufConselho']`).selectpicker('val', this._cadastro.carreira?.ufConselho.id);
           jQuery("select[id='transporte']").selectpicker('refresh');
-          jQuery(`select[id='transporte']`).selectpicker('val', this._cadastro.carreira?.transporte);
+          jQuery(`select[id='transporte']`).selectpicker('val', this._cadastro.carreira?.transporte.id);
           jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
           this.carregarAreasAtendimento();
           this._loading.emitChange(false);
@@ -138,6 +138,13 @@ export class CarreiraComponent implements OnInit {
     this.carreira.areasAtendimento = areasAtendimento;
 
     this.carreira.proprietarioId = this.valid.id;
+
+    // Incluído para corrigir os tipos Begin
+    this.carreira.registroProfissional = Number(this.carreira.registroProfissional);
+    this.carreira.conselho = this.conselhos.filter(conselho => conselho.id == Number(this.carreira.conselho))[0];
+    this.carreira.ufConselho = this.estados.filter(estado => estado.id == Number(this.carreira.ufConselho))[0];
+    this.carreira.transporte = this.transportes.filter(transporte => transporte.id == Number(this.carreira.transporte))[0];
+    // Incluído para corrigir os tipos End
 
     this._service.save(this.carreira).subscribe(response => {
       setTimeout(() => {

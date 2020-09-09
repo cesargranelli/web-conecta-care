@@ -5,11 +5,12 @@ import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { mapTo } from 'rxjs/internal/operators/mapTo';
 import { tap } from 'rxjs/internal/operators/tap';
-import { LoginAdminData } from 'src/app/admin/models/token-admin.model';
+import { LoginData } from 'src/app/admin/models/token-admin.model';
 import { Login } from 'src/app/classes/login.class';
-import { SharedEventTokenService } from 'src/app/shared/services/shared-event-token.service';
-import { SharedEventValidService } from 'src/app/shared/services/shared-event-valid.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { RoleConverter } from 'src/app/utils/role.converter';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -19,21 +20,20 @@ import Swal from 'sweetalert2';
 export class AuthService {
 
   private readonly endpoint: string = `${environment.apiUrl}`;
-  private readonly token = 'token';
-  private readonly valid = 'valid';
+  private converterRole: RoleConverter = new RoleConverter();
 
   constructor(
     private _http: HttpClient,
     private _loading: SharedLoadingService,
-    private _eventToken: SharedEventTokenService,
-    private _eventValid: SharedEventValidService
+    private _storeToken: SharedTokenService,
+    private _storeValid: SharedValidService
   ) { }
 
   login(user: Login): Observable<boolean> {
     this._loading.emitChange(true);
     return this._http.post<any>(`${this.endpoint}/login`, user)
       .pipe(
-        tap(response => this.doLoginUser(response.data)),
+        tap(response => this.storeTokens(response.data)),
         mapTo(true),
         catchError(httpResponse => {
           Swal.fire({
@@ -42,34 +42,23 @@ export class AuthService {
             title: this.handlerError(httpResponse),
             showConfirmButton: true
           });
+          this._loading.emitChange(false);
           return of(false);
         })
       );
   }
 
-  logout(): void {
-    this.removeTokens();
-    this._eventToken.emitChange(false);
-    this._eventValid.emitChange(false);
+  storeTokens(data: LoginData): void {
+    this._storeToken.setToken(data.token);
+    this._storeValid.setValid({id: data.id, email: data.email, role: this.converterRole.getRole(data.role)});
   }
 
-  private doLoginUser(data: LoginAdminData): void {
-    this.storeTokens(data);
-    this._eventToken.emitChange(data.token);
-    this._eventValid.emitChange(JSON.stringify({id: data.id, email: data.email, role: data.role}));
+  removeTokens(): void {
+    this._storeToken.removeToken();
+    this._storeValid.removeValid();
   }
 
-  private storeTokens(data: LoginAdminData): void {
-    window.localStorage.setItem(this.token, data.token);
-    localStorage.setItem(this.valid, JSON.stringify({id: data.id, email: data.email, role: data.role}));
-  }
-
-  private removeTokens(): void {
-    localStorage.removeItem(this.token);
-    localStorage.removeItem(this.valid);
-  }
-
-  private handlerError(httpErrorResponse: HttpErrorResponse): string {
+  handlerError(httpErrorResponse: HttpErrorResponse): string {
     return httpErrorResponse.error.data.message;
   }
 

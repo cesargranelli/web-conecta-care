@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   Ao menos 1 número<br>
   Ao menos 1 caracter especial</div>`;
 
-  private _role: Role = new Role('pacientes');
+  private role: Role = new Role('pacientes');
   private converter: RoleConverter = new RoleConverter();
 
   constructor(
@@ -71,16 +71,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   setRole(perfil: string) {
-    this._role = new Role(perfil);
+    this.role = new Role(perfil);
   }
 
   onSubmit() {
-    this._loading.emitChange(true);
-
     let login: Login = new Login(
       this.loginForm.value.email,
       this.loginForm.value.password,
-      this._role.getRole()
+      this.role.getRole()
     );
 
     this._authService.login(login).subscribe(response => {
@@ -88,8 +86,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (response) {
         setTimeout(() => {
           this._loading.emitChange(false);
-          let component = this.converter.toComponent(this._validService.valid.role);
-          this._router.navigateByUrl(`${component}/${this._validService.valid.id}`);
+          let valid: Valid = this._validService.getValid();
+          let component = this.converter.toComponent(valid.role);
+          this._router.navigateByUrl(`${component}/${valid.id}`);
         });
       }
       this._loading.emitChange(false);

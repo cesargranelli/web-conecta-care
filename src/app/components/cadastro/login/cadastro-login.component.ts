@@ -10,6 +10,8 @@ import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validation
 import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
 
 declare var jQuery: any;
 
@@ -44,7 +46,7 @@ export class CadastroLoginComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _service: UsuarioService,
     private _router: Router,
-    private _sharedLoadingService: SharedLoadingService
+    private _loading: SharedLoadingService
   ) {
     jQuery('html').removeClass('nav-open');
     jQuery('button').removeClass('toggled');
@@ -85,7 +87,7 @@ export class CadastroLoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
+    this._loading.emitChange(true);
     let login: Usuario = new Usuario(
       this.cadastroLoginForm.value.email,
       this.cadastroLoginForm.value.password,
@@ -94,13 +96,21 @@ export class CadastroLoginComponent implements OnInit {
     );
 
     this._service.cadastrar(login).subscribe(response => {
-      this.emailEnviado = true;
       setTimeout(() => {
-        this._sharedLoadingService.emitChange(false);
+        this.emailEnviado = true;
+        this._loading.emitChange(false);
         this.onSuccess(response.body.data.message);
         this._router.navigateByUrl(`espera-confirmacao-email`);
       });
-    }, () => this._sharedLoadingService.emitChange(false));
+    }, httpResponse => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: httpResponse.error.data.message,
+          showConfirmButton: true
+        });
+        this._loading.emitChange(false);
+    });
 
   }
 

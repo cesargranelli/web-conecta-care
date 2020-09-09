@@ -67,7 +67,7 @@ export class InformacoesGeraisComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.valid;
+    this.valid = this._validService.getValid();
 
     this.profissionalForm = this._formBuilder.group({
       nome: [null, [Validators.required]],

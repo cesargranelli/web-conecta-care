@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,7 +8,6 @@ import { Documento } from './feat/documento';
 import { Registro } from './feat/registro';
 import { DocumentoService } from './interfaces/documento-interface.service';
 import { ProfissionalResponseInterface } from './response/profissionalResponse.interface';
-import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +16,9 @@ import { TokenService } from './token.service';
 @Injectable()
 export class ProfissionalService implements DocumentoService {
 
-  private _headers: HttpHeaders = new HttpHeaders();
-
   private endpoint: string = `${environment.apiUrl}/profissionais`;
 
-  constructor(private _http: HttpClient, private _tokenService: TokenService) {
-    this._headers = this._headers.set('Token', 'Bearer ' + this._tokenService.getToken());
-  }
+  constructor(private _http: HttpClient) { }
 
   getDados(id: number): Observable<Profissional> {
     return this._http.get(`${this.endpoint}/${id}`)
@@ -39,8 +34,10 @@ export class ProfissionalService implements DocumentoService {
   }
 
   save(payload: Profissional): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload,
-      {headers: this._headers, observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
   }
 
+  eventos(id: number): Observable<any> {
+    return this._http.get<any>(`${this.endpoint}/${id}/eventos`, {observe: 'response'});
+  }
 }

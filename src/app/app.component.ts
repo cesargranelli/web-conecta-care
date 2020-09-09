@@ -22,11 +22,11 @@ export class AppComponent {
   }
 
   get login(): boolean {
-    return this._valid.validate;
+    return this._valid.isValidate();
   }
 
   get storageValid(): any {
-    return this._valid.valid;
+    return this._valid.getValid();
   }
 
 }

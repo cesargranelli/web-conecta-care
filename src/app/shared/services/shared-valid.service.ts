@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Valid } from 'src/app/services/feat/Valid';
+import { SharedEventValidService } from './shared-event-valid.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +8,25 @@ import { Valid } from 'src/app/services/feat/Valid';
 export class SharedValidService {
   private readonly key = 'valid';
 
-  get validate() {
-    return !!this.valid;
+  constructor(
+    private _eventValid: SharedEventValidService
+  ) { }
+
+  isValidate() {
+    return !!this.getValid();
   }
 
-  get valid(): Valid {
-    return JSON.parse(window.localStorage.getItem(this.key));
+  getValid(): Valid {
+    return JSON.parse(localStorage.getItem(this.key));
+  }
+
+  setValid(valid: Valid) {
+    localStorage.setItem(this.key, JSON.stringify(valid));
+    this._eventValid.emitChange(true);
+  }
+
+  removeValid() {
+    localStorage.removeItem(this.key);
+    this._eventValid.emitChange(false);
   }
 }

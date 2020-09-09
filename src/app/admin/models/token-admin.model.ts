@@ -1,4 +1,4 @@
-export class LoginAdminData {
+export class LoginData {
   token: string;
   id: number;
   email: string;

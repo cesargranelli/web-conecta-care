@@ -55,7 +55,7 @@ export class EnderecoComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.valid;
+    this.valid = this._validService.getValid();
 
     this.enderecoForm = this._formBuilder.group({
       logradouro: [null, [Validators.required, Validators.maxLength(60)]],

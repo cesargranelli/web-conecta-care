@@ -16,28 +16,22 @@ export class EventoService {
   constructor(private _http: HttpClient) { }
 
   cadastrar(payload: Evento): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload,
-      { observe: 'response' });
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
   listarFuturos(): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<any>>(`${this.endpoint}`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}`, { observe: 'response' });
   }
 
   detalhes(id: number): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<any>>(`${this.endpoint}/${id}`,
-      { observe: 'response' });
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/${id}`, { observe: 'response' });
   }
 
   enviar(id: number): Observable<HttpResponse<any>> {
-    return this._http.put<HttpResponse<any>>(`${this.endpoint}/${id}`,
-      { observe: 'response' });
+    return this._http.put<HttpResponse<any>>(`${this.endpoint}/${id}`, { observe: 'response' });
   }
 
   cancelar(id: number): Observable<HttpResponse<any>> {
-    return this._http.delete<HttpResponse<any>>(`${this.endpoint}/${id}`,
-      { observe: 'response' });
+    return this._http.delete<HttpResponse<any>>(`${this.endpoint}/${id}`, { observe: 'response' });
   }
-
 }

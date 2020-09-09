@@ -55,7 +55,7 @@ export class InformacoesGeraisComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this._dadosLocalStorage = this._validService.valid;
+    this._dadosLocalStorage = this._validService.getValid();
     this._loading.emitChange(true);
 
     this.profissionalForm = this._formBuilder.group({

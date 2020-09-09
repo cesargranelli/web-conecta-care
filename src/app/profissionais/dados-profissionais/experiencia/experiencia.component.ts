@@ -65,7 +65,7 @@ export class ExperienciaComponent implements OnInit {
     this.experiencia2 = new Experiencia();
     this.experiencia3 = new Experiencia();
     this.validationHas = new InputValidationHas();
-    this._dadosLocalStorage = this._validService.valid;
+    this._dadosLocalStorage = this._validService.getValid();
 
     if (this?._dadosLocalStorage?.role != Role.Profissional || !this?._dadosLocalStorage?.role) {
       this._router.navigateByUrl('/');

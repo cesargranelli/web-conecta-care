@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
 import { map } from 'rxjs/internal/operators/map';
 import { Evento } from 'src/app/admin/eventos/models/evento.class';
-import { EventoService } from 'src/app/admin/eventos/services/evento.service';
+import { EventoService } from 'src/app/services/evento.service';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
 import { EnderecoViaCep } from 'src/app/classes/endereco-via-cep.class';
 import { Estado } from 'src/app/classes/estado.class';

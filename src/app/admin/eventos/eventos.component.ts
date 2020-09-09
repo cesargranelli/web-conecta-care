@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { map } from 'rxjs/internal/operators/map';
+import { EventoService } from 'src/app/services/evento.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import Swal from 'sweetalert2';
 import { Evento } from './models/evento.class';
-import { EventoService } from './services/evento.service';
 
 declare var jQuery: any;
 
@@ -36,7 +36,6 @@ export class EventosComponent implements OnInit {
       null, null, () => {
       setTimeout(() => {
         this.inicializarDataTable();
-        this.inicializarTooltip();
         this.status(this.eventosFuturos);
         this._loading.emitChange(false);
         this.escondeTabela = false;
@@ -133,11 +132,4 @@ export class EventosComponent implements OnInit {
       });
     });
   }
-
-  inicializarTooltip() {
-    // jQuery(function () {
-    //   jQuery('.btn').tooltip();
-    // });
-  }
-
 }

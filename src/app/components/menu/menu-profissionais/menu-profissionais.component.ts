@@ -20,7 +20,7 @@ export class MenuProfissionaisComponent implements OnInit {
     private _authService: AuthService,
     private _validService: SharedValidService
   ) {
-    this.valid = this._validService.valid;
+    this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class MenuProfissionaisComponent implements OnInit {
   }
 
   logout() {
-    this._authService.logout();
+    this._authService.removeTokens();
     jQuery('html').removeClass('nav-open');
   }
 

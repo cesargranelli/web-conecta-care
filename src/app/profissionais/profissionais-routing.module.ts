@@ -11,6 +11,7 @@ import {ExperienciaComponent} from './dados-profissionais/experiencia/experienci
 import {InformacoesGeraisComponent} from './dados-profissionais/informacoes-gerais/informacoes-gerais.component';
 import {LoginComponent} from './dados-profissionais/login/login.component';
 import {ProfissionaisComponent} from './profissionais.component';
+import { EventosComponent } from './eventos/eventos.component';
 
 const routes: Routes = [
   {path: 'profissionais/:id', component: ProfissionaisComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'profissionais/:id/dados-profissionais/experiencia', component: ExperienciaComponent},
   {path: 'profissionais/:id/dados-profissionais/escolaridade', component: EscolaridadeComponent},
   {path: 'profissionais/:id/dados-profissionais/complemento', component: ComplementoComponent},
-  {path: 'profissionais/:id/dados-profissionais/conta', component: ContaComponent}
+  {path: 'profissionais/:id/dados-profissionais/conta', component: ContaComponent},
+  {path: 'profissionais/:id/eventos', component: EventosComponent}
 ];
 
 @NgModule({

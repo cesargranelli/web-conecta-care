@@ -44,7 +44,7 @@ export class EscolaridadeComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.valid;
+    this.valid = this._validService.getValid();
 
     this.escolaridadeForm = this._formBuilder.group({
       instrucao: [null, [Validators.required]],
@@ -79,7 +79,7 @@ export class EscolaridadeComponent implements OnInit {
       this.popularForm();
         setTimeout(() => {
           jQuery("select[id='instrucao']").selectpicker('refresh');
-          jQuery("select[id='instrucao']").selectpicker('val', this._cadastro?.escolaridade?.instrucao);
+          jQuery("select[id='instrucao']").selectpicker('val', this._cadastro?.escolaridade?.instrucao.id);
           this._loading.emitChange(false);
         });
         this.showForm = false;
@@ -110,6 +110,10 @@ export class EscolaridadeComponent implements OnInit {
 
     this._loading.emitChange(true);
     this.escolaridade.instrucao = this.escolaridadeForm.value.instrucao;
+
+    // Incluído para corrigir os tipos Begin
+    this.escolaridade.instrucao = this.instrucoes.filter(instrucao => instrucao.id == Number(this.escolaridade.instrucao))[0];
+    // Incluído para corrigir os tipos End
 
     this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino1);
     this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino2);

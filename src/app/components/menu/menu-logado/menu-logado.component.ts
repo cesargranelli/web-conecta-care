@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from 'src/app/services/token.service';
-import { SharedEventTokenService } from 'src/app/shared/services/shared-event-token.service';
-import { SharedEventValidService } from 'src/app/shared/services/shared-event-valid.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { AuthAdminService } from 'src/app/auth/services/auth-admin.service';
 
 @Component({
   selector: 'app-menu-logado',
@@ -15,24 +11,15 @@ export class MenuLogadoComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: SharedValidService,
-    private _tokenService: TokenService,
-    private _loading: SharedLoadingService,
-    private _eventToken: SharedEventTokenService,
-    private _eventValid: SharedEventValidService
+    private _authService: AuthAdminService
   ) { }
 
   ngOnInit(): void {
   }
 
   logout() {
-    this._loading.emitChange(true);
-    this._tokenService.removeToken();
-    // this._validService.removeValid();
-    this._eventToken.emitChange(false);
-    this._eventValid.emitChange(false);
+    this._authService.removeTokens();
     this._router.navigateByUrl(`/`);
-    this._loading.emitChange(false);
   }
 
 }

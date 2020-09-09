@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Authorization } from 'src/app/services/feat/token';
 import { LoginService } from 'src/app/services/login.service';
 import { ValidaToken } from 'src/app/services/response/valida-token';
-import { TokenService } from 'src/app/services/token.service';
-import Swal from 'sweetalert2';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-confirmacao-nova-senha',
@@ -19,10 +20,11 @@ export class ConfirmacaoNovaSenhaComponent implements OnInit {
   public validaToken: ValidaToken;
 
   constructor(
-    private _loading: SharedLoadingService,
-    private _activateRoute: ActivatedRoute,
-    private _tokenService: TokenService,
     private _router: Router,
+    private _activateRoute: ActivatedRoute,
+    private _loading: SharedLoadingService,
+    private _validService: SharedValidService,
+    private _tokenService: SharedTokenService,
     private _service: LoginService
   ) { }
 

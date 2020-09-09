@@ -18,8 +18,6 @@ import Swal from 'sweetalert2';
 })
 export class NovaSenhaComponent implements OnInit {
 
-  private _valid: Valid;
-
   @Output() loadingEvent = new EventEmitter<boolean>();
   public novaSenhaForm: FormGroup;
   public validation: InputValidation = new InputValidation();
@@ -30,10 +28,7 @@ export class NovaSenhaComponent implements OnInit {
     private _service: LoginService,
     private _router: Router,
     private _loading: SharedLoadingService
-  ) {
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this._valid = navigation.extras.state?.valid;
-  }
+  ) { }
 
   ngOnInit(): void {
 
@@ -54,32 +49,36 @@ export class NovaSenhaComponent implements OnInit {
   }
 
   onSubmit() {
-
-    this._loading.emitChange(true);
-
     let novaSenha: NovaSenha = new NovaSenha(
       this.novaSenhaForm.value.password
     );
 
+    this._loading.emitChange(true);
+
     this._service.novaSenha(novaSenha).subscribe(response => {
-      setTimeout(() => {
-        console.log(response.headers);
-        this._loading.emitChange(false);
-        let perfil = new Perfil(this._valid.role);
-        this._router.navigateByUrl(`${perfil.getPerfil()}/${this._valid.id}`, {
-          state: { valid: this._valid }
+      if (response.ok) {
+        setTimeout(() => {
+          this._loading.emitChange(false);
+          this._router.navigateByUrl(`login`);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Senha alterada com sucesso, efetue o login com a nova senha!',
+            showConfirmButton: true
+          });
         });
-      });
-    }, (error: Error) => {
-      console.log(error);
+      }
+    }, httpError => {
       this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
-        icon: 'success',
-        title: error.message,
+        icon: 'error',
+        title: httpError.error.data.message,
         showConfirmButton: true
       });
     });
+
+    this._loading.emitChange(false);
 
   }
 

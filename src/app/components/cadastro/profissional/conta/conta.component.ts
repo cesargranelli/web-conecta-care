@@ -46,7 +46,7 @@ export class ContaComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
-    this.valid = this._validService.valid;
+    this.valid = this._validService.getValid();
 
     this.contaForm = this._formBuilder.group({
       tipo: [null, [Validators.required]],
@@ -78,9 +78,9 @@ export class ContaComponent implements OnInit {
       () => {
         setTimeout(() => {
           jQuery("select[id='tipoConta']").selectpicker('refresh');
-          jQuery(`select[id='tipoConta']`).selectpicker('val', this._cadastro.conta?.tipo);
+          jQuery(`select[id='tipoConta']`).selectpicker('val', this._cadastro.conta?.tipo.id);
           jQuery("select[id='banco']").selectpicker('refresh');
-          jQuery(`select[id='banco']`).selectpicker('val', this._cadastro.conta?.banco);
+          jQuery(`select[id='banco']`).selectpicker('val', this._cadastro.conta?.banco.id);
           this._loading.emitChange(false);
         });
         this.showForm = false;
@@ -101,6 +101,11 @@ export class ContaComponent implements OnInit {
   onSubmit() {
     this._loading.emitChange(true);
     this.conta = this.contaForm.value;
+
+    // Incluído para corrigir os tipos Begin
+    this.conta.tipo = this.tipoContas.filter(tipoConta => tipoConta.id == Number(this.conta.tipo))[0];
+    this.conta.banco = this.bancos.filter(banco => banco.id == Number(this.conta.banco))[0];
+    // Incluído para corrigir os tipos End
 
     this.conta.proprietarioId = this.valid.id;
 

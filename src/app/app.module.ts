@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,6 +10,7 @@ import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { TokenInterceptor } from './auth/token.interceptor';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { CadastroLoginComponent } from './components/cadastro/login/cadastro-login.component';
 import { CarreiraComponent } from './components/cadastro/profissional/carreira/carreira.component';
@@ -82,7 +83,12 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
   providers: [
     ValidadorCpf,
     ValidadorCnpj,
-    { provide: 'DoumentoService', useClass: ProfissionalService }
+    { provide: 'DoumentoService', useClass: ProfissionalService },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

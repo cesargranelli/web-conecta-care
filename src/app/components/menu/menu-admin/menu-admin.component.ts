@@ -25,7 +25,7 @@ export class MenuAdminComponent implements OnInit {
   // }
 
   logout() {
-    this._authService.logout();
+    this._authService.removeTokens();
     jQuery('html').removeClass('nav-open');
   }
 
