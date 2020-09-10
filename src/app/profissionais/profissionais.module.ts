@@ -15,6 +15,7 @@ import { EscolaridadeComponent } from './dados-profissionais/escolaridade/escola
 import { ExperienciaComponent } from './dados-profissionais/experiencia/experiencia.component';
 import { InformacoesGeraisComponent } from './dados-profissionais/informacoes-gerais/informacoes-gerais.component';
 import { LoginComponent } from './dados-profissionais/login/login.component';
+import { EventoDetalheComponent } from './eventos/detalhe/evento-detalhe.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { ProfissionaisRoutingModule } from './profissionais-routing.module';
 import { ProfissionaisComponent } from './profissionais.component';
@@ -33,6 +34,7 @@ import { ProfissionaisComponent } from './profissionais.component';
     ContaComponent,
     CardVerDadosComponent,
     EventosComponent,
+    EventoDetalheComponent,
     InformacoesGeraisComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, ProfissionaisRoutingModule, NgxMaskModule],
