@@ -61,11 +61,12 @@ export class ContatoComponent implements OnInit {
 
     this._dominioService.getPaises().pipe(
       map((response) => {
-        console.log(this._cadastro);
         this._loading.emitChange(true);
         let paises: Pais[] = response.body;
         this.pais = paises.find(pais => pais.id == Number(this._cadastro.endereco?.pais));
-        this.codigoPais = '+' + Number(this.pais.codigo);
+        if (this.pais) {
+          this.codigoPais = '+' + Number(this.pais.codigo);
+        }
       }),
       concatMap(() => this._service.getDados(this._valid.id))
     ).subscribe(response => {
@@ -77,12 +78,10 @@ export class ContatoComponent implements OnInit {
       });
     });
 
-
     this.showForm = false;
   }
 
   popularForm() {
-    this.codigoPais = '+' + Number(this.codigoPais);
     this.contatoForm.patchValue({
       telefoneFixo: String(this._contato.telefoneFixo),
       telefoneRecado: String(this._contato.telefoneRecado),
