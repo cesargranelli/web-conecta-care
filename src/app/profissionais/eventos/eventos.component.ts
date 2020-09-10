@@ -18,14 +18,14 @@ export class EventosComponent implements OnInit {
   eventos: any;
 
   private idProfissional: number;
-  private valid: Valid;
 
+  public valid: Valid;
   public escondeTabela: boolean = true;
   public eventosFuturos: Array<Evento>;
 
   constructor(
     private _activeRoute: ActivatedRoute,
-    private _service: ProfissionalService,
+    private _profissionalService: ProfissionalService,
     private _validService: SharedValidService,
     private _loading: SharedLoadingService
   ) {
@@ -36,7 +36,7 @@ export class EventosComponent implements OnInit {
 
   ngOnInit(): void {
     this.idProfissional = Number(this._activeRoute.snapshot.paramMap.get('id'));
-    this._service.eventos(this.idProfissional).pipe(
+    this._profissionalService.eventos(this.idProfissional).pipe(
       map(response => {
         this._loading.emitChange(true);
         this.eventosFuturos = response.body.data;
@@ -53,7 +53,7 @@ export class EventosComponent implements OnInit {
   }
 
   atualizaTabela() {
-    this._service.eventos(this.idProfissional).pipe(
+    this._profissionalService.eventos(this.idProfissional).pipe(
       map(response => {
         this._loading.emitChange(true);
         this.eventosFuturos = response.body.data;

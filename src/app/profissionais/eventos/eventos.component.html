@@ -35,12 +35,12 @@
                             </button>
                             <button type="button" class="btn btn-link btn-just-icon"
                               [ngClass]="(!evento.status) ? 'btn-success' : ''"
-                              [disabled]="evento.status" title="Aceitar">
+                              [disabled]="evento.status || !valid" title="Aceitar">
                               <i class="material-icons">thumb_up</i>
                             </button>
                             <button type="button" class="btn btn-link btn-just-icon"
                               [ngClass]="(!evento.status) ? 'btn-danger' : ''"
-                              [disabled]="evento.status" title="Rejeitar">
+                              [disabled]="evento.status || !valid" title="Rejeitar">
                               <i class="material-icons">thumb_down</i>
                             </button>
                           </td>

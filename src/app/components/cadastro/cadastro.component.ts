@@ -58,10 +58,10 @@ export class CadastroComponent implements OnInit, OnDestroy {
       cpf: ['', [Validators.required, validCpf()]],
     });
     this.homecareForm = this._formBuilder.group({
-      cnpj: ['', [Validators.required, validCnpj()]],
+      cnpj: ['', [Validators.required, validCnpj(true)]],
     });
     this.convenioForm = this._formBuilder.group({
-      cnpj: ['', [Validators.required, validCnpj()]],
+      cnpj: ['', [Validators.required, validCnpj(true)]],
     });
 
     carregarTarjaAzul();
