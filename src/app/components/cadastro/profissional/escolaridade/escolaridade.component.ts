@@ -109,10 +109,9 @@ export class EscolaridadeComponent implements OnInit {
     }
 
     this._loading.emitChange(true);
-    this.escolaridade.instrucao = this.escolaridadeForm.value.instrucao;
 
     // Incluído para corrigir os tipos Begin
-    this.escolaridade.instrucao = this.instrucoes.filter(instrucao => instrucao.id == Number(this.escolaridade.instrucao))[0];
+    this.escolaridade.instrucao = this.instrucoes.filter(instrucao => instrucao.id == Number(this.escolaridadeForm.value.instrucao))[0];
     // Incluído para corrigir os tipos End
 
     this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino1);

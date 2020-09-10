@@ -80,7 +80,7 @@ export class InformacoesGeraisComponent implements OnInit {
       genero: [null, [Validators.required]],
       tipoEmpresa: [null, [Validators.required]],
       estadoCivil: [null, [Validators.required]],
-      cnpj: [null, [Validators.required, validCnpj()]],
+      cnpj: [null, [validCnpj(false)]],
       ctps: [null, [Validators.required]],
       ctpsSerie: [null, [Validators.required]],
       fotoProfissional: [null, [Validators.required]],
@@ -180,7 +180,15 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.validacoes()) {
+    this._loading.emitChange(true);
+    let profissional: Profissional = this.profissionalForm.value;
+    profissional.id = this.valid.id;
+
+    profissional.fotoProfissional = this.fotoProfissional;
+    profissional.fotoRg = this.fotoRg;
+
+    if (this.validacoes(profissional.rgDataEmissao, profissional.dataNascimento)) {
+      this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -189,13 +197,6 @@ export class InformacoesGeraisComponent implements OnInit {
       });
       return;
     }
-
-    this._loading.emitChange(true);
-    let profissional: Profissional = this.profissionalForm.value;
-    profissional.id = this.valid.id;
-
-    profissional.fotoProfissional = this.fotoProfissional;
-    profissional.fotoRg = this.fotoRg;
 
     this._service.save(profissional).subscribe(
       (response) => {
@@ -231,15 +232,15 @@ export class InformacoesGeraisComponent implements OnInit {
     jQuery('.selectpicker').selectpicker('refresh');
   }
 
-  validacoes() {
-    if (this.profissionalForm.controls.rgDataEmissao.value < this.profissionalForm.controls.dataNascimento.value) {
+  validacoes(dataEmissao: string, dataNascimento: string) {
+    if (new Date(dataEmissao) < new Date(dataNascimento)) {
       return true;
     }
   }
 
   dateChange(control: FormControl, name: string) {
-    jQuery(`#${name}`).on("dp.change", function (event: any) {
-      control.setValue(event?.date?._d?.toLocaleDateString());
+    jQuery(`#${name}`).on('dp.change', function(event: any) {
+      control.setValue(jQuery('#' + name)[0].value);
     });
   }
 

@@ -69,7 +69,7 @@ export class InformacoesGeraisComponent implements OnInit {
       genero: [null, Validators.required],
       tipoEmpresa: [null, Validators.required],
       estadoCivil: [null, Validators.required],
-      cnpj: [null, [Validators.required, validCnpj()]],
+      cnpj: [null, [validCnpj(false)]],
       ctps: [null, Validators.required],
       ctpsSerie: [null, Validators.required],
       fotoProfissional: [null, Validators.required],
@@ -121,7 +121,7 @@ export class InformacoesGeraisComponent implements OnInit {
         genero: this.profissional.genero.id,
         tipoEmpresa: this.profissional.tipoEmpresa.id,
         estadoCivil: this.profissional.estadoCivil.id,
-        cnpj: this.profissional.cnpj,
+        cnpj: this.profissional.cnpj == 0 ? null : this.profissional.cnpj,
         ctps: this.profissional.ctps,
         ctpsSerie: this.profissional.ctpsSerie
       });
@@ -162,6 +162,17 @@ export class InformacoesGeraisComponent implements OnInit {
     profissional.fotoProfissional = this.fotoProfissional;
     profissional.fotoRg = this.fotoRg;
 
+    if (this.validacoes(profissional.rgDataEmissao, profissional.dataNascimento)) {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'A data de emissão do RG deve ser maior do que a data de nascimento',
+        showConfirmButton: true,
+      });
+      return;
+    }
+
     this._service.save(profissional).subscribe(response => {
       this._dadosLocalStorage.id = response.body.profissionalId;
       setTimeout(() => {
@@ -185,6 +196,12 @@ export class InformacoesGeraisComponent implements OnInit {
         showConfirmButton: true
       });
     });
+  }
+
+  validacoes(dataEmissao: string, dataNascimento: string) {
+    if (new Date(dataEmissao) < new Date(dataNascimento)) {
+      return true;
+    }
   }
 
   dateChange(control: FormControl, name: string) {

@@ -79,7 +79,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="nomePai" class="col-lg-2 col-md-3 col-form-label">Nome pai *</label>
+                  <label for="nomePai" class="col-lg-2 col-md-3 col-form-label">Nome pai</label>
                   <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.nomePai)">
                     <input type="text" [value]="complementoForm.get('nomePai').value | titlecase" class="form-control" formControlName="nomePai">
                   </div>
@@ -91,7 +91,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="nomeConjuge" class="col-lg-2 col-md-3 col-form-label">Nome cônjuge *</label>
+                  <label for="nomeConjuge" class="col-lg-2 col-md-3 col-form-label">Nome cônjuge</label>
                   <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.nomeConjuge)">
                     <input type="text" [value]="complementoForm.get('nomeConjuge').value | titlecase" class="form-control" formControlName="nomeConjuge">
                   </div>
@@ -121,8 +121,7 @@
                 <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <!-- <button type="submit" class="btn btn-rose" [disabled]="!complementoForm.valid">Avançar</button> -->
-                <button type="submit" class="btn btn-rose">Avançar</button>
+                <button type="submit" class="btn btn-rose" [disabled]="!complementoForm.valid">Avançar</button>
               </span>
             </div>
           </form>

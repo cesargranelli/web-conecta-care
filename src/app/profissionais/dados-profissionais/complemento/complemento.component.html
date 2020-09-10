@@ -30,13 +30,13 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="numeroHabilitacao" class="col-lg-2 col-md-3 col-form-label">Nº Habilitação *</label>
+                  <label for="numeroHabilitacao" class="col-lg-2 col-md-3 col-form-label">Nº Habilitação</label>
                   <div class="form-group col-lg-3 col-md-8"
                        [ngClass]="validationHas.validation(complementoForm.controls?.numeroHabilitacao)">
                     <input type="text" id="numeroHabilitacao" class="form-control" formControlName="numeroHabilitacao"
                            mask="99999999999">
                   </div>
-                  <label for="dataValidadeHabilitacao" class="col-lg-2 col-md-3 col-form-label">Validade *</label>
+                  <label for="dataValidadeHabilitacao" class="col-lg-2 col-md-3 col-form-label">Validade</label>
                   <div class="form-group col-lg-3 col-md-8"
                        [ngClass]="validationHas.validation(complementoForm.controls?.dataValidadeHabilitacao)">
                     <input type="text" class="form-control datetimepicker" id="dataValidadeHabilitacao"
@@ -46,7 +46,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="categoriaCNH" class="col-lg-2 col-md-3 col-form-label">Categoria *</label>
+                  <label for="categoriaCNH" class="col-lg-2 col-md-3 col-form-label">Categoria</label>
                   <div class="form-group col-lg-3 col-md-8">
                     <select formControlName="categoriaCNH" id="categoriaCNH" class="selectpicker"
                             data-style="btn btn-primary" data-width="100%">
@@ -55,7 +55,7 @@
                               [selected]="categoriaCNH.id===complemento?.categoriaCNH?.id">{{ categoriaCNH.sigla }}</option>
                     </select>
                   </div>
-                  <label for="fotoCNH" class="col-lg-2 col-md-3 col-form-label">Foto CNH *</label>
+                  <label for="fotoCNH" class="col-lg-2 col-md-3 col-form-label">Foto CNH</label>
                   <div class="col-lg-5 col-md-3">
                     <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputCnh">
                       <div class="thumbnail img-circle img-raised" [ngClass]="fileInputCnh">
@@ -94,7 +94,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="nomePai" class="col-lg-2 col-md-3 col-form-label">Nome pai *</label>
+                  <label for="nomePai" class="col-lg-2 col-md-3 col-form-label">Nome pai</label>
                   <div class="form-group col-lg-9 col-md-8"
                        [ngClass]="validationHas.validation(complementoForm.controls?.nomePai)">
                     <input type="text" id="nomePai" class="form-control" formControlName="nomePai">
@@ -107,7 +107,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="nomeConjuge" class="col-lg-2 col-md-3 col-form-label">Nome cônjuge *</label>
+                  <label for="nomeConjuge" class="col-lg-2 col-md-3 col-form-label">Nome cônjuge</label>
                   <div class="form-group col-lg-9 col-md-8"
                        [ngClass]="validationHas.validation(complementoForm.controls?.nomeConjuge)">
                     <input type="text" id="nomeConjuge" class="form-control" formControlName="nomeConjuge">

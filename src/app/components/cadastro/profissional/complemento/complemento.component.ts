@@ -58,13 +58,13 @@ export class ComplementoComponent implements OnInit {
       numeroHabilitacao: [null, [Validators.maxLength(11)]],
       dataValidadeHabilitacao: [null],
       categoriaCNH: [null],
-      fotoCNH: [null, [Validators.required]],
+      fotoCNH: [null],
       numeroReservista: [null],
       nomeMae: [null, [Validators.required, Validators.maxLength(100)]],
       profissaoMae: [null, [Validators.maxLength(60)]],
-      nomePai: [null, [Validators.required, Validators.maxLength(100)]],
+      nomePai: [null, [Validators.maxLength(100)]],
       profissaoPai: [null, [Validators.maxLength(60)]],
-      nomeConjuge: [null, [Validators.required, Validators.maxLength(100)]],
+      nomeConjuge: [null, [Validators.maxLength(100)]],
       profissaoConjuge: [null, [Validators.maxLength(60)]],
       carteiraVacinacao: [null, [Validators.required]]
     });
@@ -109,9 +109,9 @@ export class ComplementoComponent implements OnInit {
       numeroReservista: this._cadastro.complemento?.numeroReservista,
       nomeMae: this._cadastro.complemento?.nomeMae ? this._cadastro.complemento?.nomeMae : null,
       profissaoMae: this._cadastro.complemento?.profissaoMae ? this._cadastro.complemento?.profissaoMae : '',
-      nomePai: this._cadastro.complemento?.nomePai ? this._cadastro.complemento?.nomePai : null,
+      nomePai: this._cadastro.complemento?.nomePai ? this._cadastro.complemento?.nomePai : '',
       profissaoPai: this._cadastro.complemento?.profissaoPai ? this._cadastro.complemento?.profissaoPai : '',
-      nomeConjuge: this._cadastro.complemento?.nomeConjuge ? this._cadastro.complemento?.nomeConjuge : null,
+      nomeConjuge: this._cadastro.complemento?.nomeConjuge ? this._cadastro.complemento?.nomeConjuge : '',
       profissaoConjuge: this._cadastro.complemento?.profissaoConjuge ? this._cadastro.complemento?.profissaoConjuge : '',
       carteiraVacinacao: this._cadastro.complemento?.carteiraVacinacao
     });

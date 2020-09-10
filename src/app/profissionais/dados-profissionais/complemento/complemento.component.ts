@@ -50,16 +50,16 @@ export class ComplementoComponent implements OnInit {
       tituloEleitoral: [null, Validators.maxLength(11)],
       zonaEleitoral: [null, Validators.maxLength(3)],
       secaoEleitoral: [null, Validators.maxLength(4)],
-      numeroHabilitacao: [null, [Validators.required, Validators.maxLength(11)]],
-      dataValidadeHabilitacao: [null, [Validators.minLength(10), Validators.maxLength(10), Validators.required]],
-      categoriaCNH: [null, Validators.required],
+      numeroHabilitacao: [null, [Validators.maxLength(11)]],
+      dataValidadeHabilitacao: [null],
+      categoriaCNH: [null],
       fotoCNH: [null, Validators.required],
       numeroReservista: [null],
       nomeMae: [null, [Validators.required, Validators.maxLength(100)]],
       profissaoMae: [null, Validators.maxLength(60)],
-      nomePai: [null, [Validators.required, Validators.maxLength(100)]],
+      nomePai: [null, [Validators.maxLength(100)]],
       profissaoPai: [null, Validators.maxLength(60)],
-      nomeConjuge: [null, [Validators.required, Validators.maxLength(100)]],
+      nomeConjuge: [null, [Validators.maxLength(100)]],
       profissaoConjuge: [null, Validators.maxLength(60)],
       filhos: [null],
       carteiraVacinacao: [null, Validators.required],
@@ -103,9 +103,9 @@ export class ComplementoComponent implements OnInit {
         tituloEleitoral: this.complemento.tituloEleitoral,
         zonaEleitoral: this.complemento.zonaEleitoral,
         numeroHabilitacao: this.complemento.numeroHabilitacao,
-        categoriaCNH: this.complemento.categoriaCNH.id,
+        categoriaCNH: this.complemento.categoriaCNH,
         secaoEleitoral: this.complemento.secaoEleitoral,
-        dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao.date),
+        dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao?.date),
         numeroReservista: this.complemento.numeroReservista,
         nomeMae: this.complemento.nomeMae,
         profissaoMae: this.complemento.profissaoMae,
@@ -117,7 +117,7 @@ export class ComplementoComponent implements OnInit {
         carteiraVacinacao: this.complemento.carteiraVacinacao,
       });
       if (this.complemento.fotoCNH) {
-        this.fotoCNH = this.complemento.fotoCNH;
+        this.fotoCNH = this.complemento?.fotoCNH;
         this.complementoForm.controls.fotoCNH.setValue(this.complemento.fotoCNH, {emitModelToViewChange: false});
       }
     }
@@ -158,10 +158,12 @@ export class ComplementoComponent implements OnInit {
   }
 
   converterDataExibicao(data: string): string {
-    let dia: string = data.slice(8, 10);
-    let mes: string = data.slice(5, 7);
-    let ano: string = data.slice(0, 4);
-    return dia + '/' + mes + '/' + ano;
+    if (data) {
+      let dia: string = data.slice(8, 10);
+      let mes: string = data.slice(5, 7);
+      let ano: string = data.slice(0, 4);
+      return dia + '/' + mes + '/' + ano;
+    }
   }
 
   dateChange(control: FormControl, name: string) {

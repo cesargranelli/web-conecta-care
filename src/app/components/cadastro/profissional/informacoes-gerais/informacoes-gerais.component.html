@@ -75,7 +75,7 @@
                       <option [value]="estadoCivil.id" *ngFor="let estadoCivil of estadoCivis">{{ estadoCivil.tipo }}</option>
                     </select>
                   </div>
-                  <label for="cnpj" class="col-lg-3 col-md-3 col-form-label">Nº CNPJ *</label>
+                  <label for="cnpj" class="col-lg-3 col-md-3 col-form-label">Nº CNPJ</label>
                   <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(profissionalForm.controls?.cnpj)">
                     <input type="text" class="form-control" formControlName="cnpj" mask="00.000.000/0000-00">
                   </div>
