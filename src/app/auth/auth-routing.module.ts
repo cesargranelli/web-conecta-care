@@ -8,15 +8,15 @@ import { NovaSenhaComponent } from './containers/login/nova-senha/nova-senha.com
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard]  },
+  { path: 'login', component: LoginComponent, canActivate: []  },
   { path: 'login/manutencao-senha', component: ManutencaoSenhaComponent },
   { path: 'login/esqueci-minha-senha', component: EsqueciMinhaSenhaComponent },
   { path: 'login/nova-senha/:id', component: NovaSenhaComponent },
-  { path: 'admin/login', component: LoginAdminComponent, canActivate: [AuthGuard] }
+  { path: 'admin/login', component: LoginAdminComponent, canActivate: [] }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AuthRoutingModule { }
