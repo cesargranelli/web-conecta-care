@@ -25,7 +25,7 @@
                   <label for="registroProfissional"
                          class="col-lg-3 col-md-3 col-form-label">
                     Nº {{this.carreiraForm.controls?.conselho.value ?
-                    this.carreiraForm.controls.conselho.value.sigla : 'Registro'}}
+                    this.carreiraForm.controls.conselho.value.descricao : 'Registro'}}
                   </label>
                   <div class="form-group col-lg-3 col-md-8"
                        [ngClass]="validationHas.validation(carreiraForm.controls?.registroProfissional)">
