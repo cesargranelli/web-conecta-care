@@ -37,7 +37,17 @@ export class ProfissionalService implements DocumentoService {
     return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
   }
 
-  eventos(id: number): Observable<any> {
+  listarEventos(id: number): Observable<any> {
     return this._http.get<any>(`${this.endpoint}/${id}/eventos`, {observe: 'response'});
+  }
+
+  confirmarEvento(idProfissional: number, idEvento: number): Observable<any> {
+    return this._http.put<any>(`${this.endpoint}/${idProfissional}/eventos/${idEvento}`,
+      {observe: 'response'});
+  }
+
+  rejeitarEvento(idProfissional: number, idEvento: number): Observable<any> {
+    return this._http.delete<any>(`${this.endpoint}/${idProfissional}/eventos/${idEvento}`,
+      {observe: 'response'});
   }
 }

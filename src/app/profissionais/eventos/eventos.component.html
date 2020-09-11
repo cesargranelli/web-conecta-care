@@ -34,13 +34,15 @@
                               <i class="material-icons">visibility</i>
                             </button>
                             <button type="button" class="btn btn-link btn-just-icon"
-                              [ngClass]="(!evento.status) ? 'btn-success' : ''"
-                              [disabled]="evento.status || !valid" title="Aceitar">
+                              (click)="confirmarEvento(evento.id)"
+                              [ngClass]="evento.status == 'CONFIRMADO' ? 'btn-success' : 'btn-default'"
+                              [disabled]="evento.status == 'CONFIRMADO' || !valid" title="Aceitar">
                               <i class="material-icons">thumb_up</i>
                             </button>
                             <button type="button" class="btn btn-link btn-just-icon"
-                              [ngClass]="(!evento.status) ? 'btn-danger' : ''"
-                              [disabled]="evento.status || !valid" title="Rejeitar">
+                              (click)="rejeitarEvento(evento.id)"
+                              [ngClass]="evento.status == 'REJEITADO' ? 'btn-danger' : 'btn-default'"
+                              [disabled]="evento.status == 'REJEITADO' || !valid" title="Rejeitar">
                               <i class="material-icons">thumb_down</i>
                             </button>
                           </td>

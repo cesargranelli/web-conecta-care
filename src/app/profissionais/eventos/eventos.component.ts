@@ -6,6 +6,7 @@ import { Valid } from 'src/app/services/feat/Valid';
 import { ProfissionalService } from 'src/app/services/profissional.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
@@ -22,6 +23,8 @@ export class EventosComponent implements OnInit {
   public valid: Valid;
   public escondeTabela: boolean = true;
   public eventosFuturos: Array<Evento>;
+  public statusConfirmado: boolean = false;
+  public statusRejeitado: boolean = false;
 
   constructor(
     private _activeRoute: ActivatedRoute,
@@ -36,7 +39,7 @@ export class EventosComponent implements OnInit {
 
   ngOnInit(): void {
     this.idProfissional = Number(this._activeRoute.snapshot.paramMap.get('id'));
-    this._profissionalService.eventos(this.idProfissional).pipe(
+    this._profissionalService.listarEventos(this.idProfissional).pipe(
       map(response => {
         this._loading.emitChange(true);
         this.eventosFuturos = response.body.data;
@@ -45,7 +48,6 @@ export class EventosComponent implements OnInit {
       null, null, () => {
       setTimeout(() => {
         this.inicializarDataTable();
-        this.status(this.eventosFuturos);
         this._loading.emitChange(false);
         this.escondeTabela = false;
       });
@@ -53,7 +55,7 @@ export class EventosComponent implements OnInit {
   }
 
   atualizaTabela() {
-    this._profissionalService.eventos(this.idProfissional).pipe(
+    this._profissionalService.listarEventos(this.idProfissional).pipe(
       map(response => {
         this._loading.emitChange(true);
         this.eventosFuturos = response.body.data;
@@ -61,15 +63,10 @@ export class EventosComponent implements OnInit {
     ).subscribe(
       null, null, () => {
       setTimeout(() => {
-        this.status(this.eventosFuturos);
         this._loading.emitChange(false);
         this.escondeTabela = false;
       });
     });
-  }
-
-  status(eventos: Array<Evento>) {
-    eventos.map(evento => evento.status = (evento.status == 'ABERTO') ? false : true);
   }
 
   inicializarDataTable() {
@@ -87,6 +84,60 @@ export class EventosComponent implements OnInit {
           lengthMenu: 'Mostrar _MENU_',
           info: 'Mostrando _START_ à _END_ de _TOTAL_ registros'
         }
+      });
+    });
+  }
+
+  confirmarEvento(idEvento: number) {
+    this._loading.emitChange(true);
+    this._profissionalService.confirmarEvento(this.valid.id, idEvento).subscribe(() => {
+      setTimeout(() => {
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Confirmação da participação no evento!',
+          showConfirmButton: true
+        }).then(() => {
+          this.escondeTabela = true;
+          this.atualizaTabela();
+        });
+      });
+    },
+    () => {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Não foi possível publicar o novo evento!',
+        showConfirmButton: true
+      });
+    });
+  }
+
+  rejeitarEvento(idEvento: number) {
+    this._loading.emitChange(true);
+    this._profissionalService.rejeitarEvento(this.valid.id, idEvento).subscribe(() => {
+      setTimeout(() => {
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Confirmação de não participação no evento!',
+          showConfirmButton: true
+        }).then(() => {
+          this.escondeTabela = true;
+          this.atualizaTabela();
+        });
+      });
+    },
+    () => {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ops! Ocorreu um erro ao tentar cancelar o evento!',
+        showConfirmButton: true
       });
     });
   }
