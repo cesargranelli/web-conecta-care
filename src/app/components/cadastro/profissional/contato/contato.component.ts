@@ -47,10 +47,10 @@ export class ContatoComponent implements OnInit {
     this._valid = this._validService.getValid();
 
     this.contatoForm = this._formBuilder.group({
-      telefoneFixo: [null, Validators.maxLength(10)],
-      telefoneRecado: [null, Validators.maxLength(10)],
-      celularPrincipal: [null, [Validators.required, Validators.maxLength(11)]],
-      celularSecundario: [null, Validators.maxLength(11)],
+      telefoneFixo: [null],
+      telefoneRecado: [null],
+      celularPrincipal: [null, [Validators.required]],
+      celularSecundario: [null],
     });
   }
 
@@ -76,17 +76,15 @@ export class ContatoComponent implements OnInit {
       setTimeout(() => {
         this._loading.emitChange(false);
       });
-    });
-
-    this.showForm = false;
+    }, null, () => this.showForm = false);
   }
 
   popularForm() {
     this.contatoForm.patchValue({
-      telefoneFixo: String(this._contato.telefoneFixo),
-      telefoneRecado: String(this._contato.telefoneRecado),
-      celularPrincipal: String(this._contato.celularPrincipal),
-      celularSecundario: String(this._contato.celularSecundario)
+      telefoneFixo: String(this._contato?.telefoneFixo),
+      telefoneRecado: String(this._contato?.telefoneRecado),
+      celularPrincipal: String(this._contato?.celularPrincipal),
+      celularSecundario: String(this._contato?.celularSecundario)
     });
   }
 
