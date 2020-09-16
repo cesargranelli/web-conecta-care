@@ -21,6 +21,7 @@ export class AuthService {
 
   private readonly endpoint: string = `${environment.apiUrl}`;
   private converterRole: RoleConverter = new RoleConverter();
+  private readonly sistemaIndisponivel: string = 'Ops! Sistema indisponível no momento. Tente novamente em alguns instantes.';
 
   constructor(
     private _http: HttpClient,
@@ -59,7 +60,7 @@ export class AuthService {
   }
 
   handlerError(httpErrorResponse: HttpErrorResponse): string {
-    return httpErrorResponse.error.data.message;
+    return httpErrorResponse.error.data?.message ? httpErrorResponse.error.data?.message : this.sistemaIndisponivel;
   }
 
 }
