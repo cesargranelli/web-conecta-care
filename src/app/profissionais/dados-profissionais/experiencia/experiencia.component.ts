@@ -238,9 +238,4 @@ export class ExperienciaComponent implements OnInit {
     }
   }
 
-  limpar(): void {
-    this.experienciaForm.reset();
-    this.somenteLeitura = true;
-  }
-
 }

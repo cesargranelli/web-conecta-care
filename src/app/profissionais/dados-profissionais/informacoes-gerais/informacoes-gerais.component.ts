@@ -210,10 +210,4 @@ export class InformacoesGeraisComponent implements OnInit {
     });
   }
 
-  limpar() {
-    this.profissionalForm.reset();
-    jQuery('.fileinput').fileinput('clear');
-    jQuery('.selectpicker').selectpicker('refresh');
-  }
-
 }

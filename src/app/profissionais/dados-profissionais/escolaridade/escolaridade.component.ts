@@ -129,9 +129,4 @@ export class EscolaridadeComponent implements OnInit {
     });
   }
 
-  limpar(): void {
-    this.escolaridadeForm.reset();
-    jQuery('select').selectpicker('refresh');
-  }
-
 }

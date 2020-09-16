@@ -184,13 +184,6 @@ export class ComplementoComponent implements OnInit {
     };
   }
 
-  limpar() {
-    this.complementoForm.reset();
-    jQuery('.fileinput').fileinput('clear');
-    jQuery('.selectpicker').selectpicker('refresh');
-    this.fotoCNH = '../../../../../assets/img/Headshot-Doc-1.png';
-  }
-
   handlerReaderLoadedProfissional(e: any) {
     this.fotoCNH = btoa(e.target.result);
   }

@@ -148,13 +148,6 @@ export class EnderecoComponent implements OnInit {
     };
   }
 
-  limpar() {
-    this.enderecoForm.reset();
-    jQuery('.fileinput').fileinput('clear');
-    jQuery('.selectpicker').selectpicker('refresh');
-    this.imagemComprovante = '../../../../../assets/img/Headshot-Doc-1.png';
-  }
-
   pesquisarCep() {
     this._service.findViaCep(this.enderecoForm.controls.cep.value).subscribe(
       response => {

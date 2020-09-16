@@ -125,9 +125,4 @@ export class ContaComponent implements OnInit {
       }
     });
   }
-
-  limpar(): void {
-    this.contaForm.reset();
-    jQuery('select').selectpicker('refresh');
-  }
 }
