@@ -94,8 +94,7 @@ export class ComplementoComponent implements OnInit {
     });
 
     jQuery('.datetimepicker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+      format: 'DD/MM/YYYY'
     });
   }
 
