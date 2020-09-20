@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment';
 import { Profissional } from '../classes/profissional.class';
 import { Documento } from './feat/documento';
 import { Registro } from './feat/registro';
-import { DocumentoService } from './interfaces/documento-interface.service';
 import { ProfissionalResponseInterface } from './response/profissionalResponse.interface';
 
 @Injectable({
@@ -14,7 +13,7 @@ import { ProfissionalResponseInterface } from './response/profissionalResponse.i
 })
 
 @Injectable()
-export class ProfissionalService implements DocumentoService {
+export class ProfissionalService {
 
   private endpoint: string = `${environment.apiUrl}/profissionais`;
 

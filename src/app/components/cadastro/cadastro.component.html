@@ -11,22 +11,22 @@
             </div>
             <div class="wizard-navigation">
               <ul class="nav nav-pills nav-fill">
-                <li class="nav-item" style="width: 25%;">
+                <li class="nav-item" style="width: 25%;" id="pacientes" #paciente (click)="setRole(paciente.id)">
                   <a class="nav-link active" href="#paciente" data-toggle="tab" role="tab">
                     Paciente
                   </a>
                 </li>
-                <li class="nav-item" style="width: 25%;">
+                <li class="nav-item" style="width: 25%;" id="profissionais" #profissional (click)="setRole(profissional.id)">
                   <a class="nav-link" href="#profissional" data-toggle="tab" role="tab">
                     Profissional
                   </a>
                 </li>
-                <li class="nav-item" style="width: 25%;">
+                <li class="nav-item" style="width: 25%;" id="homecares" #homecare (click)="setRole(homecare.id)">
                   <a class="nav-link" href="#homecare" data-toggle="tab" role="tab">
                     Homecare
                   </a>
                 </li>
-                <li class="nav-item" style="width: 25%;">
+                <li class="nav-item" style="width: 25%;" id="convenios" #convenio (click)="setRole(convenio.id)">
                   <a class="nav-link" href="#convenio" data-toggle="tab" role="tab">
                     Plano de Saúde
                   </a>
@@ -45,7 +45,7 @@
                       </h5>
                     </div>
                   </div>
-                  <form [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
+                  <form [formGroup]="pacienteForm" (ngSubmit)="onSubmit(pacienteForm, cpfPaciente)">
                     <div class="form-row justify-content-center" [ngClass]="input.validation(pacienteForm)=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
@@ -70,13 +70,13 @@
                     </div>
                     <div>
                       <div class="text-center text-danger">
-                        <span *ngIf="pacienteJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
+                        <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>
                     </div>
                   </form>
                 </div>
                 <div class="tab-pane" id="profissional">
-                  <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit_(profissionalForm)">
+                  <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit_(profissionalForm, cpfProfissional)">
                     <div class="form-row justify-content-center" [ngClass]="input.validation(profissionalForm)=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
@@ -85,7 +85,7 @@
                               <i class="material-icons">face</i>
                             </span>
                           </div>
-                          <input type="text" class="form-control" id="cpfProfissional" name="cpfProfissional"
+                          <input type="text" class="form-control" #cpfProfissional id="cpfProfissional" name="cpfProfissional"
                             autocomplete="off" placeholder="CPF (Obrigatório)" formControlName="cpf"
                             mask="000.000.000-00">
                         </div>
@@ -102,13 +102,13 @@
                     </div>
                     <div >
                       <div class="text-center text-danger">
-                        <span *ngIf="profissionalJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
+                        <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>
                     </div>
                   </form>
                 </div>
                 <div class="tab-pane" id="homecare">
-                  <form [formGroup]="homecareForm" (ngSubmit)="onSubmit_(profissionalForm)">
+                  <form [formGroup]="homecareForm" (ngSubmit)="onSubmit(homecareForm, cnpjHomecare)">
                     <div class="form-row justify-content-center" [ngClass]="input.validation(homecareForm)=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
@@ -117,7 +117,7 @@
                               <i class="material-icons">face</i>
                             </span>
                           </div>
-                          <input type="text" class="form-control" id="cnpjHomecare" name="cnpjHomecare"
+                          <input type="text" class="form-control" #cnpjHomecare id="cnpjHomecare" name="cnpjHomecare"
                             autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
                             mask="00.000.000/0000-00">
                         </div>
@@ -134,13 +134,13 @@
                     </div>
                     <div >
                       <div class="text-center text-danger">
-                        <span *ngIf="homecareJaCadastrada">*** CPF ou CNPJ já cadastrado ***</span>
+                        <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>
                     </div>
                   </form>
                 </div>
                 <div class="tab-pane" id="convenio">
-                  <form [formGroup]="convenioForm" (ngSubmit)="onSubmit()">
+                  <form [formGroup]="convenioForm" (ngSubmit)="onSubmit(convenioForm, cnpjConvenio)">
                     <div class="form-row justify-content-center" [ngClass]="input.validation(convenioForm)=='done' ? 'has-success' : 'has-danger'">
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <div class="input-group">
@@ -149,7 +149,7 @@
                               <i class="material-icons">face</i>
                             </span>
                           </div>
-                          <input type="text" class="form-control" id="cnpjConvenio" name="cnpjConvenio"
+                          <input type="text" class="form-control" #cnpjConvenio id="cnpjConvenio" name="cnpjConvenio"
                             autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
                             mask="00.000.000/0000-00">
                         </div>
@@ -166,7 +166,7 @@
                     </div>
                     <div >
                       <div class="text-center text-danger">
-                        <span *ngIf="convenioJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
+                        <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                       </div>
                     </div>
                   </form>

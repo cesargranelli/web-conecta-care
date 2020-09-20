@@ -34,7 +34,6 @@ import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confi
 import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
 import { ProfissionaisModule } from './profissionais/profissionais.module';
-import { ProfissionalService } from './services/profissional.service';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
 
@@ -83,7 +82,6 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
   providers: [
     ValidadorCpf,
     ValidadorCnpj,
-    { provide: 'DoumentoService', useClass: ProfissionalService },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
