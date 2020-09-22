@@ -6,7 +6,7 @@
         <h4 class="card-title">Informações de Login</h4>
       </div>
     </div>
-    <div class="col-lg-12 col-md-12 col-sm-8 ml-auto mr-auto">
+    <div class="col-lg-12 col-md-12 col-sm-8 ml-auto mr-auto" [hidden]="esconderFormulario">
       <p class="card-description text-center"></p>
       <div class="form-row justify-content-center form-control-lg" [ngClass]="inputHas.validation(loginForm.controls.email)">
         <div class="col-lg-10 col-md-10 col-sm-8">
@@ -73,7 +73,7 @@
     </div>
     <div class="card-footer justify-content-center">
       <span class="bmd-form-group is-filled">
-        <app-basic-recaptcha (captcha)="setCaptcha($event)"></app-basic-recaptcha>
+        <app-recaptcha (captcha)="setCaptcha($event)"></app-recaptcha>
       </span>
     </div>
     <div class="card-footer justify-content-between">
@@ -81,7 +81,7 @@
         <button type="button" class="btn btn-gray" [routerLink]="['/']">Cancelar</button>
       </span>
       <span class="bmd-form-group is-filled">
-        <button type="submit" class="btn btn-rose" [disabled]="!loginForm.valid || !captcha">Enviar</button>
+        <button type="submit" class="btn btn-rose">Enviar</button>
       </span>
     </div>
   </div>
