@@ -1,17 +1,17 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap, map } from 'rxjs/operators';
-import { Banco } from 'src/app/classes/banco.class';
-import { Conta } from 'src/app/classes/conta.class';
-import { TipoConta } from 'src/app/classes/tipo-conta.class';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { ContaService } from 'src/app/services/conta.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {concatMap, map} from 'rxjs/operators';
+import {Banco} from 'src/app/classes/banco.class';
+import {Conta} from 'src/app/classes/conta.class';
+import {TipoConta} from 'src/app/classes/tipo-conta.class';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {ContaService} from 'src/app/services/conta.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -40,8 +40,7 @@ export class ContaComponent implements OnInit {
     private _validService: SharedValidService,
     private _service: ContaService,
     private _sharedLoadingService: SharedLoadingService,
-    private _cadastro: CadastroProfissionaisService,
-    private _changeDetector: ChangeDetectorRef,
+    private _cadastro: CadastroProfissionaisService
   ) {
     this._sharedLoadingService.emitChange(true);
     this.contaForm = this._formBuilder.group({

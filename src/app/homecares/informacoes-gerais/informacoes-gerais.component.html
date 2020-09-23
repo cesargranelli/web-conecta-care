@@ -9,24 +9,23 @@
               Informações Gerais
             </h3>
           </div>
-          <form class="form-horizontal">
+          <form [formGroup]="infoGeraisFormGroup" class="form-horizontal">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
-                  <label for="empresaHomeCare" class="col-lg-3 col-md-3 col-form-label">Empresa Home Care *</label>
-                  <div class="form-group col-lg-6 col-md-6">
-                    <input type="text" id="empresaHomeCare" class="form-control" formControlName="empresaHomeCare"
+                  <label for="nomeEmpresaHomeCare" class="col-lg-3 col-md-3 col-form-label">Empresa Home Care *</label>
+                  <div class="form-group col-lg-6 col-md-6"
+                       [ngClass]="validationHas.validation(infoGeraisFormGroup.controls?.nomeEmpresaHomeCare)">
+                    <input type="text" id="nomeEmpresaHomeCare" class="form-control"
+                           formControlName="nomeEmpresaHomeCare"
                            placeholder="Nome da empresa">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="documento" class="col-lg-3 col-md-3 col-form-label">CNPJ/MEI *</label>
+                  <label for="tipoDocumento" class="col-lg-3 col-md-3 col-form-label">CNPJ/MEI *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select formControlName="documento" id="documento" class="selectpicker" data-style="btn btn-primary"
-                            data-width="100%" title="Selecione">
-                      <option>CNPJ</option>
-                      <option>MEI</option>
-                    </select>
+                    <app-select-picker id="tipoDocumento" [selectId]="'tipoDocumento'"
+                                       (selectValue)="getSelectValue($event)"></app-select-picker>
                   </div>
                 </div>
                 <div class="row">
@@ -37,9 +36,9 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label for="site" class="col-lg-3 col-md-3 col-form-label">Site</label>
+                  <label for="enderecoSite" class="col-lg-3 col-md-3 col-form-label">Site</label>
                   <div class="form-group col-lg-6 col-md-6">
-                    <input type="text" id="site" class="form-control" formControlName="site"
+                    <input type="text" id="enderecoSite" class="form-control" formControlName="enderecoSite"
                            placeholder="www.sitedaempresa.com">
                   </div>
                 </div>
@@ -65,8 +64,8 @@
                   <button type="button" class="btn btn-gray">Limpar</button>
                 </span>
               <span class="bmd-form-group is-filled">
-                  <button type="submit" class="btn btn-rose">Avançar</button>
-                </span>
+                  <button type="submit" class="btn btn-rose" (click)="onSubmit()">Avançar</button>
+              </span>
             </div>
           </form>
         </div>
