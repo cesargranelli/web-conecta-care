@@ -9,30 +9,49 @@
               Informações Gerais
             </h3>
           </div>
-          <form [formGroup]="infoGeraisFormGroup" class="form-horizontal">
+          <form [formGroup]="infoGeraisFormGroup" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="hideForm">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
                   <label for="nomeEmpresaHomeCare" class="col-lg-3 col-md-3 col-form-label">Empresa Home Care *</label>
-                  <div class="form-group col-lg-6 col-md-6"
-                       [ngClass]="validationHas.validation(infoGeraisFormGroup.controls?.nomeEmpresaHomeCare)">
+                  <div class="form-group col-lg-6 col-md-6">
                     <input type="text" id="nomeEmpresaHomeCare" class="form-control"
                            formControlName="nomeEmpresaHomeCare"
                            placeholder="Nome da empresa">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="tipoDocumento" class="col-lg-3 col-md-3 col-form-label">CNPJ/MEI *</label>
-                  <div class="form-group col-lg-3 col-md-8">
-                    <app-select-picker id="tipoDocumento" [selectId]="'tipoDocumento'"
-                                       (selectValue)="getSelectValue($event)"></app-select-picker>
+                  <label for="tipoDocumento" class="col-lg-3 col-md-3 col-form-label">Tipo Documento *</label>
+                  <div class="form-group col-lg-3 col-md-8 checkbox-radios" id="tipoDocumento">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" formControlName="tipoDocumento" type="radio"
+                               name="tipoDocumento" value="CNPJ" checked>
+                        CNPJ
+                        <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" formControlName="tipoDocumento" type="radio"
+                               name="tipoDocumento" value="MEI">
+                        MEI
+                        <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                      </label>
+                    </div>
                   </div>
                 </div>
                 <div class="row">
-                  <label for="numeroDocumento" class="col-lg-3 col-md-3 col-form-label">Nº CNPJ/MEI *</label>
+                  <label for="numeroDocumento"
+                         class="col-lg-3 col-md-3 col-form-label">Nº {{infoGeraisFormGroup.value.tipoDocumento}}
+                    *</label>
                   <div class="form-group col-lg-6 col-md-6">
                     <input type="text" id="numeroDocumento" class="form-control" formControlName="numeroDocumento"
-                           placeholder="Nº CNPJ/MEI" mask="000.000.000-00">
+                           placeholder="Nº {{infoGeraisFormGroup.value.tipoDocumento}}" mask="000.000.000-00">
                   </div>
                 </div>
                 <div class="row">
@@ -47,12 +66,9 @@
                   <div class="form-group col-lg-3 col-md-8">
                     <select class="selectpicker" id="areasAtendimento" multiple="multiple" data-style="btn btn-primary"
                             data-width="100%" title="Selecione" formControlName="areasAtendimento">
-                      <option>SAPATO</option>
-                      <option>SAPATO</option>
-                      <option>SAPATO</option>
-                      <option>SAPATO</option>
-                      <option>SAPATO</option>
-                      <option>SAPATO</option>
+                      <option
+                        *ngFor="let areaAtendimento of areasAtendimento"
+                      >{{ areaAtendimento.nome | uppercase }}</option>
                     </select>
                   </div>
                 </div>
@@ -61,10 +77,10 @@
             <div class="card-footer justify-content-between">
                 <span class="bmd-form-group is-filled">
                   <button type="button" class="btn btn-gray">Retornar</button>
-                  <button type="button" class="btn btn-gray">Limpar</button>
+                  <button type="button" class="btn btn-gray" (click)="limparForm()">Limpar</button>
                 </span>
               <span class="bmd-form-group is-filled">
-                  <button type="submit" class="btn btn-rose" (click)="onSubmit()">Avançar</button>
+                  <button type="submit" class="btn btn-rose" [disabled]="!infoGeraisFormGroup.valid">Avançar</button>
               </span>
             </div>
           </form>

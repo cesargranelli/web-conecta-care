@@ -12,6 +12,9 @@ export class SelectPickerComponent implements OnInit {
   @Input()
   public selectId: string;
 
+  @Input()
+  public contentList: Array<any>;
+
   @Output()
   public selectValue: EventEmitter<any> = new EventEmitter<any>();
 
