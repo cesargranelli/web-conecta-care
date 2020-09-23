@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SharedLoadingService} from '../../shared/services/shared-loading.service';
-import {InputValidationHas} from '../../shared/validations/input-validation-has';
-import {DominioService} from '../../services/dominio.service';
-import {AreaAtendimento} from '../../classes/area-atendimento.class';
+import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
+import {InputValidationHas} from '../../../shared/validations/input-validation-has';
+import {DominioService} from '../../../services/dominio.service';
+import {AreaAtendimento} from '../../../classes/area-atendimento.class';
 
 declare var jQuery: any;
 
