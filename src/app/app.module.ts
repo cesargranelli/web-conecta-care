@@ -23,6 +23,7 @@ import { ExperienciaComponent } from './components/cadastro/profissional/experie
 import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
 import { ConnectaComponent } from './components/connecta/connecta.component';
 import { MenuAdminComponent } from './components/menu/menu-admin/menu-admin.component';
+import { MenuHomecaresComponent } from './components/menu/menu-homecares/menu-homecares.component';
 import { MenuLogadoComponent } from './components/menu/menu-logado/menu-logado.component';
 import { MenuProfissionaisComponent } from './components/menu/menu-profissionais/menu-profissionais.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -34,7 +35,6 @@ import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confi
 import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
 import { ProfissionaisModule } from './profissionais/profissionais.module';
-import { ProfissionalService } from './services/profissional.service';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
 
@@ -44,6 +44,7 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     MenuComponent,
     MenuLogadoComponent,
     MenuProfissionaisComponent,
+    MenuHomecaresComponent,
     MenuAdminComponent,
     ConnectaComponent,
     CadastroComponent,
@@ -83,7 +84,6 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
   providers: [
     ValidadorCpf,
     ValidadorCnpj,
-    { provide: 'DoumentoService', useClass: ProfissionalService },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
