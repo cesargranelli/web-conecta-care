@@ -4,12 +4,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { NgxMaskModule } from 'ngx-mask';
+import { FormEnderecoComponent } from './forms/endereco/form-endereco.component';
 import { FormInformacoesLoginComponent } from './forms/informacoes-login/form-informacoes-login.component';
 import { BasicRecaptchaComponent } from './recaptcha/basic-recaptcha.component';
 
 @NgModule({
   declarations: [
     FormInformacoesLoginComponent,
+    FormEnderecoComponent,
     BasicRecaptchaComponent
   ],
   imports: [
@@ -23,7 +25,8 @@ import { BasicRecaptchaComponent } from './recaptcha/basic-recaptcha.component';
     CUSTOM_ELEMENTS_SCHEMA
   ],
   exports: [
-    FormInformacoesLoginComponent
+    FormInformacoesLoginComponent,
+    FormEnderecoComponent
   ]
 })
 export class SharedComponentModule { }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
 import { InputValidation } from 'src/app/shared/validations/input-validation';
@@ -13,19 +13,22 @@ declare var jQuery: any;
 })
 export class FormInformacoesLoginComponent implements OnInit {
 
-  esconderFormulario: boolean = true;
+  @Input()
+  public linkBotaoCancelar: string = '/';
 
-  tituloCartao: string = 'Informações de Login';
-  loginForm: FormGroup;
-  captcha: boolean = false;
-  email: string;
-  confirmarEmail: string;
-  password: string;
-  confirmarPassword: string;
-  input: InputValidation = new InputValidation();
-  inputHas: InputValidationHas = new InputValidationHas();
+  @Output()
+  public onSubmitEvent = new EventEmitter<FormGroup>();
 
-  @Output() onSubmitEvent = new EventEmitter<FormGroup>()
+  public tituloCartao: string = 'Informações de Login';
+  public esconderFormulario: boolean = true;
+  public loginForm: FormGroup;
+  public captcha: boolean = false;
+  public email: string;
+  public confirmarEmail: string;
+  public password: string;
+  public confirmarPassword: string;
+  public input: InputValidation = new InputValidation();
+  public inputHas: InputValidationHas = new InputValidationHas();
 
   public mensagemToolTip = `<div style="font-size:70%;">Mínimo de 8 caracteres<br>
   Máximo de 20 caracteres<br>

@@ -86,9 +86,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this._documentoService.registrar({numero: numero, tipo: tipo, perfil: role}).subscribe(response => {
       this._loading.emitChange(false);
       if (response.body.data?.id != undefined) {
-        this._router.navigateByUrl(`${this.role.getPerfil()}/${response.body.data?.id}/informacoes-login`, {
-          state: {register: response.body.data}
-        });
+        this._router.navigateByUrl(`${this.role.getPerfil()}/${response.body.data?.id}/cadastro/login`);
       } else {
         this.cpfCnpjJaCadastrado = true;
       }

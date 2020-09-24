@@ -23,6 +23,7 @@ import { ExperienciaComponent } from './components/cadastro/profissional/experie
 import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
 import { ConnectaComponent } from './components/connecta/connecta.component';
 import { MenuAdminComponent } from './components/menu/menu-admin/menu-admin.component';
+import { MenuHomecaresComponent } from './components/menu/menu-homecares/menu-homecares.component';
 import { MenuLogadoComponent } from './components/menu/menu-logado/menu-logado.component';
 import { MenuProfissionaisComponent } from './components/menu/menu-profissionais/menu-profissionais.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -43,6 +44,7 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     MenuComponent,
     MenuLogadoComponent,
     MenuProfissionaisComponent,
+    MenuHomecaresComponent,
     MenuAdminComponent,
     ConnectaComponent,
     CadastroComponent,
