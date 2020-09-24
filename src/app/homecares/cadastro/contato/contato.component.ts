@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-contato',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContatoComponent implements OnInit {
 
-  constructor() { }
+  public contatoFormGroup: FormGroup;
+  public hideForm: boolean = true;
 
-  ngOnInit(): void {
+  constructor(private _formBuilder: FormBuilder) {
+    this.contatoFormGroup = this._formBuilder.group({
+      telefoneFixo: [null, Validators.required],
+      telefoneRecado: [null, Validators.required],
+      celular: [null, Validators.required],
+      atendimentoWhatsapp: [null],
+      areasAtendimento: [null, Validators.required]
+    });
   }
 
+  ngOnInit(): void {
+    this.hideForm = false;
+  }
+
+
+  onSubmit() {
+  }
 }
