@@ -14,8 +14,6 @@ import {EnderecoComponent} from './components/cadastro/profissional/endereco/end
 import {ConfirmacaoCadastroComponent} from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
 import {ConfirmacaoNovaSenhaComponent} from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
 import {EsperaConfirmacaoEmailComponent} from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
-import {InformacoesGeraisComponent as HomeCaresInformacoesGeraisComponent} from './homecares/cadastro/informacoes-gerais/informacoes-gerais.component';
-import {ContatoComponent as HomeCaresContatoComponent} from './homecares/cadastro/contato/contato.component';
 
 const routes: Routes = [
   {path: '', component: ConnectaComponent},
@@ -31,9 +29,7 @@ const routes: Routes = [
   {path: 'cadastro/profissionais/:id/experiencia', component: ExperienciaComponent},
   {path: 'cadastro/profissionais/:id/escolaridade', component: EscolaridadeComponent},
   {path: 'cadastro/profissionais/:id/complemento', component: ComplementoComponent},
-  {path: 'cadastro/profissionais/:id/conta', component: ContaComponent},
-  {path: 'homecares/informacoes-gerais', component: HomeCaresInformacoesGeraisComponent},
-  {path: 'homecares/contato', component: HomeCaresContatoComponent}
+  {path: 'cadastro/profissionais/:id/conta', component: ContaComponent}
 ];
 
 @NgModule({

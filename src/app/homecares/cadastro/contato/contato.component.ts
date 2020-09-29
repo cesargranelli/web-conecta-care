@@ -17,7 +17,7 @@ export class ContatoComponent implements OnInit {
       telefoneRecado: [null, Validators.required],
       celular: [null, Validators.required],
       atendimentoWhatsapp: [null],
-      areasAtendimento: [null, Validators.required]
+      nomeEmpresaHomeCare: [null, Validators.required]
     });
   }
 
