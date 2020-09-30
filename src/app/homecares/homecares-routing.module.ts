@@ -6,6 +6,7 @@ import {InformacoesLoginComponent} from './dados/informacoes-login/informacoes-l
 import {HomecaresComponent} from './homecares.component';
 import {InformacoesGeraisComponent as HomeCaresInformacoesGeraisComponent} from './cadastro/informacoes-gerais/informacoes-gerais.component';
 import {ContatoComponent as HomeCaresContatoComponent} from './cadastro/contato/contato.component';
+import {DadosHomecaresComponent} from './dados/dados-homecares/dados-homecares.component';
 
 const routes: Routes = [
   {path: 'homecares/:id', component: HomecaresComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'homecares/:id/cadastro/endereco', component: CadastroEnderecoComponent},
   {path: 'homecares/:id/cadastro/contato', component: HomeCaresContatoComponent},
   {path: 'homecares/:id/cadastro/informacoes-gerais', component: HomeCaresInformacoesGeraisComponent},
-  {path: 'homecares/:id/informacoes-login', component: InformacoesLoginComponent}
+  {path: 'homecares/:id/dados-homecares', component: DadosHomecaresComponent},
+  {path: 'homecares/:id/dados-homecares/informacoes-login', component: InformacoesLoginComponent}
 ];
 
 @NgModule({
