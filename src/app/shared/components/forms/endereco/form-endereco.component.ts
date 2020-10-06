@@ -9,10 +9,9 @@ import { Estado } from 'src/app/classes/estado.class';
 import { Pais } from 'src/app/classes/pais.class';
 import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
 import { DominioService } from 'src/app/services/dominio.service';
-import { EnderecoService } from 'src/app/services/endereco.service';
 import { Valid } from 'src/app/services/feat/Valid';
+import { ViaCepService } from 'src/app/services/via-cep.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
@@ -57,15 +56,12 @@ export class FormEnderecoComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _validService: SharedValidService,
+    private _loading: SharedLoadingService,
     private _formBuilder: FormBuilder,
     private _dominioService: DominioService,
-    private _service: EnderecoService,
-    private _loading: SharedLoadingService,
+    private _viaCep: ViaCepService,
     private _cadastro: CadastroHomeCaresService
   ) {
-    this.valid = this._validService.getValid();
-
     this.enderecoForm = this._formBuilder.group({
       logradouro: [null, [Validators.required, Validators.maxLength(60)]],
       numero: [null, [Validators.required, Validators.maxLength(10)]],
@@ -80,6 +76,7 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._loading.emitChange(true);
     this._dominioService.getEstados().pipe(
       map((response) => {
         this._loading.emitChange(true);
@@ -90,11 +87,8 @@ export class FormEnderecoComponent implements OnInit {
           this.paises = response.body;
         }))
       )
-    ).subscribe(
-      null,
-      null,
-      () => {
-        if (this._cadastro.endereco) {
+    ).subscribe(null, null, () => {
+        if (this._cadastro.endereco?.cep) {
           this.popularForm();
         }
         setTimeout(() => {
@@ -127,7 +121,8 @@ export class FormEnderecoComponent implements OnInit {
   onSubmit() {
     this.endereco = this.enderecoForm.value;
     this.endereco.comprovante = this.comprovante;
-    this.endereco.proprietarioId = this.valid.id;
+    this.endereco.estado = this.estados.filter(estado => estado.id == Number(this.endereco.estado))[0];
+    this.endereco.pais = this.paises.filter(pais => pais.id == Number(this.endereco.pais))[0];
     this.onSubmitEvent.emit(this.endereco);
   }
 
@@ -152,7 +147,7 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   pesquisarCep() {
-    this._service.findViaCep(this.enderecoForm.controls.cep.value).subscribe(
+    this._viaCep.findViaCep(this.enderecoForm.controls.cep.value).subscribe(
       response => {
         if (response.body?.erro) {
           Swal.fire({

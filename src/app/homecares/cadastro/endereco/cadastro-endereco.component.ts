@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Endereco } from 'src/app/classes/endereco.class';
+import { EnderecoService } from 'src/app/homecares/services/endereco.service';
 import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
-import { EnderecoService } from 'src/app/services/endereco.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
@@ -25,14 +26,16 @@ export class CadastroEnderecoComponent implements OnInit {
 
   constructor(
     private _validService: SharedValidService,
-    private _service: EnderecoService,
     private _loading: SharedLoadingService,
+    private _service: EnderecoService,
+    private _router: Router,
     private _cadastro: CadastroHomeCaresService
   ) {
     this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
+    this._service.consultar(this.valid.id).subscribe(response => this._cadastro.endereco = response.body.data)
     this.linkBotaoVoltar = `homecares/${this.valid.id}/cadastro/homecare`;
     this.nomeBotaoSubmit = 'Avançar';
     this.formularioCadastro = true;
@@ -40,10 +43,11 @@ export class CadastroEnderecoComponent implements OnInit {
 
   onSubmit(endereco: Endereco) {
     this._loading.emitChange(true);
-    this._service.save(endereco).subscribe(response => {
+    endereco.proprietarioId = this.valid.id;
+    this._service.cadastrar(endereco).subscribe(response => {
       setTimeout(() => {
         this._cadastro.endereco = endereco;
-        // this._router.navigateByUrl(`cadastro/homecares/${this.valid.id}/contato`);
+        this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/contato`);
         this._loading.emitChange(false);
       });
     },
