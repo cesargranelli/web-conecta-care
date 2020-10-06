@@ -1,22 +1,10 @@
-import {EstadoCivil} from './estado-civil.class';
-import {Genero} from './genero.class';
-import {TipoEmpresa} from './tipo-empresa.class';
+import { AreaAtendimento } from './area-atendimento.class';
 
-export class Homecare {
+export class HomeCare {
   id: number;
   nome: string;
-  sobrenome: string;
-  dataNascimento: string;
-  rg: number;
-  rgEmissor: string;
-  rgDataEmissao: string;
-  pis: number;
-  genero: Genero;
-  tipoEmpresa: TipoEmpresa;
-  estadoCivil: EstadoCivil;
-  cnpj: number;
-  ctps: number;
-  ctpsSerie: number;
-  fotoProfissional: any;
-  fotoRg: any;
+  cnpj: string;
+  site: string;
+  tipoDocumento: string;
+  especialidades: Array<AreaAtendimento>;
 }

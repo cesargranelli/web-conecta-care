@@ -7,7 +7,7 @@ import { EnderecoViaCep } from 'src/app/classes/endereco-via-cep.class';
 import { Endereco } from 'src/app/classes/endereco.class';
 import { Estado } from 'src/app/classes/estado.class';
 import { Pais } from 'src/app/classes/pais.class';
-import { CadastroHomecaresService } from 'src/app/services/cadastro-homecares.service';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { EnderecoService } from 'src/app/services/endereco.service';
 import { Valid } from 'src/app/services/feat/Valid';
@@ -39,8 +39,8 @@ export class FormEnderecoComponent implements OnInit {
 
   public enderecoForm: FormGroup;
 
-  private _endereco: Endereco;
-  private _fileComprovante: File;
+  private endereco: Endereco;
+  private fileComprovante: File;
 
   public estados: Estado[];
   public paises: Pais[];
@@ -62,7 +62,7 @@ export class FormEnderecoComponent implements OnInit {
     private _dominioService: DominioService,
     private _service: EnderecoService,
     private _loading: SharedLoadingService,
-    private _cadastro: CadastroHomecaresService
+    private _cadastro: CadastroHomeCaresService
   ) {
     this.valid = this._validService.getValid();
 
@@ -125,16 +125,16 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   onSubmit() {
-    this._endereco = this.enderecoForm.value;
-    this._endereco.comprovante = this.comprovante;
-    this._endereco.proprietarioId = this.valid.id;
-    this.onSubmitEvent.emit(this._endereco);
+    this.endereco = this.enderecoForm.value;
+    this.endereco.comprovante = this.comprovante;
+    this.endereco.proprietarioId = this.valid.id;
+    this.onSubmitEvent.emit(this.endereco);
   }
 
   onLoadComprovante(event: any) {
-    this._fileComprovante = event.target.files[0];
+    this.fileComprovante = event.target.files[0];
     var reader = new FileReader();
-    reader.readAsDataURL(this._fileComprovante);
+    reader.readAsDataURL(this.fileComprovante);
     reader.onload = () => {
       this.comprovante = reader.result;
     };

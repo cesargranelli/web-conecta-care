@@ -1,4 +1,4 @@
 export class AreaAtendimento {
-  id: Number;
-  nome: String;
+  id: number;
+  nome: string;
 }
