@@ -1,21 +1,19 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {CadastroComponent} from './components/cadastro/cadastro.component';
-import {CadastroLoginComponent} from './components/cadastro/login/cadastro-login.component';
-import {CarreiraComponent} from './components/cadastro/profissional/carreira/carreira.component';
-import {ComplementoComponent} from './components/cadastro/profissional/complemento/complemento.component';
-import {EscolaridadeComponent} from './components/cadastro/profissional/escolaridade/escolaridade.component';
-import {ExperienciaComponent} from './components/cadastro/profissional/experiencia/experiencia.component';
-import {InformacoesGeraisComponent} from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
-import {ConnectaComponent} from './components/connecta/connecta.component';
-import {ContaComponent} from './components/cadastro/profissional/conta/conta.component';
-import {ContatoComponent} from './components/cadastro/profissional/contato/contato.component';
-import {EnderecoComponent} from './components/cadastro/profissional/endereco/endereco.component';
-import {ConfirmacaoCadastroComponent} from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
-import {ConfirmacaoNovaSenhaComponent} from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
-import {EsperaConfirmacaoEmailComponent} from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
-import {InformacoesGeraisComponent as HomeCaresInformacoesGeraisComponent} from './homecares/cadastro/informacoes-gerais/informacoes-gerais.component';
-import {ContatoComponent as HomeCaresContatoComponent} from './homecares/cadastro/contato/contato.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { CadastroLoginComponent } from './components/cadastro/login/cadastro-login.component';
+import { CarreiraComponent } from './components/cadastro/profissional/carreira/carreira.component';
+import { ComplementoComponent } from './components/cadastro/profissional/complemento/complemento.component';
+import { ContaComponent } from './components/cadastro/profissional/conta/conta.component';
+import { ContatoComponent } from './components/cadastro/profissional/contato/contato.component';
+import { EnderecoComponent } from './components/cadastro/profissional/endereco/endereco.component';
+import { EscolaridadeComponent } from './components/cadastro/profissional/escolaridade/escolaridade.component';
+import { ExperienciaComponent } from './components/cadastro/profissional/experiencia/experiencia.component';
+import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
+import { ConnectaComponent } from './components/connecta/connecta.component';
+import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
+import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
+import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
 
 const routes: Routes = [
   {path: '', component: ConnectaComponent},
@@ -31,9 +29,7 @@ const routes: Routes = [
   {path: 'cadastro/profissionais/:id/experiencia', component: ExperienciaComponent},
   {path: 'cadastro/profissionais/:id/escolaridade', component: EscolaridadeComponent},
   {path: 'cadastro/profissionais/:id/complemento', component: ComplementoComponent},
-  {path: 'cadastro/profissionais/:id/conta', component: ContaComponent},
-  {path: 'homecares/informacoes-gerais', component: HomeCaresInformacoesGeraisComponent},
-  {path: 'homecares/contato', component: HomeCaresContatoComponent}
+  {path: 'cadastro/profissionais/:id/conta', component: ContaComponent}
 ];
 
 @NgModule({

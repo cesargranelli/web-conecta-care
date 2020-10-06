@@ -7,27 +7,31 @@ import { TokenInterceptor } from 'src/app/auth/token.interceptor';
 import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { ContatoComponent } from './cadastro/contato/contato.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
-import { InformacoesGeraisComponent } from './cadastro/informacoes-gerais/informacoes-gerais.component';
+import { CadastroHomeCareComponent } from './cadastro/homecare/cadastro-homecare.component';
 import { CadastroLoginComponent } from './cadastro/login/cadastro-login.component';
+import { InformacoesGeraisComponent } from './dados/informacoes-gerais/informacoes-gerais.component';
 import { InformacoesLoginComponent } from './dados/informacoes-login/informacoes-login.component';
-import { HomecaresRoutingModule } from './homecares-routing.module';
-import { HomecaresComponent } from './homecares.component';
+import { HomeCaresRoutingModule } from './homecares-routing.module';
+import { HomeCaresComponent } from './homecares.component';
+import { FormHomeCareComponent } from './shared/components/forms/homecare/form-homecare.component';
 import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
 
 @NgModule({
   declarations: [
-    HomecaresComponent,
+    HomeCaresComponent,
     CadastroLoginComponent,
+    CadastroHomeCareComponent,
     CadastroEnderecoComponent,
     InformacoesLoginComponent,
     InformacoesGeraisComponent,
     SelectPickerComponent,
-    ContatoComponent
+    ContatoComponent,
+    FormHomeCareComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HomecaresRoutingModule,
+    HomeCaresRoutingModule,
     NgxMaskModule,
     SharedComponentModule
   ],
@@ -42,5 +46,5 @@ import { SelectPickerComponent } from './shared/select-picker/select-picker.comp
     }
   ]
 })
-export class HomecaresModule {
+export class HomeCaresModule {
 }

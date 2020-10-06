@@ -29,7 +29,7 @@ import { MenuProfissionaisComponent } from './components/menu/menu-profissionais
 import { MenuComponent } from './components/menu/menu.component';
 import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
 import { ConveniosModule } from './convenios/convenios.module';
-import { HomecaresModule } from './homecares/homecares.module';
+import { HomeCaresModule } from './homecares/homecares.module';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
 import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
@@ -76,7 +76,7 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     SweetAlert2Module.forRoot(),
     ProfissionaisModule,
     PacientesModule,
-    HomecaresModule,
+    HomeCaresModule,
     ConveniosModule,
     AuthModule,
     AdminModule
