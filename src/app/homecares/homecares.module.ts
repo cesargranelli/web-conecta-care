@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { TokenInterceptor } from 'src/app/auth/token.interceptor';
 import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
-import { ContatoComponent } from './cadastro/contato/contato.component';
+import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
 import { CadastroHomeCareComponent } from './cadastro/homecare/cadastro-homecare.component';
 import { CadastroLoginComponent } from './cadastro/login/cadastro-login.component';
@@ -14,6 +14,7 @@ import { InformacoesLoginComponent } from './dados/informacoes-login/informacoes
 import { HomeCaresRoutingModule } from './homecares-routing.module';
 import { HomeCaresComponent } from './homecares.component';
 import { CardVerDadosComponent } from './shared/card-ver-dados/card-ver-dados.component';
+import { FormContatoComponent } from './shared/components/forms/contato/form-contato.component';
 import { FormHomeCareComponent } from './shared/components/forms/homecare/form-homecare.component';
 import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
 
@@ -23,12 +24,13 @@ import { SelectPickerComponent } from './shared/select-picker/select-picker.comp
     CadastroLoginComponent,
     CadastroHomeCareComponent,
     CadastroEnderecoComponent,
+    CadastroContatoComponent,
     InformacoesLoginComponent,
     SelectPickerComponent,
-    ContatoComponent,
     CardVerDadosComponent,
     DadosHomecaresComponent,
-    FormHomeCareComponent
+    FormHomeCareComponent,
+    FormContatoComponent
   ],
   imports: [
     CommonModule,
