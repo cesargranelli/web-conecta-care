@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
 declare var jQuery: any;
 
 @Component({
@@ -9,7 +10,11 @@ declare var jQuery: any;
 export class DadosHomecaresComponent implements OnInit {
 
   cards = [
-    {icon: 'fingerprint', link: './informacoes-login', value: 'Ver', stats: 'Informações de Login'}
+    {icon: 'fingerprint', link: './informacoes-login', value: 'Ver', stats: 'Informações de Login'},
+    {icon: 'contact_phone', link: './informacoes-contato', value: 'Ver', stats: 'Informações de Contato'},
+    {icon: 'house', link: './informacoes-endereco', value: 'Ver', stats: 'Endereço'},
+    {icon: 'info', link: './informacoes-homecare', value: 'Ver', stats: 'Homecare'},
+
   ];
 
   constructor() {
