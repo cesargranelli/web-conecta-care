@@ -16,6 +16,9 @@ import { HomeCaresComponent } from './homecares.component';
 import { CardVerDadosComponent } from './shared/card-ver-dados/card-ver-dados.component';
 import { FormHomeCareComponent } from './shared/components/forms/homecare/form-homecare.component';
 import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
+import { InformacoesContatoComponent } from './dados/informacoes-contato/informacoes-contato.component';
+import { InformacoesEnderecoComponent } from './dados/informacoes-endereco/informacoes-endereco.component';
+import { InformacoesHomecareComponent } from './dados/informacoes-homecare/informacoes-homecare.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { SelectPickerComponent } from './shared/select-picker/select-picker.comp
     ContatoComponent,
     CardVerDadosComponent,
     DadosHomecaresComponent,
-    FormHomeCareComponent
+    FormHomeCareComponent,
+    InformacoesContatoComponent,
+    InformacoesEnderecoComponent,
+    InformacoesHomecareComponent
   ],
   imports: [
     CommonModule,
