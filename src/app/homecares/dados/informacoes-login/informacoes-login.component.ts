@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Navigation, Router, ActivatedRoute } from '@angular/router';
-import { Usuario } from 'src/app/classes/usuario.class';
-import { Role } from 'src/app/enums/role.enum';
-import { Registro } from 'src/app/services/feat/registro';
-import { UsuarioService } from 'src/app/services/usuario.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Navigation, Router, ActivatedRoute} from '@angular/router';
+import {Usuario} from 'src/app/classes/usuario.class';
+import {Role} from 'src/app/enums/role.enum';
+import {Registro} from 'src/app/services/feat/registro';
+import {UsuarioService} from 'src/app/services/usuario.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -56,13 +56,13 @@ export class InformacoesLoginComponent implements OnInit {
         this._router.navigateByUrl(`espera-confirmacao-email`);
       });
     }, httpResponse => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: httpResponse.error.data.message,
-          showConfirmButton: true
-        });
-        this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: httpResponse.error.data.message,
+        showConfirmButton: true
+      });
+      this._loading.emitChange(false);
     });
   }
 

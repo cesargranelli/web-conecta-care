@@ -13,8 +13,7 @@ export class DadosHomecaresComponent implements OnInit {
     {icon: 'fingerprint', link: './informacoes-login', value: 'Ver', stats: 'Informações de Login'},
     {icon: 'contact_phone', link: './informacoes-contato', value: 'Ver', stats: 'Informações de Contato'},
     {icon: 'house', link: './informacoes-endereco', value: 'Ver', stats: 'Endereço'},
-    {icon: 'info', link: './informacoes-homecare', value: 'Ver', stats: 'Homecare'},
-
+    {icon: 'info', link: './informacoes-homecare', value: 'Ver', stats: 'Homecare'}
   ];
 
   constructor() {
