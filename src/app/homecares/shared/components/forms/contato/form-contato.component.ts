@@ -15,6 +15,9 @@ import { InputValidationHas } from 'src/app/shared/validations/input-validation-
 export class FormContatoComponent implements OnInit {
 
   @Input()
+  public isAlteracao: boolean;
+
+  @Input()
   public linkBotaoVoltar: string;
 
   @Input()

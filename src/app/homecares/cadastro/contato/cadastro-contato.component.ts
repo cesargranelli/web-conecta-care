@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContatoHomeCare } from 'src/app/classes/contatoHomeCare.class';
@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cadastro-contato.component.css']
 })
 export class CadastroContatoComponent implements OnInit {
+
+  @Input() isAlteracao: boolean;
 
   public valid: Valid;
   public linkBotaoVoltar: string;
