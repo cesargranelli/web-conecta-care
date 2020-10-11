@@ -20,8 +20,6 @@ export class CadastroContatoComponent implements OnInit {
 
   public valid: Valid;
   public linkBotaoVoltar: string;
-  public nomeBotaoSubmit: string;
-  public formularioCadastro: boolean;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
   public contatoFormGroup: FormGroup;
@@ -38,10 +36,8 @@ export class CadastroContatoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response => this._cadastro.endereco = response.body.data)
+    this._service.consultar(this.valid.id).subscribe(response => this._cadastro.endereco = response.body.data);
     this.linkBotaoVoltar = `homecares/${this.valid.id}/cadastro/endereco`;
-    this.nomeBotaoSubmit = 'Finalizar';
-    this.formularioCadastro = true;
   }
 
   onSubmit(contato: ContatoHomeCare) {

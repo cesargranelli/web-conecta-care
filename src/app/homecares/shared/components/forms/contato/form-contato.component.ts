@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
-import { ContatoHomeCare } from 'src/app/classes/contatoHomeCare.class';
-import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AreaAtendimento} from 'src/app/classes/area-atendimento.class';
+import {ContatoHomeCare} from 'src/app/classes/contatoHomeCare.class';
+import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import {InputValidation} from '../../../../../shared/validations/input-validation';
 
 @Component({
   selector: 'app-form-contato',
@@ -19,12 +20,6 @@ export class FormContatoComponent implements OnInit {
 
   @Input()
   public linkBotaoVoltar: string;
-
-  @Input()
-  public nomeBotaoSubmit: string;
-
-  @Input()
-  public formularioCadastro: boolean;
 
   @Output()
   public onSubmitEvent = new EventEmitter<ContatoHomeCare>();
@@ -48,9 +43,7 @@ export class FormContatoComponent implements OnInit {
       telefoneRecado: [null],
       telefoneCelular: [null],
       telefoneWhatsapp: [null],
-      email: [null, Validators.required],
-      flagAceiteDeclaracao: [null, Validators.required],
-      flagAceitePrivacidade: [null, Validators.required]
+      email: [null, [Validators.required, Validators.email, Validators.maxLength(100)]]
     });
   }
 
@@ -59,6 +52,10 @@ export class FormContatoComponent implements OnInit {
     this.validationHas = new InputValidationHas();
     if (this._cadastro.contato?.email) {
       this.populaForm();
+    }
+    if (!this.isAlteracao) {
+      this.contatoForm.get('flagAceiteDeclaracao').setValidators(Validators.required);
+      this.contatoForm.get('flagAceitePrivacidade').setValidators(Validators.required);
     }
     this.hideForm = false;
     this._loading.emitChange(false);
@@ -71,8 +68,8 @@ export class FormContatoComponent implements OnInit {
       telefoneCelular: this._cadastro.contato?.telefoneCelular,
       telefoneWhatsapp: this._cadastro.contato?.telefoneWhatsapp,
       email: this._cadastro.contato?.email,
-      flagAceiteDeclaracao: this._cadastro.contato?.flagAceiteDeclaracao ? true : false,
-      flagAceitePrivacidade: this._cadastro.contato?.flagAceitePrivacidade ? true : false
+      flagAceiteDeclaracao: this._cadastro.contato?.flagAceiteDeclaracao,
+      flagAceitePrivacidade: this._cadastro.contato?.flagAceitePrivacidade
     });
   }
 
