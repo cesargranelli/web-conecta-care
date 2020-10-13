@@ -43,6 +43,8 @@ export class FormContatoComponent implements OnInit {
       telefoneRecado: [null],
       telefoneCelular: [null],
       telefoneWhatsapp: [null],
+      flagAceiteDeclaracao: null,
+      flagAceitePrivacidade: null,
       email: [null, [Validators.required, Validators.email, Validators.maxLength(100)]]
     });
   }
