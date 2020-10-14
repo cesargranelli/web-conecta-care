@@ -1,0 +1,132 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">check_box</i>
+            <h3 class="card-title">
+              Informações Complementares
+            </h3>
+          </div>
+          <form [formGroup]="complementoForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="row">
+                  <label for="tituloEleitoral" class="col-lg-2 col-md-3 col-form-label">Título eleitoral</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control" formControlName="tituloEleitoral" mask="99999999999">
+                  </div>
+                  <label for="zonaEleitoral" class="col-lg-1 col-md-3 col-form-label">Zona</label>
+                  <div class="form-group col-lg-2 col-md-8">
+                    <input type="text" class="form-control" formControlName="zonaEleitoral" mask="999">
+                  </div>
+                  <label for="secaoEleitoral" class="col-lg-1 col-md-3 col-form-label">Seção</label>
+                  <div class="form-group col-lg-2 col-md-8">
+                    <input type="text" class="form-control" formControlName="secaoEleitoral" mask="9999">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="numeroHabilitacao" class="col-lg-2 col-md-3 col-form-label">Nº Habilitação</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control" formControlName="numeroHabilitacao" mask="99999999999">
+                  </div>
+                  <label for="dataValidadeHabilitacao" class="col-lg-3 col-md-3 col-form-label">Data Validade</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control datetimepicker" id="dataValidadeHabilitacao"
+                      formControlName="dataValidadeHabilitacao" autocomplete="none"
+                      (focus)="dateChange(complementoForm.controls?.dataValidadeHabilitacao, 'dataValidadeHabilitacao')">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="categoriaCNH" class="col-lg-2 col-md-3 col-form-label">Categoria</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <select class="selectpicker" id="categoriaCNH" formControlName="categoriaCNH" data-style="btn btn-primary" data-width="100%" title="Selecione">
+                      <option [value]="categoriaCNH.id" *ngFor="let categoriaCNH of categoriasCNH">{{ categoriaCNH.sigla }}</option>
+                    </select>
+                  </div>
+                  <label for="fotoCNH" class="col-lg-2 col-md-3 col-form-label">Foto CNH</label>
+                  <div class="col-lg-5 col-md-3">
+                    <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputFotoCNH">
+                      <div class="thumbnail img-circle img-raised" [ngClass]="fileInputFotoCNH">
+                        <img [src]="imagemFotoCNH" rel="nofollow" alt="...">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised" style="max-width: 100px; max-height: 100px;"></div>
+                      <span class="btn btn-raised btn-round btn-rose btn-file">
+                        <span [hidden]="complementoForm.controls.fotoCNH.valid">Selecionar foto CNH</span>
+                        <span [hidden]="complementoForm.controls.fotoCNH.invalid">Trocar</span>
+                        <input type="file" formControlName="fotoCNH" (change)="onLoadFotoCNH($event)">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="numeroReservista" class="col-lg-2 col-md-3 col-form-label">Nº Reservista</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control" formControlName="numeroReservista" mask="999999999999">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="nomeMae" class="col-lg-2 col-md-3 col-form-label">Nome mãe *</label>
+                  <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.nomeMae)">
+                    <input type="text" [value]="complementoForm.get('nomeMae').value | titlecase" class="form-control" formControlName="nomeMae">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="profissaoMae" class="col-lg-2 col-md-3 col-form-label">Profissão mãe</label>
+                  <div class="form-group col-lg-9 col-md-8">
+                    <input type="text" [value]="complementoForm.get('profissaoMae').value | titlecase" class="form-control" formControlName="profissaoMae">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="nomePai" class="col-lg-2 col-md-3 col-form-label">Nome pai</label>
+                  <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.nomePai)">
+                    <input type="text" [value]="complementoForm.get('nomePai').value | titlecase" class="form-control" formControlName="nomePai">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="profissaoPai" class="col-lg-2 col-md-3 col-form-label">Profissão pai</label>
+                  <div class="form-group col-lg-9 col-md-8">
+                    <input type="text" [value]="complementoForm.get('profissaoPai').value | titlecase" class="form-control" formControlName="profissaoPai">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="nomeConjuge" class="col-lg-2 col-md-3 col-form-label">Nome cônjuge</label>
+                  <div class="form-group col-lg-9 col-md-8" [ngClass]="validationHas.validation(complementoForm.controls?.nomeConjuge)">
+                    <input type="text" [value]="complementoForm.get('nomeConjuge').value | titlecase" class="form-control" formControlName="nomeConjuge">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="profissaoConjuge" class="col-lg-2 col-md-3 col-form-label">Profissão cônjuge</label>
+                  <div class="form-group col-lg-9 col-md-8">
+                    <input type="text" [value]="complementoForm.get('profissaoConjuge').value | titlecase" class="form-control" formControlName="profissaoConjuge">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="carteiraVacinacao" class="col-lg-3 col-md-3 col-form-label">Carteira de Vacinação *</label>
+                  <div class="form-group col-lg-1 col-md-8">
+                    <div class="togglebutton">
+                      <label>
+                        <input type="checkbox" formControlName="carteiraVacinacao">
+                          <span class="toggle"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer justify-content-between">
+              <span class="bmd-form-group is-filled">
+                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
+                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
+              </span>
+              <span class="bmd-form-group is-filled">
+                <button type="submit" class="btn btn-rose" [disabled]="!complementoForm.valid">Avançar</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

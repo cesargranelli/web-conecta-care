@@ -1,0 +1,69 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">pending_actions</i>
+            <h3 class="card-title">
+              Eventos
+            </h3>
+          </div>
+          <div class="card-body" [hidden]="escondeTabela">
+            <div class="material-datatables">
+              <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <table id="datatables" class="table table-striped" cellspacing="0" width="100%" style="width:100%" [hidden]="escondeTabela">
+                      <thead>
+                        <tr>
+                          <th>Evento</th>
+                          <th>Data</th>
+                          <th>Hora</th>
+                          <th class="disabled-sorting text-center">Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let evento of eventosFuturos">
+                          <td>{{ evento.titulo }}</td>
+                          <td>{{ evento.data }}</td>
+                          <td>{{ evento.hora }}</td>
+                          <td class="text-right">
+                            <button class="btn btn-link btn-rose btn-just-icon" title="Ver detalhes"
+                              routerLink="{{evento.id}}">
+                              <i class="material-icons">visibility</i>
+                            </button>
+                            <button type="button" class="btn btn-link btn-just-icon"
+                              (click)="confirmarEvento(evento.id)"
+                              [ngClass]="evento.status == 'CONFIRMADO' ? 'btn-success' : 'btn-default'"
+                              [disabled]="evento.status == 'CONFIRMADO' || !valid" title="Aceitar">
+                              <i class="material-icons">thumb_up</i>
+                            </button>
+                            <button type="button" class="btn btn-link btn-just-icon"
+                              (click)="rejeitarEvento(evento.id)"
+                              [ngClass]="evento.status == 'REJEITADO' ? 'btn-danger' : 'btn-default'"
+                              [disabled]="evento.status == 'REJEITADO' || !valid" title="Rejeitar">
+                              <i class="material-icons">thumb_down</i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Evento</th>
+                          <th>Data</th>
+                          <th>Hora</th>
+                          <th class="text-right">Ações</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

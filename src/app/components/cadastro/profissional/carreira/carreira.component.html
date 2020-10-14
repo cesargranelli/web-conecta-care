@@ -1,0 +1,86 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">work</i>
+            <h3 class="card-title">
+              Informações Profissionais
+            </h3>
+          </div>
+          <form [formGroup]="carreiraForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="row">
+                  <label for="conselho" class="col-lg-2 col-md-3 col-form-label">Conselho *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.conselho)">
+                    <select class="selectpicker" id="conselho" data-style="btn btn-primary" data-width="100%" title="Selecione" formControlName="conselho" (change)="labelRegistroSelecao()">
+                      <option [value]="conselho.id" *ngFor="let conselho of conselhos">{{ conselho.sigla }}</option>
+                    </select>
+                  </div>
+                  <label for="registroProfissional" class="col-lg-3 col-md-3 col-form-label">{{ labelRegistro }}</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.registroProfissional)">
+                    <input type="text" class="form-control" formControlName="registroProfissional" mask="999999999999999">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="ufConselho" class="col-lg-2 col-md-3 col-form-label">UF Conselho *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.ufConselho)">
+                    <select class="selectpicker" id="ufConselho" data-style="btn btn-primary" data-width="100%" title="Selecione" formControlName="ufConselho">
+                      <option disabled selected>Selecione</option>
+                      <option [value]="ufConselho.id" *ngFor="let ufConselho of estados">{{ ufConselho.uf }}</option>
+                    </select>
+                  </div>
+                  <label for="areaAtendimento" class="col-lg-3 col-md-3 col-form-label">Área Atendimento *</label>
+                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(carreiraForm.controls?.areaAtendimento)">
+                    <select class="selectpicker" id="areaAtendimento" multiple="multiple" data-style="btn btn-primary" data-width="100%" title="Selecione" formControlName="areaAtendimento">
+                      <option *ngFor="let areaAtendimento of areasAtendimento">{{ areaAtendimento.nome | uppercase }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="nomeReferencia1" class="col-lg-2 col-md-3 col-form-label">Referência Nome 1</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control" formControlName="nomeReferencia1">
+                  </div>
+                  <label for="telefoneReferencia1" class="col-lg-3 col-md-3 col-form-label">Referência Fone 1</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control" formControlName="telefoneReferencia1" mask="(00) 00000-0000">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="nomeReferencia2" class="col-lg-2 col-md-3 col-form-label">Referência Nome 2</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control" formControlName="nomeReferencia2">
+                  </div>
+                  <label for="telefoneReferencia2" class="col-lg-3 col-md-3 col-form-label">Referência Fone 2</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <input type="text" class="form-control" formControlName="telefoneReferencia2" mask="(00) 00000-0000">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="transporte" class="col-lg-2 col-md-3 col-form-label">Veículo utilizado para os atendimentos *</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <select class="selectpicker" id="transporte" data-style="btn btn-primary" data-width="100%" title="Selecione" formControlName="transporte">
+                      <option [value]="transporte.id" *ngFor="let transporte of transportes">{{ transporte.tipo }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer justify-content-between">
+              <span class="bmd-form-group is-filled">
+                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
+                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
+              </span>
+              <span class="bmd-form-group is-filled">
+                <button type="submit" class="btn btn-rose" [disabled]="!carreiraForm.valid">Avançar</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

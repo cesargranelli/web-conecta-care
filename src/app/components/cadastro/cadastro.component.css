@@ -1,0 +1,7 @@
+.tab-pane .row ~ form {
+  margin-top: 0px;
+}
+
+.tab-pane form {
+  margin-top: 85px;
+}

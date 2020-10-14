@@ -1,0 +1,14 @@
+<app-menu *ngIf="!login"></app-menu>
+<app-menu-profissionais *ngIf="storageValid?.role?.toString()=='ROLE_PROFISSIONAL'"></app-menu-profissionais>
+<app-menu-admin *ngIf="storageValid?.role?.toString()=='ROLE_ADMIN_ROOT'"></app-menu-admin>
+
+<router-outlet></router-outlet>
+
+<footer class="footer">
+  <div class="container">
+    <nav class="navbar navbar-transparent justify-content-center text-white font-weight-bold">
+      © Connecta Care - contato@connectacare.com.br
+    </nav>
+  </div>
+</footer>
+<ngx-loading [show]="loading"></ngx-loading>
