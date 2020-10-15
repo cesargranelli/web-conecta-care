@@ -40,7 +40,7 @@
               "src/assets/js/plugins/jquery.bootstrap-wizard.js",
               "src/assets/js/plugins/bootstrap-selectpicker.js",
               "src/assets/js/plugins/bootstrap-datetimepicker.min.js",
-              "src/assets/js/plugins/jquery.datatables.min.js",
+              "src/assets/js/plugins/jquery.dataTables.min.js",
               "src/assets/js/plugins/bootstrap-tagsinput.js",
               "src/assets/js/plugins/jasny-bootstrap.min.js",
               "src/assets/js/plugins/fullcalendar.min.js",
