@@ -1,12 +1,12 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HomeCare } from 'src/app/classes/homecare.class';
-import { HomecareService } from 'src/app/homecares/services/homecare.service';
-import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {HomeCare} from 'src/app/classes/homecare.class';
+import {HomecareService} from 'src/app/homecares/services/homecare.service';
+import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,10 +16,11 @@ import Swal from 'sweetalert2';
 })
 export class CadastroHomeCareComponent implements OnInit {
 
+  @Input()
+  public isAlteracao: boolean;
+
   public valid: Valid;
   public linkBotaoVoltar: string;
-  public nomeBotaoSubmit: string;
-  public formularioCadastro: boolean;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
   constructor(
@@ -33,30 +34,28 @@ export class CadastroHomeCareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response => this._cadastro.homeCare = response.body.data)
+    this._service.consultar(this.valid.id).subscribe(response => this._cadastro.homeCare = response.body.data);
     this.linkBotaoVoltar = `homecares/${this.valid.id}`;
-    this.nomeBotaoSubmit = 'Avançar';
-    this.formularioCadastro = true;
   }
 
   onSubmit(homeCare: HomeCare) {
     this._loading.emitChange(true);
     homeCare.id = this.valid.id;
     this._service.cadastrar(homeCare).subscribe(response => {
-      setTimeout(() => {
-        this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/endereco`);
+        setTimeout(() => {
+          this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/endereco`);
+          this._loading.emitChange(false);
+        });
+      },
+      () => {
         this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocorreu um erro inexperado ao tentar inserir HomeCare',
+          showConfirmButton: true
+        });
       });
-    },
-    () => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar inserir HomeCare',
-        showConfirmButton: true
-      });
-    });
   }
 
 }

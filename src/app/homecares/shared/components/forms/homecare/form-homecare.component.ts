@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { map } from 'rxjs/internal/operators/map';
-import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
-import { HomeCare } from 'src/app/classes/homecare.class';
-import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {map} from 'rxjs/internal/operators/map';
+import {AreaAtendimento} from 'src/app/classes/area-atendimento.class';
+import {HomeCare} from 'src/app/classes/homecare.class';
+import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 
 declare var jQuery: any;
 
@@ -19,13 +19,10 @@ declare var jQuery: any;
 export class FormHomeCareComponent implements OnInit {
 
   @Input()
+  public isAlteracao: boolean;
+
+  @Input()
   public linkBotaoVoltar: string;
-
-  @Input()
-  public nomeBotaoSubmit: string;
-
-  @Input()
-  public formularioCadastro: boolean;
 
   @Output()
   public onSubmitEvent = new EventEmitter<HomeCare>();

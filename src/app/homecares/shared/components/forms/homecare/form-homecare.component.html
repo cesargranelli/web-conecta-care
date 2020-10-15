@@ -5,9 +5,9 @@
         <label for="nome" class="col-lg-3 col-md-3 col-form-label">Empresa Home Care *</label>
         <div class="form-group col-lg-6 col-md-6">
           <input type="text" id="nome" class="form-control"
-                  formControlName="nome"
-                  placeholder="Nome da empresa"
-                  [value]="homeCareForm.get('nome').value | titlecase">
+                 formControlName="nome"
+                 placeholder="Nome da empresa"
+                 [value]="homeCareForm.get('nome').value | titlecase">
         </div>
       </div>
       <div class="row">
@@ -16,7 +16,7 @@
           <div class="form-check">
             <label class="form-check-label">
               <input class="form-check-input" formControlName="tipoDocumento" type="radio"
-                      name="tipoDocumento" value="CNPJ" checked>
+                     name="tipoDocumento" value="CNPJ" checked>
               CNPJ
               <span class="circle">
                     <span class="check"></span>
@@ -26,7 +26,7 @@
           <div class="form-check">
             <label class="form-check-label">
               <input class="form-check-input" formControlName="tipoDocumento" type="radio"
-                      name="tipoDocumento" value="MEI">
+                     name="tipoDocumento" value="MEI">
               MEI
               <span class="circle">
                     <span class="check"></span>
@@ -37,19 +37,19 @@
       </div>
       <div class="row">
         <label for="cnpj"
-                class="col-lg-3 col-md-3 col-form-label">Nº {{homeCareForm.value.tipoDocumento}}
+               class="col-lg-3 col-md-3 col-form-label">Nº {{homeCareForm.value.tipoDocumento}}
           *</label>
         <div class="form-group col-lg-6 col-md-6" [ngClass]="validationHas.validation(homeCareForm.controls?.cnpj)">
           <input type="text" id="cnpj" class="form-control" formControlName="cnpj"
-            placeholder="Nº {{homeCareForm.value.tipoDocumento}}" mask="00.000.000/0000-00">
+                 placeholder="Nº {{homeCareForm.value.tipoDocumento}}" mask="00.000.000/0000-00">
         </div>
       </div>
       <div class="row">
         <label for="site" class="col-lg-3 col-md-3 col-form-label">Site</label>
         <div class="form-group col-lg-6 col-md-6">
           <input type="text" id="site" class="form-control" formControlName="site"
-                  placeholder="www.sitedaempresa.com"
-                  [value]="homeCareForm.get('site').value | lowercase">
+                 placeholder="www.sitedaempresa.com"
+                 [value]="homeCareForm.get('site').value | lowercase">
         </div>
       </div>
       <div class="row">
@@ -64,17 +64,18 @@
     </div>
   </div>
   <div class="card-footer justify-content-between">
-    <span class="bmd-form-group is-filled" *ngIf="!formularioCadastro">
+    <span class="bmd-form-group is-filled" *ngIf="isAlteracao">
       <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
         <i class="material-icons">arrow_back</i>
       </button>
     </span>
-    <span class="bmd-form-group is-filled" *ngIf="formularioCadastro">
+    <span class="bmd-form-group is-filled" *ngIf="!isAlteracao">
       <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
       <button type="button" class="btn btn-gray" (click)="limparForm()">Limpar</button>
     </span>
     <span class="bmd-form-group is-filled">
-        <button type="submit" class="btn btn-rose" [disabled]="!homeCareForm.valid">{{ nomeBotaoSubmit }}</button>
+        <button type="submit" class="btn btn-rose"
+                [disabled]="!homeCareForm.valid">{{ isAlteracao ? 'Alterar' : 'Avançar' }}</button>
     </span>
   </div>
 </form>
