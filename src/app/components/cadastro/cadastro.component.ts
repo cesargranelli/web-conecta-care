@@ -1,11 +1,8 @@
-import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NO_CONTENT } from 'http-status-codes';
-import { ConvenioService } from 'src/app/services/convenio.service';
-import { HomecareService } from 'src/app/services/homecare.service';
-import { DocumentoService } from 'src/app/services/interfaces/documento-interface.service';
-import { PacienteService } from 'src/app/services/paciente.service';
+import { Role } from 'src/app/classes/role';
+import { DocumentoService } from 'src/app/services/documento.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
@@ -26,23 +23,19 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
+  role: Role = new Role('pacientes');
+
   public pacienteForm: FormGroup;
   public profissionalForm: FormGroup;
   public homecareForm: FormGroup;
   public convenioForm: FormGroup;
 
-  public pacienteJaCadastrado: boolean = false;
-  public profissionalJaCadastrado: boolean = false;
-  public homecareJaCadastrada: boolean = false;
-  public convenioJaCadastrado: boolean = false;
+  public cpfCnpjJaCadastrado: boolean = false;
   public input: InputValidation = new InputValidation();
 
   constructor(
     private _formBuilder: FormBuilder,
-    @Inject('DoumentoService') private _documentoService: DocumentoService,
-    private _pacienteService: PacienteService,
-    private _homecareService: HomecareService,
-    private _convenioService: ConvenioService,
+    private _documentoService: DocumentoService,
     private _router: Router,
     private _loading: SharedLoadingService
   ) {
@@ -52,10 +45,10 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pacienteForm = this._formBuilder.group({
-      cpf: ['', [Validators.required, validCpf()]],
+      cpf: ['', [Validators.required, validCpf(true)]],
     });
     this.profissionalForm = this._formBuilder.group({
-      cpf: ['', [Validators.required, validCpf()]],
+      cpf: ['', [Validators.required, validCpf(true)]],
     });
     this.homecareForm = this._formBuilder.group({
       cnpj: ['', [Validators.required, validCnpj(true)]],
@@ -68,51 +61,60 @@ export class CadastroComponent implements OnInit, OnDestroy {
     injetaToolTip();
   }
 
-  onSubmit_(form: FormGroup) {
+  onSubmit_(form: FormGroup, element: HTMLElement) {
+    let numero: string = form.get(element.getAttribute('formControlName')).value;
+    let tipo: string = element.getAttribute('formControlName');
+    let perfil: string = this.role.getRole();
     this._loading.emitChange(true);
-    this._documentoService.registrar(form.value).subscribe(response => {
+    this._documentoService.registrar({numero: numero, tipo: tipo, perfil: perfil}).subscribe(response => {
       this._loading.emitChange(false);
       if (response.body.data?.id != undefined) {
         this._router.navigateByUrl(`cadastro/login`, {
           state: {register: response.body.data}
         });
       } else {
-        this.profissionalJaCadastrado = true;
+        this.cpfCnpjJaCadastrado = true;
       }
     }, error => this._loading.emitChange(false));
   }
 
-  onSubmit() {
+  onSubmit(form: FormGroup, element: HTMLElement) {
+    let numero: string = form.get(element.getAttribute('formControlName')).value;
+    let tipo: string = element.getAttribute('formControlName');
+    let role: string = this.role.getRole();
+    this._loading.emitChange(true);
+    this._documentoService.registrar({numero: numero, tipo: tipo, perfil: role}).subscribe(response => {
+      this._loading.emitChange(false);
+      if (response.body.data?.id != undefined) {
+        this._router.navigateByUrl(`${this.role.getPerfil()}/${response.body.data?.id}/cadastro/login`);
+      } else {
+        this.cpfCnpjJaCadastrado = true;
+      }
+    }, error => this._loading.emitChange(false));
+    // if (this.pacienteForm.value.cpf) {
+    //   this._pacienteService.pesquisarCpf(this.pacienteForm.value).subscribe(response => {
+    //     if (response.status === NO_CONTENT) {
 
-    if (this.pacienteForm.value.cpf) {
-      this._pacienteService.pesquisarCpf(this.pacienteForm.value).subscribe(response => {
-        if (response.status === NO_CONTENT) {
+    //     } else {
+    //       this.pacienteJaCadastrado = true;
+    //     }
+    //   });
+    // }
 
-        } else {
-          this.pacienteJaCadastrado = true;
-        }
-      });
-    }
+    // if (this.convenioForm.value.cnpj) {
+    //   this._convenioService.pesquisarCnpj(this.convenioForm.value).subscribe(response => {
+    //     if (response.status === NO_CONTENT) {
+    //       alert('Enviar para tela de cadastro de login');
+    //     } else {
+    //       this.convenioJaCadastrado = true;
+    //     }
+    //   });
+    // }
 
-    if (this.homecareForm.value.cnpj) {
-      this._homecareService.pesquisarCnpj(this.homecareForm.value).subscribe(response => {
-        if (response.status === NO_CONTENT) {
-        } else {
-          this.homecareJaCadastrada = true;
-        }
-      });
-    }
+  }
 
-    if (this.convenioForm.value.cnpj) {
-      this._convenioService.pesquisarCnpj(this.convenioForm.value).subscribe(response => {
-        if (response.status === NO_CONTENT) {
-          alert('Enviar para tela de cadastro de login');
-        } else {
-          this.convenioJaCadastrado = true;
-        }
-      });
-    }
-
+  setRole(perfil: string) {
+    this.role = new Role(perfil);
   }
 
   ngOnDestroy() {

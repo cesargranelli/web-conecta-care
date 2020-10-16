@@ -45,7 +45,7 @@ export class CarreiraComponent implements OnInit {
     private _dominioService: DominioService,
     private _service: CarreiraService,
     private _loading: SharedLoadingService,
-    private _cadastro: CadastroProfissionaisService,
+    private _cadastro: CadastroProfissionaisService
   ) {
     this._loading.emitChange(true);
     this.carreiraForm = this._formBuilder.group({
