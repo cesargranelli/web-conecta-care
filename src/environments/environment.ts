@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://local.api.factorysupport.systems',
-  apiConnecta: 'http://localhost:8080',
+  apiUrl: 'http://localhost:5000',
+  apiConnecta: 'http://localhost:5000',
   apiCep: 'https://viacep.com.br',
   siteKey: '6LdHIw0TAAAAABnNAHy9zb_byPAfz64FK17FPRME',
   name: 'DESENVOLVIMENTO'
