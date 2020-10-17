@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://api.factorysupport.systems',
-  apiConnecta: 'http://localhost:8080', // TODO: ALTERAR PARA A AWS
+  apiUrl: 'http://api-gateway-env-stg.eba-w9snhpeh.us-east-2.elasticbeanstalk.com',
   apiCep: 'https://viacep.com.br',
   siteKey: '6Lfr2gwTAAAAABG4nDVqifJ15HJT7EeXwDTvtch9',
   name: 'HOMOLOGAÇÃO'

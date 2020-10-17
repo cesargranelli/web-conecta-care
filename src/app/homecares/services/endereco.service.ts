@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class EnderecoService {
 
-  private endpoint: string = `${environment.apiConnecta}/homecares/enderecos`;
+  private endpoint: string = `${environment.apiUrl}/homecares/enderecos`;
   private endpointViaCep: string = `${environment.apiCep}/ws/{cep}/json`;
 
   constructor(private _http: HttpClient) { }

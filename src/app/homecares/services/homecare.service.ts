@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class HomecareService {
 
-  private endpoint: string = `${environment.apiConnecta}/homecares`;
+  private endpoint: string = `${environment.apiUrl}/homecares`;
 
   constructor(private _http: HttpClient) { }
 
