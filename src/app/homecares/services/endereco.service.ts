@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class EnderecoService {
 
-  private endpoint: string = `${environment.apiConnecta}/homecares/enderecos`;
+  private endpoint: string = `${environment.apiConnecta}/homecares/{id}/enderecos`;
   private endpointViaCep: string = `${environment.apiCep}/ws/{cep}/json`;
 
   constructor(private _http: HttpClient) { }
@@ -22,11 +22,15 @@ export class EnderecoService {
   }
 
   cadastrar(payload: Endereco): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.proprietarioId.toString())}`, payload, {observe: 'response'});
   }
 
-  consultar(id: number): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<any>>(`${this.endpoint}/${id}`, {observe: 'response'});
+  alterar(payload: Endereco): Observable<HttpResponse<any>> {
+    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.proprietarioId.toString())}`, payload, {observe: 'response'});
+  }
+
+  consultar(idHomeCare: number): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<any>>(`${this.endpoint.replace('{id}', idHomeCare.toString())}`, {observe: 'response'});
   }
 
 }

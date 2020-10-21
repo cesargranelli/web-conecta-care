@@ -1,10 +1,13 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { Role } from 'src/app/enums/role.enum';
 import { CadastroService } from 'src/app/services/cadastro.service';
 import { Authorization } from 'src/app/services/feat/token';
+import { Valid } from 'src/app/services/feat/Valid';
 import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { RoleConverter } from 'src/app/utils/role.converter';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -33,12 +36,21 @@ export class ConfirmacaoCadastroComponent implements OnInit {
       this.authorization.token = value.token;
       this._tokenService.setToken(value.token);
       this._cadastroService.validar(this.authorization).subscribe(response => {
-        let valid = response.body.data;
+        let valid: Valid = response.body.data;
         this._validService.setValid(valid);
         setTimeout(() => {
           if (valid != null) {
             console.log(`Perfil do usuário: ${valid.role}`);
-            this._router.navigateByUrl(`cadastro/profissionais/${valid.id}/informacoes-gerais`);
+            switch(valid.role) {
+              case Role.Profissional:
+                this._router.navigateByUrl(`cadastro/profissionais/${valid.id}/informacoes-gerais`);
+                break;
+              case Role.Homecare:
+                this._router.navigateByUrl(`homecares/${valid.id}/cadastro/homecare`);
+                break;
+              default:
+                this._router.navigateByUrl(`/`);
+            }
           }
           this.loading = false;
         });

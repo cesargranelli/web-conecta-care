@@ -19,6 +19,10 @@ export class HomecareService {
     return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
   }
 
+  alterar(payload: HomeCare): Observable<HttpResponse<any>> {
+    return this._http.put<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+  }
+
   consultar(id: number): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<any>>(`${this.endpoint}/${id}`, {observe: 'response'});
   }

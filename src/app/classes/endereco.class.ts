@@ -2,6 +2,7 @@ import { Estado } from './estado.class';
 import { Pais } from './pais.class';
 
 export class Endereco {
+  id: number;
   logradouro: string;
   numero: number;
   complemento: string;

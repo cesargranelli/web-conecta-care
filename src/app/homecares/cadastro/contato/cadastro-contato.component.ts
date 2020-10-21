@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {ContatoHomeCare} from 'src/app/classes/contatoHomeCare.class';
-import {ContatoService} from 'src/app/homecares/services/contato.service';
-import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ContatoHomeCare } from 'src/app/classes/contatoHomeCare.class';
+import { ContatoService } from 'src/app/homecares/services/contato.service';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -37,14 +37,19 @@ export class CadastroContatoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response => this._cadastro.endereco = response.body.data);
+    this._service.consultar(this.valid.id).subscribe(response => {
+      if (response.ok) {
+        this._cadastro.endereco = response.body.data
+      }
+    });
     this.linkBotaoVoltar = `homecares/${this.valid.id}/cadastro/endereco`;
   }
 
   onSubmit(contato: ContatoHomeCare) {
     this._loading.emitChange(true);
     contato.proprietarioId = this.valid.id;
-    this._service.cadastrar(contato).subscribe(response => {
+    if (!this._cadastro.contato) {
+      this._service.cadastrar(contato).subscribe(response => {
         setTimeout(() => {
           this._cadastro.contato = contato;
           this._router.navigateByUrl(`homecares/${this.valid.id}`);
@@ -53,13 +58,30 @@ export class CadastroContatoComponent implements OnInit {
       },
       () => {
         this._loading.emitChange(false);
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Ocorreu um erro inexperado ao tentar inserir contato',
-          showConfirmButton: true
-        });
+        this.message();
       });
+    } else {
+      this._service.alterar(contato).subscribe(response => {
+        setTimeout(() => {
+          this._cadastro.contato = contato;
+          this._router.navigateByUrl(`homecares/${this.valid.id}`);
+          this._loading.emitChange(false);
+        });
+      },
+      () => {
+        this._loading.emitChange(false);
+        this.message();
+      });
+    }
+  }
+
+  message() {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Ocorreu um erro inexperado ao tentar inserir endereço',
+      showConfirmButton: true
+    });
   }
 
 }

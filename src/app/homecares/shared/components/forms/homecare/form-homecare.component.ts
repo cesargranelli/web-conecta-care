@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {map} from 'rxjs/internal/operators/map';
-import {AreaAtendimento} from 'src/app/classes/area-atendimento.class';
-import {HomeCare} from 'src/app/classes/homecare.class';
-import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
-import {DominioService} from 'src/app/services/dominio.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/internal/operators/map';
+import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
+import { HomeCare } from 'src/app/classes/homecare.class';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { DominioService } from 'src/app/services/dominio.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 declare var jQuery: any;
 
@@ -43,7 +43,6 @@ export class FormHomeCareComponent implements OnInit {
     private _dominioService: DominioService,
     private _cadastro: CadastroHomeCaresService
   ) {
-    this._loading.emitChange(true);
     this.homeCareForm = this._formBuilder.group({
       nome: [null, Validators.required],
       tipoDocumento: [this.CNPJ, Validators.required],
@@ -57,7 +56,6 @@ export class FormHomeCareComponent implements OnInit {
     this.validationHas = new InputValidationHas();
     this._dominioService.getAreasAtendimento().pipe(
       map(response => {
-        this._loading.emitChange(true);
         this.especialidades = response.body;
       })
     ).subscribe(null, null, () => {
@@ -69,8 +67,8 @@ export class FormHomeCareComponent implements OnInit {
         jQuery(`select[id='especialidade']`).selectpicker('refresh');
         jQuery(`select[id='especialidade']`).selectpicker('val', this._cadastro.homeCare?.especialidades);
         this.carregarEspecialidades();
+        this._loading.emitChange(false);
       });
-      this._loading.emitChange(false);
     });
   }
 

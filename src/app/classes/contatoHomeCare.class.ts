@@ -1,4 +1,5 @@
 export class ContatoHomeCare {
+  id: number;
   telefoneFixo: number;
   telefoneRecado: number;
   telefoneCelular: number;

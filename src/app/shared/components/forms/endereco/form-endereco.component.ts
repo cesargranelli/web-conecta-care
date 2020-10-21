@@ -76,10 +76,8 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._loading.emitChange(true);
     this._dominioService.getEstados().pipe(
       map((response) => {
-        this._loading.emitChange(true);
         this.estados = response.body;
       }),
       concatMap(() => this._dominioService.getPaises().pipe(
@@ -101,7 +99,6 @@ export class FormEnderecoComponent implements OnInit {
       this.esconderFormulario = false;
     });
 
-    this._loading.emitChange(false);
   }
 
   popularForm() {
@@ -111,6 +108,8 @@ export class FormEnderecoComponent implements OnInit {
     this.enderecoForm.controls.cep.setValue(this._cadastro.endereco?.cep);
     this.enderecoForm.controls.bairro.setValue(this._cadastro.endereco?.bairro);
     this.enderecoForm.controls.cidade.setValue(this._cadastro.endereco?.cidade);
+    this.enderecoForm.controls.estado.setValue(this._cadastro.endereco?.estado);
+    this.enderecoForm.controls.pais.setValue(this._cadastro.endereco?.pais);
     if (this._cadastro.endereco?.comprovante) {
       this.comprovante = this._cadastro.endereco?.comprovante;
       this.imagemComprovante = this.comprovante;
