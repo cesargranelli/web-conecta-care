@@ -173,6 +173,17 @@ export class InformacoesGeraisComponent implements OnInit {
       return;
     }
 
+    if (this.validaIdade(profissional.dataNascimento)) {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Necessário ter 18 anos ou mais para se cadastrar.',
+        showConfirmButton: true,
+      });
+      return;
+    }
+
     this._service.save(profissional).subscribe(response => {
       this._dadosLocalStorage.id = response.body.profissionalId;
       setTimeout(() => {
@@ -200,6 +211,26 @@ export class InformacoesGeraisComponent implements OnInit {
 
   validacoes(dataEmissao: string, dataNascimento: string) {
     if (new Date(dataEmissao) < new Date(dataNascimento)) {
+      return true;
+    }
+  }
+
+  validaIdade(dataNascimento: any) {
+    let dataAtual = new Date();
+    let anoAtual = dataAtual.getFullYear();
+    let anoNascParts = dataNascimento.split('/');
+    let diaNasc =anoNascParts[0];
+    let mesNasc =anoNascParts[1];
+    let anoNasc =anoNascParts[2];
+    let idade = anoAtual - anoNasc;
+    let mesAtual = dataAtual.getMonth() + 1; 
+
+    if(mesAtual < mesNasc){
+      idade--; 
+    }else if(mesAtual == mesNasc && new Date().getDate() < diaNasc){
+      idade--;
+    }
+    if(idade < 18) {
       return true;
     }
   }

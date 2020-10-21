@@ -53,7 +53,7 @@ export class ComplementoComponent implements OnInit {
       numeroHabilitacao: [null, [Validators.maxLength(11)]],
       dataValidadeHabilitacao: [null],
       categoriaCNH: [null],
-      fotoCNH: [null, Validators.required],
+      fotoCNH: [null],
       numeroReservista: [null],
       nomeMae: [null, [Validators.required, Validators.maxLength(100)]],
       profissaoMae: [null, Validators.maxLength(60)],
