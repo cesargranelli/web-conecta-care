@@ -22,7 +22,7 @@ import { Transporte } from '../classes/transporte.class';
 @Injectable()
 export class DominioService {
 
-  private endpoint: string = `${environment.apiUrl}/dominio`;
+  private endpoint: string = `${environment.apiConnecta}/dominio`;
 
   constructor(private _http: HttpClient) { }
 

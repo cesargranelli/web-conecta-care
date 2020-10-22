@@ -12,7 +12,7 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this._tokenService.getToken() && request.url.includes(environment.apiUrl)) {
+    if (this._tokenService.getToken() && request.url.includes(environment.apiConnecta)) {
       request = this.addToken(request, this._tokenService.getToken());
     }
 
@@ -29,7 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
   private addToken(request: HttpRequest<any>, token: string) {
     return request.clone({
       setHeaders: {
-        'Token': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
       }
     });
   }

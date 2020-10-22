@@ -13,7 +13,7 @@ import { ContatoResponseInterface } from './response/contatoResponse.interface';
 @Injectable()
 export class ContatoService {
 
-  private endpoint: string = `${environment.apiUrl}/contatos/telefones`;
+  private endpoint: string = `${environment.apiConnecta}/contatos/telefones`;
 
   constructor(private _http: HttpClient) { }
 

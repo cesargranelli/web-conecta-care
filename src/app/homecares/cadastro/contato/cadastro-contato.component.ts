@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContatoHomeCare } from 'src/app/classes/contatoHomeCare.class';
@@ -16,10 +16,8 @@ import Swal from 'sweetalert2';
 })
 export class CadastroContatoComponent implements OnInit {
 
-  @Input()
-  public isAlteracao: boolean;
-
   public valid: Valid;
+  public isAlteracao: boolean;
   public linkBotaoVoltar: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
@@ -33,16 +31,13 @@ export class CadastroContatoComponent implements OnInit {
     private _router: Router,
     private _cadastro: CadastroHomeCaresService
   ) {
+    this._loading.emitChange(true);
     this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response => {
-      if (response.ok) {
-        this._cadastro.endereco = response.body.data
-      }
-    });
-    this.linkBotaoVoltar = `homecares/${this.valid.id}/cadastro/endereco`;
+    this.isAlteracao = false;
+    this.linkBotaoVoltar = `homecares/${this.valid.id}`;
   }
 
   onSubmit(contato: ContatoHomeCare) {

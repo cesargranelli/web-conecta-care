@@ -13,7 +13,7 @@ import { EnderecoResponseInterface } from './response/enderecoResponse.interface
 @Injectable()
 export class EnderecoService {
 
-  private endpoint: string = `${environment.apiUrl}/enderecos`;
+  private endpoint: string = `${environment.apiConnecta}/enderecos`;
   private endpointViaCep: string = `${environment.apiCep}/ws/{cep}/json`;
 
   constructor(private _http: HttpClient) { }

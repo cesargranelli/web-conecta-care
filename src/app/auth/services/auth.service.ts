@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class AuthService {
 
-  private readonly endpoint: string = `${environment.apiUrl}`;
+  private readonly endpoint: string = `${environment.apiConnecta}`;
   private converterRole: RoleConverter = new RoleConverter();
   private readonly sistemaIndisponivel: string = 'Ops! Sistema indisponível no momento. Tente novamente em alguns instantes.';
 

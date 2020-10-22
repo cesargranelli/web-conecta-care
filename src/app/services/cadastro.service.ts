@@ -14,7 +14,7 @@ export class CadastroService {
   constructor(private _http: HttpClient) { }
 
   validar(authorization: Authorization): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<CadastroUsuario>>(`${environment.apiUrl}/usuarios/validacao`, authorization,
+    return this._http.post<HttpResponse<CadastroUsuario>>(`${environment.apiConnecta}/usuarios/validacao`, authorization,
       { observe: 'response' });
   }
 }

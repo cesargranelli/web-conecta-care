@@ -10,10 +10,10 @@
             </h3>
           </div>
           <app-form-endereco
-            [formularioCadastro]="formularioCadastro"
             (onSubmitEvent)="onSubmit($event)"
+            [isAlteracao]="isAlteracao"
             [linkBotaoVoltar]="linkBotaoVoltar"
-            [nomeBotaoSubmit]="nomeBotaoSubmit">
+          >
           </app-form-endereco>
         </div>
       </div>

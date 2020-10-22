@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HomeCare } from 'src/app/classes/homecare.class';
@@ -17,10 +17,8 @@ import Swal from 'sweetalert2';
 })
 export class CadastroHomeCareComponent implements OnInit {
 
-  @Input()
-  public isAlteracao: boolean;
-
   public valid: Valid;
+  public isAlteracao: boolean;
   public linkBotaoVoltar: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
@@ -44,6 +42,7 @@ export class CadastroHomeCareComponent implements OnInit {
         }
       }
     );
+    this.isAlteracao = false;
     this.linkBotaoVoltar = `homecares/${this.valid.id}`;
   }
 

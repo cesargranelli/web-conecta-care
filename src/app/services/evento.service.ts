@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class EventoService {
 
-  private endpoint: string = `${environment.apiUrl}/eventos`;
+  private endpoint: string = `${environment.apiConnecta}/eventos`;
 
   constructor(private _http: HttpClient) { }
 

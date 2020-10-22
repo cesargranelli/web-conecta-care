@@ -25,13 +25,10 @@ declare var jQuery: any;
 export class FormEnderecoComponent implements OnInit {
 
   @Input()
+  public isAlteracao: boolean;
+
+  @Input()
   public linkBotaoVoltar: string;
-
-  @Input()
-  public nomeBotaoSubmit: string;
-
-  @Input()
-  public formularioCadastro: boolean;
 
   @Output()
   public onSubmitEvent = new EventEmitter<Endereco>();

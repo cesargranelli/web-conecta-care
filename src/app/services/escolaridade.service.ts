@@ -13,7 +13,7 @@ import { EscolaridadeResponse } from './response/escolaridadeResponse.interface'
 @Injectable()
 export class EscolaridadeService {
 
-  private endpoint: string = `${environment.apiUrl}/escolaridade`;
+  private endpoint: string = `${environment.apiConnecta}/escolaridade`;
 
   constructor(private _http: HttpClient) { }
 

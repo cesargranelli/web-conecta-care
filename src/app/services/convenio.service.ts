@@ -14,7 +14,7 @@ export class ConvenioService {
   constructor(private _http: HttpClient) { }
 
   pesquisarCnpj(documento: Documento): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<Documento>>(`${environment.apiUrl}/convenios/cnpj`, documento,
+    return this._http.post<HttpResponse<Documento>>(`${environment.apiConnecta}/convenios/cnpj`, documento,
       { observe: 'response' });
   }
 

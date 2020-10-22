@@ -13,8 +13,8 @@ import { ContaResponseInterface } from './response/contaResponse.interface';
 @Injectable()
 export class ContaService {
 
-  private endpoint: string = `${environment.apiUrl}/contas`;
-  private endpointGetDados: string = `${environment.apiUrl}/contas`;
+  private endpoint: string = `${environment.apiConnecta}/contas`;
+  private endpointGetDados: string = `${environment.apiConnecta}/contas`;
 
   constructor(private _http: HttpClient) { }
 

@@ -14,7 +14,7 @@ export class PacienteService {
   constructor(private _http: HttpClient) { }
 
   pesquisarCpf(documento: Documento): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<Documento>>(`${environment.apiUrl}/pacientes/cpf`, documento,
+    return this._http.post<HttpResponse<Documento>>(`${environment.apiConnecta}/pacientes/cpf`, documento,
       { observe: 'response' });
   }
 

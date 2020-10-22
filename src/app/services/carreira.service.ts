@@ -13,7 +13,7 @@ import { CarreiraResponseInterface } from './response/carreiraResponse.interface
 @Injectable()
 export class CarreiraService {
 
-  private endpoint: string = `${environment.apiUrl}/carreiras`;
+  private endpoint: string = `${environment.apiConnecta}/carreiras`;
 
   constructor(private _http: HttpClient) { }
 

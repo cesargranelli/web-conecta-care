@@ -12,7 +12,7 @@ import { Registro } from './feat/registro';
 @Injectable()
 export class DocumentoService {
 
-  private endpoint: string = `${environment.apiUrl}/documentos`;
+  private endpoint: string = `${environment.apiConnecta}/documentos`;
 
   constructor(private _http: HttpClient) { }
 

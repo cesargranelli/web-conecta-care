@@ -13,7 +13,7 @@ import { ExperienciaResponseInterface } from './response/experienciaResponse.int
 @Injectable()
 export class ExperienciaService {
 
-  private endpoint: string = `${environment.apiUrl}/experiencias`;
+  private endpoint: string = `${environment.apiConnecta}/experiencias`;
 
   constructor(private _http: HttpClient) { }
 

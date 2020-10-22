@@ -15,7 +15,7 @@ import { Authorization } from './feat/token';
 @Injectable()
 export class LoginService {
 
-  private _endpoint: string = `${environment.apiUrl}/login`;
+  private _endpoint: string = `${environment.apiConnecta}/login`;
 
   constructor(private _http: HttpClient) { }
 

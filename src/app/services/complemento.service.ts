@@ -13,7 +13,7 @@ import { ComplementoResponseInterface } from './response/complementoResponse.int
 @Injectable()
 export class ComplementoService {
 
-  private endpoint: string = `${environment.apiUrl}/complementos/profissional`;
+  private endpoint: string = `${environment.apiConnecta}/complementos/profissional`;
 
   constructor(private _http: HttpClient) { }
 

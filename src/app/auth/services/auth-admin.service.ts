@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class AuthAdminService {
 
-  private readonly endpoint: string = `${environment.apiUrl}`;
+  private readonly endpoint: string = `${environment.apiConnecta}`;
   private converterRole: RoleConverter = new RoleConverter();
 
   constructor(

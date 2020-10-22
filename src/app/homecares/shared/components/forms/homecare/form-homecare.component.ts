@@ -62,12 +62,12 @@ export class FormHomeCareComponent implements OnInit {
       if (this._cadastro.homeCare?.id) {
         this.populaForm();
       }
-      this.hideForm = false;
       setTimeout(() => {
         jQuery(`select[id='especialidade']`).selectpicker('refresh');
         jQuery(`select[id='especialidade']`).selectpicker('val', this._cadastro.homeCare?.especialidades);
         this.carregarEspecialidades();
         this._loading.emitChange(false);
+        this.hideForm = false;
       });
     });
   }

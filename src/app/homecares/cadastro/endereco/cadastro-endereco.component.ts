@@ -20,9 +20,8 @@ declare var jQuery: any;
 export class CadastroEnderecoComponent implements OnInit {
 
   public valid: Valid;
+  public isAlteracao: boolean;
   public linkBotaoVoltar: string;
-  public nomeBotaoSubmit: string;
-  public formularioCadastro: boolean;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
   constructor(
@@ -45,9 +44,8 @@ export class CadastroEnderecoComponent implements OnInit {
         }
       }
     );
+    this.isAlteracao = false;
     this.linkBotaoVoltar = `homecares/${this.valid.id}/cadastro/homecare`;
-    this.nomeBotaoSubmit = 'Avançar';
-    this.formularioCadastro = true;
   }
 
   onSubmit(endereco: Endereco) {

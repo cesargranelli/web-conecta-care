@@ -14,7 +14,7 @@ export class UsuarioService {
   constructor(private _http: HttpClient) { }
 
   cadastrar(login: Usuario): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<CadastroUsuario>>(`${environment.apiUrl}/usuarios`, login,
+    return this._http.post<HttpResponse<CadastroUsuario>>(`${environment.apiConnecta}/usuarios`, login,
       { observe: 'response' });
   }
 }

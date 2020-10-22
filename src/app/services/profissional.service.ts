@@ -15,7 +15,7 @@ import { ProfissionalResponseInterface } from './response/profissionalResponse.i
 @Injectable()
 export class ProfissionalService {
 
-  private endpoint: string = `${environment.apiUrl}/profissionais`;
+  private endpoint: string = `${environment.apiConnecta}/profissionais`;
 
   constructor(private _http: HttpClient) { }
 
@@ -28,7 +28,7 @@ export class ProfissionalService {
   }
 
   registrar(documento: Documento): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<Registro>>(`${environment.apiUrl}/profissionais/registrar`, documento,
+    return this._http.post<HttpResponse<Registro>>(`${this.endpoint}/registrar`, documento,
       {observe: 'response'});
   }
 
