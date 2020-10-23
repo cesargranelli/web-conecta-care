@@ -9,52 +9,53 @@
               Eventos
             </h3>
           </div>
-          <div class="card-body" [hidden]="escondeTabela">
+          <div [hidden]="escondeTabela" class="card-body">
             <div class="material-datatables">
-              <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
+              <div class="dataTables_wrapper dt-bootstrap4" id="datatables_wrapper">
                 <div class="row">
                   <div class="col-sm-12">
-                    <table id="datatables" class="table table-striped" cellspacing="0" width="100%" style="width:100%" [hidden]="escondeTabela">
+                    <table [hidden]="escondeTabela" cellspacing="0" class="table table-striped" id="datatables" style="width:100%"
+                           width="100%">
                       <thead>
-                        <tr>
-                          <th>Evento</th>
-                          <th>Data</th>
-                          <th>Hora</th>
-                          <th class="disabled-sorting text-center">Ações</th>
-                        </tr>
+                      <tr>
+                        <th>Evento</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th class="disabled-sorting text-center">Ações</th>
+                      </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let evento of eventosFuturos">
-                          <td>{{ evento.titulo }}</td>
-                          <td>{{ evento.data }}</td>
-                          <td>{{ evento.hora }}</td>
-                          <td class="text-right">
-                            <button class="btn btn-link btn-rose btn-just-icon" title="Ver detalhes"
-                              routerLink="{{evento.id}}">
-                              <i class="material-icons">visibility</i>
-                            </button>
-                            <button type="button" class="btn btn-link btn-just-icon"
-                              (click)="confirmarEvento(evento.id)"
-                              [ngClass]="evento.status == 'CONFIRMADO' ? 'btn-success' : 'btn-default'"
-                              [disabled]="evento.status == 'CONFIRMADO' || !valid" title="Aceitar">
-                              <i class="material-icons">thumb_up</i>
-                            </button>
-                            <button type="button" class="btn btn-link btn-just-icon"
-                              (click)="rejeitarEvento(evento.id)"
-                              [ngClass]="evento.status == 'REJEITADO' ? 'btn-danger' : 'btn-default'"
-                              [disabled]="evento.status == 'REJEITADO' || !valid" title="Rejeitar">
-                              <i class="material-icons">thumb_down</i>
-                            </button>
-                          </td>
-                        </tr>
+                      <tr *ngFor="let evento of eventosFuturos">
+                        <td>{{ evento.titulo }}</td>
+                        <td>{{ evento.data }}</td>
+                        <td>{{ evento.hora }}</td>
+                        <td class="text-right">
+                          <button class="btn btn-link btn-rose btn-just-icon" routerLink="{{evento.id}}"
+                                  title="Ver detalhes">
+                            <i class="material-icons">visibility</i>
+                          </button>
+                          <button (click)="confirmarEvento(evento.id)" [disabled]="evento.status == 'CONFIRMADO' || !valid"
+                                  [ngClass]="evento.status == 'CONFIRMADO' ? 'btn-success' : 'btn-default'"
+                                  class="btn btn-link btn-just-icon"
+                                  title="Aceitar" type="button">
+                            <i class="material-icons">thumb_up</i>
+                          </button>
+                          <button (click)="rejeitarEvento(evento.id)" [disabled]="evento.status == 'REJEITADO' || !valid"
+                                  [ngClass]="evento.status == 'REJEITADO' ? 'btn-danger' : 'btn-default'"
+                                  class="btn btn-link btn-just-icon"
+                                  title="Rejeitar" type="button">
+                            <i class="material-icons">thumb_down</i>
+                          </button>
+                        </td>
+                      </tr>
                       </tbody>
                       <tfoot>
-                        <tr>
-                          <th>Evento</th>
-                          <th>Data</th>
-                          <th>Hora</th>
-                          <th class="text-right">Ações</th>
-                        </tr>
+                      <tr>
+                        <th>Evento</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th class="text-right">Ações</th>
+                      </tr>
                       </tfoot>
                     </table>
                   </div>

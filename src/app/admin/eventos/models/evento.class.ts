@@ -1,5 +1,5 @@
-import { Especialidade } from 'src/app/classes/especialidade.class';
-import { Estado } from 'src/app/classes/estado.class';
+import {Especialidade} from 'src/app/classes/especialidade.class';
+import {Estado} from 'src/app/classes/estado.class';
 
 export class Evento {
   id: number;

@@ -9,45 +9,45 @@
               Informações de Contato
             </h3>
           </div>
-          <form [formGroup]="contatoForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
+          <form (ngSubmit)="onSubmit()" [formGroup]="contatoForm" [hidden]="showForm" class="form-horizontal">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
-                  <label for="telefoneFixo" class="col-lg-2 col-md-3 col-form-label">Fone Fixo</label>
+                  <label class="col-lg-2 col-md-3 col-form-label" for="telefoneFixo">Fone Fixo</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="telefoneFixo" class="form-control" formControlName="telefoneFixo"
+                    <input class="form-control" formControlName="telefoneFixo" id="telefoneFixo" mask="(00) 0000-0000"
                            placeholder="(99) 9999-9999"
-                           mask="(00) 0000-0000">
+                           type="text">
                   </div>
-                  <label for="celularPrincipal" class="col-lg-3 col-md-3 col-form-label">Celular Principal *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                       [ngClass]="validationHas.validation(contatoForm.controls?.celularPrincipal)">
-                    <input type="text" id="celularPrincipal" class="form-control" formControlName="celularPrincipal"
-                           placeholder="(99) 99999-9999" mask="(00) 00000-0000">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="celularPrincipal">Celular Principal *</label>
+                  <div [ngClass]="validationHas.validation(contatoForm.controls?.celularPrincipal)"
+                       class="form-group col-lg-3 col-md-8">
+                    <input class="form-control" formControlName="celularPrincipal" id="celularPrincipal" mask="(00) 00000-0000"
+                           placeholder="(99) 99999-9999" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="telefoneRecado" class="col-lg-2 col-md-3 col-form-label">Fone Recado</label>
+                  <label class="col-lg-2 col-md-3 col-form-label" for="telefoneRecado">Fone Recado</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="telefoneRecado" class="form-control" formControlName="telefoneRecado"
-                           placeholder="(99) 9999-9999" mask="(00) 0000-0000">
+                    <input class="form-control" formControlName="telefoneRecado" id="telefoneRecado" mask="(00) 0000-0000"
+                           placeholder="(99) 9999-9999" type="text">
                   </div>
-                  <label for="celularSecundario" class="col-lg-3 col-md-3 col-form-label">Celular Secundário</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="celularSecundario">Celular Secundário</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="celularSecundario" class="form-control" formControlName="celularSecundario"
-                           placeholder="(99) 99999-9999" mask="(00) 00000-0000">
+                    <input class="form-control" formControlName="celularSecundario" id="celularSecundario" mask="(00) 00000-0000"
+                           placeholder="(99) 99999-9999" type="text">
                   </div>
                 </div>
               </div>
             </div>
             <div class="card-footer justify-content-between">
                 <span class="bmd-form-group is-filled">
-                  <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
+                  <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
                     <i class="material-icons">arrow_back</i>
                   </button>
                 </span>
               <span class="bmd-form-group is-filled">
-                  <button type="submit" class="btn btn-rose" [disabled]="!contatoForm.valid">Alterar</button>
+                  <button [disabled]="!contatoForm.valid" class="btn btn-rose" type="submit">Alterar</button>
                 </span>
             </div>
           </form>

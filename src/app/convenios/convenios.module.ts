@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ConveniosComponent } from './convenios.component';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ConveniosComponent} from './convenios.component';
 
 const routes: Routes = [
-  { path: 'convenios/:id', component: ConveniosComponent }
+  {path: 'convenios/:id', component: ConveniosComponent}
 ];
 
 @NgModule({
@@ -14,4 +14,5 @@ const routes: Routes = [
     CommonModule
   ]
 })
-export class ConveniosModule { }
+export class ConveniosModule {
+}

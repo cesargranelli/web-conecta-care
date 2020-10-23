@@ -1,18 +1,18 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { map } from 'rxjs/internal/operators/map';
-import { CategoriaCNH } from 'src/app/classes/categoria-cnh.class';
-import { Complemento } from 'src/app/classes/complemento.class';
-import { Role } from 'src/app/enums/role.enum';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { ComplementoService } from 'src/app/services/complemento.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {CategoriaCNH} from 'src/app/classes/categoria-cnh.class';
+import {Complemento} from 'src/app/classes/complemento.class';
+import {Role} from 'src/app/enums/role.enum';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {ComplementoService} from 'src/app/services/complemento.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import {map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -26,19 +26,15 @@ export class ComplementoComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   complementoForm: FormGroup;
-
-  private valid: Valid;
-  private complemento: Complemento;
-  private fileFotoCNH: File;
-
   public categoriasCNH: CategoriaCNH[];
   public fotoCNH: any;
   public validationHas: InputValidationHas = new InputValidationHas();
-
   public fileInputFotoCNH: string = 'fileinput-new';
   public imagemFotoCNH: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
-
   public showForm: boolean = true;
+  private valid: Valid;
+  private complemento: Complemento;
+  private fileFotoCNH: File;
 
   constructor(
     private _router: Router,
@@ -86,12 +82,12 @@ export class ComplementoComponent implements OnInit {
       () => {
         this.popularForm();
         setTimeout(() => {
-          jQuery("select[id='categoriaCNH']").selectpicker('refresh');
+          jQuery('select[id=\'categoriaCNH\']').selectpicker('refresh');
           jQuery(`select[id='categoriaCNH']`).selectpicker('val', this._cadastro.complemento?.categoriaCNH);
           this._loading.emitChange(false);
         });
         this.showForm = false;
-    });
+      });
 
     jQuery('.datetimepicker').datetimepicker({
       format: 'DD/MM/YYYY'
@@ -131,21 +127,21 @@ export class ComplementoComponent implements OnInit {
     this.complemento.proprietarioId = this.valid.id;
 
     this._service.save(this.complemento).subscribe(response => {
-      setTimeout(() => {
-        this._cadastro.complemento = this.complemento;
-        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/conta`);
+        setTimeout(() => {
+          this._cadastro.complemento = this.complemento;
+          this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/conta`);
+          this._loading.emitChange(false);
+        });
+      },
+      (error: Error) => {
         this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocorreu um erro inexperado ao tentar inserir complemento',
+          showConfirmButton: true
+        });
       });
-    },
-    (error: Error) => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar inserir complemento',
-        showConfirmButton: true
-      });
-    });
 
   }
 
@@ -165,12 +161,12 @@ export class ComplementoComponent implements OnInit {
   limpar() {
     this.complementoForm.reset();
     jQuery('.fileinput').fileinput('clear');
-    jQuery(".selectpicker").selectpicker('refresh');
+    jQuery('.selectpicker').selectpicker('refresh');
     this.imagemFotoCNH = '../../../../../assets/img/Headshot-Placeholder-1.png';
   }
 
   dateChange(control: FormControl, name: string) {
-    jQuery(`#${name}`).on("dp.change", function (event: any) {
+    jQuery(`#${name}`).on('dp.change', function(event: any) {
       control.setValue(event?.date?._d?.toLocaleDateString());
     });
   }

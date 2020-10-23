@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { SharedEventTokenService } from './shared-event-token.service';
+import {Injectable} from '@angular/core';
+import {SharedEventTokenService} from './shared-event-token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,8 @@ export class SharedTokenService {
 
   constructor(
     private _eventToken: SharedEventTokenService
-  ) { }
+  ) {
+  }
 
   isLoggedIn(): boolean {
     return !!this.getToken();

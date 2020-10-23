@@ -1,12 +1,12 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Role } from 'src/app/classes/role';
-import { DocumentoService } from 'src/app/services/documento.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
-import { InputValidation } from '../../shared/validations/input-validation';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Role} from 'src/app/classes/role';
+import {DocumentoService} from 'src/app/services/documento.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import {validCpf} from 'src/app/shared/validations/directives/valid-cpf.directive';
+import {InputValidation} from '../../shared/validations/input-validation';
 
 declare var jQuery: any;
 

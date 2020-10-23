@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { LoginService } from 'src/app/auth/services/login.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {LoginService} from 'src/app/auth/services/login.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 
 @Component({
   selector: 'pr-login',

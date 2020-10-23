@@ -1,18 +1,18 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { map } from 'rxjs/internal/operators/map';
-import { Escolaridade } from 'src/app/classes/escolaridade.class';
-import { Instrucao } from 'src/app/classes/instrucao.class';
-import { Role } from 'src/app/enums/role.enum';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { EscolaridadeService } from 'src/app/services/escolaridade.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Escolaridade} from 'src/app/classes/escolaridade.class';
+import {Instrucao} from 'src/app/classes/instrucao.class';
+import {Role} from 'src/app/enums/role.enum';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {EscolaridadeService} from 'src/app/services/escolaridade.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import {map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -26,14 +26,12 @@ export class EscolaridadeComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   escolaridadeForm: FormGroup;
-
-  private valid: Valid;
-  private escolaridade: Escolaridade = new Escolaridade();
-
   public instrucoes: Instrucao[] = [];
   public validationHas: InputValidationHas = new InputValidationHas();
   public showForm: boolean = true;
   public toogleEstado: boolean = true;
+  private valid: Valid;
+  private escolaridade: Escolaridade = new Escolaridade();
 
   constructor(
     private _router: Router,
@@ -76,10 +74,10 @@ export class EscolaridadeComponent implements OnInit {
       null,
       null,
       () => {
-      this.popularForm();
+        this.popularForm();
         setTimeout(() => {
-          jQuery("select[id='instrucao']").selectpicker('refresh');
-          jQuery("select[id='instrucao']").selectpicker('val', this._cadastro?.escolaridade?.instrucao.id);
+          jQuery('select[id=\'instrucao\']').selectpicker('refresh');
+          jQuery('select[id=\'instrucao\']').selectpicker('val', this._cadastro?.escolaridade?.instrucao.id);
           this._loading.emitChange(false);
         });
         this.showForm = false;
@@ -125,21 +123,21 @@ export class EscolaridadeComponent implements OnInit {
     this.escolaridade.proprietarioId = this.valid.id;
 
     this._service.save(this.escolaridade).subscribe(response => {
-      setTimeout(() => {
-        this._cadastro.escolaridade = this.escolaridade;
-        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/complemento`);
+        setTimeout(() => {
+          this._cadastro.escolaridade = this.escolaridade;
+          this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/complemento`);
+          this._loading.emitChange(false);
+        });
+      },
+      (error: Error) => {
         this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocorreu um erro inexperado ao tentar inserir escolaridade',
+          showConfirmButton: true
+        });
       });
-    },
-    (error: Error) => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar inserir escolaridade',
-        showConfirmButton: true
-      });
-    });
   }
 
   toogle() {
@@ -152,27 +150,27 @@ export class EscolaridadeComponent implements OnInit {
 
   limpar() {
     this.escolaridadeForm.reset();
-    jQuery(".selectpicker").selectpicker('refresh');
+    jQuery('.selectpicker').selectpicker('refresh');
   }
 
   validacoes(): boolean {
     if (this.escolaridadeForm.controls.anoConclusao1.value &&
       this.escolaridadeForm.controls.anoConclusao2.value &&
       this.escolaridadeForm.controls.anoConclusao3.value) {
-        return !(this.escolaridadeForm.controls.anoConclusao1.value <= this.escolaridadeForm.controls.anoConclusao2.value &&
+      return !(this.escolaridadeForm.controls.anoConclusao1.value <= this.escolaridadeForm.controls.anoConclusao2.value &&
         this.escolaridadeForm.controls.anoConclusao2.value <= this.escolaridadeForm.controls.anoConclusao3.value);
     }
 
     if (this.escolaridadeForm.controls.anoConclusao1.value && this.escolaridadeForm.controls.anoConclusao2.value) {
-        return !(this.escolaridadeForm.controls.anoConclusao1.value <= this.escolaridadeForm.controls.anoConclusao2.value);
+      return !(this.escolaridadeForm.controls.anoConclusao1.value <= this.escolaridadeForm.controls.anoConclusao2.value);
     }
 
     if (this.escolaridadeForm.controls.anoConclusao1.value && this.escolaridadeForm.controls.anoConclusao3.value) {
-        return !(this.escolaridadeForm.controls.anoConclusao1.value <= this.escolaridadeForm.controls.anoConclusao3.value);
+      return !(this.escolaridadeForm.controls.anoConclusao1.value <= this.escolaridadeForm.controls.anoConclusao3.value);
     }
 
     if (this.escolaridadeForm.controls.anoConclusao2.value && this.escolaridadeForm.controls.anoConclusao3.value) {
-        return !(this.escolaridadeForm.controls.anoConclusao2.value <= this.escolaridadeForm.controls.anoConclusao3.value);
+      return !(this.escolaridadeForm.controls.anoConclusao2.value <= this.escolaridadeForm.controls.anoConclusao3.value);
     }
   }
 

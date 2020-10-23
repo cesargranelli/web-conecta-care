@@ -6,12 +6,11 @@ import {ContatoHomeCare} from 'src/app/classes/contatoHomeCare.class';
 import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
 import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import {InputValidation} from '../../../../../shared/validations/input-validation';
-import { ContatoService } from 'src/app/homecares/services/contato.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { map } from 'rxjs/internal/operators/map';
+import {ContatoService} from 'src/app/homecares/services/contato.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {map} from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-form-contato',
@@ -67,7 +66,7 @@ export class FormContatoComponent implements OnInit {
     ).subscribe(null,
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
-          console.log('Não existem dados cadastrados!')
+          console.log('Não existem dados cadastrados!');
         }
       },
       () => {

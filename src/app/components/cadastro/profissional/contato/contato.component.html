@@ -9,75 +9,80 @@
               Informações de Contato
             </h3>
           </div>
-            <form [formGroup]="contatoForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
-              <div class="card-body">
-                <div class="tab-content">
-                  <div class="row">
-                    <label for="telefoneFixo" class="col-lg-3 col-md-3 col-form-label">Fone Fixo</label>
-                    <div class="form-group col-lg-6 col-md-6">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
+          <form (ngSubmit)="onSubmit()" [formGroup]="contatoForm" [hidden]="showForm" class="form-horizontal">
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="row">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="telefoneFixo">Fone Fixo</label>
+                  <div class="form-group col-lg-6 col-md-6">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
                           <span class="input-group-text">
                             {{ codigoPais }}
                           </span>
-                        </div>
-                        <input type="text" class="form-control" formControlName="telefoneFixo" placeholder="(99) 9999-9999" mask="(00) 0000-0000">
                       </div>
+                      <input class="form-control" formControlName="telefoneFixo" mask="(00) 0000-0000"
+                             placeholder="(99) 9999-9999" type="text">
                     </div>
                   </div>
-                  <div class="row">
-                    <label for="celularPrincipal" class="col-lg-3 col-md-3 col-form-label">Celular Principal *</label>
-                    <div class="form-group col-lg-6 col-md-6" [ngClass]="validationHas.validation(contatoForm.controls?.celularPrincipal)">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
+                </div>
+                <div class="row">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="celularPrincipal">Celular Principal *</label>
+                  <div [ngClass]="validationHas.validation(contatoForm.controls?.celularPrincipal)"
+                       class="form-group col-lg-6 col-md-6">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
                           <span class="input-group-text">
                             {{ codigoPais }}
                           </span>
-                        </div>
-                        <input type="text" class="form-control" formControlName="celularPrincipal" placeholder="(99) 99999-9999" mask="(00) 00000-0000">
                       </div>
+                      <input class="form-control" formControlName="celularPrincipal" mask="(00) 00000-0000"
+                             placeholder="(99) 99999-9999" type="text">
                     </div>
                   </div>
-                  <div class="row">
-                    <label for="telefoneRecado" class="col-lg-3 col-md-3 col-form-label">Fone Recado</label>
-                    <div class="form-group col-lg-6 col-md-6">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
+                </div>
+                <div class="row">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="telefoneRecado">Fone Recado</label>
+                  <div class="form-group col-lg-6 col-md-6">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
                           <span class="input-group-text">
                             {{ codigoPais }}
                           </span>
-                        </div>
-                        <input type="text" class="form-control" formControlName="telefoneRecado" placeholder="(99) 9999-9999" mask="(00) 0000-0000">
                       </div>
+                      <input class="form-control" formControlName="telefoneRecado" mask="(00) 0000-0000"
+                             placeholder="(99) 9999-9999" type="text">
                     </div>
                   </div>
-                  <div class="row">
-                    <label for="celularSecundario" class="col-lg-3 col-md-3 col-form-label">Celular Secundário</label>
-                    <div class="form-group col-lg-6 col-md-6">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
+                </div>
+                <div class="row">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="celularSecundario">Celular Secundário</label>
+                  <div class="form-group col-lg-6 col-md-6">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
                           <span class="input-group-text">
                             {{ codigoPais }}
                           </span>
-                        </div>
-                        <input type="text" class="form-control" formControlName="celularSecundario" placeholder="(99) 99999-9999" mask="(00) 00000-0000">
                       </div>
+                      <input class="form-control" formControlName="celularSecundario" mask="(00) 00000-0000"
+                             placeholder="(99) 99999-9999" type="text">
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card-footer justify-content-between">
+            </div>
+            <div class="card-footer justify-content-between">
                 <span class="bmd-form-group is-filled">
-                  <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-                  <button type="button" class="btn btn-gray" (click)="contatoForm.reset()">Limpar</button>
+                  <button (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+                  <button (click)="contatoForm.reset()" class="btn btn-gray" type="button">Limpar</button>
                 </span>
-                <span class="bmd-form-group is-filled">
-                  <button type="submit" class="btn btn-rose" [disabled]="!contatoForm.valid">Avançar</button>
+              <span class="bmd-form-group is-filled">
+                  <button [disabled]="!contatoForm.valid" class="btn btn-rose" type="submit">Avançar</button>
                 </span>
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>

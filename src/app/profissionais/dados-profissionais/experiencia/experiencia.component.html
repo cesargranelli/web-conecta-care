@@ -9,128 +9,128 @@
               Experiência Profissional
             </h3>
           </div>
-          <form [formGroup]="experienciaForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
+          <form (ngSubmit)="onSubmit()" [formGroup]="experienciaForm" [hidden]="showForm" class="form-horizontal">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
-                  <label for="experiencia" class="col-lg-3 col-md-3 col-form-label">Experiência Profissional *</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="experiencia">Experiência Profissional *</label>
                   <div class="form-group col-lg-1 col-md-8">
                     <div class="togglebutton">
                       <label>
-                        <input type="checkbox" id="experiencia" formControlName="experiencia" (click)="toogle()"
-                               checked>
+                        <input (click)="toogle()" checked formControlName="experiencia" id="experiencia"
+                               type="checkbox">
                         <span class="toggle"></span>
                       </label>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <label for="empresa1" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 1</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="empresa1">Empresa anterior 1</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="empresa1" class="form-control" formControlName="empresa1"
-                           [readonly]="somenteLeitura" maxlength="100">
+                    <input [readonly]="somenteLeitura" class="form-control" formControlName="empresa1" id="empresa1"
+                           maxlength="100" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="cargo1" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 1</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="cargo1">Cargo anterior 1</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="cargo1" class="form-control" formControlName="cargo1"
-                           [readonly]="somenteLeitura" maxlength="50">
+                    <input [readonly]="somenteLeitura" class="form-control" formControlName="cargo1" id="cargo1"
+                           maxlength="50" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="dataAdmissao1" class="col-lg-3 col-md-3 col-form-label">Data admissão 1</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="dataAdmissao1">Data admissão 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control datetimepicker" id="dataAdmissao1"
-                           formControlName="dataAdmissao1" [readonly]="somenteLeitura"
-                           (focus)="dateChange(experienciaForm.controls?.dataAdmissao1, 'dataAdmissao1')"
-                           autocomplete="none">
+                    <input (focus)="dateChange(experienciaForm.controls?.dataAdmissao1, 'dataAdmissao1')" [readonly]="somenteLeitura" autocomplete="none"
+                           class="form-control datetimepicker" formControlName="dataAdmissao1"
+                           id="dataAdmissao1"
+                           type="text">
                   </div>
-                  <label for="dataDemissao1" class="col-lg-2 col-md-3 col-form-label">Data demissão 1</label>
+                  <label class="col-lg-2 col-md-3 col-form-label" for="dataDemissao1">Data demissão 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control datetimepicker" id="dataDemissao1"
-                           formControlName="dataDemissao1" [readonly]="somenteLeitura"
-                           (focus)="dateChange(experienciaForm.controls?.dataDemissao1, 'dataDemissao1')"
-                           autocomplete="none">
+                    <input (focus)="dateChange(experienciaForm.controls?.dataDemissao1, 'dataDemissao1')" [readonly]="somenteLeitura" autocomplete="none"
+                           class="form-control datetimepicker" formControlName="dataDemissao1"
+                           id="dataDemissao1"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="empresa2" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 2</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="empresa2">Empresa anterior 2</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="empresa2" class="form-control" formControlName="empresa2"
-                           [readonly]="somenteLeitura" maxlength="100">
+                    <input [readonly]="somenteLeitura" class="form-control" formControlName="empresa2" id="empresa2"
+                           maxlength="100" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="cargo2" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 2</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="cargo2">Cargo anterior 2</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="cargo2" class="form-control" formControlName="cargo2"
-                           [readonly]="somenteLeitura" maxlength="50">
+                    <input [readonly]="somenteLeitura" class="form-control" formControlName="cargo2" id="cargo2"
+                           maxlength="50" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="dataAdmissao2" class="col-lg-3 col-md-3 col-form-label">Data admissão 2</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="dataAdmissao2">Data admissão 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control datetimepicker" id="dataAdmissao2"
-                           formControlName="dataAdmissao2" [readonly]="somenteLeitura"
-                           (focus)="dateChange(experienciaForm.controls?.dataAdmissao2, 'dataAdmissao2')"
-                           autocomplete="none">
+                    <input (focus)="dateChange(experienciaForm.controls?.dataAdmissao2, 'dataAdmissao2')" [readonly]="somenteLeitura" autocomplete="none"
+                           class="form-control datetimepicker" formControlName="dataAdmissao2"
+                           id="dataAdmissao2"
+                           type="text">
                   </div>
-                  <label for="dataDemissao2" class="col-lg-2 col-md-3 col-form-label">Data demissão 2</label>
+                  <label class="col-lg-2 col-md-3 col-form-label" for="dataDemissao2">Data demissão 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control datetimepicker" id="dataDemissao2"
-                           formControlName="dataDemissao2" [readonly]="somenteLeitura"
-                           (focus)="dateChange(experienciaForm.controls?.dataDemissao2, 'dataDemissao2')"
-                           autocomplete="none">
+                    <input (focus)="dateChange(experienciaForm.controls?.dataDemissao2, 'dataDemissao2')" [readonly]="somenteLeitura" autocomplete="none"
+                           class="form-control datetimepicker" formControlName="dataDemissao2"
+                           id="dataDemissao2"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="empresa3" class="col-lg-3 col-md-3 col-form-label">Empresa anterior 3</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="empresa3">Empresa anterior 3</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="empresa3" class="form-control" formControlName="empresa3"
-                           [readonly]="somenteLeitura" maxlength="100">
+                    <input [readonly]="somenteLeitura" class="form-control" formControlName="empresa3" id="empresa3"
+                           maxlength="100" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="cargo3" class="col-lg-3 col-md-3 col-form-label">Cargo anterior 3</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="cargo3">Cargo anterior 3</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" id="cargo3" class="form-control" formControlName="cargo3"
-                           [readonly]="somenteLeitura" maxlength="50">
+                    <input [readonly]="somenteLeitura" class="form-control" formControlName="cargo3" id="cargo3"
+                           maxlength="50" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="dataAdmissao3" class="col-lg-3 col-md-3 col-form-label">Data admissão 3</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="dataAdmissao3">Data admissão 3</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control datetimepicker" id="dataAdmissao3"
-                           formControlName="dataAdmissao3" [readonly]="somenteLeitura"
-                           (focus)="dateChange(experienciaForm.controls?.dataAdmissao3, 'dataAdmissao3')"
-                           autocomplete="none">
+                    <input (focus)="dateChange(experienciaForm.controls?.dataAdmissao3, 'dataAdmissao3')" [readonly]="somenteLeitura" autocomplete="none"
+                           class="form-control datetimepicker" formControlName="dataAdmissao3"
+                           id="dataAdmissao3"
+                           type="text">
                   </div>
-                  <label for="dataDemissao3" class="col-lg-2 col-md-3 col-form-label">Data demissão 3</label>
+                  <label class="col-lg-2 col-md-3 col-form-label" for="dataDemissao3">Data demissão 3</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control datetimepicker" id="dataDemissao3"
-                           formControlName="dataDemissao3" [readonly]="somenteLeitura"
-                           (focus)="dateChange(experienciaForm.controls?.dataDemissao3, 'dataDemissao3')"
-                           autocomplete="none">
+                    <input (focus)="dateChange(experienciaForm.controls?.dataDemissao3, 'dataDemissao3')" [readonly]="somenteLeitura" autocomplete="none"
+                           class="form-control datetimepicker" formControlName="dataDemissao3"
+                           id="dataDemissao3"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="observacao" class="col-lg-3 col-md-3 col-form-label">Observação</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="observacao">Observação</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <textarea class="form-control" id="observacao" formControlName="observacao"
-                              [readonly]="somenteLeitura"></textarea>
+                    <textarea [readonly]="somenteLeitura" class="form-control" formControlName="observacao"
+                              id="observacao"></textarea>
                   </div>
                 </div>
               </div>
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
+                <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
                   <i class="material-icons">arrow_back</i>
                 </button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!experienciaForm.valid">Alterar</button>
+                <button [disabled]="!experienciaForm.valid" class="btn btn-rose" type="submit">Alterar</button>
               </span>
             </div>
           </form>

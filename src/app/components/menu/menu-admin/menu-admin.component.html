@@ -9,8 +9,8 @@
           </a>
         </div>
       </div>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation"
-        aria-expanded="false" aria-label="Toggle navigation">
+      <button aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+              data-toggle="collapse" type="button">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon icon-bar"></span>
         <span class="navbar-toggler-icon icon-bar"></span>
@@ -19,19 +19,19 @@
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a routerLink="admin/eventos" class="nav-link">
+            <a class="nav-link" routerLink="admin/eventos">
               <i class="material-icons">pending_actions</i>
               Eventos
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="admin/eventos/cadastro" class="nav-link">
+            <a class="nav-link" routerLink="admin/eventos/cadastro">
               <i class="material-icons">mail</i>
               Cadastrar evento
             </a>
           </li>
           <li class="nav-item active">
-            <a routerLink="admin" class="nav-link" (click)="logout()">
+            <a (click)="logout()" class="nav-link" routerLink="admin">
               <i class="material-icons">exit_to_app</i>
               Sair
             </a>

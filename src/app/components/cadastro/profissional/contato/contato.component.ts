@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {map} from 'rxjs/internal/operators/map';
 import {Contato} from 'src/app/classes/contato.class';
 import {Pais} from 'src/app/classes/pais.class';
 import {Role} from 'src/app/enums/role.enum';
@@ -13,7 +12,7 @@ import {SharedLoadingService} from 'src/app/shared/services/shared-loading.servi
 import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import {concatMap} from 'rxjs/operators';
+import {concatMap, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-contato',
@@ -23,17 +22,13 @@ import {concatMap} from 'rxjs/operators';
 export class ContatoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-
-  private _valid: Valid;
-  private _contato: Contato;
-
   public validationHas: InputValidationHas = new InputValidationHas();
   public codigoPais: string = '+55';
   public pais: Pais;
-
   public showForm: boolean = true;
-
   contatoForm: FormGroup;
+  private _valid: Valid;
+  private _contato: Contato;
 
   constructor(
     private _router: Router,

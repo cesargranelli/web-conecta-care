@@ -1,17 +1,15 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Navigation, Router } from '@angular/router';
-import { Usuario } from 'src/app/classes/usuario.class';
-import { Role } from 'src/app/enums/role.enum';
-import { Registro } from 'src/app/services/feat/registro';
-import { UsuarioService } from 'src/app/services/usuario.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
-import { InputValidation } from 'src/app/shared/validations/input-validation';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {Navigation, Router} from '@angular/router';
+import {Usuario} from 'src/app/classes/usuario.class';
+import {Role} from 'src/app/enums/role.enum';
+import {Registro} from 'src/app/services/feat/registro';
+import {UsuarioService} from 'src/app/services/usuario.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {validEqualsEmail, validEqualsPassword} from 'src/app/shared/validations/directives/valid-equals';
+import {InputValidation} from 'src/app/shared/validations/input-validation';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { of } from 'rxjs/internal/observable/of';
 
 declare var jQuery: any;
 
@@ -82,7 +80,7 @@ export class CadastroLoginComponent implements OnInit {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,20}$'),
         this.equalsPassword()
       ]]
-    }, { validators: [validEqualsEmail, validEqualsPassword] });
+    }, {validators: [validEqualsEmail, validEqualsPassword]});
 
   }
 
@@ -103,13 +101,13 @@ export class CadastroLoginComponent implements OnInit {
         this._router.navigateByUrl(`espera-confirmacao-email`);
       });
     }, httpResponse => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: httpResponse.error.data.message,
-          showConfirmButton: true
-        });
-        this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: httpResponse.error.data.message,
+        showConfirmButton: true
+      });
+      this._loading.emitChange(false);
     });
 
   }
@@ -132,7 +130,7 @@ export class CadastroLoginComponent implements OnInit {
       if (control.value == this.cadastroLoginForm?.controls.email.value) {
         return null;
       } else {
-        return { invalid: control.value }
+        return {invalid: control.value};
       }
     };
   }
@@ -142,7 +140,7 @@ export class CadastroLoginComponent implements OnInit {
       if (control.value == this.cadastroLoginForm?.controls.password.value) {
         return null;
       } else {
-        return { invalid: control.value }
+        return {invalid: control.value};
       }
     };
   }

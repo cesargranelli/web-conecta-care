@@ -1,20 +1,20 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap, map } from 'rxjs/operators';
-import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
-import { Carreira } from 'src/app/classes/carreira.class';
-import { Conselho } from 'src/app/classes/conselho.class';
-import { Estado } from 'src/app/classes/estado.class';
-import { Transporte } from 'src/app/classes/transporte.class';
-import { Role } from 'src/app/enums/role.enum';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { CarreiraService } from 'src/app/services/carreira.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {concatMap, map} from 'rxjs/operators';
+import {AreaAtendimento} from 'src/app/classes/area-atendimento.class';
+import {Carreira} from 'src/app/classes/carreira.class';
+import {Conselho} from 'src/app/classes/conselho.class';
+import {Estado} from 'src/app/classes/estado.class';
+import {Transporte} from 'src/app/classes/transporte.class';
+import {Role} from 'src/app/enums/role.enum';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {CarreiraService} from 'src/app/services/carreira.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -27,8 +27,6 @@ declare var jQuery: any;
 export class CarreiraComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-  private _dadosLocalStorage: Valid;
-
   public conselhos: Array<Conselho>;
   public estados: Array<Estado>;
   public areasAtendimento: Array<AreaAtendimento>;
@@ -37,6 +35,7 @@ export class CarreiraComponent implements OnInit {
   public carreira: Carreira;
   public carreiraForm: FormGroup;
   public showForm: boolean = true;
+  private _dadosLocalStorage: Valid;
 
   constructor(
     private _router: Router,

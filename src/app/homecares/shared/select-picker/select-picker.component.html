@@ -1,5 +1,5 @@
-<select formControlName="documento" id="{{selectId}}" class="selectpicker" data-style="btn btn-primary"
-        data-width="100%" title="Selecione" (change)="emit()">
+<select (change)="emit()" class="selectpicker" data-style="btn btn-primary" data-width="100%"
+        formControlName="documento" id="{{selectId}}" title="Selecione">
   <option>CNPJ</option>
   <option>MEI</option>
 </select>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-espera-confirmacao-email',
@@ -9,7 +9,8 @@ export class EsperaConfirmacaoEmailComponent implements OnInit {
 
   public loading = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.loading = true;

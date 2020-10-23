@@ -11,24 +11,24 @@
           </div>
           <div class="wizard-navigation">
             <ul class="nav nav-pills nav-fill">
-              <li class="nav-item" style="width: 25%;" id="pacientes" #paciente (click)="setRole(paciente.id)">
-                <a class="nav-link active" href="#login" data-toggle="tab" role="tab">
+              <li #paciente (click)="setRole(paciente.id)" class="nav-item" id="pacientes" style="width: 25%;">
+                <a class="nav-link active" data-toggle="tab" href="#login" role="tab">
                   Paciente
                 </a>
               </li>
-              <li class="nav-item" style="width: 25%;" id="profissionais" #profissional
-                  (click)="setRole(profissional.id)">
-                <a class="nav-link" href="#login" data-toggle="tab" role="tab">
+              <li #profissional (click)="setRole(profissional.id)" class="nav-item" id="profissionais"
+                  style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#login" role="tab">
                   Profissional
                 </a>
               </li>
-              <li class="nav-item" style="width: 25%;" id="homecares" #homecare (click)="setRole(homecare.id)">
-                <a class="nav-link" href="#login" data-toggle="tab" role="tab">
+              <li #homecare (click)="setRole(homecare.id)" class="nav-item" id="homecares" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#login" role="tab">
                   Homecare
                 </a>
               </li>
-              <li class="nav-item" style="width: 25%;" id="convenios" #convenio (click)="setRole(convenio.id)">
-                <a class="nav-link" href="#login" data-toggle="tab" role="tab">
+              <li #convenio (click)="setRole(convenio.id)" class="nav-item" id="convenios" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#login" role="tab">
                   Plano de Saúde
                 </a>
               </li>
@@ -44,9 +44,9 @@
                 </div>
                 <div class="row justify-content-center">
                   <div class="container">
-                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                      <div class="form-row justify-content-center form-control-lg"
-                           [ngClass]="inputHas.validation(loginForm.controls.email)">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+                      <div [ngClass]="inputHas.validation(loginForm.controls.email)"
+                           class="form-row justify-content-center form-control-lg">
                         <div class="col-lg-6 col-md-8">
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -54,15 +54,15 @@
                                 <i class="material-icons">email</i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" formControlName="email" placeholder="Email...">
+                            <input class="form-control" formControlName="email" placeholder="Email..." type="text">
                           </div>
                           <span class="form-control-feedback">
                             <i class="material-icons">{{ input.validation(loginForm.controls.email) }}</i>
                           </span>
                         </div>
                       </div>
-                      <div class="form-row justify-content-center form-control-lg"
-                           [ngClass]="inputHas.validation(loginForm.controls.password)">
+                      <div [ngClass]="inputHas.validation(loginForm.controls.password)"
+                           class="form-row justify-content-center form-control-lg">
                         <div class="col-lg-6 col-md-8">
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -70,10 +70,10 @@
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input type="password" class="form-control" formControlName="password"
-                                   placeholder="Password..."
-                                   data-toggle="tooltip" data-placement="top" data-html="true" data-trigger="click"
-                                   [title]="mensagemToolTip">
+                            <input [title]="mensagemToolTip" class="form-control" data-html="true"
+                                   data-placement="top"
+                                   data-toggle="tooltip" data-trigger="click" formControlName="password" placeholder="Password..."
+                                   type="password">
                           </div>
                           <span class="form-control-feedback">
                             <i class="material-icons">{{ input.validation(loginForm.controls.password) }}</i>
@@ -82,14 +82,14 @@
                       </div>
                       <div class="form-row justify-content-center form-control-lg">
                         <div class="form-group">
-                          <button type="submit" [disabled]="!loginForm.valid" class="btn btn-rose"
-                                  [ngClass]="!loginForm.valid ? 'btn-link' : ''">Entrar
+                          <button [disabled]="!loginForm.valid" [ngClass]="!loginForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                                  type="submit">Entrar
                           </button>
                         </div>
                       </div>
                       <div class="form-row justify-content-center">
                         <div class="form-group">
-                          <a class="btn btn-rose btn-link" [routerLink]="['esqueci-minha-senha']">
+                          <a [routerLink]="['esqueci-minha-senha']" class="btn btn-rose btn-link">
                             Esqueci minha Senha
                           </a>
                         </div>

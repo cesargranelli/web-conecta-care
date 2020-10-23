@@ -10,85 +10,85 @@
             </h3>
           </div>
           <div class="card-body">
-            <div class="tab-content" [hidden]="escondeTabela">
+            <div [hidden]="escondeTabela" class="tab-content">
               <div class="row">
-                <label for="titulo" class="col-lg-2 col-md-2 col-form-label">Título</label>
+                <label class="col-lg-2 col-md-2 col-form-label" for="titulo">Título</label>
                 <div class="form-group col-lg-9 col-md-9">
-                  <input type="text" class="form-control" [value]="detalheEvento?.titulo" disabled>
+                  <input [value]="detalheEvento?.titulo" class="form-control" disabled type="text">
                 </div>
               </div>
               <div class="row">
-                <label for="descricao" class="col-lg-2 col-md-2 col-form-label">Descrição</label>
+                <label class="col-lg-2 col-md-2 col-form-label" for="descricao">Descrição</label>
                 <div class="form-group col-lg-9 col-md-9">
-                  <input type="text" class="form-control" [value]="detalheEvento?.descricao" disabled>
+                  <input [value]="detalheEvento?.descricao" class="form-control" disabled type="text">
                 </div>
               </div>
               <div class="row">
-                <label for="detalhe" class="col-lg-2 col-md-2 col-form-label">Detalhe</label>
+                <label class="col-lg-2 col-md-2 col-form-label" for="detalhe">Detalhe</label>
                 <div class="form-group col-lg-9 col-md-9">
-                  <textarea class="form-control" [value]="detalheEvento?.detalhe" disabled rows="3"></textarea>
+                  <textarea [value]="detalheEvento?.detalhe" class="form-control" disabled rows="3"></textarea>
                 </div>
               </div>
               <div class="row">
-                <label for="cep" class="col-lg-2 col-md-2 col-form-label">CEP</label>
+                <label class="col-lg-2 col-md-2 col-form-label" for="cep">CEP</label>
                 <div class="form-group col-lg-3 col-md-3">
-                  <input type="text" class="form-control" [value]="detalheEvento?.cep" disabled>
+                  <input [value]="detalheEvento?.cep" class="form-control" disabled type="text">
                 </div>
               </div>
               <div class="row">
-                <label for="logradouro" class="col-lg-2 col-md-3 col-form-label">Endereço</label>
+                <label class="col-lg-2 col-md-3 col-form-label" for="logradouro">Endereço</label>
                 <div class="form-group col-lg-5 col-md-8">
-                  <input type="text" class="form-control" [value]="detalheEvento?.logradouro" disabled>
+                  <input [value]="detalheEvento?.logradouro" class="form-control" disabled type="text">
                 </div>
-                <label for="numero" class="col-lg-2 col-md-3 col-form-label">Número</label>
+                <label class="col-lg-2 col-md-3 col-form-label" for="numero">Número</label>
                 <div class="form-group col-lg-2 col-md-8">
-                  <input type="text" class="form-control" [value]="detalheEvento?.numero" disabled>
+                  <input [value]="detalheEvento?.numero" class="form-control" disabled type="text">
                 </div>
               </div>
               <div class="row">
-                <label for="bairro" class="col-lg-2 col-md-3 col-form-label">Bairro</label>
+                <label class="col-lg-2 col-md-3 col-form-label" for="bairro">Bairro</label>
                 <div class="form-group col-lg-4 col-md-8">
-                  <input type="text" class="form-control" [value]="detalheEvento?.bairro" disabled>
+                  <input [value]="detalheEvento?.bairro" class="form-control" disabled type="text">
                 </div>
-                <label for="cidade" class="col-lg-2 col-md-3 col-form-label">Cidade</label>
+                <label class="col-lg-2 col-md-3 col-form-label" for="cidade">Cidade</label>
                 <div class="form-group col-lg-3 col-md-8">
-                  <input type="text" class="form-control" [value]="detalheEvento?.cidade" disabled>
+                  <input [value]="detalheEvento?.cidade" class="form-control" disabled type="text">
                 </div>
               </div>
               <div class="row">
-                <label for="data" class="col-lg-2 col-md-2 col-form-label">Data</label>
+                <label class="col-lg-2 col-md-2 col-form-label" for="data">Data</label>
                 <div class="form-group col-lg-3 col-md-3">
-                  <input type="text" class="form-control text-right" [value]="detalheEvento?.data" disabled>
+                  <input [value]="detalheEvento?.data" class="form-control text-right" disabled type="text">
                 </div>
-                <label for="hora" class="col-lg-3 col-md-3 col-form-label">Hora</label>
+                <label class="col-lg-3 col-md-3 col-form-label" for="hora">Hora</label>
                 <div class="form-group col-lg-3 col-md-3">
-                  <input type="text" class="form-control text-right" [value]="detalheEvento?.hora" disabled>
-                </div>
-              </div>
-              <div class="row">
-                <label for="vagas" class="col-lg-2 col-md-2 col-form-label">Vagas</label>
-                <div class="form-group col-lg-3 col-md-3">
-                  <input type="text" class="form-control text-right" [value]="detalheEvento?.vagas" disabled>
-                </div>
-                <label for="duracao" class="col-lg-3 col-md-3 col-form-label">Duração em Horas</label>
-                <div class="form-group col-lg-3 col-md-3">
-                  <input type="text" class="form-control text-right" [value]="detalheEvento?.duracao" disabled>
+                  <input [value]="detalheEvento?.hora" class="form-control text-right" disabled type="text">
                 </div>
               </div>
               <div class="row">
-                <label for="estados" class="col-lg-2 col-md-2 col-form-label">Região</label>
+                <label class="col-lg-2 col-md-2 col-form-label" for="vagas">Vagas</label>
                 <div class="form-group col-lg-3 col-md-3">
-                  <input type="text" class="form-control" [value]="detalheEvento?.estado.uf" disabled>
+                  <input [value]="detalheEvento?.vagas" class="form-control text-right" disabled type="text">
+                </div>
+                <label class="col-lg-3 col-md-3 col-form-label" for="duracao">Duração em Horas</label>
+                <div class="form-group col-lg-3 col-md-3">
+                  <input [value]="detalheEvento?.duracao" class="form-control text-right" disabled type="text">
                 </div>
               </div>
               <div class="row">
-                <label for="areaAtendimento" class="col-lg-2 col-md-3 col-form-label">Especialidade</label>
+                <label class="col-lg-2 col-md-2 col-form-label" for="estados">Região</label>
+                <div class="form-group col-lg-3 col-md-3">
+                  <input [value]="detalheEvento?.estado.uf" class="form-control" disabled type="text">
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-lg-2 col-md-3 col-form-label" for="areaAtendimento">Especialidade</label>
                 <div class="form-group col-lg-4 col-md-8">
                   <table class="table">
                     <tbody>
-                      <tr *ngFor="let especialidade of detalheEvento?.especialidades">
-                        <td>{{ especialidade.nome }}</td>
-                      </tr>
+                    <tr *ngFor="let especialidade of detalheEvento?.especialidades">
+                      <td>{{ especialidade.nome }}</td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
@@ -97,7 +97,7 @@
           </div>
           <div class="card-footer justify-content-between">
             <span class="bmd-form-group is-filled">
-              <button type="button" class="btn btn-gray" routerLink="../">Voltar</button>
+              <button class="btn btn-gray" routerLink="../" type="button">Voltar</button>
             </span>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {Navigation, Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Navigation, Router} from '@angular/router';
 import {Usuario} from 'src/app/classes/usuario.class';
 import {Role} from 'src/app/enums/role.enum';
 import {Registro} from 'src/app/services/feat/registro';

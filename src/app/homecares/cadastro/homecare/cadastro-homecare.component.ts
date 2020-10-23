@@ -1,13 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HomeCare } from 'src/app/classes/homecare.class';
-import { HomecareService } from 'src/app/homecares/services/homecare.service';
-import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, EventEmitter, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {HomeCare} from 'src/app/classes/homecare.class';
+import {HomecareService} from 'src/app/homecares/services/homecare.service';
+import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -35,10 +35,10 @@ export class CadastroHomeCareComponent implements OnInit {
 
   ngOnInit(): void {
     this._service.consultar(this.valid.id).subscribe(response =>
-      this._cadastro.homeCare = response.body.data,
+        this._cadastro.homeCare = response.body.data,
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
-          console.log('Não existem dados cadastrados!')
+          console.log('Não existem dados cadastrados!');
         }
       }
     );
@@ -51,28 +51,28 @@ export class CadastroHomeCareComponent implements OnInit {
     homeCare.id = this.valid.id;
     if (!this._cadastro.homeCare) {
       this._service.cadastrar(homeCare).subscribe(response => {
-        setTimeout(() => {
-          this._cadastro.homeCare = homeCare;
-          this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/endereco`);
+          setTimeout(() => {
+            this._cadastro.homeCare = homeCare;
+            this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/endereco`);
+            this._loading.emitChange(false);
+          });
+        },
+        () => {
           this._loading.emitChange(false);
+          this.message();
         });
-      },
-      () => {
-        this._loading.emitChange(false);
-        this.message();
-      });
     } else {
       this._service.alterar(homeCare).subscribe(response => {
-        setTimeout(() => {
-          this._cadastro.homeCare = homeCare;
-          this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/endereco`);
+          setTimeout(() => {
+            this._cadastro.homeCare = homeCare;
+            this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/endereco`);
+            this._loading.emitChange(false);
+          });
+        },
+        () => {
           this._loading.emitChange(false);
+          this.message();
         });
-      },
-      () => {
-        this._loading.emitChange(false);
-        this.message();
-      });
     }
   }
 

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/internal/operators/map';
-import { Evento } from 'src/app/admin/eventos/models/evento.class';
-import { Valid } from 'src/app/services/feat/Valid';
-import { ProfissionalService } from 'src/app/services/profissional.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Evento} from 'src/app/admin/eventos/models/evento.class';
+import {Valid} from 'src/app/services/feat/Valid';
+import {ProfissionalService} from 'src/app/services/profissional.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
+import {map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -17,14 +17,12 @@ declare var jQuery: any;
 })
 export class EventosComponent implements OnInit {
   eventos: any;
-
-  private idProfissional: number;
-
   public valid: Valid;
   public escondeTabela: boolean = true;
   public eventosFuturos: Array<Evento>;
   public statusConfirmado: boolean = false;
   public statusRejeitado: boolean = false;
+  private idProfissional: number;
 
   constructor(
     private _activeRoute: ActivatedRoute,
@@ -46,12 +44,12 @@ export class EventosComponent implements OnInit {
       })
     ).subscribe(
       null, null, () => {
-      setTimeout(() => {
-        this.inicializarDataTable();
-        this._loading.emitChange(false);
-        this.escondeTabela = false;
+        setTimeout(() => {
+          this.inicializarDataTable();
+          this._loading.emitChange(false);
+          this.escondeTabela = false;
+        });
       });
-    });
   }
 
   atualizaTabela() {
@@ -62,11 +60,11 @@ export class EventosComponent implements OnInit {
       })
     ).subscribe(
       null, null, () => {
-      setTimeout(() => {
-        this._loading.emitChange(false);
-        this.escondeTabela = false;
+        setTimeout(() => {
+          this._loading.emitChange(false);
+          this.escondeTabela = false;
+        });
       });
-    });
   }
 
   inicializarDataTable() {
@@ -91,54 +89,54 @@ export class EventosComponent implements OnInit {
   confirmarEvento(idEvento: number) {
     this._loading.emitChange(true);
     this._profissionalService.confirmarEvento(this.valid.id, idEvento).subscribe(() => {
-      setTimeout(() => {
+        setTimeout(() => {
+          this._loading.emitChange(false);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Confirmação da participação no evento!',
+            showConfirmButton: true
+          }).then(() => {
+            this.escondeTabela = true;
+            this.atualizaTabela();
+          });
+        });
+      },
+      () => {
         this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
-          icon: 'success',
-          title: 'Confirmação da participação no evento!',
+          icon: 'error',
+          title: 'Não foi possível publicar o novo evento!',
           showConfirmButton: true
-        }).then(() => {
-          this.escondeTabela = true;
-          this.atualizaTabela();
         });
       });
-    },
-    () => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Não foi possível publicar o novo evento!',
-        showConfirmButton: true
-      });
-    });
   }
 
   rejeitarEvento(idEvento: number) {
     this._loading.emitChange(true);
     this._profissionalService.rejeitarEvento(this.valid.id, idEvento).subscribe(() => {
-      setTimeout(() => {
+        setTimeout(() => {
+          this._loading.emitChange(false);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Confirmação de não participação no evento!',
+            showConfirmButton: true
+          }).then(() => {
+            this.escondeTabela = true;
+            this.atualizaTabela();
+          });
+        });
+      },
+      () => {
         this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
-          icon: 'success',
-          title: 'Confirmação de não participação no evento!',
+          icon: 'error',
+          title: 'Ops! Ocorreu um erro ao tentar cancelar o evento!',
           showConfirmButton: true
-        }).then(() => {
-          this.escondeTabela = true;
-          this.atualizaTabela();
         });
       });
-    },
-    () => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ops! Ocorreu um erro ao tentar cancelar o evento!',
-        showConfirmButton: true
-      });
-    });
   }
 }

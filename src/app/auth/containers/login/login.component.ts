@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Login } from 'src/app/classes/login.class';
-import { Role } from 'src/app/classes/role';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidation } from 'src/app/shared/validations/input-validation';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
-import { RoleConverter } from 'src/app/utils/role.converter';
-import Swal from 'sweetalert2';
-import { AuthService } from '../../services/auth.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Login} from 'src/app/classes/login.class';
+import {Role} from 'src/app/classes/role';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidation} from 'src/app/shared/validations/input-validation';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import {RoleConverter} from 'src/app/utils/role.converter';
+import {AuthService} from '../../services/auth.service';
 
 declare var jQuery: any;
 

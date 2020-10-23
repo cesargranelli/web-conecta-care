@@ -12,7 +12,8 @@ export class CardVerDadosComponent implements OnInit {
   @Input() value: string;
   @Input() stats: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

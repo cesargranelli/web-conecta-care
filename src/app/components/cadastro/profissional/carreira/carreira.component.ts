@@ -1,22 +1,21 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { map } from 'rxjs/internal/operators/map';
-import { concatMap } from 'rxjs/operators';
-import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
-import { Carreira } from 'src/app/classes/carreira.class';
-import { Conselho } from 'src/app/classes/conselho.class';
-import { Estado } from 'src/app/classes/estado.class';
-import { Transporte } from 'src/app/classes/transporte.class';
-import { Role } from 'src/app/enums/role.enum';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { CarreiraService } from 'src/app/services/carreira.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AreaAtendimento} from 'src/app/classes/area-atendimento.class';
+import {Carreira} from 'src/app/classes/carreira.class';
+import {Conselho} from 'src/app/classes/conselho.class';
+import {Estado} from 'src/app/classes/estado.class';
+import {Transporte} from 'src/app/classes/transporte.class';
+import {Role} from 'src/app/enums/role.enum';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {CarreiraService} from 'src/app/services/carreira.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import {concatMap, map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -30,9 +29,6 @@ export class CarreiraComponent implements OnInit {
   carreiraForm: FormGroup;
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-  private valid: Valid;
-  private carreira: Carreira;
-
   public conselhos: Conselho[];
   public estados: Estado[];
   public areasAtendimento: AreaAtendimento[];
@@ -40,6 +36,8 @@ export class CarreiraComponent implements OnInit {
   public validationHas: InputValidationHas = new InputValidationHas();
   public showForm: boolean = true;
   public labelRegistro: string = 'Selecione ao lado';
+  private valid: Valid;
+  private carreira: Carreira;
 
   constructor(
     private _router: Router,
@@ -81,17 +79,17 @@ export class CarreiraComponent implements OnInit {
     ).subscribe(null, null, () => {
       this.populaForm();
       this.carregarAreasAtendimento();
-        setTimeout(() => {
-          jQuery("select[id='conselho']").selectpicker('refresh');
-          jQuery(`select[id='conselho']`).selectpicker('val', this._cadastro.carreira?.conselho.id);
-          jQuery("select[id='ufConselho']").selectpicker('refresh');
-          jQuery(`select[id='ufConselho']`).selectpicker('val', this._cadastro.carreira?.ufConselho.id);
-          jQuery("select[id='transporte']").selectpicker('refresh');
-          jQuery(`select[id='transporte']`).selectpicker('val', this._cadastro.carreira?.transporte.id);
-          jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
-          this.carregarAreasAtendimento();
-          this._loading.emitChange(false);
-        });
+      setTimeout(() => {
+        jQuery('select[id=\'conselho\']').selectpicker('refresh');
+        jQuery(`select[id='conselho']`).selectpicker('val', this._cadastro.carreira?.conselho.id);
+        jQuery('select[id=\'ufConselho\']').selectpicker('refresh');
+        jQuery(`select[id='ufConselho']`).selectpicker('val', this._cadastro.carreira?.ufConselho.id);
+        jQuery('select[id=\'transporte\']').selectpicker('refresh');
+        jQuery(`select[id='transporte']`).selectpicker('val', this._cadastro.carreira?.transporte.id);
+        jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
+        this.carregarAreasAtendimento();
+        this._loading.emitChange(false);
+      });
       this.showForm = false;
     });
     this._loading.emitChange(false);
@@ -147,21 +145,21 @@ export class CarreiraComponent implements OnInit {
     // Incluído para corrigir os tipos End
 
     this._service.save(this.carreira).subscribe(response => {
-      setTimeout(() => {
-        this._cadastro.carreira = this.carreira;
-        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/experiencia`);
+        setTimeout(() => {
+          this._cadastro.carreira = this.carreira;
+          this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/experiencia`);
+          this._loading.emitChange(false);
+        });
+      },
+      (error: Error) => {
         this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocorreu um erro inexperado ao tentar inserir carreira',
+          showConfirmButton: true
+        });
       });
-    },
-    (error: Error) => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar inserir carreira',
-        showConfirmButton: true
-      });
-    });
   }
 
   onReturn() {
@@ -170,7 +168,7 @@ export class CarreiraComponent implements OnInit {
 
   limpar() {
     this.carreiraForm.reset();
-    jQuery(".selectpicker").selectpicker('refresh');
+    jQuery('.selectpicker').selectpicker('refresh');
   }
 
 }

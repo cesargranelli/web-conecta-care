@@ -1,6 +1,7 @@
 export class LoginAdmin {
 
-  constructor(private _email: string, private _password: string) { };
+  constructor(private _email: string, private _password: string) {
+  };
 
   get email(): string {
     return this._email;

@@ -1,13 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Contato } from 'src/app/classes/contato.class';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { ContatoService } from 'src/app/services/contato.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Contato} from 'src/app/classes/contato.class';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {ContatoService} from 'src/app/services/contato.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,13 +18,11 @@ import Swal from 'sweetalert2';
 export class ContatoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-
-  private _dadosLocalStorage: Valid;
-
   public contato: Contato;
   public validationHas: InputValidationHas;
   public contatoForm: FormGroup;
   public showForm: boolean = true;
+  private _dadosLocalStorage: Valid;
 
   constructor(
     private _router: Router,

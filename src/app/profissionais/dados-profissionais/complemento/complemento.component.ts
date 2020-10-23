@@ -1,16 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap, map } from 'rxjs/operators';
-import { CategoriaCNH } from 'src/app/classes/categoria-cnh.class';
-import { Complemento } from 'src/app/classes/complemento.class';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { ComplementoService } from 'src/app/services/complemento.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {concatMap, map} from 'rxjs/operators';
+import {CategoriaCNH} from 'src/app/classes/categoria-cnh.class';
+import {Complemento} from 'src/app/classes/complemento.class';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {ComplementoService} from 'src/app/services/complemento.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -23,11 +23,6 @@ declare var jQuery: any;
 export class ComplementoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-
-  private _dadosLocalStorage: Valid;
-  private _fileProfissional: File;
-  private _dataValidadeHabilitacaoFinal: Date;
-
   public complementoForm: FormGroup;
   public categoriasCNH: Array<CategoriaCNH>;
   public validationHas: InputValidationHas;
@@ -35,6 +30,9 @@ export class ComplementoComponent implements OnInit {
   public fileInputCnh: string = 'fileinput-new';
   public complemento: Complemento;
   public showForm: boolean = true;
+  private _dadosLocalStorage: Valid;
+  private _fileProfissional: File;
+  private _dataValidadeHabilitacaoFinal: Date;
 
   constructor(
     private _router: Router,

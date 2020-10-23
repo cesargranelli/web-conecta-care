@@ -9,63 +9,72 @@
               Informações Acadêmicas
             </h3>
           </div>
-          <form [formGroup]="escolaridadeForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
+          <form (ngSubmit)="onSubmit()" [formGroup]="escolaridadeForm" [hidden]="showForm" class="form-horizontal">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
-                  <label for="instrucao" class="col-lg-3 col-md-3 col-form-label">Grau de instrução *</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="instrucao">Grau de instrução *</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <select class="selectpicker" id="instrucao" formControlName="instrucao" data-style="btn btn-primary"
-                      data-width="100%" title="Selecione" (change)="toogle()">
-                      <option [value]="instrucao.id" *ngFor="let instrucao of instrucoes">{{ instrucao.grau }}</option>
+                    <select (change)="toogle()" class="selectpicker" data-style="btn btn-primary" data-width="100%"
+                            formControlName="instrucao" id="instrucao" title="Selecione">
+                      <option *ngFor="let instrucao of instrucoes" [value]="instrucao.id">{{ instrucao.grau }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
-                  <label for="instituicaoEnsino1" class="col-lg-3 col-md-3 col-form-label">Instituição de ensino 1</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="instituicaoEnsino1">Instituição de ensino
+                    1</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="instituicaoEnsino1" [readonly]="toogleEstado">
+                    <input [readonly]="toogleEstado" class="form-control" formControlName="instituicaoEnsino1"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="anoConclusao1" class="col-lg-3 col-md-3 col-form-label">Ano conclusão 1</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="anoConclusao1">Ano conclusão 1</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="anoConclusao1" mask="9{4}" [readonly]="toogleEstado">
+                    <input [readonly]="toogleEstado" class="form-control" formControlName="anoConclusao1" mask="9{4}"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="instituicaoEnsino2" class="col-lg-3 col-md-3 col-form-label">Instituição de ensino 2</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="instituicaoEnsino2">Instituição de ensino
+                    2</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="instituicaoEnsino2" [readonly]="toogleEstado">
+                    <input [readonly]="toogleEstado" class="form-control" formControlName="instituicaoEnsino2"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="anoConclusao2" class="col-lg-3 col-md-3 col-form-label">Ano conclusão 2</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="anoConclusao2">Ano conclusão 2</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="anoConclusao2" mask="9{4}" [readonly]="toogleEstado">
+                    <input [readonly]="toogleEstado" class="form-control" formControlName="anoConclusao2" mask="9{4}"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="instituicaoEnsino3" class="col-lg-3 col-md-3 col-form-label">Instituição de ensino 3</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="instituicaoEnsino3">Instituição de ensino
+                    3</label>
                   <div class="form-group col-lg-8 col-md-8">
-                    <input type="text" class="form-control" formControlName="instituicaoEnsino3" [readonly]="toogleEstado">
+                    <input [readonly]="toogleEstado" class="form-control" formControlName="instituicaoEnsino3"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="anoConclusao3" class="col-lg-3 col-md-3 col-form-label">Ano conclusão 3</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="anoConclusao3">Ano conclusão 3</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" class="form-control" formControlName="anoConclusao3" mask="9{4}" [readonly]="toogleEstado">
+                    <input [readonly]="toogleEstado" class="form-control" formControlName="anoConclusao3" mask="9{4}"
+                           type="text">
                   </div>
                 </div>
               </div>
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
+                <button (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+                <button (click)="limpar()" class="btn btn-gray" type="button">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!escolaridadeForm.valid">Avançar</button>
+                <button [disabled]="!escolaridadeForm.valid" class="btn btn-rose" type="submit">Avançar</button>
               </span>
             </div>
           </form>

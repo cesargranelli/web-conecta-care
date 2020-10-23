@@ -1,19 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap, map } from 'rxjs/operators';
-import { Endereco } from 'src/app/classes/endereco.class';
-import { DominioService } from 'src/app/services/dominio.service';
-import { EnderecoService } from 'src/app/services/endereco.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {concatMap, map} from 'rxjs/operators';
+import {Endereco} from 'src/app/classes/endereco.class';
+import {DominioService} from 'src/app/services/dominio.service';
+import {EnderecoService} from 'src/app/services/endereco.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { EnderecoViaCep } from '../../../classes/endereco-via-cep.class';
-import { Estado } from '../../../classes/estado.class';
-import { Pais } from '../../../classes/pais.class';
-import { Role } from '../../../enums/role.enum';
+import {EnderecoViaCep} from '../../../classes/endereco-via-cep.class';
+import {Estado} from '../../../classes/estado.class';
+import {Pais} from '../../../classes/pais.class';
+import {Role} from '../../../enums/role.enum';
 
 declare var jQuery: any;
 
@@ -27,22 +27,17 @@ export class EnderecoComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   enderecoForm: FormGroup;
-
-  private _fileComprovante: File;
-
   public estados: Array<Estado>;
   public paises: Array<Pais>;
   public valid: Valid;
   public estadoViaCep: Estado;
   public endereco: Endereco;
-
   public comprovante: any;
   public fileInputComprovante: string = 'fileinput-new';
   public imagemComprovante: any = '../../../../../assets/img/Headshot-Doc-1.png';
-
   public validationHas: InputValidationHas = new InputValidationHas();
-
   public showForm: boolean = true;
+  private _fileComprovante: File;
 
   constructor(
     private _router: Router,

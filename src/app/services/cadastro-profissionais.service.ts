@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Carreira } from '../classes/carreira.class';
-import { Complemento } from '../classes/complemento.class';
-import { Conta } from '../classes/conta.class';
-import { Contato } from '../classes/contato.class';
-import { Endereco } from '../classes/endereco.class';
-import { Escolaridade } from '../classes/escolaridade.class';
-import { Experiencia } from '../classes/experiencia.class';
-import { Profissional } from '../classes/profissional.class';
+import {Injectable} from '@angular/core';
+import {Carreira} from '../classes/carreira.class';
+import {Complemento} from '../classes/complemento.class';
+import {Conta} from '../classes/conta.class';
+import {Contato} from '../classes/contato.class';
+import {Endereco} from '../classes/endereco.class';
+import {Escolaridade} from '../classes/escolaridade.class';
+import {Experiencia} from '../classes/experiencia.class';
+import {Profissional} from '../classes/profissional.class';
 
 @Injectable({
   providedIn: 'root'
