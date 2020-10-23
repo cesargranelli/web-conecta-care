@@ -159,7 +159,7 @@ export class InformacoesGeraisComponent implements OnInit {
     profissional.fotoProfissional = this.fotoProfissional;
     profissional.fotoRg = this.fotoRg;
 
-    if (this.validacoes(profissional.rgDataEmissao, profissional.dataNascimento)) {
+    if (this.validacoes(profissional.rgDataEmissao, profissional.dataNascimento) && profissional.rg != null) {
       this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
@@ -179,6 +179,29 @@ export class InformacoesGeraisComponent implements OnInit {
         showConfirmButton: true,
       });
       return;
+    }
+
+    if(profissional.rg != null && profissional.rg != '') {
+      if(profissional.rgDataEmissao == null || profissional.rgDataEmissao == ''){
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Data de emissão do RG obrigatória.',
+          showConfirmButton: true,
+        });
+      return;
+      }
+      if(profissional.rgEmissor == null || profissional.rgEmissor == ''){
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Emissor do RG obrigatório.',
+          showConfirmButton: true,
+        });
+      return;
+      }
     }
 
     this._service.save(profissional).subscribe(response => {

@@ -73,11 +73,13 @@ export class EnderecoComponent implements OnInit {
         this.estados = response.body;
       }),
       concatMap(() => this._dominioService.getPaises().pipe(map(response => {
+        console.log(response.body)
         this.paises = response.body;
       }))),
       concatMap(() => this._service.getDados(this.valid.id))
     ).subscribe(
       dadosEndereco => {
+        console.log(dadosEndereco);
         this.endereco = dadosEndereco;
         this.popularForm();
         jQuery('select').selectpicker('render');
@@ -91,7 +93,7 @@ export class EnderecoComponent implements OnInit {
   }
 
   popularForm() {
-    if (this.endereco.cep) {
+    if (this.endereco != null && this.endereco.cep) {
       this.enderecoForm.controls.logradouro.setValue(this.endereco.logradouro);
       this.enderecoForm.controls.numero.setValue(this.endereco.numero);
       this.enderecoForm.controls.complemento.setValue(this.endereco.complemento);

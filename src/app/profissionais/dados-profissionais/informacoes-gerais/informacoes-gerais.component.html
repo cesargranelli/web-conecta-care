@@ -41,13 +41,13 @@
                   <div class="form-group col-lg-3 col-md-8">
                     <input class="form-control" formControlName="rg" id="rg" mask="00.000.000-A" type="text">
                   </div>
-                  <label class="col-lg-3 col-md-3 col-form-label" for="rgEmissor">Emissor</label>
-                  <div class="form-group col-lg-3 col-md-8">
-                    <input class="form-control" formControlName="rgEmissor" id="rgEmissor" type="text">
-                  </div>
+                    <label class="col-lg-3 col-md-3 col-form-label" for="rgEmissor" [hidden]="profissionalForm.controls.rg.value == null || profissionalForm.controls.rg.value == ''">Emissor*</label>
+                    <div class="form-group col-lg-3 col-md-8" [hidden]="profissionalForm.controls.rg.value == null || profissionalForm.controls.rg.value == ''">
+                      <input class="form-control" formControlName="rgEmissor" id="rgEmissor" type="text">
+                    </div>
                 </div>
-                <div class="row">
-                  <label class="col-lg-2 col-md-3 col-form-label" for="rgDataEmissao">Data Emissão RG</label>
+                <div class="row" [hidden]="profissionalForm.controls.rg.value == null || profissionalForm.controls.rg.value == ''">
+                  <label class="col-lg-2 col-md-3 col-form-label" for="rgDataEmissao">Data Emissão RG*</label>
                   <div [ngClass]="validationHas.validation(profissionalForm.controls?.rgDataEmissao)"
                        class="form-group col-lg-3 col-md-8">
                     <input (focus)="dateChange(profissionalForm.controls?.rgDataEmissao, 'rgDataEmissao')" autocomplete="none" class="form-control datetimepicker"
@@ -61,7 +61,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-lg-2 col-md-3 col-form-label" for="genero">Sexo *</label>
+                  <label class="col-lg-2 col-md-3 col-form-label" for="genero">Sexo*</label>
                   <div class="form-group col-lg-3 col-md-8">
                     <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="genero"
                             id="genero" title="Selecione">

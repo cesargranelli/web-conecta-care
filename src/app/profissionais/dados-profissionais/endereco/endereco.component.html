@@ -67,13 +67,16 @@
                     </select>
                   </div>
                   <label class="col-lg-1 col-md-3 col-form-label" for="estado">UF *</label>
-                  <div class="form-group col-lg-4 col-md-8">
+                  <div class="form-group col-lg-4 col-md-8" [hidden]="enderecoForm.controls.pais.value == 48">
+                    <input class="form-control" formControlName="estado" id="estado" title="Estado" type="text">
+                  </div>                      
+                  <div class="form-group col-lg-4 col-md-8" [hidden]="enderecoForm.controls.pais.value != 48">
                     <select class="selectpicker" data-live-search="true" data-style="btn btn-primary" data-width="100%"
                             formControlName="estado" id="estado" title="Estado">
                       <option *ngFor="let estado of estados" [selected]="estado.id === endereco?.estado?.id"
                               [value]="estado.id">{{ estado.uf }}</option>
                     </select>
-                  </div>
+                  </div>                              
                 </div>
                 <div class="row">
                   <label class="col-lg-2 col-md-3 col-form-label" for="comprovante">Comprovante *</label>
