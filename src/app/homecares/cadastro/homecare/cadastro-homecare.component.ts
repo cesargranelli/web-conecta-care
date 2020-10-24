@@ -1,13 +1,13 @@
-import {HttpErrorResponse} from '@angular/common/http';
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {HomeCare} from 'src/app/classes/homecare.class';
-import {HomecareService} from 'src/app/homecares/services/homecare.service';
-import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { HomeCare } from 'src/app/classes/homecare.class';
+import { HomecareService } from 'src/app/homecares/services/homecare.service';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,8 +18,9 @@ import Swal from 'sweetalert2';
 export class CadastroHomeCareComponent implements OnInit {
 
   public valid: Valid;
-  public isAlteracao: boolean;
+  public isCadastro: boolean;
   public linkBotaoVoltar: string;
+  public labelBotaoSubmit: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
   constructor(
@@ -42,8 +43,9 @@ export class CadastroHomeCareComponent implements OnInit {
         }
       }
     );
-    this.isAlteracao = false;
+    this.isCadastro = true;
     this.linkBotaoVoltar = `homecares/${this.valid.id}`;
+    this.labelBotaoSubmit = 'Avançar';
   }
 
   onSubmit(homeCare: HomeCare) {
@@ -51,32 +53,31 @@ export class CadastroHomeCareComponent implements OnInit {
     homeCare.id = this.valid.id;
     if (!this._cadastro.homeCare) {
       this._service.cadastrar(homeCare).subscribe(response => {
-          setTimeout(() => {
-            this._cadastro.homeCare = homeCare;
-            this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/endereco`);
-            this._loading.emitChange(false);
-          });
+          this.navigate(homeCare);
         },
         () => {
-          this._loading.emitChange(false);
           this.message();
         });
     } else {
       this._service.alterar(homeCare).subscribe(response => {
-          setTimeout(() => {
-            this._cadastro.homeCare = homeCare;
-            this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/endereco`);
-            this._loading.emitChange(false);
-          });
+          this.navigate(homeCare);
         },
         () => {
-          this._loading.emitChange(false);
           this.message();
         });
     }
   }
 
-  message() {
+  private navigate(homeCare: HomeCare) {
+    setTimeout(() => {
+      this._cadastro.homeCare = homeCare;
+      this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/endereco`);
+      this._loading.emitChange(false);
+    });
+  }
+
+  private message() {
+    this._loading.emitChange(false);
     Swal.fire({
       position: 'center',
       icon: 'error',

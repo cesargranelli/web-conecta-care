@@ -19,10 +19,13 @@ declare var jQuery: any;
 export class FormHomeCareComponent implements OnInit {
 
   @Input()
-  public isAlteracao: boolean;
+  public isCadastro: boolean;
 
   @Input()
   public linkBotaoVoltar: string;
+
+  @Input()
+  public labelBotaoSubmit: string;
 
   @Output()
   public onSubmitEvent = new EventEmitter<HomeCare>();

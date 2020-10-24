@@ -64,18 +64,18 @@
     </div>
   </div>
   <div class="card-footer justify-content-between">
-    <span *ngIf="isAlteracao" class="bmd-form-group is-filled">
+    <span *ngIf="!isCadastro" class="bmd-form-group is-filled">
       <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
         <i class="material-icons">arrow_back</i>
       </button>
     </span>
-    <span *ngIf="!isAlteracao" class="bmd-form-group is-filled">
-      <button (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+    <span *ngIf="isCadastro" class="bmd-form-group is-filled">
+      <button *ngIf="linkBotaoVoltar != ''" (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
       <button (click)="limparForm()" class="btn btn-gray" type="button">Limpar</button>
     </span>
     <span class="bmd-form-group is-filled">
         <button [disabled]="!homeCareForm.valid" class="btn btn-rose"
-                type="submit">{{ isAlteracao ? 'Alterar' : 'Avançar' }}</button>
+                type="submit">{{ labelBotaoSubmit }}</button>
     </span>
   </div>
 </form>

@@ -1,13 +1,13 @@
-import {HttpErrorResponse} from '@angular/common/http';
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {HomeCare} from 'src/app/classes/homecare.class';
-import {HomecareService} from 'src/app/homecares/services/homecare.service';
-import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { HomeCare } from 'src/app/classes/homecare.class';
+import { HomecareService } from 'src/app/homecares/services/homecare.service';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,9 +17,10 @@ import Swal from 'sweetalert2';
 })
 export class InformacoesHomecareComponent implements OnInit {
 
-  public isAlteracao: boolean;
   public valid: Valid;
+  public isCadastro: boolean;
   public linkBotaoVoltar: string;
+  public labelBotaoSubmit: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
   constructor(
@@ -42,8 +43,9 @@ export class InformacoesHomecareComponent implements OnInit {
         }
       }
     );
-    this.isAlteracao = true;
+    this.isCadastro = false;
     this.linkBotaoVoltar = `homecares/${this.valid.id}`;
+    this.labelBotaoSubmit = 'Alterar';
   }
 
   onSubmit(homeCare: HomeCare) {
@@ -64,12 +66,12 @@ export class InformacoesHomecareComponent implements OnInit {
         });
       },
       () => {
-        this._loading.emitChange(false);
         this.message();
       });
   }
 
   message() {
+    this._loading.emitChange(false);
     Swal.fire({
       position: 'center',
       icon: 'error',
