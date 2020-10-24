@@ -17,8 +17,9 @@ import Swal from 'sweetalert2';
 export class InformacoesContatoComponent implements OnInit {
 
   public valid: Valid;
-  public isAlteracao: boolean;
+  public isCadastro: boolean;
   public linkBotaoVoltar: string;
+  public labelBotaoSubmit: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
   public contatoFormGroup: FormGroup;
@@ -36,8 +37,9 @@ export class InformacoesContatoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isAlteracao = true;
-    this.linkBotaoVoltar = `homecares/${this.valid.id}`;
+    this.isCadastro = false;
+    this.linkBotaoVoltar = `homecares/${this.valid.id}/dados-homecares`;
+    this.labelBotaoSubmit = 'Alterar';
   }
 
   onSubmit(contato: ContatoHomeCare) {

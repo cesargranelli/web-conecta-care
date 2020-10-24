@@ -70,7 +70,7 @@
       </button>
     </span>
     <span *ngIf="isCadastro" class="bmd-form-group is-filled">
-      <button *ngIf="linkBotaoVoltar != ''" (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+      <button *ngIf="linkBotaoVoltar != null" (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
       <button (click)="limparForm()" class="btn btn-gray" type="button">Limpar</button>
     </span>
     <span class="bmd-form-group is-filled">

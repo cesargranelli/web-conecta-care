@@ -1,12 +1,12 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {ContatoHomeCare} from 'src/app/classes/contatoHomeCare.class';
-import {ContatoService} from 'src/app/homecares/services/contato.service';
-import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ContatoHomeCare } from 'src/app/classes/contatoHomeCare.class';
+import { ContatoService } from 'src/app/homecares/services/contato.service';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,8 +17,9 @@ import Swal from 'sweetalert2';
 export class CadastroContatoComponent implements OnInit {
 
   public valid: Valid;
-  public isAlteracao: boolean;
+  public isCadastro: boolean;
   public linkBotaoVoltar: string;
+  public labelBotaoSubmit: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
   public contatoFormGroup: FormGroup;
@@ -36,13 +37,15 @@ export class CadastroContatoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isAlteracao = false;
-    this.linkBotaoVoltar = `homecares/${this.valid.id}`;
+    this.isCadastro = true;
+    this.linkBotaoVoltar = `homecares/${this.valid.id}/cadastro/endereco`;
+    this.labelBotaoSubmit = 'Finalizar';
   }
 
   onSubmit(contato: ContatoHomeCare) {
     this._loading.emitChange(true);
     contato.proprietarioId = this.valid.id;
+    contato.flagAceitePrivacidade = true;
     if (!this._cadastro.contato) {
       this._service.cadastrar(contato).subscribe(response => {
           setTimeout(() => {

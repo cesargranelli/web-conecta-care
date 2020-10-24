@@ -20,10 +20,13 @@ import {map} from 'rxjs/internal/operators/map';
 export class FormContatoComponent implements OnInit {
 
   @Input()
-  public isAlteracao: boolean;
+  public isCadastro: boolean;
 
   @Input()
   public linkBotaoVoltar: string;
+
+  @Input()
+  public labelBotaoSubmit: string;
 
   @Output()
   public onSubmitEvent = new EventEmitter<ContatoHomeCare>();
@@ -51,8 +54,7 @@ export class FormContatoComponent implements OnInit {
       telefoneRecado: [null],
       telefoneCelular: [null],
       telefoneWhatsapp: [null],
-      flagAceiteDeclaracao: null,
-      flagAceitePrivacidade: null,
+      flagAceiteDeclaracao: [null],
       email: [null, [Validators.required, Validators.email, Validators.maxLength(100)]]
     });
   }
@@ -79,9 +81,8 @@ export class FormContatoComponent implements OnInit {
         });
       }
     );
-    if (!this.isAlteracao) {
-      this.contatoForm.get('flagAceiteDeclaracao').setValidators(Validators.required);
-      this.contatoForm.get('flagAceitePrivacidade').setValidators(Validators.required);
+    if (this.isCadastro) {
+      this.contatoForm.get('flagAceiteDeclaracao').setValidators(Validators.requiredTrue);
     }
   }
 
@@ -92,8 +93,7 @@ export class FormContatoComponent implements OnInit {
       telefoneCelular: this._cadastro.contato?.telefoneCelular,
       telefoneWhatsapp: this._cadastro.contato?.telefoneWhatsapp,
       email: this._cadastro.contato?.email,
-      flagAceiteDeclaracao: this._cadastro.contato?.flagAceiteDeclaracao,
-      flagAceitePrivacidade: this._cadastro.contato?.flagAceitePrivacidade
+      flagAceiteDeclaracao: this._cadastro.contato?.flagAceiteDeclaracao
     });
   }
 

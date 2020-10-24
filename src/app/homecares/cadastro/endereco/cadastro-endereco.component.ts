@@ -1,13 +1,13 @@
-import {HttpErrorResponse} from '@angular/common/http';
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Endereco} from 'src/app/classes/endereco.class';
-import {EnderecoService} from 'src/app/homecares/services/endereco.service';
-import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Endereco } from 'src/app/classes/endereco.class';
+import { EnderecoService } from 'src/app/homecares/services/endereco.service';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -20,8 +20,9 @@ declare var jQuery: any;
 export class CadastroEnderecoComponent implements OnInit {
 
   public valid: Valid;
-  public isAlteracao: boolean;
+  public isCadastro: boolean;
   public linkBotaoVoltar: string;
+  public labelBotaoSubmit: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
 
   constructor(
@@ -44,8 +45,9 @@ export class CadastroEnderecoComponent implements OnInit {
         }
       }
     );
-    this.isAlteracao = false;
+    this.isCadastro = true;
     this.linkBotaoVoltar = `homecares/${this.valid.id}/cadastro/homecare`;
+    this.labelBotaoSubmit = "Avançar";
   }
 
   onSubmit(endereco: Endereco) {
@@ -53,32 +55,31 @@ export class CadastroEnderecoComponent implements OnInit {
     endereco.proprietarioId = this.valid.id;
     if (!this._cadastro.endereco) {
       this._service.cadastrar(endereco).subscribe(response => {
-          setTimeout(() => {
-            this._cadastro.endereco = endereco;
-            this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/contato`);
-            this._loading.emitChange(false);
-          });
+          this.navigate(endereco);
         },
         () => {
-          this._loading.emitChange(false);
           this.message();
         });
     } else {
       this._service.alterar(endereco).subscribe(response => {
-          setTimeout(() => {
-            this._cadastro.endereco = endereco;
-            this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/contato`);
-            this._loading.emitChange(false);
-          });
+          this.navigate(endereco);
         },
         () => {
-          this._loading.emitChange(false);
           this.message();
         });
     }
   }
 
-  message() {
+  private navigate(endereco: Endereco) {
+    setTimeout(() => {
+      this._cadastro.endereco = endereco;
+      this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/contato`);
+      this._loading.emitChange(false);
+    });
+  }
+
+  private message() {
+    this._loading.emitChange(false);
     Swal.fire({
       position: 'center',
       icon: 'error',

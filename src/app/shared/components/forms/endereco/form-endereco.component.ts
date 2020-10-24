@@ -25,10 +25,13 @@ declare var jQuery: any;
 export class FormEnderecoComponent implements OnInit {
 
   @Input()
-  public isAlteracao: boolean;
+  public isCadastro: boolean;
 
   @Input()
   public linkBotaoVoltar: string;
+
+  @Input()
+  public labelBotaoSubmit: string;
 
   @Output()
   public onSubmitEvent = new EventEmitter<Endereco>();
@@ -80,14 +83,12 @@ export class FormEnderecoComponent implements OnInit {
     ).subscribe(null, null, () => {
       if (this._cadastro.endereco?.cep) {
         this.popularForm();
+        setTimeout(() => {
+          jQuery('select').selectpicker('render');
+          jQuery('select').selectpicker('refresh');
+          this._loading.emitChange(false);
+        });
       }
-      setTimeout(() => {
-        jQuery('select[id=\'estado\']').selectpicker('refresh');
-        jQuery(`select[id='estado']`).selectpicker('val', this._cadastro.endereco?.estado);
-        jQuery('select[id=\'pais\']').selectpicker('refresh');
-        jQuery(`select[id='pais']`).selectpicker('val', this._cadastro.endereco?.pais);
-        this._loading.emitChange(false);
-      });
       this.esconderFormulario = false;
     });
 
@@ -100,8 +101,8 @@ export class FormEnderecoComponent implements OnInit {
     this.enderecoForm.controls.cep.setValue(this._cadastro.endereco?.cep);
     this.enderecoForm.controls.bairro.setValue(this._cadastro.endereco?.bairro);
     this.enderecoForm.controls.cidade.setValue(this._cadastro.endereco?.cidade);
-    this.enderecoForm.controls.estado.setValue(this._cadastro.endereco?.estado);
-    this.enderecoForm.controls.pais.setValue(this._cadastro.endereco?.pais);
+    this.enderecoForm.controls.pais.setValue(this._cadastro.endereco?.pais.id);
+    this.enderecoForm.controls.estado.setValue(this._cadastro.endereco?.estado.id);
     if (this._cadastro.endereco?.comprovante) {
       this.comprovante = this._cadastro.endereco?.comprovante;
       this.imagemComprovante = this.comprovante;

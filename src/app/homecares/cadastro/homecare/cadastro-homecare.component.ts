@@ -44,7 +44,7 @@ export class CadastroHomeCareComponent implements OnInit {
       }
     );
     this.isCadastro = true;
-    this.linkBotaoVoltar = `homecares/${this.valid.id}`;
+    this.linkBotaoVoltar = null;
     this.labelBotaoSubmit = 'Avançar';
   }
 

@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {validEqualsEmail, validEqualsPassword} from 'src/app/shared/validations/directives/valid-equals';
-import {InputValidation} from 'src/app/shared/validations/input-validation';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
+import { InputValidation } from 'src/app/shared/validations/input-validation';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 declare var jQuery: any;
 
@@ -15,6 +15,9 @@ export class FormInformacoesLoginComponent implements OnInit {
 
   @Input()
   public linkBotaoCancelar: string = '/';
+
+  @Input()
+  public mostrarflagAceitePrivacidade: boolean;
 
   @Output()
   public onSubmitEvent = new EventEmitter<FormGroup>();
@@ -65,9 +68,17 @@ export class FormInformacoesLoginComponent implements OnInit {
         Validators.maxLength(20),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,20}$'),
         this.equalsPassword()
-      ]]
+      ]],
+      flagAceitePrivacidade: []
     }, {validators: [validEqualsEmail, validEqualsPassword]});
+    if (this.mostrarflagAceitePrivacidade) {
+      this.loginForm.get('flagAceitePrivacidade').setValidators(Validators.required);
+    }
     this.esconderFormulario = false;
+  }
+
+  teste(teste: HTMLInputElement) {
+    console.log(teste.value)
   }
 
   onSubmit() {

@@ -79,7 +79,6 @@ export class EnderecoComponent implements OnInit {
       concatMap(() => this._service.getDados(this.valid.id))
     ).subscribe(
       dadosEndereco => {
-        console.log(dadosEndereco);
         this.endereco = dadosEndereco;
         this.popularForm();
         jQuery('select').selectpicker('render');

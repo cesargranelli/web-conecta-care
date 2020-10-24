@@ -76,6 +76,20 @@
           </div>
         </div>
       </div>
+      <ng-container *ngIf="mostrarflagAceitePrivacidade">
+        <div class="form-row justify-content-center form-control-lg">
+          <div class="form-check col-lg-9 col-md-9 col-sm-8 col-form-label">
+            <label class="form-check-label">
+              <input class="form-check-input" formControlName="flagAceitePrivacidade" type="checkbox"
+                value="">
+              Eu aceito os <a href="">termos de política e privacidade do site </a>*
+              <span class="form-check-sign">
+                <span class="check"></span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </ng-container>
     </div>
     <div class="card-footer justify-content-center">
       <span class="bmd-form-group is-filled">

@@ -23,11 +23,11 @@ export class EnderecoService {
   }
 
   cadastrar(payload: Endereco): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.proprietarioId.toString())}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.proprietarioId))}`, payload, {observe: 'response'});
   }
 
   alterar(payload: Endereco): Observable<HttpResponse<any>> {
-    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.proprietarioId.toString())}`, payload, {observe: 'response'});
+    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.proprietarioId))}`, payload, {observe: 'response'});
   }
 
   consultar(idHomeCare: number): Observable<HttpResponse<any>> {
