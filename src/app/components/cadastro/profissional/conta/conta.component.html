@@ -9,50 +9,60 @@
               Informações Bancárias
             </h3>
           </div>
-          <form [formGroup]="contaForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
+          <form (ngSubmit)="onSubmit()" [formGroup]="contaForm" [hidden]="showForm" class="form-horizontal">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
-                  <label for="tipo" class="col-lg-3 col-md-3 col-form-label">Tipo conta bancária *</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="tipo">Tipo conta bancária *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="selectpicker" id="tipoConta" formControlName="tipo" data-style="btn btn-primary" data-width="100%" title="Selecione">
-                      <option [value]="tipoConta.id" *ngFor="let tipoConta of tipoContas">{{ tipoConta.codigo }} - {{ tipoConta.descricao }}</option>
+                    <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="tipo"
+                            id="tipoConta" title="Selecione">
+                      <option *ngFor="let tipoConta of tipoContas" [value]="tipoConta.id">{{ tipoConta.codigo }}
+                        - {{ tipoConta.descricao }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
-                  <label for="banco" class="col-lg-3 col-md-3 col-form-label">Banco conta *</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="banco">Banco conta *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select class="selectpicker" id="banco" formControlName="banco" data-style="btn btn-primary" data-width="100%" title="Selecione">
-                      <option [value]="banco.id" *ngFor="let banco of bancos">{{ banco.codigo }} - {{ banco.descricao }}</option>
+                    <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="banco"
+                            id="banco" title="Selecione">
+                      <option *ngFor="let banco of bancos" [value]="banco.id">{{ banco.codigo }}
+                        - {{ banco.descricao }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
-                  <label for="agencia" class="col-lg-3 col-md-3 col-form-label">Nº Agência *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(contaForm.controls?.agencia)">
-                    <input type="text" class="form-control" name="agencia" formControlName="agencia" mask="9{5}" autocomplete="false">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="agencia">Nº Agência *</label>
+                  <div [ngClass]="validationHas.validation(contaForm.controls?.agencia)"
+                       class="form-group col-lg-3 col-md-8">
+                    <input autocomplete="false" class="form-control" formControlName="agencia" mask="9{5}" name="agencia"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="numero" class="col-lg-3 col-md-3 col-form-label">Nº Conta *</label>
-                  <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(contaForm.controls?.numero)">
-                    <input type="text" class="form-control" name="numero" formControlName="numero" mask="9{12}" autocomplete="false">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="numero">Nº Conta *</label>
+                  <div [ngClass]="validationHas.validation(contaForm.controls?.numero)"
+                       class="form-group col-lg-3 col-md-8">
+                    <input autocomplete="false" class="form-control" formControlName="numero" mask="9{12}" name="numero"
+                           type="text">
                   </div>
-                  <label for="digito" class="col-lg-3 col-md-3 col-form-label">Nº Dígito Conta *</label>
-                  <div class="form-group col-lg-2 col-md-8" [ngClass]="validationHas.validation(contaForm.controls?.digito)">
-                    <input type="text" class="form-control" name="digito" formControlName="digito" mask="9{2}" autocomplete="false">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="digito">Nº Dígito Conta *</label>
+                  <div [ngClass]="validationHas.validation(contaForm.controls?.digito)"
+                       class="form-group col-lg-2 col-md-8">
+                    <input autocomplete="false" class="form-control" formControlName="digito" mask="9{2}" name="digito"
+                           type="text">
                   </div>
                 </div>
               </div>
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-                <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
+                <button (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+                <button (click)="limpar()" class="btn btn-gray" type="button">Limpar</button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!contaForm.valid">Finalizar</button>
+                <button [disabled]="!contaForm.valid" class="btn btn-rose" type="submit">Finalizar</button>
               </span>
             </div>
           </form>

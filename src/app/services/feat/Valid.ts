@@ -1,4 +1,4 @@
-import { Role } from 'src/app/enums/role.enum';
+import {Role} from 'src/app/enums/role.enum';
 
 export interface Valid {
   email: string;

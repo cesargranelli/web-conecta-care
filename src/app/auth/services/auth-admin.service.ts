@@ -1,18 +1,15 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { mapTo } from 'rxjs/internal/operators/mapTo';
-import { tap } from 'rxjs/internal/operators/tap';
-import { LoginAdmin } from 'src/app/admin/models/login-admin.model';
-import { LoginData } from 'src/app/admin/models/token-admin.model';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { RoleConverter } from 'src/app/utils/role.converter';
-import { environment } from 'src/environments/environment';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {LoginAdmin} from 'src/app/admin/models/login-admin.model';
+import {LoginData} from 'src/app/admin/models/token-admin.model';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedTokenService} from 'src/app/shared/services/shared-token.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {RoleConverter} from 'src/app/utils/role.converter';
+import {environment} from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import {Observable, of} from 'rxjs';
+import {catchError, mapTo, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +24,8 @@ export class AuthAdminService {
     private _loading: SharedLoadingService,
     private _storeToken: SharedTokenService,
     private _storeValid: SharedValidService
-  ) { }
+  ) {
+  }
 
   login(user: LoginAdmin): Observable<boolean> {
     this._loading.emitChange(true);

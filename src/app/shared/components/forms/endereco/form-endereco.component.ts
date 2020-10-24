@@ -1,18 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap } from 'rxjs/internal/operators/concatMap';
-import { map } from 'rxjs/internal/operators/map';
-import { EnderecoViaCep } from 'src/app/classes/endereco-via-cep.class';
-import { Endereco } from 'src/app/classes/endereco.class';
-import { Estado } from 'src/app/classes/estado.class';
-import { Pais } from 'src/app/classes/pais.class';
-import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { ViaCepService } from 'src/app/services/via-cep.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {concatMap} from 'rxjs/internal/operators/concatMap';
+import {map} from 'rxjs/internal/operators/map';
+import {EnderecoViaCep} from 'src/app/classes/endereco-via-cep.class';
+import {Endereco} from 'src/app/classes/endereco.class';
+import {Estado} from 'src/app/classes/estado.class';
+import {Pais} from 'src/app/classes/pais.class';
+import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {ViaCepService} from 'src/app/services/via-cep.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -34,22 +34,17 @@ export class FormEnderecoComponent implements OnInit {
   public onSubmitEvent = new EventEmitter<Endereco>();
 
   public enderecoForm: FormGroup;
-
-  private endereco: Endereco;
-  private fileComprovante: File;
-
   public estados: Estado[];
   public paises: Pais[];
   public valid: Valid;
   public estadoViaCep: Estado;
-
   public comprovante: any;
   public fileInputComprovante: string = 'fileinput-new';
   public imagemComprovante: any = '../../../../../assets/img/Headshot-Doc-1.png';
-
   public validationHas: InputValidationHas = new InputValidationHas();
-
   public esconderFormulario: boolean = true;
+  private endereco: Endereco;
+  private fileComprovante: File;
 
   constructor(
     private _router: Router,
@@ -83,16 +78,16 @@ export class FormEnderecoComponent implements OnInit {
         }))
       )
     ).subscribe(null, null, () => {
-        if (this._cadastro.endereco?.cep) {
-          this.popularForm();
-        }
-        setTimeout(() => {
-          jQuery("select[id='estado']").selectpicker('refresh');
-          jQuery(`select[id='estado']`).selectpicker('val', this._cadastro.endereco?.estado);
-          jQuery("select[id='pais']").selectpicker('refresh');
-          jQuery(`select[id='pais']`).selectpicker('val', this._cadastro.endereco?.pais);
-          this._loading.emitChange(false);
-        });
+      if (this._cadastro.endereco?.cep) {
+        this.popularForm();
+      }
+      setTimeout(() => {
+        jQuery('select[id=\'estado\']').selectpicker('refresh');
+        jQuery(`select[id='estado']`).selectpicker('val', this._cadastro.endereco?.estado);
+        jQuery('select[id=\'pais\']').selectpicker('refresh');
+        jQuery(`select[id='pais']`).selectpicker('val', this._cadastro.endereco?.pais);
+        this._loading.emitChange(false);
+      });
       this.esconderFormulario = false;
     });
 
@@ -138,7 +133,7 @@ export class FormEnderecoComponent implements OnInit {
   limpar() {
     this.enderecoForm.reset();
     jQuery('.fileinput').fileinput('clear');
-    jQuery(".selectpicker").selectpicker('refresh');
+    jQuery('.selectpicker').selectpicker('refresh');
     this.imagemComprovante = '../../../../../assets/img/Headshot-Doc-1.png';
   }
 
@@ -167,12 +162,12 @@ export class FormEnderecoComponent implements OnInit {
         showConfirmButton: true,
       }),
       () => {
-      setTimeout(() => {
-        jQuery("select[id='estado']").selectpicker('refresh');
-        jQuery("select[id='estado']").selectpicker('val', this.estadoViaCep.id);
-        this._loading.emitChange(false);
-      })
-    });
+        setTimeout(() => {
+          jQuery('select[id=\'estado\']').selectpicker('refresh');
+          jQuery('select[id=\'estado\']').selectpicker('val', this.estadoViaCep.id);
+          this._loading.emitChange(false);
+        });
+      });
   }
 
 }

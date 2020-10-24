@@ -19,9 +19,9 @@
                 </div>
                 <div class="row justify-content-center">
                   <div class="container">
-                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                      <div class="form-row justify-content-center form-control-lg"
-                           [ngClass]="inputHas.validation(loginForm.controls.email)">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+                      <div [ngClass]="inputHas.validation(loginForm.controls.email)"
+                           class="form-row justify-content-center form-control-lg">
                         <div class="col-lg-8 col-md-10">
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -29,15 +29,15 @@
                                 <i class="material-icons">email</i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" formControlName="email" placeholder="Email...">
+                            <input class="form-control" formControlName="email" placeholder="Email..." type="text">
                           </div>
                           <span class="form-control-feedback">
                             <i class="material-icons">{{ input.validation(loginForm.controls.email) }}</i>
                           </span>
                         </div>
                       </div>
-                      <div class="form-row justify-content-center form-control-lg"
-                           [ngClass]="inputHas.validation(loginForm.controls.password)">
+                      <div [ngClass]="inputHas.validation(loginForm.controls.password)"
+                           class="form-row justify-content-center form-control-lg">
                         <div class="col-lg-8 col-md-10">
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -45,7 +45,8 @@
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input type="password" class="form-control" formControlName="password" placeholder="Password...">
+                            <input class="form-control" formControlName="password" placeholder="Password..."
+                                   type="password">
                           </div>
                           <span class="form-control-feedback">
                             <i class="material-icons">{{ input.validation(loginForm.controls.password) }}</i>
@@ -54,14 +55,14 @@
                       </div>
                       <div class="form-row justify-content-center form-control-lg">
                         <div class="form-group">
-                          <button type="submit" [disabled]="!loginForm.valid" class="btn btn-rose"
-                                  [ngClass]="!loginForm.valid ? 'btn-link' : ''">Entrar
+                          <button [disabled]="!loginForm.valid" [ngClass]="!loginForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                                  type="submit">Entrar
                           </button>
                         </div>
                       </div>
                       <div class="form-row justify-content-center">
                         <div class="form-group">
-                          <a class="btn btn-rose btn-link" [routerLink]="['../../login/esqueci-minha-senha']">
+                          <a [routerLink]="['../../login/esqueci-minha-senha']" class="btn btn-rose btn-link">
                             Esqueci minha Senha
                           </a>
                         </div>

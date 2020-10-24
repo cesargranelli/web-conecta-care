@@ -1,27 +1,21 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap } from 'rxjs/internal/operators/concatMap';
-import { map } from 'rxjs/internal/operators/map';
-import { EstadoCivil } from 'src/app/classes/estado-civil.class';
-import { Genero } from 'src/app/classes/genero.class';
-import { Profissional } from 'src/app/classes/profissional.class';
-import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
-import { Role } from 'src/app/enums/role.enum';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { ProfissionalService } from 'src/app/services/profissional.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {EstadoCivil} from 'src/app/classes/estado-civil.class';
+import {Genero} from 'src/app/classes/genero.class';
+import {Profissional} from 'src/app/classes/profissional.class';
+import {TipoEmpresa} from 'src/app/classes/tipo-empresa.class';
+import {Role} from 'src/app/enums/role.enum';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {ProfissionalService} from 'src/app/services/profissional.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import {concatMap, map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -45,18 +39,15 @@ export class InformacoesGeraisComponent implements OnInit {
   public fotoRg: any;
   public valid: Valid;
   public validationHas: InputValidationHas = new InputValidationHas();
-
-  private _fileProfissional: File;
-  private _fileRg: File;
-
   public fileInputProfissional: string = 'fileinput-new';
   public fileInputRg: string = 'fileinput-new';
   public imagemFotoProfissional: string =
     '../../../../../assets/img/Headshot-Placeholder-1.png';
   public imagemFotoRg: string =
     '../../../../../assets/img/Headshot-Placeholder-1.png';
-
   public showForm: boolean = true;
+  private _fileProfissional: File;
+  private _fileRg: File;
 
   constructor(
     private _router: Router,
@@ -118,12 +109,12 @@ export class InformacoesGeraisComponent implements OnInit {
           jQuery(`select[id='genero']`).selectpicker('val', this._cadastro.profissional?.genero);
           jQuery(`select[id='tipoEmpresa']`).selectpicker('refresh');
           jQuery(`select[id='tipoEmpresa']`).selectpicker('val', this._cadastro.profissional?.tipoEmpresa);
-          jQuery("select[id='estadoCivil']").selectpicker('refresh');
+          jQuery('select[id=\'estadoCivil\']').selectpicker('refresh');
           jQuery(`select[id='estadoCivil']`).selectpicker('val', this._cadastro.profissional?.estadoCivil);
           this._loading.emitChange(false);
         });
         this.showForm = false;
-    });
+      });
 
     jQuery('.datetimepicker').datetimepicker({
       format: 'DD/MM/YYYY',

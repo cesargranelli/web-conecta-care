@@ -9,134 +9,134 @@
               Informações Gerais
             </h3>
           </div>
-          <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="showForm">
+          <form (ngSubmit)="onSubmit()" [formGroup]="profissionalForm" [hidden]="showForm" class="form-horizontal">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
-                  <label for="nome" class="col-lg-2 col-md-3 col-form-label">Primeiro nome *</label>
-                  <div class="form-group col-lg-9 col-md-8"
-                       [ngClass]="validationHas.validation(profissionalForm.controls?.nome)">
-                    <input type="text" id="nome" class="form-control" formControlName="nome">
+                  <label class="col-lg-2 col-md-3 col-form-label" for="nome">Primeiro nome *</label>
+                  <div [ngClass]="validationHas.validation(profissionalForm.controls?.nome)"
+                       class="form-group col-lg-9 col-md-8">
+                    <input class="form-control" formControlName="nome" id="nome" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="sobrenome" class="col-lg-2 col-md-3 col-form-label">Sobrenome *</label>
-                  <div class="form-group col-lg-9 col-md-8"
-                       [ngClass]="validationHas.validation(profissionalForm.controls?.sobrenome)">
-                    <input type="text" id="sobrenome" class="form-control" formControlName="sobrenome">
+                  <label class="col-lg-2 col-md-3 col-form-label" for="sobrenome">Sobrenome *</label>
+                  <div [ngClass]="validationHas.validation(profissionalForm.controls?.sobrenome)"
+                       class="form-group col-lg-9 col-md-8">
+                    <input class="form-control" formControlName="sobrenome" id="sobrenome" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="dataNascimento" class="col-lg-2 col-md-3 col-form-label">Data Nascimento *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                       [ngClass]="validationHas.validation(profissionalForm.controls?.dataNascimento)">
-                    <input type="text" class="form-control datetimepicker" id="dataNascimento"
-                           formControlName="dataNascimento" maxlength="10"
-                           (focus)="dateChange(profissionalForm.controls?.dataNascimento, 'dataNascimento')"
-                           autocomplete="none">
+                  <label class="col-lg-2 col-md-3 col-form-label" for="dataNascimento">Data Nascimento *</label>
+                  <div [ngClass]="validationHas.validation(profissionalForm.controls?.dataNascimento)"
+                       class="form-group col-lg-3 col-md-8">
+                    <input (focus)="dateChange(profissionalForm.controls?.dataNascimento, 'dataNascimento')" autocomplete="none" class="form-control datetimepicker"
+                           formControlName="dataNascimento" id="dataNascimento"
+                           maxlength="10"
+                           type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="rg" class="col-lg-2 col-md-3 col-form-label">RG</label>
+                  <label class="col-lg-2 col-md-3 col-form-label" for="rg">RG</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="rg" class="form-control" formControlName="rg" mask="00.000.000-A">
+                    <input class="form-control" formControlName="rg" id="rg" mask="00.000.000-A" type="text">
                   </div>
-                  <label for="rgEmissor" class="col-lg-3 col-md-3 col-form-label">Emissor</label>
+                    <label class="col-lg-3 col-md-3 col-form-label" for="rgEmissor" [hidden]="profissionalForm.controls.rg.value == null || profissionalForm.controls.rg.value == ''">Emissor*</label>
+                    <div class="form-group col-lg-3 col-md-8" [hidden]="profissionalForm.controls.rg.value == null || profissionalForm.controls.rg.value == ''">
+                      <input class="form-control" formControlName="rgEmissor" id="rgEmissor" type="text">
+                    </div>
+                </div>
+                <div class="row" [hidden]="profissionalForm.controls.rg.value == null || profissionalForm.controls.rg.value == ''">
+                  <label class="col-lg-2 col-md-3 col-form-label" for="rgDataEmissao">Data Emissão RG*</label>
+                  <div [ngClass]="validationHas.validation(profissionalForm.controls?.rgDataEmissao)"
+                       class="form-group col-lg-3 col-md-8">
+                    <input (focus)="dateChange(profissionalForm.controls?.rgDataEmissao, 'rgDataEmissao')" autocomplete="none" class="form-control datetimepicker"
+                           formControlName="rgDataEmissao" id="rgDataEmissao"
+                           maxlength="10"
+                           type="text">
+                  </div>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="pis">PIS</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="rgEmissor" class="form-control" formControlName="rgEmissor">
+                    <input class="form-control" formControlName="pis" id="pis" mask="009.0009.009-9" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="rgDataEmissao" class="col-lg-2 col-md-3 col-form-label">Data Emissão RG</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                       [ngClass]="validationHas.validation(profissionalForm.controls?.rgDataEmissao)">
-                    <input type="text" class="form-control datetimepicker" id="rgDataEmissao"
-                           formControlName="rgDataEmissao" maxlength="10"
-                           (focus)="dateChange(profissionalForm.controls?.rgDataEmissao, 'rgDataEmissao')"
-                           autocomplete="none">
-                  </div>
-                  <label for="pis" class="col-lg-3 col-md-3 col-form-label">PIS</label>
+                  <label class="col-lg-2 col-md-3 col-form-label" for="genero">Sexo*</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input type="text" id="pis" class="form-control" formControlName="pis" mask="009.0009.009-9">
-                  </div>
-                </div>
-                <div class="row">
-                  <label for="genero" class="col-lg-2 col-md-3 col-form-label">Sexo *</label>
-                  <div class="form-group col-lg-3 col-md-8">
-                    <select formControlName="genero" id="genero" class="selectpicker" data-style="btn btn-primary"
-                            data-width="100%" title="Selecione">
-                      <option [ngValue]="genero.id" *ngFor="let genero of generos"
+                    <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="genero"
+                            id="genero" title="Selecione">
+                      <option *ngFor="let genero of generos" [ngValue]="genero.id"
                               [selected]="genero.id === profissional?.genero.id">{{ genero.descricao }}</option>
                     </select>
                   </div>
-                  <label for="tipoEmpresa" class="col-lg-3 col-md-3 col-form-label">Tipo Empresa *</label>
+                  <label class="col-lg-3 col-md-3 col-form-label" for="tipoEmpresa">Tipo Empresa *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select formControlName="tipoEmpresa" id="tipoEmpresa" class="selectpicker"
-                            data-style="btn btn-primary" data-width="100%" title="Selecione">
-                      <option [ngValue]="tipoEmpresa.id" *ngFor="let tipoEmpresa of tipoEmpresas"
+                    <select class="selectpicker" data-style="btn btn-primary" data-width="100%"
+                            formControlName="tipoEmpresa" id="tipoEmpresa" title="Selecione">
+                      <option *ngFor="let tipoEmpresa of tipoEmpresas" [ngValue]="tipoEmpresa.id"
                               [selected]="tipoEmpresa.id === profissional?.tipoEmpresa.id">{{ tipoEmpresa.sigla }}
                         - {{ tipoEmpresa.tipo }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
-                  <label for="estadoCivil" class="col-lg-2 col-md-3 col-form-label">Estado Civil *</label>
+                  <label class="col-lg-2 col-md-3 col-form-label" for="estadoCivil">Estado Civil *</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <select formControlName="estadoCivil" id="estadoCivil" class="selectpicker"
-                            data-style="btn btn-primary" data-width="100%" title="Selecione">
-                      <option [ngValue]="estadoCivil.id" *ngFor="let estadoCivil of estadoCivis"
+                    <select class="selectpicker" data-style="btn btn-primary" data-width="100%"
+                            formControlName="estadoCivil" id="estadoCivil" title="Selecione">
+                      <option *ngFor="let estadoCivil of estadoCivis" [ngValue]="estadoCivil.id"
                               [selected]="estadoCivil.id === profissional?.estadoCivil.id">{{ estadoCivil.tipo }}</option>
                     </select>
                   </div>
-                  <label for="cnpj" class="col-lg-3 col-md-3 col-form-label">Nº CNPJ *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                       [ngClass]="validationHas.validation(profissionalForm.controls?.cnpj)">
-                    <input type="text" id="cnpj" class="form-control" formControlName="cnpj" mask="00.000.000/0000-00">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="cnpj">Nº CNPJ *</label>
+                  <div [ngClass]="validationHas.validation(profissionalForm.controls?.cnpj)"
+                       class="form-group col-lg-3 col-md-8">
+                    <input class="form-control" formControlName="cnpj" id="cnpj" mask="00.000.000/0000-00" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="ctps" class="col-lg-2 col-md-3 col-form-label">Nº CTPS *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                       [ngClass]="validationHas.validation(profissionalForm.controls?.ctps)">
-                    <input type="text" id="ctps" class="form-control" formControlName="ctps">
+                  <label class="col-lg-2 col-md-3 col-form-label" for="ctps">Nº CTPS *</label>
+                  <div [ngClass]="validationHas.validation(profissionalForm.controls?.ctps)"
+                       class="form-group col-lg-3 col-md-8">
+                    <input class="form-control" formControlName="ctps" id="ctps" type="text">
                   </div>
-                  <label for="ctpsSerie" class="col-lg-3 col-md-3 col-form-label">Nº Série CTPS *</label>
-                  <div class="form-group col-lg-3 col-md-8"
-                       [ngClass]="validationHas.validation(profissionalForm.controls?.ctpsSerie)">
-                    <input type="text" id="ctpsSerie" class="form-control" name="ctpsSerie" formControlName="ctpsSerie">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="ctpsSerie">Nº Série CTPS *</label>
+                  <div [ngClass]="validationHas.validation(profissionalForm.controls?.ctpsSerie)"
+                       class="form-group col-lg-3 col-md-8">
+                    <input class="form-control" formControlName="ctpsSerie" id="ctpsSerie" name="ctpsSerie" type="text">
                   </div>
                 </div>
                 <div class="row">
-                  <label for="fotoProfissional" class="col-lg-6 col-md-6 col-form-label">Foto da página da CPTS com sua
+                  <label class="col-lg-6 col-md-6 col-form-label" for="fotoProfissional">Foto da página da CPTS com sua
                     foto *</label>
                   <div class="col-lg-6 col-md-6">
-                    <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputProfissional">
-                      <div class="thumbnail img-circle img-raised" [ngClass]="fileInputProfissional">
-                        <img [src]="fotoProfissional" rel="nofollow" alt="..."
+                    <div [ngClass]="fileInputProfissional" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputProfissional" class="thumbnail img-circle img-raised">
+                        <img [src]="fotoProfissional" alt="..." rel="nofollow"
                              style="max-width: 100px; max-height: 100px;">
                       </div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
                         <span class="fileinput-new">Foto Profissional</span>
                         <span class="fileinput-exists">Trocar</span>
-                        <input type="file" id="fotoProfissional" data-max-size="2" formControlName="fotoProfissional"
-                               (change)="onLoadFotoProfissional($event)">
+                        <input (change)="onLoadFotoProfissional($event)" data-max-size="2" formControlName="fotoProfissional" id="fotoProfissional"
+                               type="file">
                       </span>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <label for="fotoRg" class="col-lg-6 col-md-6 col-form-label">Foto da parte da frente do seu RG
+                  <label class="col-lg-6 col-md-6 col-form-label" for="fotoRg">Foto da parte da frente do seu RG
                     *</label>
                   <div class="col-lg-6 col-md-6">
-                    <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputRg">
-                      <div class="thumbnail img-circle img-raised" [ngClass]="fileInputRg">
-                        <img [src]="fotoRg" rel="nofollow" alt="..." style="max-width: 100px; max-height: 100px;">
+                    <div [ngClass]="fileInputRg" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputRg" class="thumbnail img-circle img-raised">
+                        <img [src]="fotoRg" alt="..." rel="nofollow" style="max-width: 100px; max-height: 100px;">
                       </div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
                         <span class="fileinput-new">Foto RG</span>
                         <span class="fileinput-exists">Trocar</span>
-                        <input type="file" id="fotoRg" data-max-size="2" formControlName="fotoRg"
-                               (change)="onLoadFotoRg($event)">
+                        <input (change)="onLoadFotoRg($event)" data-max-size="2" formControlName="fotoRg" id="fotoRg"
+                               type="file">
                       </span>
                     </div>
                   </div>
@@ -145,12 +145,12 @@
             </div>
             <div class="card-footer justify-content-between">
               <span class="bmd-form-group is-filled">
-                <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
+                <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
                   <i class="material-icons">arrow_back</i>
                 </button>
               </span>
               <span class="bmd-form-group is-filled">
-                <button type="submit" class="btn btn-rose" [disabled]="!profissionalForm.valid">Alterar</button>
+                <button [disabled]="!profissionalForm.valid" class="btn btn-rose" type="submit">Alterar</button>
               </span>
             </div>
           </form>

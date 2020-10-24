@@ -4,175 +4,186 @@
       <!--      Wizard container        -->
       <div class="wizard-container">
         <div class="card card-wizard active" data-color="rose" id="wizardProfile">
-            <div class="card-header text-center">
-              <h3 class="card-title">
-                Qual a categoria que definirá o nosso relacionamento ?
-              </h3>
-            </div>
-            <div class="wizard-navigation">
-              <ul class="nav nav-pills nav-fill">
-                <li class="nav-item" style="width: 25%;" id="pacientes" #paciente (click)="setRole(paciente.id)">
-                  <a class="nav-link active" href="#paciente" data-toggle="tab" role="tab">
-                    Paciente
-                  </a>
-                </li>
-                <li class="nav-item" style="width: 25%;" id="profissionais" #profissional (click)="setRole(profissional.id)">
-                  <a class="nav-link" href="#profissional" data-toggle="tab" role="tab">
-                    Profissional
-                  </a>
-                </li>
-                <li class="nav-item" style="width: 25%;" id="homecares" #homecare (click)="setRole(homecare.id)">
-                  <a class="nav-link" href="#homecare" data-toggle="tab" role="tab">
-                    Homecare
-                  </a>
-                </li>
-                <li class="nav-item" style="width: 25%;" id="convenios" #convenio (click)="setRole(convenio.id)">
-                  <a class="nav-link" href="#convenio" data-toggle="tab" role="tab">
-                    Plano de Saúde
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="card-body">
-              <div class="tab-content">
-                <div class="tab-pane active" id="paciente">
-                  <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                      <h5 class="info-text">
-                        Se o atendimento for através do seu Plano de Saúde, entre em contato com o seu
-                        convenio que realizará a primeira fase do cadastro, liberando o acesso ao sistema.
-                        Caso Contrário, Realize seu cadastro e solicite você mesmo seu atendimento
-                      </h5>
-                    </div>
+          <div class="card-header text-center">
+            <h3 class="card-title">
+              Qual a categoria que definirá o nosso relacionamento ?
+            </h3>
+          </div>
+          <div class="wizard-navigation">
+            <ul class="nav nav-pills nav-fill">
+              <li #paciente (click)="setRole(paciente.id)" class="nav-item" id="pacientes" style="width: 25%;">
+                <a class="nav-link active" data-toggle="tab" href="#paciente" role="tab">
+                  Paciente
+                </a>
+              </li>
+              <li #profissional (click)="setRole(profissional.id)" class="nav-item" id="profissionais"
+                  style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#profissional" role="tab">
+                  Profissional
+                </a>
+              </li>
+              <li #homecare (click)="setRole(homecare.id)" class="nav-item" id="homecares" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#homecare" role="tab">
+                  Homecare
+                </a>
+              </li>
+              <li #convenio (click)="setRole(convenio.id)" class="nav-item" id="convenios" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#convenio" role="tab">
+                  Plano de Saúde
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="paciente">
+                <div class="row justify-content-center">
+                  <div class="col-lg-10">
+                    <h5 class="info-text">
+                      Se o atendimento for através do seu Plano de Saúde, entre em contato com o seu
+                      convenio que realizará a primeira fase do cadastro, liberando o acesso ao sistema.
+                      Caso Contrário, Realize seu cadastro e solicite você mesmo seu atendimento
+                    </h5>
                   </div>
-                  <form [formGroup]="pacienteForm" (ngSubmit)="onSubmit(pacienteForm, cpfPaciente)">
-                    <div class="form-row justify-content-center" [ngClass]="input.validation(pacienteForm)=='done' ? 'has-success' : 'has-danger'">
-                      <div class="col-lg-6 col-md-6 col-sm-8">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
+                </div>
+                <form (ngSubmit)="onSubmit(pacienteForm, cpfPaciente)" [formGroup]="pacienteForm">
+                  <div [ngClass]="input.validation(pacienteForm)=='done' ? 'has-success' : 'has-danger'"
+                       class="form-row justify-content-center">
+                    <div class="col-lg-6 col-md-6 col-sm-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
                             <span class="input-group-text">
                               <i class="material-icons">face</i>
                             </span>
-                          </div>
-                          <input type="text" class="form-control" #cpfPaciente id="cpfPaciente" name="cpfPaciente" autocomplete="off"
-                            placeholder="CPF (Obrigatório)" formControlName="cpf" mask="000.000.000-00">
                         </div>
-                        <span class="form-control-feedback">
+                        <input #cpfPaciente autocomplete="off" class="form-control" formControlName="cpf" id="cpfPaciente"
+                               mask="000.000.000-00"
+                               name="cpfPaciente" placeholder="CPF (Obrigatório)" type="text">
+                      </div>
+                      <span class="form-control-feedback">
                           <i class="material-icons">{{ input.validation(pacienteForm) }}</i>
                         </span>
-                      </div>
                     </div>
-                    <div class="form-row justify-content-center">
-                      <div class="form-group">
-                        <button type="submit" [disabled]="!pacienteForm.valid" class="btn btn-rose"
-                          [ngClass]="!pacienteForm.valid ? 'btn-link' : ''" name="btnCpfPaciente">Cadastrar</button>
-                      </div>
+                  </div>
+                  <div class="form-row justify-content-center">
+                    <div class="form-group">
+                      <button [disabled]="!pacienteForm.valid" [ngClass]="!pacienteForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                              name="btnCpfPaciente" type="submit">Cadastrar
+                      </button>
                     </div>
-                    <div>
-                      <div class="text-center text-danger">
-                        <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
-                      </div>
+                  </div>
+                  <div>
+                    <div class="text-center text-danger">
+                      <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                     </div>
-                  </form>
-                </div>
-                <div class="tab-pane" id="profissional">
-                  <form [formGroup]="profissionalForm" (ngSubmit)="onSubmit_(profissionalForm, cpfProfissional)">
-                    <div class="form-row justify-content-center" [ngClass]="input.validation(profissionalForm)=='done' ? 'has-success' : 'has-danger'">
-                      <div class="col-lg-6 col-md-6 col-sm-8">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane" id="profissional">
+                <form (ngSubmit)="onSubmit_(profissionalForm, cpfProfissional)" [formGroup]="profissionalForm">
+                  <div [ngClass]="input.validation(profissionalForm)=='done' ? 'has-success' : 'has-danger'"
+                       class="form-row justify-content-center">
+                    <div class="col-lg-6 col-md-6 col-sm-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
                             <span class="input-group-text">
                               <i class="material-icons">face</i>
                             </span>
-                          </div>
-                          <input type="text" class="form-control" #cpfProfissional id="cpfProfissional" name="cpfProfissional"
-                            autocomplete="off" placeholder="CPF (Obrigatório)" formControlName="cpf"
-                            mask="000.000.000-00">
                         </div>
-                        <span class="form-control-feedback">
+                        <input #cpfProfissional autocomplete="off" class="form-control" formControlName="cpf"
+                               id="cpfProfissional"
+                               mask="000.000.000-00" name="cpfProfissional" placeholder="CPF (Obrigatório)"
+                               type="text">
+                      </div>
+                      <span class="form-control-feedback">
                           <i class="material-icons">{{ input.validation(profissionalForm) }}</i>
                         </span>
-                      </div>
                     </div>
-                    <div class="form-row justify-content-center">
-                      <div class="form-group">
-                        <button type="submit" [disabled]="!profissionalForm.valid" class="btn btn-rose"
-                        [ngClass]="!profissionalForm.valid ? 'btn-link' : ''" name="btnCpfProfissional">Cadastrar</button>
-                      </div>
+                  </div>
+                  <div class="form-row justify-content-center">
+                    <div class="form-group">
+                      <button [disabled]="!profissionalForm.valid" [ngClass]="!profissionalForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                              name="btnCpfProfissional" type="submit">Cadastrar
+                      </button>
                     </div>
-                    <div >
-                      <div class="text-center text-danger">
-                        <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
-                      </div>
+                  </div>
+                  <div>
+                    <div class="text-center text-danger">
+                      <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                     </div>
-                  </form>
-                </div>
-                <div class="tab-pane" id="homecare">
-                  <form [formGroup]="homecareForm" (ngSubmit)="onSubmit(homecareForm, cnpjHomecare)">
-                    <div class="form-row justify-content-center" [ngClass]="input.validation(homecareForm)=='done' ? 'has-success' : 'has-danger'">
-                      <div class="col-lg-6 col-md-6 col-sm-8">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane" id="homecare">
+                <form (ngSubmit)="onSubmit(homecareForm, cnpjHomecare)" [formGroup]="homecareForm">
+                  <div [ngClass]="input.validation(homecareForm)=='done' ? 'has-success' : 'has-danger'"
+                       class="form-row justify-content-center">
+                    <div class="col-lg-6 col-md-6 col-sm-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
                             <span class="input-group-text">
                               <i class="material-icons">face</i>
                             </span>
-                          </div>
-                          <input type="text" class="form-control" #cnpjHomecare id="cnpjHomecare" name="cnpjHomecare"
-                            autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
-                            mask="00.000.000/0000-00">
                         </div>
-                        <span class="form-control-feedback">
+                        <input #cnpjHomecare autocomplete="off" class="form-control" formControlName="cnpj" id="cnpjHomecare"
+                               mask="00.000.000/0000-00" name="cnpjHomecare" placeholder="CNPJ (Obrigatório)"
+                               type="text">
+                      </div>
+                      <span class="form-control-feedback">
                           <i class="material-icons">{{ input.validation(homecareForm) }}</i>
                         </span>
-                      </div>
                     </div>
-                    <div class="form-row justify-content-center">
-                      <div class="form-group">
-                        <button type="submit" [disabled]="!homecareForm.valid" class="btn btn-rose"
-                        [ngClass]="!homecareForm.valid ? 'btn-link' : ''" name="btnCnpjHomecare">Cadastrar</button>
-                      </div>
+                  </div>
+                  <div class="form-row justify-content-center">
+                    <div class="form-group">
+                      <button [disabled]="!homecareForm.valid" [ngClass]="!homecareForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                              name="btnCnpjHomecare" type="submit">Cadastrar
+                      </button>
                     </div>
-                    <div >
-                      <div class="text-center text-danger">
-                        <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
-                      </div>
+                  </div>
+                  <div>
+                    <div class="text-center text-danger">
+                      <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                     </div>
-                  </form>
-                </div>
-                <div class="tab-pane" id="convenio">
-                  <form [formGroup]="convenioForm" (ngSubmit)="onSubmit(convenioForm, cnpjConvenio)">
-                    <div class="form-row justify-content-center" [ngClass]="input.validation(convenioForm)=='done' ? 'has-success' : 'has-danger'">
-                      <div class="col-lg-6 col-md-6 col-sm-8">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane" id="convenio">
+                <form (ngSubmit)="onSubmit(convenioForm, cnpjConvenio)" [formGroup]="convenioForm">
+                  <div [ngClass]="input.validation(convenioForm)=='done' ? 'has-success' : 'has-danger'"
+                       class="form-row justify-content-center">
+                    <div class="col-lg-6 col-md-6 col-sm-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
                             <span class="input-group-text">
                               <i class="material-icons">face</i>
                             </span>
-                          </div>
-                          <input type="text" class="form-control" #cnpjConvenio id="cnpjConvenio" name="cnpjConvenio"
-                            autocomplete="off" placeholder="CNPJ (Obrigatório)" formControlName="cnpj"
-                            mask="00.000.000/0000-00">
                         </div>
-                        <span class="form-control-feedback">
+                        <input #cnpjConvenio autocomplete="off" class="form-control" formControlName="cnpj" id="cnpjConvenio"
+                               mask="00.000.000/0000-00" name="cnpjConvenio" placeholder="CNPJ (Obrigatório)"
+                               type="text">
+                      </div>
+                      <span class="form-control-feedback">
                           <i class="material-icons">{{ input.validation(convenioForm) }}</i>
                         </span>
-                      </div>
                     </div>
-                    <div class="form-row justify-content-center">
-                      <div class="form-group">
-                        <button type="submit" [disabled]="!convenioForm.valid" class="btn btn-rose"
-                        [ngClass]="!convenioForm.valid ? 'btn-link' : ''" name="btnCnpjConvenio">Cadastrar</button>
-                      </div>
+                  </div>
+                  <div class="form-row justify-content-center">
+                    <div class="form-group">
+                      <button [disabled]="!convenioForm.valid" [ngClass]="!convenioForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                              name="btnCnpjConvenio" type="submit">Cadastrar
+                      </button>
                     </div>
-                    <div >
-                      <div class="text-center text-danger">
-                        <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
-                      </div>
+                  </div>
+                  <div>
+                    <div class="text-center text-danger">
+                      <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                     </div>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </div>
             </div>
+          </div>
         </div>
       </div>
       <!-- wizard container -->

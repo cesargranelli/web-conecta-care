@@ -1,12 +1,12 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { Profissional } from '../classes/profissional.class';
-import { Documento } from './feat/documento';
-import { Registro } from './feat/registro';
-import { ProfissionalResponseInterface } from './response/profissionalResponse.interface';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
+import {Profissional} from '../classes/profissional.class';
+import {Documento} from './feat/documento';
+import {Registro} from './feat/registro';
+import {ProfissionalResponseInterface} from './response/profissionalResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +17,15 @@ export class ProfissionalService {
 
   private endpoint: string = `${environment.apiConnecta}/profissionais`;
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {
+  }
 
   getDados(id: number): Observable<Profissional> {
     return this._http.get(`${this.endpoint}/${id}`)
       .pipe(map((profissionalResponseInterface: ProfissionalResponseInterface) => {
-        return profissionalResponseInterface.data;
-      })
-    );
+          return profissionalResponseInterface.data;
+        })
+      );
   }
 
   registrar(documento: Documento): Observable<HttpResponse<any>> {

@@ -1,18 +1,17 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap } from 'rxjs/internal/operators/concatMap';
-import { map } from 'rxjs/internal/operators/map';
-import { Evento } from 'src/app/admin/eventos/models/evento.class';
-import { EventoService } from 'src/app/services/evento.service';
-import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
-import { EnderecoViaCep } from 'src/app/classes/endereco-via-cep.class';
-import { Estado } from 'src/app/classes/estado.class';
-import { DominioService } from 'src/app/services/dominio.service';
-import { EnderecoService } from 'src/app/services/endereco.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Evento} from 'src/app/admin/eventos/models/evento.class';
+import {EventoService} from 'src/app/services/evento.service';
+import {AreaAtendimento} from 'src/app/classes/area-atendimento.class';
+import {EnderecoViaCep} from 'src/app/classes/endereco-via-cep.class';
+import {Estado} from 'src/app/classes/estado.class';
+import {DominioService} from 'src/app/services/dominio.service';
+import {EnderecoService} from 'src/app/services/endereco.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import {concatMap, map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -92,7 +91,7 @@ export class EventoCadastroComponent implements OnInit {
       format: 'L',
       locale: 'pt-br',
       icons: {
-        date: "fa fa-calendar",
+        date: 'fa fa-calendar',
         previous: 'fa fa-chevron-left',
         next: 'fa fa-chevron-right',
         today: 'fa fa-screenshot'
@@ -110,7 +109,7 @@ export class EventoCadastroComponent implements OnInit {
   }
 
   dateChange(form: FormGroup) {
-    jQuery("#datepicker").on("dp.change", function (event: any) {
+    jQuery('#datepicker').on('dp.change', function(event: any) {
       if (event.date) {
         form.controls.data.setValue(event.date?._d.toLocaleDateString());
       }
@@ -118,7 +117,7 @@ export class EventoCadastroComponent implements OnInit {
   }
 
   timeChange(form: FormGroup) {
-    jQuery("#timepicker").on("dp.change", function (event: any) {
+    jQuery('#timepicker').on('dp.change', function(event: any) {
       if (event.date) {
         form.controls.hora.setValue(event.date?._d.toTimeString().substring(0, 5));
       }
@@ -130,30 +129,30 @@ export class EventoCadastroComponent implements OnInit {
     this.evento = this.eventoForm.value;
     this.evento.data = new Date(Number(this.evento.data.split('/')[2]), Number(this.evento.data.split('/')[1]) - 1, Number(this.evento.data.split('/')[0])).toISOString();
     this._eventoService.cadastrar(this.evento).subscribe(response => {
-      setTimeout(() => {
+        setTimeout(() => {
+          this._loading.emitChange(false);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Evento publicado com sucesso!',
+            showConfirmButton: true
+          }).then(() => {
+            this.eventoForm.reset();
+            jQuery(`select[id='estado']`).selectpicker('refresh');
+            jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
+            this._router.navigateByUrl(`admin/eventos`);
+          });
+        });
+      },
+      () => {
         this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
-          icon: 'success',
-          title: 'Evento publicado com sucesso!',
+          icon: 'error',
+          title: 'Não foi possível publicar o novo evento!',
           showConfirmButton: true
-        }).then(() => {
-          this.eventoForm.reset();
-          jQuery(`select[id='estado']`).selectpicker('refresh');
-          jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
-          this._router.navigateByUrl(`admin/eventos`);
         });
       });
-    },
-    () => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Não foi possível publicar o novo evento!',
-        showConfirmButton: true
-      });
-    });
     this._loading.emitChange(false);
   }
 
@@ -182,11 +181,11 @@ export class EventoCadastroComponent implements OnInit {
         showConfirmButton: true,
       }),
       () => {
-      setTimeout(() => {
-        jQuery("select[id='estado']").selectpicker('refresh');
-        jQuery("select[id='estado']").selectpicker('val', this.estadoViaCep.id);
-        this._loading.emitChange(false);
-      })
-    });
+        setTimeout(() => {
+          jQuery('select[id=\'estado\']').selectpicker('refresh');
+          jQuery('select[id=\'estado\']').selectpicker('val', this.estadoViaCep.id);
+          this._loading.emitChange(false);
+        });
+      });
   }
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthAdminService } from 'src/app/auth/services/auth-admin.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthAdminService} from 'src/app/auth/services/auth-admin.service';
 
 @Component({
   selector: 'app-menu-logado',
@@ -12,7 +12,8 @@ export class MenuLogadoComponent implements OnInit {
   constructor(
     private _router: Router,
     private _authService: AuthAdminService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }

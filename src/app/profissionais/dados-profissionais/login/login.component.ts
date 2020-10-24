@@ -1,11 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginService } from 'src/app/auth/services/login.service';
-import { Role } from 'src/app/enums/role.enum';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {LoginService} from 'src/app/auth/services/login.service';
+import {Role} from 'src/app/enums/role.enum';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 
 @Component({
   selector: 'pr-login',
@@ -15,10 +15,9 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 export class LoginComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-  private valid: Valid;
-
   public loginForm: FormGroup;
   public habilitarEdicao: boolean = false;
+  private valid: Valid;
 
   constructor(
     private router: Router,

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-5 col-md-7 ml-auto mr-auto">
-          <form [formGroup]="novaSenhaForm" (ngSubmit)="onSubmit()">
+          <form (ngSubmit)="onSubmit()" [formGroup]="novaSenhaForm">
             <div class="card card-login">
               <div class="card-header card-header-rose text-center">
                 <div class="social-line">
@@ -14,32 +14,33 @@
               <div class="card-body">
                 <!-- <p class="card-description text-center"></p> -->
                 <span class="bmd-form-group is-filled">
-                  <div class="input-group" [ngClass]="validationHas.validation(novaSenhaForm)">
+                  <div [ngClass]="validationHas.validation(novaSenhaForm)" class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="material-icons">lock_outline</i>
                       </span>
                     </div>
-                    <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                    <input class="form-control" formControlName="password" placeholder="Password" type="password">
                   </div>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <div class="input-group" [ngClass]="validationHas.validation(novaSenhaForm)">
+                  <div [ngClass]="validationHas.validation(novaSenhaForm)" class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="material-icons">lock_outline</i>
                       </span>
                     </div>
-                    <input type="password" class="form-control" formControlName="confirmarPassword" placeholder="Confirmar Password">
+                    <input class="form-control" formControlName="confirmarPassword" placeholder="Confirmar Password"
+                           type="password">
                   </div>
                 </span>
               </div>
               <div class="card-footer justify-content-between">
                 <span class="bmd-form-group is-filled">
-                  <button type="button" class="btn btn-gray">Cancelar</button>
+                  <button class="btn btn-gray" type="button">Cancelar</button>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <button type="submit" class="btn btn-rose" [disabled]="!novaSenhaForm.valid">Enviar</button>
+                  <button [disabled]="!novaSenhaForm.valid" class="btn btn-rose" type="submit">Enviar</button>
                 </span>
               </div>
             </div>

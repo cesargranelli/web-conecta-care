@@ -1,5 +1,5 @@
-import { Banco } from './banco.class';
-import { TipoConta } from './tipo-conta.class';
+import {Banco} from './banco.class';
+import {TipoConta} from './tipo-conta.class';
 
 export class Conta {
   tipo: TipoConta;

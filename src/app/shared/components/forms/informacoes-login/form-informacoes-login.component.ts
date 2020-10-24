@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
-import { InputValidation } from 'src/app/shared/validations/input-validation';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {validEqualsEmail, validEqualsPassword} from 'src/app/shared/validations/directives/valid-equals';
+import {InputValidation} from 'src/app/shared/validations/input-validation';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 
 declare var jQuery: any;
 
@@ -37,7 +37,8 @@ export class FormInformacoesLoginComponent implements OnInit {
   Ao menos 1 número<br>
   Ao menos 1 caracter especial</div>`;
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
@@ -65,7 +66,7 @@ export class FormInformacoesLoginComponent implements OnInit {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,20}$'),
         this.equalsPassword()
       ]]
-    }, { validators: [validEqualsEmail, validEqualsPassword] });
+    }, {validators: [validEqualsEmail, validEqualsPassword]});
     this.esconderFormulario = false;
   }
 
@@ -82,7 +83,7 @@ export class FormInformacoesLoginComponent implements OnInit {
       if (control.value == this.loginForm?.controls.email.value) {
         return null;
       } else {
-        return { invalid: control.value }
+        return {invalid: control.value};
       }
     };
   }
@@ -92,7 +93,7 @@ export class FormInformacoesLoginComponent implements OnInit {
       if (control.value == this.loginForm?.controls.password.value) {
         return null;
       } else {
-        return { invalid: control.value }
+        return {invalid: control.value};
       }
     };
   }

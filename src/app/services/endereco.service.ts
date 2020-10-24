@@ -1,10 +1,10 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../../src/environments/environment';
-import { Endereco } from '../classes/endereco.class';
-import { EnderecoResponseInterface } from './response/enderecoResponse.interface';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {environment} from '../../../src/environments/environment';
+import {Endereco} from '../classes/endereco.class';
+import {EnderecoResponseInterface} from './response/enderecoResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,12 @@ export class EnderecoService {
   private endpoint: string = `${environment.apiConnecta}/enderecos`;
   private endpointViaCep: string = `${environment.apiCep}/ws/{cep}/json`;
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {
+  }
 
   findViaCep(pathParam: string): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<any>>(`${this.endpointViaCep.replace('{cep}', pathParam)}`,
-      { observe: 'response' });
+      {observe: 'response'});
   }
 
   getDados(id: number): Observable<Endereco> {

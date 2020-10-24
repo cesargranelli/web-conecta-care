@@ -23,15 +23,13 @@ declare var jQuery: any;
 })
 export class ContaComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
-
-  private _dadosLocalStorage: Valid;
-
   public conta: Conta;
   public tipoContas: Array<TipoConta>;
   public bancos: Array<Banco>;
   public validationHas: InputValidationHas;
   public contaForm: FormGroup;
   public showForm: boolean = true;
+  private _dadosLocalStorage: Valid;
 
   constructor(
     private _router: Router,

@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { map } from 'rxjs/internal/operators/map';
-import { EventoService } from 'src/app/services/evento.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {EventoService} from 'src/app/services/evento.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import Swal from 'sweetalert2';
-import { Evento } from './models/evento.class';
+import {Evento} from './models/evento.class';
+import {map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -34,13 +34,13 @@ export class EventosComponent implements OnInit {
       })
     ).subscribe(
       null, null, () => {
-      setTimeout(() => {
-        this.inicializarDataTable();
-        this.status(this.eventosFuturos);
-        this._loading.emitChange(false);
-        this.escondeTabela = false;
+        setTimeout(() => {
+          this.inicializarDataTable();
+          this.status(this.eventosFuturos);
+          this._loading.emitChange(false);
+          this.escondeTabela = false;
+        });
       });
-    });
   }
 
   atualizaTabela() {
@@ -51,63 +51,63 @@ export class EventosComponent implements OnInit {
       })
     ).subscribe(
       null, null, () => {
-      setTimeout(() => {
-        this.status(this.eventosFuturos);
-        this._loading.emitChange(false);
-        this.escondeTabela = false;
+        setTimeout(() => {
+          this.status(this.eventosFuturos);
+          this._loading.emitChange(false);
+          this.escondeTabela = false;
+        });
       });
-    });
   }
 
   enviarSms(id: number) {
     this._loading.emitChange(true);
     this._eventoService.enviar(id).subscribe(() => {
-      setTimeout(() => {
+        setTimeout(() => {
+          this._loading.emitChange(false);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Evento de SMS para profissionais elegíveis!',
+            showConfirmButton: true
+          });
+        });
+      },
+      () => {
         this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
-          icon: 'success',
-          title: 'Evento de SMS para profissionais elegíveis!',
+          icon: 'error',
+          title: 'Não foi possível publicar o novo evento!',
           showConfirmButton: true
         });
       });
-    },
-    () => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Não foi possível publicar o novo evento!',
-        showConfirmButton: true
-      });
-    });
   }
 
   cancelarSms(id: number) {
     this._loading.emitChange(true);
     this._eventoService.cancelar(id).subscribe(() => {
-      setTimeout(() => {
+        setTimeout(() => {
+          this._loading.emitChange(false);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Evento cancelado com sucesso!',
+            showConfirmButton: true
+          }).then(() => {
+            this.escondeTabela = true;
+            this.atualizaTabela();
+          });
+        });
+      },
+      () => {
         this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
-          icon: 'success',
-          title: 'Evento cancelado com sucesso!',
+          icon: 'error',
+          title: 'Ops! Ocorreu um erro ao tentar cancelar o evento!',
           showConfirmButton: true
-        }).then(() => {
-          this.escondeTabela = true;
-          this.atualizaTabela();
         });
       });
-    },
-    () => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ops! Ocorreu um erro ao tentar cancelar o evento!',
-        showConfirmButton: true
-      });
-    });
   }
 
   status(eventos: Array<Evento>) {

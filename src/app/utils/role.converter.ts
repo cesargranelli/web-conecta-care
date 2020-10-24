@@ -1,17 +1,17 @@
-import { Role as RoleEnum } from 'src/app/enums/role.enum';
+import {Role as RoleEnum} from 'src/app/enums/role.enum';
 
 export class RoleConverter {
 
   toComponent(role: RoleEnum): string {
     switch (role) {
       case RoleEnum.Paciente:
-        return 'pacientes'
+        return 'pacientes';
       case RoleEnum.Profissional:
-        return 'profissionais'
+        return 'profissionais';
       case RoleEnum.Homecare:
-        return 'homecares'
+        return 'homecares';
       case RoleEnum.Convenio:
-        return 'convenios'
+        return 'convenios';
       default:
         break;
     }
@@ -20,13 +20,13 @@ export class RoleConverter {
   toRole(component: string): RoleEnum {
     switch (component) {
       case 'pacientes':
-        return RoleEnum.Paciente
+        return RoleEnum.Paciente;
       case 'profissionais':
-        return RoleEnum.Profissional
+        return RoleEnum.Profissional;
       case 'homecares':
-        return RoleEnum.Homecare
+        return RoleEnum.Homecare;
       case 'convenios':
-        return RoleEnum.Convenio
+        return RoleEnum.Convenio;
       default:
         break;
     }
@@ -35,15 +35,15 @@ export class RoleConverter {
   getRole(roleString: string): RoleEnum {
     switch (roleString) {
       case 'ROLE_ADMIN_ROOT':
-        return RoleEnum.Root
+        return RoleEnum.Root;
       case 'ROLE_PACIENTE':
-        return RoleEnum.Paciente
+        return RoleEnum.Paciente;
       case 'ROLE_PROFISSIONAL':
-        return RoleEnum.Profissional
+        return RoleEnum.Profissional;
       case 'ROLE_HOMECARE':
-        return RoleEnum.Homecare
+        return RoleEnum.Homecare;
       case 'ROLE_CONVENIO':
-        return RoleEnum.Convenio
+        return RoleEnum.Convenio;
       default:
         break;
     }

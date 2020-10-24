@@ -1,5 +1,5 @@
-import { Estado } from './estado.class';
-import { Pais } from './pais.class';
+import {Estado} from './estado.class';
+import {Pais} from './pais.class';
 
 export class Endereco {
   id: number;

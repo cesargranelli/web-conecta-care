@@ -1,6 +1,6 @@
 export class Base64Converter {
 
-  private base64textString:any = [];
+  private base64textString: any = [];
 
   public toBase64(file: File) {
 
@@ -12,11 +12,7 @@ export class Base64Converter {
 
   }
 
-  private handleReaderLoaded(event: any) {
-    return 'data:image/png;base64,' + btoa(event.target.result);
-  }
-
-  onLoadFotoProfissional(event:any) {
+  onLoadFotoProfissional(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -25,8 +21,12 @@ export class Base64Converter {
     }
   }
 
-  handlerReaderLoadedProfissional(e:any) {
+  handlerReaderLoadedProfissional(e: any) {
     // this.fotoProfissional = btoa(e.target.result);
+  }
+
+  private handleReaderLoaded(event: any) {
+    return 'data:image/png;base64,' + btoa(event.target.result);
   }
 
 }

@@ -1,22 +1,22 @@
-<form [formGroup]="homeCareForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="hideForm">
+<form (ngSubmit)="onSubmit()" [formGroup]="homeCareForm" [hidden]="hideForm" class="form-horizontal">
   <div class="card-body">
     <div class="tab-content">
       <div class="row">
-        <label for="nome" class="col-lg-3 col-md-3 col-form-label">Empresa Home Care *</label>
+        <label class="col-lg-3 col-md-3 col-form-label" for="nome">Empresa Home Care *</label>
         <div class="form-group col-lg-6 col-md-6">
-          <input type="text" id="nome" class="form-control"
-                 formControlName="nome"
+          <input [value]="homeCareForm.get('nome').value | titlecase" class="form-control" formControlName="nome"
+                 id="nome"
                  placeholder="Nome da empresa"
-                 [value]="homeCareForm.get('nome').value | titlecase">
+                 type="text">
         </div>
       </div>
       <div class="row">
-        <label for="tipoDocumento" class="col-lg-3 col-md-3 col-form-label">Tipo Documento *</label>
+        <label class="col-lg-3 col-md-3 col-form-label" for="tipoDocumento">Tipo Documento *</label>
         <div class="form-group col-lg-3 col-md-8 checkbox-radios" id="tipoDocumento">
           <div class="form-check">
             <label class="form-check-label">
-              <input class="form-check-input" formControlName="tipoDocumento" type="radio"
-                     name="tipoDocumento" value="CNPJ" checked>
+              <input checked class="form-check-input" formControlName="tipoDocumento"
+                     name="tipoDocumento" type="radio" value="CNPJ">
               CNPJ
               <span class="circle">
                     <span class="check"></span>
@@ -25,8 +25,8 @@
           </div>
           <div class="form-check">
             <label class="form-check-label">
-              <input class="form-check-input" formControlName="tipoDocumento" type="radio"
-                     name="tipoDocumento" value="MEI">
+              <input class="form-check-input" formControlName="tipoDocumento" name="tipoDocumento"
+                     type="radio" value="MEI">
               MEI
               <span class="circle">
                     <span class="check"></span>
@@ -36,27 +36,27 @@
         </div>
       </div>
       <div class="row">
-        <label for="cnpj"
-               class="col-lg-3 col-md-3 col-form-label">Nº {{homeCareForm.value.tipoDocumento}}
+        <label class="col-lg-3 col-md-3 col-form-label"
+               for="cnpj">Nº {{homeCareForm.value.tipoDocumento}}
           *</label>
-        <div class="form-group col-lg-6 col-md-6" [ngClass]="validationHas.validation(homeCareForm.controls?.cnpj)">
-          <input type="text" id="cnpj" class="form-control" formControlName="cnpj"
-                 placeholder="Nº {{homeCareForm.value.tipoDocumento}}" mask="00.000.000/0000-00">
+        <div [ngClass]="validationHas.validation(homeCareForm.controls?.cnpj)" class="form-group col-lg-6 col-md-6">
+          <input class="form-control" formControlName="cnpj" id="cnpj" mask="00.000.000/0000-00"
+                 placeholder="Nº {{homeCareForm.value.tipoDocumento}}" type="text">
         </div>
       </div>
       <div class="row">
-        <label for="site" class="col-lg-3 col-md-3 col-form-label">Site</label>
+        <label class="col-lg-3 col-md-3 col-form-label" for="site">Site</label>
         <div class="form-group col-lg-6 col-md-6">
-          <input type="text" id="site" class="form-control" formControlName="site"
+          <input [value]="homeCareForm.get('site').value | lowercase" class="form-control" formControlName="site" id="site"
                  placeholder="www.sitedaempresa.com"
-                 [value]="homeCareForm.get('site').value | lowercase">
+                 type="text">
         </div>
       </div>
       <div class="row">
-        <label for="especialidade" class="col-lg-3 col-md-3 col-form-label">Área Atendimento *</label>
+        <label class="col-lg-3 col-md-3 col-form-label" for="especialidade">Área Atendimento *</label>
         <div class="form-group col-lg-3 col-md-8">
-          <select class="selectpicker" id="especialidade" multiple="multiple" data-style="btn btn-primary"
-                  data-width="100%" title="Selecione" formControlName="especialidade">
+          <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="especialidade"
+                  id="especialidade" multiple="multiple" title="Selecione">
             <option *ngFor="let especialidade of especialidades">{{ especialidade.nome | uppercase }}</option>
           </select>
         </div>
@@ -64,18 +64,18 @@
     </div>
   </div>
   <div class="card-footer justify-content-between">
-    <span class="bmd-form-group is-filled" *ngIf="isAlteracao">
-      <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
+    <span *ngIf="isAlteracao" class="bmd-form-group is-filled">
+      <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
         <i class="material-icons">arrow_back</i>
       </button>
     </span>
-    <span class="bmd-form-group is-filled" *ngIf="!isAlteracao">
-      <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-      <button type="button" class="btn btn-gray" (click)="limparForm()">Limpar</button>
+    <span *ngIf="!isAlteracao" class="bmd-form-group is-filled">
+      <button (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+      <button (click)="limparForm()" class="btn btn-gray" type="button">Limpar</button>
     </span>
     <span class="bmd-form-group is-filled">
-        <button type="submit" class="btn btn-rose"
-                [disabled]="!homeCareForm.valid">{{ isAlteracao ? 'Alterar' : 'Avançar' }}</button>
+        <button [disabled]="!homeCareForm.valid" class="btn btn-rose"
+                type="submit">{{ isAlteracao ? 'Alterar' : 'Avançar' }}</button>
     </span>
   </div>
 </form>

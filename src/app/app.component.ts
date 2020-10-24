@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { environment } from './../environments/environment';
-import { SharedLoadingService } from './shared/services/shared-loading.service';
-import { SharedValidService } from './shared/services/shared-valid.service';
+import {Component} from '@angular/core';
+import {environment} from './../environments/environment';
+import {SharedLoadingService} from './shared/services/shared-loading.service';
+import {SharedValidService} from './shared/services/shared-valid.service';
 
 @Component({
   selector: 'app-root',

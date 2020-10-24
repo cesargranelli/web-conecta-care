@@ -1,73 +1,74 @@
-<form [formGroup]="enderecoForm" (ngSubmit)="onSubmit()" class="form-horizontal" [hidden]="esconderFormulario">
+<form (ngSubmit)="onSubmit()" [formGroup]="enderecoForm" [hidden]="esconderFormulario" class="form-horizontal">
   <div class="card-body">
     <div class="tab-content">
       <div class="row">
-        <label for="cep" class="col-lg-2 col-md-2 col-form-label">CEP *</label>
-        <div class="form-group col-lg-5 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.cep)">
-          <input type="text" class="form-control" formControlName="cep" mask="00000-000" autocomplete="none">
+        <label class="col-lg-2 col-md-2 col-form-label" for="cep">CEP *</label>
+        <div [ngClass]="validationHas.validation(enderecoForm.controls?.cep)" class="form-group col-lg-5 col-md-8">
+          <input autocomplete="none" class="form-control" formControlName="cep" mask="00000-000" type="text">
         </div>
-        <button type="button" class="btn btn-social btn-just-icon btn-round btn-rose"
-          (click)="pesquisarCep()" [disabled]="!enderecoForm.controls.cep.valid">
+        <button (click)="pesquisarCep()" [disabled]="!enderecoForm.controls.cep.valid"
+                class="btn btn-social btn-just-icon btn-round btn-rose" type="button">
           <i class="material-icons">search</i>
         </button>
       </div>
       <div class="row">
-        <label for="logradouro" class="col-lg-2 col-md-3 col-form-label">Endereço *</label>
-        <div class="form-group col-lg-5 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.logradouro)">
-          <input type="text" class="form-control" formControlName="logradouro"
-          [value]="enderecoForm.get('logradouro').value | titlecase">
+        <label class="col-lg-2 col-md-3 col-form-label" for="logradouro">Endereço *</label>
+        <div [ngClass]="validationHas.validation(enderecoForm.controls?.logradouro)"
+             class="form-group col-lg-5 col-md-8">
+          <input [value]="enderecoForm.get('logradouro').value | titlecase" class="form-control" formControlName="logradouro"
+                 type="text">
         </div>
-        <label for="numero" class="col-lg-2 col-md-3 col-form-label">Número *</label>
-        <div class="form-group col-lg-2 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.numero)">
-          <input type="text" class="form-control" formControlName="numero" mask="0*">
+        <label class="col-lg-2 col-md-3 col-form-label" for="numero">Número *</label>
+        <div [ngClass]="validationHas.validation(enderecoForm.controls?.numero)" class="form-group col-lg-2 col-md-8">
+          <input class="form-control" formControlName="numero" mask="0*" type="text">
         </div>
       </div>
       <div class="row">
-        <label for="complemento" class="col-lg-2 col-md-3 col-form-label">Complemento</label>
+        <label class="col-lg-2 col-md-3 col-form-label" for="complemento">Complemento</label>
         <div class="form-group col-lg-5 col-md-8">
-          <input type="text" class="form-control" formControlName="complemento">
+          <input class="form-control" formControlName="complemento" type="text">
         </div>
       </div>
       <div class="row">
-        <label for="bairro" class="col-lg-2 col-md-3 col-form-label">Bairro *</label>
-        <div class="form-group col-lg-4 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.bairro)">
-          <input type="text" class="form-control" formControlName="bairro"
-          [value]="enderecoForm.get('bairro').value | titlecase">
+        <label class="col-lg-2 col-md-3 col-form-label" for="bairro">Bairro *</label>
+        <div [ngClass]="validationHas.validation(enderecoForm.controls?.bairro)" class="form-group col-lg-4 col-md-8">
+          <input [value]="enderecoForm.get('bairro').value | titlecase" class="form-control" formControlName="bairro"
+                 type="text">
         </div>
-        <label for="cidade" class="col-lg-2 col-md-3 col-form-label">Cidade *</label>
-        <div class="form-group col-lg-3 col-md-8" [ngClass]="validationHas.validation(enderecoForm.controls?.cidade)">
-          <input type="text" class="form-control" formControlName="cidade"
-          [value]="enderecoForm.get('cidade').value | titlecase">
+        <label class="col-lg-2 col-md-3 col-form-label" for="cidade">Cidade *</label>
+        <div [ngClass]="validationHas.validation(enderecoForm.controls?.cidade)" class="form-group col-lg-3 col-md-8">
+          <input [value]="enderecoForm.get('cidade').value | titlecase" class="form-control" formControlName="cidade"
+                 type="text">
         </div>
       </div>
       <div class="row">
-        <label for="pais" class="col-lg-2 col-md-3 col-form-label">País *</label>
+        <label class="col-lg-2 col-md-3 col-form-label" for="pais">País *</label>
         <div class="form-group col-lg-4 col-md-8">
-          <select class="selectpicker" formControlName="pais" id="pais" data-style="btn btn-primary"
-            data-width="100%" title="País" data-live-search="true">
-            <option [value]="pais.id" *ngFor="let pais of paises">{{ pais.nome | uppercase }}</option>
+          <select class="selectpicker" data-live-search="true" data-style="btn btn-primary" data-width="100%"
+                  formControlName="pais" id="pais" title="País">
+            <option *ngFor="let pais of paises" [value]="pais.id">{{ pais.nome | uppercase }}</option>
           </select>
         </div>
-        <label for="estado" class="col-lg-1 col-md-3 col-form-label">UF *</label>
+        <label class="col-lg-1 col-md-3 col-form-label" for="estado">UF *</label>
         <div class="form-group col-lg-4 col-md-8">
-          <select class="selectpicker" formControlName="estado" id="estado" data-style="btn btn-primary"
-            data-width="100%" title="Estado" data-live-search="true">
-            <option [value]="estado.id" *ngFor="let estado of estados">{{ estado.uf }}</option>
+          <select class="selectpicker" data-live-search="true" data-style="btn btn-primary" data-width="100%"
+                  formControlName="estado" id="estado" title="Estado">
+            <option *ngFor="let estado of estados" [value]="estado.id">{{ estado.uf }}</option>
           </select>
         </div>
       </div>
       <div class="row">
-        <label for="comprovante" class="col-lg-2 col-md-3 col-form-label">Comprovante *</label>
+        <label class="col-lg-2 col-md-3 col-form-label" for="comprovante">Comprovante *</label>
         <div class="col-lg-5 col-md-8">
-          <div class="fileinput text-center" data-provides="fileinput" [ngClass]="fileInputComprovante">
-            <div class="thumbnail img-circle img-raised" [ngClass]="fileInputComprovante">
-              <img [src]="imagemComprovante" rel="nofollow" alt="...">
+          <div [ngClass]="fileInputComprovante" class="fileinput text-center" data-provides="fileinput">
+            <div [ngClass]="fileInputComprovante" class="thumbnail img-circle img-raised">
+              <img [src]="imagemComprovante" alt="..." rel="nofollow">
             </div>
             <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
             <span class="btn btn-raised btn-round btn-rose btn-file">
               <span [hidden]="enderecoForm.controls.comprovante.valid">Selecionar comprovante</span>
               <span [hidden]="enderecoForm.controls.comprovante.invalid">Trocar</span>
-              <input type="file" data-max-size="2" (change)="onLoadComprovante($event)" formControlName="comprovante">
+              <input (change)="onLoadComprovante($event)" data-max-size="2" formControlName="comprovante" type="file">
             </span>
           </div>
         </div>
@@ -75,17 +76,18 @@
     </div>
   </div>
   <div class="card-footer justify-content-between">
-    <span class="bmd-form-group is-filled" *ngIf="isAlteracao">
-      <button class="btn btn-social btn-just-icon btn-gray" [routerLink]="['../']">
+    <span *ngIf="isAlteracao" class="bmd-form-group is-filled">
+      <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
         <i class="material-icons">arrow_back</i>
       </button>
     </span>
-    <span class="bmd-form-group is-filled" *ngIf="!isAlteracao">
-      <button type="button" class="btn btn-gray" (click)="onReturn()">Retornar</button>
-      <button type="button" class="btn btn-gray" (click)="limpar()">Limpar</button>
+    <span *ngIf="!isAlteracao" class="bmd-form-group is-filled">
+      <button (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+      <button (click)="limpar()" class="btn btn-gray" type="button">Limpar</button>
     </span>
     <span class="bmd-form-group is-filled">
-      <button type="submit" class="btn btn-rose" [disabled]="!enderecoForm.valid">{{ isAlteracao ? 'Alterar' : 'Avançar' }}</button>
+      <button [disabled]="!enderecoForm.valid" class="btn btn-rose"
+              type="submit">{{ isAlteracao ? 'Alterar' : 'Avançar' }}</button>
     </span>
   </div>
 </form>

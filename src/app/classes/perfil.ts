@@ -1,8 +1,9 @@
-import { Role } from '../enums/role.enum';
+import {Role} from '../enums/role.enum';
 
 export class Perfil {
 
-  constructor(private role: string) {}
+  constructor(private role: string) {
+  }
 
   public setRole(role: string) {
     this.role = role;
@@ -15,13 +16,13 @@ export class Perfil {
   private getContexto(role: string): string {
     switch (role) {
       case Role.Paciente:
-        return 'pacientes'
+        return 'pacientes';
       case Role.Profissional:
-        return 'profissionais'
+        return 'profissionais';
       case Role.Homecare:
-        return 'homecares'
+        return 'homecares';
       case Role.Convenio:
-        return 'convenios'
+        return 'convenios';
       default:
         break;
     }

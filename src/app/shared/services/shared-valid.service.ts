@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedEventValidService } from './shared-event-valid.service';
+import {Injectable} from '@angular/core';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedEventValidService} from './shared-event-valid.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,8 @@ export class SharedValidService {
 
   constructor(
     private _eventValid: SharedEventValidService
-  ) { }
+  ) {
+  }
 
   isValidate() {
     return !!this.getValid();

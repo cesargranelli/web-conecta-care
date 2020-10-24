@@ -11,8 +11,8 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let card of cards">
-                <app-card-ver-dados [icon]="card.icon" [link]="card.link" [value]="card.value" [stats]="card.stats">
+              <div *ngFor="let card of cards" class="col-lg-6 col-md-6 col-sm-6">
+                <app-card-ver-dados [icon]="card.icon" [link]="card.link" [stats]="card.stats" [value]="card.value">
                 </app-card-ver-dados>
               </div>
             </div>

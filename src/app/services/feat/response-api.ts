@@ -1,5 +1,3 @@
-import { Role } from 'src/app/enums/role.enum';
-
 export interface ResponseApi {
   success: string;
   status: number;

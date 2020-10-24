@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthService} from 'src/app/auth/services/auth.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 
 declare var jQuery: any;
 

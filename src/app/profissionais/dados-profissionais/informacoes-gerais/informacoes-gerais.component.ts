@@ -1,19 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap, map } from 'rxjs/operators';
-import { EstadoCivil } from 'src/app/classes/estado-civil.class';
-import { Genero } from 'src/app/classes/genero.class';
-import { Profissional } from 'src/app/classes/profissional.class';
-import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { ProfissionalService } from 'src/app/services/profissional.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {concatMap, map} from 'rxjs/operators';
+import {EstadoCivil} from 'src/app/classes/estado-civil.class';
+import {Genero} from 'src/app/classes/genero.class';
+import {Profissional} from 'src/app/classes/profissional.class';
+import {TipoEmpresa} from 'src/app/classes/tipo-empresa.class';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {ProfissionalService} from 'src/app/services/profissional.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -26,21 +26,18 @@ declare var jQuery: any;
 export class InformacoesGeraisComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-
-  private readonly CAMINHO_IMAGEM_DUMMY: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
-
   public profissionalForm: FormGroup;
   public generos: Array<Genero>;
   public tipoEmpresas: Array<TipoEmpresa>;
   public estadoCivis: Array<EstadoCivil>;
-  public fotoProfissional: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
-  public fotoRg: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   public validationHas: InputValidationHas = new InputValidationHas();
   public fileInputProfissional: string = 'fileinput-new';
   public fileInputRg: string = 'fileinput-new';
   public showForm: boolean = true;
-
   public profissional: Profissional;
+  private readonly CAMINHO_IMAGEM_DUMMY: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
+  public fotoProfissional: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
+  public fotoRg: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   private _fileProfissional: File;
   private _fileRg: File;
   private _dadosLocalStorage: Valid;
@@ -162,7 +159,7 @@ export class InformacoesGeraisComponent implements OnInit {
     profissional.fotoProfissional = this.fotoProfissional;
     profissional.fotoRg = this.fotoRg;
 
-    if (this.validacoes(profissional.rgDataEmissao, profissional.dataNascimento)) {
+    if (this.validacoes(profissional.rgDataEmissao, profissional.dataNascimento) && profissional.rg != null) {
       this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
@@ -182,6 +179,29 @@ export class InformacoesGeraisComponent implements OnInit {
         showConfirmButton: true,
       });
       return;
+    }
+
+    if(profissional.rg != null && profissional.rg != '') {
+      if(profissional.rgDataEmissao == null || profissional.rgDataEmissao == ''){
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Data de emissão do RG obrigatória.',
+          showConfirmButton: true,
+        });
+      return;
+      }
+      if(profissional.rgEmissor == null || profissional.rgEmissor == ''){
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Emissor do RG obrigatório.',
+          showConfirmButton: true,
+        });
+      return;
+      }
     }
 
     this._service.save(profissional).subscribe(response => {
@@ -219,18 +239,18 @@ export class InformacoesGeraisComponent implements OnInit {
     let dataAtual = new Date();
     let anoAtual = dataAtual.getFullYear();
     let anoNascParts = dataNascimento.split('/');
-    let diaNasc =anoNascParts[0];
-    let mesNasc =anoNascParts[1];
-    let anoNasc =anoNascParts[2];
+    let diaNasc = anoNascParts[0];
+    let mesNasc = anoNascParts[1];
+    let anoNasc = anoNascParts[2];
     let idade = anoAtual - anoNasc;
     let mesAtual = dataAtual.getMonth() + 1;
 
-    if(mesAtual < mesNasc){
+    if (mesAtual < mesNasc) {
       idade--;
-    }else if(mesAtual == mesNasc && new Date().getDate() < diaNasc){
+    } else if (mesAtual == mesNasc && new Date().getDate() < diaNasc) {
       idade--;
     }
-    if(idade < 18) {
+    if (idade < 18) {
       return true;
     }
   }

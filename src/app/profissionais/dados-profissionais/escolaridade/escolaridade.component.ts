@@ -1,16 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap, map } from 'rxjs/operators';
-import { Escolaridade } from 'src/app/classes/escolaridade.class';
-import { Instrucao } from 'src/app/classes/instrucao.class';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { DominioService } from 'src/app/services/dominio.service';
-import { EscolaridadeService } from 'src/app/services/escolaridade.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {concatMap, map} from 'rxjs/operators';
+import {Escolaridade} from 'src/app/classes/escolaridade.class';
+import {Instrucao} from 'src/app/classes/instrucao.class';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {DominioService} from 'src/app/services/dominio.service';
+import {EscolaridadeService} from 'src/app/services/escolaridade.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -22,14 +22,12 @@ declare var jQuery: any;
 })
 export class EscolaridadeComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
-
-  private _dadosLocalStorage: Valid;
-
   public instrucoes: Array<Instrucao>;
   public validationHas: InputValidationHas;
   public escolaridadeForm: FormGroup;
   public escolaridade: Escolaridade;
   public showForm: boolean = true;
+  private _dadosLocalStorage: Valid;
 
   constructor(
     private _router: Router,

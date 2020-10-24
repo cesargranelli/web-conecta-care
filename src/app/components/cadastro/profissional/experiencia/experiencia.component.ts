@@ -1,14 +1,14 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Experiencia } from 'src/app/classes/experiencia.class';
-import { Role } from 'src/app/enums/role.enum';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { ExperienciaService } from 'src/app/services/experiencia.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Experiencia} from 'src/app/classes/experiencia.class';
+import {Role} from 'src/app/enums/role.enum';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {ExperienciaService} from 'src/app/services/experiencia.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -23,16 +23,14 @@ export class ExperienciaComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   experienciaForm: FormGroup;
-
-  private valid: Valid;
-  private experiencia: Experiencia[] = [];
-
   public experiencia1: Experiencia = new Experiencia();
   public experiencia2: Experiencia = new Experiencia();
   public experiencia3: Experiencia = new Experiencia();
   public validationHas: InputValidationHas = new InputValidationHas();
   public showForm: boolean = true;
   public somenteLeitura: boolean = true;
+  private valid: Valid;
+  private experiencia: Experiencia[] = [];
 
   constructor(
     private _router: Router,
@@ -144,22 +142,22 @@ export class ExperienciaComponent implements OnInit {
       this.experiencia.push(this.experiencia3);
 
       this._service.save(this.experiencia).subscribe(response => {
-        this._loading.emitChange(true);
-        setTimeout(() => {
-          this._cadastro.experiencia = this.experiencia;
-          this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/escolaridade`);
+          this._loading.emitChange(true);
+          setTimeout(() => {
+            this._cadastro.experiencia = this.experiencia;
+            this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/escolaridade`);
+            this._loading.emitChange(false);
+          });
+        },
+        (error: Error) => {
           this._loading.emitChange(false);
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Ocorreu um erro inexperado ao tentar inserir experiência profissional',
+            showConfirmButton: true
+          });
         });
-      },
-      (error: Error) => {
-        this._loading.emitChange(false);
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Ocorreu um erro inexperado ao tentar inserir experiência profissional',
-          showConfirmButton: true
-        });
-      });
     }
 
     setTimeout(() => {
@@ -179,7 +177,7 @@ export class ExperienciaComponent implements OnInit {
   }
 
   dateChange(control: FormControl, name: string) {
-    jQuery(`#${name}`).on("dp.change", function (event: any) {
+    jQuery(`#${name}`).on('dp.change', function(event: any) {
       control.setValue(event?.date?._d?.toLocaleDateString());
     });
   }

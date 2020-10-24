@@ -9,52 +9,53 @@
               Eventos
             </h3>
           </div>
-          <div class="card-body" [hidden]="escondeTabela">
+          <div [hidden]="escondeTabela" class="card-body">
             <div class="material-datatables">
-              <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
+              <div class="dataTables_wrapper dt-bootstrap4" id="datatables_wrapper">
                 <div class="row">
                   <div class="col-sm-12">
-                    <table id="datatables" class="table table-striped" cellspacing="0" width="100%" style="width:100%" [hidden]="escondeTabela">
+                    <table [hidden]="escondeTabela" cellspacing="0" class="table table-striped" id="datatables" style="width:100%"
+                           width="100%">
                       <thead>
-                        <tr>
-                          <th>Evento</th>
-                          <th>Data</th>
-                          <th>Hora</th>
-                          <th class="disabled-sorting text-center">Ações</th>
-                        </tr>
+                      <tr>
+                        <th>Evento</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th class="disabled-sorting text-center">Ações</th>
+                      </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let evento of eventosFuturos">
-                          <td>{{ evento.titulo }}</td>
-                          <td>{{ evento.data }}</td>
-                          <td>{{ evento.hora }}</td>
-                          <td class="text-right">
-                            <button class="btn btn-link btn-rose btn-just-icon" title="Ver detalhes"
-                              routerLink="{{evento.id}}">
-                              <i class="material-icons">visibility</i>
-                            </button>
-                            <button type="button" class="btn btn-link btn-just-icon"
-                              (click)="enviarSms(evento.id)"
-                              [ngClass]="(!evento.status) ? 'btn-success' : ''"
-                              [disabled]="evento.status" title="Enviar">
-                              <i class="material-icons">send</i>
-                            </button>
-                            <button type="button" class="btn btn-link btn-just-icon"
-                              (click)="cancelarSms(evento.id)"
-                              [ngClass]="(!evento.status) ? 'btn-danger' : ''"
-                              [disabled]="evento.status" title="Cancelar">
-                              <i class="material-icons">cancel_schedule_send</i>
-                            </button>
-                          </td>
-                        </tr>
+                      <tr *ngFor="let evento of eventosFuturos">
+                        <td>{{ evento.titulo }}</td>
+                        <td>{{ evento.data }}</td>
+                        <td>{{ evento.hora }}</td>
+                        <td class="text-right">
+                          <button class="btn btn-link btn-rose btn-just-icon" routerLink="{{evento.id}}"
+                                  title="Ver detalhes">
+                            <i class="material-icons">visibility</i>
+                          </button>
+                          <button (click)="enviarSms(evento.id)" [disabled]="evento.status"
+                                  [ngClass]="(!evento.status) ? 'btn-success' : ''"
+                                  class="btn btn-link btn-just-icon"
+                                  title="Enviar" type="button">
+                            <i class="material-icons">send</i>
+                          </button>
+                          <button (click)="cancelarSms(evento.id)" [disabled]="evento.status"
+                                  [ngClass]="(!evento.status) ? 'btn-danger' : ''"
+                                  class="btn btn-link btn-just-icon"
+                                  title="Cancelar" type="button">
+                            <i class="material-icons">cancel_schedule_send</i>
+                          </button>
+                        </td>
+                      </tr>
                       </tbody>
                       <tfoot>
-                        <tr>
-                          <th>Evento</th>
-                          <th>Data</th>
-                          <th>Hora</th>
-                          <th class="text-right">Ações</th>
-                        </tr>
+                      <tr>
+                        <th>Evento</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th class="text-right">Ações</th>
+                      </tr>
                       </tfoot>
                     </table>
                   </div>
