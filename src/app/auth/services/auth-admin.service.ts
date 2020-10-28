@@ -56,7 +56,7 @@ export class AuthAdminService {
   }
 
   handlerError(httpErrorResponse: HttpErrorResponse): string {
-    return httpErrorResponse.error.data.message;
+    return httpErrorResponse.error.data?.message;
   }
 
 }
