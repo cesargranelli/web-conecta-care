@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   Ao menos 1 número<br>
   Ao menos 1 caracter especial</div>`;
 
-  private role: Role = new Role('pacientes');
+  private role: Role = new Role('profissionais');
   private converter: RoleConverter = new RoleConverter();
 
   constructor(
@@ -91,6 +91,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
       }
       this._loading.emitChange(false);
+    }, error => {
+      console.log(error)
     });
 
   }

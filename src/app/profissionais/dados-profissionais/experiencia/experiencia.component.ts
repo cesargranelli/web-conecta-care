@@ -71,6 +71,7 @@ export class ExperienciaComponent implements OnInit {
 
     this._service.getDados(this._dadosLocalStorage.id).subscribe({
       next: experiencia => {
+        console.log(experiencia);
         this.experiencias = experiencia;
         this.popularForm();
         this.showForm = false;
@@ -86,11 +87,13 @@ export class ExperienciaComponent implements OnInit {
 
   popularForm() {
     if (this.experiencias.length > 0) {
-      this.somenteLeitura = false;
-      this.experienciaForm.patchValue({
-        experiencia: true,
-        observacao: this.experiencias[0].observacao,
-      });
+      if(this.experiencias[0].empresa != null && this.experiencias[0].empresa != '') {
+        this.somenteLeitura = false;
+        this.experienciaForm.patchValue({
+          experiencia: true,
+          observacao: this.experiencias[0].observacao,
+        });
+      }
       for (const experiencia of this.experiencias) {
         switch (experiencia.posicao) {
           case 1:
@@ -133,6 +136,7 @@ export class ExperienciaComponent implements OnInit {
   onSubmit() {
     this._sharedLoadingService.emitChange(true);
     this.experiencias = new Array<Experiencia>();
+    debugger;
     if (this.validacoes()) {
       this._sharedLoadingService.emitChange(false);
       Swal.fire({
@@ -143,6 +147,32 @@ export class ExperienciaComponent implements OnInit {
       });
       return;
     }
+
+    if (this.experienciaForm.controls.experiencia.value) {
+      if(this.experienciaForm.value.empresa1 == null || this.experienciaForm.value.empresa1 == '') {
+        this._sharedLoadingService.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Necessário incluir no mínimo uma empresa anterior ao marcar a opção de inclusão de experiências.',
+          showConfirmButton: true,
+        });
+        return;
+      }
+
+      if(this.experienciaForm.value.cargo1 == null || this.experienciaForm.value.cargo1 == '') {
+        this._sharedLoadingService.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Necessário incluir no mínimo um cargo anterior ao marcar a opção de inclusão.',
+          showConfirmButton: true,
+        });
+        return;
+      }      
+    }
+
+    console.log("passou")
 
     this.experiencia1.posicao = 1;
     this.experiencia2.posicao = 2;
@@ -177,9 +207,10 @@ export class ExperienciaComponent implements OnInit {
     this.experiencias.push(this.experiencia3);
 
     this._service.save(this.experiencias).subscribe(response => {
+      console.log(response)
       setTimeout(() => {
         this._cadastro.experiencia = this.experiencias;
-        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
+        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`, {
           state: {valid: this._dadosLocalStorage}
         });
         this._sharedLoadingService.emitChange(false);

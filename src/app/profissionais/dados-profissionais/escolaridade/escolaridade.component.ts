@@ -102,7 +102,7 @@ export class EscolaridadeComponent implements OnInit {
       next: () => {
         setTimeout(() => {
           this._cadastro.escolaridade = this.escolaridade;
-          this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
+          this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`, {
             state: {valid: this._dadosLocalStorage}
           });
           Swal.fire({

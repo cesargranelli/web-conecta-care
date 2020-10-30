@@ -215,7 +215,7 @@ export class InformacoesGeraisComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
-        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`);
+        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`);
         this._loading.emitChange(false);
       });
     }, () => {

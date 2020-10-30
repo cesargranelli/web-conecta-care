@@ -105,7 +105,7 @@ export class ContaComponent implements OnInit {
             timer: 2000
           });
           this._cadastro.conta = this.conta;
-          this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
+          this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`, {
             state: {valid: this._dadosLocalStorage}
           });
           this._sharedLoadingService.emitChange(false);

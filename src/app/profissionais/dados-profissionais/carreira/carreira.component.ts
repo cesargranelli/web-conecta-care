@@ -147,10 +147,14 @@ export class CarreiraComponent implements OnInit {
     this.carreira.registroProfissional = Number(this.carreiraForm.value.registroProfissional);
     this.carreira.proprietarioId = this._dadosLocalStorage.id;
 
+    if(this.carreira.conselho.id == 14){
+      this.carreira.registroProfissional = null;
+    }
+
     this._service.save(this.carreira).subscribe(response => {
       setTimeout(() => {
         this._cadastro.carreira = this.carreira;
-        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`);
+        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`);
         Swal.fire({
           position: 'center',
           icon: 'success',

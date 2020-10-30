@@ -131,7 +131,7 @@ export class ComplementoComponent implements OnInit {
     this._service.save(this.complemento).subscribe(() => {
         setTimeout(() => {
           this._cadastro.complemento = this.complemento;
-          this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
+          this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`, {
             state: {valid: this._dadosLocalStorage}
           });
           Swal.fire({

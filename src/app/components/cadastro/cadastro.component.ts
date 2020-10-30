@@ -23,7 +23,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
-  role: Role = new Role('pacientes');
+  role: Role = new Role('profissionais');
 
   public pacienteForm: FormGroup;
   public profissionalForm: FormGroup;

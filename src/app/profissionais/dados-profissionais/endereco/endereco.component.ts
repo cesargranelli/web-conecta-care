@@ -119,7 +119,7 @@ export class EnderecoComponent implements OnInit {
     this._service.save(this.endereco).subscribe(() => {
         setTimeout(() => {
           this._loading.emitChange(false);
-          this._router.navigateByUrl(`profissionais/${this.valid.id}`, {
+          this._router.navigateByUrl(`profissionais/${this.valid.id}/dados-profissionais`, {
             state: {valid: this.valid}
           });
         });

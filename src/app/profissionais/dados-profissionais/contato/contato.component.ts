@@ -74,7 +74,7 @@ export class ContatoComponent implements OnInit {
     this._service.save(this.contato).subscribe(response => {
       setTimeout(() => {
         this._cadastro.contato = this.contato;
-        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}`, {
+        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`, {
           state: {valid: this._dadosLocalStorage}
         });
         Swal.fire({

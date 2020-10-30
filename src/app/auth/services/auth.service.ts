@@ -35,14 +35,25 @@ export class AuthService {
         tap(response => this.storeTokens(response.data)),
         mapTo(true),
         catchError(httpResponse => {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: this.handlerError(httpResponse),
-            showConfirmButton: true
-          });
-          this._loading.emitChange(false);
-          return of(false);
+          if(httpResponse.error.status == 401) {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Usuário ou senha incorreto',
+              showConfirmButton: true
+            });
+            this._loading.emitChange(false);
+            return of(false);
+          }else {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: this.handlerError(httpResponse),
+              showConfirmButton: true
+            });
+            this._loading.emitChange(false);
+            return of(false);
+          }
         })
       );
   }

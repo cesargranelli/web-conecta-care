@@ -23,12 +23,12 @@
                     </select>
                   </div>
                   <label class="col-lg-3 col-md-3 col-form-label"
-                         for="registroProfissional">
+                         for="registroProfissional" [hidden]="carreiraForm.controls.conselho.value.id == 14">
                     Nº {{this.carreiraForm.controls?.conselho.value ?
                     this.carreiraForm.controls.conselho.value.descricao : 'Registro'}}
                   </label>
                   <div [ngClass]="validationHas.validation(carreiraForm.controls?.registroProfissional)"
-                       class="form-group col-lg-3 col-md-8">
+                       class="form-group col-lg-3 col-md-8" [hidden]="carreiraForm.controls.conselho.value.id == 14">
                     <input class="form-control" formControlName="registroProfissional" id="registroProfissional"
                            mask="999999999999999" type="text">
                   </div>
