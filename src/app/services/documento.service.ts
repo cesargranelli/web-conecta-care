@@ -22,4 +22,9 @@ export class DocumentoService {
       {observe: 'response'});
   }
 
+  pesquisar(idDocumento: number): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<Registro>>(`${this.endpoint}/${idDocumento}`,
+      {observe: 'response'});
+  }
+
 }

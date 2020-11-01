@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HomeCare } from 'src/app/classes/homecare.class';
 import { HomecareService } from 'src/app/homecares/services/homecare.service';
 import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { DocumentoService } from 'src/app/services/documento.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
@@ -27,6 +28,7 @@ export class CadastroHomeCareComponent implements OnInit {
     private _validService: SharedValidService,
     private _loading: SharedLoadingService,
     private _service: HomecareService,
+    private _serviceDocumento: DocumentoService,
     private _router: Router,
     private _cadastro: CadastroHomeCaresService
   ) {
@@ -37,6 +39,16 @@ export class CadastroHomeCareComponent implements OnInit {
   ngOnInit(): void {
     this._service.consultar(this.valid.id).subscribe(response =>
         this._cadastro.homeCare = response.body.data,
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse.status === 404) {
+          console.log('Não existem dados cadastrados!');
+        }
+      }
+    );
+    this._serviceDocumento.pesquisar(this.valid.id).subscribe(response =>{
+        this._cadastro.homeCare = new HomeCare();
+        this._cadastro.homeCare.cnpj = response.body.data.documento;
+      },
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Não existem dados cadastrados!');
