@@ -72,7 +72,7 @@ export class FormInformacoesLoginComponent implements OnInit {
       flagAceitePrivacidade: []
     }, {validators: [validEqualsEmail, validEqualsPassword]});
     if (this.mostrarflagAceitePrivacidade) {
-      this.loginForm.get('flagAceitePrivacidade').setValidators(Validators.required);
+      this.loginForm.get('flagAceitePrivacidade').setValidators(Validators.requiredTrue);
     }
     this.esconderFormulario = false;
   }
