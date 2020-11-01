@@ -83,12 +83,12 @@ export class FormEnderecoComponent implements OnInit {
     ).subscribe(null, null, () => {
       if (this._cadastro.endereco?.cep) {
         this.popularForm();
-        setTimeout(() => {
-          jQuery('select').selectpicker('render');
-          jQuery('select').selectpicker('refresh');
-          this._loading.emitChange(false);
-        });
       }
+      setTimeout(() => {
+        jQuery('select').selectpicker('render');
+        jQuery('select').selectpicker('refresh');
+        this._loading.emitChange(false);
+      });
       this.esconderFormulario = false;
     });
 
