@@ -73,7 +73,6 @@ export class EnderecoComponent implements OnInit {
         this.estados = response.body;
       }),
       concatMap(() => this._dominioService.getPaises().pipe(map(response => {
-        console.log(response.body)
         this.paises = response.body;
       }))),
       concatMap(() => this._service.getDados(this.valid.id))

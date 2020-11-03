@@ -97,10 +97,4 @@ export class ContatoComponent implements OnInit {
     });
   }
 
-  onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/endereco`, {
-      state: {valid: this._dadosLocalStorage}
-    });
-  }
-
 }

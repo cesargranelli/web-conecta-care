@@ -175,8 +175,4 @@ export class CarreiraComponent implements OnInit {
     });
   }
 
-  onReturn() {
-    this._router.navigateByUrl(`cadastro/profissionais/${this._dadosLocalStorage.id}/contato`);
-  }
-
 }
