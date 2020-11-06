@@ -39,35 +39,28 @@ export class EsqueciMinhaSenhaComponent implements OnInit {
   }
 
   onSubmit() {
+    setTimeout(() => {
+      this._loading.emitChange(true);
+      let esqueciMinhaSenha: EsqueciMinhaSenha = new EsqueciMinhaSenha(this.emailForm.value.email);
 
-    this._loading.emitChange(true);
-
-    let esqueciMinhaSenha: EsqueciMinhaSenha = new EsqueciMinhaSenha(
-      this.emailForm.value.email
-    );
-
-    this._service.esqueciMinhaSenha(esqueciMinhaSenha).subscribe(response => {
-      setTimeout(() => {
+      this._service.esqueciMinhaSenha(esqueciMinhaSenha).subscribe(response => {
         this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
           icon: 'success',
           title: response.body.data.message,
           showConfirmButton: true
-        }).then(() => this._router.navigateByUrl(`login`));
-      });
-    }, err => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: err.error.data.message,
-        showConfirmButton: true
+        });
+      }, err => {
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: err.error.data.message,
+          showConfirmButton: true
+        });
       });
     });
-
-    this._loading.emitChange(false);
-
   }
 
 }

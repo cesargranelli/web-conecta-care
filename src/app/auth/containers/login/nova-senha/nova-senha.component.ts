@@ -30,7 +30,6 @@ export class NovaSenhaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.novaSenhaForm = this._formBuilder.group({
       password: ['', [
         Validators.required,
@@ -44,19 +43,18 @@ export class NovaSenhaComponent implements OnInit {
         Validators.maxLength(20)
       ]]
     }, {validators: validEqualsPassword});
-
   }
 
   onSubmit() {
-    let novaSenha: NovaSenha = new NovaSenha(
-      this.novaSenhaForm.value.password
-    );
+    setTimeout(() => {
+      this._loading.emitChange(true);
 
-    this._loading.emitChange(true);
+      let novaSenha: NovaSenha = new NovaSenha(
+        this.novaSenhaForm.value.password
+      );
 
-    this._service.novaSenha(novaSenha).subscribe(response => {
-      if (response.ok) {
-        setTimeout(() => {
+      this._service.novaSenha(novaSenha).subscribe(response => {
+        if (response.ok) {
           this._loading.emitChange(false);
           this._router.navigateByUrl(`login`);
           Swal.fire({
@@ -65,20 +63,17 @@ export class NovaSenhaComponent implements OnInit {
             title: 'Senha alterada com sucesso, efetue o login com a nova senha!',
             showConfirmButton: true
           });
+        }
+      }, httpError => {
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: httpError.error.data.message,
+          showConfirmButton: true
         });
-      }
-    }, httpError => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: httpError.error.data.message,
-        showConfirmButton: true
       });
     });
-
-    this._loading.emitChange(false);
-
   }
 
 }
