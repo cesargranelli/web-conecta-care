@@ -74,27 +74,26 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    let login: Login = new Login(
-      this.loginForm.value.email,
-      this.loginForm.value.password,
-      this.role.getRole()
-    );
+    setTimeout(() => {
+      let login: Login = new Login(
+        this.loginForm.value.email,
+        this.loginForm.value.password,
+        this.role.getRole()
+      );
 
-    this._authService.login(login).subscribe(response => {
-      this._loading.emitChange(true);
-      if (response) {
-        setTimeout(() => {
+      this._authService.login(login).subscribe(response => {
+        this._loading.emitChange(true);
+        if (response) {
           this._loading.emitChange(false);
           let valid: Valid = this._validService.getValid();
           let component = this.converter.toComponent(valid.role);
           this._router.navigateByUrl(`${component}/${valid.id}`);
-        });
-      }
-      this._loading.emitChange(false);
-    }, error => {
-      console.log(error)
+        }
+        this._loading.emitChange(false);
+      }, error => {
+        console.log(error)
+      });
     });
-
   }
 
   setValid(response: any) {

@@ -43,21 +43,20 @@ export class LoginAdminComponent implements OnInit {
   }
 
   onSubmit() {
-    let login: LoginAdmin = new LoginAdmin(
-      this.loginForm.value.email,
-      this.loginForm.value.password
-    );
+    setTimeout(() => {
+      let login: LoginAdmin = new LoginAdmin(
+        this.loginForm.value.email,
+        this.loginForm.value.password
+      );
 
-    this._authService.login(login).subscribe(response => {
-      this._loading.emitChange(true);
-      if (response) {
-        setTimeout(() => {
+      this._authService.login(login).subscribe(response => {
+        this._loading.emitChange(true);
+        if (response) {
           this._loading.emitChange(false);
           this._router.navigateByUrl(`admin/eventos`);
-        });
-      }
-      this._loading.emitChange(false);
+        }
+        this._loading.emitChange(false);
+      });
     });
   }
-
 }

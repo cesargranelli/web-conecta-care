@@ -1,15 +1,15 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {LoginData} from 'src/app/admin/models/token-admin.model';
-import {Login} from 'src/app/classes/login.class';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedTokenService} from 'src/app/shared/services/shared-token.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
-import {RoleConverter} from 'src/app/utils/role.converter';
-import {environment} from 'src/environments/environment';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { LoginData } from 'src/app/admin/models/token-admin.model';
+import { Login } from 'src/app/classes/login.class';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { RoleConverter } from 'src/app/utils/role.converter';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import {Observable, of} from 'rxjs';
-import {catchError, mapTo, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,27 +33,30 @@ export class AuthService {
     return this._http.post<any>(`${this.endpoint}/login`, user)
       .pipe(
         tap(response => this.storeTokens(response.data)),
-        mapTo(true),
-        catchError(httpResponse => {
-          if(httpResponse.error.status == 401) {
+        map(response => {
+          if(response.status == 200) {
+            this._loading.emitChange(false);
+            return true;
+          } else {
             Swal.fire({
               position: 'center',
-              icon: 'error',
-              title: 'Usuário ou senha incorreto',
+              icon: 'warning',
+              title: response.data?.message,
               showConfirmButton: true
             });
             this._loading.emitChange(false);
-            return of(false);
-          }else {
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: this.handlerError(httpResponse),
-              showConfirmButton: true
-            });
-            this._loading.emitChange(false);
-            return of(false);
+            return false;
           }
+        }),
+        catchError((httpResponse: HttpErrorResponse) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: this.handlerError(httpResponse),
+            showConfirmButton: true
+          });
+          this._loading.emitChange(false);
+          return of(false);
         })
       );
   }
