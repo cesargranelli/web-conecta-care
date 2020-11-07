@@ -60,16 +60,15 @@ export class EventosComponent implements OnInit {
   }
 
   enviarSms(id: number) {
-    this._loading.emitChange(true);
-    this._eventoService.enviar(id).subscribe(() => {
-        setTimeout(() => {
-          this._loading.emitChange(false);
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Evento de SMS para profissionais elegíveis!',
-            showConfirmButton: true
-          });
+    setTimeout(() => {
+      this._loading.emitChange(true);
+      this._eventoService.enviar(id).subscribe((response: any) => {
+        this._loading.emitChange(false);
+        Swal.fire({
+          position: 'center',
+          icon: 'info',
+          title: 'Foram enviadas ' + response.data?.quantidade + ' mensagens!',
+          showConfirmButton: true
         });
       },
       () => {
@@ -77,10 +76,11 @@ export class EventosComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'Não foi possível publicar o novo evento!',
+          title: 'Não foi possível enviar mensagens!',
           showConfirmButton: true
         });
       });
+    });
   }
 
   cancelarSms(id: number) {
