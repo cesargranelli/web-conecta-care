@@ -81,15 +81,17 @@ export class FormEnderecoComponent implements OnInit {
         }))
       )
     ).subscribe(null, null, () => {
-      if (this._cadastro.endereco?.cep) {
-        this.popularForm();
-      }
       setTimeout(() => {
-        jQuery('select').selectpicker('render');
-        jQuery('select').selectpicker('refresh');
+        if (this._cadastro.endereco?.cep) {
+          this.popularForm();
+        }
+        jQuery('select[id=\'pais\']').selectpicker('refresh');
+        jQuery('select[id=\'pais\']').selectpicker('val', this._cadastro.endereco?.pais.id);
+        jQuery('select[id=\'estado\']').selectpicker('refresh');
+        jQuery('select[id=\'estado\']').selectpicker('val', this._cadastro.endereco?.estado.id);
         this._loading.emitChange(false);
+        this.esconderFormulario = false;
       });
-      this.esconderFormulario = false;
     });
 
   }

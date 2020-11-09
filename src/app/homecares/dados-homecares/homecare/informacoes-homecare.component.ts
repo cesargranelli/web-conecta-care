@@ -22,6 +22,7 @@ export class InformacoesHomecareComponent implements OnInit {
   public linkBotaoVoltar: string;
   public labelBotaoSubmit: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
+  public cnpj: string;
 
   constructor(
     private _validService: SharedValidService,
@@ -35,8 +36,10 @@ export class InformacoesHomecareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response =>
-        this._cadastro.homeCare = response.body.data,
+    this._service.consultar(this.valid.id).subscribe(response => {
+      this._cadastro.homeCare = response.body.data;
+      this.cnpj = this._cadastro.homeCare?.cnpj;
+    },
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Não existem dados cadastrados!');
@@ -51,6 +54,7 @@ export class InformacoesHomecareComponent implements OnInit {
   onSubmit(homeCare: HomeCare) {
     this._loading.emitChange(true);
     homeCare.id = this.valid.id;
+    homeCare.cnpj = this.cnpj;
     this._service.alterar(homeCare).subscribe(response => {
         setTimeout(() => {
           this._cadastro.homeCare = homeCare;

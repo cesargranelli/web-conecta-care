@@ -50,7 +50,7 @@ export class EsqueciMinhaSenhaComponent implements OnInit {
           icon: 'success',
           title: response.body.data.message,
           showConfirmButton: true
-        });
+        }).then(() => this._router.navigateByUrl(`login`));
       }, err => {
         this._loading.emitChange(false);
         Swal.fire({

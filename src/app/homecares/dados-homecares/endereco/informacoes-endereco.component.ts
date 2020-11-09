@@ -50,7 +50,7 @@ export class InformacoesEnderecoComponent implements OnInit {
 
   onSubmit(endereco: Endereco) {
     this._loading.emitChange(true);
-    endereco.id = this.valid.id;
+    endereco.proprietarioId = this.valid.id;
     this._service.alterar(endereco).subscribe(response => {
         setTimeout(() => {
           this._cadastro.endereco = endereco;
