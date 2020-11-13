@@ -27,11 +27,11 @@
                   Homecare
                 </a>
               </li>
-              <!-- <li #convenio (click)="setRole(convenio.id)" class="nav-item" id="convenios" style="width: 25%;">
-                <a class="nav-link" data-toggle="tab" href="#convenio" role="tab">
+              <li #planoSaude (click)="setRole(planoSaude.id)" class="nav-item" id="planos-saude" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#planoSaude" role="tab">
                   Plano de Saúde
                 </a>
-              </li> -->
+              </li>
             </ul>
           </div>
           <div class="card-body">
@@ -148,9 +148,9 @@
                   </div>
                 </form>
               </div>
-              <!-- <div class="tab-pane" id="convenio">
-                <form (ngSubmit)="onSubmit(convenioForm, cnpjConvenio)" [formGroup]="convenioForm">
-                  <div [ngClass]="input.validation(convenioForm)=='done' ? 'has-success' : 'has-danger'"
+              <div class="tab-pane" id="plano-saude">
+                <form (ngSubmit)="onSubmit(planoSaudeForm, cnpjPlanoSaude)" [formGroup]="planoSaudeForm">
+                  <div [ngClass]="input.validation(planoSaudeForm)=='done' ? 'has-success' : 'has-danger'"
                        class="form-row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-sm-8">
                       <div class="input-group">
@@ -159,19 +159,19 @@
                               <i class="material-icons">face</i>
                             </span>
                         </div>
-                        <input #cnpjConvenio autocomplete="off" class="form-control" formControlName="cnpj" id="cnpjConvenio"
-                               mask="00.000.000/0000-00" name="cnpjConvenio" placeholder="CNPJ (Obrigatório)"
+                        <input #cnpjPlanoSaude autocomplete="off" class="form-control" formControlName="cnpj" id="cnpjPlanoSaude"
+                               mask="00.000.000/0000-00" name="cnpjPlanoSaude" placeholder="CNPJ (Obrigatório)"
                                type="text">
                       </div>
                       <span class="form-control-feedback">
-                          <i class="material-icons">{{ input.validation(convenioForm) }}</i>
+                          <i class="material-icons">{{ input.validation(planoSaudeForm) }}</i>
                         </span>
                     </div>
                   </div>
                   <div class="form-row justify-content-center">
                     <div class="form-group">
-                      <button [disabled]="!convenioForm.valid" [ngClass]="!convenioForm.valid ? 'btn-link' : ''" class="btn btn-rose"
-                              name="btnCnpjConvenio" type="submit">Cadastrar
+                      <button [disabled]="!planoSaudeForm.valid" [ngClass]="!planoSaudeForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                              name="btnCnpjPlanoSaude" type="submit">Cadastrar
                       </button>
                     </div>
                   </div>
@@ -181,7 +181,7 @@
                     </div>
                   </div>
                 </form>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>

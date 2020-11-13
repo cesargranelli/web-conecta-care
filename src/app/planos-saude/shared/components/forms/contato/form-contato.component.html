@@ -1,0 +1,66 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="contatoForm" [hidden]="hideForm" class="form-horizontal">
+  <div class="card-body">
+    <div class="tab-content">
+      <div class="row">
+        <label class="col-lg-2 col-md-3 col-form-label" for="telefoneFixo">Fone Fixo</label>
+        <div class="form-group col-lg-3 col-md-8">
+          <input class="form-control" formControlName="telefoneFixo" id="telefoneFixo" mask="(00) 0000-0000"
+                 placeholder="(99) 9999-9999" type="text">
+        </div>
+        <label class="col-lg-3 col-md-3 col-form-label" for="telefoneRecado">Fone Recado</label>
+        <div class="form-group col-lg-3 col-md-8">
+          <input class="form-control" formControlName="telefoneRecado" id="telefoneRecado" mask="(00) 00000-0000"
+                 placeholder="(99) 99999-9999" type="text">
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-2 col-md-3 col-form-label" for="telefoneCelular">Celular</label>
+        <div class="form-group col-lg-3 col-md-8">
+          <input class="form-control" formControlName="telefoneCelular" id="telefoneCelular" mask="(00) 00000-0000"
+                 placeholder="(99) 99999-9999" type="text">
+        </div>
+        <label class="col-lg-3 col-md-3 col-form-label" for="telefoneWhatsapp">WhatsApp</label>
+        <div class="form-group col-lg-3 col-md-8">
+          <input class="form-control" formControlName="telefoneWhatsapp" id="telefoneWhatsapp"
+                 mask="(00) 00000-0000"
+                 placeholder="(99) 99999-9999" type="text">
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-2 col-md-3 col-form-label" for="email">Email *</label>
+        <div [ngClass]="validationHas.validation(contatoForm.controls.email)" class="form-group col-lg-3 col-md-8">
+          <input class="form-control" formControlName="email" id="email" placeholder="email@email.com" type="email">
+        </div>
+      </div>
+      <ng-container *ngIf="isCadastro">
+        <div class="row">
+          <div class="form-check col-lg-3 col-md-10 col-form-label">
+            <label class="form-check-label">
+              <input class="form-check-input" formControlName="flagAceiteDeclaracao" id="flagAceiteDeclaracao" type="checkbox"
+                     value="">
+              Declaro que as informações fornecidas são verdadeiras *
+              <span class="form-check-sign">
+              <span class="check"></span>
+            </span>
+            </label>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="card-footer justify-content-between">
+    <span *ngIf="!isCadastro" class="bmd-form-group is-filled">
+      <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
+        <i class="material-icons">arrow_back</i>
+      </button>
+    </span>
+    <span *ngIf="isCadastro" class="bmd-form-group is-filled">
+      <button *ngIf="linkBotaoVoltar != null" (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+      <button (click)="limparForm()" class="btn btn-gray" type="button">Limpar</button>
+    </span>
+    <span class="bmd-form-group is-filled">
+        <button [disabled]="!contatoForm.valid" class="btn btn-rose"
+                type="submit">{{ labelBotaoSubmit }}</button>
+    </span>
+  </div>
+</form>

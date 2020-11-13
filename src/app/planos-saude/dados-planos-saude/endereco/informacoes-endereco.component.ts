@@ -3,8 +3,8 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Endereco } from 'src/app/classes/endereco.class';
-import { EnderecoService } from 'src/app/homecares/services/endereco.service';
-import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { EnderecoService } from 'src/app/planos-saude/services/endereco.service';
+import { CadastroPlanosSaudeService } from 'src/app/services/cadastro-planos-saude.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
@@ -28,7 +28,7 @@ export class InformacoesEnderecoComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _service: EnderecoService,
     private _router: Router,
-    private _cadastro: CadastroHomeCaresService
+    private _cadastro: CadastroPlanosSaudeService
   ) {
     this._loading.emitChange(true);
     this.valid = this._validService.getValid();
@@ -44,7 +44,7 @@ export class InformacoesEnderecoComponent implements OnInit {
       }
     );
     this.isCadastro = false;
-    this.linkBotaoVoltar = `homecares/${this.valid.id}/dados-homecares`;
+    this.linkBotaoVoltar = `planos-saude/${this.valid.id}/dados-planos-saude`;
     this.labelBotaoSubmit = "Alterar";
   }
 
@@ -61,7 +61,7 @@ export class InformacoesEnderecoComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          this._router.navigateByUrl(`homecares/${this.valid.id}/dados-homecares`);
+          this._router.navigateByUrl(`planos-saude/${this.valid.id}/dados-planos-saude`);
           this._loading.emitChange(false);
         });
       },

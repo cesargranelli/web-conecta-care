@@ -1,4 +1,4 @@
-import {Role as RoleEnum} from '../enums/role.enum';
+import { Role as RoleEnum } from '../enums/role.enum';
 
 export class Role {
 
@@ -17,8 +17,8 @@ export class Role {
         return RoleEnum.Profissional;
       case 'homecares':
         return RoleEnum.Homecare;
-      case 'convenios':
-        return RoleEnum.Convenio;
+      case 'planos-saude':
+        return RoleEnum.PlanoSaude;
       default:
         break;
     }

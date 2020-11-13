@@ -3,19 +3,21 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Endereco } from 'src/app/classes/endereco.class';
-import { EnderecoService } from 'src/app/homecares/services/endereco.service';
-import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { EnderecoService } from 'src/app/planos-saude/services/endereco.service';
+import { CadastroPlanosSaudeService } from 'src/app/services/cadastro-planos-saude.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
+declare var jQuery: any;
+
 @Component({
-  selector: 'app-informacoes-endereco',
-  templateUrl: './informacoes-endereco.component.html',
-  styleUrls: ['./informacoes-endereco.component.css']
+  selector: 'app-cadastro-endereco-plano-saude',
+  templateUrl: './cadastro-endereco.component.html',
+  styleUrls: ['./cadastro-endereco.component.css']
 })
-export class InformacoesEnderecoComponent implements OnInit {
+export class CadastroEnderecoComponent implements OnInit {
 
   public valid: Valid;
   public isCadastro: boolean;
@@ -28,7 +30,7 @@ export class InformacoesEnderecoComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _service: EnderecoService,
     private _router: Router,
-    private _cadastro: CadastroHomeCaresService
+    private _cadastro: CadastroPlanosSaudeService
   ) {
     this._loading.emitChange(true);
     this.valid = this._validService.getValid();
@@ -43,35 +45,41 @@ export class InformacoesEnderecoComponent implements OnInit {
         }
       }
     );
-    this.isCadastro = false;
-    this.linkBotaoVoltar = `homecares/${this.valid.id}/dados-homecares`;
-    this.labelBotaoSubmit = "Alterar";
+    this.isCadastro = true;
+    this.linkBotaoVoltar = `planos-saude/${this.valid.id}/cadastro/plano-saude`;
+    this.labelBotaoSubmit = "Avançar";
   }
 
   onSubmit(endereco: Endereco) {
     this._loading.emitChange(true);
     endereco.proprietarioId = this.valid.id;
-    this._service.alterar(endereco).subscribe(response => {
-        setTimeout(() => {
-          this._cadastro.endereco = endereco;
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Alteração realizada com sucesso!',
-            showConfirmButton: false,
-            timer: 2000
-          });
-          this._router.navigateByUrl(`homecares/${this.valid.id}/dados-homecares`);
-          this._loading.emitChange(false);
+    if (!this._cadastro.endereco) {
+      this._service.cadastrar(endereco).subscribe(response => {
+          this.navigate(endereco);
+        },
+        () => {
+          this.message();
         });
-      },
-      () => {
-        this._loading.emitChange(false);
-        this.message();
-      });
+    } else {
+      this._service.alterar(endereco).subscribe(response => {
+          this.navigate(endereco);
+        },
+        () => {
+          this.message();
+        });
+    }
   }
 
-  message() {
+  private navigate(endereco: Endereco) {
+    setTimeout(() => {
+      this._cadastro.endereco = endereco;
+      this._router.navigateByUrl(`planos-saude/${this.valid.id}/cadastro/contato`);
+      this._loading.emitChange(false);
+    });
+  }
+
+  private message() {
+    this._loading.emitChange(false);
     Swal.fire({
       position: 'center',
       icon: 'error',

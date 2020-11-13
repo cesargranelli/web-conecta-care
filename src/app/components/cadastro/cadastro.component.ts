@@ -28,7 +28,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
   public pacienteForm: FormGroup;
   public profissionalForm: FormGroup;
   public homecareForm: FormGroup;
-  public convenioForm: FormGroup;
+  public planoSaudeForm: FormGroup;
 
   public cpfCnpjJaCadastrado: boolean = false;
   public input: InputValidation = new InputValidation();
@@ -53,7 +53,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this.homecareForm = this._formBuilder.group({
       cnpj: ['', [Validators.required, validCnpj(true)]],
     });
-    this.convenioForm = this._formBuilder.group({
+    this.planoSaudeForm = this._formBuilder.group({
       cnpj: ['', [Validators.required, validCnpj(true)]],
     });
 
@@ -91,26 +91,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
         this.cpfCnpjJaCadastrado = true;
       }
     }, error => this._loading.emitChange(false));
-    // if (this.pacienteForm.value.cpf) {
-    //   this._pacienteService.pesquisarCpf(this.pacienteForm.value).subscribe(response => {
-    //     if (response.status === NO_CONTENT) {
-
-    //     } else {
-    //       this.pacienteJaCadastrado = true;
-    //     }
-    //   });
-    // }
-
-    // if (this.convenioForm.value.cnpj) {
-    //   this._convenioService.pesquisarCnpj(this.convenioForm.value).subscribe(response => {
-    //     if (response.status === NO_CONTENT) {
-    //       alert('Enviar para tela de cadastro de login');
-    //     } else {
-    //       this.convenioJaCadastrado = true;
-    //     }
-    //   });
-    // }
-
   }
 
   setRole(perfil: string) {

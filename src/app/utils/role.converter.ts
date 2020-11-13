@@ -1,4 +1,4 @@
-import {Role as RoleEnum} from 'src/app/enums/role.enum';
+import { Role as RoleEnum } from 'src/app/enums/role.enum';
 
 export class RoleConverter {
 
@@ -10,8 +10,8 @@ export class RoleConverter {
         return 'profissionais';
       case RoleEnum.Homecare:
         return 'homecares';
-      case RoleEnum.Convenio:
-        return 'convenios';
+      case RoleEnum.PlanoSaude:
+        return 'planos-saude';
       default:
         break;
     }
@@ -25,8 +25,8 @@ export class RoleConverter {
         return RoleEnum.Profissional;
       case 'homecares':
         return RoleEnum.Homecare;
-      case 'convenios':
-        return RoleEnum.Convenio;
+      case 'planos-saude':
+        return RoleEnum.PlanoSaude;
       default:
         break;
     }
@@ -42,8 +42,8 @@ export class RoleConverter {
         return RoleEnum.Profissional;
       case 'ROLE_HOMECARE':
         return RoleEnum.Homecare;
-      case 'ROLE_CONVENIO':
-        return RoleEnum.Convenio;
+      case 'ROLE_PLANO_SAUDE':
+        return RoleEnum.PlanoSaude;
       default:
         break;
     }

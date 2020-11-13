@@ -1,4 +1,4 @@
-import {Role} from '../enums/role.enum';
+import { Role } from '../enums/role.enum';
 
 export class Perfil {
 
@@ -21,8 +21,8 @@ export class Perfil {
         return 'profissionais';
       case Role.Homecare:
         return 'homecares';
-      case Role.Convenio:
-        return 'convenios';
+      case Role.PlanoSaude:
+        return 'planos-saude';
       default:
         break;
     }
