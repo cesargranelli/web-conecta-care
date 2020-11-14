@@ -9,6 +9,10 @@ import {SharedLoadingService} from 'src/app/shared/services/shared-loading.servi
 import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { concatMap } from 'rxjs/internal/operators/concatMap';
+import { map } from 'rxjs/internal/operators/map';
+import { DominioService } from 'src/app/services/dominio.service';
+import { Pais } from 'src/app/classes/pais.class';
 
 @Component({
   selector: 'app-contato',
@@ -18,65 +22,76 @@ import Swal from 'sweetalert2';
 export class ContatoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
-  public contato: Contato;
-  public validationHas: InputValidationHas;
-  public contatoForm: FormGroup;
+  public validationHas: InputValidationHas = new InputValidationHas();
+  public codigoPais: string = '+55';
+  public pais: Pais;
   public showForm: boolean = true;
-  private _dadosLocalStorage: Valid;
+  contatoForm: FormGroup;
+  private _valid: Valid;
+  private _contato: Contato;
 
   constructor(
     private _router: Router,
+    private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _service: ContatoService,
-    private _sharedLoadingService: SharedLoadingService,
-    private _cadastro: CadastroProfissionaisService,
-    private _validService: SharedValidService
+    private _dominioService: DominioService,
+    private _loading: SharedLoadingService,
+    private _cadastro: CadastroProfissionaisService
   ) {
-    this._sharedLoadingService.emitChange(true);
+    this._valid = this._validService.getValid();
+
     this.contatoForm = this._formBuilder.group({
-      telefoneFixo: [null, Validators.maxLength(10)],
-      telefoneRecado: [null, Validators.maxLength(10)],
-      celularPrincipal: [null, [Validators.required, Validators.maxLength(11)]],
-      celularSecundario: [null, Validators.maxLength(11)],
+      telefoneFixo: [null],
+      telefoneRecado: [null],
+      celularPrincipal: [null, [Validators.required]],
+      celularSecundario: [null],
     });
   }
 
   ngOnInit(): void {
-    this.validationHas = new InputValidationHas();
-    this._dadosLocalStorage = this._validService.getValid();
-
-    this._service.getDados(this._dadosLocalStorage.id).subscribe(dadosContato => {
-      this.contato = dadosContato;
+    this._dominioService.getPaises().pipe(
+      map((response) => {
+        this._loading.emitChange(true);
+        let paises: Pais[] = response.body;
+        this.pais = paises.find(pais => pais.id == Number(this._cadastro.endereco?.pais));
+        if (this.pais) {
+          this.codigoPais = '+' + Number(this.pais.codigo);
+        }
+      }),
+      concatMap(() => this._service.getDados(this._valid.id))
+    ).subscribe(response => {
+      this._cadastro.contato = response;
+      this._contato = response;
       this.popularForm();
-      this.showForm = false;
-      this._sharedLoadingService.emitChange(false);
-    });
-
+      setTimeout(() => {
+        this._loading.emitChange(false);
+      });
+    }, null, () => this.showForm = false);
   }
 
   popularForm() {
-    if (this.contato) {
-      this.contatoForm.patchValue({
-        telefoneFixo: this.contato.telefoneFixo,
-        telefoneRecado: this.contato.telefoneRecado,
-        celularPrincipal: this.contato.celularPrincipal,
-        celularSecundario: this.contato.celularSecundario
-      });
-    }
+    this.contatoForm.patchValue({
+      telefoneFixo: this._contato?.telefoneFixo ? String(this._contato?.telefoneFixo).substring(2) : null,
+      telefoneRecado: this._contato?.telefoneRecado ? String(this._contato?.telefoneRecado).substring(2) : null,
+      celularPrincipal: this._contato?.celularPrincipal ? String(this._contato?.celularPrincipal).substring(2) : null,
+      celularSecundario: this._contato?.celularSecundario ? String(this._contato?.celularSecundario).substring(2) : null
+    });
   }
 
   onSubmit() {
-    this._sharedLoadingService.emitChange(true);
-    this.contato = this.contatoForm.value;
+    this._loading.emitChange(true);
+    this._contato = this.contatoForm.value;
+    this._contato.proprietarioId = this._valid.id;
+    this._contato.telefoneFixo = this._contato.telefoneFixo ? Number(String(this.codigoPais) + String(this._contato.telefoneFixo)) : null;
+    this._contato.telefoneRecado = this._contato.telefoneRecado ? Number(String(this.codigoPais) + String(this._contato.telefoneRecado)) : null;
+    this._contato.celularPrincipal = this._contato.celularPrincipal ? Number(String(this.codigoPais) + String(this._contato.celularPrincipal)) : null;
+    this._contato.celularSecundario = this._contato.celularSecundario ? Number(String(this.codigoPais) + String(this._contato.celularSecundario)) : null;
 
-    this.contato.proprietarioId = this._dadosLocalStorage.id;
-
-    this._service.save(this.contato).subscribe(response => {
+    this._service.save(this._contato).subscribe(response => {
       setTimeout(() => {
-        this._cadastro.contato = this.contato;
-        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`, {
-          state: {valid: this._dadosLocalStorage}
-        });
+        this._cadastro.contato = this._contato;
+        this._router.navigateByUrl(`profissionais/${this._valid.id}/dados-profissionais`);
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -84,10 +99,10 @@ export class ContatoComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
-        this._sharedLoadingService.emitChange(false);
+        this._loading.emitChange(false);
       });
     }, () => {
-      this._sharedLoadingService.emitChange(false);
+      this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
         icon: 'error',

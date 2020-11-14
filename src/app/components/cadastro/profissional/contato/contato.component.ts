@@ -76,43 +76,38 @@ export class ContatoComponent implements OnInit {
 
   popularForm() {
     this.contatoForm.patchValue({
-      telefoneFixo: String(this._contato?.telefoneFixo),
-      telefoneRecado: String(this._contato?.telefoneRecado),
-      celularPrincipal: String(this._contato?.celularPrincipal),
-      celularSecundario: String(this._contato?.celularSecundario)
+      telefoneFixo: this._contato?.telefoneFixo ? String(this._contato?.telefoneFixo).substring(2) : null,
+      telefoneRecado: this._contato?.telefoneRecado ? String(this._contato?.telefoneRecado).substring(2) : null,
+      celularPrincipal: this._contato?.celularPrincipal ? String(this._contato?.celularPrincipal).substring(2) : null,
+      celularSecundario: this._contato?.celularSecundario ? String(this._contato?.celularSecundario).substring(2) : null
     });
   }
 
   onSubmit() {
     this._loading.emitChange(true);
     this._contato = this.contatoForm.value;
-    if (this.contatoForm.value.telefoneFixo === 'll') {
-      this._contato.telefoneFixo = null;
-    }
-    if (this.contatoForm.value.telefoneRecado === 'll') {
-      this._contato.telefoneRecado = null;
-    }
-    if (this.contatoForm.value.celularSecundario === 'll') {
-      this._contato.celularSecundario = null;
-    }
     this._contato.proprietarioId = this._valid.id;
+    this._contato.telefoneFixo = this._contato.telefoneFixo ? Number(String(this.codigoPais) + String(this._contato.telefoneFixo)) : null;
+    this._contato.telefoneRecado = this._contato.telefoneRecado ? Number(String(this.codigoPais) + String(this._contato.telefoneRecado)) : null;
+    this._contato.celularPrincipal = this._contato.celularPrincipal ? Number(String(this.codigoPais) + String(this._contato.celularPrincipal)) : null;
+    this._contato.celularSecundario = this._contato.celularSecundario ? Number(String(this.codigoPais) + String(this._contato.celularSecundario)) : null;
 
     this._service.save(this._contato).subscribe(response => {
-        setTimeout(() => {
-          this._cadastro.contato = this._contato;
-          this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/carreira`);
-          this._loading.emitChange(false);
-        });
-      },
-      (error: Error) => {
+      setTimeout(() => {
+        this._cadastro.contato = this._contato;
+        this._router.navigateByUrl(`cadastro/profissionais/${this._valid.id}/carreira`);
         this._loading.emitChange(false);
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Ocorreu um erro inexperado ao tentar inserir contatos',
-          showConfirmButton: true
-        });
       });
+    },
+    (error: Error) => {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ocorreu um erro inexperado ao tentar inserir contatos',
+        showConfirmButton: true
+      });
+    });
   }
 
   onReturn() {
