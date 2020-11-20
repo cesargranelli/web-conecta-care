@@ -1,13 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
-import { PlanoSaude } from 'src/app/classes/plano-saude.class';
-import { CadastroPlanosSaudeService } from 'src/app/services/cadastro-planos-saude.service';
+import { PlanoSaude } from 'src/app/planos-saude/classes/plano-saude.class';
+import { CadastroPlanosSaudeService } from 'src/app/planos-saude/services/cadastro-planos-saude.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
@@ -50,7 +52,7 @@ export class FormPlanoSaudeComponent implements OnInit {
       nome: [null, Validators.required],
       tipoDocumento: [this.CNPJ, Validators.required],
       cnpj: [null, Validators.required],
-      site: [null],
+      anoFundacao: [null,  Validators.required],
       especialidade: [null, Validators.required]
     });
     this.planoSaudeForm.controls.cnpj.disable();
@@ -62,7 +64,21 @@ export class FormPlanoSaudeComponent implements OnInit {
       map(response => {
         this.especialidades = response.body;
       })
-    ).subscribe(null, null, () => {
+    ).subscribe(
+      null,
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse.status === 0) {
+          console.log('Sistema indisponível! ' + errorResponse.statusText);
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Sistema indisponível! ' + errorResponse.statusText,
+            showConfirmButton: true
+          });
+        }
+        this._loading.emitChange(false);
+      },
+      () => {
       if (this._cadastro.planoSaude?.id) {
         this.populaForm();
       } else {
@@ -85,7 +101,7 @@ export class FormPlanoSaudeComponent implements OnInit {
       nome: this._cadastro.planoSaude?.nome,
       tipoDocumento: this._cadastro.planoSaude?.tipoDocumento,
       cnpj: this._cadastro.planoSaude?.cnpj,
-      site: this._cadastro.planoSaude?.site
+      anoFundacao: this._cadastro.planoSaude?.anoFundacao
     });
   }
 

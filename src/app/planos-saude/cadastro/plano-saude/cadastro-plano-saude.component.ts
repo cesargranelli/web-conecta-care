@@ -2,9 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PlanoSaude } from 'src/app/classes/plano-saude.class';
+import { PlanoSaude } from 'src/app/planos-saude/classes/plano-saude.class';
+import { CadastroPlanosSaudeService } from 'src/app/planos-saude/services/cadastro-planos-saude.service';
 import { PlanoSaudeService } from 'src/app/planos-saude/services/plano-saude.service';
-import { CadastroPlanosSaudeService } from 'src/app/services/cadastro-planos-saude.service';
 import { DocumentoService } from 'src/app/services/documento.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
@@ -42,6 +42,8 @@ export class CadastroPlanoSaudeComponent implements OnInit {
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Não existem dados cadastrados!');
+        } else if (errorResponse.status === 0) {
+          console.log(errorResponse.statusText);
         }
       }
     );
@@ -52,6 +54,8 @@ export class CadastroPlanoSaudeComponent implements OnInit {
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Não existem dados cadastrados!');
+        } else if (errorResponse.status === 0) {
+          console.log(errorResponse.statusText);
         }
       }
     );

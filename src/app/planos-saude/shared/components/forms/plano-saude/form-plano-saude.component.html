@@ -45,16 +45,14 @@
         </div>
       </div>
       <div class="row">
-        <label class="col-lg-3 col-md-3 col-form-label" for="site">Site</label>
-        <div class="form-group col-lg-6 col-md-6">
-          <input [value]="planoSaudeForm.get('site').value | lowercase" class="form-control" formControlName="site" id="site"
-                 placeholder="www.sitedaempresa.com"
-                 type="text">
+        <label class="col-lg-3 col-md-3 col-form-label" for="anoFundacao">Ano Fundação *</label>
+        <div class="form-group col-lg-3 col-md-3">
+          <input class="form-control" formControlName="anoFundacao" mask="9{4}" type="text">
         </div>
       </div>
       <div class="row">
         <label class="col-lg-3 col-md-3 col-form-label" for="especialidade">Área Atendimento *</label>
-        <div class="form-group col-lg-3 col-md-8">
+        <div class="form-group col-lg-6 col-md-6">
           <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="especialidade"
                   id="especialidade" multiple="multiple" title="Selecione">
             <option *ngFor="let especialidade of especialidades">{{ especialidade.nome | uppercase }}</option>

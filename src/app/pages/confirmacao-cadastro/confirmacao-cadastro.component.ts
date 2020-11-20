@@ -48,6 +48,12 @@ export class ConfirmacaoCadastroComponent implements OnInit {
                 case Role.Homecare:
                   this._router.navigateByUrl(`homecares/${valid.id}/cadastro/homecare`);
                   break;
+                case Role.PlanoSaude:
+                  this._router.navigateByUrl(`planos-saude/${valid.id}/cadastro/plano-saude`);
+                  break;
+                case Role.Paciente:
+                  this._router.navigateByUrl(`pacientes/${valid.id}/cadastro/paciente`);
+                  break;
                 default:
                   this._router.navigateByUrl(`/`);
               }

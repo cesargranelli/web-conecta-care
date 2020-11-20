@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ContatoPlanoSaude } from 'src/app/classes/contato-plano-saude.class';
+import { ContatoPlanoSaude } from 'src/app/planos-saude/classes/contato-plano-saude.class';
+import { CadastroPlanosSaudeService } from 'src/app/planos-saude/services/cadastro-planos-saude.service';
 import { ContatoService } from 'src/app/planos-saude/services/contato.service';
-import { CadastroPlanosSaudeService } from 'src/app/services/cadastro-planos-saude.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';

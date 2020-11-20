@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ContatoPlanoSaude } from 'src/app/classes/contato-plano-saude.class';
+import { ContatoPlanoSaude } from 'src/app/planos-saude/classes/contato-plano-saude.class';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

@@ -4,13 +4,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
-import { ContatoPlanoSaude } from 'src/app/classes/contato-plano-saude.class';
+import { ContatoPlanoSaude } from 'src/app/planos-saude/classes/contato-plano-saude.class';
+import { CadastroPlanosSaudeService } from 'src/app/planos-saude/services/cadastro-planos-saude.service';
 import { ContatoService } from 'src/app/planos-saude/services/contato.service';
-import { CadastroPlanosSaudeService } from 'src/app/services/cadastro-planos-saude.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-contato',
@@ -67,9 +68,16 @@ export class FormContatoComponent implements OnInit {
       })
     ).subscribe(null,
       (errorResponse: HttpErrorResponse) => {
-        if (errorResponse.status === 404) {
-          console.log('Não existem dados cadastrados!');
+        if (errorResponse.status === 0) {
+          console.log('Sistema indisponível! ' + errorResponse.statusText);
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Sistema indisponível! ' + errorResponse.statusText,
+            showConfirmButton: true
+          });
         }
+        this._loading.emitChange(false);
       },
       () => {
         if (this._cadastro.contato?.email) {

@@ -19,7 +19,7 @@ export class CadastroLoginComponent implements OnInit {
   emailEnviado: boolean = false;
   id: number;
   linkBotaoCancelar: string = '/';
-  mostrarflagAceitePrivacidade: boolean = true;
+  mostrarflagAceitePrivacidade: boolean = false;
 
   constructor(
     private _service: UsuarioService,

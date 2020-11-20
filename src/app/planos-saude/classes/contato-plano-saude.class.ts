@@ -4,7 +4,9 @@ export class ContatoPlanoSaude {
   telefoneRecado: number;
   telefoneCelular: number;
   telefoneWhatsapp: number;
+  telefoneOuvidoria: number;
   email: string;
+  site: string;
   flagAceiteDeclaracao: boolean;
   flagAceitePrivacidade: boolean;
   proprietarioId: number;
