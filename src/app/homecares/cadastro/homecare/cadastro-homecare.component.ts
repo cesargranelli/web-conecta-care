@@ -42,16 +42,16 @@ export class CadastroHomeCareComponent implements OnInit {
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Não existem dados cadastrados!');
-        }
-      }
-    );
-    this._serviceDocumento.pesquisar(this.valid.id).subscribe(response =>{
-        this._cadastro.homeCare = new HomeCare();
-        this._cadastro.homeCare.cnpj = response.body.data.documento;
-      },
-      (errorResponse: HttpErrorResponse) => {
-        if (errorResponse.status === 404) {
-          console.log('Não existem dados cadastrados!');
+          this._serviceDocumento.pesquisar(this.valid.id).subscribe(response =>{
+              this._cadastro.homeCare = new HomeCare();
+              this._cadastro.homeCare.cnpj = response.body.data.documento;
+            },
+            (errorResponse: HttpErrorResponse) => {
+              if (errorResponse.status === 404) {
+                console.log('Não existem dados cadastrados!');
+              }
+            }
+          );
         }
       }
     );
@@ -63,13 +63,14 @@ export class CadastroHomeCareComponent implements OnInit {
   onSubmit(homeCare: HomeCare) {
     this._loading.emitChange(true);
     homeCare.id = this.valid.id;
-    if (!this._cadastro.homeCare) {
+    if (!this._cadastro.homeCare.id) {
       this._service.cadastrar(homeCare).subscribe(response => {
-          this.navigate(homeCare);
-        },
-        () => {
-          this.message();
-        });
+        this._cadastro.homeCare = homeCare;
+        this.navigate(homeCare);
+      },
+      () => {
+        this.message();
+      });
     } else {
       this._service.alterar(homeCare).subscribe(response => {
           this.navigate(homeCare);

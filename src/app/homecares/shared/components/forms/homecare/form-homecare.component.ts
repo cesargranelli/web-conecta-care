@@ -121,7 +121,7 @@ export class FormHomeCareComponent implements OnInit {
   onSubmit() {
     this.homeCare = this.homeCareForm.value;
     this.homeCare.especialidades = this.filtrarEspecialidades(this.homeCareForm);
-    this._cadastro.homeCare = this.homeCare;
+    this.homeCare.cnpj = this._cadastro.homeCare.cnpj;
     this.onSubmitEvent.emit(this.homeCare);
   }
 

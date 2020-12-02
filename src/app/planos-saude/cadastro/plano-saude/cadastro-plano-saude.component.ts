@@ -42,18 +42,18 @@ export class CadastroPlanoSaudeComponent implements OnInit {
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Não existem dados cadastrados!');
-        } else if (errorResponse.status === 0) {
-          console.log(errorResponse.statusText);
-        }
-      }
-    );
-    this._serviceDocumento.pesquisar(this.valid.id).subscribe(response =>{
-        this._cadastro.planoSaude = new PlanoSaude();
-        this._cadastro.planoSaude.cnpj = response.body.data.documento;
-      },
-      (errorResponse: HttpErrorResponse) => {
-        if (errorResponse.status === 404) {
-          console.log('Não existem dados cadastrados!');
+          this._serviceDocumento.pesquisar(this.valid.id).subscribe(response =>{
+              this._cadastro.planoSaude = new PlanoSaude();
+              this._cadastro.planoSaude.cnpj = response.body.data.documento;
+            },
+            (errorResponse: HttpErrorResponse) => {
+              if (errorResponse.status === 404) {
+                console.log('Não existem dados cadastrados!');
+              } else if (errorResponse.status === 0) {
+                console.log(errorResponse.statusText);
+              }
+            }
+          );
         } else if (errorResponse.status === 0) {
           console.log(errorResponse.statusText);
         }
@@ -67,13 +67,14 @@ export class CadastroPlanoSaudeComponent implements OnInit {
   onSubmit(planoSaude: PlanoSaude) {
     this._loading.emitChange(true);
     planoSaude.id = this.valid.id;
-    if (!this._cadastro.planoSaude) {
+    if (!this._cadastro.planoSaude.id) {
       this._service.cadastrar(planoSaude).subscribe(response => {
-          this.navigate(planoSaude);
-        },
-        () => {
-          this.message();
-        });
+        this._cadastro.planoSaude = planoSaude;
+        this.navigate(planoSaude);
+      },
+      () => {
+        this.message();
+      });
     } else {
       this._service.alterar(planoSaude).subscribe(response => {
           this.navigate(planoSaude);

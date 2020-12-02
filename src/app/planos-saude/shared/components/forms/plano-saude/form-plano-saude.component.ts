@@ -137,7 +137,7 @@ export class FormPlanoSaudeComponent implements OnInit {
   onSubmit() {
     this.planoSaude = this.planoSaudeForm.value;
     this.planoSaude.especialidades = this.filtrarEspecialidades(this.planoSaudeForm);
-    this._cadastro.planoSaude = this.planoSaude;
+    this.planoSaude.cnpj = this._cadastro.planoSaude.cnpj;
     this.onSubmitEvent.emit(this.planoSaude);
   }
 

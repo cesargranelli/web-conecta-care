@@ -14,7 +14,7 @@ import { InputValidationHas } from 'src/app/shared/validations/input-validation-
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-form-contato',
+  selector: 'app-form-contato-plano-saude',
   templateUrl: './form-contato.component.html',
   styleUrls: ['./form-contato.component.css']
 })
@@ -51,12 +51,14 @@ export class FormContatoComponent implements OnInit {
   ) {
     this.valid = this._validService.getValid();
     this.contatoForm = this._formBuilder.group({
-      telefoneFixo: [null],
+      telefoneFixo: [null, [Validators.required]],
       telefoneRecado: [null],
       telefoneCelular: [null],
       telefoneWhatsapp: [null],
+      telefoneOuvidoria: [null, [Validators.required]],
       flagAceiteDeclaracao: [null],
-      email: [null, [Validators.required, Validators.email, Validators.maxLength(100)]]
+      email: [null, [Validators.required, Validators.email, Validators.maxLength(100)]],
+      site: [null, [Validators.required]]
     });
   }
 
@@ -100,7 +102,9 @@ export class FormContatoComponent implements OnInit {
       telefoneRecado: this._cadastro.contato?.telefoneRecado,
       telefoneCelular: this._cadastro.contato?.telefoneCelular,
       telefoneWhatsapp: this._cadastro.contato?.telefoneWhatsapp,
+      telefoneOuvidoria: this._cadastro.contato?.telefoneOuvidoria,
       email: this._cadastro.contato?.email,
+      site: this._cadastro.contato?.site,
       flagAceiteDeclaracao: this._cadastro.contato?.flagAceiteDeclaracao
     });
   }
@@ -115,7 +119,6 @@ export class FormContatoComponent implements OnInit {
 
   onSubmit() {
     this.contato = this.contatoForm.value;
-    this._cadastro.contato = this.contato;
     this.onSubmitEvent.emit(this.contato);
   }
 

@@ -13,7 +13,7 @@ import {Valid} from 'src/app/services/feat/Valid';
 import {map} from 'rxjs/internal/operators/map';
 
 @Component({
-  selector: 'app-form-contato',
+  selector: 'app-form-contato-homecare',
   templateUrl: './form-contato.component.html',
   styleUrls: ['./form-contato.component.css']
 })

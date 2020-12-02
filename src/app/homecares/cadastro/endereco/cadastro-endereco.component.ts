@@ -53,7 +53,7 @@ export class CadastroEnderecoComponent implements OnInit {
   onSubmit(endereco: Endereco) {
     this._loading.emitChange(true);
     endereco.proprietarioId = this.valid.id;
-    if (!this._cadastro.endereco) {
+    if (!this._cadastro.endereco.id) {
       this._service.cadastrar(endereco).subscribe(response => {
           this.navigate(endereco);
         },

@@ -46,30 +46,30 @@ export class CadastroContatoComponent implements OnInit {
     this._loading.emitChange(true);
     contato.proprietarioId = this.valid.id;
     contato.flagAceitePrivacidade = true;
-    if (!this._cadastro.contato) {
+    if (!this._cadastro.contato.id) {
       this._service.cadastrar(contato).subscribe(response => {
-          setTimeout(() => {
-            this._cadastro.contato = contato;
-            this._router.navigateByUrl(`planos-saude/${this.valid.id}`);
-            this._loading.emitChange(false);
-          });
-        },
-        () => {
+        setTimeout(() => {
+          this._cadastro.contato = contato;
+          this._router.navigateByUrl(`planos-saude/${this.valid.id}`);
           this._loading.emitChange(false);
-          this.message();
         });
+      },
+      () => {
+        this._loading.emitChange(false);
+        this.message();
+      });
     } else {
       this._service.alterar(contato).subscribe(response => {
-          setTimeout(() => {
-            this._cadastro.contato = contato;
-            this._router.navigateByUrl(`planos-saude/${this.valid.id}`);
-            this._loading.emitChange(false);
-          });
-        },
-        () => {
+        setTimeout(() => {
+          this._cadastro.contato = contato;
+          this._router.navigateByUrl(`planos-saude/${this.valid.id}`);
           this._loading.emitChange(false);
-          this.message();
         });
+      },
+      () => {
+        this._loading.emitChange(false);
+        this.message();
+      });
     }
   }
 
