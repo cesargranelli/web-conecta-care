@@ -7,5 +7,5 @@ export class ContatoHomeCare {
   email: string;
   flagAceiteDeclaracao: boolean;
   flagAceitePrivacidade: boolean;
-  proprietarioId: number;
+  idHomeCare: number;
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
-import { HomeCare } from 'src/app/classes/homecare.class';
+import { HomeCare } from 'src/app/homecares/classes/homecare.class';
 import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
 import { DominioService } from 'src/app/services/dominio.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
@@ -67,7 +67,7 @@ export class FormHomeCareComponent implements OnInit {
         this.populaForm();
       } else {
         this.homeCareForm.patchValue({
-          cnpj: this._cadastro.homeCare?.cnpj
+          cnpj: this._cadastro.homeCare.cnpj
         });
       }
       setTimeout(() => {

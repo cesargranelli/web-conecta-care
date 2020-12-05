@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HomeCare } from 'src/app/classes/homecare.class';
+import { HomeCare } from 'src/app/homecares/classes/homecare.class';
 import { HomecareService } from 'src/app/homecares/services/homecare.service';
 import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
 import { DocumentoService } from 'src/app/services/documento.service';
@@ -34,6 +34,14 @@ export class CadastroHomeCareComponent implements OnInit {
   ) {
     this._loading.emitChange(true);
     this.valid = this._validService.getValid();
+    this._serviceDocumento.pesquisar(this.valid.id).subscribe(response => {
+      this._cadastro.homeCare.cnpj = response.body.data.documento;
+    },
+    (errorResponse: HttpErrorResponse) => {
+      if (errorResponse.status === 404) {
+        console.log('Documento não cadastrado!');
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -42,16 +50,6 @@ export class CadastroHomeCareComponent implements OnInit {
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Não existem dados cadastrados!');
-          this._serviceDocumento.pesquisar(this.valid.id).subscribe(response =>{
-              this._cadastro.homeCare = new HomeCare();
-              this._cadastro.homeCare.cnpj = response.body.data.documento;
-            },
-            (errorResponse: HttpErrorResponse) => {
-              if (errorResponse.status === 404) {
-                console.log('Não existem dados cadastrados!');
-              }
-            }
-          );
         }
       }
     );

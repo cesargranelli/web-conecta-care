@@ -17,11 +17,11 @@ export class ContatoService {
   }
 
   cadastrar(payload: ContatoPlanoSaude): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.proprietarioId.toString())}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.idPlanoSaude.toString())}`, payload, {observe: 'response'});
   }
 
   alterar(payload: ContatoPlanoSaude): Observable<HttpResponse<any>> {
-    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.proprietarioId.toString())}`, payload, {observe: 'response'});
+    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.idPlanoSaude.toString())}`, payload, {observe: 'response'});
   }
 
   consultar(idPlanoSaude: number): Observable<HttpResponse<any>> {

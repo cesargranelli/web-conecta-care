@@ -1,8 +1,8 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {ContatoHomeCare} from 'src/app/classes/contatoHomeCare.class';
-import {environment} from 'src/environments/environment';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ContatoHomeCare } from 'src/app/homecares/classes/contato-homecare.class';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,11 @@ export class ContatoService {
   }
 
   cadastrar(payload: ContatoHomeCare): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.proprietarioId.toString())}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.idHomeCare.toString())}`, payload, {observe: 'response'});
   }
 
   alterar(payload: ContatoHomeCare): Observable<HttpResponse<any>> {
-    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.proprietarioId.toString())}`, payload, {observe: 'response'});
+    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', payload.idHomeCare.toString())}`, payload, {observe: 'response'});
   }
 
   consultar(idHomeCare: number): Observable<HttpResponse<any>> {

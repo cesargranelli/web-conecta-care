@@ -10,11 +10,11 @@ import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.co
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
 import { CadastroHomeCareComponent } from './cadastro/homecare/cadastro-homecare.component';
 import { CadastroLoginComponent } from './cadastro/login/cadastro-login.component';
-import { InformacoesContatoComponent } from './dados-homecares/contato/informacoes-contato.component';
-import { DadosHomecaresComponent } from './dados-homecares/dados-homecares.component';
-import { InformacoesEnderecoComponent } from './dados-homecares/endereco/informacoes-endereco.component';
-import { InformacoesHomecareComponent } from './dados-homecares/homecare/informacoes-homecare.component';
-import { InformacoesLoginComponent } from './dados-homecares/login/informacoes-login.component';
+import { InformacoesContatoComponent } from './dados/contato/informacoes-contato.component';
+import { DadosHomecaresComponent } from './dados/dados-homecares.component';
+import { InformacoesEnderecoComponent } from './dados/endereco/informacoes-endereco.component';
+import { InformacoesHomecareComponent } from './dados/homecare/informacoes-homecare.component';
+import { InformacoesLoginComponent } from './dados/login/informacoes-login.component';
 import { HomeCaresRoutingModule } from './homecares-routing.module';
 import { HomeCaresComponent } from './homecares.component';
 import { CardVerDadosComponent } from './shared/components/card-ver-dados/card-ver-dados.component';

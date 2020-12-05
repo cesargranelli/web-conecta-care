@@ -1,12 +1,12 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {ContatoHomeCare} from 'src/app/classes/contatoHomeCare.class';
-import {ContatoService} from 'src/app/homecares/services/contato.service';
-import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ContatoHomeCare } from 'src/app/homecares/classes/contato-homecare.class';
+import { ContatoService } from 'src/app/homecares/services/contato.service';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -44,7 +44,7 @@ export class InformacoesContatoComponent implements OnInit {
 
   onSubmit(contato: ContatoHomeCare) {
     this._loading.emitChange(true);
-    contato.proprietarioId = this.valid.id;
+    contato.idHomeCare = this.valid.id;
     this._service.alterar(contato).subscribe(response => {
         setTimeout(() => {
           this._cadastro.contato = contato;
@@ -55,7 +55,7 @@ export class InformacoesContatoComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          this._router.navigateByUrl(`homecares/${this.valid.id}/dados-homecares`);
+          this._router.navigateByUrl(`homecares/${this.valid.id}/dados`);
           this._loading.emitChange(false);
         });
       },

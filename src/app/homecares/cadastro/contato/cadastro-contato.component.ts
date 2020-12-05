@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ContatoHomeCare } from 'src/app/classes/contatoHomeCare.class';
+import { ContatoHomeCare } from 'src/app/homecares/classes/contato-homecare.class';
 import { ContatoService } from 'src/app/homecares/services/contato.service';
 import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
 import { Valid } from 'src/app/services/feat/Valid';
@@ -44,7 +44,7 @@ export class CadastroContatoComponent implements OnInit {
 
   onSubmit(contato: ContatoHomeCare) {
     this._loading.emitChange(true);
-    contato.proprietarioId = this.valid.id;
+    contato.idHomeCare = this.valid.id;
     contato.flagAceitePrivacidade = true;
     if (!this._cadastro.contato) {
       this._service.cadastrar(contato).subscribe(response => {

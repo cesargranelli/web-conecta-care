@@ -1,8 +1,8 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HomeCare} from 'src/app/classes/homecare.class';
-import {environment} from 'src/environments/environment';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HomeCare } from 'src/app/homecares/classes/homecare.class';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

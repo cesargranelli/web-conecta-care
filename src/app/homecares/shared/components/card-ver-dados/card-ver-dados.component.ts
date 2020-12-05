@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-card-ver-dados',
+  selector: 'app-card-ver-dados-homecares',
   templateUrl: './card-ver-dados.component.html',
   styleUrls: ['./card-ver-dados.component.css']
 })

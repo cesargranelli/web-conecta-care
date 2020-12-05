@@ -9,5 +9,5 @@ export class ContatoPlanoSaude {
   site: string;
   flagAceiteDeclaracao: boolean;
   flagAceitePrivacidade: boolean;
-  proprietarioId: number;
+  idPlanoSaude: number;
 }

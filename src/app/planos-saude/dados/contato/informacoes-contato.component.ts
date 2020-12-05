@@ -1,63 +1,53 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PlanoSaude } from 'src/app/planos-saude/classes/plano-saude.class';
-import { CadastroPlanosSaudeService } from 'src/app/planos-saude/services/cadastro-planos-saude.service';
-import { PlanoSaudeService } from 'src/app/planos-saude/services/plano-saude.service';
+import { ContatoHomeCare } from 'src/app/homecares/classes/contato-homecare.class';
+import { ContatoService } from 'src/app/homecares/services/contato.service';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-informacoes-plano-saude',
-  templateUrl: './informacoes-plano-saude.component.html',
-  styleUrls: ['./informacoes-plano-saude.component.css']
+  selector: 'app-informacoes-contato',
+  templateUrl: './informacoes-contato.component.html',
+  styleUrls: ['./informacoes-contato.component.css']
 })
-export class InformacoesPlanoSaudeComponent implements OnInit {
+export class InformacoesContatoComponent implements OnInit {
 
   public valid: Valid;
   public isCadastro: boolean;
   public linkBotaoVoltar: string;
   public labelBotaoSubmit: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
-  public cnpj: string;
+
+  public contatoFormGroup: FormGroup;
+  public hideForm: boolean = true;
 
   constructor(
     private _validService: SharedValidService,
     private _loading: SharedLoadingService,
-    private _service: PlanoSaudeService,
+    private _service: ContatoService,
     private _router: Router,
-    private _cadastro: CadastroPlanosSaudeService
+    private _cadastro: CadastroHomeCaresService
   ) {
     this._loading.emitChange(true);
     this.valid = this._validService.getValid();
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response => {
-      this._cadastro.planoSaude = response.body.data;
-      this.cnpj = this._cadastro.planoSaude?.cnpj;
-    },
-      (errorResponse: HttpErrorResponse) => {
-        if (errorResponse.status === 404) {
-          console.log('Não existem dados cadastrados!');
-        }
-      }
-    );
     this.isCadastro = false;
-    this.linkBotaoVoltar = `planos-saude/${this.valid.id}/dados-planos-saude`;
+    this.linkBotaoVoltar = `planos-saude/${this.valid.id}/dados`;
     this.labelBotaoSubmit = 'Alterar';
   }
 
-  onSubmit(planoSaude: PlanoSaude) {
+  onSubmit(contato: ContatoHomeCare) {
     this._loading.emitChange(true);
-    planoSaude.id = this.valid.id;
-    planoSaude.cnpj = this.cnpj;
-    this._service.alterar(planoSaude).subscribe(response => {
+    contato.idHomeCare = this.valid.id;
+    this._service.alterar(contato).subscribe(response => {
         setTimeout(() => {
-          this._cadastro.planoSaude = planoSaude;
+          this._cadastro.contato = contato;
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -65,17 +55,17 @@ export class InformacoesPlanoSaudeComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          this._router.navigateByUrl(`planos-saude/${this.valid.id}/dados-planos-saude`);
+          this._router.navigateByUrl(`planos-saude/${this.valid.id}/dados`);
           this._loading.emitChange(false);
         });
       },
       () => {
+        this._loading.emitChange(false);
         this.message();
       });
   }
 
   message() {
-    this._loading.emitChange(false);
     Swal.fire({
       position: 'center',
       icon: 'error',

@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Endereco } from 'src/app/classes/endereco.class';
+import { EnderecoHomeCare } from 'src/app/homecares/classes/endereco-homecare.class';
 import { EnderecoService } from 'src/app/homecares/services/endereco.service';
 import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
 import { Valid } from 'src/app/services/feat/Valid';
@@ -50,9 +50,9 @@ export class CadastroEnderecoComponent implements OnInit {
     this.labelBotaoSubmit = "Avançar";
   }
 
-  onSubmit(endereco: Endereco) {
+  onSubmit(endereco: EnderecoHomeCare) {
     this._loading.emitChange(true);
-    endereco.proprietarioId = this.valid.id;
+    endereco.idHomeCare = this.valid.id;
     if (!this._cadastro.endereco.id) {
       this._service.cadastrar(endereco).subscribe(response => {
           this.navigate(endereco);
@@ -70,7 +70,7 @@ export class CadastroEnderecoComponent implements OnInit {
     }
   }
 
-  private navigate(endereco: Endereco) {
+  private navigate(endereco: EnderecoHomeCare) {
     setTimeout(() => {
       this._cadastro.endereco = endereco;
       this._router.navigateByUrl(`homecares/${this.valid.id}/cadastro/contato`);

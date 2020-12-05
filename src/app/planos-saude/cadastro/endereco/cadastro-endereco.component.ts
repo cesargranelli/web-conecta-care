@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Endereco } from 'src/app/classes/endereco.class';
+import { EnderecoPlanoSaude } from 'src/app/planos-saude/classes/endereco-plano-saude.class';
 import { CadastroPlanosSaudeService } from 'src/app/planos-saude/services/cadastro-planos-saude.service';
 import { EnderecoService } from 'src/app/planos-saude/services/endereco.service';
 import { Valid } from 'src/app/services/feat/Valid';
@@ -50,9 +50,9 @@ export class CadastroEnderecoComponent implements OnInit {
     this.labelBotaoSubmit = "Avançar";
   }
 
-  onSubmit(endereco: Endereco) {
+  onSubmit(endereco: EnderecoPlanoSaude) {
     this._loading.emitChange(true);
-    endereco.proprietarioId = this.valid.id;
+    endereco.idPlanoSaude = this.valid.id;
     if (!this._cadastro.endereco.id) {
       this._service.cadastrar(endereco).subscribe(response => {
           this.navigate(endereco);
@@ -70,7 +70,7 @@ export class CadastroEnderecoComponent implements OnInit {
     }
   }
 
-  private navigate(endereco: Endereco) {
+  private navigate(endereco: EnderecoPlanoSaude) {
     setTimeout(() => {
       this._cadastro.endereco = endereco;
       this._router.navigateByUrl(`planos-saude/${this.valid.id}/cadastro/contato`);

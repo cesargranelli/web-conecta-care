@@ -60,7 +60,7 @@ export class InformacoesLoginComponent implements OnInit {
           title: response.body.data?.message,
           showConfirmButton: true
         });
-        this._router.navigateByUrl(`planos-saude/${this.valid.id}/dados-planos-saude`);
+        this._router.navigateByUrl(`planos-saude/${this.valid.id}/dados`);
         this._loading.emitChange(false);
       }, err => {
         Swal.fire({

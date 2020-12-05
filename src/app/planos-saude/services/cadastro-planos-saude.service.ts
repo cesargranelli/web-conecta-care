@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Endereco } from 'src/app/classes/endereco.class';
+import { EnderecoPlanoSaude } from 'src/app/planos-saude/classes/endereco-plano-saude.class';
 import { ContatoPlanoSaude } from '../classes/contato-plano-saude.class';
 import { PlanoSaude } from '../classes/plano-saude.class';
 
@@ -7,7 +7,7 @@ import { PlanoSaude } from '../classes/plano-saude.class';
   providedIn: 'root'
 })
 export class CadastroPlanosSaudeService {
-  public planoSaude: PlanoSaude;
-  public endereco: Endereco;
-  public contato: ContatoPlanoSaude;
+  public planoSaude: PlanoSaude = new PlanoSaude();
+  public endereco: EnderecoPlanoSaude = new EnderecoPlanoSaude();
+  public contato: ContatoPlanoSaude = new ContatoPlanoSaude();
 }

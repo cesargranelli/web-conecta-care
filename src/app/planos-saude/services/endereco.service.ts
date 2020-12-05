@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Endereco } from 'src/app/classes/endereco.class';
+import { EnderecoPlanoSaude } from 'src/app/planos-saude/classes/endereco-plano-saude.class';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -22,12 +22,12 @@ export class EnderecoService {
       {observe: 'response'});
   }
 
-  cadastrar(payload: Endereco): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.proprietarioId))}`, payload, {observe: 'response'});
+  cadastrar(payload: EnderecoPlanoSaude): Observable<HttpResponse<any>> {
+    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.idPlanoSaude))}`, payload, {observe: 'response'});
   }
 
-  alterar(payload: Endereco): Observable<HttpResponse<any>> {
-    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.proprietarioId))}`, payload, {observe: 'response'});
+  alterar(payload: EnderecoPlanoSaude): Observable<HttpResponse<any>> {
+    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.idPlanoSaude))}`, payload, {observe: 'response'});
   }
 
   consultar(idPlanoSaude: number): Observable<HttpResponse<any>> {

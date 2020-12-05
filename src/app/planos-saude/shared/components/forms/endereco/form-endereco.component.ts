@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
 import { map } from 'rxjs/internal/operators/map';
 import { EnderecoViaCep } from 'src/app/classes/endereco-via-cep.class';
-import { Endereco } from 'src/app/classes/endereco.class';
+import { EnderecoPlanoSaude } from 'src/app/planos-saude/classes/endereco-plano-saude.class';
 import { Estado } from 'src/app/classes/estado.class';
 import { Pais } from 'src/app/classes/pais.class';
 import { CadastroPlanosSaudeService } from 'src/app/planos-saude/services/cadastro-planos-saude.service';
@@ -34,7 +34,7 @@ export class FormEnderecoComponent implements OnInit {
   public labelBotaoSubmit: string;
 
   @Output()
-  public onSubmitEvent = new EventEmitter<Endereco>();
+  public onSubmitEvent = new EventEmitter<EnderecoPlanoSaude>();
 
   public enderecoForm: FormGroup;
   public estados: Estado[];
@@ -46,7 +46,7 @@ export class FormEnderecoComponent implements OnInit {
   public imagemComprovante: any = '../../../../../assets/img/Headshot-Doc-1.png';
   public validationHas: InputValidationHas = new InputValidationHas();
   public esconderFormulario: boolean = true;
-  private endereco: Endereco;
+  private endereco: EnderecoPlanoSaude;
   private fileComprovante: File;
 
   constructor(
@@ -86,9 +86,9 @@ export class FormEnderecoComponent implements OnInit {
           this.popularForm();
         }
         jQuery('select[id=\'pais\']').selectpicker('refresh');
-        jQuery('select[id=\'pais\']').selectpicker('val', this._cadastro.endereco?.pais.id);
+        jQuery('select[id=\'pais\']').selectpicker('val', this._cadastro.endereco.pais?.id);
         jQuery('select[id=\'estado\']').selectpicker('refresh');
-        jQuery('select[id=\'estado\']').selectpicker('val', this._cadastro.endereco?.estado.id);
+        jQuery('select[id=\'estado\']').selectpicker('val', this._cadastro.endereco.estado?.id);
         this._loading.emitChange(false);
         this.esconderFormulario = false;
       });
@@ -150,13 +150,14 @@ export class FormEnderecoComponent implements OnInit {
             title: '400-CEP Não localizado!',
             showConfirmButton: true,
           });
+        } else {
+          let enderecoViaCep: EnderecoViaCep = response.body;
+          this.enderecoForm.controls.logradouro.setValue(enderecoViaCep.logradouro);
+          this.enderecoForm.controls.bairro.setValue(enderecoViaCep.bairro);
+          this.enderecoForm.controls.cidade.setValue(enderecoViaCep.localidade);
+          this.estadoViaCep = this.estados.find(estado => estado.uf == enderecoViaCep.uf);
         }
         this._loading.emitChange(true);
-        let enderecoViaCep: EnderecoViaCep = response.body;
-        this.enderecoForm.controls.logradouro.setValue(enderecoViaCep.logradouro);
-        this.enderecoForm.controls.bairro.setValue(enderecoViaCep.bairro);
-        this.enderecoForm.controls.cidade.setValue(enderecoViaCep.localidade);
-        this.estadoViaCep = this.estados.find(estado => estado.uf == enderecoViaCep.uf);
       },
       (error: Error) => Swal.fire({
         position: 'center',
@@ -167,7 +168,7 @@ export class FormEnderecoComponent implements OnInit {
       () => {
         setTimeout(() => {
           jQuery('select[id=\'estado\']').selectpicker('refresh');
-          jQuery('select[id=\'estado\']').selectpicker('val', this.estadoViaCep.id);
+          jQuery('select[id=\'estado\']').selectpicker('val', this.estadoViaCep?.id);
           this._loading.emitChange(false);
         });
       });

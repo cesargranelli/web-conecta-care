@@ -10,10 +10,10 @@ declare var jQuery: any;
 export class DadosPlanosSaudeComponent implements OnInit {
 
   cards = [
-    {icon: 'fingerprint', link: './login', value: 'Ver', stats: 'Informações de Login'},
-    {icon: 'info', link: './plano-saude', value: 'Ver', stats: 'Informações Gerais'},
-    {icon: 'house', link: './endereco', value: 'Ver', stats: 'Informações de Endereço'},
-    {icon: 'contact_phone', link: './contato', value: 'Ver', stats: 'Informações de Contato'}
+    { icon: 'fingerprint', link: './login', value: 'Ver', stats: 'Informações de Login' },
+    { icon: 'info', link: './plano-saude', value: 'Ver', stats: 'Informações Gerais' },
+    { icon: 'house', link: './endereco', value: 'Ver', stats: 'Informações de Endereço' },
+    { icon: 'contact_phone', link: './contato', value: 'Ver', stats: 'Informações de Contato' }
   ];
 
   constructor() {

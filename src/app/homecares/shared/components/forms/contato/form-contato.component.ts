@@ -1,16 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AreaAtendimento} from 'src/app/classes/area-atendimento.class';
-import {ContatoHomeCare} from 'src/app/classes/contatoHomeCare.class';
-import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import {ContatoService} from 'src/app/homecares/services/contato.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {map} from 'rxjs/internal/operators/map';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/internal/operators/map';
+import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
+import { ContatoHomeCare } from 'src/app/homecares/classes/contato-homecare.class';
+import { ContatoService } from 'src/app/homecares/services/contato.service';
+import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 @Component({
   selector: 'app-form-contato-homecare',

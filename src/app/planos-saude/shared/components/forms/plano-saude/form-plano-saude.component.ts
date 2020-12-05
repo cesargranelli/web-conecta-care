@@ -83,7 +83,7 @@ export class FormPlanoSaudeComponent implements OnInit {
         this.populaForm();
       } else {
         this.planoSaudeForm.patchValue({
-          cnpj: this._cadastro.planoSaude?.cnpj
+          cnpj: this._cadastro.planoSaude.cnpj
         });
       }
       setTimeout(() => {

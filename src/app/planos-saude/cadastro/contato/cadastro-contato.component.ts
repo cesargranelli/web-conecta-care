@@ -44,7 +44,7 @@ export class CadastroContatoComponent implements OnInit {
 
   onSubmit(contato: ContatoPlanoSaude) {
     this._loading.emitChange(true);
-    contato.proprietarioId = this.valid.id;
+    contato.idPlanoSaude = this.valid.id;
     contato.flagAceitePrivacidade = true;
     if (!this._cadastro.contato.id) {
       this._service.cadastrar(contato).subscribe(response => {

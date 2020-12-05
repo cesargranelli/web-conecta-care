@@ -6,14 +6,14 @@
           <div class="card-header card-header-rose text-center">
             <i class="material-icons">info</i>
             <h3 class="card-title">
-              Dados Plano de Saúde
+              Dados Homecare
             </h3>
           </div>
           <div class="card-body">
             <div class="row">
               <div *ngFor="let card of cards" class="col-lg-6 col-md-6 col-sm-6">
-                <app-card-ver-dados [icon]="card.icon" [link]="card.link" [stats]="card.stats" [value]="card.value">
-                </app-card-ver-dados>
+                <app-card-ver-dados-homecares [icon]="card.icon" [link]="card.link" [stats]="card.stats" [value]="card.value">
+                </app-card-ver-dados-homecares>
               </div>
             </div>
           </div>

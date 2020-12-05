@@ -27,7 +27,7 @@ export class MenuHomecaresComponent implements OnInit {
   }
 
   dadosHomecares() {
-    this._router.navigateByUrl(`homecares/${this.valid?.id}/dados-homecares`);
+    this._router.navigateByUrl(`homecares/${this.valid?.id}/informacoes`);
   }
 
   logout() {

@@ -10,11 +10,11 @@ import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.co
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
 import { CadastroLoginComponent } from './cadastro/login/cadastro-login.component';
 import { CadastroPlanoSaudeComponent } from './cadastro/plano-saude/cadastro-plano-saude.component';
-import { InformacoesContatoComponent } from './dados-planos-saude/contato/informacoes-contato.component';
-import { DadosPlanosSaudeComponent } from './dados-planos-saude/dados-planos-saude.component';
-import { InformacoesEnderecoComponent } from './dados-planos-saude/endereco/informacoes-endereco.component';
-import { InformacoesLoginComponent } from './dados-planos-saude/login/informacoes-login.component';
-import { InformacoesPlanoSaudeComponent } from './dados-planos-saude/plano-saude/informacoes-plano-saude.component';
+import { InformacoesContatoComponent } from './dados/contato/informacoes-contato.component';
+import { DadosPlanosSaudeComponent } from './dados/dados-planos-saude.component';
+import { InformacoesEnderecoComponent } from './dados/endereco/informacoes-endereco.component';
+import { InformacoesLoginComponent } from './dados/login/informacoes-login.component';
+import { InformacoesPlanoSaudeComponent } from './dados/plano-saude/informacoes-plano-saude.component';
 import { PlanosSaudeRoutingModule } from './planos-saude-routing.module';
 import { PlanosSaudeComponent } from './planos-saude.component';
 import { CardVerDadosComponent } from './shared/components/card-ver-dados/card-ver-dados.component';

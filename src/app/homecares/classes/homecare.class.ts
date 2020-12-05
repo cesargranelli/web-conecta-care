@@ -1,4 +1,4 @@
-import {AreaAtendimento} from './area-atendimento.class';
+import {AreaAtendimento} from '../../classes/area-atendimento.class';
 
 export class HomeCare {
   id: number;
