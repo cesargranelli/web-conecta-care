@@ -1,17 +1,19 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
 import {PacientesComponent} from './pacientes.component';
-
-const routes: Routes = [
-  {path: 'pacientes/:id', component: PacientesComponent}
-];
+import {PacientesRoutingModule} from './pacientes-routing.module';
+import { LoginComponent } from './cadastro/login/login.component';
+import { InformacoesGeraisComponent } from './cadastro/informacoes-gerais/informacoes-gerais.component';
+import { EnderecoComponent } from './cadastro/endereco/endereco.component';
+import { ContatoComponent } from './cadastro/contato/contato.component';
+import { ComplementoComponent } from './cadastro/complemento/complemento.component';
+import { HistoricoMedicoComponent } from './cadastro/historico-medico/historico-medico.component';
 
 @NgModule({
-  declarations: [PacientesComponent],
+  declarations: [PacientesComponent, LoginComponent, InformacoesGeraisComponent, EnderecoComponent, ContatoComponent, ComplementoComponent, HistoricoMedicoComponent],
   imports: [
-    RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    PacientesRoutingModule
   ]
 })
 export class PacientesModule {
