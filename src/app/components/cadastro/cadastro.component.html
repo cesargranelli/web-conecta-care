@@ -32,55 +32,17 @@
                   Plano de Saúde
                 </a>
               </li>
+              <li #paciente (click)="setRole(paciente.id)" class="nav-item" id="paciente" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#paciente-pane" role="tab">
+                  Paciente
+                </a>
+              </li>
             </ul>
           </div>
           <div class="card-body">
             <div class="tab-content">
-              <!-- <div class="tab-pane active" id="paciente">
-                <div class="row justify-content-center">
-                  <div class="col-lg-10">
-                    <h5 class="info-text">
-                      Se o atendimento for através do seu Plano de Saúde, entre em contato com o seu
-                      convenio que realizará a primeira fase do cadastro, liberando o acesso ao sistema.
-                      Caso Contrário, Realize seu cadastro e solicite você mesmo seu atendimento
-                    </h5>
-                  </div>
-                </div>
-                <form (ngSubmit)="onSubmit(pacienteForm, cpfPaciente)" [formGroup]="pacienteForm">
-                  <div [ngClass]="input.validation(pacienteForm)=='done' ? 'has-success' : 'has-danger'"
-                       class="form-row justify-content-center">
-                    <div class="col-lg-6 col-md-6 col-sm-8">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                              <i class="material-icons">face</i>
-                            </span>
-                        </div>
-                        <input #cpfPaciente autocomplete="off" class="form-control" formControlName="cpf" id="cpfPaciente"
-                               mask="000.000.000-00"
-                               name="cpfPaciente" placeholder="CPF (Obrigatório)" type="text">
-                      </div>
-                      <span class="form-control-feedback">
-                          <i class="material-icons">{{ input.validation(pacienteForm) }}</i>
-                        </span>
-                    </div>
-                  </div>
-                  <div class="form-row justify-content-center">
-                    <div class="form-group">
-                      <button [disabled]="!pacienteForm.valid" [ngClass]="!pacienteForm.valid ? 'btn-link' : ''" class="btn btn-rose"
-                              name="btnCpfPaciente" type="submit">Cadastrar
-                      </button>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="text-center text-danger">
-                      <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
-                    </div>
-                  </div>
-                </form>
-              </div> -->
               <div class="tab-pane" id="profissional">
-                <form (ngSubmit)="onSubmit_(profissionalForm, cpfProfissional)" [formGroup]="profissionalForm">
+                <form (ngSubmit)="onSubmit_(profissionalForm, cpfPaciente)" [formGroup]="profissionalForm">
                   <div [ngClass]="input.validation(profissionalForm)=='done' ? 'has-success' : 'has-danger'"
                        class="form-row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-sm-8">
@@ -102,7 +64,8 @@
                   </div>
                   <div class="form-row justify-content-center">
                     <div class="form-group">
-                      <button [disabled]="!profissionalForm.valid" [ngClass]="!profissionalForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                      <button [disabled]="!profissionalForm.valid" [ngClass]="!profissionalForm.valid ? 'btn-link' : ''"
+                              class="btn btn-rose"
                               name="btnCpfProfissional" type="submit">Cadastrar
                       </button>
                     </div>
@@ -125,7 +88,8 @@
                               <i class="material-icons">face</i>
                             </span>
                         </div>
-                        <input #cnpjHomecare autocomplete="off" class="form-control" formControlName="cnpj" id="cnpjHomecare"
+                        <input #cnpjHomecare autocomplete="off" class="form-control" formControlName="cnpj"
+                               id="cnpjHomecare"
                                mask="00.000.000/0000-00" name="cnpjHomecare" placeholder="CNPJ/MEI (Obrigatório)"
                                type="text">
                       </div>
@@ -136,7 +100,8 @@
                   </div>
                   <div class="form-row justify-content-center">
                     <div class="form-group">
-                      <button [disabled]="!homecareForm.valid" [ngClass]="!homecareForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                      <button [disabled]="!homecareForm.valid" [ngClass]="!homecareForm.valid ? 'btn-link' : ''"
+                              class="btn btn-rose"
                               name="btnCnpjHomecare" type="submit">Cadastrar
                       </button>
                     </div>
@@ -159,7 +124,8 @@
                               <i class="material-icons">face</i>
                             </span>
                         </div>
-                        <input #cnpjPlanoSaude autocomplete="off" class="form-control" formControlName="cnpj" id="cnpjPlanoSaude"
+                        <input #cnpjPlanoSaude autocomplete="off" class="form-control" formControlName="cnpj"
+                               id="cnpjPlanoSaude"
                                mask="00.000.000/0000-00" name="cnpjPlanoSaude" placeholder="CNPJ (Obrigatório)"
                                type="text">
                       </div>
@@ -170,8 +136,45 @@
                   </div>
                   <div class="form-row justify-content-center">
                     <div class="form-group">
-                      <button [disabled]="!planoSaudeForm.valid" [ngClass]="!planoSaudeForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                      <button [disabled]="!planoSaudeForm.valid" [ngClass]="!planoSaudeForm.valid ? 'btn-link' : ''"
+                              class="btn btn-rose"
                               name="btnCnpjPlanoSaude" type="submit">Cadastrar
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="text-center text-danger">
+                      <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane" id="paciente-pane">
+                <form (ngSubmit)="onSubmit_(pacienteForm, cpfPaciente)" [formGroup]="pacienteForm">
+                  <div [ngClass]="input.validation(pacienteForm)=='done' ? 'has-success' : 'has-danger'"
+                       class="form-row justify-content-center">
+                    <div class="col-lg-6 col-md-6 col-sm-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">face</i>
+                            </span>
+                        </div>
+                        <input #cpfPaciente autocomplete="off" class="form-control" formControlName="cpf"
+                               id="cpfPaciente"
+                               mask="000.000.000-00" name="cpfProfissional" placeholder="CPF (Obrigatório)"
+                               type="text">
+                      </div>
+                      <span class="form-control-feedback">
+                          <i class="material-icons">{{ input.validation(pacienteForm) }}</i>
+                        </span>
+                    </div>
+                  </div>
+                  <div class="form-row justify-content-center">
+                    <div class="form-group">
+                      <button [disabled]="!profissionalForm.valid" [ngClass]="!profissionalForm.valid ? 'btn-link' : ''"
+                              class="btn btn-rose"
+                              name="btnCpfProfissional" type="submit">Cadastrar
                       </button>
                     </div>
                   </div>
