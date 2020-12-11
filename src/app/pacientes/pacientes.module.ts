@@ -10,6 +10,7 @@ import {ComplementoComponent} from './cadastro/complemento/complemento.component
 import {HistoricoMedicoComponent} from './cadastro/historico-medico/historico-medico.component';
 import {SharedComponentModule} from '../shared/components/shared-component.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormEnderecoComponent} from './shared/components/forms/endereco/form-endereco.component';
 
 @NgModule({
   declarations: [
@@ -19,15 +20,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     EnderecoComponent,
     ContatoComponent,
     ComplementoComponent,
-    HistoricoMedicoComponent
+    HistoricoMedicoComponent,
+    FormEnderecoComponent
   ],
-    imports: [
-        CommonModule,
-        PacientesRoutingModule,
-        SharedComponentModule,
-        FormsModule,
-        ReactiveFormsModule
-    ]
+  imports: [
+    CommonModule,
+    PacientesRoutingModule,
+    SharedComponentModule,
+    FormsModule,
+    ReactiveFormsModule
+  ]
 })
 export class PacientesModule {
 }
