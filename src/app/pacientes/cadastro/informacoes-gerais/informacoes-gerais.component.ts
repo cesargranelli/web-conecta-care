@@ -13,8 +13,8 @@ import {DominioService} from '../../../services/dominio.service';
 import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
 import {CadastroProfissionaisService} from '../../../services/cadastro-profissionais.service';
 import {validCnpj} from '../../../shared/validations/directives/valid-cnpj.directive';
-import {concatMap, map} from 'rxjs/operators';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
+
 declare var jQuery: any;
 
 @Component({
@@ -32,7 +32,7 @@ export class InformacoesGeraisComponent implements OnInit {
   public validationHas: InputValidationHas = new InputValidationHas();
   public fileInputProfissional: string = 'fileinput-new';
   public fileInputRg: string = 'fileinput-new';
-  public showForm: boolean = true;
+  public hideForm: boolean = true;
   public profissional: Profissional;
   private readonly CAMINHO_IMAGEM_DUMMY: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
   public fotoProfissional: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
@@ -52,11 +52,13 @@ export class InformacoesGeraisComponent implements OnInit {
     private _cadastro: CadastroProfissionaisService
   ) {
     this._dadosLocalStorage = this._validService.getValid();
-    this._loading.emitChange(true);
+    // this._loading.emitChange(true);
+    this.hideForm = false;
 
     this.pacienteForm = this._formBuilder.group({
       nome: [null, Validators.required],
       sobrenome: [null, [Validators.required, Validators.maxLength(60)]],
+      cpf: [null, [Validators.required, Validators.maxLength(60)]],
       dataNascimento: [null, Validators.minLength(10)],
       rg: [null],
       rgEmissor: [null],
@@ -75,32 +77,32 @@ export class InformacoesGeraisComponent implements OnInit {
 
   ngOnInit() {
     this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
-    this._dominioService.getGeneros().pipe(
-      map(response => this.generos = response.body),
-      concatMap(() => this._dominioService.getEstadoCivis().pipe(map(response => this.estadoCivis = response.body))),
-      concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
-    ).subscribe(dadosProfissional => {
-      this.profissional = dadosProfissional;
-      this.popularForm();
-      if (this.profissional && this.profissional.fotoProfissional) {
-        this.fotoProfissional = this.profissional.fotoProfissional;
-        this.fileInputProfissional = 'fileinput-exists';
-      }
-      if (this.profissional && this.profissional.fotoRg) {
-        this.fotoRg = this.profissional.fotoRg;
-        this.fileInputRg = 'fileinput-exists';
-      }
-      jQuery('select').selectpicker('render');
-      setTimeout(() => {
-        jQuery('select').selectpicker('refresh');
-        this.showForm = false;
-        this._loading.emitChange(false);
-      });
-    });
-    jQuery('.datetimepicker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
-    });
+    // this._dominioService.getGeneros().pipe(
+    //   // map(response => this.generos = response.body),
+    //   concatMap(() => this._dominioService.getEstadoCivis().pipe(map(response => this.estadoCivis = response.body))),
+    //   concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
+    // ).subscribe(dadosProfissional => {
+    //   this.profissional = dadosProfissional;
+    //   this.popularForm();
+    //   if (this.profissional && this.profissional.fotoProfissional) {
+    //     this.fotoProfissional = this.profissional.fotoProfissional;
+    //     this.fileInputProfissional = 'fileinput-exists';
+    //   }
+    //   if (this.profissional && this.profissional.fotoRg) {
+    //     this.fotoRg = this.profissional.fotoRg;
+    //     this.fileInputRg = 'fileinput-exists';
+    //   }
+    //   jQuery('select').selectpicker('render');
+    //   setTimeout(() => {
+    //     jQuery('select').selectpicker('refresh');
+    //     this.showForm = false;
+    //     this._loading.emitChange(false);
+    //   });
+    // });
+    // jQuery('.datetimepicker').datetimepicker({
+    //   format: 'DD/MM/YYYY',
+    //   maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+    // });
   }
 
   popularForm() {
