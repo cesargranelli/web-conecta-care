@@ -181,8 +181,8 @@ export class InformacoesGeraisComponent implements OnInit {
       return;
     }
 
-    if(profissional.rg != null && profissional.rg != '') {
-      if(profissional.rgDataEmissao == null || profissional.rgDataEmissao == ''){
+    if (profissional.rg != null && profissional.rg != '') {
+      if (profissional.rgDataEmissao == null || profissional.rgDataEmissao == '') {
         this._loading.emitChange(false);
         Swal.fire({
           position: 'center',
@@ -192,7 +192,7 @@ export class InformacoesGeraisComponent implements OnInit {
         });
         return;
       }
-      if(profissional.rgEmissor == null || profissional.rgEmissor == ''){
+      if (profissional.rgEmissor == null || profissional.rgEmissor == '') {
         this._loading.emitChange(false);
         Swal.fire({
           position: 'center',

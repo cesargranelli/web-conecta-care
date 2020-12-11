@@ -44,7 +44,7 @@ export class EnderecoComponent implements OnInit {
       }
     );
     this.isCadastro = true;
-    this.linkBotaoVoltar = `homecares/${this.valid.id}/cadastro/homecare`;
+    this.linkBotaoVoltar = `pacientes/${this.valid.id}/cadastro/informacoes-gerais`;
     this.labelBotaoSubmit = 'Avançar';
   }
 
