@@ -9,6 +9,7 @@ import {ContatoComponent} from './cadastro/contato/contato.component';
 import {ComplementoComponent} from './cadastro/complemento/complemento.component';
 import {HistoricoMedicoComponent} from './cadastro/historico-medico/historico-medico.component';
 import {SharedComponentModule} from '../shared/components/shared-component.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,13 @@ import {SharedComponentModule} from '../shared/components/shared-component.modul
     ComplementoComponent,
     HistoricoMedicoComponent
   ],
-  imports: [
-    CommonModule,
-    PacientesRoutingModule,
-    SharedComponentModule
-  ]
+    imports: [
+        CommonModule,
+        PacientesRoutingModule,
+        SharedComponentModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class PacientesModule {
 }
