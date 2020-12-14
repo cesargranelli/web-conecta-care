@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-historico-medico',
-  templateUrl: './historico-medico.component.html',
-  styleUrls: ['./historico-medico.component.css']
+  templateUrl: './cadastro-historico-medico.component.html',
+  styleUrls: ['./cadastro-historico-medico.component.css']
 })
-export class HistoricoMedicoComponent implements OnInit {
+export class CadastroHistoricoMedicoComponent implements OnInit {
 
   constructor() { }
 

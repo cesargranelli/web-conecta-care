@@ -11,10 +11,10 @@ import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-contato',
-  templateUrl: './contato.component.html',
-  styleUrls: ['./contato.component.css']
+  templateUrl: './cadastro-contato.component.html',
+  styleUrls: ['./cadastro-contato.component.css']
 })
-export class ContatoComponent implements OnInit {
+export class CadastroContatoComponent implements OnInit {
 
   public valid: Valid;
   public isCadastro: boolean;

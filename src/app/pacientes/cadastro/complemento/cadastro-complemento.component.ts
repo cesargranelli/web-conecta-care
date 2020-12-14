@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-complemento',
-  templateUrl: './complemento.component.html',
-  styleUrls: ['./complemento.component.css']
+  templateUrl: './cadastro-complemento.component.html',
+  styleUrls: ['./cadastro-complemento.component.css']
 })
-export class ComplementoComponent implements OnInit {
+export class CadastroComplementoComponent implements OnInit {
 
   constructor() { }
 

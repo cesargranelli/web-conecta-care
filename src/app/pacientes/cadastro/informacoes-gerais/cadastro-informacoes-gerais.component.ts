@@ -19,10 +19,10 @@ declare var jQuery: any;
 
 @Component({
   selector: 'app-informacoes-gerais',
-  templateUrl: './informacoes-gerais.component.html',
-  styleUrls: ['./informacoes-gerais.component.css']
+  templateUrl: './cadastro-informacoes-gerais.component.html',
+  styleUrls: ['./cadastro-informacoes-gerais.component.css']
 })
-export class InformacoesGeraisComponent implements OnInit {
+export class CadastroInformacoesGeraisComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
   public pacienteForm: FormGroup;

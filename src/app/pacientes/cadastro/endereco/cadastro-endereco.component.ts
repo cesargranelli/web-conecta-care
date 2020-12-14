@@ -12,10 +12,10 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-endereco',
-  templateUrl: './endereco.component.html',
-  styleUrls: ['./endereco.component.css']
+  templateUrl: './cadastro-endereco.component.html',
+  styleUrls: ['./cadastro-endereco.component.css']
 })
-export class EnderecoComponent implements OnInit {
+export class CadastroEnderecoComponent implements OnInit {
 
   public valid: Valid;
   public isCadastro: boolean;
