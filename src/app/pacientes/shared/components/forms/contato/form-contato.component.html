@@ -2,24 +2,24 @@
   <div class="card-body">
     <div class="tab-content">
       <div class="row">
-        <label class="col-lg-2 col-md-3 col-form-label" for="telefoneFixo">Fone Fixo *</label>
+        <label class="col-lg-2 col-md-3 col-form-label" for="telefoneFixo">Telefone Fixo</label>
         <div class="form-group col-lg-3 col-md-8">
           <input class="form-control" formControlName="telefoneFixo" id="telefoneFixo" mask="(00) 0000-0000"
                  placeholder="(99) 9999-9999" type="text">
         </div>
-        <label class="col-lg-3 col-md-3 col-form-label" for="telefoneRecado">Fone Recado</label>
+        <label class="col-md-3 col-form-label" for="telefoneRecado">Celular *</label>
         <div class="form-group col-lg-3 col-md-8">
-          <input class="form-control" formControlName="telefoneRecado" id="telefoneRecado" mask="(00) 0000-0000"
-                 placeholder="(99) 9999-9999" type="text">
+          <input class="form-control" formControlName="telefoneRecado" id="telefoneRecado" mask="(00) 00000-0000"
+                 placeholder="(99) 99999-9999" type="text">
         </div>
       </div>
       <div class="row">
-        <label class="col-lg-2 col-md-3 col-form-label" for="telefoneCelular">Celular</label>
+        <label class="col-lg-2 col-md-3 col-form-label" for="telefoneCelular">Recado</label>
         <div class="form-group col-lg-3 col-md-8">
           <input class="form-control" formControlName="telefoneCelular" id="telefoneCelular" mask="(00) 00000-0000"
                  placeholder="(99) 99999-9999" type="text">
         </div>
-        <label class="col-lg-3 col-md-3 col-form-label" for="telefoneWhatsapp">WhatsApp</label>
+        <label class="col-lg-3 col-md-3 col-form-label" for="telefoneWhatsapp">Celular Responsável Acompanhante</label>
         <div class="form-group col-lg-3 col-md-8">
           <input class="form-control" formControlName="telefoneWhatsapp" id="telefoneWhatsapp"
                  mask="(00) 00000-0000"
@@ -27,37 +27,11 @@
         </div>
       </div>
       <div class="row">
-        <label class="col-lg-2 col-md-3 col-form-label" for="telefoneOuvidoria">Fone Ouvidoria *</label>
-        <div class="form-group col-lg-3 col-md-8">
-          <input class="form-control" formControlName="telefoneOuvidoria" id="telefoneOuvidoria"
-                 mask="(00) 0000-0000"
-                 placeholder="(99) 9999-9999" type="text">
-        </div>
-        <label class="col-lg-2 col-md-3 col-form-label" for="email">Email *</label>
-        <div [ngClass]="validationHas.validation(contatoForm.controls.email)" class="form-group col-lg-3 col-md-8">
+        <label class="col-lg-2 col-md-3 col-form-label" for="email">Email Responsável Acompanhante</label>
+        <div [ngClass]="validationHas.validation(contatoForm.controls.email)" class="form-group col-lg-10 col-md-10">
           <input class="form-control" formControlName="email" id="email" placeholder="email@email.com" type="email">
         </div>
       </div>
-      <div class="row">
-        <label class="col-lg-2 col-md-3 col-form-label" for="email">Site *</label>
-        <div class="form-group col-lg-3 col-md-8">
-          <input class="form-control" formControlName="site" id="site" placeholder="www.seusite.com.br" type="text">
-        </div>
-      </div>
-      <ng-container *ngIf="isCadastro">
-        <div class="row">
-          <div class="form-check col-lg-3 col-md-10 col-form-label">
-            <label class="form-check-label">
-              <input class="form-check-input" formControlName="flagAceiteDeclaracao" id="flagAceiteDeclaracao" type="checkbox"
-                     value="">
-              Declaro que as informações fornecidas são verdadeiras *
-              <span class="form-check-sign">
-              <span class="check"></span>
-            </span>
-            </label>
-          </div>
-        </div>
-      </ng-container>
     </div>
   </div>
   <div class="card-footer justify-content-between">

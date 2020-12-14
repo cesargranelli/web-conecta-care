@@ -12,6 +12,7 @@ import {SharedComponentModule} from '../shared/components/shared-component.modul
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormEnderecoComponent} from './shared/components/forms/endereco/form-endereco.component';
 import { FormContatoComponent } from './shared/components/forms/contato/form-contato.component';
+import {NgxMaskModule} from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FormContatoComponent } from './shared/components/forms/contato/form-con
     PacientesRoutingModule,
     SharedComponentModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule
   ]
 })
 export class PacientesModule {

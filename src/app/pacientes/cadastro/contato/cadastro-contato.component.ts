@@ -7,7 +7,7 @@ import {ContatoService} from '../../../planos-saude/services/contato.service';
 import {Router} from '@angular/router';
 import {CadastroPlanosSaudeService} from '../../../planos-saude/services/cadastro-planos-saude.service';
 import {ContatoPlanoSaude} from '../../../planos-saude/classes/contato-plano-saude.class';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contato',
