@@ -14,7 +14,7 @@
               <div class="tab-content">
                 <div class="row">
                   <label class="col-lg-2 col-md-2 col-form-label" for="temTrabalho">Trabalha Atualmente *</label>
-                  <div class="form-group col-lg-3 col-md-8 checkbox-radios" id="temTrabalho">
+                  <div class="form-group col-lg-3 col-md-9 checkbox-radios" id="temTrabalho">
                     <div class="form-check">
                       <label class="form-check-label">
                         <input checked class="form-check-input" formControlName="temTrabalho"
@@ -37,38 +37,53 @@
                     </div>
                   </div>
                   <label class="col-lg-2 col-md-2 col-form-label" for="nome">Experiências do Trabalho Atual</label>
-                  <div class="form-group col-lg-5 col-md-5">
-                    <input class="form-control" formControlName="nome"
-                           id="nome"
-                           placeholder="Nome da Mãe"
-                           type="text">
+                  <div class="form-group col-lg-5 col-md-9">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
                   </div>
                 </div>
                 <div class="row">
                   <label class="col-lg-2 col-md-2 col-form-label" for="nome">Nome da Mãe*</label>
-                  <div class="form-group col-lg-6 col-md-6">
+                  <div class="form-group col-lg-4 col-md-9">
                     <input class="form-control" formControlName="nome"
                            id="nome"
                            placeholder="Nome da Mãe"
                            type="text">
+                  </div>
+                  <label class="col-lg-2 col-md-2 col-form-label" for="telefoneWhatsapp">Celular Mãe</label>
+                  <div class="form-group col-lg-3 col-md-9">
+                    <input class="form-control" formControlName="telefoneWhatsapp" id="telefoneWhatsapp"
+                           mask="(00) 00000-0000"
+                           placeholder="(99) 99999-9999" type="text">
                   </div>
                 </div>
                 <div class="row">
                   <label class="col-lg-2 col-md-2 col-form-label" for="nome">Nome do Pai</label>
-                  <div class="form-group col-lg-6 col-md-6">
+                  <div class="form-group col-lg-4 col-md-9">
                     <input class="form-control" formControlName="nome"
                            id="nome"
-                           placeholder="Nome da Mãe"
+                           placeholder="Nome do Pai"
                            type="text">
+                  </div>
+                  <label class="col-lg-2 col-md-2 col-form-label" for="telefoneWhatsapp">Celular Pai</label>
+                  <div class="form-group col-lg-3 col-md-9">
+                    <input class="form-control" formControlName="telefoneWhatsapp" id="telefoneWhatsapp"
+                           mask="(00) 00000-0000"
+                           placeholder="(99) 99999-9999" type="text">
                   </div>
                 </div>
                 <div class="row">
                   <label class="col-lg-2 col-md-2 col-form-label" for="nome">Nome Conjugê</label>
-                  <div class="form-group col-lg-6 col-md-6">
+                  <div class="form-group col-lg-4 col-md-9">
                     <input class="form-control" formControlName="nome"
                            id="nome"
-                           placeholder="Nome da Mãe"
+                           placeholder="Nome Conjugê"
                            type="text">
+                  </div>
+                  <label class="col-lg-2 col-md-2 col-form-label" for="telefoneWhatsapp">Celular Cônjuge</label>
+                  <div class="form-group col-lg-3 col-md-9">
+                    <input class="form-control" formControlName="telefoneWhatsapp" id="telefoneWhatsapp"
+                           mask="(00) 00000-0000"
+                           placeholder="(99) 99999-9999" type="text">
                   </div>
                 </div>
               </div>
