@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-historico-medico',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CadastroHistoricoMedicoComponent implements OnInit {
 
-  constructor() { }
+  public historicoMedico: FormGroup;
+  public hiddenForm: boolean;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

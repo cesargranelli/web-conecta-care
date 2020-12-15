@@ -9,7 +9,7 @@
               Histórico Médico
             </h3>
           </div>
-          <form (ngSubmit)="onSubmit()" [formGroup]="contatoForm" [hidden]="hiddenForm" class="form-horizontal">
+          <form [formGroup]="historicoMedico" [hidden]="hiddenForm" class="form-horizontal">
             <div class="card-body">
               <div class="tab-content">
                 <div class="row">
@@ -86,7 +86,7 @@
                   <label class="col-lg-2 col-md-2 col-form-label" for="dataUltimoTratamento">Data último
                     tratamento</label>
                   <div class="form-group col-lg-3 col-md-9">
-                    <input [readonly]="somenteLeitura" autocomplete="none"
+                    <input autocomplete="none"
                            class="form-control datetimepicker" formControlName="dataUltimoTratamento"
                            id="dataUltimoTratamento"
                            type="text">
@@ -94,7 +94,7 @@
                   <label class="col-lg-2 col-md-2 col-form-label" for="dataUltimoAtendimento">Data último
                     atendimento</label>
                   <div class="form-group col-lg-3 col-md-9">
-                    <input [readonly]="somenteLeitura" autocomplete="none"
+                    <input autocomplete="none"
                            class="form-control datetimepicker" formControlName="dataUltimoAtendimento"
                            id="dataUltimoAtendimento"
                            type="text">
@@ -124,7 +124,7 @@
                 </button>
               </span>
               <span class="bmd-form-group is-filled">
-                  <button [disabled]="!contatoForm.valid" class="btn btn-rose" type="submit">Alterar</button>
+                  <button class="btn btn-rose" type="submit">Alterar</button>
                 </span>
             </div>
           </form>
