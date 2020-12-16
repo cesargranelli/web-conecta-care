@@ -27,7 +27,7 @@ export class MenuPlanosSaudeComponent implements OnInit {
   }
 
   dadosPlanosSaude() {
-    this._router.navigateByUrl(`planos-saude/${this.valid?.id}/dados-planos-saude`);
+    this._router.navigateByUrl(`planos-saude/${this.valid?.id}/dados`);
   }
 
   logout() {

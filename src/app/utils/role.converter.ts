@@ -12,6 +12,8 @@ export class RoleConverter {
         return 'homecares';
       case RoleEnum.PlanoSaude:
         return 'planos-saude';
+      case RoleEnum.PlanoSaudeFilial:
+        return 'planos-saude-filial';
       default:
         break;
     }
@@ -27,6 +29,8 @@ export class RoleConverter {
         return RoleEnum.Homecare;
       case 'planos-saude':
         return RoleEnum.PlanoSaude;
+      case 'planos-saude-filial':
+        return RoleEnum.PlanoSaudeFilial;
       default:
         break;
     }

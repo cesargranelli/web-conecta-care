@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ContatoHomeCare } from 'src/app/homecares/classes/contato-homecare.class';
-import { ContatoService } from 'src/app/homecares/services/contato.service';
-import { CadastroHomeCaresService } from 'src/app/services/cadastro-homecares.service';
+import { ContatoPlanoSaude } from 'src/app/planos-saude/classes/contato-plano-saude.class';
+import { CadastroPlanosSaudeService } from 'src/app/planos-saude/services/cadastro-planos-saude.service';
+import { ContatoService } from 'src/app/planos-saude/services/contato.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
@@ -30,7 +30,7 @@ export class InformacoesContatoComponent implements OnInit {
     private _loading: SharedLoadingService,
     private _service: ContatoService,
     private _router: Router,
-    private _cadastro: CadastroHomeCaresService
+    private _cadastro: CadastroPlanosSaudeService
   ) {
     this._loading.emitChange(true);
     this.valid = this._validService.getValid();
@@ -42,9 +42,9 @@ export class InformacoesContatoComponent implements OnInit {
     this.labelBotaoSubmit = 'Alterar';
   }
 
-  onSubmit(contato: ContatoHomeCare) {
+  onSubmit(contato: ContatoPlanoSaude) {
     this._loading.emitChange(true);
-    contato.idHomeCare = this.valid.id;
+    contato.idPlanoSaude = this.valid.id;
     this._service.alterar(contato).subscribe(response => {
         setTimeout(() => {
           this._cadastro.contato = contato;

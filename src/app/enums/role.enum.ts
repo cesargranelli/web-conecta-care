@@ -3,5 +3,6 @@ export enum Role {
   Paciente = 'ROLE_PACIENTE',
   Profissional = 'ROLE_PROFISSIONAL',
   Homecare = 'ROLE_HOMECARE',
-  PlanoSaude = 'ROLE_PLANO_SAUDE'
+  PlanoSaude = 'ROLE_PLANO_SAUDE',
+  PlanoSaudeFilial = 'ROLE_PLANO_SAUDE_FILIAL'
 }

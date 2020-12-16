@@ -25,6 +25,7 @@ import { ConnectaComponent } from './components/connecta/connecta.component';
 import { MenuAdminComponent } from './components/menu/menu-admin/menu-admin.component';
 import { MenuHomecaresComponent } from './components/menu/menu-homecares/menu-homecares.component';
 import { MenuLogadoComponent } from './components/menu/menu-logado/menu-logado.component';
+import { MenuPlanosSaudeFilialComponent } from './components/menu/menu-planos-saude-filial/menu-planos-saude-filial.component';
 import { MenuPlanosSaudeComponent } from './components/menu/menu-planos-saude/menu-planos-saude.component';
 import { MenuProfissionaisComponent } from './components/menu/menu-profissionais/menu-profissionais.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -34,6 +35,7 @@ import { PacientesModule } from './pacientes/pacientes.module';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
 import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
+import { PlanosSaudeFilialModule } from './planos-saude-filial/planos-saude-filial.module';
 import { PlanosSaudeModule } from './planos-saude/planos-saude.module';
 import { ProfissionaisModule } from './profissionais/profissionais.module';
 import { HeadersInterceptor } from './services/interceptors/headers.interceptor';
@@ -48,6 +50,7 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     MenuProfissionaisComponent,
     MenuHomecaresComponent,
     MenuPlanosSaudeComponent,
+    MenuPlanosSaudeFilialComponent,
     MenuAdminComponent,
     ConnectaComponent,
     CadastroComponent,
@@ -81,6 +84,7 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     PacientesModule,
     HomeCaresModule,
     PlanosSaudeModule,
+    PlanosSaudeFilialModule,
     AuthModule,
     AdminModule
   ],
