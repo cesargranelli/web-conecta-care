@@ -1,0 +1,23 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">contact_phone</i>
+            <h3 class="card-title">
+              Contato
+            </h3>
+          </div>
+          <app-form-contato-plano-saude
+            (onSubmitEvent)="onSubmit($event)"
+            [isCadastro]="isCadastro"
+            [linkBotaoVoltar]="linkBotaoVoltar"
+            [labelBotaoSubmit]="labelBotaoSubmit"
+          >
+          </app-form-contato-plano-saude>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

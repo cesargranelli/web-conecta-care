@@ -1,0 +1,24 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">info</i>
+            <h3 class="card-title">
+              Dados Plano de Saúde
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div *ngFor="let card of cards" class="col-lg-6 col-md-6 col-sm-6">
+                <app-card-ver-dados-planos-saude-filial [icon]="card.icon" [link]="card.link" [stats]="card.stats" [value]="card.value">
+                </app-card-ver-dados-planos-saude-filial>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

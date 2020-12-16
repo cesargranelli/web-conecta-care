@@ -1,0 +1,90 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+  <div class="card card-login">
+    <div class="card-header card-header-rose text-center">
+      <div class="social-line">
+        <i class="material-icons">fingerprint</i>
+        <h4 class="card-title">Informações de Login</h4>
+      </div>
+    </div>
+    <div [hidden]="esconderFormulario" class="col-lg-12 col-md-12 col-sm-8 ml-auto mr-auto">
+      <p class="card-description text-center"></p>
+      <div [ngClass]="inputHas.validation(loginForm.controls.email)"
+           class="form-row justify-content-center form-control-lg">
+        <div class="col-lg-10 col-md-10 col-sm-8">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">email</i>
+              </span>
+            </div>
+            <input autocomplete="false" class="form-control" formControlName="email" placeholder="Email" type="email">
+            <span class="form-control-feedback">
+              <i class="material-icons">{{ input.validation(loginForm.controls.email) }}</i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="inputHas.validation(loginForm.controls.confirmarEmail)"
+           class="form-row justify-content-center form-control-lg">
+        <div class="col-lg-10 col-md-10 col-sm-8">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">email</i>
+              </span>
+            </div>
+            <input autocomplete="false" class="form-control" formControlName="confirmarEmail" placeholder="Confirmar Email"
+                   type="email">
+            <span class="form-control-feedback">
+              <i class="material-icons">{{ input.validation(loginForm.controls.confirmarEmail) }}</i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row justify-content-center form-control-lg">
+        <div class="col-lg-10 col-md-10 col-sm-8">
+          <div [ngClass]="inputHas.validation(loginForm.controls.password)" class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">lock_outline</i>
+              </span>
+            </div>
+            <input [title]="mensagemToolTip" class="form-control" data-html="true" data-placement="top"
+                   data-toggle="tooltip" data-trigger="click" formControlName="password" placeholder="Password"
+                   type="password">
+            <span class="form-control-feedback">
+              <i class="material-icons">{{ input.validation(loginForm.controls.password) }}</i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row justify-content-center form-control-lg">
+        <div class="col-lg-10 col-md-10 col-sm-8">
+          <div [ngClass]="inputHas.validation(loginForm.controls.confirmarPassword)" class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">lock_outline</i>
+              </span>
+            </div>
+            <input [title]="mensagemToolTip" class="form-control" data-html="true"
+                   data-placement="top"
+                   data-toggle="tooltip" data-trigger="click" formControlName="confirmarPassword" placeholder="Confirmar Password"
+                   type="password">
+            <span class="form-control-feedback">
+              <i class="material-icons">{{ input.validation(loginForm.controls.confirmarPassword) }}</i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer justify-content-between">
+      <span *ngIf="isCadastro" class="bmd-form-group is-filled">
+        <button *ngIf="linkBotaoVoltar != null" (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+        <button (click)="limpar()" class="btn btn-gray" type="button">Limpar</button>
+      </span>
+      <span class="bmd-form-group is-filled">
+        <button [disabled]="!loginForm.valid" class="btn btn-rose" type="submit">Avançar</button>
+      </span>
+    </div>
+  </div>
+</form>

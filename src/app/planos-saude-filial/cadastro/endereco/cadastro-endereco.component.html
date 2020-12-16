@@ -1,0 +1,23 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">house</i>
+            <h3 class="card-title">
+              Endereço
+            </h3>
+          </div>
+          <app-form-endereco-plano-saude-filial
+            (onSubmitEvent)="onSubmit($event)"
+            [isCadastro]="isCadastro"
+            [linkBotaoVoltar]="linkBotaoVoltar"
+            [labelBotaoSubmit]="labelBotaoSubmit"
+          >
+          </app-form-endereco-plano-saude-filial>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

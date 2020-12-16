@@ -1,0 +1,88 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="planoSaudeForm" [hidden]="hideForm" class="form-horizontal">
+  <div class="card-body">
+    <div class="tab-content">
+      <div class="row">
+        <label class="col-lg-3 col-md-3 col-form-label" for="nome">Empresa Plano de Saúde *</label>
+        <div class="form-group col-lg-6 col-md-6">
+          <input [value]="planoSaudeForm.get('nome').value | titlecase" class="form-control" formControlName="nome"
+                 id="nome"
+                 placeholder="Nome da empresa"
+                 type="text">
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-3 col-md-3 col-form-label" for="planoSaudeMatriz">Plano de Saúde Matriz *</label>
+        <div class="form-group col-lg-6 col-md-6">
+          <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="planoSaudeMatriz"
+                  id="planoSaudeMatriz" title="Selecione">
+            <option *ngFor="let planoSaudeMatriz of planosSaudeMatriz" [value]="planoSaudeMatriz.id">{{ planoSaudeMatriz.nome | uppercase }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-3 col-md-3 col-form-label" for="tipoDocumento">Tipo Documento *</label>
+        <div class="form-group col-lg-3 col-md-8 checkbox-radios" id="tipoDocumento">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input checked class="form-check-input" formControlName="tipoDocumento"
+                     name="tipoDocumento" type="radio" value="CNPJ">
+              CNPJ
+              <span class="circle">
+                    <span class="check"></span>
+                  </span>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" formControlName="tipoDocumento" name="tipoDocumento"
+                     type="radio" value="MEI">
+              MEI
+              <span class="circle">
+                    <span class="check"></span>
+                  </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-3 col-md-3 col-form-label"
+               for="cnpj">Nº {{planoSaudeForm.value.tipoDocumento}}
+          *</label>
+        <div [ngClass]="validationHas.validation(planoSaudeForm.controls?.cnpj)" class="form-group col-lg-6 col-md-6">
+          <input [value]="planoSaudeForm.controls?.cnpj" class="form-control" formControlName="cnpj" id="cnpj" mask="00.000.000/0000-00"
+                 placeholder="Nº {{planoSaudeForm.value.tipoDocumento}}" type="text">
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-3 col-md-3 col-form-label" for="anoFundacao">Ano Fundação *</label>
+        <div class="form-group col-lg-3 col-md-3">
+          <input class="form-control" formControlName="anoFundacao" mask="9{4}" type="text">
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-3 col-md-3 col-form-label" for="especialidade">Área Atendimento *</label>
+        <div class="form-group col-lg-6 col-md-6">
+          <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="especialidade"
+                  id="especialidade" multiple="multiple" title="Selecione">
+            <option *ngFor="let especialidade of especialidades">{{ especialidade.nome | uppercase }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer justify-content-between">
+    <span *ngIf="!isCadastro" class="bmd-form-group is-filled">
+      <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
+        <i class="material-icons">arrow_back</i>
+      </button>
+    </span>
+    <span *ngIf="isCadastro" class="bmd-form-group is-filled">
+      <button *ngIf="linkBotaoVoltar != null" (click)="onReturn()" class="btn btn-gray" type="button">Retornar</button>
+      <button (click)="limparForm()" class="btn btn-gray" type="button">Limpar</button>
+    </span>
+    <span class="bmd-form-group is-filled">
+        <button [disabled]="!planoSaudeForm.valid" class="btn btn-rose"
+                type="submit">{{ labelBotaoSubmit }}</button>
+    </span>
+  </div>
+</form>
