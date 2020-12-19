@@ -53,7 +53,7 @@ export class ContatoComponent implements OnInit {
     this._dominioService.getPaises().pipe(
       map((response) => {
         this._loading.emitChange(true);
-        let paises: Pais[] = response.body.data;
+        let paises: Pais[] = response.body;
         this.pais = paises.find(pais => pais.id == Number(this._cadastro.endereco?.pais));
         if (this.pais) {
           this.codigoPais = '+' + Number(this.pais.codigo);
