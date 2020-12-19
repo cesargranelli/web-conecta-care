@@ -56,11 +56,11 @@ export class ContaComponent implements OnInit {
 
     this._dominioService.getTipoContas().pipe(
       map(response => {
-        this.tipoContas = response.body.data;
+        this.tipoContas = response.body;
       }),
       concatMap(() => this._dominioService.getBancos().pipe(
         map(value => {
-          this.bancos = value.body.data;
+          this.bancos = value.body;
         }))
       ),
       concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
