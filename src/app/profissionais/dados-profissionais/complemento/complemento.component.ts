@@ -72,7 +72,7 @@ export class ComplementoComponent implements OnInit {
 
     this._dominioService.getCategoriasCNH().pipe(
       map(categoriasCNH => {
-        this.categoriasCNH = categoriasCNH.body.data;
+        this.categoriasCNH = categoriasCNH.body;
       }),
       concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
     ).subscribe(dadosComplemento => {

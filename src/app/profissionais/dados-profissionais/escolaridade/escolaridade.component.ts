@@ -56,7 +56,7 @@ export class EscolaridadeComponent implements OnInit {
 
     this._dominioService.getInstrucoes().pipe(
       map(instrucoes => {
-        this.instrucoes = instrucoes.body.data;
+        this.instrucoes = instrucoes.body;
       }),
       concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
     ).subscribe(escolaridade => {

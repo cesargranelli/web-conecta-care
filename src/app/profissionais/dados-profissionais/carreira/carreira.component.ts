@@ -69,10 +69,10 @@ export class CarreiraComponent implements OnInit {
     }
 
     this._dominioService.getConselhos().pipe(
-      map(conselhos => this.conselhos = conselhos.body.data),
-      concatMap(() => this._dominioService.getEstados().pipe(map(estados => this.estados = estados.body.data))),
-      concatMap(() => this._dominioService.getAreasAtendimento().pipe(map(areasAtentimento => this.areasAtendimento = areasAtentimento.body.data))),
-      concatMap(() => this._dominioService.getTransportes().pipe(map(transportes => this.transportes = transportes.body.data))),
+      map(conselhos => this.conselhos = conselhos.body),
+      concatMap(() => this._dominioService.getEstados().pipe(map(estados => this.estados = estados.body))),
+      concatMap(() => this._dominioService.getAreasAtendimento().pipe(map(areasAtentimento => this.areasAtendimento = areasAtentimento.body))),
+      concatMap(() => this._dominioService.getTransportes().pipe(map(transportes => this.transportes = transportes.body))),
       concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
     ).subscribe(dadosCarreira => {
       this.carreira = dadosCarreira;
