@@ -46,7 +46,7 @@ export class CadastroLoginComponent implements OnInit {
   ngOnInit(): void {
     this.isCadastro = true;
     this.linkBotaoVoltar = `planos-saude/${this.id}/cadastro/filial/contato`;
-    this.labelBotaoSubmit = "Avançar";
+    this.labelBotaoSubmit = "Finalizar";
   }
 
   onSubmit(loginForm: FormGroup) {

@@ -14,7 +14,6 @@
           "builder": "@angular-devkit/build-angular:browser",
           "outputHashing": "all",
           "options": {
-            "allowedCommonJsDependencies": ["rxjs"],
             "outputPath": "dist/web-connecta",
             "index": "src/index.html",
             "main": "src/main.ts",

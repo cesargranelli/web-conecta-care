@@ -191,7 +191,7 @@ export class InformacoesGeraisComponent implements OnInit {
 
     this._service.save(profissional).subscribe(
       (response) => {
-        this.valid.id = response.body.profissionalId;
+        this.valid.id = response.body.data.profissionalId;
         setTimeout(() => {
           this._cadastro.profissional = profissional;
           this._router.navigateByUrl(
