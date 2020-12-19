@@ -70,10 +70,10 @@ export class EnderecoComponent implements OnInit {
 
     this._dominioService.getEstados().pipe(
       map((response) => {
-        this.estados = response.body;
+        this.estados = response.body.data;
       }),
       concatMap(() => this._dominioService.getPaises().pipe(map(response => {
-        this.paises = response.body;
+        this.paises = response.body.data;
       }))),
       concatMap(() => this._service.getDados(this.valid.id))
     ).subscribe(
