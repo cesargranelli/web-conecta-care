@@ -77,9 +77,9 @@ export class InformacoesGeraisComponent implements OnInit {
   ngOnInit() {
     this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
     this._dominioService.getGeneros().pipe(
-      map(response => this.generos = response.body),
-      concatMap(() => this._dominioService.getTipoEmpresas().pipe(map(response => this.tipoEmpresas = response.body))),
-      concatMap(() => this._dominioService.getEstadoCivis().pipe(map(response => this.estadoCivis = response.body))),
+      map(response => this.generos = response.body.data),
+      concatMap(() => this._dominioService.getTipoEmpresas().pipe(map(response => this.tipoEmpresas = response.body.data))),
+      concatMap(() => this._dominioService.getEstadoCivis().pipe(map(response => this.estadoCivis = response.body.data))),
       concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
     ).subscribe(dadosProfissional => {
       this.profissional = dadosProfissional;
