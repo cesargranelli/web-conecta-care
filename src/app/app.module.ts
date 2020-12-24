@@ -25,6 +25,7 @@ import { ConnectaComponent } from './components/connecta/connecta.component';
 import { MenuAdminComponent } from './components/menu/menu-admin/menu-admin.component';
 import { MenuHomecaresComponent } from './components/menu/menu-homecares/menu-homecares.component';
 import { MenuLogadoComponent } from './components/menu/menu-logado/menu-logado.component';
+import { MenuPacientesComponent } from './components/menu/menu-pacientes/menu-pacientes.component';
 import { MenuPlanosSaudeFilialComponent } from './components/menu/menu-planos-saude-filial/menu-planos-saude-filial.component';
 import { MenuPlanosSaudeComponent } from './components/menu/menu-planos-saude/menu-planos-saude.component';
 import { MenuProfissionaisComponent } from './components/menu/menu-profissionais/menu-profissionais.component';
@@ -48,6 +49,7 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     MenuComponent,
     MenuLogadoComponent,
     MenuProfissionaisComponent,
+    MenuPacientesComponent,
     MenuHomecaresComponent,
     MenuPlanosSaudeComponent,
     MenuPlanosSaudeFilialComponent,

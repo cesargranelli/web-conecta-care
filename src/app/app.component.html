@@ -1,5 +1,6 @@
 <app-menu *ngIf="!login"></app-menu>
 <app-menu-profissionais *ngIf="storageValid?.role?.toString()=='ROLE_PROFISSIONAL'"></app-menu-profissionais>
+<app-menu-pacientes *ngIf="storageValid?.role?.toString()=='ROLE_PACIENTE'"></app-menu-pacientes>
 <app-menu-homecares *ngIf="storageValid?.role?.toString()=='ROLE_HOMECARE'"></app-menu-homecares>
 <app-menu-planos-saude *ngIf="storageValid?.role?.toString()=='ROLE_PLANO_SAUDE'"></app-menu-planos-saude>
 <app-menu-planos-saude-filial *ngIf="storageValid?.role?.toString()=='ROLE_PLANO_SAUDE_FILIAL'"></app-menu-planos-saude-filial>

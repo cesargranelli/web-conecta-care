@@ -41,7 +41,7 @@ export class CadastroLoginComponent implements OnInit {
     let login: Usuario = new Usuario(
       loginForm.value.email,
       loginForm.value.password,
-      Role.PlanoSaude,
+      Role.Paciente,
       this.id
     );
 
