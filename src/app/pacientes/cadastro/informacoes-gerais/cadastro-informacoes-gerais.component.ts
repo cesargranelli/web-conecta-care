@@ -14,6 +14,8 @@ import {SharedLoadingService} from '../../../shared/services/shared-loading.serv
 import {CadastroProfissionaisService} from '../../../services/cadastro-profissionais.service';
 import {validCnpj} from '../../../shared/validations/directives/valid-cnpj.directive';
 import Swal from 'sweetalert2';
+import { PacienteService } from 'src/app/services/paciente.service';
+import { concatMap, map } from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -47,7 +49,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
     private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _service: ProfissionalService,
-    private _dominioService: DominioService,
+    private _dominioService: PacienteService,
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
@@ -77,32 +79,32 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
 
   ngOnInit() {
     this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
-    // this._dominioService.getGeneros().pipe(
-    //   // map(response => this.generos = response.body),
-    //   concatMap(() => this._dominioService.getEstadoCivis().pipe(map(response => this.estadoCivis = response.body))),
-    //   concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
-    // ).subscribe(dadosProfissional => {
-    //   this.profissional = dadosProfissional;
-    //   this.popularForm();
-    //   if (this.profissional && this.profissional.fotoProfissional) {
-    //     this.fotoProfissional = this.profissional.fotoProfissional;
-    //     this.fileInputProfissional = 'fileinput-exists';
-    //   }
-    //   if (this.profissional && this.profissional.fotoRg) {
-    //     this.fotoRg = this.profissional.fotoRg;
-    //     this.fileInputRg = 'fileinput-exists';
-    //   }
-    //   jQuery('select').selectpicker('render');
-    //   setTimeout(() => {
-    //     jQuery('select').selectpicker('refresh');
-    //     this.showForm = false;
-    //     this._loading.emitChange(false);
-    //   });
-    // });
-    // jQuery('.datetimepicker').datetimepicker({
-    //   format: 'DD/MM/YYYY',
-    //   maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
-    // });
+    this._dominioService.listarGenero().pipe(
+      map(response => this.generos = response.body),
+      concatMap(() => this._dominioService.listarEstadoCivil().pipe(map(response => this.estadoCivis = response.body))),
+      //concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
+    ).subscribe(dadosProfissional => {
+      // this.profissional = dadosProfissional;
+      // this.popularForm();
+      // if (this.profissional && this.profissional.fotoProfissional) {
+      //   this.fotoProfissional = this.profissional.fotoProfissional;
+      //   this.fileInputProfissional = 'fileinput-exists';
+      // }
+      // if (this.profissional && this.profissional.fotoRg) {
+      //   this.fotoRg = this.profissional.fotoRg;
+      //   this.fileInputRg = 'fileinput-exists';
+      // }
+      // jQuery('select').selectpicker('render');
+      // setTimeout(() => {
+      //   jQuery('select').selectpicker('refresh');
+      //   this.showForm = false;
+      //   this._loading.emitChange(false);
+      // });
+    });
+    jQuery('.datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY',
+      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+    });
   }
 
   popularForm() {
