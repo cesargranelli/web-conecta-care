@@ -12,7 +12,7 @@ export class GeneroService {
   }
 
   listarGenero(): Observable<HttpResponse<any>> {
-    return this._http.get(`${environment.apiConnecta}api/v1/genero`, {observe: 'response'});
+    return this._http.get(`${environment.apiConnecta}/api/v1/genero`, {observe: 'response'});
   }
   
 }

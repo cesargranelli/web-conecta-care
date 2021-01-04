@@ -1,10 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
 import { EstadoCivil } from 'src/app/classes/estado-civil.class';
 import { Genero } from 'src/app/classes/genero.class';
 import { Profissional } from 'src/app/classes/profissional.class';
 import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
+import { EstadoCivilService } from 'src/app/pacientes/services/estado-civil.service';
+import { GeneroService } from 'src/app/pacientes/services/genero.service';
 import { PacienteService } from 'src/app/pacientes/services/paciente.service';
 import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
 import { Valid } from 'src/app/services/feat/Valid';
@@ -46,8 +49,10 @@ export class FormInformacoesGeraisComponent implements OnInit {
     private _router: Router,
     private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
-    private _service: ProfissionalService,
+    private _service: PacienteService,
     private _dominioService: PacienteService,
+    private _generoService: GeneroService,
+    private _estadoCivilService: EstadoCivilService,
     private _loading: SharedLoadingService,
     private _cadastro: CadastroProfissionaisService
   ) {
@@ -77,11 +82,11 @@ export class FormInformacoesGeraisComponent implements OnInit {
 
   ngOnInit() {
     this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
-    // this._dominioService.listarGenero().pipe(
-    //   map(response => this.generos = response.body),
-    //   concatMap(() => this._dominioService.listarEstadoCivil().pipe(map(response => this.estadoCivis = response.body))),
-      //concatMap(() => this._service.getDados(this._dadosLocalStorage.id))
-    // ).subscribe(dadosProfissional => {
+    this._generoService.listarGenero().pipe(
+      map(response => this.generos = response.body),
+      concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadoCivis = response.body))),
+      concatMap(() => this._service.pesquisarPacienteId(this._dadosLocalStorage.id))
+    ).subscribe(dadosProfissional => {
       // this.profissional = dadosProfissional;
       // this.popularForm();
       // if (this.profissional && this.profissional.fotoProfissional) {
@@ -98,11 +103,11 @@ export class FormInformacoesGeraisComponent implements OnInit {
       //   this.showForm = false;
       //   this._loading.emitChange(false);
       // });
-    // });
-    // jQuery('.datetimepicker').datetimepicker({
-    //   format: 'DD/MM/YYYY',
-    //   maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
-    // });
+    });
+    jQuery('.datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY',
+      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+    });
   }
 
   popularForm() {
@@ -204,29 +209,29 @@ export class FormInformacoesGeraisComponent implements OnInit {
       }
     }
 
-    this._service.save(profissional).subscribe(response => {
-      this._dadosLocalStorage.id = response.body.profissionalId;
-      setTimeout(() => {
-        this._cadastro.profissional = profissional;
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Alteração realizada com sucesso!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`);
-        this._loading.emitChange(false);
-      });
-    }, () => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar alterar as informações do profissional',
-        showConfirmButton: true
-      });
-    });
+    // this._service.save(profissional).subscribe(response => {
+    //   this._dadosLocalStorage.id = response.body.profissionalId;
+    //   setTimeout(() => {
+    //     this._cadastro.profissional = profissional;
+    //     Swal.fire({
+    //       position: 'center',
+    //       icon: 'success',
+    //       title: 'Alteração realizada com sucesso!',
+    //       showConfirmButton: false,
+    //       timer: 2000
+    //     });
+    //     this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`);
+    //     this._loading.emitChange(false);
+    //   });
+    // }, () => {
+    //   this._loading.emitChange(false);
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'error',
+    //     title: 'Ocorreu um erro inexperado ao tentar alterar as informações do profissional',
+    //     showConfirmButton: true
+    //   });
+    // });
   }
 
   validacoes(dataEmissao: string, dataNascimento: string) {
