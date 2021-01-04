@@ -1,23 +1,20 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {InputValidationHas} from '../../../shared/validations/input-validation-has';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Valid} from '../../../services/feat/Valid';
-import {Contato} from '../../../classes/contato.class';
-import {Router} from '@angular/router';
-import {SharedValidService} from '../../../shared/services/shared-valid.service';
-import {ContatoService} from '../../../services/contato.service';
-import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
-import Swal from 'sweetalert2';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Contato } from 'src/app/classes/contato.class';
 import { Estado } from 'src/app/classes/estado.class';
-import {concatMap, map} from 'rxjs/operators';
+import { ContatoService } from 'src/app/services/contato.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 @Component({
-  selector: 'app-complemento',
-  templateUrl: './cadastro-complemento.component.html',
-  styleUrls: ['./cadastro-complemento.component.css']
+  selector: 'app-form-complemento',
+  templateUrl: './form-complemento.component.html',
+  styleUrls: ['./form-complemento.component.css']
 })
-export class CadastroComplementoComponent implements OnInit {
-
+export class FormComplementoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
   public validationHas: InputValidationHas = new InputValidationHas();
