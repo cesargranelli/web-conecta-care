@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Modulo } from 'src/app/classes/modulo';
 import { PlanoSaudeFilial } from 'src/app/planos-saude-filial/classes/plano-saude-filial.class';
 import { CadastroPlanosSaudeFilialService } from 'src/app/planos-saude-filial/services/cadastro-planos-saude-filial.service';
 import { PlanoSaudeFilialService } from 'src/app/planos-saude-filial/services/plano-saude-filial.service';
@@ -10,7 +11,6 @@ import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
-import { Role } from 'src/app/classes/role';
 
 declare var jQuery: any;
 
@@ -65,10 +65,10 @@ export class CadastroPlanoSaudeFilialComponent implements OnInit {
     this._loading.emitChange(true);
     let numero: string = planoSaude.cnpj;
     let tipo: string = planoSaude.tipoDocumento;
-    let role: Role = new Role('planos-saude-filial');
+    let modulo: Modulo = new Modulo('planos-saude-filial');
 
     if (!this._cadastro.planoSaude.id) {
-      this._serviceDocumento.registrar({numero: numero, tipo: tipo, perfil: role.getRole()}).subscribe(response => {
+      this._serviceDocumento.registrar({numero: numero, tipo: tipo, modulo: modulo.getModulo()}).subscribe(response => {
         this._loading.emitChange(false);
         if (response.body.data?.id) {
           this._cadastro.planoSaude.id = response.body.data.id;

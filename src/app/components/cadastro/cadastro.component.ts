@@ -1,12 +1,13 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Role} from 'src/app/classes/role';
-import {DocumentoService} from 'src/app/services/documento.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import {validCpf} from 'src/app/shared/validations/directives/valid-cpf.directive';
-import {InputValidation} from '../../shared/validations/input-validation';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Modulo } from 'src/app/classes/modulo';
+import { DocumentoService } from 'src/app/services/documento.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
+import Swal from 'sweetalert2';
+import { InputValidation } from '../../shared/validations/input-validation';
 
 declare var jQuery: any;
 
@@ -23,7 +24,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
-  role: Role = new Role('pacientes');
+  public modulo: Modulo = new Modulo('pacientes');
 
   public pacienteForm: FormGroup;
   public profissionalForm: FormGroup;
@@ -63,10 +64,10 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   onSubmit_(form: FormGroup, element: HTMLElement) {
     let numero: string = form.get(element.getAttribute('formControlName')).value;
-    let tipo: string = element.getAttribute('formControlName');
-    let perfil: string = this.role.getRole();
+    let tipo: string = element.getAttribute('formControlName').toUpperCase();
+    let modulo: string = this.modulo.getModulo();
     this._loading.emitChange(true);
-    this._documentoService.registrar({numero: numero, tipo: tipo, perfil: perfil}).subscribe(response => {
+    this._documentoService.registrar({numero: numero, tipo: tipo, modulo: modulo}).subscribe(response => {
       this._loading.emitChange(false);
       if (response.body.data?.id != undefined) {
         this._router.navigateByUrl(`cadastro/login`, {
@@ -75,26 +76,44 @@ export class CadastroComponent implements OnInit, OnDestroy {
       } else {
         this.cpfCnpjJaCadastrado = true;
       }
-    }, error => this._loading.emitChange(false));
+    },
+    httpResponse => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: httpResponse.error.data.message || httpResponse.error.data.error[0],
+        showConfirmButton: true
+      });
+      this._loading.emitChange(false);
+    });
   }
 
   onSubmit(form: FormGroup, element: HTMLElement) {
     let numero: string = form.get(element.getAttribute('formControlName')).value;
-    let tipo: string = element.getAttribute('formControlName');
-    let role: string = this.role.getRole();
+    let tipo: string = element.getAttribute('formControlName').toUpperCase();
+    let modulo: string = this.modulo.getModulo();
     this._loading.emitChange(true);
-    this._documentoService.registrar({numero: numero, tipo: tipo, perfil: role}).subscribe(response => {
+    this._documentoService.registrar({numero: numero, tipo: tipo, modulo: modulo}).subscribe(response => {
       this._loading.emitChange(false);
       if (response.body.data?.id != undefined) {
-        this._router.navigateByUrl(`${this.role.getPerfil()}/${response.body.data?.id}/cadastro/login`);
+        this._router.navigateByUrl(`${this.modulo.getNome()}/${response.body.data?.id}/cadastro/login`);
       } else {
         this.cpfCnpjJaCadastrado = true;
       }
-    }, error => this._loading.emitChange(false));
+    },
+    httpResponse => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: httpResponse.error.data.message || httpResponse.error.data.error[0],
+        showConfirmButton: true
+      });
+      this._loading.emitChange(false);
+    });
   }
 
   setRole(perfil: string) {
-    this.role = new Role(perfil);
+    this.modulo = new Modulo(perfil);
   }
 
   ngOnDestroy() {
