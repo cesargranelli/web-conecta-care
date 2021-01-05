@@ -17,12 +17,10 @@ export class PacienteService {
       {observe: 'response'});
   }
 
-  pesquisarPacienteId(id: number): Observable<HttpResponse<any>> {
+  pesquisarById(id: number): Observable<HttpResponse<any>> {
     return this._http.get(`${environment.apiConnecta}api/v1/paciente/${id}`, {observe: 'response'});
   }
 
-  pesquisarContatoId(id: number): Observable<HttpResponse<any>> {
-    return this._http.get(`${environment.apiConnecta}api/v1/contato/${id}`, {observe: 'response'});
-  }
-  
+
+
 }

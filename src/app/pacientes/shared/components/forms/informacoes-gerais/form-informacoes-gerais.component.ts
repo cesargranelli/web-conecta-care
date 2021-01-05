@@ -1,22 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { concatMap, map } from 'rxjs/operators';
-import { EstadoCivil } from 'src/app/classes/estado-civil.class';
-import { Genero } from 'src/app/classes/genero.class';
-import { Profissional } from 'src/app/classes/profissional.class';
-import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
-import { EstadoCivilService } from 'src/app/pacientes/services/estado-civil.service';
-import { GeneroService } from 'src/app/pacientes/services/genero.service';
-import { PacienteService } from 'src/app/pacientes/services/paciente.service';
-import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { ProfissionalService } from 'src/app/services/profissional.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
-import Swal from 'sweetalert2';
-import {validCnpj} from '../../../../../shared/validations/directives/valid-cnpj.directive';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {concatMap, map} from 'rxjs/operators';
+import {EstadoCivil} from 'src/app/classes/estado-civil.class';
+import {Genero} from 'src/app/classes/genero.class';
+import {TipoEmpresa} from 'src/app/classes/tipo-empresa.class';
+import {EstadoCivilService} from 'src/app/pacientes/services/estado-civil.service';
+import {GeneroService} from 'src/app/pacientes/services/genero.service';
+import {PacienteService} from 'src/app/pacientes/services/paciente.service';
+import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
+import {Valid} from 'src/app/services/feat/Valid';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import {Paciente} from "../../../../classes/paciente.class";
 
 declare var jQuery: any;
 
@@ -28,20 +25,27 @@ declare var jQuery: any;
 export class FormInformacoesGeraisComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
+  private readonly CAMINHO_IMAGEM_DUMMY: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
+  private readonly FILEINPUT_NEW: string = 'fileinput-new';
+  private readonly FILEINPUT_EXISTS: string = 'fileinput-exists';
+
   public pacienteForm: FormGroup;
   public generos: Array<Genero>;
   public tipoEmpresas: Array<TipoEmpresa>;
-  public estadoCivis: Array<EstadoCivil>;
+  public estadosCivil: Array<EstadoCivil>;
   public validationHas: InputValidationHas = new InputValidationHas();
-  public fileInputProfissional: string = 'fileinput-new';
-  public fileInputRg: string = 'fileinput-new';
+  public fileInputPaciente: string = this.FILEINPUT_NEW;
+  public fileInputRg: string = this.FILEINPUT_NEW;
+  public fileInputCpf: string = this.FILEINPUT_NEW;
   public hideForm: boolean = true;
-  public profissional: Profissional;
-  private readonly CAMINHO_IMAGEM_DUMMY: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
-  public fotoProfissional: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
+  public paciente: Paciente;
+  public fotoPaciente: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   public fotoRg: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
-  private _fileProfissional: File;
+  public fotoCpf: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
+  public showForm: boolean;
+  private _filePaciente: File;
   private _fileRg: File;
+  private _fileCpf: File;
   private _dadosLocalStorage: Valid;
   private _dataAtual: Date;
 
@@ -68,41 +72,40 @@ export class FormInformacoesGeraisComponent implements OnInit {
       rg: [null],
       rgEmissor: [null],
       rgDataEmissao: [null, [Validators.minLength(10), Validators.maxLength(10)]],
-      pis: [null],
       genero: [null, Validators.required],
-      tipoEmpresa: [null, Validators.required],
       estadoCivil: [null, Validators.required],
-      cnpj: [null, [validCnpj(false)]],
-      ctps: [null, Validators.required],
-      ctpsSerie: [null, Validators.required],
-      fotoProfissional: [null, Validators.required],
+      fotoPaciente: [null, Validators.required],
       fotoRg: [null, Validators.required],
+      fotoCpf: [null, Validators.required],
     });
   }
 
   ngOnInit() {
+    this.paciente = new Paciente();
     this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
     this._generoService.listarGenero().pipe(
-      map(response => this.generos = response.body),
-      concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadoCivis = response.body))),
-      concatMap(() => this._service.pesquisarPacienteId(this._dadosLocalStorage.id))
+      map(response => this.generos = response.body.data),
+      concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadosCivil = response.body.data))),
+      // concatMap(() => this._service.pesquisarPacienteId(this._dadosLocalStorage.id))
     ).subscribe(dadosProfissional => {
-      // this.profissional = dadosProfissional;
-      // this.popularForm();
-      // if (this.profissional && this.profissional.fotoProfissional) {
-      //   this.fotoProfissional = this.profissional.fotoProfissional;
+      // this.paciente = dadosProfissional;
+      console.log(this.generos);
+      console.log(this.estadosCivil)
+      this.popularForm();
+      // if (this.paciente && this.paciente.fotoProfissional) {
+      //   this.fotoProfissional = this.paciente.fotoProfissional;
       //   this.fileInputProfissional = 'fileinput-exists';
       // }
-      // if (this.profissional && this.profissional.fotoRg) {
-      //   this.fotoRg = this.profissional.fotoRg;
+      // if (this.paciente && this.paciente.fotoRg) {
+      //   this.fotoRg = this.paciente.fotoRg;
       //   this.fileInputRg = 'fileinput-exists';
       // }
-      // jQuery('select').selectpicker('render');
-      // setTimeout(() => {
-      //   jQuery('select').selectpicker('refresh');
-      //   this.showForm = false;
-      //   this._loading.emitChange(false);
-      // });
+      jQuery('select').selectpicker('render');
+      setTimeout(() => {
+        jQuery('select').selectpicker('refresh');
+        this.showForm = false;
+        this._loading.emitChange(false);
+      });
     });
     jQuery('.datetimepicker').datetimepicker({
       format: 'DD/MM/YYYY',
@@ -111,103 +114,116 @@ export class FormInformacoesGeraisComponent implements OnInit {
   }
 
   popularForm() {
-    if (this.profissional) {
+    if (this.paciente) {
       this.pacienteForm.patchValue({
-        nome: this.profissional.nome,
-        sobrenome: this.profissional.sobrenome,
-        dataNascimento: this.profissional.dataNascimento,
-        rg: this.profissional.rg,
-        rgEmissor: this.profissional.rgEmissor,
-        rgDataEmissao: this.profissional.rgDataEmissao,
-        pis: this.profissional.pis,
-        genero: this.profissional.genero.id,
-        tipoEmpresa: this.profissional.tipoEmpresa.id,
-        estadoCivil: this.profissional.estadoCivil.id,
-        cnpj: this.profissional.cnpj == 0 ? null : this.profissional.cnpj,
-        ctps: this.profissional.ctps,
-        ctpsSerie: this.profissional.ctpsSerie
+        nome: '',
+        sobrenome: '',
+        cpf: '',
+        dataNascimento: '',
+        rg: '',
+        rgEmissor: '',
+        rgDataEmissao: '',
+        genero: '',
+        estadoCivil: '',
+        fotoPaciente: '',
+        fotoRg: '',
+        fotoCpf: '',
       });
-      this.pacienteForm.controls.fotoRg.setValue(this.profissional.fotoRg, {emitModelToViewChange: false});
-      this.pacienteForm.controls.fotoProfissional.setValue(this.profissional.fotoProfissional, {emitModelToViewChange: false});
+      this.pacienteForm.controls.fotoPaciente.setValue(this.paciente.foto, {emitModelToViewChange: false});
+      this.pacienteForm.controls.fotoRg.setValue(this.paciente.fotoRg, {emitModelToViewChange: false});
+      this.pacienteForm.controls.fotoCpf.setValue(this.paciente.fotoCpf, {emitModelToViewChange: false});
     }
   }
 
-  onLoadFotoProfissional(event: any) {
-    this._fileProfissional = event.target.files[0];
-    var reader = new FileReader();
-    if (this._fileProfissional) {
-      reader.readAsDataURL(this._fileProfissional);
-      this.fileInputProfissional = 'fileinput-exists';
+  onLoadFotoPaciente(event: any) {
+    this._filePaciente = event.target.files[0];
+    let reader = new FileReader();
+    if (this._filePaciente) {
+      reader.readAsDataURL(this._filePaciente);
+      this.fileInputPaciente = this.FILEINPUT_EXISTS;
     }
     reader.onload = () => {
-      this.fotoProfissional = reader.result;
+      this.fotoPaciente = reader.result;
     };
   }
 
   onLoadFotoRg(event: any) {
     this._fileRg = event.target.files[0];
-    var reader = new FileReader();
+    let reader = new FileReader();
     if (this._fileRg) {
       reader.readAsDataURL(this._fileRg);
-      this.fileInputRg = 'fileinput-exists';
+      this.fileInputRg = this.FILEINPUT_EXISTS;
     }
     reader.onload = () => {
       this.fotoRg = reader.result;
     };
   }
 
+  onLoadFotoCpf(event: any) {
+    this._fileCpf = event.target.files[0];
+    let reader = new FileReader();
+    if (this._fileCpf) {
+      reader.readAsDataURL(this._fileCpf);
+      this.fileInputCpf = this.FILEINPUT_EXISTS;
+    }
+    reader.onload = () => {
+      this.fotoCpf = reader.result;
+    };
+  }
+
   onSubmit() {
-    this._loading.emitChange(true);
-    let profissional = this.pacienteForm.value;
-
-    profissional.id = this._dadosLocalStorage.id;
-    profissional.fotoProfissional = this.fotoProfissional;
-    profissional.fotoRg = this.fotoRg;
-
-    if (this.validacoes(profissional.rgDataEmissao, profissional.dataNascimento) && profissional.rg != null) {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'A data de emissão do RG deve ser maior do que a data de nascimento',
-        showConfirmButton: true,
-      });
-      return;
-    }
-
-    if (this.validaIdade(profissional.dataNascimento)) {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Necessário ter 18 anos ou mais para se cadastrar.',
-        showConfirmButton: true,
-      });
-      return;
-    }
-
-    if (profissional.rg != null && profissional.rg != '') {
-      if (profissional.rgDataEmissao == null || profissional.rgDataEmissao == '') {
-        this._loading.emitChange(false);
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Data de emissão do RG obrigatória.',
-          showConfirmButton: true,
-        });
-        return;
-      }
-      if (profissional.rgEmissor == null || profissional.rgEmissor == '') {
-        this._loading.emitChange(false);
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Emissor do RG obrigatório.',
-          showConfirmButton: true,
-        });
-        return;
-      }
-    }
+    console.log(this.pacienteForm.value);
+    // this._loading.emitChange(true);
+    // let profissional = this.pacienteForm.value;
+    //
+    // profissional.id = this._dadosLocalStorage.id;
+    // profissional.fotoProfissional = this.fotoPaciente;
+    // profissional.fotoRg = this.fotoRg;
+    //
+    // if (this.validacoes(profissional.rgDataEmissao, profissional.dataNascimento) && profissional.rg != null) {
+    //   this._loading.emitChange(false);
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'error',
+    //     title: 'A data de emissão do RG deve ser maior do que a data de nascimento',
+    //     showConfirmButton: true,
+    //   });
+    //   return;
+    // }
+    //
+    // if (this.validaIdade(profissional.dataNascimento)) {
+    //   this._loading.emitChange(false);
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'error',
+    //     title: 'Necessário ter 18 anos ou mais para se cadastrar.',
+    //     showConfirmButton: true,
+    //   });
+    //   return;
+    // }
+    //
+    // if (profissional.rg != null && profissional.rg != '') {
+    //   if (profissional.rgDataEmissao == null || profissional.rgDataEmissao == '') {
+    //     this._loading.emitChange(false);
+    //     Swal.fire({
+    //       position: 'center',
+    //       icon: 'error',
+    //       title: 'Data de emissão do RG obrigatória.',
+    //       showConfirmButton: true,
+    //     });
+    //     return;
+    //   }
+    //   if (profissional.rgEmissor == null || profissional.rgEmissor == '') {
+    //     this._loading.emitChange(false);
+    //     Swal.fire({
+    //       position: 'center',
+    //       icon: 'error',
+    //       title: 'Emissor do RG obrigatório.',
+    //       showConfirmButton: true,
+    //     });
+    //     return;
+    //   }
+    // }
 
     // this._service.save(profissional).subscribe(response => {
     //   this._dadosLocalStorage.id = response.body.profissionalId;
@@ -261,7 +277,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
   }
 
   dateChange(control: FormControl, name: string) {
-    jQuery(`#${name}`).on('dp.change', function(event: any) {
+    jQuery(`#${name}`).on('dp.change', function (event: any) {
       control.setValue(jQuery('#' + name)[0].value);
     });
   }

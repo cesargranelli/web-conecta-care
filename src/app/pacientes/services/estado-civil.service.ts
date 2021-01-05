@@ -12,7 +12,7 @@ export class EstadoCivilService {
   }
 
   listarEstadoCivil(): Observable<HttpResponse<any>> {
-    return this._http.get(`${environment.apiConnecta}api/v1/estado-civil`, {observe: 'response'});
+    return this._http.get(`${environment.apiConnecta}/api/v1/estado-civil`, {observe: 'response'});
   }
-  
+
 }
