@@ -26,7 +26,7 @@
              class="form-group col-lg-3 col-md-8">
           <input (focus)="dateChange(pacienteForm.controls?.dataNascimento, 'dataNascimento')"
                  autocomplete="none" class="form-control datetimepicker" formControlName="dataNascimento"
-                 id="dataNascimento" maxlength="10" type="text">
+                 id="dataNascimento" maxlength="10" type="text" mask="00/00/0000">
         </div>
       </div>
       <div class="row">
@@ -44,7 +44,7 @@
         <div class="form-group col-lg-3 col-md-8">
           <input (focus)="dateChange(pacienteForm.controls?.rgDataEmissao, 'rgDataEmissao')"
                  autocomplete="none" class="form-control datetimepicker" formControlName="rgDataEmissao"
-                 id="rgDataEmissao" maxlength="10" type="text">
+                 id="rgDataEmissao" maxlength="10" type="text" mask="00/00/0000">
         </div>
       </div>
       <div class="row">
@@ -53,6 +53,7 @@
           <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="genero"
                   id="genero" title="Selecione">
             <option *ngFor="let genero of generos" [ngValue]="genero.id"
+                    [selected]="genero.id === paciente?.genero?.id"
             >{{ genero.descricao }}</option>
           </select>
         </div>
@@ -63,6 +64,7 @@
           <select class="selectpicker" data-style="btn btn-primary" data-width="100%"
                   formControlName="estadoCivil" id="estadoCivil" title="Selecione">
             <option *ngFor="let estadoCivil of estadosCivil" [ngValue]="estadoCivil.id"
+                    [selected]="estadoCivil.id === paciente?.estadoCivil?.id"
             >{{ estadoCivil.tipo }}</option>
           </select>
         </div>

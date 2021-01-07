@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Experiencia} from '../classes/experiencia.class';
-import {ExperienciaResponseInterface} from './response/experienciaResponse.interface';
+import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ExperienciaService {
   }
 
   getDados(id: number): Observable<Array<Experiencia>> {
-    return this._http.get(`${this.endpoint}/${id}`).pipe(map((experiencias: ExperienciaResponseInterface) => {
+    return this._http.get(`${this.endpoint}/${id}`).pipe(map((experiencias: ResponseTemplateInterface) => {
         return experiencias.data;
       })
     );

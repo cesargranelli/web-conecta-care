@@ -42,7 +42,6 @@ export class FormInformacoesGeraisComponent implements OnInit {
   public fotoPaciente: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   public fotoRg: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   public fotoCpf: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
-  public showForm: boolean;
   private _filePaciente: File;
   private _fileRg: File;
   private _fileCpf: File;
@@ -53,7 +52,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
     private _router: Router,
     private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
-    private _service: PacienteService,
+    private _pacienteService: PacienteService,
     private _dominioService: PacienteService,
     private _generoService: GeneroService,
     private _estadoCivilService: EstadoCivilService,
@@ -86,24 +85,16 @@ export class FormInformacoesGeraisComponent implements OnInit {
     this._generoService.listarGenero().pipe(
       map(response => this.generos = response.body.data),
       concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadosCivil = response.body.data))),
-      // concatMap(() => this._service.pesquisarPacienteId(this._dadosLocalStorage.id))
-    ).subscribe(dadosProfissional => {
-      // this.paciente = dadosProfissional;
-      console.log(this.generos);
+      // concatMap(() => this._service.pesquisarById(this._dadosLocalStorage.id))
+      concatMap(() => this._pacienteService.pesquisarById(2))
+    ).subscribe(paciente => {
+      this.paciente = paciente;
       console.log(this.estadosCivil)
+      console.log(this.paciente);
       this.popularForm();
-      // if (this.paciente && this.paciente.fotoProfissional) {
-      //   this.fotoProfissional = this.paciente.fotoProfissional;
-      //   this.fileInputProfissional = 'fileinput-exists';
-      // }
-      // if (this.paciente && this.paciente.fotoRg) {
-      //   this.fotoRg = this.paciente.fotoRg;
-      //   this.fileInputRg = 'fileinput-exists';
-      // }
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
-        this.showForm = false;
         this._loading.emitChange(false);
       });
     });
@@ -116,23 +107,37 @@ export class FormInformacoesGeraisComponent implements OnInit {
   popularForm() {
     if (this.paciente) {
       this.pacienteForm.patchValue({
-        nome: '',
-        sobrenome: '',
-        cpf: '',
-        dataNascimento: '',
-        rg: '',
-        rgEmissor: '',
-        rgDataEmissao: '',
-        genero: '',
-        estadoCivil: '',
-        fotoPaciente: '',
-        fotoRg: '',
-        fotoCpf: '',
+        nome: this.paciente.nome,
+        sobrenome: this.paciente.sobrenome,
+        cpf: this.paciente.cpf,
+        dataNascimento: this.paciente.dataNascimento,
+        rg: this.paciente.rg,
+        rgEmissor: this.paciente.rgEmissor,
+        rgDataEmissao: this.paciente.rgDataEmissao,
+        genero: this.paciente.genero,
+        estadoCivil: this.paciente.estadoCivil,
+        // fotoPaciente: this.paciente.foto,
+        // fotoRg: this.paciente.fotoRg,
+        // fotoCpf: this.paciente.cpf
       });
-      this.pacienteForm.controls.fotoPaciente.setValue(this.paciente.foto, {emitModelToViewChange: false});
-      this.pacienteForm.controls.fotoRg.setValue(this.paciente.fotoRg, {emitModelToViewChange: false});
-      this.pacienteForm.controls.fotoCpf.setValue(this.paciente.fotoCpf, {emitModelToViewChange: false});
     }
+    //
+    //   if (this.paciente.foto) {
+    //     this.fotoPaciente = this.paciente.foto;
+    //     this.fileInputPaciente = this.paciente.foto;
+    //     this.pacienteForm.controls.fotoPaciente.setValue(this.paciente.foto, {emitModelToViewChange: false});
+    //   }
+    //   if (this.paciente.fotoRg) {
+    //     this.fotoRg = this.paciente.fotoRg;
+    //     this.fileInputRg = this.paciente.fotoRg;
+    //     this.pacienteForm.controls.fotoRg.setValue(this.paciente.fotoRg, {emitModelToViewChange: false});
+    //   }
+    //   if (this.paciente.fotoCpf) {
+    //     this.fotoCpf = this.paciente.fotoCpf;
+    //     this.fileInputCpf = this.paciente.fotoCpf;
+    //     this.pacienteForm.controls.fotoCpf.setValue(this.paciente.fotoCpf, {emitModelToViewChange: false});
+    //   }
+    // }
   }
 
   onLoadFotoPaciente(event: any) {

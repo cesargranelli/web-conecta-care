@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Complemento} from '../classes/complemento.class';
-import {ComplementoResponseInterface} from './response/complementoResponse.interface';
+import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ComplementoService {
   }
 
   getDados(id: number): Observable<Complemento> {
-    return this._http.get(`${this.endpoint}/${id}`).pipe(map((complemento: ComplementoResponseInterface) => {
+    return this._http.get(`${this.endpoint}/${id}`).pipe(map((complemento: ResponseTemplateInterface) => {
         return complemento.data;
       })
     );
