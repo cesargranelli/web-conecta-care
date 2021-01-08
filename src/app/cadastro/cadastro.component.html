@@ -72,7 +72,7 @@
                 </form>
               </div>
               <div class="tab-pane" id="profissional">
-                <form (ngSubmit)="onSubmit_(profissionalForm, cpfProfissional)" [formGroup]="profissionalForm">
+                <form (ngSubmit)="onSubmit(profissionalForm, cpfProfissional)" [formGroup]="profissionalForm">
                   <div [ngClass]="input.validation(profissionalForm)=='done' ? 'has-success' : 'has-danger'"
                        class="form-row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-sm-8">

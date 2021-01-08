@@ -8,7 +8,6 @@ import { HeadersInterceptor } from 'src/app/services/interceptors/headers.interc
 import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
-import { CadastroLoginComponent } from './cadastro/login/cadastro-login.component';
 import { CadastroPlanoSaudeComponent } from './cadastro/plano-saude/cadastro-plano-saude.component';
 import { InformacoesContatoComponent } from './dados/contato/informacoes-contato.component';
 import { DadosPlanosSaudeComponent } from './dados/dados-planos-saude.component';
@@ -26,7 +25,6 @@ import { SelectPickerComponent } from './shared/select-picker/select-picker.comp
 @NgModule({
   declarations: [
     PlanosSaudeComponent,
-    CadastroLoginComponent,
     CadastroPlanoSaudeComponent,
     CadastroEnderecoComponent,
     CadastroContatoComponent,

@@ -6,8 +6,8 @@ import { DocumentoService } from 'src/app/services/documento.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
+import { InputValidation } from 'src/app/shared/validations/input-validation';
 import Swal from 'sweetalert2';
-import { InputValidation } from '../../shared/validations/input-validation';
 
 declare var jQuery: any;
 
@@ -60,32 +60,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
     carregarTarjaAzul();
     injetaToolTip();
-  }
-
-  onSubmit_(form: FormGroup, element: HTMLElement) {
-    let numero: string = form.get(element.getAttribute('formControlName')).value;
-    let tipo: string = element.getAttribute('formControlName').toUpperCase();
-    let modulo: string = this.modulo.getModulo();
-    this._loading.emitChange(true);
-    this._documentoService.registrar({numero: numero, tipo: tipo, modulo: modulo}).subscribe(response => {
-      this._loading.emitChange(false);
-      if (response.body.data?.id != undefined) {
-        this._router.navigateByUrl(`cadastro/login`, {
-          state: {register: response.body.data}
-        });
-      } else {
-        this.cpfCnpjJaCadastrado = true;
-      }
-    },
-    httpResponse => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: httpResponse.error.data.message || httpResponse.error.data.error[0],
-        showConfirmButton: true
-      });
-      this._loading.emitChange(false);
-    });
   }
 
   onSubmit(form: FormGroup, element: HTMLElement) {

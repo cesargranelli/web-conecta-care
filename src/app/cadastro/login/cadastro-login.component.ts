@@ -1,14 +1,15 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {Navigation, Router} from '@angular/router';
-import {Usuario} from 'src/app/classes/usuario.class';
-import {Role} from 'src/app/enums/role.enum';
-import {Registro} from 'src/app/services/feat/registro';
-import {UsuarioService} from 'src/app/services/usuario.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {validEqualsEmail, validEqualsPassword} from 'src/app/shared/validations/directives/valid-equals';
-import {InputValidation} from 'src/app/shared/validations/input-validation';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Role } from 'src/app/classes/role';
+import { Usuario } from 'src/app/classes/usuario.class';
+// import {Role} from 'src/app/enums/role.enum';
+import { Registro } from 'src/app/services/feat/registro';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
+import { InputValidation } from 'src/app/shared/validations/input-validation';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -38,19 +39,21 @@ export class CadastroLoginComponent implements OnInit {
   Ao menos 1 número<br>
   Ao menos 1 caracter especial</div>`;
 
-  private _registro: Registro;
+  private registro: Registro;
+  private registroId: number;
+  private registroModulo: string;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _service: UsuarioService,
     private _router: Router,
-    private _loading: SharedLoadingService
+    private _loading: SharedLoadingService,
+    private _route: ActivatedRoute
   ) {
     jQuery('html').removeClass('nav-open');
     jQuery('button').removeClass('toggled');
-
-    const navigation: Navigation = this._router.getCurrentNavigation();
-    this._registro = navigation.extras.state?.register;
+    this._route.params.subscribe(params => this.registroId = params['id']);
+    this._route.params.subscribe(params => this.registroModulo = params['modulo']);
   }
 
   ngOnInit(): void {
@@ -89,16 +92,27 @@ export class CadastroLoginComponent implements OnInit {
     let login: Usuario = new Usuario(
       this.cadastroLoginForm.value.email,
       this.cadastroLoginForm.value.password,
-      Role.Profissional,
-      this._registro.id
+      new Role(this.registroModulo).getRole(),
+      this.registroId
     );
 
     this._service.cadastrar(login).subscribe(response => {
       setTimeout(() => {
-        this.emailEnviado = true;
-        this._loading.emitChange(false);
-        this.onSuccess(response.body.data.message);
-        this._router.navigateByUrl(`espera-confirmacao-email`);
+        if (response.status == 201) {
+          // enviar e-mail
+          this.emailEnviado = true;
+          this._loading.emitChange(false);
+          this.onSuccess(response.body.data.message);
+          this._router.navigateByUrl(`espera-confirmacao-email`);
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: response.statusText,
+            showConfirmButton: true
+          });
+          this._loading.emitChange(false);
+        }
       });
     }, httpResponse => {
       Swal.fire({

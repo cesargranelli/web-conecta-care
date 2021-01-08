@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { RecaptchaModule } from 'ng-recaptcha';
 import { NgxLoadingModule } from 'ngx-loading';
 import { NgxMaskModule } from 'ngx-mask';
 import { AdminModule } from './admin/admin.module';
@@ -11,8 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { TokenInterceptor } from './auth/token.interceptor';
-import { CadastroComponent } from './components/cadastro/cadastro.component';
-import { CadastroLoginComponent } from './components/cadastro/login/cadastro-login.component';
+import { CadastroModule } from './cadastro/cadastro.module';
 import { CarreiraComponent } from './components/cadastro/profissional/carreira/carreira.component';
 import { ComplementoComponent } from './components/cadastro/profissional/complemento/complemento.component';
 import { ContaComponent } from './components/cadastro/profissional/conta/conta.component';
@@ -30,7 +28,6 @@ import { MenuPlanosSaudeFilialComponent } from './components/menu/menu-planos-sa
 import { MenuPlanosSaudeComponent } from './components/menu/menu-planos-saude/menu-planos-saude.component';
 import { MenuProfissionaisComponent } from './components/menu/menu-profissionais/menu-profissionais.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { BasicRecaptchaComponent } from './components/recaptcha/basic-recaptcha.component';
 import { HomeCaresModule } from './homecares/homecares.module';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
@@ -55,9 +52,6 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     MenuPlanosSaudeFilialComponent,
     MenuAdminComponent,
     ConnectaComponent,
-    CadastroComponent,
-    CadastroLoginComponent,
-    BasicRecaptchaComponent,
     InformacoesGeraisComponent,
     EnderecoComponent,
     ContatoComponent,
@@ -77,7 +71,6 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     AppRoutingModule,
     NgxMaskModule.forRoot(),
     HttpClientModule,
-    RecaptchaModule,
     NgxLoadingModule.forRoot({
       fullScreenBackdrop: true
     }),
@@ -88,7 +81,8 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     PlanosSaudeModule,
     PlanosSaudeFilialModule,
     AuthModule,
-    AdminModule
+    AdminModule,
+    CadastroModule
   ],
   providers: [
     ValidadorCpf,

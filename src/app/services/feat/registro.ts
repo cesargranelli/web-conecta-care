@@ -1,4 +1,4 @@
 export interface Registro {
-  numero: string;
+  modulo: string;
   id: number
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
-import { CadastroLoginComponent } from './cadastro/login/cadastro-login.component';
 import { CadastroPlanoSaudeComponent } from './cadastro/plano-saude/cadastro-plano-saude.component';
 import { InformacoesContatoComponent } from './dados/contato/informacoes-contato.component';
 import { DadosPlanosSaudeComponent } from './dados/dados-planos-saude.component';
@@ -13,7 +12,6 @@ import { PlanosSaudeComponent } from './planos-saude.component';
 
 const routes: Routes = [
   { path: 'planos-saude/:id', component: PlanosSaudeComponent },
-  { path: 'planos-saude/:id/cadastro/login', component: CadastroLoginComponent },
   { path: 'planos-saude/:id/cadastro/plano-saude', component: CadastroPlanoSaudeComponent },
   { path: 'planos-saude/:id/cadastro/endereco', component: CadastroEnderecoComponent },
   { path: 'planos-saude/:id/cadastro/contato', component: CadastroContatoComponent },

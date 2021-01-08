@@ -9,7 +9,6 @@ import { HeadersInterceptor } from '../services/interceptors/headers.interceptor
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
 import { CadastroHomeCareComponent } from './cadastro/homecare/cadastro-homecare.component';
-import { CadastroLoginComponent } from './cadastro/login/cadastro-login.component';
 import { InformacoesContatoComponent } from './dados/contato/informacoes-contato.component';
 import { DadosHomecaresComponent } from './dados/dados-homecares.component';
 import { InformacoesEnderecoComponent } from './dados/endereco/informacoes-endereco.component';
@@ -26,7 +25,6 @@ import { SelectPickerComponent } from './shared/select-picker/select-picker.comp
 @NgModule({
   declarations: [
     HomeCaresComponent,
-    CadastroLoginComponent,
     CadastroHomeCareComponent,
     CadastroEnderecoComponent,
     CadastroContatoComponent,
