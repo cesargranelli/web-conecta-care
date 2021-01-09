@@ -63,7 +63,7 @@ export class AuthService {
 
   storeTokens(data: LoginData): void {
     this._storeToken.setToken(data.token);
-    this._storeValid.setValid({id: data.id, email: data.email, role: this.converterRole.getRole(data.role)});
+    this._storeValid.setValid({id: data?.id, email: data?.email, role: this.converterRole.getRole(data?.role)});
   }
 
   removeTokens(): void {

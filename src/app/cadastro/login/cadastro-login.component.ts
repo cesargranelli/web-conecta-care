@@ -3,7 +3,6 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { Role } from 'src/app/classes/role';
 import { Usuario } from 'src/app/classes/usuario.class';
-// import {Role} from 'src/app/enums/role.enum';
 import { Registro } from 'src/app/services/feat/registro';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
@@ -11,6 +10,10 @@ import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validation
 import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Login } from 'src/app/classes/login.class';
+import { Modulo } from 'src/app/classes/modulo';
+import { Valid } from 'src/app/services/feat/Valid';
 
 declare var jQuery: any;
 
@@ -46,6 +49,7 @@ export class CadastroLoginComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _service: UsuarioService,
+    private _authService: AuthService,
     private _router: Router,
     private _loading: SharedLoadingService,
     private _route: ActivatedRoute
@@ -89,21 +93,41 @@ export class CadastroLoginComponent implements OnInit {
 
   onSubmit() {
     this._loading.emitChange(true);
-    let login: Usuario = new Usuario(
+    let usuario: Usuario = new Usuario(
       this.cadastroLoginForm.value.email,
       this.cadastroLoginForm.value.password,
       new Role(this.registroModulo).getRole(),
       this.registroId
     );
 
-    this._service.cadastrar(login).subscribe(response => {
+    this._service.cadastrar(usuario).subscribe(response => {
       setTimeout(() => {
-        if (response.status == 201) {
-          // enviar e-mail
-          this.emailEnviado = true;
-          this._loading.emitChange(false);
-          this.onSuccess(response.body.data.message);
-          this._router.navigateByUrl(`espera-confirmacao-email`);
+        if (response.status == 201) {console.log(response)
+          let login: Login = new Login(
+            this.cadastroLoginForm.value.email,
+            this.cadastroLoginForm.value.password,
+            new Modulo(this.registroModulo).getModulo()
+          );console.log(login)
+          this._authService.login(login).subscribe(response => {
+            console.log(response)
+            this._loading.emitChange(true);
+            if (response) {
+              // enviar e-mail
+              this.emailEnviado = true;
+              this._loading.emitChange(false);
+              // this.onSuccess(response.body.data.message);
+              // this._router.navigateByUrl(`espera-confirmacao-email`);
+            }
+            this._loading.emitChange(false);
+          }, error => {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: error.data,
+              showConfirmButton: true
+            });
+            this._loading.emitChange(false);
+          });
         } else {
           Swal.fire({
             position: 'center',

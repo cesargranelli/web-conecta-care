@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Login} from 'src/app/classes/login.class';
-import {Role} from 'src/app/classes/role';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
-import {InputValidation} from 'src/app/shared/validations/input-validation';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import {RoleConverter} from 'src/app/utils/role.converter';
-import {AuthService} from '../../services/auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Login } from 'src/app/classes/login.class';
+import { Modulo } from 'src/app/classes/modulo';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidation } from 'src/app/shared/validations/input-validation';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import { RoleConverter } from 'src/app/utils/role.converter';
+import { AuthService } from '../../services/auth.service';
 
 declare var jQuery: any;
 
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   Ao menos 1 número<br>
   Ao menos 1 caracter especial</div>`;
 
-  private role: Role = new Role('profissionais');
+  private modulo: Modulo = new Modulo('pacientes');
   private converter: RoleConverter = new RoleConverter();
 
   constructor(
@@ -69,8 +69,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     injetaToolTip();
   }
 
-  setRole(perfil: string) {
-    this.role = new Role(perfil);
+  setModulo(perfil: string) {
+    this.modulo = new Modulo(perfil);
   }
 
   onSubmit() {
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       let login: Login = new Login(
         this.loginForm.value.email,
         this.loginForm.value.password,
-        this.role.getRole()
+        this.modulo.getModulo()
       );
 
       this._authService.login(login).subscribe(response => {
