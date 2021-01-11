@@ -3,36 +3,52 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Documento} from 'src/app/services/feat/documento';
 import {environment} from 'src/environments/environment';
-import {map} from "rxjs/operators";
-import {ResponseTemplateInterface} from "../../services/response/responseTemplate.interface";
-import {Paciente} from "../classes/paciente.class";
+import {catchError, map} from 'rxjs/operators';
+import {ResponseTemplateInterface} from '../../services/response/responseTemplate.interface';
+import {Paciente} from '../classes/paciente.class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PacienteService {
 
+  private readonly DOCUMENTO: string = 'documento';
+
   constructor(private _http: HttpClient) {
   }
 
-  pesquisarByCpf(documento: Documento): Observable<Paciente> {
-    return this._http.get(
-      `${environment.apiConnecta}/pacientes/cpf`,
-      {
-        params: new HttpParams().set("documento", documento.numero)
-      }
+  registrar(paciente: Paciente): Observable<any> {
+    return this._http.post(
+      `${environment.apiConnecta}/api/v1/paciente`,
+      paciente
     ).pipe(map((dado: ResponseTemplateInterface) => {
         return dado.data;
-      })
+      }),
+      catchError(async (err) => console.error(err))
     );
   }
 
-  pesquisarById(id: number): Observable<Paciente> {
+  pesquisarPorCpf(documento: Documento): Observable<Paciente> {
     return this._http.get(
-      `${environment.apiConnecta}/api/v1/paciente/${id}`
+      `${environment.apiConnecta}/api/v1/paciente`,
+      {
+        params: new HttpParams().set(this.DOCUMENTO, documento.numero)
+      }
     ).pipe(map((dado: ResponseTemplateInterface) => {
         return dado.data;
-      })
+      }),
+      catchError(async (err) => console.error(err))
+    );
+  }
+
+  pesquisarPorId(id: number): Observable<Paciente> {
+    return this._http.get(
+      `${environment.apiConnecta}/api/v1/paciente/${id}`
+    ).pipe(
+      map((dado: ResponseTemplateInterface) => {
+        return dado.data;
+      }),
+      catchError(async (err) => console.error(err))
     );
   }
 
