@@ -6,12 +6,11 @@ import {Valid} from '../../../../../services/feat/Valid';
 import {InputValidationHas} from '../../../../../shared/validations/input-validation-has';
 import {Router} from '@angular/router';
 import {SharedLoadingService} from '../../../../../shared/services/shared-loading.service';
-import {DominioService} from '../../../../../services/dominio.service';
 import {ViaCepService} from '../../../../../services/via-cep.service';
 import {CadastroPlanosSaudeService} from '../../../../../planos-saude/services/cadastro-planos-saude.service';
-import {map} from 'rxjs/internal/operators/map';
 import Swal from 'sweetalert2';
 import {EnderecoViaCep} from '../../../../../classes/endereco-via-cep.class';
+import {EstadoService} from "../../../../services/estado.service";
 
 declare var jQuery: any;
 
@@ -36,14 +35,14 @@ export class FormEnderecoComponent implements OnInit {
   public onSubmitEvent = new EventEmitter<EnderecoPlanoSaude>();
 
   public enderecoForm: FormGroup;
-  public estados: Estado[];
+  public estados: Array<Estado>;
   public valid: Valid;
   public estadoViaCep: Estado;
   public comprovante: any;
   public fileInputComprovante: string = 'fileinput-new';
   public imagemComprovante: any = '../../../../../assets/img/Headshot-Doc-1.png';
   public validationHas: InputValidationHas = new InputValidationHas();
-  public esconderFormulario: boolean = true;
+  public esconderFormulario: boolean = false;
   private endereco: EnderecoPlanoSaude;
   private fileComprovante: File;
 
@@ -51,10 +50,11 @@ export class FormEnderecoComponent implements OnInit {
     private _router: Router,
     private _loading: SharedLoadingService,
     private _formBuilder: FormBuilder,
-    private _dominioService: DominioService,
+    private _estadosService: EstadoService,
     private _viaCep: ViaCepService,
     private _cadastro: CadastroPlanosSaudeService
   ) {
+    this._loading.emitChange(false);
     this.enderecoForm = this._formBuilder.group({
       logradouro: [null, [Validators.required, Validators.maxLength(60)]],
       numero: [null, [Validators.required, Validators.maxLength(10)]],
@@ -68,22 +68,15 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._dominioService.getEstados().pipe(
-      map((response) => {
-        this.estados = response.body;
-      }),
-    ).subscribe(null, null, () => {
+    this._estadosService.listarEstado().subscribe(estados => {
+      this.estados = estados;
+      console.log(this.estados);
       setTimeout(() => {
-        if (this._cadastro.endereco?.cep) {
-          this.popularForm();
-        }
         jQuery('select[id=\'estado\']').selectpicker('refresh');
-        jQuery('select[id=\'estado\']').selectpicker('val', this._cadastro.endereco.estado?.id);
+        jQuery('select[id=\'estado\']').selectpicker('val', this.estadoViaCep?.id);
         this._loading.emitChange(false);
-        this.esconderFormulario = false;
       });
     });
-
   }
 
   popularForm() {
@@ -105,6 +98,7 @@ export class FormEnderecoComponent implements OnInit {
     this.endereco = this.enderecoForm.value;
     this.endereco.comprovante = this.comprovante;
     this.endereco.estado = this.estados.filter(estado => estado.id == Number(this.endereco.estado))[0];
+    console.log(this.endereco)
     this.onSubmitEvent.emit(this.endereco);
   }
 

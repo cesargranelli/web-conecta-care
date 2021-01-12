@@ -35,14 +35,14 @@ export class CadastroEnderecoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response =>
-        this._cadastro.endereco = response.body.data,
-      (errorResponse: HttpErrorResponse) => {
-        if (errorResponse.status === 404) {
-          console.log('Não existem dados cadastrados!');
-        }
-      }
-    );
+    // this._service.consultar(this.valid.id).subscribe(response =>
+    //     this._cadastro.endereco = response.body.data,
+    //   (errorResponse: HttpErrorResponse) => {
+    //     if (errorResponse.status === 404) {
+    //       console.log('Não existem dados cadastrados!');
+    //     }
+    //   }
+    // );
     this.isCadastro = true;
     this.linkBotaoVoltar = `pacientes/${this.valid.id}/cadastro/informacoes-gerais`;
     this.labelBotaoSubmit = 'Avançar';

@@ -78,8 +78,9 @@
                    style="max-width: 100px; max-height: 100px;">
             </div>
             <span class="btn btn-raised btn-round btn-rose btn-file">
-                            <span class="fileinput-new">Foto Paciente</span>
-                            <span class="fileinput-exists">Trocar</span>
+                            <span [hidden]="pacienteForm.controls.fotoPaciente.valid" class="fileinput-new">Foto Paciente</span>
+                            <span [hidden]="pacienteForm.controls.fotoPaciente.invalid"
+                                  class="fileinput-exists">Trocar</span>
                             <input (change)="onLoadFotoPaciente($event)" data-max-size="2"
                                    formControlName="fotoPaciente" id="fotoPaciente" type="file">
                         </span>
@@ -94,8 +95,9 @@
                      style="max-width: 50px; max-height: 50px;">
               </div>
               <span class="btn btn-raised btn-round btn-rose btn-file">
-                                <span class="fileinput-new">Foto RG</span>
-                                <span class="fileinput-exists">Trocar</span>
+                                <span [hidden]="pacienteForm.controls.fotoRg.valid" class="fileinput-new">Foto RG</span>
+                                <span [hidden]="pacienteForm.controls.fotoRg.invalid"
+                                      class="fileinput-exists">Trocar</span>
                                 <input (change)="onLoadFotoRg($event)" data-max-size="2"
                                        formControlName="fotoRg" id="fotoRg" type="file">
                             </span>
@@ -109,8 +111,10 @@
                      style="max-width: 50px; max-height: 50px;">
               </div>
               <span class="btn btn-raised btn-round btn-rose btn-file">
-                                <span class="fileinput-new">Foto CPF</span>
-                                <span class="fileinput-exists">Trocar</span>
+                                <span [hidden]="pacienteForm.controls.fotoCpf.valid"
+                                      class="fileinput-new">Foto CPF</span>
+                                <span [hidden]="pacienteForm.controls.fotoCpf.invalid"
+                                      class="fileinput-exists">Trocar</span>
                                 <input (change)="onLoadFotoCpf($event)" data-max-size="2"
                                        formControlName="fotoCpf" id="fotoCpf" type="file">
                             </span>
