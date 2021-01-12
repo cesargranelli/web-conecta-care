@@ -6,9 +6,9 @@ import {SharedLoadingService} from '../../../shared/services/shared-loading.serv
 import {EnderecoService} from '../../../homecares/services/endereco.service';
 import {Router} from '@angular/router';
 import {CadastroHomeCaresService} from '../../../services/cadastro-homecares.service';
-import {HttpErrorResponse} from '@angular/common/http';
 import {EnderecoHomeCare} from '../../../homecares/classes/endereco-homecare.class';
 import Swal from 'sweetalert2';
+import {EnderecoPaciente} from "../../classes/endereco-paciente.class";
 
 @Component({
   selector: 'app-endereco',
@@ -48,24 +48,25 @@ export class CadastroEnderecoComponent implements OnInit {
     this.labelBotaoSubmit = 'Avançar';
   }
 
-  onSubmit(endereco: EnderecoHomeCare) {
+  onSubmit(endereco: EnderecoPaciente) {
     this._loading.emitChange(true);
-    endereco.idHomeCare = this.valid.id;
-    if (!this._cadastro.endereco.id) {
-      this._service.cadastrar(endereco).subscribe(response => {
-          this.navigate(endereco);
-        },
-        () => {
-          this.message();
-        });
-    } else {
-      this._service.alterar(endereco).subscribe(response => {
-          this.navigate(endereco);
-        },
-        () => {
-          this.message();
-        });
-    }
+    endereco.idPaciente = this.valid.id;
+    console.log(endereco);
+    // if (!this._cadastro.endereco.id) {
+    //   this._service.cadastrar(endereco).subscribe(response => {
+    //       this.navigate(endereco);
+    //     },
+    //     () => {
+    //       this.message();
+    //     });
+    // } else {
+    //   this._service.alterar(endereco).subscribe(response => {
+    //       this.navigate(endereco);
+    //     },
+    //     () => {
+    //       this.message();
+    //     });
+    // }
   }
 
   private navigate(endereco: EnderecoHomeCare) {

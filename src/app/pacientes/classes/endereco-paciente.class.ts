@@ -1,6 +1,7 @@
 import {Estado} from "../../classes/estado.class";
 
 export class EnderecoPaciente {
+  idPaciente: number;
   id: number;
   cep: string;
   logradouro: string;
@@ -8,6 +9,6 @@ export class EnderecoPaciente {
   bairro: string;
   cidade: string;
   complemento: string;
-  fotoComprovanteEndereco: string;
+  fotoComprovante: string;
   estado: Estado;
 }
