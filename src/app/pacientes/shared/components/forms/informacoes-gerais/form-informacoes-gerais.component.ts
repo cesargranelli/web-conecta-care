@@ -61,8 +61,8 @@ export class FormInformacoesGeraisComponent implements OnInit {
     private _loading: SharedLoadingService
   ) {
     this._dadosLocalStorage = this._validService.getValid();
-    // this._loading.emitChange(true);
-    this.hideForm = false;
+    this._loading.emitChange(true);
+    this.hideForm = true;
 
     this.pacienteForm = this._formBuilder.group({
       nome: [null, Validators.required],
@@ -87,13 +87,14 @@ export class FormInformacoesGeraisComponent implements OnInit {
       map(response => this.generos = response.body.data),
       concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadosCivil = response.body.data))),
       // concatMap(() => this._service.pesquisarById(this._dadosLocalStorage.id))
-      concatMap(() => this._pacienteService.pesquisarPorId("17"))
+      concatMap(() => this._pacienteService.pesquisarPorId(18))
     ).subscribe(paciente => {
       this.paciente = paciente;
       this.popularForm();
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
+        this.hideForm = false;
         this._loading.emitChange(false);
       });
     });
@@ -173,18 +174,16 @@ export class FormInformacoesGeraisComponent implements OnInit {
   public onSubmit() {
     console.log(this.pacienteForm.value);
     // this._loading.emitChange(true);
-    let paciente: Paciente = this.pacienteForm.value;
+    let paciente = this.pacienteForm.value;
 
     paciente.dataNascimento = this.formatarData(paciente.dataNascimento);
     paciente.rgDataEmissao = this.formatarData(paciente.rgDataEmissao);
     paciente.estadoCivil = this.estadosCivil.find(estadoCivil => estadoCivil.id === this.pacienteForm.value.estadoCivil);
     paciente.genero = this.generos.find(genero => genero.id === this.pacienteForm.value.genero);
 
-    console.log(paciente);
-
-    // profissional.id = this._dadosLocalStorage.id;
-    // profissional.fotoProfissional = this.fotoPaciente;
-    // profissional.fotoRg = this.fotoRg;
+    paciente.foto = this.fotoPaciente;
+    paciente.fotoRg = this.fotoRg;
+    paciente.fotoCpf = this.fotoCpf;
 
     if (this.dataEmissaoMenorDataNascimento(paciente.rgDataEmissao, paciente.dataNascimento)) {
       this._loading.emitChange(false);
