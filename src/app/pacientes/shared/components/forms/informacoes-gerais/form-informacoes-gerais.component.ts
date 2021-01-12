@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {concatMap, map} from 'rxjs/operators';
@@ -14,6 +14,7 @@ import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import {Paciente} from "../../../../classes/paciente.class";
 import Swal from "sweetalert2";
+import {HomeCare} from "../../../../../homecares/classes/homecare.class";
 
 declare var jQuery: any;
 
@@ -24,7 +25,15 @@ declare var jQuery: any;
 })
 export class FormInformacoesGeraisComponent implements OnInit {
 
-  @Output() loadingEvent = new EventEmitter<boolean>();
+  @Input()
+  public isCadastro: boolean;
+  @Input()
+  public linkBotaoVoltar: string;
+  @Input()
+  public labelBotaoSubmit: string;
+  @Output()
+  public onSubmitEvent = new EventEmitter<HomeCare>();
+
   private readonly CAMINHO_IMAGEM_DUMMY: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
   private readonly FILEINPUT_NEW: string = 'fileinput-new';
   private readonly FILEINPUT_EXISTS: string = 'fileinput-exists';
@@ -173,7 +182,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
 
   public onSubmit() {
     console.log(this.pacienteForm.value);
-    // this._loading.emitChange(true);
+    this._loading.emitChange(true);
     let paciente = this.pacienteForm.value;
 
     paciente.dataNascimento = this.formatarData(paciente.dataNascimento);
@@ -230,28 +239,28 @@ export class FormInformacoesGeraisComponent implements OnInit {
     //   }
     // }
 
-    this._pacienteService.registrar(paciente).subscribe(novoPaciente => {
-      this._dadosLocalStorage.id = novoPaciente.id;
-      setTimeout(() => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Alteração realizada com sucesso!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/endereco`);
-        // this._loading.emitChange(false);
-      });
-    }, () => {
-      // this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar alterar as informações do profissional',
-        showConfirmButton: true
-      });
-    });
+    // this._pacienteService.registrar(paciente).subscribe(novoPaciente => {
+    //   this._dadosLocalStorage.id = novoPaciente.id;
+    //   setTimeout(() => {
+    //     Swal.fire({
+    //       position: 'center',
+    //       icon: 'success',
+    //       title: 'Alteração realizada com sucesso!',
+    //       showConfirmButton: false,
+    //       timer: 2000
+    //     });
+    //     this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/endereco`);
+    //     // this._loading.emitChange(false);
+    //   });
+    // }, () => {
+    //   // this._loading.emitChange(false);
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'error',
+    //     title: 'Ocorreu um erro inexperado ao tentar alterar as informações do profissional',
+    //     showConfirmButton: true
+    //   });
+    // });
   }
 
   private dataEmissaoMenorDataNascimento(dataEmissao: string, dataNascimento: string): boolean {
@@ -292,4 +301,14 @@ export class FormInformacoesGeraisComponent implements OnInit {
     return ano + this.HIFEN + mes + this.HIFEN + dia;
   }
 
+  limparForm() {
+    this.pacienteForm.reset();
+    jQuery('select').selectpicker('render');
+    this.fotoPaciente = this.CAMINHO_IMAGEM_DUMMY;
+    this.fotoRg = this.CAMINHO_IMAGEM_DUMMY;
+    this.fotoCpf = this.CAMINHO_IMAGEM_DUMMY;
+    setTimeout(() => {
+      jQuery('select').selectpicker('refresh');
+    });
+  }
 }
