@@ -181,7 +181,6 @@ export class FormInformacoesGeraisComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log(this.pacienteForm.value);
     this._loading.emitChange(true);
     let paciente = this.pacienteForm.value;
 
@@ -238,29 +237,30 @@ export class FormInformacoesGeraisComponent implements OnInit {
     //     return;
     //   }
     // }
-
-    // this._pacienteService.registrar(paciente).subscribe(novoPaciente => {
-    //   this._dadosLocalStorage.id = novoPaciente.id;
-    //   setTimeout(() => {
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'success',
-    //       title: 'Alteração realizada com sucesso!',
-    //       showConfirmButton: false,
-    //       timer: 2000
-    //     });
-    //     this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/endereco`);
-    //     // this._loading.emitChange(false);
-    //   });
-    // }, () => {
-    //   // this._loading.emitChange(false);
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'Ocorreu um erro inexperado ao tentar alterar as informações do profissional',
-    //     showConfirmButton: true
-    //   });
-    // });
+    //TODO: AJUSTAR PARA EMITIR O OBJETO PARA O COMPONENTE PAI
+    this._pacienteService.registrar(paciente).subscribe(novoPaciente => {
+      this._dadosLocalStorage.id = novoPaciente.id;
+      this._validService.setValid(this._dadosLocalStorage);
+      setTimeout(() => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Alteração realizada com sucesso!',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/endereco`);
+        this._loading.emitChange(false);
+      });
+    }, () => {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ocorreu um erro inexperado ao tentar alterar as informações do profissional',
+        showConfirmButton: true
+      });
+    });
   }
 
   private dataEmissaoMenorDataNascimento(dataEmissao: string, dataNascimento: string): boolean {
