@@ -14,7 +14,6 @@ import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import {Paciente} from "../../../../classes/paciente.class";
 import Swal from "sweetalert2";
-import {HomeCare} from "../../../../../homecares/classes/homecare.class";
 
 declare var jQuery: any;
 
@@ -32,7 +31,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
   @Input()
   public labelBotaoSubmit: string;
   @Output()
-  public onSubmitEvent = new EventEmitter<HomeCare>();
+  public onSubmitEvent: EventEmitter<Paciente>;
 
   private readonly CAMINHO_IMAGEM_DUMMY: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
   private readonly FILEINPUT_NEW: string = 'fileinput-new';
@@ -69,6 +68,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
     private _estadoCivilService: EstadoCivilService,
     private _loading: SharedLoadingService
   ) {
+    this.onSubmitEvent = new EventEmitter<Paciente>();
     this._dadosLocalStorage = this._validService.getValid();
     this._loading.emitChange(true);
     this.hideForm = true;
@@ -78,26 +78,27 @@ export class FormInformacoesGeraisComponent implements OnInit {
       sobrenome: [null, [Validators.required, Validators.maxLength(60)]],
       cpf: [null, [Validators.required, Validators.maxLength(60)]],
       dataNascimento: [null, Validators.minLength(10)],
-      rg: [null],
-      rgEmissor: [null],
-      rgDataEmissao: [null, [Validators.minLength(10), Validators.maxLength(10)]],
+      rg: [null, Validators.minLength(9)],
+      rgEmissor: [null, Validators.minLength(3)],
+      rgDataEmissao: [null],
       genero: [null, Validators.required],
       estadoCivil: [null, Validators.required],
       fotoPaciente: [null, Validators.required],
       fotoRg: [null, Validators.required],
-      fotoCpf: [null, Validators.required],
+      fotoCpf: [null],
     });
   }
 
   public ngOnInit() {
     this.paciente = new Paciente();
     this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
+    console.log(this._validService.getValid())
     this._generoService.listarGenero().pipe(
       map(response => this.generos = response.body.data),
-      concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadosCivil = response.body.data))),
-      // concatMap(() => this._service.pesquisarById(this._dadosLocalStorage.id))
-      concatMap(() => this._pacienteService.pesquisarPorId(18))
+      concatMap(async () => this._estadoCivilService.listarEstadoCivil().subscribe(response => this.estadosCivil = response.body.data)),
+      concatMap(() => this._pacienteService.pesquisarPorId(this._dadosLocalStorage?.id))
     ).subscribe(paciente => {
+      console.log(new Valid())
       this.paciente = paciente;
       this.popularForm();
       jQuery('select').selectpicker('render');
@@ -188,7 +189,6 @@ export class FormInformacoesGeraisComponent implements OnInit {
     paciente.rgDataEmissao = this.formatarData(paciente.rgDataEmissao);
     paciente.estadoCivil = this.estadosCivil.find(estadoCivil => estadoCivil.id === this.pacienteForm.value.estadoCivil);
     paciente.genero = this.generos.find(genero => genero.id === this.pacienteForm.value.genero);
-
     paciente.foto = this.fotoPaciente;
     paciente.fotoRg = this.fotoRg;
     paciente.fotoCpf = this.fotoCpf;
@@ -204,7 +204,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
       return;
     }
 
-    if (this.validaIdade(paciente.dataNascimento)) {
+    if (this.validarIdade(paciente.dataNascimento)) {
       this._loading.emitChange(false);
       Swal.fire({
         position: 'center',
@@ -214,60 +214,17 @@ export class FormInformacoesGeraisComponent implements OnInit {
       });
       return;
     }
-
-    // if (profissional.rg != null && profissional.rg != '') {
-    //   if (profissional.rgDataEmissao == null || profissional.rgDataEmissao == '') {
-    //     this._loading.emitChange(false);
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'Data de emissão do RG obrigatória.',
-    //       showConfirmButton: true,
-    //     });
-    //     return;
-    //   }
-    //   if (profissional.rgEmissor == null || profissional.rgEmissor == '') {
-    //     this._loading.emitChange(false);
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'Emissor do RG obrigatório.',
-    //       showConfirmButton: true,
-    //     });
-    //     return;
-    //   }
-    // }
-    //TODO: AJUSTAR PARA EMITIR O OBJETO PARA O COMPONENTE PAI
-    this._pacienteService.registrar(paciente).subscribe(novoPaciente => {
-      this._dadosLocalStorage.id = novoPaciente.id;
-      this._validService.setValid(this._dadosLocalStorage);
-      setTimeout(() => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Alteração realizada com sucesso!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/endereco`);
-        this._loading.emitChange(false);
-      });
-    }, () => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar alterar as informações do profissional',
-        showConfirmButton: true
-      });
-    });
+    if (!this._dadosLocalStorage) {
+      this._validService.setValid(new Valid());
+    }
+    this.onSubmitEvent.emit(paciente);
   }
 
   private dataEmissaoMenorDataNascimento(dataEmissao: string, dataNascimento: string): boolean {
     return new Date(dataEmissao) < new Date(dataNascimento);
   }
 
-  private validaIdade(dataNascimento: any) {
+  private validarIdade(dataNascimento: any) {
     let dataAtual = new Date();
     let anoAtual = dataAtual.getFullYear();
     let anoNascParts = dataNascimento.split('/');
@@ -288,7 +245,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
   }
 
   public dateChange(control: FormControl, name: string) {
-    jQuery(`#${name}`).on('dp.change', function (event: any) {
+    jQuery(`#${name}`).on('dp.change', function () {
       control.setValue(jQuery('#' + name)[0].value);
     });
   }
@@ -301,7 +258,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
     return ano + this.HIFEN + mes + this.HIFEN + dia;
   }
 
-  limparForm() {
+  public limparForm() {
     this.pacienteForm.reset();
     jQuery('select').selectpicker('render');
     this.fotoPaciente = this.CAMINHO_IMAGEM_DUMMY;

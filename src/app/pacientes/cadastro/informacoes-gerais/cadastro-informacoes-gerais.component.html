@@ -10,9 +10,10 @@
             </h3>
           </div>
           <app-form-informacoes-gerais
-            [isCadastro]="true"
-            [linkBotaoVoltar]="null"
-            [labelBotaoSubmit]="'Avançar'"
+            (onSubmitEvent)="onSubmit($event)"
+            [isCadastro]="isCadastro"
+            [linkBotaoVoltar]="linkBotaoVoltar"
+            [labelBotaoSubmit]="labelBotaoSubmit"
           ></app-form-informacoes-gerais>
         </div>
       </div>

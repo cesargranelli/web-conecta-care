@@ -89,8 +89,8 @@
         <div class="col-sm-5">
           <div class="row">
             <label class=" col-form-label" for="fotoRg">Foto do RG*</label>
-            <div [ngClass]="fileInputPaciente" class="fileinput text-center" data-provides="fileinput">
-              <div [ngClass]="fileInputPaciente" class="thumbnail img-circle img-raised">
+            <div [ngClass]="fileInputRg" class="fileinput text-center" data-provides="fileinput">
+              <div [ngClass]="fileInputRg" class="thumbnail img-circle img-raised">
                 <img [src]="fotoRg" alt="..." rel="nofollow"
                      style="max-width: 50px; max-height: 50px;">
               </div>
@@ -105,15 +105,15 @@
           </div>
           <div class="row">
             <label class=" col-form-label" for="fotoCpf">Foto do CPF</label>
-            <div [ngClass]="fileInputPaciente" class="fileinput text-center" data-provides="fileinput">
-              <div [ngClass]="fileInputPaciente" class="thumbnail img-circle img-raised">
+            <div [ngClass]="fileInputCpf" class="fileinput text-center" data-provides="fileinput">
+              <div [ngClass]="fileInputCpf" class="thumbnail img-circle img-raised">
                 <img [src]="fotoCpf" alt="..." rel="nofollow"
                      style="max-width: 50px; max-height: 50px;">
               </div>
               <span class="btn btn-raised btn-round btn-rose btn-file">
-                                <span [hidden]="pacienteForm.controls.fotoCpf.valid"
+                                <span [hidden]="fileInputCpf === null"
                                       class="fileinput-new">Foto CPF</span>
-                                <span [hidden]="pacienteForm.controls.fotoCpf.invalid"
+                                <span [hidden]="!fileInputCpf"
                                       class="fileinput-exists">Trocar</span>
                                 <input (change)="onLoadFotoCpf($event)" data-max-size="2"
                                        formControlName="fotoCpf" id="fotoCpf" type="file">
