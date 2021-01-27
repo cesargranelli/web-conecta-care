@@ -14,6 +14,11 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { Login } from 'src/app/classes/login.class';
 import { Modulo } from 'src/app/classes/modulo';
 import { Valid } from 'src/app/services/feat/Valid';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
+import { EmailService } from '../services/email.service';
+import { Email } from '../classes/email.class';
+import { environment } from 'src/environments/environment';
 
 declare var jQuery: any;
 
@@ -47,12 +52,14 @@ export class CadastroLoginComponent implements OnInit {
   private registroModulo: string;
 
   constructor(
+    private _tokenService: SharedTokenService,
     private _formBuilder: FormBuilder,
     private _service: UsuarioService,
     private _authService: AuthService,
     private _router: Router,
     private _loading: SharedLoadingService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _emailService: EmailService
   ) {
     jQuery('html').removeClass('nav-open');
     jQuery('button').removeClass('toggled');
@@ -102,31 +109,53 @@ export class CadastroLoginComponent implements OnInit {
 
     this._service.cadastrar(usuario).subscribe(response => {
       setTimeout(() => {
-        if (response.status == 201) {console.log(response)
+        if (response.status == 201) {
           let login: Login = new Login(
             this.cadastroLoginForm.value.email,
             this.cadastroLoginForm.value.password,
             new Modulo(this.registroModulo).getModulo()
-          );console.log(login)
-          this._authService.login(login).subscribe(response => {
-            console.log(response)
-            this._loading.emitChange(true);
-            if (response) {
-              // enviar e-mail
-              this.emailEnviado = true;
+          );
+          setTimeout(() => {
+            this._authService.login(login).subscribe(response => {
+              this._loading.emitChange(true);
+              if (response) {
+
+                let url = environment.apiConnecta + '/' + this._router.url + '/confirmacao-cadastro/' + this._tokenService.getToken();
+
+                let body = '<div class="card"><div class="card-body text-center"><h5 class="card-text">Complete seu cadastro clicando no botão abaixo!</h5><button class="btn btn-rose btn-fill"><a href="' + url + '">Clique aqui!</a><div class="ripple-container"></div></button></div></div>';
+  console.log(body)
+                let email = new Email();
+                email.from = 'cesar.granelli.dev@gmail.com';
+                email.to = this.cadastroLoginForm.value.email;
+                email.body = body;
+                email.subject = 'Confirmação de cadastro para ' + new Modulo(this.registroModulo).getModulo();
+
+                setTimeout(() => {
+                  this._emailService.enviar(email).subscribe(response => {
+                    this.emailEnviado = true;
+                    this._loading.emitChange(false);
+                    this.onSuccess();
+                    this._router.navigateByUrl(`espera-confirmacao-email`);
+                  }, error => {
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'error',
+                      title: error.message,
+                      showConfirmButton: true
+                    });
+                  });
+                });
+              }
               this._loading.emitChange(false);
-              // this.onSuccess(response.body.data.message);
-              // this._router.navigateByUrl(`espera-confirmacao-email`);
-            }
-            this._loading.emitChange(false);
-          }, error => {
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: error.data,
-              showConfirmButton: true
+            }, error => {
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: error.data,
+                showConfirmButton: true
+              });
+              this._loading.emitChange(false);
             });
-            this._loading.emitChange(false);
           });
         } else {
           Swal.fire({
@@ -154,11 +183,11 @@ export class CadastroLoginComponent implements OnInit {
     this.captcha = captcha;
   }
 
-  onSuccess(message: string) {
+  onSuccess() {
     Swal.fire({
       position: 'center',
       icon: 'success',
-      text: message,
+      text: 'Acabamos de enviar um link no e-mail informado para terminar o cadastro de seus dados e efetivar o acesso ao sistema. Caso você não encontre-o em sua caixa de entrada, por favor verifique na sua caixa de spam',
       showConfirmButton: true
     });
   }
