@@ -6,7 +6,7 @@
   <meta name="description" content="Teste">
   <meta name="keywords" content="teste">
   <!--  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
-<!--  <link rel="stylesheet" href="src/styles.css">-->
+  <!--  <link rel="stylesheet" href="src/styles.css">-->
   <link rel="stylesheet" href="./connecta.component.css">
   <script src="src/assets/js/core/bootstrap-material-design.min.js" defer></script>
   <!--  <script src="care.js" defer></script> -->
@@ -42,10 +42,10 @@
     function initMap() {
       const Brasilia = {lat: -15.721387, lng: -48.0774459};
       const Parangaba = {lat: -3.7766285, lng: -38.5680622};
-      const JCearense = { lat: -3.8025183, lng: -38.5711255};
-      const RPreto = { lat: -21.1794579, lng: -47.8726269};
-      const SantoAleixo = { lat: -8.0991148, lng: -35.0360535 };
-      const LagoaNova = { lat: -8.0991148, lng: -35.0360535 };
+      const JCearense = {lat: -3.8025183, lng: -38.5711255};
+      const RPreto = {lat: -21.1794579, lng: -47.8726269};
+      const SantoAleixo = {lat: -8.0991148, lng: -35.0360535};
+      const LagoaNova = {lat: -8.0991148, lng: -35.0360535};
 
       map = new google.maps.Map(document.getElementById("map"), {
         center: Brasilia,
@@ -107,8 +107,10 @@
   <img src="../../../assets/img/somos.png" class="right"/>
   <section>
     <h1 alt="homecare">QUEM SOMOS</h1>
-    <p alt="homecare"><span class="care">connecta care</span> &eacute; um sistema desenvolvido com foco em ser um facilitador no ramo da sa&uacute;de.</p>
-    <p alt="convenio">A conex&atilde;o entre o homecare, profissionais da sa&uacute;de, os planos de sa&uacute;de e conv&ecirc;nios medicos e claro aqueles que mais precisam de cuidados: os pacientes.</p>
+    <p alt="homecare"><span class="care">connecta care</span> &eacute; um sistema desenvolvido com foco em ser um
+      facilitador no ramo da sa&uacute;de.</p>
+    <p alt="convenio">A conex&atilde;o entre o homecare, profissionais da sa&uacute;de, os planos de sa&uacute;de e conv&ecirc;nios
+      medicos e claro aqueles que mais precisam de cuidados: os pacientes.</p>
   </section>
 </section>
 
@@ -121,36 +123,41 @@
   <p>PESSOAS CONECTADAS VIA APLICATIVO</p>
 </section>
 
-<section id="funciona" style="margin-bottom: 0px; margin-top: 0px; border-top: 0px; border-bottom: 0px;" >
-  <img src="../../../assets/img/somos.png" class="left" style="margin-bottom: 0px; margin-top: 0px; border-top: 0px; border-bottom: 0px;" />
+<section id="funciona" style="margin-bottom: 0px; margin-top: 0px; border-top: 0px; border-bottom: 0px;">
+  <img src="../../../assets/img/somos.png" class="left"
+       style="margin-bottom: 0px; margin-top: 0px; border-top: 0px; border-bottom: 0px;"/>
   <section style="margin-bottom: 0px; margin-top: 0px; border-top: 0px; border-bottom: 0px;">
     <h1>COMO FUNCIONA</h1>
-    <p>O <span class="care">connecta care</span> funciona como um ponto de encontro entre os profissionais da sa&uacute;de, as empresas de homecare, os pacientes e os conv&ecirc;nios m&eacute;dicos.</p>
-    <p>Aqui as empresas encontram os profissionais pr&oacute;ximos do atendimento solicitado, al&eacute;m de gerenciar todos os dados dos prontu&aacute;rios, as m&eacute;tricas e indicadores dos atendimentos.</p>
+    <p>O <span class="care">connecta care</span> funciona como um ponto de encontro entre os profissionais da sa&uacute;de,
+      as empresas de homecare, os pacientes e os conv&ecirc;nios m&eacute;dicos.</p>
+    <p>Aqui as empresas encontram os profissionais pr&oacute;ximos do atendimento solicitado, al&eacute;m de gerenciar
+      todos os dados dos prontu&aacute;rios, as m&eacute;tricas e indicadores dos atendimentos.</p>
     <p>Tudo isto no seu celular!</p>
     <a routerLink="cadastro"><p id="cadastre" class="right bg-color-gb">CADASTRE-SE</p></a>
   </section>
 </section>
 
-<section id="eventos" class="bg-color-cell" >
+<section id="eventos" class="bg-color-cell">
   <img src="../../../assets/img/celularede.jpg">
 </section>
 
 <section id="quem">
   <h1 class="left">QUEM CONECTAMOS</h1>
 
-  <div id="quemCarouse" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-      <li data-bs-target="#quemCarouse" data-bs-slide-to="0" class="active"></li>
-      <li data-bs-target="#quemCarouse" data-bs-slide-to="1"></li>
-      <li data-bs-target="#quemCarouse" data-bs-slide-to="2"></li>
-      <li data-bs-target="#quemCarouse" data-bs-slide-to="3"></li>
-      <li data-bs-target="#quemCarouse" data-bs-slide-to="4"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="container">
-          <p id="sld-txt">O <span class="care">connecta care</span> me ajudou a realizar atendimentos fora dos meus plant&otilde;es fixos, desssa forma, consegui exercer ainda mais minha profiss&atilde;o e consegui fazer uma renda extra.</p>
+          <p id="sld-txt">O <span class="care">connecta care</span> me ajudou a realizar atendimentos fora dos meus
+            plant&otilde;es fixos, desssa forma, consegui exercer ainda mais minha profiss&atilde;o e consegui fazer uma
+            renda extra.</p>
           <p id="sld-wit">Maria Alexandra<br>Equipe Connecta</p>
         </div>
       </div>
@@ -168,7 +175,8 @@
       </div>
       <div class="carousel-item">
         <div class="container">
-          <p id="sld-txt">Fui rapidamente atendido, com tudo o que eu necessitava. Ainda n&atilde;o vi nada parecido.</p>
+          <p id="sld-txt">Fui rapidamente atendido, com tudo o que eu necessitava. Ainda n&atilde;o vi nada
+            parecido.</p>
           <p id="sld-wit">Roberto Carlos<br>Cantor</p>
         </div>
       </div>
@@ -179,20 +187,21 @@
         </div>
       </div>
     </div>
-    <a class="carousel-control-prev" href="#quemCarouse" role="button" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1) grayscale(100);"></span>
+      <span class="sr-only">Previous</span>
     </a>
-    <a class="carousel-control-next" href="#quemCarouse" role="button" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1) grayscale(100);"></span>
+      <span class="sr-only">Next</span>
     </a>
   </div>
+
 
 </section>
 
 <footer class="bg-color-gb">
-  <div id="logo-foot" class="left"><img src="../../../assets/img/logo-foot.svg" ></div>
+  <div id="logo-foot" class="left"><img src="../../../assets/img/logo-foot.svg"></div>
   <nav>
     <ul>
       <li><a href="#topo">HOME</a></li>
@@ -210,17 +219,21 @@
     </ul>
   </nav>
   <section id="social">
-    <a href="#whats" alt="NOSSO NÚMERO é +55 11 91234-5678"><img src="../../../assets/img/whats.svg" style="width: 40px;"></a>
-    <a href="https://instagram.com/connectacaresaude?igshid=10ultrcechm84" target="_blank"><img src="../../../assets/img/insta.svg" style="width: 40px;"></a>
-    <a href="https://www.facebook.com/connectacaresaude/" target="_blank"><img src="../../../assets/img/face.svg" style="width: 40px;"></a>
+    <a href="#whats" alt="NOSSO NÚMERO é +55 11 91234-5678"><img src="../../../assets/img/whats.svg"
+                                                                 style="width: 40px;"></a>
+    <a href="https://instagram.com/connectacaresaude?igshid=10ultrcechm84" target="_blank"><img
+      src="../../../assets/img/insta.svg" style="width: 40px;"></a>
+    <a href="https://www.facebook.com/connectacaresaude/" target="_blank"><img src="../../../assets/img/face.svg"
+                                                                               style="width: 40px;"></a>
     <a href="contato.htm" target="_blank"><img src="../../../assets/img/mail.svg" style="width: 40px;"></a>
   </section>
   <section id="play-app">
     <a href=#link><img src="../../../assets/img/play.svg" style="width: 120px;"></a>
     <a href=#link><img src="../../../assets/img/app.svg" style="width: 120px;"></a>
   </section>
-  <address>
-    <p>&copy; <script>document.write( (new Date()).getUTCFullYear() );</script> - Connecta Care. Todos os direitos reservados.</p>
+  <address style="margin-bottom: 0px">
+    <p>&copy; {{anoAtual}} - Connecta Care. Todos os direitos reservados.
+    </p>
   </address>
 </footer>
 

@@ -7,10 +7,17 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ConnectaComponent implements OnInit {
 
+  public texto: string = 'Wenceslau Braz - Cuidado com as cargas';
+  public lat: number = -23.8779431;
+  public lng: number = -49.8046873;
+  public zoom: number = 15;
+  public anoAtual: number;
+
   constructor() {
   }
 
   ngOnInit(): void {
+    this.anoAtual = new Date().getUTCFullYear();
   }
 
 }
