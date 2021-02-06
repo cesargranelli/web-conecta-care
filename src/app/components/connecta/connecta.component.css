@@ -337,6 +337,10 @@ a:hover {
   }
 }
 
+agm-map {
+  height: 800px;
+}
+
 @media screen and (max-width: 490px) {
   header img {
     display: none

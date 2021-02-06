@@ -11,88 +11,6 @@
   <script src="src/assets/js/core/bootstrap-material-design.min.js" defer></script>
   <!--  <script src="care.js" defer></script> -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1TvkS6hk3zAObpWx0KOcZjdJDr5c6J9U&callback=initMap&libraries=&v=weekly"
-    defer
-  ></script>
-  <style type="text/css">
-    /* Always set the map height explicitly to define the size of the div
-     * element that contains the map. */
-    #map {
-      height: 100%;
-    }
-
-    /* Optional: Makes the sample page fill the window. */
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
-  <script>
-    let map;
-    let marker;
-    let markerParangaba;
-    let markerJCearense;
-    let markerRPreto;
-    let markerSantoAleixo;
-    let markerLagoaNova;
-
-    function initMap() {
-      const Brasilia = {lat: -15.721387, lng: -48.0774459};
-      const Parangaba = {lat: -3.7766285, lng: -38.5680622};
-      const JCearense = {lat: -3.8025183, lng: -38.5711255};
-      const RPreto = {lat: -21.1794579, lng: -47.8726269};
-      const SantoAleixo = {lat: -8.0991148, lng: -35.0360535};
-      const LagoaNova = {lat: -8.0991148, lng: -35.0360535};
-
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: Brasilia,
-        zoom: 4.5,
-        zoomControl: true,
-        mapTypeControl: false,
-        scaleControl: true,
-        streetViewControl: false,
-        rotateControl: true,
-        fullscreenControl: true,
-      });
-
-      const marker = new google.maps.Marker({
-        position: Brasilia,
-        map,
-        title: "Brasília",
-      });
-      const markerParangaba = new google.maps.Marker({
-        position: Parangaba,
-        map,
-        title: "Parangaba",
-      });
-      const markerJCearense = new google.maps.Marker({
-        position: JCearense,
-        map,
-        title: "Jardim Cearense",
-      });
-      const markerRPreto = new google.maps.Marker({
-        position: RPreto,
-        map,
-        title: "Ribeirão Preto",
-      });
-      const markerSantoAleixo = new google.maps.Marker({
-        position: SantoAleixo,
-        map,
-        title: "Santo Aleixo",
-      });
-      const markerLagoaNova = new google.maps.Marker({
-        position: LagoaNova,
-        map,
-        title: "Lagoa Nova",
-      });
-
-
-    }
-
-  </script>
 </head>
 <body>
 
@@ -114,9 +32,14 @@
   </section>
 </section>
 
-<div id="map" style="height: 800px;">
-
-</div>
+<agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]="5.4">
+  <agm-marker [latitude]="-15.721387" [longitude]="-48.0774459"></agm-marker>
+  <agm-marker [latitude]="-3.7766285" [longitude]="-38.5680622"></agm-marker>
+  <agm-marker [latitude]="-3.8025183" [longitude]="-38.5711255"></agm-marker>
+  <agm-marker [latitude]="-21.1794579" [longitude]="-47.8726269"></agm-marker>
+  <agm-marker [latitude]="-8.0991148" [longitude]="-35.0360535"></agm-marker>
+  <agm-marker [latitude]="-8.0991148" [longitude]="-35.0360535"></agm-marker>
+</agm-map>
 
 <section class="bg-color-gb txt-mkt">
   <!-- QTDA script -->
