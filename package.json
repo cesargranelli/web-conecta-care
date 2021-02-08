@@ -23,7 +23,6 @@
     "@angular/router": "~10.2.0",
     "@sweetalert2/ngx-sweetalert2": "^8.1.0",
     "@types/googlemaps": "^3.39.13",
-    "angular-cli": "^1.0.0-beta.28.3",
     "bufferutil": "^4.0.1",
     "crypto-js": "^4.0.0",
     "http-status-codes": "^1.4.0",
