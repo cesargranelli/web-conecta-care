@@ -1,0 +1,384 @@
+/* ----------------------------  Global  ---------------------------- */
+
+@font-face {
+  font-family: 'montserrat';
+  src: url('src/app/shared/fonts/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'comfortaa';
+  src: url('src/app/shared/fonts/Comfortaa-Bold.ttf');
+}
+
+body {
+  background-color: white;
+  background-image: none !important;
+  margin: 0;
+  padding: 0;
+  font: normal normal normal 140% 'montserrat', sans-serif;
+}
+
+h1 {
+  color: hsla(200, 80%, 40%, .8);
+  text-align: center
+}
+
+.left {
+  float: left;
+  clear: left
+}
+
+.right {
+  float: right;
+  clear: right
+}
+
+.bg-color-bg {
+  background: linear-gradient(90deg, #4a9dce, #74c387)
+}
+
+.bg-color-gb {
+  background: linear-gradient(90deg, #74c387, #4a9dce)
+}
+
+.txt-mkt {
+  padding: 0.1rem;
+  text-align: center;
+  font-size: 160%;
+  font-weight: bold;
+  color: #fff
+}
+
+#jump {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem
+}
+
+care {
+  font-family: comfortaa;
+  font-size: 110%
+}
+
+.bg-color-cell {
+  background: linear-gradient(90deg, #74c387bb, #4a9dcebb)
+}
+
+/* ----------------------------  Fundo  ----------------------------- */
+/* #topo { margin: 0; padding: 0; object-fit: cover }  height: 770px; */
+#topo {
+  margin: 0;
+  padding: 0;
+  background: silver;
+  width: 100%
+}
+
+/* ----------------------------  Somos  ----------------------------- */
+#somos {
+  display: none
+}
+
+/* ----- desabilidata secao ----- */
+#somos img {
+  width: 25%;
+  margin: 3rem
+}
+
+#somos section {
+  padding: 3rem;
+  text-align: left
+}
+
+#somos::after {
+  content: "";
+  display: block;
+  clear: both
+}
+
+/* ---------------------------  Funciona  --------------------------- */
+#funciona img {
+  width: 40%;
+  margin: 4rem 3rem 3rem 3rem
+}
+
+#funciona section {
+  padding: 3rem;
+  text-align: right
+}
+
+#funciona::after {
+  content: "";
+  display: block;
+  clear: both
+}
+
+#cadastre {
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  box-shadow: 5px 4px 10px 2px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 150%;
+  font-weight: bold
+}
+
+/* ---------------------------  linguica  --------------------------- */
+#eventos {
+  width: 100%;
+  margin: 0;
+  padding: 0
+}
+
+#eventos img {
+  width: 100%;
+  height: 100%
+}
+
+/* -----------------------------  Quem  ----------------------------- */
+#quem {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center
+}
+
+#quem h1 {
+  padding: 1rem 5rem
+}
+
+#sld-txt {
+  background-image: url('../../../assets/img/quot-left.svg');
+  background-repeat: no-repeat;
+  background-position: top left;
+  padding: 3rem 3rem 0 3rem;
+  -webkit-transition: 0.4s linear;
+  -moz-transition: 0.4s linear;
+  -o-transition: 0.4s linear;
+  -ms-transition: 0.4s linear
+}
+
+#sld-wit {
+  background-image: url('../../../assets/img/quot-right.svg');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  padding: 0 1rem;
+  text-align: right
+}
+
+#sld-wit {
+  font-size: 80%;
+  padding: 0 0 2rem 0
+}
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  margin-bottom: 1rem
+}
+
+/* Since positioning the image, we need to help out the caption */
+.container {
+  padding: 2rem 4em;
+  z-index: 10
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item {
+  height: 23rem
+}
+
+.carousel-item > p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 2rem
+}
+
+
+/* ----------------------------  Rodape  ---------------------------- */
+#logo-foot {
+  padding: 2rem;
+  width: 50%
+}
+
+#social::before {
+  content: "";
+  display: block;
+  clear: both
+}
+
+#social {
+  clear: right;
+  text-align: center;
+  padding-top: 4rem
+}
+
+#social img {
+  margin: 0 2rem 2rem 2rem
+}
+
+#play-app {
+  width: 100%;
+  text-align: center
+}
+
+#play-app img {
+  padding: 1.8rem 0.5rem
+}
+
+footer address {
+  padding: 2rem 2rem 1rem 2rem;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 60%;
+  color: #fffe
+}
+
+nav {
+  float: left;
+  width: 79%
+}
+
+nav ul {
+  float: left
+}
+
+ul {
+  list-style: none;
+  line-height: 2
+}
+
+ul li {
+  font-size: 85%;
+  font-weight: bold
+}
+
+ul li a {
+  color: #eee
+}
+
+a {
+  text-decoration: none
+}
+
+a:hover {
+  color: #fff
+}
+
+/* -----------------------  Dimensionamento  ------------------------ */
+@media screen and (max-width: 1280px) {
+  #logo-foot {
+    width: 40%
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .container {
+    padding: 3rem
+  }
+
+  nav {
+    width: 99%
+  }
+}
+
+@media screen and (max-width: 690px) {
+  h1 {
+    font-size: 120%
+  }
+
+  header {
+    background: linear-gradient(100deg, #4a9dcedd, #74c387dd)
+  }
+
+  #people {
+    width: 90%
+  }
+
+  #somos img {
+    display: none
+  }
+
+  #funciona img {
+    width: 90%;
+    margin: 2rem
+  }
+
+  #quem {
+    height: 500px
+  }
+
+  #quem h1 {
+    margin: 1rem
+  }
+
+  .container {
+    padding: 2rem
+  }
+
+  .sld-txt {
+    margin: 2rem 0 0 0;
+    padding: 3rem 0
+  }
+
+  #logo-foot {
+    width: 99%
+  }
+
+  #social img {
+    margin: 0.5rem
+  }
+
+  footer address {
+    padding: 0.5rem
+  }
+}
+
+agm-map {
+  height: 800px;
+}
+
+@media screen and (max-width: 490px) {
+  header img {
+    display: none
+  }
+
+  header h1 {
+    font-size: 170%;
+    top: 0.5rem;
+    left: 0.5rem
+  }
+
+  #funciona img {
+    width: 98%;
+    margin: 3px
+  }
+
+  #cadastre {
+    padding: 1rem;
+    font-size: 110%
+  }
+
+  #quem h1 {
+    margin: 0.5rem
+  }
+
+  .container {
+    padding: 0.5rem
+  }
+
+  #social {
+    padding-top: 2rem
+  }
+
+  #social img {
+    width: 16%
+  }
+
+  #logo-foot {
+    padding: 0.5rem
+  }
+}

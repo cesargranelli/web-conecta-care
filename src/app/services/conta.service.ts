@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Conta} from '../classes/conta.class';
-import {ContaResponseInterface} from './response/contaResponse.interface';
+import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class ContaService {
   }
 
   getDados(id: number): Observable<Conta> {
-    return this._http.get(`${this.endpointGetDados}/${id}`).pipe(map((contaResponse: ContaResponseInterface) => {
+    return this._http.get(`${this.endpointGetDados}/${id}`).pipe(map((contaResponse: ResponseTemplateInterface) => {
         return contaResponse.data;
       })
     );

@@ -1,16 +1,15 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {InputValidationHas} from '../../../shared/validations/input-validation-has';
-import {Pais} from '../../../classes/pais.class';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Valid} from '../../../services/feat/Valid';
 import {Contato} from '../../../classes/contato.class';
 import {Router} from '@angular/router';
 import {SharedValidService} from '../../../shared/services/shared-valid.service';
 import {ContatoService} from '../../../services/contato.service';
-import {DominioService} from '../../../services/dominio.service';
 import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
-import {CadastroProfissionaisService} from '../../../services/cadastro-profissionais.service';
 import Swal from 'sweetalert2';
+import { Estado } from 'src/app/classes/estado.class';
+import {concatMap, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-complemento',
@@ -23,7 +22,7 @@ export class CadastroComplementoComponent implements OnInit {
   @Output() loadingEvent = new EventEmitter<boolean>();
   public validationHas: InputValidationHas = new InputValidationHas();
   public codigoPais: string = '+55';
-  public pais: Pais;
+  public estados: Array<Estado> = [];
   public hiddenForm: boolean;
   public contatoForm: FormGroup;
   private _valid: Valid;
@@ -34,9 +33,8 @@ export class CadastroComplementoComponent implements OnInit {
     private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _service: ContatoService,
-    private _dominioService: DominioService,
-    private _loading: SharedLoadingService,
-    private _cadastro: CadastroProfissionaisService
+    // private _dominioService: PacienteService,
+    private _loading: SharedLoadingService
   ) {
     this._valid = this._validService.getValid();
 
@@ -49,24 +47,19 @@ export class CadastroComplementoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this._dominioService.getPaises().pipe(
+    // this._dominioService.listarEstado().pipe(
     //   map((response) => {
     //     this._loading.emitChange(true);
-    //     let paises: Pais[] = response.body;
-    //     this.pais = paises.find(pais => pais.id == Number(this._cadastro.endereco?.pais));
-    //     if (this.pais) {
-    //       this.codigoPais = '+' + Number(this.pais.codigo);
-    //     }
+    //     this.estados = response.body;
     //   }),
     //   concatMap(() => this._service.getDados(this._valid.id))
     // ).subscribe(response => {
-    //   this._cadastro.contato = response;
-    //   this._contato = response;
-    //   this.popularForm();
-    //   setTimeout(() => {
-    //     this._loading.emitChange(false);
-    //   });
-    // }, null, () => this.showForm = false);
+    //     this.popularForm();
+    //     setTimeout(() => {
+    //       this._loading.emitChange(false);
+    //     });
+    //   }, null, () => this.contatoForm = false);
+
   }
 
   popularForm() {
@@ -87,28 +80,28 @@ export class CadastroComplementoComponent implements OnInit {
     this._contato.celularPrincipal = this._contato.celularPrincipal ? Number(String(this.codigoPais) + String(this._contato.celularPrincipal)) : null;
     this._contato.celularSecundario = this._contato.celularSecundario ? Number(String(this.codigoPais) + String(this._contato.celularSecundario)) : null;
 
-    this._service.save(this._contato).subscribe(response => {
-      setTimeout(() => {
-        this._cadastro.contato = this._contato;
-        this._router.navigateByUrl(`profissionais/${this._valid.id}/dados-profissionais`);
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Alteração realizada com sucesso!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        this._loading.emitChange(false);
-      });
-    }, () => {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Ocorreu um erro inexperado ao tentar alterar os dados de contato',
-        showConfirmButton: true
-      });
-    });
+    // this._service.save(this._contato).subscribe(response => {
+    //   setTimeout(() => {
+    //     this._cadastro.contato = this._contato;
+    //     this._router.navigateByUrl(`profissionais/${this._valid.id}/dados-profissionais`);
+    //     Swal.fire({
+    //       position: 'center',
+    //       icon: 'success',
+    //       title: 'Alteração realizada com sucesso!',
+    //       showConfirmButton: false,
+    //       timer: 2000
+    //     });
+    //     this._loading.emitChange(false);
+    //   });
+    // }, () => {
+    //   this._loading.emitChange(false);
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'error',
+    //     title: 'Ocorreu um erro inexperado ao tentar alterar os dados de contato',
+    //     showConfirmButton: true
+    //   });
+    // });
   }
 
 

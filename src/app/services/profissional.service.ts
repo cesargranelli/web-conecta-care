@@ -6,7 +6,7 @@ import {environment} from '../../environments/environment';
 import {Profissional} from '../classes/profissional.class';
 import {Documento} from './feat/documento';
 import {Registro} from './feat/registro';
-import {ProfissionalResponseInterface} from './response/profissionalResponse.interface';
+import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class ProfissionalService {
 
   getDados(id: number): Observable<Profissional> {
     return this._http.get(`${this.endpoint}/${id}`)
-      .pipe(map((profissionalResponseInterface: ProfissionalResponseInterface) => {
+      .pipe(map((profissionalResponseInterface: ResponseTemplateInterface) => {
           return profissionalResponseInterface.data;
         })
       );

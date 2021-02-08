@@ -8,9 +8,6 @@ import {FormGroup} from '@angular/forms';
 })
 export class CadastroHistoricoMedicoComponent implements OnInit {
 
-  public historicoMedico: FormGroup;
-  public hiddenForm: boolean;
-
   constructor() {
   }
 

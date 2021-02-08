@@ -39,6 +39,7 @@ import { ProfissionaisModule } from './profissionais/profissionais.module';
 import { HeadersInterceptor } from './services/interceptors/headers.interceptor';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
+import { AgmCoreModule } from "@agm/core";
 
 @NgModule({
   declarations: [
@@ -82,7 +83,10 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     PlanosSaudeFilialModule,
     AuthModule,
     AdminModule,
-    CadastroModule
+    CadastroModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC1TvkS6hk3zAObpWx0KOcZjdJDr5c6J9U'
+    })
   ],
   providers: [
     ValidadorCpf,

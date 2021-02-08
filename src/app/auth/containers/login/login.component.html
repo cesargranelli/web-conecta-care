@@ -11,7 +11,7 @@
           </div>
           <div class="wizard-navigation">
             <ul class="nav nav-pills nav-fill">
-              <!-- <li #paciente (click)="setRole(paciente.id)" class="nav-item" id="pacientes" style="width: 25%;">
+              <li #paciente (click)="setModulo(paciente.id)" class="nav-item" id="pacientes" style="width: 25%;">
                 <a class="nav-link active" data-toggle="tab" href="#login" role="tab">
                   Paciente
                 </a>
@@ -72,7 +72,8 @@
                             </div>
                             <input [title]="mensagemToolTip" class="form-control" data-html="true"
                                    data-placement="top"
-                                   data-toggle="tooltip" data-trigger="click" formControlName="password" placeholder="Password..."
+                                   data-toggle="tooltip" data-trigger="click" formControlName="password"
+                                   placeholder="Password..."
                                    type="password">
                           </div>
                           <span class="form-control-feedback">
@@ -82,7 +83,8 @@
                       </div>
                       <div class="form-row justify-content-center form-control-lg">
                         <div class="form-group">
-                          <button [disabled]="!loginForm.valid" [ngClass]="!loginForm.valid ? 'btn-link' : ''" class="btn btn-rose"
+                          <button [disabled]="!loginForm.valid" [ngClass]="!loginForm.valid ? 'btn-link' : ''"
+                                  class="btn btn-rose"
                                   type="submit">Entrar
                           </button>
                         </div>

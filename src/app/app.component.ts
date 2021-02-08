@@ -17,6 +17,7 @@ export class AppComponent {
     private _loading: SharedLoadingService,
     private _valid: SharedValidService
   ) {
+    this.isHomePage();
     console.log(environment.name); // Logs false for default environment
     this._loading.changeEmitted$.subscribe(eventLoading => this.loading = eventLoading);
   }
@@ -27,6 +28,10 @@ export class AppComponent {
 
   get storageValid(): any {
     return this._valid.getValid();
+  }
+
+  public isHomePage(): boolean {
+    return window.location.pathname === '/';
   }
 
 }

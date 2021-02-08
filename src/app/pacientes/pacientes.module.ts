@@ -11,7 +11,16 @@ import { CadastroInformacoesGeraisComponent } from './cadastro/informacoes-gerai
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { PacientesComponent } from './pacientes.component';
 import { FormContatoComponent } from './shared/components/forms/contato/form-contato.component';
-import { FormEnderecoComponent } from './shared/components/forms/endereco/form-endereco.component';
+import { DadosComponent } from './dados/dados.component';
+import { ComplementoComponent } from './dados/complemento/complemento.component';
+import { ContatoComponent } from './dados/contato/contato.component';
+import { EnderecoComponent } from './dados/endereco/endereco.component';
+import { HistoricoMedicoComponent } from './dados/historico-medico/historico-medico.component';
+import { InformacoesGeraisComponent } from './dados/informacoes-gerais/informacoes-gerais.component';
+import { LoginComponent } from './dados/login/login.component';
+import { FormInformacoesGeraisComponent } from './shared/components/forms/informacoes-gerais/form-informacoes-gerais.component';
+import { FormHistoricoMedicoComponent } from './shared/components/forms/historico-medico/form-historico-medico.component';
+import { FormComplementoComponent } from './shared/components/forms/complemento/form-complemento.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +30,17 @@ import { FormEnderecoComponent } from './shared/components/forms/endereco/form-e
     CadastroContatoComponent,
     CadastroComplementoComponent,
     CadastroHistoricoMedicoComponent,
-    FormEnderecoComponent,
-    FormContatoComponent
+    FormContatoComponent,
+    DadosComponent,
+    ComplementoComponent,
+    ContatoComponent,
+    EnderecoComponent,
+    HistoricoMedicoComponent,
+    InformacoesGeraisComponent,
+    LoginComponent,
+    FormInformacoesGeraisComponent,
+    FormHistoricoMedicoComponent,
+    FormComplementoComponent
   ],
   imports: [
     CommonModule,
