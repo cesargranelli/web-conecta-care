@@ -2,7 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Email } from '../classes/email.class';
+import { SendEmail } from '../classes/send-email.class';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class EmailService {
 
   constructor(private _http: HttpClient) { }
 
-  enviar(payload: Email): Observable<HttpResponse<any>> {
+  enviar(payload: SendEmail): Observable<HttpResponse<any>> {
     return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
   }
 

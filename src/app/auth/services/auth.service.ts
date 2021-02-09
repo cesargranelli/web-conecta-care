@@ -29,13 +29,13 @@ export class AuthService {
   }
 
   login(user: Login): Observable<boolean> {
-    this._loading.emitChange(true);
+    // this._loading.emitChange(true);
     return this._http.post<any>(`${this.endpoint}/login`, user)
       .pipe(
         tap(response => this.storeTokens(response.data)),
         map(response => {
           if(response.status == 200) {
-            this._loading.emitChange(false);
+            // this._loading.emitChange(false);
             return true;
           } else {
             Swal.fire({
@@ -44,7 +44,7 @@ export class AuthService {
               title: response.data?.message,
               showConfirmButton: true
             });
-            this._loading.emitChange(false);
+            // this._loading.emitChange(false);
             return false;
           }
         }),

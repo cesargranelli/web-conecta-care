@@ -17,7 +17,7 @@ import { Valid } from 'src/app/services/feat/Valid';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
 import { EmailService } from '../services/email.service';
-import { Email } from '../classes/email.class';
+import { SendEmail } from '../classes/send-email.class';
 import { environment } from 'src/environments/environment';
 
 declare var jQuery: any;
@@ -107,8 +107,9 @@ export class CadastroLoginComponent implements OnInit {
       this.registroId
     );
 
-    this._service.cadastrar(usuario).subscribe(response => {
-      setTimeout(() => {
+    setTimeout(() => {
+      this._loading.emitChange(true);
+      this._service.cadastrar(usuario).subscribe(response => {
         if (response.status == 201) {
           let login: Login = new Login(
             this.cadastroLoginForm.value.email,
@@ -116,21 +117,19 @@ export class CadastroLoginComponent implements OnInit {
             new Modulo(this.registroModulo).getModulo()
           );
           setTimeout(() => {
+            this._loading.emitChange(true);
             this._authService.login(login).subscribe(response => {
-              this._loading.emitChange(true);
               if (response) {
 
-                let url = environment.apiConnecta + '/' + this._router.url + '/confirmacao-cadastro/' + this._tokenService.getToken();
+                let email = new SendEmail();
+                email.email = this.cadastroLoginForm.value.email;
+                email.token = this._tokenService.getToken();
+                email.role  = new Modulo(this.registroModulo).getModulo();
 
-                let body = '<div class="card"><div class="card-body text-center"><h5 class="card-text">Complete seu cadastro clicando no botão abaixo!</h5><button class="btn btn-rose btn-fill"><a href="' + url + '">Clique aqui!</a><div class="ripple-container"></div></button></div></div>';
-  console.log(body)
-                let email = new Email();
-                email.from = 'cesar.granelli.dev@gmail.com';
-                email.to = this.cadastroLoginForm.value.email;
-                email.body = body;
-                email.subject = 'Confirmação de cadastro para ' + new Modulo(this.registroModulo).getModulo();
+                this._tokenService.removeToken();
 
                 setTimeout(() => {
+                  this._loading.emitChange(true);
                   this._emailService.enviar(email).subscribe(response => {
                     this.emailEnviado = true;
                     this._loading.emitChange(false);
@@ -166,15 +165,15 @@ export class CadastroLoginComponent implements OnInit {
           });
           this._loading.emitChange(false);
         }
+      }, httpResponse => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: httpResponse.error.data?.message,
+          showConfirmButton: true
+        });
+        this._loading.emitChange(false);
       });
-    }, httpResponse => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: httpResponse.error.data.message,
-        showConfirmButton: true
-      });
-      this._loading.emitChange(false);
     });
 
   }

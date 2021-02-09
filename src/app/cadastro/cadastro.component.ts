@@ -24,7 +24,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
-  public modulo: Modulo = new Modulo('pacientes');
+  public modulo: Modulo = new Modulo('profissionais');
 
   public pacienteForm: FormGroup;
   public profissionalForm: FormGroup;

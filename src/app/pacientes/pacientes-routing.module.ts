@@ -10,7 +10,8 @@ import {PathPaciente} from "../enums/path-paciente.class";
 
 const routes: Routes = [
   {path: PathPaciente.paciente, component: PacientesComponent},
-  {path: PathPaciente.cadastro, component: CadastroLoginComponent},  {path: PathPaciente.informacoesGerais, component: CadastroInformacoesGeraisComponent},
+  {path: PathPaciente.cadastro, component: CadastroContatoComponent},
+  {path: PathPaciente.informacoesGerais, component: CadastroInformacoesGeraisComponent},
   {path: PathPaciente.endereco, component: CadastroEnderecoComponent},
   {path: PathPaciente.contato, component: CadastroContatoComponent},
   {path: PathPaciente.complemento, component: CadastroComplementoComponent},
