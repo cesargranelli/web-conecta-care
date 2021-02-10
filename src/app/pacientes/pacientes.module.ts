@@ -21,6 +21,7 @@ import { LoginComponent } from './dados/login/login.component';
 import { FormInformacoesGeraisComponent } from './shared/components/forms/informacoes-gerais/form-informacoes-gerais.component';
 import { FormHistoricoMedicoComponent } from './shared/components/forms/historico-medico/form-historico-medico.component';
 import { FormComplementoComponent } from './shared/components/forms/complemento/form-complemento.component';
+import { FormEnderecoComponent } from './shared/components/forms/endereco/form-endereco.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FormComplementoComponent } from './shared/components/forms/complemento/
     LoginComponent,
     FormInformacoesGeraisComponent,
     FormHistoricoMedicoComponent,
-    FormComplementoComponent
+    FormComplementoComponent,
+    FormEnderecoComponent
   ],
   imports: [
     CommonModule,

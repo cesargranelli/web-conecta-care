@@ -8,6 +8,7 @@ import {Valid} from 'src/app/services/feat/Valid';
 import {SharedTokenService} from 'src/app/shared/services/shared-token.service';
 import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
+import { Modulo } from 'src/app/classes/modulo';
 
 @Component({
   selector: 'app-confirmacao-cadastro',
