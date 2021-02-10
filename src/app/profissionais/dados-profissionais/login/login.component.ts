@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     });
 
     this._service.verLogin().subscribe(response => {
-      this.loginForm.controls.email.setValue(response.body?.email);
+      this.loginForm.controls.email.setValue(this.valid.email);
       this._loading.emitChange(false);
     });
 

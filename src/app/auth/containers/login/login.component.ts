@@ -10,6 +10,11 @@ import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import { RoleConverter } from 'src/app/utils/role.converter';
 import { AuthService } from '../../services/auth.service';
+import { LoginService } from 'src/app/auth/services/login.service';
+import { LoginValid } from 'src/app/classes/login-valid.class';
+import { CadastroService } from 'src/app/services/cadastro.service';
+import { Authorization } from 'src/app/services/feat/token';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
 
 declare var jQuery: any;
 
@@ -36,15 +41,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   Ao menos 1 número<br>
   Ao menos 1 caracter especial</div>`;
 
-  private modulo: Modulo = new Modulo('pacientes');
+  private modulo: Modulo = new Modulo('profissionais');
   private converter: RoleConverter = new RoleConverter();
+  private authorization: Authorization = new Authorization();
 
   constructor(
     private _router: Router,
     private _loading: SharedLoadingService,
+    private _storeToken: SharedTokenService,
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
-    private _validService: SharedValidService
+    private _validService: SharedValidService,
+    private _cadastroService: CadastroService
   ) {
     jQuery('html').removeClass('nav-open');
     jQuery('button').removeClass('toggled');
@@ -75,6 +83,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     setTimeout(() => {
+      this._loading.emitChange(true);
       let login: Login = new Login(
         this.loginForm.value.email,
         this.loginForm.value.password,
@@ -82,12 +91,19 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
 
       this._authService.login(login).subscribe(response => {
-        this._loading.emitChange(true);
         if (response) {
-          this._loading.emitChange(false);
-          let valid: Valid = this._validService.getValid();
-          let component = this.converter.toComponent(valid.role);
-          this._router.navigateByUrl(`${component}/${valid.id}`);
+          this.authorization.token = this._storeToken.getToken();
+          this._cadastroService.validar(this.authorization).subscribe(responseValid => {
+            let valid: Valid = responseValid.body.data;
+            this._validService.setValid(valid);
+            this._loading.emitChange(false);
+            // this.setValid(responseValid);
+            // let valid: Valid = this._validService.getValid();
+            console.log(valid)
+            let component = this.converter.toComponent(valid.role);
+            console.log(component)
+            this._router.navigateByUrl(`${component}/${valid.id}`);
+          });
         }
         this._loading.emitChange(false);
       }, error => {
@@ -97,8 +113,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   setValid(response: any) {
-    let valid: Valid = response;
-    // this._validService.setValid(valid);
+    this._validService.setValid({id: response?.id, email: response?.email, role: this.converter.getRole(response?.role)});
   }
 
   ngOnDestroy() {

@@ -71,7 +71,6 @@ export class ExperienciaComponent implements OnInit {
 
     this._service.getDados(this._dadosLocalStorage.id).subscribe({
       next: experiencia => {
-        console.log(experiencia);
         this.experiencias = experiencia;
         this.popularForm();
         this.showForm = false;
@@ -169,10 +168,8 @@ export class ExperienciaComponent implements OnInit {
           showConfirmButton: true,
         });
         return;
-      }      
+      }
     }
-
-    console.log("passou")
 
     this.experiencia1.posicao = 1;
     this.experiencia2.posicao = 2;
@@ -207,7 +204,6 @@ export class ExperienciaComponent implements OnInit {
     this.experiencias.push(this.experiencia3);
 
     this._service.save(this.experiencias).subscribe(response => {
-      console.log(response)
       setTimeout(() => {
         this._cadastro.experiencia = this.experiencias;
         this._router.navigateByUrl(`profissionais/${this._dadosLocalStorage.id}/dados-profissionais`, {
