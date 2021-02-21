@@ -16,6 +16,10 @@ body {
   font-family: 'montserrat', sans-serif !important;
 }
 
+footer {
+  background-image: url('assets/img/topo.jpg');
+}
+
 .card-title {
   font-family: 'montserrat', sans-serif !important;
 }

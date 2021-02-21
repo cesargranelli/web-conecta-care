@@ -40,6 +40,7 @@ import { HeadersInterceptor } from './services/interceptors/headers.interceptor'
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
 import { AgmCoreModule } from "@agm/core";
+import { TermoUsoComponent } from './pages/termo-uso/termo-uso.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AgmCoreModule } from "@agm/core";
     ContaComponent,
     EsperaConfirmacaoEmailComponent,
     ConfirmacaoCadastroComponent,
-    ConfirmacaoNovaSenhaComponent
+    ConfirmacaoNovaSenhaComponent,
+    TermoUsoComponent
   ],
   imports: [
     BrowserModule,
