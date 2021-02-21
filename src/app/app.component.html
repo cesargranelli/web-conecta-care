@@ -1,10 +1,10 @@
 <app-menu *ngIf="!login && !isHomePage()"></app-menu>
-<app-menu-profissionais *ngIf="storageValid?.role?.toString()=='ROLE_PROFISSIONAL'"></app-menu-profissionais>
-<app-menu-pacientes *ngIf="storageValid?.role?.toString()=='ROLE_PACIENTE'"></app-menu-pacientes>
-<app-menu-homecares *ngIf="storageValid?.role?.toString()=='ROLE_HOMECARE'"></app-menu-homecares>
-<app-menu-planos-saude *ngIf="storageValid?.role?.toString()=='ROLE_PLANO_SAUDE'"></app-menu-planos-saude>
-<app-menu-planos-saude-filial *ngIf="storageValid?.role?.toString()=='ROLE_PLANO_SAUDE_FILIAL'"></app-menu-planos-saude-filial>
-<app-menu-admin *ngIf="storageValid?.role?.toString()=='ROLE_ADMIN_ROOT'"></app-menu-admin>
+<app-menu-profissionais *ngIf="storageValid?.role?.toString()=='ROLE_PROFISSIONAL' && !isHomePage()"></app-menu-profissionais>
+<app-menu-pacientes *ngIf="storageValid?.role?.toString()=='ROLE_PACIENTE' && !isHomePage()"></app-menu-pacientes>
+<app-menu-homecares *ngIf="storageValid?.role?.toString()=='ROLE_HOMECARE' && !isHomePage()"></app-menu-homecares>
+<app-menu-planos-saude *ngIf="storageValid?.role?.toString()=='ROLE_PLANO_SAUDE' && !isHomePage()"></app-menu-planos-saude>
+<app-menu-planos-saude-filial *ngIf="storageValid?.role?.toString()=='ROLE_PLANO_SAUDE_FILIAL' && !isHomePage()"></app-menu-planos-saude-filial>
+<app-menu-admin *ngIf="storageValid?.role?.toString()=='ROLE_ADMIN_ROOT' && !isHomePage()"></app-menu-admin>
 
 <router-outlet></router-outlet>
 
