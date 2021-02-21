@@ -1,15 +1,4 @@
 /* ----------------------------  Global  ---------------------------- */
-
-@font-face {
-  font-family: 'montserrat';
-  src: url('src/app/shared/fonts/Montserrat-Regular.ttf');
-}
-
-@font-face {
-  font-family: 'comfortaa';
-  src: url('src/app/shared/fonts/Comfortaa-Bold.ttf');
-}
-
 body {
   background-color: white;
   background-image: none !important;
@@ -39,6 +28,10 @@ h1 {
 
 .bg-color-gb {
   background: linear-gradient(90deg, #74c387, #4a9dce)
+}
+
+.bg-color-bw {
+  background: linear-gradient(90deg, #4a9dce 47.4%, #FFFFFF 40%)
 }
 
 .txt-mkt {
@@ -143,6 +136,10 @@ care {
 
 #quem h1 {
   padding: 1rem 5rem
+}
+
+#opcoes {
+  width: 100%; margin: 0; padding: 0; text-align: right;
 }
 
 #sld-txt {
