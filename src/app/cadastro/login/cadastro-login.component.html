@@ -88,6 +88,18 @@
                   <app-basic-recaptcha (captcha)="setCaptcha($event)"></app-basic-recaptcha>
                 </span>
               </div>
+              <div class="card-footer justify-content-center">
+                <div class="form-check">
+                  <label class="form-check-label">
+                      <input formControlName="termo" class="form-check-input" type="checkbox" value="">
+                      Eu li e concordo os <a target="_blank" href="/termo-e-condicoes-de-uso">Termo e Condições de Uso</a> e 
+                      <a target="_blank" href="#">Política de Privacidade</a> deste site.
+                      <span class="form-check-sign">
+                          <span class="check"></span>
+                      </span>
+                  </label>
+                </div>
+              </div>
               <div class="card-footer justify-content-between">
                 <span class="bmd-form-group is-filled">
                   <button [routerLink]="['/']" class="btn btn-gray" type="button">Cancelar</button>
