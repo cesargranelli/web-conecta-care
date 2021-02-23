@@ -12,11 +12,13 @@ import { ConnectaComponent } from './components/connecta/connecta.component';
 import { ConfirmacaoCadastroComponent } from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
 import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/confirmacao-nova-senha.component';
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
+import { TermoUsoComponent } from './pages/termo-uso/termo-uso.component';
 
 const routes: Routes = [
   {path: '', component: ConnectaComponent},
   {path: 'confirmacao-nova-senha/:token', component: ConfirmacaoNovaSenhaComponent},
   {path: 'espera-confirmacao-email', component: EsperaConfirmacaoEmailComponent},
+  {path: 'termo-e-condicoes-de-uso', component: TermoUsoComponent},
   {path: 'confirmacao-cadastro/:token', component: ConfirmacaoCadastroComponent},
   {path: 'cadastro/profissionais/:id/informacoes-gerais', component: InformacoesGeraisComponent},
   {path: 'cadastro/profissionais/:id/endereco', component: EnderecoComponent},

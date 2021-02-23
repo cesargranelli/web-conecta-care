@@ -93,7 +93,8 @@ export class CadastroLoginComponent implements OnInit {
         Validators.maxLength(20),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,20}$'),
         this.equalsPassword()
-      ]]
+      ]],
+      termo: ['', [Validators.requiredTrue]]
     }, {validators: [validEqualsEmail, validEqualsPassword]});
 
   }

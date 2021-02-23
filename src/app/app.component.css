@@ -1,0 +1,69 @@
+/* ----------------------------  Rodape  ---------------------------- */
+#logo-foot {
+  padding: 2rem;
+  width: 50%
+}
+
+#social::before {
+  content: "";
+  display: block;
+  clear: both
+}
+
+#social {
+  clear: right;
+  text-align: center;
+  padding-top: 4rem
+}
+
+#social img {
+  margin: 0 2rem 2rem 2rem
+}
+
+#play-app {
+  width: 100%;
+  text-align: center
+}
+
+#play-app img {
+  padding: 1.8rem 0.5rem
+}
+
+footer address {
+  padding: 2rem 2rem 1rem 2rem;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 60%;
+  color: #fffe
+}
+
+nav {
+  float: left;
+  width: 79%
+}
+
+nav ul {
+  float: left
+}
+
+ul {
+  list-style: none;
+  line-height: 2
+}
+
+ul li {
+  font-size: 120%;
+  font-weight: bold
+}
+
+ul li a {
+  color: #eee
+}
+
+a {
+  text-decoration: none
+}
+
+a:hover {
+  color: #fff
+}

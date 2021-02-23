@@ -1,8 +1,29 @@
+/* ----------------------------  Global  ---------------------------- */
+/* @import url("https://fonts.googleapis.com/css?family=Montserrat:500,700"); */
+@font-face {
+  font-family: 'montserrat';
+  src: url('src/app/shared/fonts/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'comfortaa';
+  src: url('src/app/shared/fonts/Comfortaa-Bold.ttf');
+}
+
 /* You can add global styles to this file, and also import other style files */
 body {
   background-image: url('assets/img/topo.jpg');
+  font-family: 'montserrat', sans-serif !important;
 }
 
-.conteudo {
-  min-height: 450px;
+footer {
+  background: linear-gradient(90deg, #4a9dce, #74c387);
+}
+
+.card-title {
+  font-family: 'montserrat', sans-serif !important;
+}
+
+footer {
+  font-family: 'montserrat', sans-serif !important;
 }
