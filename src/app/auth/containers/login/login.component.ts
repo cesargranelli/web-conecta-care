@@ -97,11 +97,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             let valid: Valid = responseValid.body.data;
             this._validService.setValid(valid);
             this._loading.emitChange(false);
-            // this.setValid(responseValid);
-            // let valid: Valid = this._validService.getValid();
-            console.log(valid)
             let component = this.converter.toComponent(valid.role);
-            console.log(component)
             this._router.navigateByUrl(`${component}/${valid.id}`);
           });
         }
