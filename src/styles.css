@@ -17,7 +17,7 @@ body {
 }
 
 footer {
-  background-image: url('assets/img/topo.jpg');
+  background: linear-gradient(90deg, #4a9dce, #74c387);
 }
 
 .card-title {
