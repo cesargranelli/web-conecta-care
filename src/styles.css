@@ -12,13 +12,14 @@
 
 /* You can add global styles to this file, and also import other style files */
 body {
-  background-image: url('assets/img/topo.jpg');
+  background-image: url('assets/img/background_connecta_care.png');
+  background-size: 100%;
   font-family: 'montserrat', sans-serif !important;
 }
 
-footer {
+/* footer {
   background: linear-gradient(90deg, #4a9dce, #74c387);
-}
+} */
 
 .card-title {
   font-family: 'montserrat', sans-serif !important;
