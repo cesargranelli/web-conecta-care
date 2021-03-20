@@ -15,6 +15,7 @@ import { LoginValid } from 'src/app/classes/login-valid.class';
 import { CadastroService } from 'src/app/services/cadastro.service';
 import { Authorization } from 'src/app/services/feat/token';
 import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
+import { ValidPassword } from 'src/app/shared/constants/valid.password';
 
 declare var jQuery: any;
 
@@ -67,7 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(20),
-        Validators.pattern('^.*((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*[0-9])((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$')
+        Validators.pattern(ValidPassword.PATTERN)
       ]]
     });
   }

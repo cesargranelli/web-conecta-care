@@ -8,6 +8,7 @@ import {validEqualsPassword} from 'src/app/shared/validations/directives/valid-e
 import {InputValidation} from 'src/app/shared/validations/input-validation';
 import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { ValidPassword } from 'src/app/shared/constants/valid.password';
 
 @Component({
   selector: 'app-nova-senha',
@@ -35,7 +36,7 @@ export class NovaSenhaComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(20),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,20}$')
+        Validators.pattern(ValidPassword.PATTERN)
       ]],
       confirmarPassword: ['', [
         Validators.required,

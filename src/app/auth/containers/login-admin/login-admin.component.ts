@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {LoginAdmin} from 'src/app/admin/models/login-admin.model';
-import {AuthAdminService} from 'src/app/auth/services/auth-admin.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {InputValidation} from 'src/app/shared/validations/input-validation';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginAdmin } from 'src/app/admin/models/login-admin.model';
+import { AuthAdminService } from 'src/app/auth/services/auth-admin.service';
+import { ValidPassword } from 'src/app/shared/constants/valid.password';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { InputValidation } from 'src/app/shared/validations/input-validation';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 @Component({
   selector: 'app-login-admin',
@@ -34,7 +35,7 @@ export class LoginAdminComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(20),
-        Validators.pattern('^.*((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*[0-9])((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$')
+        Validators.pattern(ValidPassword.PATTERN)
       ]]
     });
   }

@@ -1,24 +1,22 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Login } from 'src/app/classes/login.class';
+import { Modulo } from 'src/app/classes/modulo';
 import { Role } from 'src/app/classes/role';
 import { Usuario } from 'src/app/classes/usuario.class';
 import { Registro } from 'src/app/services/feat/registro';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { ValidPassword } from 'src/app/shared/constants/valid.password';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
 import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
 import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { Login } from 'src/app/classes/login.class';
-import { Modulo } from 'src/app/classes/modulo';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
-import { EmailService } from '../services/email.service';
 import { SendEmail } from '../classes/send-email.class';
-import { environment } from 'src/environments/environment';
+import { EmailService } from '../services/email.service';
 
 declare var jQuery: any;
 
@@ -85,13 +83,13 @@ export class CadastroLoginComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(20),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,20}$')
+        Validators.pattern(ValidPassword.PATTERN)
       ]],
       confirmarPassword: ['', [
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(20),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,20}$'),
+        Validators.pattern(ValidPassword.PATTERN),
         this.equalsPassword()
       ]],
       termo: ['', [Validators.requiredTrue]]
