@@ -22,7 +22,7 @@
                         </span>
                       </div>
                       <input autocomplete="false" class="form-control" formControlName="email" placeholder="Email"
-                             type="email">
+                        type="email">
                       <span class="form-control-feedback">
                         <i class="material-icons">{{ input.validation(cadastroLoginForm.controls.email) }}</i>
                       </span>
@@ -38,7 +38,7 @@
                         </span>
                       </div>
                       <input autocomplete="false" class="form-control" formControlName="confirmarEmail"
-                             placeholder="Confirmar Email" type="email">
+                        placeholder="Confirmar Email" type="email">
                       <span class="form-control-feedback">
                         <i class="material-icons">{{ input.validation(cadastroLoginForm.controls.confirmarEmail) }}</i>
                       </span>
@@ -63,13 +63,14 @@
                 <div class="form-row justify-content-center form-control-lg">
                   <div class="col-lg-10 col-md-10 col-sm-8">
                     <div [ngClass]="inputHas.validation(cadastroLoginForm.controls.confirmarPassword)"
-                         class="input-group">
+                      class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text">
                           <i class="material-icons">lock_outline</i>
                         </span>
                       </div>
-                      <input class="form-control" formControlName="confirmarPassword" placeholder="Confirmar Senha" type="password">
+                      <input class="form-control" formControlName="confirmarPassword" placeholder="Confirmar Senha"
+                        type="password">
                       <span class="form-control-feedback">
                         <i
                           class="material-icons">{{ input.validation(cadastroLoginForm.controls.confirmarPassword) }}</i>
@@ -77,7 +78,8 @@
                     </div>
                   </div>
                 </div>
-                <app-form-password-validation [password]="cadastroLoginForm.controls.password.value"></app-form-password-validation>
+                <app-form-password-validation [password]="cadastroLoginForm.controls.password.value">
+                </app-form-password-validation>
               </div>
               <div class="card-footer justify-content-center">
                 <span class="bmd-form-group is-filled">
@@ -85,15 +87,18 @@
                 </span>
               </div>
               <div class="card-footer justify-content-center">
-                <div class="form-check">
-                  <label class="form-check-label">
+                <div class="col-lg-10 col-md-11 col-sm-12">
+                  <div class="form-check">
+                    <label class="form-check-label">
                       <input formControlName="termo" class="form-check-input" type="checkbox" value="">
-                      Eu li e concordo com os <a target="_blank" href="/termo-e-condicoes-de-uso">Termo de Condições de Uso</a><!-- e 
-                      <a target="_blank" href="#">Política de Privacidade</a> deste site.-->
+                      Eu li e concordo com os <a target="_blank" href="/termo-e-condicoes-de-uso"><u>Termo de Condições de
+                        Uso</u></a> e
+                      <a target="_blank" href="/politica-de-privacidade"><u>Política de Privacidade</u></a> deste site.
                       <span class="form-check-sign">
-                          <span class="check"></span>
+                        <span class="check"></span>
                       </span>
-                  </label>
+                    </label>
+                  </div>
                 </div>
               </div>
               <div class="card-footer justify-content-between">
@@ -102,7 +107,7 @@
                 </span>
                 <span class="bmd-form-group is-filled">
                   <button [disabled]="!cadastroLoginForm.valid || !captcha" class="btn btn-rose"
-                          type="submit">Enviar</button>
+                    type="submit">Enviar</button>
                 </span>
               </div>
             </div>
