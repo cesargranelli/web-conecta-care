@@ -70,17 +70,14 @@
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input [title]="mensagemToolTip" class="form-control" data-html="true"
-                                   data-placement="top"
-                                   data-toggle="tooltip" data-trigger="click" formControlName="password"
-                                   placeholder="Senha..."
-                                   type="password">
+                            <input class="form-control" formControlName="password" placeholder="Senha..." type="password">
                           </div>
                           <span class="form-control-feedback">
                             <i class="material-icons">{{ input.validation(loginForm.controls.password) }}</i>
                           </span>
                         </div>
                       </div>
+                      <app-form-password-validation [password]="loginForm.controls.password.value"></app-form-password-validation>
                       <div class="form-row justify-content-center form-control-lg">
                         <div class="form-group">
                           <button [disabled]="!loginForm.valid" [ngClass]="!loginForm.valid ? 'btn-link' : ''"

@@ -38,13 +38,6 @@ export class CadastroLoginComponent implements OnInit {
   public input: InputValidation = new InputValidation();
   public inputHas: InputValidationHas = new InputValidationHas();
 
-  public mensagemToolTip = `<div style="font-size:70%;">Mínimo de 8 caracteres<br>
-  Máximo de 20 caracteres<br>
-  Ao menos 1 letra maiúscula<br>
-  Ao menos 1 letra minúscula<br>
-  Ao menos 1 número<br>
-  Ao menos 1 caracter especial</div>`;
-
   private registro: Registro;
   private registroId: number;
   private registroModulo: string;

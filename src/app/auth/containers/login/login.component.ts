@@ -3,19 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/classes/login.class';
 import { Modulo } from 'src/app/classes/modulo';
+import { CadastroService } from 'src/app/services/cadastro.service';
+import { Authorization } from 'src/app/services/feat/token';
 import { Valid } from 'src/app/services/feat/Valid';
+import { ValidPassword } from 'src/app/shared/constants/valid.password';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import { RoleConverter } from 'src/app/utils/role.converter';
 import { AuthService } from '../../services/auth.service';
-import { LoginService } from 'src/app/auth/services/login.service';
-import { LoginValid } from 'src/app/classes/login-valid.class';
-import { CadastroService } from 'src/app/services/cadastro.service';
-import { Authorization } from 'src/app/services/feat/token';
-import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
-import { ValidPassword } from 'src/app/shared/constants/valid.password';
 
 declare var jQuery: any;
 
@@ -34,13 +32,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   public input: InputValidation = new InputValidation();
   public inputHas: InputValidationHas = new InputValidationHas();
   public perfil: string = 'pacientes';
-
-  public mensagemToolTip = `<div style="font-size:70%;">Mínimo de 8 caracteres<br>
-  Máximo de 20 caracteres<br>
-  Ao menos 1 letra maiúscula<br>
-  Ao menos 1 letra minúscula<br>
-  Ao menos 1 número<br>
-  Ao menos 1 caracter especial</div>`;
 
   private modulo: Modulo = new Modulo('profissionais');
   private converter: RoleConverter = new RoleConverter();
