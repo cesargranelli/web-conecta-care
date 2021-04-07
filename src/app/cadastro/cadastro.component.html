@@ -6,22 +6,22 @@
         <div class="card card-wizard" data-color="rose" id="wizardProfile">
           <div class="card-header text-center">
             <h3 class="card-title">
-              <!-- Qual a categoria que definirá o nosso relacionamento ? -->
+              Qual a categoria que definirá o nosso relacionamento?
             </h3>
           </div>
           <div class="wizard-navigation">
             <ul class="nav nav-pills nav-fill">
-              <!-- <li #paciente (click)="setRole(paciente.id)" class="nav-item" id="pacientes" style="width: 25%;">
+              <li #paciente (click)="setRole(paciente.id)" class="nav-item" id="pacientes" style="width: 25%;">
                 <a class="nav-link" data-toggle="tab" href="#paciente" role="tab">
                   Paciente
                 </a>
-              </li> -->
+              </li>
               <li #profissional (click)="setRole(profissional.id)" class="nav-item" id="profissionais" style="width: 25%;">
                 <a class="nav-link" data-toggle="tab" href="#profissional" role="tab">
                   Profissional
                 </a>
               </li>
-              <!-- <li #homecare (click)="setRole(homecare.id)" class="nav-item" id="homecares" style="width: 25%;">
+              <li #homecare (click)="setRole(homecare.id)" class="nav-item" id="homecares" style="width: 25%;">
                 <a class="nav-link" data-toggle="tab" href="#homecare" role="tab">
                   Homecare
                 </a>
@@ -30,13 +30,13 @@
                 <a class="nav-link" data-toggle="tab" href="#planoSaude" role="tab">
                   Plano de Saúde
                 </a>
-              </li> -->
+              </li>
             </ul>
           </div>
           <div class="card-body">
             <div class="tab-content">
               <div class="tab-pane" id="paciente">
-                <!-- <form (ngSubmit)="onSubmit(pacienteForm, cpfPaciente)" [formGroup]="pacienteForm">
+                <form (ngSubmit)="onSubmit(pacienteForm, cpfPaciente)" [formGroup]="pacienteForm">
                   <div [ngClass]="input.validation(pacienteForm)=='done' ? 'has-success' : 'has-danger'"
                        class="form-row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-sm-8">
@@ -69,7 +69,7 @@
                       <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                     </div>
                   </div>
-                </form> -->
+                </form>
               </div>
               <div class="tab-pane" id="profissional">
                 <form (ngSubmit)="onSubmit(profissionalForm, cpfProfissional)" [formGroup]="profissionalForm">
@@ -108,7 +108,7 @@
                 </form>
               </div>
               <div class="tab-pane" id="homecare">
-                <!-- <form (ngSubmit)="onSubmit(homecareForm, cnpjHomecare)" [formGroup]="homecareForm">
+                <form (ngSubmit)="onSubmit(homecareForm, cnpjHomecare)" [formGroup]="homecareForm">
                   <div [ngClass]="input.validation(homecareForm)=='done' ? 'has-success' : 'has-danger'"
                        class="form-row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-sm-8">
@@ -141,10 +141,10 @@
                       <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                     </div>
                   </div>
-                </form> -->
+                </form>
               </div>
               <div class="tab-pane" id="planoSaude">
-                <!-- <form (ngSubmit)="onSubmit(planoSaudeForm, cnpjPlanoSaude)" [formGroup]="planoSaudeForm">
+                <form (ngSubmit)="onSubmit(planoSaudeForm, cnpjPlanoSaude)" [formGroup]="planoSaudeForm">
                   <div [ngClass]="input.validation(planoSaudeForm)=='done' ? 'has-success' : 'has-danger'"
                        class="form-row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-sm-8">
@@ -156,7 +156,7 @@
                         </div>
                         <input #cnpjPlanoSaude autocomplete="off" class="form-control" formControlName="cnpj"
                                id="cnpjPlanoSaude"
-                               mask="00.000.000/0000-00" name="cnpjPlanoSaude" placeholder="CNPJ (Obrigatório)"
+                               mask="00.000.000/0000-00" name="cnpjPlanoSaude" placeholder="CNPJ/MEI (Obrigatório)"
                                type="text">
                       </div>
                       <span class="form-control-feedback">
@@ -177,7 +177,7 @@
                       <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
                     </div>
                   </div>
-                </form> -->
+                </form>
               </div>
             </div>
           </div>
