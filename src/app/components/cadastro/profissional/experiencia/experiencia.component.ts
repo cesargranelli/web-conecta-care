@@ -61,10 +61,6 @@ export class ExperienciaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
-      this._router.navigateByUrl('/');
-    }
-
     if (this._cadastro?.experiencia) {
       this.popularForm();
     }

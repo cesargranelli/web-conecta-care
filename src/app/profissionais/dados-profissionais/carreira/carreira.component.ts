@@ -64,10 +64,6 @@ export class CarreiraComponent implements OnInit {
     this._dadosLocalStorage = this._validService.getValid();
     this.validationHas = new InputValidationHas();
 
-    if (this?._dadosLocalStorage?.role != Role.Profissional || !this?._dadosLocalStorage?.role) {
-      this._router.navigateByUrl('/');
-    }
-
     this._dominioService.getConselhos().pipe(
       map(conselhos => this.conselhos = conselhos.body),
       concatMap(() => this._dominioService.getEstados().pipe(map(estados => this.estados = estados.body))),

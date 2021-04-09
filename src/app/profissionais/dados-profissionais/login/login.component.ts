@@ -33,10 +33,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
-      this._router.navigateByUrl('/');
-    }
-
     this.loginForm = this._formBuilder.group({
       email: [{value: '', disabled: true}]
     });

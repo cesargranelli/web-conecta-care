@@ -56,10 +56,6 @@ export class EscolaridadeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
-      this._router.navigateByUrl('/');
-    }
-
     if (this._cadastro.experiencia?.length > 0) {
       this.escolaridadeForm.controls.instituicaoEnsino1.setValidators(Validators.required);
       this.escolaridadeForm.controls.anoConclusao1.setValidators(Validators.required);

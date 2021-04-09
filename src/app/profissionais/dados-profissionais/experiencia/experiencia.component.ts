@@ -65,10 +65,6 @@ export class ExperienciaComponent implements OnInit {
     this.validationHas = new InputValidationHas();
     this._dadosLocalStorage = this._validService.getValid();
 
-    if (this?._dadosLocalStorage?.role != Role.Profissional || !this?._dadosLocalStorage?.role) {
-      this._router.navigateByUrl('/');
-    }
-
     this._service.getDados(this._dadosLocalStorage.id).subscribe({
       next: experiencia => {
         this.experiencias = experiencia;

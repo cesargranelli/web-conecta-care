@@ -80,10 +80,6 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
-      this._router.navigateByUrl('/');
-    }
-
     this._dominioService.getGeneros().pipe(
       map((response) => {
         this._loading.emitChange(true);

@@ -50,10 +50,6 @@ export class ContatoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this?._valid?.role != Role.Profissional || !this?._valid?.role) {
-      this._router.navigateByUrl('/');
-    }
-
     this._dominioService.getPaises().pipe(
       map((response) => {
         this._loading.emitChange(true);

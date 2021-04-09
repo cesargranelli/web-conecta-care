@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/guards/auth.guard';
 import { CarreiraComponent } from './components/cadastro/profissional/carreira/carreira.component';
 import { ComplementoComponent } from './components/cadastro/profissional/complemento/complemento.component';
 import { ContaComponent } from './components/cadastro/profissional/conta/conta.component';
@@ -22,14 +23,30 @@ const routes: Routes = [
   { path: 'termo-e-condicoes-de-uso', component: TermoUsoComponent },
   { path: 'politica-de-privacidade', component: TermoPrivacidadeComponent },
   { path: 'confirmacao-cadastro/:token', component: ConfirmacaoCadastroComponent },
-  { path: 'cadastro/profissionais/:id/informacoes-gerais', component: InformacoesGeraisComponent },
-  { path: 'cadastro/profissionais/:id/endereco', component: EnderecoComponent },
-  { path: 'cadastro/profissionais/:id/contato', component: ContatoComponent },
-  { path: 'cadastro/profissionais/:id/carreira', component: CarreiraComponent },
-  { path: 'cadastro/profissionais/:id/experiencia', component: ExperienciaComponent },
-  { path: 'cadastro/profissionais/:id/escolaridade', component: EscolaridadeComponent },
-  { path: 'cadastro/profissionais/:id/complemento', component: ComplementoComponent },
-  { path: 'cadastro/profissionais/:id/conta', component: ContaComponent }
+  {
+    path: 'cadastro',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'profissionais',
+        children: [
+          {
+            path: ':id',
+            children: [
+              { path: 'informacoes-gerais', component: InformacoesGeraisComponent },
+              { path: 'endereco', component: EnderecoComponent },
+              { path: 'contato', component: ContatoComponent },
+              { path: 'carreira', component: CarreiraComponent },
+              { path: 'experiencia', component: ExperienciaComponent },
+              { path: 'escolaridade', component: EscolaridadeComponent },
+              { path: 'complemento', component: ComplementoComponent },
+              { path: 'conta', component: ContaComponent }
+            ]
+          }
+        ]
+      }
+    ]
+  },
 ];
 
 @NgModule({

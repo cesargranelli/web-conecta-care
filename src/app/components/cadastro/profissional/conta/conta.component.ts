@@ -55,10 +55,6 @@ export class ContaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this?.valid?.role != Role.Profissional || !this?.valid?.role) {
-      this._router.navigateByUrl('/');
-    }
-
     this._dominioService.getTipoContas().pipe(
       map(response => {
         this._loading.emitChange(true);
