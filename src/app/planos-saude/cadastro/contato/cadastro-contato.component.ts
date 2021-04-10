@@ -38,19 +38,19 @@ export class CadastroContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.isCadastro = true;
-    this.linkBotaoVoltar = `planos-saude/${this.valid.id}/cadastro/endereco`;
+    this.linkBotaoVoltar = `planos-saude/${this.valid?.id}/cadastro/endereco`;
     this.labelBotaoSubmit = 'Finalizar';
   }
 
   onSubmit(contato: ContatoPlanoSaude) {
     this._loading.emitChange(true);
-    contato.idPlanoSaude = this.valid.id;
+    contato.idPlanoSaude = this.valid?.id;
     contato.flagAceitePrivacidade = true;
     if (!this._cadastro.contato.id) {
       this._service.cadastrar(contato).subscribe(response => {
         setTimeout(() => {
           this._cadastro.contato = contato;
-          this._router.navigateByUrl(`planos-saude/${this.valid.id}`);
+          this._router.navigateByUrl(`planos-saude/${this.valid?.id}`);
           this._loading.emitChange(false);
         });
       },
@@ -62,7 +62,7 @@ export class CadastroContatoComponent implements OnInit {
       this._service.alterar(contato).subscribe(response => {
         setTimeout(() => {
           this._cadastro.contato = contato;
-          this._router.navigateByUrl(`planos-saude/${this.valid.id}`);
+          this._router.navigateByUrl(`planos-saude/${this.valid?.id}`);
           this._loading.emitChange(false);
         });
       },
