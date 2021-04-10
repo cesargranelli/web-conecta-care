@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../auth/guards/auth.guard';
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
 import { CadastroLoginComponent } from './cadastro/login/cadastro-login.component';
@@ -12,16 +13,53 @@ import { InformacoesPlanoSaudeFilialComponent } from './dados/plano-saude-filial
 import { PlanosSaudeFilialComponent } from './planos-saude-filial.component';
 
 const routes: Routes = [
-  { path: 'planos-saude/:id/cadastro/filial', component: CadastroPlanoSaudeFilialComponent },
-  { path: 'planos-saude/:id/cadastro/filial/endereco', component: CadastroEnderecoComponent },
-  { path: 'planos-saude/:id/cadastro/filial/contato', component: CadastroContatoComponent },
-  { path: 'planos-saude/:id/cadastro/filial/login', component: CadastroLoginComponent },
-  { path: 'planos-saude-filial/:id', component: PlanosSaudeFilialComponent },
-  { path: 'planos-saude-filial/:id/dados', component: DadosPlanosSaudeFilialComponent },
-  { path: 'planos-saude-filial/:id/dados/login', component: InformacoesLoginComponent },
-  { path: 'planos-saude-filial/:id/dados/filial', component: InformacoesPlanoSaudeFilialComponent },
-  { path: 'planos-saude-filial/:id/dados/endereco', component: InformacoesEnderecoComponent },
-  { path: 'planos-saude-filial/:id/dados/contato', component: InformacoesContatoComponent }
+  {
+    path: 'planos-saude',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: ':id',
+        children: [
+          {
+            path: 'cadastro',
+            children: [
+              {
+                path: 'filial',
+                children: [
+                  { path: '', component: CadastroPlanoSaudeFilialComponent },
+                  { path: 'endereco', component: CadastroEnderecoComponent },
+                  { path: 'contato', component: CadastroContatoComponent },
+                  { path: 'login', component: CadastroLoginComponent }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: 'planos-saude-filial',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: ':id',
+        children: [
+          { path: '', component: PlanosSaudeFilialComponent },
+          {
+            path: 'dados',
+            children: [
+              { path: '', component: DadosPlanosSaudeFilialComponent },
+              { path: 'login', component: InformacoesLoginComponent },
+              { path: 'filial', component: InformacoesPlanoSaudeFilialComponent },
+              { path: 'endereco', component: InformacoesEnderecoComponent },
+              { path: 'contato', component: InformacoesContatoComponent }
+            ]
+          }
+        ]
+      }
+    ]
+  },
 ];
 
 @NgModule({

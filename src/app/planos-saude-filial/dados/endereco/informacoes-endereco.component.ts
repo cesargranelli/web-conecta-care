@@ -35,7 +35,7 @@ export class InformacoesEnderecoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response =>
+    this._service.consultar(this.valid?.id).subscribe(response =>
         this._cadastro.endereco = response.body.data,
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
@@ -44,13 +44,13 @@ export class InformacoesEnderecoComponent implements OnInit {
       }
     );
     this.isCadastro = false;
-    this.linkBotaoVoltar = `planos-saude-filial/${this.valid.id}/dados`;
+    this.linkBotaoVoltar = `planos-saude-filial/${this.valid?.id}/dados`;
     this.labelBotaoSubmit = "Alterar";
   }
 
   onSubmit(endereco: EnderecoPlanoSaudeFilial) {
     this._loading.emitChange(true);
-    endereco.idPlanoSaude = this.valid.id;
+    endereco.idPlanoSaude = this.valid?.id;
     this._service.alterar(endereco).subscribe(response => {
         setTimeout(() => {
           this._cadastro.endereco = endereco;
@@ -61,7 +61,7 @@ export class InformacoesEnderecoComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          this._router.navigateByUrl(`planos-saude-filial/${this.valid.id}/dados`);
+          this._router.navigateByUrl(`planos-saude-filial/${this.valid?.id}/dados`);
           this._loading.emitChange(false);
         });
       },

@@ -36,7 +36,7 @@ export class InformacoesPlanoSaudeFilialComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response => {
+    this._service.consultar(this.valid?.id).subscribe(response => {
       this._cadastro.planoSaude = response.body.data;
       this.cnpj = this._cadastro.planoSaude?.cnpj;
     },
@@ -47,13 +47,13 @@ export class InformacoesPlanoSaudeFilialComponent implements OnInit {
       }
     );
     this.isCadastro = false;
-    this.linkBotaoVoltar = `planos-saude-filial/${this.valid.id}/dados`;
+    this.linkBotaoVoltar = `planos-saude-filial/${this.valid?.id}/dados`;
     this.labelBotaoSubmit = 'Alterar';
   }
 
   onSubmit(planoSaude: PlanoSaudeFilial) {
     this._loading.emitChange(true);
-    planoSaude.id = this.valid.id;
+    planoSaude.id = this.valid?.id;
     planoSaude.cnpj = this.cnpj;
     this._service.alterar(planoSaude).subscribe(response => {
         setTimeout(() => {
@@ -65,7 +65,7 @@ export class InformacoesPlanoSaudeFilialComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          this._router.navigateByUrl(`planos-saude-filial/${this.valid.id}/dados`);
+          this._router.navigateByUrl(`planos-saude-filial/${this.valid?.id}/dados`);
           this._loading.emitChange(false);
         });
       },

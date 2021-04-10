@@ -38,13 +38,13 @@ export class InformacoesContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.isCadastro = false;
-    this.linkBotaoVoltar = `planos-saude-filial/${this.valid.id}/dados`;
+    this.linkBotaoVoltar = `planos-saude-filial/${this.valid?.id}/dados`;
     this.labelBotaoSubmit = 'Alterar';
   }
 
   onSubmit(contato: ContatoPlanoSaudeFilial) {
     this._loading.emitChange(true);
-    contato.idPlanoSaude = this.valid.id;
+    contato.idPlanoSaude = this.valid?.id;
     this._service.alterar(contato).subscribe(response => {
         setTimeout(() => {
           this._cadastro.contato = contato;
@@ -55,7 +55,7 @@ export class InformacoesContatoComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          this._router.navigateByUrl(`planos-saude-filial/${this.valid.id}/dados`);
+          this._router.navigateByUrl(`planos-saude-filial/${this.valid?.id}/dados`);
           this._loading.emitChange(false);
         });
       },

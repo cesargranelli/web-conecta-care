@@ -48,7 +48,7 @@ export class CadastroEnderecoComponent implements OnInit {
       );
     }
     this.isCadastro = true;
-    this.linkBotaoVoltar = `planos-saude/${this.valid.id}/cadastro/filial`;
+    this.linkBotaoVoltar = `planos-saude/${this.valid?.id}/cadastro/filial`;
     this.labelBotaoSubmit = "Avançar";
   }
 
@@ -75,7 +75,7 @@ export class CadastroEnderecoComponent implements OnInit {
   private navigate(endereco: EnderecoPlanoSaudeFilial) {
     setTimeout(() => {
       this._cadastro.endereco = endereco;
-      this._router.navigateByUrl(`planos-saude/${this.valid.id}/cadastro/filial/contato`);
+      this._router.navigateByUrl(`planos-saude/${this.valid?.id}/cadastro/filial/contato`);
       this._loading.emitChange(false);
     });
   }
