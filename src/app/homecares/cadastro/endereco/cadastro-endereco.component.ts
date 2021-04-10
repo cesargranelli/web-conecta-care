@@ -37,7 +37,7 @@ export class CadastroEnderecoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response =>
+    this._service.consultar(this.valid?.id).subscribe(response =>
         this._cadastro.endereco = response.body.data,
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {

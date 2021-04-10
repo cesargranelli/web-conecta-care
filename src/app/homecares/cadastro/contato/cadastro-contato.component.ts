@@ -38,7 +38,7 @@ export class CadastroContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.isCadastro = true;
-    this.linkBotaoVoltar = `homecares/${this.valid.id}/cadastro/endereco`;
+    this.linkBotaoVoltar = `homecares/${this.valid?.id}/cadastro/endereco`;
     this.labelBotaoSubmit = 'Finalizar';
   }
 

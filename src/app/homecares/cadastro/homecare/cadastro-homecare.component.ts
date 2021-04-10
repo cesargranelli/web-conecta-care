@@ -34,7 +34,7 @@ export class CadastroHomeCareComponent implements OnInit {
   ) {
     this._loading.emitChange(true);
     this.valid = this._validService.getValid();
-    this._serviceDocumento.pesquisar(this.valid.id).subscribe(response => {
+    this._serviceDocumento.pesquisar(this.valid?.id).subscribe(response => {
       this._cadastro.homeCare.cnpj = response.body.data.documento;
     },
     (errorResponse: HttpErrorResponse) => {
@@ -45,7 +45,7 @@ export class CadastroHomeCareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._service.consultar(this.valid.id).subscribe(response =>
+    this._service.consultar(this.valid?.id).subscribe(response =>
         this._cadastro.homeCare = response.body.data,
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {

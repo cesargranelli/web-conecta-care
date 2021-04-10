@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../auth/guards/auth.guard';
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
 import { CadastroHomeCareComponent } from './cadastro/homecare/cadastro-homecare.component';
@@ -11,15 +12,36 @@ import { InformacoesLoginComponent } from './dados/login/informacoes-login.compo
 import { HomeCaresComponent } from './homecares.component';
 
 const routes: Routes = [
-  { path: 'homecares/:id', component: HomeCaresComponent },
-  { path: 'homecares/:id/cadastro/homecare', component: CadastroHomeCareComponent },
-  { path: 'homecares/:id/cadastro/endereco', component: CadastroEnderecoComponent },
-  { path: 'homecares/:id/cadastro/contato', component: CadastroContatoComponent },
-  { path: 'homecares/:id/dados', component: DadosHomecaresComponent },
-  { path: 'homecares/:id/dados/login', component: InformacoesLoginComponent },
-  { path: 'homecares/:id/dados/homecare', component: InformacoesHomecareComponent },
-  { path: 'homecares/:id/dados/endereco', component: InformacoesEnderecoComponent },
-  { path: 'homecares/:id/dados/contato', component: InformacoesContatoComponent }
+  {
+    path: 'homecares',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: ':id',
+        children: [
+          { path: '', component: HomeCaresComponent },
+          {
+            path: 'cadastro',
+            children: [
+              { path: 'homecare', component: CadastroHomeCareComponent },
+              { path: 'endereco', component: CadastroEnderecoComponent },
+              { path: 'contato', component: CadastroContatoComponent },
+            ]
+          },
+          {
+            path: 'dados',
+            children: [
+              { path: '', component: DadosHomecaresComponent },
+              { path: 'login', component: InformacoesLoginComponent },
+              { path: 'homecare', component: InformacoesHomecareComponent },
+              { path: 'endereco', component: InformacoesEnderecoComponent },
+              { path: 'contato', component: InformacoesContatoComponent }
+            ]
+          }
+        ]
+      },
+    ]
+  }
 ];
 
 @NgModule({
