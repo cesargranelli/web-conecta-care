@@ -15,6 +15,7 @@ import { ConfirmacaoNovaSenhaComponent } from './pages/confirmacao-nova-senha/co
 import { EsperaConfirmacaoEmailComponent } from './pages/espera-confirmacao-email/espera-confirmacao-email.component';
 import { TermoPrivacidadeComponent } from './pages/termo-privacidade/termo-privacidade.component';
 import { TermoUsoComponent } from './pages/termo-uso/termo-uso.component';
+import { CadastroComponent } from './cadastro/cadastro.component';
 
 const routes: Routes = [
   { path: '', component: ConnectaComponent },
@@ -25,10 +26,11 @@ const routes: Routes = [
   { path: 'confirmacao-cadastro/:token', component: ConfirmacaoCadastroComponent },
   {
     path: 'cadastro',
-    canActivate: [AuthGuard],
     children: [
+      { path: '', component: CadastroComponent },
       {
         path: 'profissionais',
+        canActivate: [AuthGuard],
         children: [
           {
             path: ':id',
