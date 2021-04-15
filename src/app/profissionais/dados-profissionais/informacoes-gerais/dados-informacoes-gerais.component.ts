@@ -1,45 +1,60 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {concatMap, map} from 'rxjs/operators';
-import {EstadoCivil} from 'src/app/classes/estado-civil.class';
-import {Genero} from 'src/app/classes/genero.class';
-import {Profissional} from 'src/app/classes/profissional.class';
-import {TipoEmpresa} from 'src/app/classes/tipo-empresa.class';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
-import {DominioService} from 'src/app/services/dominio.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {ProfissionalService} from 'src/app/services/profissional.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
-import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
+import { EstadoCivil } from 'src/app/classes/estado-civil.class';
+import { Genero } from 'src/app/classes/genero.class';
+import { Profissional } from 'src/app/classes/profissional.class';
+import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { DominioService } from 'src/app/services/dominio.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { ProfissionalService } from 'src/app/services/profissional.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
 @Component({
   selector: 'app-informacoes-gerais',
-  templateUrl: './informacoes-gerais.component.html',
-  styleUrls: ['./informacoes-gerais.component.css']
+  templateUrl: './dados-informacoes-gerais.component.html',
+  styleUrls: ['./dados-informacoes-gerais.component.css']
 })
-export class InformacoesGeraisComponent implements OnInit {
+export class DadosInformacoesGeraisComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
+
   public profissionalForm: FormGroup;
   public generos: Array<Genero>;
   public tipoEmpresas: Array<TipoEmpresa>;
   public estadoCivis: Array<EstadoCivil>;
   public validationHas: InputValidationHas = new InputValidationHas();
-  public fileInputProfissional: string = 'fileinput-new';
-  public fileInputRg: string = 'fileinput-new';
   public showForm: boolean = true;
   public profissional: Profissional;
-  private readonly CAMINHO_IMAGEM_DUMMY: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
-  public fotoProfissional: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
-  public fotoRg: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
-  private _fileProfissional: File;
-  private _fileRg: File;
+  
+  public fotoCtps: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+  public fileInputCtps: string = 'fileinput-new';
+  public fileCtps: File;
+
+  public fotoProfissional: string | ArrayBuffer = '../../../../../assets/img/Headshot-Placeholder-1.png';
+  public fileInputProfissional: string = 'fileinput-new';
+  public fileProfissional: File;
+  
+  public fotoRgFrente: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+  public fileInputRgFrente: string = 'fileinput-new';
+  public fileRgFrente: File;
+
+  public fotoRgVerso: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+  public fileInputRgVerso: string = 'fileinput-new';
+  public fileRgVerso: File;
+  
+  public fotoAssinatura: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+  public fileInputAssinatura: string = 'fileinput-new';
+  public fileAssinatura: File;
+  
   private _dadosLocalStorage: Valid;
   private _dataAtual: Date;
 
@@ -58,10 +73,10 @@ export class InformacoesGeraisComponent implements OnInit {
     this.profissionalForm = this._formBuilder.group({
       nome: [null, Validators.required],
       sobrenome: [null, [Validators.required, Validators.maxLength(60)]],
-      dataNascimento: [null, Validators.minLength(10)],
+      dataNascimento: [null],
       rg: [null],
       rgEmissor: [null],
-      rgDataEmissao: [null, [Validators.minLength(10), Validators.maxLength(10)]],
+      rgDataEmissao: [null],
       pis: [null],
       genero: [null, Validators.required],
       tipoEmpresa: [null, Validators.required],
@@ -69,8 +84,12 @@ export class InformacoesGeraisComponent implements OnInit {
       cnpj: [null, [validCnpj(false)]],
       ctps: [null, Validators.required],
       ctpsSerie: [null, Validators.required],
+      fotoCtps: [null, Validators.required],
       fotoProfissional: [null, Validators.required],
-      fotoRg: [null, Validators.required],
+      fotoRgFrente: [null, Validators.required],
+      fotoRgVerso: [null, Validators.required],
+      fotoAssinatura: [null, Validators.required],
+      disponivelParaAtendimento: [null, Validators.required],
     });
   }
 
@@ -84,13 +103,25 @@ export class InformacoesGeraisComponent implements OnInit {
     ).subscribe(dadosProfissional => {
       this.profissional = dadosProfissional;
       this.popularForm();
+      if (this.profissional && this.profissional.fotoCtps) {
+        this.fotoCtps = this.profissional.fotoCtps;
+        this.fileInputCtps = 'fileinput-exists';
+      }
       if (this.profissional && this.profissional.fotoProfissional) {
         this.fotoProfissional = this.profissional.fotoProfissional;
         this.fileInputProfissional = 'fileinput-exists';
       }
-      if (this.profissional && this.profissional.fotoRg) {
-        this.fotoRg = this.profissional.fotoRg;
-        this.fileInputRg = 'fileinput-exists';
+      if (this.profissional && this.profissional.fotoRgFrente) {
+        this.fotoRgFrente = this.profissional.fotoRgFrente;
+        this.fileInputRgFrente = 'fileinput-exists';
+      }
+      if (this.profissional && this.profissional.fotoRgVerso) {
+        this.fotoRgVerso = this.profissional.fotoRgVerso;
+        this.fileInputRgVerso = 'fileinput-exists';
+      }
+      if (this.profissional && this.profissional.fotoAssinatura) {
+        this.fotoAssinatura = this.profissional.fotoAssinatura;
+        this.fileInputAssinatura = 'fileinput-exists';
       }
       jQuery('select').selectpicker('render');
       setTimeout(() => {
@@ -122,16 +153,32 @@ export class InformacoesGeraisComponent implements OnInit {
         ctps: this.profissional.ctps,
         ctpsSerie: this.profissional.ctpsSerie
       });
-      this.profissionalForm.controls.fotoRg.setValue(this.profissional.fotoRg, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoCtps.setValue(this.profissional.fotoCtps, {emitModelToViewChange: false});
       this.profissionalForm.controls.fotoProfissional.setValue(this.profissional.fotoProfissional, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoRgFrente.setValue(this.profissional.fotoRgFrente, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoRgVerso.setValue(this.profissional.fotoRgVerso, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoAssinatura.setValue(this.profissional.fotoAssinatura, {emitModelToViewChange: false});
+      this.profissionalForm.controls.disponivelParaAtendimento.setValue(this.profissional.disponivelParaAtendimento ? true : false, {emitModelToViewChange: false});
     }
   }
 
-  onLoadFotoProfissional(event: any) {
-    this._fileProfissional = event.target.files[0];
+  onLoadFotoCtps(event: any) {
+    this.fileCtps = event.target.files[0];
     var reader = new FileReader();
-    if (this._fileProfissional) {
-      reader.readAsDataURL(this._fileProfissional);
+    if (this.fileCtps) {
+      reader.readAsDataURL(this.fileCtps);
+      this.fileInputCtps = 'fileinput-exists';
+    }
+    reader.onload = () => {
+      this.fotoCtps = reader.result;
+    };
+  }
+
+  onLoadFotoProfissional(event: any) {
+    this.fileProfissional = event.target.files[0];
+    var reader = new FileReader();
+    if (this.fileProfissional) {
+      reader.readAsDataURL(this.fileProfissional);
       this.fileInputProfissional = 'fileinput-exists';
     }
     reader.onload = () => {
@@ -139,15 +186,39 @@ export class InformacoesGeraisComponent implements OnInit {
     };
   }
 
-  onLoadFotoRg(event: any) {
-    this._fileRg = event.target.files[0];
+  onLoadFotoRgFrente(event: any) {
+    this.fileRgFrente = event.target.files[0];
     var reader = new FileReader();
-    if (this._fileRg) {
-      reader.readAsDataURL(this._fileRg);
-      this.fileInputRg = 'fileinput-exists';
+    if (this.fileRgFrente) {
+      reader.readAsDataURL(this.fileRgFrente);
+      this.fileInputRgFrente = 'fileinput-exists';
     }
     reader.onload = () => {
-      this.fotoRg = reader.result;
+      this.fotoRgFrente = reader.result;
+    };
+  }
+
+  onLoadFotoRgVerso(event: any) {
+    this.fileRgVerso = event.target.files[0];
+    var reader = new FileReader();
+    if (this.fileRgVerso) {
+      reader.readAsDataURL(this.fileRgVerso);
+      this.fileInputRgVerso = 'fileinput-exists';
+    }
+    reader.onload = () => {
+      this.fotoRgVerso = reader.result;
+    };
+  }
+
+  onLoadFotoAssinatura(event: any) {
+    this.fileAssinatura = event.target.files[0];
+    var reader = new FileReader();
+    if (this.fileAssinatura) {
+      reader.readAsDataURL(this.fileAssinatura);
+      this.fileInputAssinatura = 'fileinput-exists';
+    }
+    reader.onload = () => {
+      this.fotoAssinatura = reader.result;
     };
   }
 
@@ -156,8 +227,11 @@ export class InformacoesGeraisComponent implements OnInit {
     let profissional = this.profissionalForm.value;
 
     profissional.id = this._dadosLocalStorage.id;
+    profissional.fotoCtps = this.fotoCtps;
     profissional.fotoProfissional = this.fotoProfissional;
-    profissional.fotoRg = this.fotoRg;
+    profissional.fotoRgFrente = this.fotoRgFrente;
+    profissional.fotoRgVerso = this.fotoRgVerso;
+    profissional.fotoAssinatura = this.fotoAssinatura;
 
     if (this.validacoes(profissional.rgDataEmissao, profissional.dataNascimento) && profissional.rg != null) {
       this._loading.emitChange(false);

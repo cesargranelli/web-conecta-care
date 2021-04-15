@@ -1,0 +1,9 @@
+.fileinput .thumbnail.foto {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.fileinput .thumbnail.paisagem {
+    max-width: 200px;
+    max-height: 125px;
+}

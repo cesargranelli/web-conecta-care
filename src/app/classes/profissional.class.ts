@@ -1,6 +1,6 @@
-import {EstadoCivil} from './estado-civil.class';
-import {Genero} from './genero.class';
-import {TipoEmpresa} from './tipo-empresa.class';
+import { EstadoCivil } from './estado-civil.class';
+import { Genero } from './genero.class';
+import { TipoEmpresa } from './tipo-empresa.class';
 
 export class Profissional {
   id: number;
@@ -17,6 +17,10 @@ export class Profissional {
   cnpj: number;
   ctps: number;
   ctpsSerie: number;
+  fotoCtps: any;
   fotoProfissional: any;
-  fotoRg: any;
+  fotoRgFrente: any;
+  fotoRgVerso: any;
+  fotoAssinatura: any;
+  disponivelParaAtendimento: any;
 }

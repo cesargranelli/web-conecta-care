@@ -1,28 +1,27 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Banco} from 'src/app/classes/banco.class';
-import {Conta} from 'src/app/classes/conta.class';
-import {TipoConta} from 'src/app/classes/tipo-conta.class';
-import {Role} from 'src/app/enums/role.enum';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
-import {ContaService} from 'src/app/services/conta.service';
-import {DominioService} from 'src/app/services/dominio.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
+import { Banco } from 'src/app/classes/banco.class';
+import { Conta } from 'src/app/classes/conta.class';
+import { TipoConta } from 'src/app/classes/tipo-conta.class';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { ContaService } from 'src/app/services/conta.service';
+import { DominioService } from 'src/app/services/dominio.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import {concatMap, map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
 @Component({
   selector: 'app-conta',
-  templateUrl: './conta.component.html',
-  styleUrls: ['./conta.component.css']
+  templateUrl: './cadastro-conta.component.html',
+  styleUrls: ['./cadastro-conta.component.css']
 })
-export class ContaComponent implements OnInit {
+export class CadastroContaComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
@@ -50,7 +49,9 @@ export class ContaComponent implements OnInit {
       banco: [null, [Validators.required]],
       agencia: [null, [Validators.required, Validators.maxLength(5)]],
       numero: [null, [Validators.required, Validators.maxLength(12)]],
-      digito: [null, [Validators.required, Validators.maxLength(2)]]
+      digito: [null, [Validators.required, Validators.maxLength(2)]],
+      chave_pix_primaria: [null, [Validators.required, Validators.maxLength(100)]],
+      chave_pix_secundaria: [null, [Validators.required, Validators.maxLength(100)]]
     });
   }
 
@@ -87,7 +88,9 @@ export class ContaComponent implements OnInit {
       banco: ['', [Validators.required]],
       agencia: [this._cadastro.conta?.agencia, [Validators.required, Validators.maxLength(5)]],
       numero: [this._cadastro.conta?.numero, [Validators.required, Validators.maxLength(12)]],
-      digito: [this._cadastro.conta?.digito, [Validators.required, Validators.maxLength(2)]]
+      digito: [this._cadastro.conta?.digito, [Validators.required, Validators.maxLength(2)]],
+      chave_pix_primaria: [this._cadastro.conta?.chave_pix_primaria, [Validators.maxLength(100)]],
+      chave_pix_secundaria: [this._cadastro.conta?.chave_pix_secundaria, [Validators.maxLength(100)]]
     });
   }
 

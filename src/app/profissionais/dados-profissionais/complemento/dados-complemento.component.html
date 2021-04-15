@@ -15,18 +15,15 @@
                 <div class="row">
                   <label class="col-lg-2 col-md-3 col-form-label" for="tituloEleitoral">Título eleitoral</label>
                   <div class="form-group col-lg-3 col-md-8">
-                    <input class="form-control" formControlName="tituloEleitoral" id="tituloEleitoral" mask="99999999999"
-                           type="text">
+                    <input class="form-control" formControlName="tituloEleitoral" id="tituloEleitoral" mask="99999999999" type="text">
                   </div>
                   <label class="col-lg-1 col-md-3 col-form-label" for="zonaEleitoral">Zona</label>
                   <div class="form-group col-lg-2 col-md-8">
-                    <input class="form-control" formControlName="zonaEleitoral" id="zonaEleitoral" mask="999"
-                           type="text">
+                    <input class="form-control" formControlName="zonaEleitoral" id="zonaEleitoral" mask="999" type="text">
                   </div>
                   <label class="col-lg-1 col-md-3 col-form-label" for="secaoEleitoral">Seção</label>
                   <div class="form-group col-lg-2 col-md-8">
-                    <input class="form-control" formControlName="secaoEleitoral" id="secaoEleitoral" mask="9999"
-                           type="text">
+                    <input class="form-control" formControlName="secaoEleitoral" id="secaoEleitoral" mask="9999" type="text">
                   </div>
                 </div>
                 <div class="row">
@@ -55,17 +52,17 @@
                               [selected]="categoriaCNH.id===complemento?.categoriaCNH?.id">{{ categoriaCNH.sigla }}</option>
                     </select>
                   </div>
-                  <label class="col-lg-2 col-md-3 col-form-label" for="fotoCNH">Foto CNH</label>
-                  <div class="col-lg-5 col-md-3">
-                    <div [ngClass]="fileInputCnh" class="fileinput text-center" data-provides="fileinput">
-                      <div [ngClass]="fileInputCnh" class="thumbnail img-circle img-raised">
-                        <img [src]="fotoCNH" rel="nofollow" style="max-width: 100px; max-height: 100px;">
+                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoCNHFrente">Foto CNH Frente</label>
+                  <div class="col-lg-6 col-md-6 offset-1">
+                    <div [ngClass]="fileInputFotoCNHFrente" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputFotoCNHFrente" class="thumbnail paisagem img-raised">
+                        <img [src]="fotoCNHFrente" rel="nofollow">
                       </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail paisagem img-raised"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
                         <span class="fileinput-new">Foto CNH</span>
                         <span class="fileinput-exists">Trocar</span>
-                        <input (change)="onLoadFotoCNH($event)" data-max-size="2" formControlName="fotoCNH" id="fotoCNH"
-                               type="file">
+                        <input (change)="onLoadFotoCNHFrente($event)" data-max-size="2" formControlName="fotoCNHFrente" id="fotoCNH" type="file">
                       </span>
                     </div>
                   </div>

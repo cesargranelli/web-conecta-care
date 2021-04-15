@@ -47,18 +47,35 @@
                               [value]="categoriaCNH.id">{{ categoriaCNH.sigla }}</option>
                     </select>
                   </div>
-                  <label class="col-lg-2 col-md-3 col-form-label" for="fotoCNH">Foto CNH</label>
-                  <div class="col-lg-5 col-md-3">
-                    <div [ngClass]="fileInputFotoCNH" class="fileinput text-center" data-provides="fileinput">
-                      <div [ngClass]="fileInputFotoCNH" class="thumbnail img-circle img-raised">
-                        <img [src]="imagemFotoCNH" alt="..." rel="nofollow">
+                </div>
+                <div class="row">
+                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoCNHFrente">Foto CNH Frente</label>
+                  <div class="col-lg-6 col-md-6 offset-1">
+                    <div [ngClass]="fileInputFotoCNHFrente" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputFotoCNHFrente" class="thumbnail paisagem img-raised">
+                        <img [src]="imagemFotoCNHFrente" alt="..." rel="nofollow">
                       </div>
-                      <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"
-                           style="max-width: 100px; max-height: 100px;"></div>
+                      <div class="fileinput-preview fileinput-exists thumbnail paisagem img-raised"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span [hidden]="complementoForm.controls.fotoCNH.valid">Selecionar foto CNH</span>
-                        <span [hidden]="complementoForm.controls.fotoCNH.invalid">Trocar</span>
-                        <input (change)="onLoadFotoCNH($event)" formControlName="fotoCNH" type="file">
+                        <span [hidden]="complementoForm.controls.fotoCNHFrente.value">Selecionar foto</span>
+                        <span [hidden]="!complementoForm.controls.fotoCNHFrente.value">Trocar</span>
+                        <input (change)="onLoadFotoCNHFrente($event)" formControlName="fotoCNHFrente" type="file">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoCNHVerso">Foto CNH Verso</label>
+                  <div class="col-lg-6 col-md-6 offset-1">
+                    <div [ngClass]="fileInputFotoCNHVerso" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputFotoCNHVerso" class="thumbnail paisagem img-raised">
+                        <img [src]="imagemFotoCNHVerso" alt="..." rel="nofollow">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail paisagem img-raised"></div>
+                      <span class="btn btn-raised btn-round btn-rose btn-file">
+                        <span [hidden]="complementoForm.controls.fotoCNHVerso.value">Selecionar foto</span>
+                        <span [hidden]="!complementoForm.controls.fotoCNHVerso.value">Trocar</span>
+                        <input (change)="onLoadFotoCNHVerso($event)" formControlName="fotoCNHVerso" type="file">
                       </span>
                     </div>
                   </div>

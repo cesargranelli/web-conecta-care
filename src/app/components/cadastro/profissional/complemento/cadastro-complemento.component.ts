@@ -1,40 +1,46 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {CategoriaCNH} from 'src/app/classes/categoria-cnh.class';
-import {Complemento} from 'src/app/classes/complemento.class';
-import {Role} from 'src/app/enums/role.enum';
-import {CadastroProfissionaisService} from 'src/app/services/cadastro-profissionais.service';
-import {ComplementoService} from 'src/app/services/complemento.service';
-import {DominioService} from 'src/app/services/dominio.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { CategoriaCNH } from 'src/app/classes/categoria-cnh.class';
+import { Complemento } from 'src/app/classes/complemento.class';
+import { CadastroProfissionaisService } from 'src/app/services/cadastro-profissionais.service';
+import { ComplementoService } from 'src/app/services/complemento.service';
+import { DominioService } from 'src/app/services/dominio.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import {map} from 'rxjs/operators';
 
 declare var jQuery: any;
 
 @Component({
   selector: 'app-complemento',
-  templateUrl: './complemento.component.html',
-  styleUrls: ['./complemento.component.css']
+  templateUrl: './cadastro-complemento.component.html',
+  styleUrls: ['./cadastro-complemento.component.css']
 })
-export class ComplementoComponent implements OnInit {
+export class CadastroComplementoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   complementoForm: FormGroup;
   public categoriasCNH: CategoriaCNH[];
-  public fotoCNH: any;
   public validationHas: InputValidationHas = new InputValidationHas();
-  public fileInputFotoCNH: string = 'fileinput-new';
-  public imagemFotoCNH: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
+
+  public fotoCNHFrente: any;
+  public imagemFotoCNHFrente: string = '../../../../../assets/img/default-paisagem.png';
+  public fileInputFotoCNHFrente: string = 'fileinput-new';
+  public fileFotoCNHFrente: File;
+
+  public fotoCNHVerso: any;
+  public imagemFotoCNHVerso: string = '../../../../../assets/img/default-paisagem.png';
+  public fileInputFotoCNHVerso: string = 'fileinput-new';
+  public fileFotoCNHVerso: File;
+
   public showForm: boolean = true;
   private valid: Valid;
   private complemento: Complemento;
-  private fileFotoCNH: File;
 
   constructor(
     private _router: Router,
@@ -54,7 +60,8 @@ export class ComplementoComponent implements OnInit {
       numeroHabilitacao: [null, [Validators.maxLength(11)]],
       dataValidadeHabilitacao: [null],
       categoriaCNH: [null],
-      fotoCNH: [null],
+      fotoCNHFrente: [null],
+      fotoCNHVerso: [null],
       numeroReservista: [null],
       nomeMae: [null, [Validators.required, Validators.maxLength(100)]],
       profissaoMae: [null, [Validators.maxLength(60)]],
@@ -107,10 +114,15 @@ export class ComplementoComponent implements OnInit {
       carteiraVacinacao: this._cadastro.complemento?.carteiraVacinacao
     });
 
-    if (this._cadastro.complemento?.fotoCNH) {
-      this.imagemFotoCNH = this._cadastro.complemento?.fotoCNH;
-      this.fotoCNH = this._cadastro.complemento?.fotoCNH;
-      this.complementoForm.controls.fotoCNH.setValue(this._cadastro.complemento?.fotoCNH, {emitModelToViewChange: false});
+    if (this._cadastro.complemento?.fotoCNHFrente) {
+      this.imagemFotoCNHFrente = this._cadastro.complemento?.fotoCNHFrente;
+      this.fotoCNHFrente = this._cadastro.complemento?.fotoCNHFrente;
+      this.complementoForm.controls.fotoCNHFrente.setValue(this._cadastro.complemento?.fotoCNHFrente, { emitModelToViewChange: false });
+    }
+    if (this._cadastro.complemento?.fotoCNHVerso) {
+      this.imagemFotoCNHVerso = this._cadastro.complemento?.fotoCNHVerso;
+      this.fotoCNHVerso = this._cadastro.complemento?.fotoCNHVerso;
+      this.complementoForm.controls.fotoCNHVerso.setValue(this._cadastro.complemento?.fotoCNHVerso, { emitModelToViewChange: false });
     }
   }
 
@@ -118,17 +130,18 @@ export class ComplementoComponent implements OnInit {
     this._loading.emitChange(true);
     this.complemento = this.complementoForm.value;
 
-    this.complemento.fotoCNH = this.fotoCNH;
+    this.complemento.fotoCNHFrente = this.fotoCNHFrente;
+    this.complemento.fotoCNHVerso = this.fotoCNHVerso;
 
     this.complemento.proprietarioId = this.valid.id;
 
-    this._service.save(this.complemento).subscribe(response => {
-        setTimeout(() => {
-          this._cadastro.complemento = this.complemento;
-          this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/conta`);
-          this._loading.emitChange(false);
-        });
-      },
+    this._service.save(this.complemento).subscribe(() => {
+      setTimeout(() => {
+        this._cadastro.complemento = this.complemento;
+        this._router.navigateByUrl(`cadastro/profissionais/${this.valid.id}/conta`);
+        this._loading.emitChange(false);
+      });
+    },
       (error: Error) => {
         this._loading.emitChange(false);
         Swal.fire({
@@ -141,12 +154,21 @@ export class ComplementoComponent implements OnInit {
 
   }
 
-  onLoadFotoCNH(event: any) {
-    this.fileFotoCNH = event.target.files[0];
+  onLoadFotoCNHFrente(event: any) {
+    this.fileFotoCNHFrente = event.target.files[0];
     var reader = new FileReader();
-    reader.readAsDataURL(this.fileFotoCNH);
+    reader.readAsDataURL(this.fileFotoCNHFrente);
     reader.onload = () => {
-      this.fotoCNH = reader.result;
+      this.fotoCNHFrente = reader.result;
+    };
+  }
+
+  onLoadFotoCNHVerso(event: any) {
+    this.fileFotoCNHVerso = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileFotoCNHVerso);
+    reader.onload = () => {
+      this.fotoCNHVerso = reader.result;
     };
   }
 
@@ -158,11 +180,12 @@ export class ComplementoComponent implements OnInit {
     this.complementoForm.reset();
     jQuery('.fileinput').fileinput('clear');
     jQuery('.selectpicker').selectpicker('refresh');
-    this.imagemFotoCNH = '../../../../../assets/img/Headshot-Placeholder-1.png';
+    this.imagemFotoCNHFrente = '../../../../../assets/img/default-paisagem.png';
+    this.imagemFotoCNHVerso = '../../../../../assets/img/default-paisagem.png';
   }
 
   dateChange(control: FormControl, name: string) {
-    jQuery(`#${name}`).on('dp.change', function(event: any) {
+    jQuery(`#${name}`).on('dp.change', function (event: any) {
       control.setValue(event?.date?._d?.toLocaleDateString());
     });
   }

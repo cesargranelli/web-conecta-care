@@ -107,37 +107,100 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-lg-6 col-md-6 col-form-label" for="fotoProfissional">Foto da página da CPTS com sua
+                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoCtps">Foto da página da CPTS com sua
                     foto *</label>
-                  <div class="col-lg-6 col-md-6">
-                    <div [ngClass]="fileInputProfissional" class="fileinput text-center" data-provides="fileinput">
-                      <div [ngClass]="fileInputProfissional" class="thumbnail img-circle img-raised">
-                        <img [src]="fotoProfissional" alt="..." rel="nofollow"
-                             style="max-width: 100px; max-height: 100px;">
+                  <div class="col-lg-6 col-md-6 offset-1">
+                    <div [ngClass]="fileInputCtps" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputCtps" class="thumbnail paisagem img-raised">
+                        <img [src]="fotoCtps" alt="..." rel="nofollow">
                       </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail paisagem img-raised"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Foto Profissional</span>
-                        <span class="fileinput-exists">Trocar</span>
-                        <input (change)="onLoadFotoProfissional($event)" data-max-size="2" formControlName="fotoProfissional" id="fotoProfissional"
-                               type="file">
+                        <span [hidden]="profissionalForm.controls.fotoCtps.valid">Selecionar foto</span>
+                        <span [hidden]="profissionalForm.controls.fotoCtps.invalid">Trocar</span>
+                        <input (change)="onLoadFotoCtps($event)" data-max-size="2" formControlName="fotoCtps" type="file">
                       </span>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-lg-6 col-md-6 col-form-label" for="fotoRg">Foto da parte da frente do seu RG
-                    *</label>
-                  <div class="col-lg-6 col-md-6">
-                    <div [ngClass]="fileInputRg" class="fileinput text-center" data-provides="fileinput">
-                      <div [ngClass]="fileInputRg" class="thumbnail img-circle img-raised">
-                        <img [src]="fotoRg" alt="..." rel="nofollow" style="max-width: 100px; max-height: 100px;">
+                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoProfissional">Foto 3x4 *</label>
+                  <div class="col-lg-6 col-md-6 offset-1">
+                    <div [ngClass]="fileInputProfissional" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputProfissional" class="thumbnail foto img-raised">
+                        <img [src]="fotoProfissional" alt="..." rel="nofollow">
                       </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail foto img-raised"></div>
                       <span class="btn btn-raised btn-round btn-rose btn-file">
-                        <span class="fileinput-new">Foto RG</span>
-                        <span class="fileinput-exists">Trocar</span>
-                        <input (change)="onLoadFotoRg($event)" data-max-size="2" formControlName="fotoRg" id="fotoRg"
-                               type="file">
+                        <span [hidden]="profissionalForm.controls.fotoProfissional.valid">Selecionar foto</span>
+                        <span [hidden]="profissionalForm.controls.fotoProfissional.invalid">Trocar</span>
+                        <input (change)="onLoadFotoProfissional($event)" data-max-size="2"
+                          formControlName="fotoProfissional" type="file">
                       </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoRgFrente">Foto da parte da frente do seu RG
+                    *</label>
+                  <div class="col-lg-6 col-md-6 offset-1">
+                    <div [ngClass]="fileInputRgFrente" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputRgFrente" class="thumbnail paisagem img-raised">
+                        <img [src]="fotoRgFrente" alt="..." rel="nofollow">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail paisagem img-raised"></div>
+                      <span class="btn btn-raised btn-round btn-rose btn-file">
+                        <span [hidden]="profissionalForm.controls.fotoRgFrente.valid">Selecionar foto</span>
+                        <span [hidden]="profissionalForm.controls.fotoRgFrente.invalid">Trocar</span>
+                        <input (change)="onLoadFotoRgFrente($event)" data-max-size="2" formControlName="fotoRgFrente" type="file">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoRgVerso">Foto da parte do verso do seu RG
+                    *</label>
+                  <div class="col-lg-6 col-md-6 offset-1">
+                    <div [ngClass]="fileInputRgVerso" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputRgVerso" class="thumbnail paisagem img-raised">
+                        <img [src]="fotoRgVerso" alt="..." rel="nofollow">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail paisagem img-raised"></div>
+                      <span class="btn btn-raised btn-round btn-rose btn-file">
+                        <span [hidden]="profissionalForm.controls.fotoRgVerso.valid">Selecionar foto</span>
+                        <span [hidden]="profissionalForm.controls.fotoRgVerso.invalid">Trocar</span>
+                        <input (change)="onLoadFotoRgVerso($event)" data-max-size="2" formControlName="fotoRgVerso" type="file">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoAssinatura">Assine em um papel branco da mesma forma que está no verso do seu RG ou CNH, tire uma foto legível e carregue-a neste campo
+                    *</label>
+                  <div class="col-lg-6 col-md-6 offset-1">
+                    <div [ngClass]="fileInputAssinatura" class="fileinput text-center" data-provides="fileinput">
+                      <div [ngClass]="fileInputAssinatura" class="thumbnail paisagem img-raised">
+                        <img [src]="fotoAssinatura" alt="..." rel="nofollow">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail paisagem img-raised"></div>
+                      <span class="btn btn-raised btn-round btn-rose btn-file">
+                        <span [hidden]="profissionalForm.controls.fotoAssinatura.valid">Selecionar foto</span>
+                        <span [hidden]="profissionalForm.controls.fotoAssinatura.invalid">Trocar</span>
+                        <input (change)="onLoadFotoAssinatura($event)" data-max-size="2" formControlName="fotoAssinatura" type="file">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-lg-3 col-md-3 col-form-label" for="disponivelParaAtendimento">Disponível para atendimento?</label>
+                  <div class="form-group col-lg-3 col-md-8">
+                    <div class="togglebutton">
+                      Não
+                      <label>
+                        <input formControlName="disponivelParaAtendimento" type="checkbox">
+                        <span class="toggle"></span>
+                      </label>
+                      Sim
                     </div>
                   </div>
                 </div>

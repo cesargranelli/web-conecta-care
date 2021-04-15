@@ -13,13 +13,13 @@ import { AuthModule } from './auth/auth.module';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { CadastroModule } from './cadastro/cadastro.module';
 import { CarreiraComponent } from './components/cadastro/profissional/carreira/carreira.component';
-import { ComplementoComponent } from './components/cadastro/profissional/complemento/complemento.component';
-import { ContaComponent } from './components/cadastro/profissional/conta/conta.component';
+import { CadastroComplementoComponent } from './components/cadastro/profissional/complemento/cadastro-complemento.component';
+import { CadastroContaComponent } from './components/cadastro/profissional/conta/cadastro-conta.component';
 import { ContatoComponent } from './components/cadastro/profissional/contato/contato.component';
 import { EnderecoComponent } from './components/cadastro/profissional/endereco/endereco.component';
 import { EscolaridadeComponent } from './components/cadastro/profissional/escolaridade/escolaridade.component';
 import { ExperienciaComponent } from './components/cadastro/profissional/experiencia/experiencia.component';
-import { InformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/informacoes-gerais.component';
+import { CadastroInformacoesGeraisComponent } from './components/cadastro/profissional/informacoes-gerais/cadastro-informacoes-gerais.component';
 import { ConnectaComponent } from './components/connecta/connecta.component';
 import { MenuAdminComponent } from './components/menu/menu-admin/menu-admin.component';
 import { MenuHomecaresComponent } from './components/menu/menu-homecares/menu-homecares.component';
@@ -55,14 +55,14 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     MenuPlanosSaudeFilialComponent,
     MenuAdminComponent,
     ConnectaComponent,
-    InformacoesGeraisComponent,
+    CadastroInformacoesGeraisComponent,
     EnderecoComponent,
     ContatoComponent,
     CarreiraComponent,
     ExperienciaComponent,
     EscolaridadeComponent,
-    ComplementoComponent,
-    ContaComponent,
+    CadastroComplementoComponent,
+    CadastroContaComponent,
     EsperaConfirmacaoEmailComponent,
     ConfirmacaoCadastroComponent,
     ConfirmacaoNovaSenhaComponent,

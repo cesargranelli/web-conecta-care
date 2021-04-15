@@ -7,5 +7,7 @@ export class Conta {
   agencia: String;
   numero: String;
   digito: String;
+  chave_pix_primaria: String;
+  chave_pix_secundaria: String;
   proprietarioId: number;
 }

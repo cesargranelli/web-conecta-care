@@ -1,4 +1,4 @@
-import {CategoriaCNH} from './categoria-cnh.class';
+import { CategoriaCNH } from './categoria-cnh.class';
 
 export class Complemento {
   tituloEleitoral: number;
@@ -7,7 +7,8 @@ export class Complemento {
   numeroHabilitacao: number;
   dataValidadeHabilitacao: DataValidadeHabilitacao;
   categoriaCNH: CategoriaCNH;
-  fotoCNH: any;
+  fotoCNHFrente: any;
+  fotoCNHVerso: any;
   numeroReservista: number;
   nomeMae: string;
   profissaoMae: string;
