@@ -30,7 +30,7 @@ const routes: Routes = [
       { path: '', component: CadastroComponent },
       {
         path: 'profissionais',
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
           {
             path: ':id',

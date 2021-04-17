@@ -35,23 +35,28 @@ export class DadosInformacoesGeraisComponent implements OnInit {
   public showForm: boolean = true;
   public profissional: Profissional;
   
-  public fotoCtps: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+  public fotoCtps: any;
+  public imagemFotoCtps: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputCtps: string = 'fileinput-new';
   public fileCtps: File;
 
-  public fotoProfissional: string | ArrayBuffer = '../../../../../assets/img/Headshot-Placeholder-1.png';
+  public fotoProfissional: any;
+  public imagemFotoProfissional: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
   public fileInputProfissional: string = 'fileinput-new';
   public fileProfissional: File;
   
-  public fotoRgFrente: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+  public fotoRgFrente: any;
+  public imagemFotoRgFrente: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputRgFrente: string = 'fileinput-new';
   public fileRgFrente: File;
 
-  public fotoRgVerso: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+  public fotoRgVerso: any;
+  public imagemFotoRgVerso: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputRgVerso: string = 'fileinput-new';
   public fileRgVerso: File;
-  
-  public fotoAssinatura: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+
+  public fotoAssinatura: any;
+  public imagemFotoAssinatura: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputAssinatura: string = 'fileinput-new';
   public fileAssinatura: File;
   
@@ -103,26 +108,6 @@ export class DadosInformacoesGeraisComponent implements OnInit {
     ).subscribe(dadosProfissional => {
       this.profissional = dadosProfissional;
       this.popularForm();
-      if (this.profissional && this.profissional.fotoCtps) {
-        this.fotoCtps = this.profissional.fotoCtps;
-        this.fileInputCtps = 'fileinput-exists';
-      }
-      if (this.profissional && this.profissional.fotoProfissional) {
-        this.fotoProfissional = this.profissional.fotoProfissional;
-        this.fileInputProfissional = 'fileinput-exists';
-      }
-      if (this.profissional && this.profissional.fotoRgFrente) {
-        this.fotoRgFrente = this.profissional.fotoRgFrente;
-        this.fileInputRgFrente = 'fileinput-exists';
-      }
-      if (this.profissional && this.profissional.fotoRgVerso) {
-        this.fotoRgVerso = this.profissional.fotoRgVerso;
-        this.fileInputRgVerso = 'fileinput-exists';
-      }
-      if (this.profissional && this.profissional.fotoAssinatura) {
-        this.fotoAssinatura = this.profissional.fotoAssinatura;
-        this.fileInputAssinatura = 'fileinput-exists';
-      }
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
@@ -153,12 +138,32 @@ export class DadosInformacoesGeraisComponent implements OnInit {
         ctps: this.profissional.ctps,
         ctpsSerie: this.profissional.ctpsSerie
       });
-      this.profissionalForm.controls.fotoCtps.setValue(this.profissional.fotoCtps, {emitModelToViewChange: false});
-      this.profissionalForm.controls.fotoProfissional.setValue(this.profissional.fotoProfissional, {emitModelToViewChange: false});
-      this.profissionalForm.controls.fotoRgFrente.setValue(this.profissional.fotoRgFrente, {emitModelToViewChange: false});
-      this.profissionalForm.controls.fotoRgVerso.setValue(this.profissional.fotoRgVerso, {emitModelToViewChange: false});
-      this.profissionalForm.controls.fotoAssinatura.setValue(this.profissional.fotoAssinatura, {emitModelToViewChange: false});
-      this.profissionalForm.controls.disponivelParaAtendimento.setValue(this.profissional.disponivelParaAtendimento ? true : false, {emitModelToViewChange: false});
+      if (this.profissional && this.profissional.fotoCtps) {
+        this.fotoCtps = this.profissional.fotoCtps;
+        this.imagemFotoCtps = this.profissional.fotoCtps;
+        this.profissionalForm.controls.fotoCtps.setValue(this.profissional.fotoCtps, {emitModelToViewChange: false});
+      }
+      if (this.profissional && this.profissional.fotoProfissional) {
+        this.fotoProfissional = this.profissional.fotoProfissional;
+        this.imagemFotoProfissional = this.profissional.fotoProfissional;
+        this.profissionalForm.controls.fotoProfissional.setValue(this.profissional.fotoProfissional, {emitModelToViewChange: false});
+      }
+      if (this.profissional && this.profissional.fotoRgFrente) {
+        this.fotoRgFrente = this.profissional.fotoRgFrente;
+        this.imagemFotoRgFrente = this.profissional.fotoRgFrente;
+        this.profissionalForm.controls.fotoRgFrente.setValue(this.profissional.fotoRgFrente, {emitModelToViewChange: false});
+      }
+      if (this.profissional && this.profissional.fotoRgVerso) {
+        this.fotoRgVerso = this.profissional.fotoRgVerso;
+        this.imagemFotoRgVerso = this.profissional.fotoRgVerso;
+        this.profissionalForm.controls.fotoRgVerso.setValue(this.profissional.fotoRgVerso, {emitModelToViewChange: false});
+      }
+      if (this.profissional && this.profissional.fotoAssinatura) {
+        this.fotoAssinatura = this.profissional.fotoAssinatura;
+        this.imagemFotoAssinatura = this.profissional.fotoAssinatura;
+        this.profissionalForm.controls.fotoAssinatura.setValue(this.profissional.fotoAssinatura, {emitModelToViewChange: false});
+      }
+      this.profissionalForm.controls.disponivelParaAtendimento.setValue(this.profissional.disponivelParaAtendimento);
     }
   }
 
@@ -167,7 +172,6 @@ export class DadosInformacoesGeraisComponent implements OnInit {
     var reader = new FileReader();
     if (this.fileCtps) {
       reader.readAsDataURL(this.fileCtps);
-      this.fileInputCtps = 'fileinput-exists';
     }
     reader.onload = () => {
       this.fotoCtps = reader.result;
@@ -179,7 +183,6 @@ export class DadosInformacoesGeraisComponent implements OnInit {
     var reader = new FileReader();
     if (this.fileProfissional) {
       reader.readAsDataURL(this.fileProfissional);
-      this.fileInputProfissional = 'fileinput-exists';
     }
     reader.onload = () => {
       this.fotoProfissional = reader.result;
@@ -191,7 +194,6 @@ export class DadosInformacoesGeraisComponent implements OnInit {
     var reader = new FileReader();
     if (this.fileRgFrente) {
       reader.readAsDataURL(this.fileRgFrente);
-      this.fileInputRgFrente = 'fileinput-exists';
     }
     reader.onload = () => {
       this.fotoRgFrente = reader.result;
@@ -203,7 +205,6 @@ export class DadosInformacoesGeraisComponent implements OnInit {
     var reader = new FileReader();
     if (this.fileRgVerso) {
       reader.readAsDataURL(this.fileRgVerso);
-      this.fileInputRgVerso = 'fileinput-exists';
     }
     reader.onload = () => {
       this.fotoRgVerso = reader.result;
@@ -215,7 +216,6 @@ export class DadosInformacoesGeraisComponent implements OnInit {
     var reader = new FileReader();
     if (this.fileAssinatura) {
       reader.readAsDataURL(this.fileAssinatura);
-      this.fileInputAssinatura = 'fileinput-exists';
     }
     reader.onload = () => {
       this.fotoAssinatura = reader.result;

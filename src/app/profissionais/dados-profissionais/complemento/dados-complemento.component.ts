@@ -27,11 +27,13 @@ export class DadosComplementoComponent implements OnInit {
   public categoriasCNH: Array<CategoriaCNH>;
   public validationHas: InputValidationHas;
 
-  public fotoCNHFrente: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+  public fotoCNHFrente: any;
+  public imagemFotoCNHFrente: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputFotoCNHFrente: string = 'fileinput-new';
   public fileFotoCNHFrente: File;
 
-  public fotoCNHVerso: string | ArrayBuffer = '../../../../../assets/img/default-paisagem.png';
+  public fotoCNHVerso: any;
+  public imagemFotoCNHVerso: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputFotoCNHVerso: string = 'fileinput-new';
   public fileFotoCNHVerso: File;
 
@@ -84,14 +86,6 @@ export class DadosComplementoComponent implements OnInit {
       concatMap(() => this._service.getDados(this._dadosLocalStorage?.id))
     ).subscribe(dadosComplemento => {
       this.complemento = dadosComplemento;
-      if (this.complemento && this.complemento.fotoCNHFrente) {
-        this.fileInputFotoCNHFrente = 'fileinput-exists';
-        this.fotoCNHFrente = this.complemento.fotoCNHFrente;
-      }
-      if (this.complemento && this.complemento.fotoCNHVerso) {
-        this.fileInputFotoCNHVerso = 'fileinput-exists';
-        this.fotoCNHVerso = this.complemento.fotoCNHVerso;
-      }
       this.popularForm();
       jQuery('select').selectpicker('render');
       setTimeout(() => {
@@ -109,12 +103,12 @@ export class DadosComplementoComponent implements OnInit {
   popularForm() {
     if (this.complemento) {
       this.complementoForm.patchValue({
-        tituloEleitoral: this.complemento.tituloEleitoral,
-        zonaEleitoral: this.complemento.zonaEleitoral,
-        numeroHabilitacao: this.complemento.numeroHabilitacao,
+        tituloEleitoral: this.complemento?.tituloEleitoral,
+        zonaEleitoral: this.complemento?.zonaEleitoral,
+        numeroHabilitacao: this.complemento?.numeroHabilitacao,
         categoriaCNH: this.complemento.categoriaCNH,
         secaoEleitoral: this.complemento.secaoEleitoral,
-        dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao?.date),
+        dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao?.date) ? this.converterDataExibicao(this.complemento.dataValidadeHabilitacao?.date) : null,
         numeroReservista: this.complemento.numeroReservista,
         nomeMae: this.complemento.nomeMae,
         profissaoMae: this.complemento.profissaoMae,
@@ -125,13 +119,15 @@ export class DadosComplementoComponent implements OnInit {
         filhos: this.complemento.filhos,
         carteiraVacinacao: this.complemento.carteiraVacinacao,
       });
-      if (this.complemento.fotoCNHFrente) {
-        this.fotoCNHFrente = this.complemento?.fotoCNHFrente;
-        this.complementoForm.controls.fotoCNHFrente.setValue(this.complemento.fotoCNHFrente, { emitModelToViewChange: false });
+      if (this._cadastro.complemento?.fotoCNHFrente) {
+        this.imagemFotoCNHFrente = this._cadastro.complemento?.fotoCNHFrente;
+        this.fotoCNHFrente = this._cadastro.complemento?.fotoCNHFrente;
+        this.complementoForm.controls.fotoCNHFrente.setValue(this._cadastro.complemento?.fotoCNHFrente, { emitModelToViewChange: false });
       }
-      if (this.complemento.fotoCNHVerso) {
-        this.fotoCNHVerso = this.complemento?.fotoCNHVerso;
-        this.complementoForm.controls.fotoCNHVerso.setValue(this.complemento.fotoCNHVerso, { emitModelToViewChange: false });
+      if (this._cadastro.complemento?.fotoCNHVerso) {
+        this.imagemFotoCNHVerso = this._cadastro.complemento?.fotoCNHVerso;
+        this.fotoCNHVerso = this._cadastro.complemento?.fotoCNHVerso;
+        this.complementoForm.controls.fotoCNHVerso.setValue(this._cadastro.complemento?.fotoCNHVerso, { emitModelToViewChange: false });
       }
     }
   }
@@ -190,7 +186,6 @@ export class DadosComplementoComponent implements OnInit {
     this.fileFotoCNHFrente = event.target.files[0];
     let reader = new FileReader();
     if (this.fileFotoCNHFrente) {
-      this.fileInputFotoCNHFrente = 'fileinput-exists';
       reader.readAsDataURL(this.fileFotoCNHFrente);
     }
     reader.onload = () => {
@@ -202,7 +197,6 @@ export class DadosComplementoComponent implements OnInit {
     this.fileFotoCNHVerso = event.target.files[0];
     let reader = new FileReader();
     if (this.fileFotoCNHVerso) {
-      this.fileInputFotoCNHVerso = 'fileinput-exists';
       reader.readAsDataURL(this.fileFotoCNHVerso);
     }
     reader.onload = () => {

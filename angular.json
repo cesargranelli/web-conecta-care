@@ -90,6 +90,15 @@
                   "with": "src/environments/environment.staging.ts"
                 }
               ]
+            },
+            "develop": {
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.develop.ts"
+                }
+              ]
             }
           }
         },
@@ -106,6 +115,9 @@
             },
             "staging": {
               "browserTarget": "web-connecta:build:staging"
+            },
+            "develop": {
+              "browserTarget": "web-connecta:build:develop"
             }
           }
         },

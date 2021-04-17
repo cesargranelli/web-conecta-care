@@ -50,8 +50,8 @@ export class CadastroContaComponent implements OnInit {
       agencia: [null, [Validators.required, Validators.maxLength(5)]],
       numero: [null, [Validators.required, Validators.maxLength(12)]],
       digito: [null, [Validators.required, Validators.maxLength(2)]],
-      chave_pix_primaria: [null, [Validators.required, Validators.maxLength(100)]],
-      chave_pix_secundaria: [null, [Validators.required, Validators.maxLength(100)]]
+      chave_pix_primaria: [null, [Validators.maxLength(100)]],
+      chave_pix_secundaria: [null, [Validators.maxLength(100)]]
     });
   }
 

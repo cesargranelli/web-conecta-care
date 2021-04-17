@@ -149,7 +149,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
     this.profissionalForm.controls.cnpj.setValue(this._cadastro.profissional?.cnpj);
     this.profissionalForm.controls.ctps.setValue(this._cadastro.profissional?.ctps);
     this.profissionalForm.controls.ctpsSerie.setValue(this._cadastro.profissional?.ctpsSerie);
-    this.profissionalForm.controls.disponivelParaAtendimento.setValue(this._cadastro.profissional?.disponivelParaAtendimento ? true : false);
+    this.profissionalForm.controls.disponivelParaAtendimento.setValue(this._cadastro.profissional?.disponivelParaAtendimento);
 
     if (this._cadastro.profissional?.fotoCtps) {
       this.fotoCtps = this._cadastro.profissional?.fotoCtps;
@@ -164,17 +164,17 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
     if (this._cadastro.profissional?.fotoRgFrente) {
       this.fotoRgFrente = this._cadastro.profissional?.fotoRgFrente;
       this.imagemFotoRgFrente = this._cadastro.profissional?.fotoRgFrente;
-      this.profissionalForm.controls.fotoRg.setValue(this._cadastro.profissional?.fotoRgFrente, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoRgFrente.setValue(this._cadastro.profissional?.fotoRgFrente, {emitModelToViewChange: false});
     }
     if (this._cadastro.profissional?.fotoRgVerso) {
       this.fotoRgVerso = this._cadastro.profissional?.fotoRgVerso;
       this.imagemFotoRgVerso = this._cadastro.profissional?.fotoRgVerso;
-      this.profissionalForm.controls.fotoRg.setValue(this._cadastro.profissional?.fotoRgVerso, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoRgVerso.setValue(this._cadastro.profissional?.fotoRgVerso, {emitModelToViewChange: false});
     }
     if (this._cadastro.profissional?.fotoAssinatura) {
       this.fotoAssinatura = this._cadastro.profissional?.fotoAssinatura;
       this.imagemFotoAssinatura = this._cadastro.profissional?.fotoAssinatura;
-      this.profissionalForm.controls.fotoRg.setValue(this._cadastro.profissional?.fotoAssinatura, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoAssinatura.setValue(this._cadastro.profissional?.fotoAssinatura, {emitModelToViewChange: false});
     }
   }
 

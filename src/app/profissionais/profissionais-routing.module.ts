@@ -18,7 +18,7 @@ import { ProfissionaisComponent } from './profissionais.component';
 const routes: Routes = [
   {
     path: 'profissionais',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: ':id',

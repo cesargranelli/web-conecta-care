@@ -103,9 +103,8 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoCtps">Foto da página da CPTS com sua
-                    foto *</label>
-                  <div class="col-lg-6 col-md-6 offset-1">
+                  <label class="col-lg-5 col-md-5 col-form-label" for="fotoCtps">Foto da página da CPTS com sua foto *</label>
+                  <div class="col-lg-6 col-md-6 offset-lg-1">
                     <div [ngClass]="fileInputCtps" class="fileinput text-center" data-provides="fileinput">
                       <div [ngClass]="fileInputCtps" class="thumbnail paisagem img-raised">
                         <img [src]="imagemFotoCtps" alt="..." rel="nofollow">
@@ -121,7 +120,7 @@
                 </div>
                 <div class="row">
                   <label class="col-lg-5 col-md-5 col-form-label" for="fotoProfissional">Foto 3x4 *</label>
-                  <div class="col-lg-6 col-md-6 offset-1">
+                  <div class="col-lg-6 col-md-6 offset-lg-1">
                     <div [ngClass]="fileInputProfissional" class="fileinput text-center" data-provides="fileinput">
                       <div [ngClass]="fileInputProfissional" class="thumbnail foto img-raised">
                         <img [src]="imagemFotoProfissional" alt="..." rel="nofollow">
@@ -130,8 +129,7 @@
                       <span class="btn btn-raised btn-round btn-rose btn-file">
                         <span [hidden]="profissionalForm.controls.fotoProfissional.valid">Selecionar foto</span>
                         <span [hidden]="profissionalForm.controls.fotoProfissional.invalid">Trocar</span>
-                        <input (change)="onLoadFotoProfissional($event)" data-max-size="2"
-                          formControlName="fotoProfissional" type="file">
+                        <input (change)="onLoadFotoProfissional($event)" data-max-size="2" formControlName="fotoProfissional" type="file">
                       </span>
                     </div>
                   </div>
@@ -139,7 +137,7 @@
                 <div class="row">
                   <label class="col-lg-5 col-md-5 col-form-label" for="fotoRgFrente">Foto da parte da frente do seu RG
                     *</label>
-                  <div class="col-lg-6 col-md-6 offset-1">
+                  <div class="col-lg-6 col-md-6 offset-lg-1">
                     <div [ngClass]="fileInputRgFrente" class="fileinput text-center" data-provides="fileinput">
                       <div [ngClass]="fileInputRgFrente" class="thumbnail paisagem img-raised">
                         <img [src]="imagemFotoRgFrente" alt="..." rel="nofollow">
@@ -156,7 +154,7 @@
                 <div class="row">
                   <label class="col-lg-5 col-md-5 col-form-label" for="fotoRgVerso">Foto da parte do verso do seu RG
                     *</label>
-                  <div class="col-lg-6 col-md-6 offset-1">
+                  <div class="col-lg-6 col-md-6 offset-lg-1">
                     <div [ngClass]="fileInputRgVerso" class="fileinput text-center" data-provides="fileinput">
                       <div [ngClass]="fileInputRgVerso" class="thumbnail paisagem img-raised">
                         <img [src]="imagemFotoRgVerso" alt="..." rel="nofollow">
@@ -173,7 +171,7 @@
                 <div class="row">
                   <label class="col-lg-5 col-md-5 col-form-label" for="fotoAssinatura">Assine em um papel branco da mesma forma que está no verso do seu RG ou CNH, tire uma foto legível e carregue-a neste campo
                     *</label>
-                  <div class="col-lg-6 col-md-6 offset-1">
+                  <div class="col-lg-6 col-md-6 offset-lg-1">
                     <div [ngClass]="fileInputAssinatura" class="fileinput text-center" data-provides="fileinput">
                       <div [ngClass]="fileInputAssinatura" class="thumbnail paisagem img-raised">
                         <img [src]="imagemFotoAssinatura" alt="..." rel="nofollow">

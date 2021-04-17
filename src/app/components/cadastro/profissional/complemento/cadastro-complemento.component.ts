@@ -103,7 +103,7 @@ export class CadastroComplementoComponent implements OnInit {
       zonaEleitoral: this._cadastro.complemento?.zonaEleitoral,
       secaoEleitoral: this._cadastro.complemento?.secaoEleitoral,
       numeroHabilitacao: this._cadastro.complemento?.numeroHabilitacao,
-      dataValidadeHabilitacao: this._cadastro.complemento?.dataValidadeHabilitacao,
+      dataValidadeHabilitacao: this._cadastro.complemento?.dataValidadeHabilitacao ? this._cadastro.complemento?.dataValidadeHabilitacao : null,
       numeroReservista: this._cadastro.complemento?.numeroReservista,
       nomeMae: this._cadastro.complemento?.nomeMae ? this._cadastro.complemento?.nomeMae : null,
       profissaoMae: this._cadastro.complemento?.profissaoMae ? this._cadastro.complemento?.profissaoMae : '',
@@ -113,7 +113,6 @@ export class CadastroComplementoComponent implements OnInit {
       profissaoConjuge: this._cadastro.complemento?.profissaoConjuge ? this._cadastro.complemento?.profissaoConjuge : '',
       carteiraVacinacao: this._cadastro.complemento?.carteiraVacinacao
     });
-
     if (this._cadastro.complemento?.fotoCNHFrente) {
       this.imagemFotoCNHFrente = this._cadastro.complemento?.fotoCNHFrente;
       this.fotoCNHFrente = this._cadastro.complemento?.fotoCNHFrente;
