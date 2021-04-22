@@ -2,11 +2,15 @@ import { Modulo as ModuloEnum } from '../enums/modulo.enum';
 
 export class Modulo {
 
-  constructor(private _name: string) {
+  constructor(private _name?: string) {
   }
 
   public getNome() {
     return this._name;
+  }
+
+  public setModulo(nomeModulo: string): void {
+    this._name = nomeModulo;
   }
 
   public getModulo(): ModuloEnum {

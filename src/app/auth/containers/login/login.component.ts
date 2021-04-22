@@ -31,9 +31,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public input: InputValidation = new InputValidation();
   public inputHas: InputValidationHas = new InputValidationHas();
-  public perfil: string = 'pacientes';
 
-  private modulo: Modulo = new Modulo('profissionais');
+  private modulo: Modulo = new Modulo();
   private converter: RoleConverter = new RoleConverter();
   private authorization: Authorization = new Authorization();
 
@@ -65,6 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.modulo.setModulo('pacientes');
     carregarTarjaAzul();
     injetaToolTip();
   }
