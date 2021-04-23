@@ -81,11 +81,11 @@
                 <app-form-password-validation [password]="cadastroLoginForm.controls.password.value">
                 </app-form-password-validation>
               </div>
-              <div class="card-footer justify-content-center">
-                <span class="bmd-form-group is-filled">
-                  <app-basic-recaptcha (captcha)="setCaptcha($event)"></app-basic-recaptcha>
-                </span>
-              </div>
+<!--              <div class="card-footer justify-content-center">-->
+<!--                <span class="bmd-form-group is-filled">-->
+<!--                  <app-basic-recaptcha (captcha)="setCaptcha($event)"></app-basic-recaptcha>-->
+<!--                </span>-->
+<!--              </div>-->
               <div class="card-footer justify-content-center">
                 <div class="col-lg-10 col-md-11 col-sm-12">
                   <div class="form-check">
@@ -106,7 +106,7 @@
                   <button [routerLink]="['/']" class="btn btn-gray" type="button">Cancelar</button>
                 </span>
                 <span class="bmd-form-group is-filled">
-                  <button [disabled]="!cadastroLoginForm.valid || !captcha" class="btn btn-rose"
+                  <button [disabled]="!cadastroLoginForm.valid" class="btn btn-rose"
                     type="submit">Enviar</button>
                 </span>
               </div>

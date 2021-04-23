@@ -6,7 +6,6 @@ import { Login } from 'src/app/classes/login.class';
 import { Modulo } from 'src/app/classes/modulo';
 import { Role } from 'src/app/classes/role';
 import { Usuario } from 'src/app/classes/usuario.class';
-import { Registro } from 'src/app/services/feat/registro';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ValidPassword } from 'src/app/shared/constants/valid.password';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
@@ -29,7 +28,7 @@ export class CadastroLoginComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
   public cadastroLoginForm: FormGroup;
-  public captcha: boolean = false;
+  public captcha: boolean = true;
   public emailEnviado: boolean = false;
   public email: string;
   public confirmarEmail: string;
@@ -38,7 +37,6 @@ export class CadastroLoginComponent implements OnInit {
   public input: InputValidation = new InputValidation();
   public inputHas: InputValidationHas = new InputValidationHas();
 
-  private registro: Registro;
   private registroId: number;
   private registroModulo: string;
 
@@ -117,12 +115,11 @@ export class CadastroLoginComponent implements OnInit {
                 email.email = this.cadastroLoginForm.value.email;
                 email.token = this._tokenService.getToken();
                 email.role  = new Modulo(this.registroModulo).getModulo();
-
                 this._tokenService.removeToken();
 
                 setTimeout(() => {
                   this._loading.emitChange(true);
-                  this._emailService.enviar(email).subscribe(response => {
+                  this._emailService.enviar(email).subscribe(() => {
                     this.emailEnviado = true;
                     this._loading.emitChange(false);
                     this.onSuccess();

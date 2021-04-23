@@ -24,7 +24,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 
-  public modulo: Modulo = new Modulo('profissionais');
+  public modulo: Modulo = new Modulo();
 
   public pacienteForm: FormGroup;
   public profissionalForm: FormGroup;
@@ -57,7 +57,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this.planoSaudeForm = this._formBuilder.group({
       cnpj: ['', [Validators.required, validCnpj(true)]],
     });
-
+    this.modulo.setModulo('pacientes')
     carregarTarjaAzul();
     injetaToolTip();
   }

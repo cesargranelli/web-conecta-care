@@ -7,10 +7,11 @@ import {CadastroContatoComponent} from './cadastro/contato/cadastro-contato.comp
 import {CadastroComplementoComponent} from './cadastro/complemento/cadastro-complemento.component';
 import {CadastroHistoricoMedicoComponent} from './cadastro/historico-medico/cadastro-historico-medico.component';
 import {PathPaciente} from "../enums/path-paciente.class";
+import {CadastroLoginComponent} from "../cadastro/login/cadastro-login.component";
 
 const routes: Routes = [
   {path: PathPaciente.paciente, component: PacientesComponent},
-  {path: PathPaciente.cadastro, component: CadastroContatoComponent},
+  {path: PathPaciente.login, component: CadastroLoginComponent},
   {path: PathPaciente.informacoesGerais, component: CadastroInformacoesGeraisComponent},
   {path: PathPaciente.endereco, component: CadastroEnderecoComponent},
   {path: PathPaciente.contato, component: CadastroContatoComponent},
