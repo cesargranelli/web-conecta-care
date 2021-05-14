@@ -11,7 +11,9 @@ export class ContatoService {
   constructor(private _http: HttpClient) {
   }
 
-  pesquisarContatoById(id: number): Observable<HttpResponse<any>> {
-    return this._http.get(`${environment.apiConnecta}api/v1/contato/${id}`, {observe: 'response'});
+  consultar(id: number): Observable<HttpResponse<any>> {
+    return this._http.get(`${environment.apiConnecta}/api/v1/contato/${id}`, {observe: 'response'});
   }
+
+
 }

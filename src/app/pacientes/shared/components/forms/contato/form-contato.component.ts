@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ContatoPlanoSaude} from '../../../../../planos-saude/classes/contato-plano-saude.class';
 import {Valid} from '../../../../../services/feat/Valid';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {InputValidationHas} from '../../../../../shared/validations/input-validation-has';
@@ -7,11 +6,10 @@ import {AreaAtendimento} from '../../../../../classes/area-atendimento.class';
 import {SharedValidService} from '../../../../../shared/services/shared-valid.service';
 import {Router} from '@angular/router';
 import {SharedLoadingService} from '../../../../../shared/services/shared-loading.service';
-import {CadastroPlanosSaudeService} from '../../../../../planos-saude/services/cadastro-planos-saude.service';
-import {ContatoService} from '../../../../../planos-saude/services/contato.service';
-import {map} from 'rxjs/internal/operators/map';
 import {HttpErrorResponse} from '@angular/common/http';
 import Swal from "sweetalert2";
+import {ContatoPaciente} from "../../../../classes/contato-paciente.class";
+import {ContatoService} from "../../../../services/contato.service";
 
 @Component({
   selector: 'app-form-contato-paciente',
@@ -30,7 +28,7 @@ export class FormContatoComponent implements OnInit {
   public labelBotaoSubmit: string;
 
   @Output()
-  public onSubmitEvent = new EventEmitter<ContatoPlanoSaude>();
+  public onSubmitEvent = new EventEmitter<ContatoPaciente>();
 
   public valid: Valid;
   public contatoForm: FormGroup;
@@ -39,74 +37,58 @@ export class FormContatoComponent implements OnInit {
   public especialidades: Array<AreaAtendimento>;
   public hideForm: boolean = true;
 
-  private contato: ContatoPlanoSaude;
+  private contato: ContatoPaciente;
 
   constructor(
     private _validService: SharedValidService,
     private _router: Router,
     private _loading: SharedLoadingService,
     private _formBuilder: FormBuilder,
-    private _cadastro: CadastroPlanosSaudeService,
     private _service: ContatoService
   ) {
     this.valid = this._validService.getValid();
     this.contatoForm = this._formBuilder.group({
-      telefoneFixo: [null, [Validators.required]],
+      telefoneFixo: [null],
       telefoneRecado: [null],
-      telefoneCelular: [null],
-      telefoneWhatsapp: [null],
-      telefoneOuvidoria: [null, [Validators.required]],
-      flagAceiteDeclaracao: [null],
-      email: [null, [Validators.required, Validators.email, Validators.maxLength(100)]],
-      site: [null, [Validators.required]]
+      telefoneCelular: [null, [Validators.required]],
+      telefoneResponsavel: [null],
+      emailResponsavel: [null]
     });
   }
 
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
-    this._service.consultar(this.valid.id).pipe(
-      map(response => {
-        this._cadastro.contato = response.body.data;
-      })
-    ).subscribe(null,
-      (errorResponse: HttpErrorResponse) => {
-        if (errorResponse.status === 0) {
-          console.log('Sistema indisponível! ' + errorResponse.statusText);
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Sistema indisponível! ' + errorResponse.statusText,
-            showConfirmButton: true
-          });
-        }
-        this._loading.emitChange(false);
-      },
-      () => {
-        if (this._cadastro.contato?.email) {
-          this.populaForm();
-        }
-        setTimeout(() => {
-          this._loading.emitChange(false);
-          this.hideForm = false;
+    this._service.consultar(this.valid.id).pipe().subscribe(response => {
+      this.contato = response.body?.data;
+      if (this.contato) {
+        this.popularForm();
+      }
+      this.hideForm = false;
+      this._loading.emitChange(false);
+    }, (errorResponse: HttpErrorResponse) => {
+      if (errorResponse.status === 0) {
+        console.log('Sistema indisponível! ' + errorResponse.statusText);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Sistema indisponível! ' + errorResponse.statusText,
+          showConfirmButton: true
         });
       }
-    );
-    if (this.isCadastro) {
-      this.contatoForm.get('flagAceiteDeclaracao').setValidators(Validators.requiredTrue);
-    }
+    });
   }
 
-  populaForm() {
-    this.contatoForm.patchValue({
-      telefoneFixo: this._cadastro.contato?.telefoneFixo,
-      telefoneRecado: this._cadastro.contato?.telefoneRecado,
-      telefoneCelular: this._cadastro.contato?.telefoneCelular,
-      telefoneWhatsapp: this._cadastro.contato?.telefoneWhatsapp,
-      telefoneOuvidoria: this._cadastro.contato?.telefoneOuvidoria,
-      email: this._cadastro.contato?.email,
-      site: this._cadastro.contato?.site,
-      flagAceiteDeclaracao: this._cadastro.contato?.flagAceiteDeclaracao
-    });
+  popularForm() {
+    // this.contatoForm.patchValue({
+    //   telefoneFixo: this._cadastro.contato?.telefoneFixo,
+    //   telefoneRecado: this._cadastro.contato?.telefoneRecado,
+    //   telefoneCelular: this._cadastro.contato?.telefoneCelular,
+    //   telefoneWhatsapp: this._cadastro.contato?.telefoneWhatsapp,
+    //   telefoneOuvidoria: this._cadastro.contato?.telefoneOuvidoria,
+    //   email: this._cadastro.contato?.email,
+    //   site: this._cadastro.contato?.site,
+    //   flagAceiteDeclaracao: this._cadastro.contato?.flagAceiteDeclaracao
+    // });
   }
 
   onReturn() {
