@@ -19,17 +19,17 @@
           <input class="form-control" formControlName="telefoneCelular" id="telefoneCelular" mask="(00) 00000-0000"
                  placeholder="(99) 99999-9999" type="text">
         </div>
-        <label class="col-lg-3 col-md-3 col-form-label" for="telefoneWhatsapp">Celular Responsável Acompanhante</label>
+        <label class="col-lg-3 col-md-3 col-form-label" for="telefoneResponsavel">Celular Responsável Acompanhante</label>
         <div class="form-group col-lg-3 col-md-8">
-          <input class="form-control" formControlName="telefoneWhatsapp" id="telefoneWhatsapp"
+          <input class="form-control" formControlName="telefoneResponsavel" id="telefoneResponsavel"
                  mask="(00) 00000-0000"
                  placeholder="(99) 99999-9999" type="text">
         </div>
       </div>
       <div class="row">
-        <label class="col-lg-2 col-md-3 col-form-label" for="email">Email Responsável Acompanhante</label>
+        <label class="col-lg-2 col-md-3 col-form-label" for="emailResponsavel">Email Responsável Acompanhante</label>
         <div [ngClass]="validationHas.validation(contatoForm.controls.email)" class="form-group col-lg-10 col-md-10">
-          <input class="form-control" formControlName="email" id="email" placeholder="email@email.com" type="email">
+          <input class="form-control" formControlName="emailResponsavel" id="emailResponsavel" placeholder="email@email.com" type="email">
         </div>
       </div>
     </div>

@@ -8,7 +8,6 @@ import {Router} from '@angular/router';
 import {CadastroPlanosSaudeService} from '../../../planos-saude/services/cadastro-planos-saude.service';
 import {ContatoPlanoSaude} from '../../../planos-saude/classes/contato-plano-saude.class';
 import Swal from 'sweetalert2';
-import {PathPaciente} from "../../../enums/path-paciente.class";
 
 @Component({
   selector: 'app-contato',
@@ -39,7 +38,7 @@ export class CadastroContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.isCadastro = true;
-    this.linkBotaoVoltar = PathPaciente.endereco.replace(new RegExp(":id"), String(this.valid.id));
+    this.linkBotaoVoltar = `pacientes/${this.valid?.id}/cadastro/endereco`;
     this.labelBotaoSubmit = 'Finalizar';
   }
 

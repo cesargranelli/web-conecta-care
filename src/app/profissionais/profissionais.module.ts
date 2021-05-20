@@ -21,31 +21,34 @@ import { ProfissionaisRoutingModule } from './profissionais-routing.module';
 import { ProfissionaisComponent } from './profissionais.component';
 
 @NgModule({
-  declarations: [
-    ProfissionaisComponent,
-    DadosProfissionaisComponent,
-    DadosInformacoesGeraisComponent,
-    LoginComponent,
-    EnderecoComponent,
-    ContatoComponent,
-    CarreiraComponent,
-    ExperienciaComponent,
-    EscolaridadeComponent,
-    DadosComplementoComponent,
-    DadosContaComponent,
-    CardVerDadosComponent,
-    EventosComponent,
-    EventoDetalheComponent,
-  ],
-  imports: [CommonModule, ReactiveFormsModule, ProfissionaisRoutingModule, NgxMaskModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
-  ]
+    declarations: [
+        ProfissionaisComponent,
+        DadosProfissionaisComponent,
+        DadosInformacoesGeraisComponent,
+        LoginComponent,
+        EnderecoComponent,
+        ContatoComponent,
+        CarreiraComponent,
+        ExperienciaComponent,
+        EscolaridadeComponent,
+        DadosComplementoComponent,
+        DadosContaComponent,
+        CardVerDadosComponent,
+        EventosComponent,
+        EventoDetalheComponent,
+    ],
+    imports: [CommonModule, ReactiveFormsModule, ProfissionaisRoutingModule, NgxMaskModule],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    exports: [
+        CardVerDadosComponent
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        }
+    ]
 })
 export class ProfissionaisModule {
 }
