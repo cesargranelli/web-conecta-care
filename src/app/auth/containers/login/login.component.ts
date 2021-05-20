@@ -14,6 +14,7 @@ import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import { RoleConverter } from 'src/app/utils/role.converter';
 import { AuthService } from '../../services/auth.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 declare var jQuery: any;
 
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
     private _validService: SharedValidService,
-    private _cadastroService: CadastroService
+    private _usuarioService: UsuarioService
   ) {
     jQuery('html').removeClass('nav-open');
     jQuery('button').removeClass('toggled');
@@ -85,7 +86,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this._authService.login(login).subscribe(response => {
         if (response) {
           this.authorization.token = this._storeToken.getToken();
-          this._cadastroService.validar(this.authorization).subscribe(responseValid => {
+          this._usuarioService.consultar(this.authorization).subscribe(responseValid => {
             let valid: Valid = responseValid.body.data;
             this._validService.setValid(valid);
             this._loading.emitChange(false);
