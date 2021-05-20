@@ -124,13 +124,14 @@ export class CadastroLoginComponent implements OnInit {
                     this._loading.emitChange(false);
                     this.onSuccess();
                     this._router.navigateByUrl(`espera-confirmacao-email`);
-                  }, error => {
+                  }, httpResponse => {
                     Swal.fire({
                       position: 'center',
                       icon: 'error',
-                      title: error.message,
+                      title: httpResponse.error.data?.message,
                       showConfirmButton: true
                     });
+                    this._loading.emitChange(false);
                   });
                 });
               }
