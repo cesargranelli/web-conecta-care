@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/classes/login.class';
 import { Modulo } from 'src/app/classes/modulo';
-import { CadastroService } from 'src/app/services/cadastro.service';
 import { Authorization } from 'src/app/services/feat/token';
 import { Valid } from 'src/app/services/feat/Valid';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { ValidPassword } from 'src/app/shared/constants/valid.password';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
@@ -13,8 +13,8 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import { RoleConverter } from 'src/app/utils/role.converter';
+import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
 
 declare var jQuery: any;
 
@@ -86,17 +86,41 @@ export class LoginComponent implements OnInit, OnDestroy {
       this._authService.login(login).subscribe(response => {
         if (response) {
           this.authorization.token = this._storeToken.getToken();
-          this._usuarioService.consultar(this.authorization).subscribe(responseValid => {
+          this._usuarioService.consultar().subscribe(responseValid => {
             let valid: Valid = responseValid.body.data;
+            if (valid.status.toUpperCase() != 'COMPLETO') {
+              this._storeToken.removeToken();
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Usuário ainda não realizou a confirmação do cadastro!',
+                showConfirmButton: true
+              });
+              return;
+            }
             this._validService.setValid(valid);
             this._loading.emitChange(false);
             let component = this.converter.toComponent(valid.role);
             this._router.navigateByUrl(`${component}/${valid.id}`);
+          }, error => {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: error.data,
+              showConfirmButton: true
+            });
           });
         }
         this._loading.emitChange(false);
       }, error => {
         console.log(error)
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: error,
+          showConfirmButton: true
+        });
+        this._loading.emitChange(false);
       });
     });
   }

@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
 import { Usuario } from '../classes/usuario.class';
 import { CadastroUsuario } from './feat/cadastro-usuario';
 import { ConsultaUsuario } from './feat/consulta-usuario';
-import { Authorization } from './feat/token';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +20,7 @@ export class UsuarioService {
       {observe: 'response'});
   }
 
-  consultar(authorization: Authorization): Observable<HttpResponse<any>> {
+  consultar(): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<ConsultaUsuario>>(`${environment.apiConnecta}/usuarios`,
       {observe: 'response'});
   }

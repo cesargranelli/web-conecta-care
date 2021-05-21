@@ -4,4 +4,5 @@ export class Valid {
   email: string = '';
   role: Role = null;
   id: number = null;
+  status?: string = null;
 }
