@@ -26,6 +26,7 @@
               "src/.htaccess"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css",
               "src/assets/css/material-dashboard.css"
             ],
@@ -43,7 +44,6 @@
               "src/assets/js/plugins/jquery.dataTables.min.js",
               "src/assets/js/plugins/bootstrap-tagsinput.js",
               "src/assets/js/plugins/jasny-bootstrap.min.js",
-              "src/assets/js/plugins/fullcalendar.min.js",
               "src/assets/js/plugins/jquery-jvectormap.js",
               "src/assets/js/plugins/nouislider.min.js",
               "src/assets/js/plugins/core.js",
@@ -139,6 +139,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
             "scripts": []

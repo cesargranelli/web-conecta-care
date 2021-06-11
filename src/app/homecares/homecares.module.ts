@@ -2,6 +2,11 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import { NgxMaskModule } from 'ngx-mask';
 import { TokenInterceptor } from 'src/app/auth/token.interceptor';
 import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
@@ -20,7 +25,15 @@ import { CardVerDadosComponent } from './shared/components/card-ver-dados/card-v
 import { FormContatoComponent } from './shared/components/forms/contato/form-contato.component';
 import { FormEnderecoComponent } from './shared/components/forms/endereco/form-endereco.component';
 import { FormHomeCareComponent } from './shared/components/forms/homecare/form-homecare.component';
+import { ModalDetalheAtendimentoComponent } from './shared/components/modal/detalhe-atendimento/modal-detalhe-atendimento.component';
 import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  listPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -37,14 +50,16 @@ import { SelectPickerComponent } from './shared/select-picker/select-picker.comp
     InformacoesHomecareComponent,
     FormHomeCareComponent,
     FormEnderecoComponent,
-    FormContatoComponent
+    FormContatoComponent,
+    ModalDetalheAtendimentoComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     HomeCaresRoutingModule,
     NgxMaskModule,
-    SharedComponentModule
+    SharedComponentModule,
+    FullCalendarModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
