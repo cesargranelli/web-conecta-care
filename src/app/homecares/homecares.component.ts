@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarOptions, EventInput } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/pt-br';
-import { StatusAtendimento } from '../enums/status-atendimento.enum';
-import { StatusColor } from '../enums/status-color.enum';
 import { SharedLoadingService } from '../shared/services/shared-loading.service';
 import { SharedValidService } from '../shared/services/shared-valid.service';
 import { Atendimento } from './classes/atendimento.class';
 import { AtendimentoService } from './services/atendimento.service';
+import { StatusConverter } from './shared/utils/status.converter';
 
 declare var jQuery: any;
 
@@ -39,6 +38,7 @@ export class HomeCaresComponent implements OnInit {
   };
 
   atendimentos: EventInput = new Array<EventInput>();
+  statusConverter: StatusConverter = new StatusConverter();
 
   constructor(
     private _valid: SharedValidService,
@@ -54,9 +54,9 @@ export class HomeCaresComponent implements OnInit {
         response.body.data.map((atendimento: Atendimento) => {
           this.atendimentos.push({
             id: atendimento.id,
-            date: this.getDateTime(atendimento.dataAgendamento, atendimento.horaAgendamento),
+            date: this.getDateTime(atendimento.data, atendimento.hora),
             title: atendimento.nomePaciente,
-            color: this.getStatusColor(atendimento.status)
+            color: this.statusConverter.toColor(atendimento.status)
           });
           this.calendarOptions.events = this.atendimentos;
         });
@@ -68,35 +68,8 @@ export class HomeCaresComponent implements OnInit {
     return date + ' ' + time;
   }
 
-  private getStatusColor(status: string): string {
-    switch (status) {
-      case StatusAtendimento.Agendado:
-        return StatusColor.Agendado;
-      case StatusAtendimento.Deslocamento:
-        return StatusColor.Deslocamento;
-      case StatusAtendimento.DeslocamentoAtrasado:
-        return StatusColor.DeslocamentoAtrasado;
-      case StatusAtendimento.CheckIn:
-        return StatusColor.CheckIn;
-      case StatusAtendimento.CheckInAtrasado:
-        return StatusColor.CheckInAtrasado;
-      case StatusAtendimento.CheckInManual:
-        return StatusColor.CheckInManual;
-      case StatusAtendimento.CheckInManualAtrasado:
-        return StatusColor.CheckInManualAtrasado;
-      case StatusAtendimento.Atrasado:
-        return StatusColor.Atrasado;
-      case StatusAtendimento.CheckOut:
-        return StatusColor.Checkout;
-      case StatusAtendimento.Cancelado:
-        return StatusColor.Cancelado;
-      default:
-        break;
-    }
-  }
-
   private modal() {
-    jQuery('#exampleModal').modal('show');
+    jQuery('#atendimentoModal').modal('show');
   }
 
 }

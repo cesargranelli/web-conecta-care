@@ -4,6 +4,6 @@ export class Atendimento {
   nomePaciente: string;
   id: number;
   status: string;
-  dataAgendamento: string;
-  horaAgendamento: string;
+  data: string;
+  hora: string;
 }

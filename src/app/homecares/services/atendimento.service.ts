@@ -23,7 +23,7 @@ export class AtendimentoService {
       })
     };
     
-    return this._http.get<HttpResponse<any>>(`${this.endpoint.concat('/acompanhamento')}`, {
+    return this._http.get<HttpResponse<any>>(`${this.endpoint.concat('/resumo')}`, {
       headers: httpOptions.headers,
       observe: 'response'
     });
