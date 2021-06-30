@@ -22,7 +22,7 @@ export class AtendimentoService {
         idHomeCare: idHomeCare.toString()
       })
     };
-    
+
     return this._http.get<HttpResponse<any>>(`${this.endpoint.concat('/resumo')}`, {
       headers: httpOptions.headers,
       observe: 'response'
