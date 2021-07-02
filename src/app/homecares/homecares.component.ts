@@ -3,7 +3,7 @@ import { CalendarOptions, EventInput } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/pt-br';
 import { SharedLoadingService } from '../shared/services/shared-loading.service';
 import { SharedValidService } from '../shared/services/shared-valid.service';
-import { Atendimento } from './classes/atendimento.class';
+import { AtendimentoResumo } from './classes/atendimento-resumo.class';
 import { AtendimentoService } from './services/atendimento.service';
 import { StatusConverter } from './shared/utils/status.converter';
 
@@ -49,9 +49,9 @@ export class HomeCaresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._atendimentoService.consultar(this._valid.getValid().id).subscribe(response => {
+    this._atendimentoService.consultarResumo(this._valid.getValid().id).subscribe(response => {
       setTimeout(() => {
-        response.body.data.map((atendimento: Atendimento) => {
+        response.body.data.map((atendimento: AtendimentoResumo) => {
           this.atendimentos.push({
             id: atendimento.id,
             date: this.getDateTime(atendimento.data, atendimento.hora),

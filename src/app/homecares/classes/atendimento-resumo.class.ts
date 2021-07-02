@@ -1,6 +1,4 @@
-import { Time } from '@angular/common';
-
-export class Atendimento {
+export class AtendimentoResumo {
   nomePaciente: string;
   id: number;
   status: string;

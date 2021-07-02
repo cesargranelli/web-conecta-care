@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { HomeCare } from 'src/app/homecares/classes/homecare.class';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {HomeCare} from 'src/app/homecares/classes/homecare.class';
+import {FormGroup} from '@angular/forms';
+import {AtendimentoService} from '../../../../services/atendimento.service';
+import {AtendimentoDetalhes} from '../../../../classes/atendimento-detalhes.class';
 
 declare var jQuery: any;
 
@@ -22,10 +25,20 @@ export class ModalDetalheAtendimentoComponent implements OnInit {
   @Output()
   public onSubmitEvent = new EventEmitter<HomeCare>();
 
-  constructor() {
+  public complementoForm: FormGroup;
+
+  public atendimentoDetalhes: AtendimentoDetalhes;
+
+  constructor(
+    private service: AtendimentoService
+  ) {
   }
 
   ngOnInit(): void {
+    this.service.consultarDetalhes().subscribe(atendimentoDetalhes => {
+      this.atendimentoDetalhes = atendimentoDetalhes;
+      console.log(this.atendimentoDetalhes);
+    });
   }
 
 }
