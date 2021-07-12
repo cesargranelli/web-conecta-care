@@ -1,13 +1,14 @@
 <div class="container">
   <div class="card card-calendar">
     <div class="card-header text-right">
-      <button type="button" class="btn btn-primary">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criarAtendimentoModal">
         Novo Tratamento <i class="material-icons">add</i>
       </button>
     </div>
     <div class="card-body">
       <full-calendar [events]="atendimentos" deepChangeDetection="true" [options]="calendarOptions"></full-calendar>
     </div>
-    <app-modal-detalhe-atendimento></app-modal-detalhe-atendimento>
+    <app-modal-detalhe-atendimento [atendimentoId]="atendimentoId"></app-modal-detalhe-atendimento>
+    <app-criar-atendimento></app-criar-atendimento>
   </div>
 </div>

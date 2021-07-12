@@ -1,6 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {HomeCare} from 'src/app/homecares/classes/homecare.class';
-import {FormGroup} from '@angular/forms';
+import {Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {AtendimentoService} from '../../../../services/atendimento.service';
 import {AtendimentoDetalhes} from '../../../../classes/atendimento-detalhes.class';
 
@@ -11,21 +9,9 @@ declare var jQuery: any;
   templateUrl: './modal-detalhe-atendimento.component.html',
   styleUrls: ['./modal-detalhe-atendimento.component.css']
 })
-export class ModalDetalheAtendimentoComponent implements OnInit {
+export class ModalDetalheAtendimentoComponent implements OnChanges, OnDestroy {
 
-  @Input()
-  public isCadastro: boolean;
-
-  @Input()
-  public linkBotaoVoltar: string;
-
-  @Input()
-  public labelBotaoSubmit: string;
-
-  @Output()
-  public onSubmitEvent = new EventEmitter<HomeCare>();
-
-  public complementoForm: FormGroup;
+  @Input() atendimentoId: number;
 
   public atendimentoDetalhes: AtendimentoDetalhes;
 
@@ -34,11 +20,16 @@ export class ModalDetalheAtendimentoComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-    this.service.consultarDetalhes().subscribe(atendimentoDetalhes => {
+  ngOnChanges(simpleChanges: SimpleChanges): void {
+    this.atendimentoDetalhes = new AtendimentoDetalhes();
+    this.service.consultarDetalhes(this.atendimentoId).subscribe(atendimentoDetalhes => {
       this.atendimentoDetalhes = atendimentoDetalhes;
       console.log(this.atendimentoDetalhes);
     });
+  }
+
+  ngOnDestroy() {
+    this.atendimentoDetalhes = null;
   }
 
 }

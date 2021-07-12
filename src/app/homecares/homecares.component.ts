@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarOptions, EventInput } from '@fullcalendar/angular';
+import {Component, OnInit} from '@angular/core';
+import {CalendarOptions, EventInput} from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/pt-br';
-import { SharedLoadingService } from '../shared/services/shared-loading.service';
-import { SharedValidService } from '../shared/services/shared-valid.service';
-import { AtendimentoResumo } from './classes/atendimento-resumo.class';
-import { AtendimentoService } from './services/atendimento.service';
-import { StatusConverter } from './shared/utils/status.converter';
+import {SharedLoadingService} from '../shared/services/shared-loading.service';
+import {SharedValidService} from '../shared/services/shared-valid.service';
+import {AtendimentoResumo} from './classes/atendimento-resumo.class';
+import {AtendimentoService} from './services/atendimento.service';
+import {StatusConverter} from './shared/utils/status.converter';
 
 declare var jQuery: any;
 
@@ -39,6 +39,7 @@ export class HomeCaresComponent implements OnInit {
 
   atendimentos: EventInput = new Array<EventInput>();
   statusConverter: StatusConverter = new StatusConverter();
+  atendimentoId: number;
 
   constructor(
     private _valid: SharedValidService,
@@ -68,8 +69,9 @@ export class HomeCaresComponent implements OnInit {
     return date + ' ' + time;
   }
 
-  private modal() {
-    jQuery('#atendimentoModal').modal('show');
+  private modal(args: any) {
+    this.atendimentoId = args.event._def.publicId;
+    jQuery('#detalheAtendimentoModal').modal('show');
   }
 
 }

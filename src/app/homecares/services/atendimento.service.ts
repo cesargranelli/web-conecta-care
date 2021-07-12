@@ -22,7 +22,7 @@ export class AtendimentoService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        idHomeCare: '1'
+        idHomeCare: '15'
       })
     };
 
@@ -32,14 +32,13 @@ export class AtendimentoService {
     });
   }
 
-  consultarDetalhes(): Observable<AtendimentoDetalhes> {
+  consultarDetalhes(idAtendimento: number): Observable<AtendimentoDetalhes> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        idAtendimento: '1'
+        'Content-Type': 'application/json'
       })
     };
-    return this._http.get(`${this.endpoint}`, {
+    return this._http.get(`${this.endpoint}/${idAtendimento}`, {
       headers: httpOptions.headers
     }).pipe(
       map((atendimentoDetalhes: ResponseTemplateInterface) => {

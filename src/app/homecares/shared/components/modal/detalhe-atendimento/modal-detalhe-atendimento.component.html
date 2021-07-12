@@ -1,6 +1,7 @@
-<div class="modal fade bd-example-modal-lg" id="atendimentoModal" tabindex="-1" role="dialog"
+<div class="modal fade bd-example-modal-lg" id="detalheAtendimentoModal" tabindex="-1" role="dialog"
      aria-labelledby="atendimentoModalLabel"
-     aria-hidden="true">
+     aria-hidden="true"
+     *ngIf="atendimentoDetalhes">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -14,33 +15,33 @@
           <div class="row">
             <div class="col">
               <div class="row">
-                <p>Data/Hora Atendimento: {{atendimentoDetalhes.dataHora}}</p>
+                <p>Data/Hora Atendimento: {{atendimentoDetalhes.dataHora }}</p>
               </div>
               <div class="row">
-                <p>CPF Profissional: {{atendimentoDetalhes.profissional.documento}}</p>
+                <p>CPF Profissional: {{atendimentoDetalhes.profissional?.documento}}</p>
               </div>
               <div class="row">
-                <p>Nome Profissional: {{atendimentoDetalhes.profissional.nomeCompleto}}</p>
+                <p>Nome Profissional: {{atendimentoDetalhes?.profissional?.nomeCompleto}}</p>
               </div>
               <div class="row">
-                <p>Logradouro Atendimento: {{atendimentoDetalhes.endereco.logradouro}}</p>
+                <p>Logradouro Atendimento: {{atendimentoDetalhes?.endereco?.logradouro}}</p>
               </div>
               <div class="row">
-                <p>Protocolo Atendimento: {{atendimentoDetalhes.protocolo}}</p>
+                <p>Protocolo Atendimento: {{atendimentoDetalhes?.protocolo}}</p>
               </div>
             </div>
             <div class="col">
               <div class="row">
-                <p>Plantão Responsável Home: {{atendimentoDetalhes.plantonista.nome}}</p>
+                <p>Plantão Responsável Home: {{atendimentoDetalhes?.plantonista?.nome}}</p>
               </div>
               <div class="row">
-                <p>Contato Plantão Home: {{atendimentoDetalhes.plantonista.contato}}</p>
+                <p>Contato Plantão Home: {{atendimentoDetalhes?.plantonista?.contato}}</p>
               </div>
               <div class="row">
-                <p>Responsável Pelo Paciente: {{atendimentoDetalhes.acompanhante.nome}}</p>
+                <p>Responsável Pelo Paciente: {{atendimentoDetalhes?.acompanhante?.nome}}</p>
               </div>
               <div class="row">
-                <p>Contato do Responsável do Paciente: {{atendimentoDetalhes.acompanhante.contato}}</p>
+                <p>Contato do Responsável do Paciente: {{atendimentoDetalhes?.acompanhante?.contato}}</p>
               </div>
             </div>
           </div>
@@ -48,16 +49,16 @@
           <div class="row">
             <div class="col">
               <div class="row">
-                <p>Valor Atendimento Home Care: {{atendimentoDetalhes.valorHomeCare}}</p>
+                <p>Valor Atendimento Home Care: {{atendimentoDetalhes?.valorHomeCare}}</p>
               </div>
               <div class="row">
-                <p>Valor Atendimento Cliente: {{atendimentoDetalhes.valorPaciente}}</p>
+                <p>Valor Atendimento Cliente: {{atendimentoDetalhes?.valorPaciente}}</p>
               </div>
               <div class="row">
-                <p>Valor Atendimento Profissional: {{atendimentoDetalhes.valorProfissional}}</p>
+                <p>Valor Atendimento Profissional: {{atendimentoDetalhes?.valorProfissional}}</p>
               </div>
               <div class="row">
-                <p>Valor de ajuda de custo: {{atendimentoDetalhes.valorAjudaCusto}}</p>
+                <p>Valor de ajuda de custo: {{atendimentoDetalhes?.valorAjudaCusto}}</p>
               </div>
               <div class="row">
                 <p>Protocolo Atendimento: </p>
