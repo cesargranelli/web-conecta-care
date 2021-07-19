@@ -1,21 +1,21 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { Login } from 'src/app/classes/login.class';
-import { Modulo } from 'src/app/classes/modulo';
-import { Role } from 'src/app/classes/role';
-import { Usuario } from 'src/app/classes/usuario.class';
-import { UsuarioService } from 'src/app/services/usuario.service';
-import { ValidPassword } from 'src/app/shared/constants/valid.password';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
-import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
-import { InputValidation } from 'src/app/shared/validations/input-validation';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from 'src/app/auth/services/auth.service';
+import {Login} from 'src/app/classes/login.class';
+import {Modulo} from 'src/app/classes/modulo';
+import {Role} from 'src/app/classes/role';
+import {Usuario} from 'src/app/classes/usuario.class';
+import {UsuarioService} from 'src/app/services/usuario.service';
+import {ValidPassword} from 'src/app/shared/constants/valid.password';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedTokenService} from 'src/app/shared/services/shared-token.service';
+import {validEqualsEmail, validEqualsPassword} from 'src/app/shared/validations/directives/valid-equals';
+import {InputValidation} from 'src/app/shared/validations/input-validation';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { SendEmail } from '../classes/send-email.class';
-import { EmailService } from '../services/email.service';
+import {EmailService} from '../services/email.service';
+import {SendEmail} from '../classes/send-email.class';
 
 declare var jQuery: any;
 
@@ -47,17 +47,19 @@ export class CadastroLoginComponent implements OnInit {
     private _authService: AuthService,
     private _router: Router,
     private _loading: SharedLoadingService,
-    private _route: ActivatedRoute,
+    private _activatedRoute: ActivatedRoute,
     private _emailService: EmailService
   ) {
     jQuery('html').removeClass('nav-open');
     jQuery('button').removeClass('toggled');
-    this._route.params.subscribe(params => this.registroId = params['id']);
-    this._route.params.subscribe(params => this.registroModulo = params['modulo']);
   }
 
   ngOnInit(): void {
-
+    this._activatedRoute.params.subscribe(params => {
+      console.log(params);
+      this.registroId = params['id'];
+      this.registroModulo = params['modulo'];
+    });
     this.cadastroLoginForm = this._formBuilder.group({
       email: ['', [
         Validators.required,
@@ -90,7 +92,7 @@ export class CadastroLoginComponent implements OnInit {
 
   onSubmit() {
     this._loading.emitChange(true);
-    let usuario: Usuario = new Usuario(
+    const usuario: Usuario = new Usuario(
       this.cadastroLoginForm.value.email,
       this.cadastroLoginForm.value.password,
       new Role(this.registroModulo).getRole(),
@@ -100,8 +102,8 @@ export class CadastroLoginComponent implements OnInit {
     setTimeout(() => {
       this._loading.emitChange(true);
       this._service.cadastrar(usuario).subscribe(response => {
-        if (response.status == 201) {
-          let login: Login = new Login(
+        if (response.status === 201) {
+          const login: Login = new Login(
             this.cadastroLoginForm.value.email,
             this.cadastroLoginForm.value.password,
             new Modulo(this.registroModulo).getModulo()
@@ -110,30 +112,48 @@ export class CadastroLoginComponent implements OnInit {
             this._loading.emitChange(true);
             this._authService.login(login).subscribe(response => {
               if (response) {
-
-                let email = new SendEmail();
+                const email = new SendEmail();
                 email.email = this.cadastroLoginForm.value.email;
                 email.token = this._tokenService.getToken();
-                email.role  = new Modulo(this.registroModulo).getModulo();
-                this._tokenService.removeToken();
+                email.role = new Modulo(this.registroModulo).getModulo();
+                // this._tokenService.removeToken();
+                switch (this.registroModulo) {
+                  case 'profissionais':
+                    this._router.navigateByUrl(`cadastro/profissionais/${this.registroId}/informacoes-gerais`);
+                    break;
+                  case 'homecares':
+                    this._router.navigateByUrl(`homecares/${this.registroId}/cadastro/homecare`);
+                    break;
+                  case 'planos-saude':
+                    this._router.navigateByUrl(`planos-saude/${this.registroId}/cadastro/plano-saude`);
+                    break;
+                  case 'planos-saude-filial':
+                    this._router.navigateByUrl(`planos-saude/${this.registroId}/cadastro/plano-saude`);
+                    break;
+                  case 'pacientes':
+                    this._router.navigateByUrl(`pacientes/${this.registroId}/cadastro/informacoes-gerais`);
+                    break;
+                  default:
+                    this._router.navigateByUrl(`/`);
+                }
 
-                setTimeout(() => {
-                  this._loading.emitChange(true);
-                  this._emailService.enviar(email).subscribe(() => {
-                    this.emailEnviado = true;
-                    this._loading.emitChange(false);
-                    this.onSuccess();
-                    this._router.navigateByUrl(`espera-confirmacao-email`);
-                  }, httpResponse => {
-                    Swal.fire({
-                      position: 'center',
-                      icon: 'error',
-                      title: httpResponse.error.data?.message,
-                      showConfirmButton: true
-                    });
-                    this._loading.emitChange(false);
-                  });
-                });
+                // setTimeout(() => {
+                //   this._loading.emitChange(true);
+                //   this._emailService.enviar(email).subscribe(() => {
+                //     this.emailEnviado = true;
+                //     this._loading.emitChange(false);
+                //     this.onSuccess();
+                //     this._router.navigateByUrl(`espera-confirmacao-email`);
+                //   }, httpResponse => {
+                //     Swal.fire({
+                //       position: 'center',
+                //       icon: 'error',
+                //       title: httpResponse.error.data?.message,
+                //       showConfirmButton: true
+                //     });
+                //     this._loading.emitChange(false);
+                //   });
+                // });
               }
               this._loading.emitChange(false);
             }, error => {

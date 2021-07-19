@@ -1,12 +1,12 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Modulo } from 'src/app/classes/modulo';
-import { DocumentoService } from 'src/app/services/documento.service';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
-import { InputValidation } from 'src/app/shared/validations/input-validation';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Modulo} from 'src/app/classes/modulo';
+import {DocumentoService} from 'src/app/services/documento.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import {validCpf} from 'src/app/shared/validations/directives/valid-cpf.directive';
+import {InputValidation} from 'src/app/shared/validations/input-validation';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -31,7 +31,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
   public homecareForm: FormGroup;
   public planoSaudeForm: FormGroup;
 
-  public cpfCnpjJaCadastrado: boolean = false;
+  public cpfCnpjJaCadastrado = false;
   public input: InputValidation = new InputValidation();
 
   constructor(
@@ -57,33 +57,33 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this.planoSaudeForm = this._formBuilder.group({
       cnpj: ['', [Validators.required, validCnpj(true)]],
     });
-    this.modulo.setModulo('pacientes')
+    this.modulo.setModulo('pacientes');
     carregarTarjaAzul();
     injetaToolTip();
   }
 
   onSubmit(form: FormGroup, element: HTMLElement) {
-    let numero: string = form.get(element.getAttribute('formControlName')).value;
-    let tipo: string = element.getAttribute('formControlName').toUpperCase();
-    let modulo: string = this.modulo.getModulo();
+    const numero: string = form.get(element.getAttribute('formControlName')).value;
+    const tipo: string = element.getAttribute('formControlName').toUpperCase();
+    const modulo: string = this.modulo.getModulo();
     this._loading.emitChange(true);
     this._documentoService.registrar({numero: numero, tipo: tipo, modulo: modulo}).subscribe(response => {
-      this._loading.emitChange(false);
-      if (response.body.data?.id != undefined) {
-        this._router.navigateByUrl(`${this.modulo.getNome()}/${response.body.data?.id}/cadastro/login`);
-      } else {
-        this.cpfCnpjJaCadastrado = true;
-      }
-    },
-    httpResponse => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: httpResponse.error.data.message || httpResponse.error.data.error[0],
-        showConfirmButton: true
+        this._loading.emitChange(false);
+        if (response.body.data?.id) {
+          this._router.navigateByUrl(`${this.modulo.getNome()}/${response.body.data?.id}/cadastro/login`);
+        } else {
+          this.cpfCnpjJaCadastrado = true;
+        }
+      },
+      httpResponse => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: httpResponse.error.data.message || httpResponse.error.data.error[0],
+          showConfirmButton: true
+        });
+        this._loading.emitChange(false);
       });
-      this._loading.emitChange(false);
-    });
   }
 
   setRole(perfil: string) {
