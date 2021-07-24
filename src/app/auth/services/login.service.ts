@@ -21,7 +21,7 @@ export class LoginService {
   }
 
   verLogin(): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<ResponseApi>>(`${this._endpoint}/find`, {observe: 'response'});
+    return this._http.get<HttpResponse<ResponseApi>>(`${this._endpoint}`, {observe: 'response'});
   }
 
   esqueciMinhaSenha(esqueciMinhaSenha: EsqueciMinhaSenha): Observable<HttpResponse<any>> {
