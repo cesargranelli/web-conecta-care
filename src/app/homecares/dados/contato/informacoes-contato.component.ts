@@ -69,7 +69,7 @@ export class InformacoesContatoComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: 'error',
-      title: 'Ocorreu um erro inexperado ao tentar inserir endereço',
+      title: 'Ocorreu um erro inexperado ao tentar inserir contatos',
       showConfirmButton: true
     });
   }
