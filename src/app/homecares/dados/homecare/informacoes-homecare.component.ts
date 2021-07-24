@@ -37,8 +37,12 @@ export class InformacoesHomecareComponent implements OnInit {
 
   ngOnInit(): void {
     this._service.consultar(this.valid.id).subscribe(response => {
-      this._cadastro.homeCare = response.body.data;
-      this.cnpj = this._cadastro.homeCare?.cnpj;
+      this.cnpj = response.body.data.cnpj;
+      if (response.body.data.id) {
+        this._cadastro.homeCare = response.body.data;
+      } else {
+        this._cadastro.homeCare.cnpj = response.body.data.cnpj;
+      }
     },
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
