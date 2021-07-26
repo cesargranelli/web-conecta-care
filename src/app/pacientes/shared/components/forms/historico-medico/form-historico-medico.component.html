@@ -79,28 +79,30 @@
                  id="dataUltimoAtendimento" maxlength="10" type="text" mask="00/00/0000">
         </div>
       </div>
-    </div>
-    <!--                <ng-container *ngIf="isCadastro">-->
-    <div class="row">
-      <div class="form-check col-form-label">
-        <label class="col-lg-9 col-md-9 form-check-label">
-          <input class="form-check-input" formControlName="flagAceiteDeclaracao" id="flagAceiteDeclaracao"
-                 type="checkbox" value="">
-          Declaro que as informações fornecidas são verdadeiras *
-          <span class="form-check-sign"><span class="check"></span></span>
-        </label>
+      <div class="row">
+        <div class="form-check col-form-label">
+          <label class="col-lg-9 col-md-9 form-check-label">
+            <input class="form-check-input" formControlName="flagAceiteDeclaracao" id="flagAceiteDeclaracao"
+                   type="checkbox" value="">
+            Declaro que as informações fornecidas são verdadeiras *
+            <span class="form-check-sign"><span class="check"></span></span>
+          </label>
+        </div>
       </div>
     </div>
-    <!--                </ng-container>-->
   </div>
   <div class="card-footer justify-content-between">
-        <span class="bmd-form-group is-filled">
-            <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
-                <i class="material-icons">arrow_back</i>
-            </button>
-        </span>
+    <span *ngIf="!isCadastro" class="bmd-form-group is-filled">
+      <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
+        <i class="material-icons">arrow_back</i>
+      </button>
+    </span>
+    <span *ngIf="isCadastro" class="bmd-form-group is-filled">
+      <button *ngIf="linkBotaoVoltar != null" [routerLink]="['../']" class="btn btn-gray"
+              type="button">Retornar</button>
+    </span>
     <span class="bmd-form-group is-filled">
-      <button class="btn btn-rose" type="submit">Alterar</button>
+      <button class="btn btn-rose" type="submit">{{ labelBotaoSubmit }}</button>
     </span>
   </div>
 </form>

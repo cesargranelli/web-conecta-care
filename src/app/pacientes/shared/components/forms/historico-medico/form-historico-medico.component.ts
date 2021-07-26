@@ -5,7 +5,6 @@ import {TipoSanguineoPaciente} from '../../../../classes/tipo-sanguineo-paciente
 import {SharedValidService} from '../../../../../shared/services/shared-valid.service';
 import {Valid} from '../../../../../services/feat/Valid';
 import {HistoricoMedicoPaciente} from '../../../../classes/historico-medico-paciente.class';
-import {Paciente} from '../../../../classes/paciente.class';
 import {SharedLoadingService} from '../../../../../shared/services/shared-loading.service';
 
 declare var jQuery: any;
@@ -24,7 +23,7 @@ export class FormHistoricoMedicoComponent implements OnInit {
   @Input()
   public labelBotaoSubmit: string;
   @Output()
-  public onSubmitEvent: EventEmitter<Paciente>;
+  public onSubmitEvent: EventEmitter<HistoricoMedicoPaciente>;
 
   public valid: Valid;
   public historicoMedico: FormGroup;
@@ -38,6 +37,7 @@ export class FormHistoricoMedicoComponent implements OnInit {
               private loading: SharedLoadingService,
   ) {
     this.valid = this.validService.getValid();
+    this.onSubmitEvent = new EventEmitter<HistoricoMedicoPaciente>();
 
     this.historicoMedico = this.formBuilder.group({
       carteiraVacinacao: null,
@@ -61,11 +61,16 @@ export class FormHistoricoMedicoComponent implements OnInit {
         this.loading.emitChange(false);
       });
     });
-
+    jQuery('.datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY',
+      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+    });
   }
 
   onSubmit() {
-    console.log(this.historicoMedico.value);
+    this.historicoMedicoPaciente = this.historicoMedico.value;
+    console.log(this.historicoMedicoPaciente);
+    // this.onSubmitEvent.emit(this.contato);
   }
 
   public dateChange(control: FormControl, name: string) {

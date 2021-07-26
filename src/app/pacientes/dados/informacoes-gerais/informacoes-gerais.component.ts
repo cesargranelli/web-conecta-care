@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-informacoes-gerais',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InformacoesGeraisComponent implements OnInit {
 
-  constructor() { }
+  public isCadastro: boolean;
+  public linkBotaoVoltar: string;
+  public labelBotaoSubmit: string;
+  public onSubmitEvent = new EventEmitter<FormGroup>();
+  public contatoFormGroup: FormGroup;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+    this.isCadastro = false;
+    this.linkBotaoVoltar = '../';
+    this.labelBotaoSubmit = 'Alterar';
   }
 
 }

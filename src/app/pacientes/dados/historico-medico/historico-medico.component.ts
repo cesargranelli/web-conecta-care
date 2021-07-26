@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
+import {HistoricoMedicoPaciente} from '../../classes/historico-medico-paciente.class';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-historico-medico',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoricoMedicoComponent implements OnInit {
 
-  constructor() { }
+  public labelBotaoSubmit: string;
+  public linkBotaoVoltar: string;
+  public isCadastro = false;
+  public onSubmitEvent = new EventEmitter<HistoricoMedicoPaciente>();
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+    this.linkBotaoVoltar = '../';
+    this.labelBotaoSubmit = 'Alterar';
+  }
+
+  onSubmit(historicoMedicoPaciente: HistoricoMedicoPaciente) {
+    console.log(historicoMedicoPaciente);
   }
 
 }
