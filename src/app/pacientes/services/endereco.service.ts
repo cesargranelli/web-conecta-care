@@ -2,9 +2,9 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {EnderecoPaciente} from "../classes/endereco-paciente.class";
-import {catchError, map} from "rxjs/operators";
-import {ResponseTemplateInterface} from "../../services/response/responseTemplate.interface";
+import {EnderecoPaciente} from '../classes/endereco-paciente.class';
+import {catchError, map} from 'rxjs/operators';
+import {ResponseTemplateInterface} from '../../services/response/responseTemplate.interface';
 
 @Injectable({
   providedIn: 'root'

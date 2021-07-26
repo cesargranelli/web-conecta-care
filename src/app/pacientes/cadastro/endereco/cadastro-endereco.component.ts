@@ -5,8 +5,8 @@ import {SharedValidService} from '../../../shared/services/shared-valid.service'
 import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import {EnderecoPaciente} from "../../classes/endereco-paciente.class";
-import {EnderecoService} from "../../services/endereco.service";
+import {EnderecoPaciente} from '../../classes/endereco-paciente.class';
+import {EnderecoService} from '../../services/endereco.service';
 
 @Component({
   selector: 'app-endereco',

@@ -1,1 +1,22 @@
-<p>informacoes-gerais works!</p>
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">info</i>
+            <h3 class="card-title">
+              Informações Gerais
+            </h3>
+          </div>
+          <app-form-informacoes-gerais
+            (onSubmitEvent)="onSubmit($event)"
+            [isCadastro]="isCadastro"
+            [linkBotaoVoltar]="linkBotaoVoltar"
+            [labelBotaoSubmit]="labelBotaoSubmit"
+          ></app-form-informacoes-gerais>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

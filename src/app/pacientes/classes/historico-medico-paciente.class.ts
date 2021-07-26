@@ -8,4 +8,5 @@ export class HistoricoMedicoPaciente {
   dataUltimoTratamento: string;
   dataUltimoAtendimento: string;
   tipoSanguineo: TipoSanguineoPaciente;
+  flagAceiteDeclaracao: boolean;
 }

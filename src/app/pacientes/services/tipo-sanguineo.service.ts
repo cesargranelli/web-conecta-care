@@ -12,7 +12,7 @@ export class TipoSanguineoService {
   }
 
   listarTipoSanguineo(): Observable<HttpResponse<any>> {
-    return this._http.get(`${environment.apiConnecta}api/v1/tipo-sanguineo`, {observe: 'response'});
+    return this._http.get(`${environment.apiConnecta}/api/v1/tipo-sanguineo`, {observe: 'response'});
   }
 
 }

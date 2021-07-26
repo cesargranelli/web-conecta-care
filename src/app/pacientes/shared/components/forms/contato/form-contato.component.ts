@@ -60,6 +60,7 @@ export class FormContatoComponent implements OnInit {
     this.validationHas = new InputValidationHas();
     this._service.consultar(this.valid.id).pipe().subscribe(response => {
       this.contato = response.body?.data;
+      console.log(this.contato);
       if (this.contato) {
         this.popularForm();
       }

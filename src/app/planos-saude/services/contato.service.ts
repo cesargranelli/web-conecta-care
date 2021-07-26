@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class ContatoService {
 
-  private endpoint: string = `${environment.apiConnecta}/planos-saude/{id}/contatos`;
+  private endpoint = `${environment.apiConnecta}/planos-saude/{id}/contatos`;
 
   constructor(private _http: HttpClient) {
   }

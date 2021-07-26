@@ -1,112 +1,106 @@
-<form [formGroup]="historicoMedico" [hidden]="hiddenForm" class="form-horizontal">
-    <div class="card-body">
-        <div class="tab-content">
-            <div class="row">
-                <label class="col-lg-2 col-md-2 col-form-label" for="temCarteiraVacinacao">Tem carteira de vacinação?
-                    *</label>
-                <div class="form-group col-lg-3 col-md-9 checkbox-radios" id="temCarteiraVacinacao">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input checked class="form-check-input" formControlName="temCarteiraVacinacao"
-                                name="temCarteiraVacinacao" type="radio" value="TRUE">
-                            Sim
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" formControlName="temCarteiraVacinacao"
-                                name="temCarteiraVacinacao" type="radio" value="FALSE">
-                            Não
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-                <label class="col-lg-2 col-md-3 col-form-label" for="genero">Tipo de sangue *</label>
-                <div class="form-group col-lg-3 col-md-8">
-                    <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="genero"
-                        id="genero" title="Selecione">
-                        <option value="genero.id">SAPATO</option>
-                        <option value="genero.2">SAPATO2</option>
-                        <option value="genero.3">SAPATO3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-lg-2 col-md-2 col-form-label" for="temAlergiaMedicamento">Alergia a medicamentos?
-                    *</label>
-                <div class="form-group col-lg-3 col-md-9 checkbox-radios" id="temAlergiaMedicamento">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input checked class="form-check-input" formControlName="temAlergiaMedicamento"
-                                name="temAlergiaMedicamento" type="radio" value="TRUE">
-                            Sim
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" formControlName="temAlergiaMedicamento"
-                                name="temAlergiaMedicamento" type="radio" value="FALSE">
-                            Não
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-                <!--                  <ng-container *ngIf="true">-->
-                <label class="col-lg-2 col-md-2 col-form-label" for="sobreAlergiaMedicamento">Sobre a alergia a
-                    medicamentos</label>
-                <div class="form-group col-lg-5 col-md-9">
-                    <textarea class="form-control" id="sobreAlergiaMedicamento" rows="2"></textarea>
-                </div>
-                <!--                  </ng-container>-->
-            </div>
-            <div class="row">
-                <label class="col-lg-2 col-md-2 col-form-label" for="dataUltimoTratamento">Data último
-                    tratamento</label>
-                <div class="form-group col-lg-3 col-md-9">
-                    <input autocomplete="none" class="form-control datetimepicker"
-                        formControlName="dataUltimoTratamento" id="dataUltimoTratamento" type="text">
-                </div>
-                <label class="col-lg-2 col-md-2 col-form-label" for="dataUltimoAtendimento">Data último
-                    atendimento</label>
-                <div class="form-group col-lg-3 col-md-9">
-                    <input autocomplete="none" class="form-control datetimepicker"
-                        formControlName="dataUltimoAtendimento" id="dataUltimoAtendimento" type="text">
-                </div>
-            </div>
-            <!--                <ng-container *ngIf="isCadastro">-->
-            <div class="row">
-                <div class="form-check col-form-label">
-                    <label class="col-lg-9 col-md-9 form-check-label">
-                        <input class="form-check-input" formControlName="flagAceiteDeclaracao" id="flagAceiteDeclaracao"
-                            type="checkbox" value="">
-                        Declaro que as informações fornecidas são verdadeiras *
-                        <span class="form-check-sign">
-                            <span class="check"></span>
-                        </span>
-                    </label>
-                </div>
-            </div>
-            <!--                </ng-container>-->
+<form [formGroup]="historicoMedico" [hidden]="hiddenForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+  <div class="card-body">
+    <div class="tab-content">
+      <div class="row">
+        <label class="col-lg-2 col-md-2 col-form-label" for="carteiraVacinacao">Tem carteira de vacinação?*</label>
+        <div class="form-group col-lg-3 col-md-9 checkbox-radios" id="carteiraVacinacao">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input checked class="form-check-input" formControlName="carteiraVacinacao"
+                     name="carteiraVacinacao" type="radio" value="TRUE">
+              Sim
+              <span class="circle">
+                <span class="check"></span>
+              </span>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" formControlName="carteiraVacinacao" name="carteiraVacinacao" type="radio"
+                     value="FALSE">
+              Não
+              <span class="circle"><span class="check"></span></span>
+            </label>
+          </div>
         </div>
+        <label class="col-lg-2 col-md-3 col-form-label" for="tipoSanguineo">Tipo de sangue *</label>
+        <div class="form-group col-lg-3 col-md-8">
+          <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="tipoSanguineo"
+                  id="tipoSanguineo" title="Selecione">
+            <option *ngFor="let tipoSanguineo of tiposSanguineo" [ngValue]="tipoSanguineo.id"
+                    [selected]="tipoSanguineo.id === historicoMedicoPaciente?.tipoSanguineo?.id"
+            >{{ tipoSanguineo.tipo }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-2 col-md-2 col-form-label" for="alergiaMedicamento">Alergia a medicamentos?
+          *</label>
+        <div class="form-group col-lg-3 col-md-9 checkbox-radios" id="alergiaMedicamento">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input checked class="form-check-input" formControlName="alergiaMedicamento"
+                     name="alergiaMedicamento" type="radio" value="TRUE">
+              Sim
+              <span class="circle"><span class="check"></span></span>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" formControlName="alergiaMedicamento"
+                     name="alergiaMedicamento" type="radio" value="FALSE">
+              Não
+              <span class="circle"><span class="check"></span></span>
+            </label>
+          </div>
+        </div>
+        <ng-container *ngIf="true">
+          <label class="col-lg-2 col-md-2 col-form-label" for="alergiaMedicamentoDescricao">Sobre a alergia a
+            medicamentos</label>
+          <div class="form-group col-lg-5 col-md-9">
+            <textarea class="form-control" id="alergiaMedicamentoDescricao" rows="2"></textarea>
+          </div>
+        </ng-container>
+      </div>
+      <div class="row">
+        <label class="col-lg-2 col-md-2 col-form-label" for="dataUltimoTratamento">Data último
+          tratamento</label>
+        <div class="form-group col-lg-3 col-md-9">
+          <input (focus)="dateChange(historicoMedico.controls?.dataUltimoTratamento, 'dataUltimoTratamento')"
+                 autocomplete="none" class="form-control datetimepicker" formControlName="dataUltimoTratamento"
+                 id="dataUltimoTratamento" maxlength="10" type="text" mask="00/00/0000">
+        </div>
+
+        <label class="col-lg-2 col-md-2 col-form-label" for="dataUltimoAtendimento">Data último
+          atendimento</label>
+        <div class="form-group col-lg-3 col-md-9">
+          <input (focus)="dateChange(historicoMedico.controls?.dataUltimoAtendimento, 'dataUltimoAtendimento')"
+                 autocomplete="none" class="form-control datetimepicker" formControlName="dataUltimoAtendimento"
+                 id="dataUltimoAtendimento" maxlength="10" type="text" mask="00/00/0000">
+        </div>
+      </div>
     </div>
-    <div class="card-footer justify-content-between">
+    <!--                <ng-container *ngIf="isCadastro">-->
+    <div class="row">
+      <div class="form-check col-form-label">
+        <label class="col-lg-9 col-md-9 form-check-label">
+          <input class="form-check-input" formControlName="flagAceiteDeclaracao" id="flagAceiteDeclaracao"
+                 type="checkbox" value="">
+          Declaro que as informações fornecidas são verdadeiras *
+          <span class="form-check-sign"><span class="check"></span></span>
+        </label>
+      </div>
+    </div>
+    <!--                </ng-container>-->
+  </div>
+  <div class="card-footer justify-content-between">
         <span class="bmd-form-group is-filled">
             <button [routerLink]="['../']" class="btn btn-social btn-just-icon btn-gray">
                 <i class="material-icons">arrow_back</i>
             </button>
         </span>
-        <span class="bmd-form-group is-filled">
-            <button class="btn btn-rose" type="submit">Alterar</button>
-        </span>
-    </div>
+    <span class="bmd-form-group is-filled">
+      <button class="btn btn-rose" type="submit">Alterar</button>
+    </span>
+  </div>
 </form>
