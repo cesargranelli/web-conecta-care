@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {HistoricoMedicoPaciente} from '../../classes/historico-medico-paciente.class';
 
 @Component({
   selector: 'app-informacoes-gerais',
@@ -23,4 +24,7 @@ export class InformacoesGeraisComponent implements OnInit {
     this.labelBotaoSubmit = 'Alterar';
   }
 
+  onSubmit(historicoMedicoPaciente: HistoricoMedicoPaciente) {
+    console.log(historicoMedicoPaciente);
+  }
 }
