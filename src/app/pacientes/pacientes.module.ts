@@ -22,7 +22,6 @@ import {FormInformacoesGeraisComponent} from './shared/components/forms/informac
 import {FormHistoricoMedicoComponent} from './shared/components/forms/historico-medico/form-historico-medico.component';
 import {FormComplementoComponent} from './shared/components/forms/complemento/form-complemento.component';
 import {FormEnderecoComponent} from './shared/components/forms/endereco/form-endereco.component';
-import {ProfissionaisModule} from "../profissionais/profissionais.module";
 
 @NgModule({
   declarations: [
@@ -51,8 +50,7 @@ import {ProfissionaisModule} from "../profissionais/profissionais.module";
     SharedComponentModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule,
-    ProfissionaisModule
+    NgxMaskModule
   ]
 })
 export class PacientesModule {

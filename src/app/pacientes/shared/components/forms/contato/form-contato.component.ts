@@ -7,9 +7,13 @@ import {SharedValidService} from '../../../../../shared/services/shared-valid.se
 import {Router} from '@angular/router';
 import {SharedLoadingService} from '../../../../../shared/services/shared-loading.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import Swal from "sweetalert2";
-import {ContatoPaciente} from "../../../../classes/contato-paciente.class";
-import {ContatoService} from "../../../../services/contato.service";
+import Swal from 'sweetalert2';
+import {ContatoPaciente} from '../../../../classes/contato-paciente.class';
+import {ContatoService} from '../../../../services/contato.service';
+import {concatMap} from 'rxjs/internal/operators/concatMap';
+import {map} from 'rxjs/internal/operators/map';
+import {PacienteService} from '../../../../services/paciente.service';
+import {Paciente} from '../../../../classes/paciente.class';
 
 @Component({
   selector: 'app-form-contato-paciente',
@@ -36,6 +40,7 @@ export class FormContatoComponent implements OnInit {
   public validationHas: InputValidationHas;
   public especialidades: Array<AreaAtendimento>;
   public hideForm: boolean = true;
+  public paciente: Paciente;
 
   private contato: ContatoPaciente;
 
@@ -44,7 +49,8 @@ export class FormContatoComponent implements OnInit {
     private _router: Router,
     private _loading: SharedLoadingService,
     private _formBuilder: FormBuilder,
-    private _service: ContatoService
+    private _contatoService: ContatoService,
+    private _pacienteService: PacienteService,
   ) {
     this.valid = this._validService.getValid();
     this.contatoForm = this._formBuilder.group({
@@ -58,38 +64,40 @@ export class FormContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
-    this._service.consultar(this.valid.id).pipe().subscribe(response => {
-      this.contato = response.body?.data;
-      console.log(this.contato);
-      if (this.contato) {
-        this.popularForm();
-      }
-      this.hideForm = false;
-      this._loading.emitChange(false);
-    }, (errorResponse: HttpErrorResponse) => {
-      if (errorResponse.status === 0) {
-        console.log('Sistema indisponível! ' + errorResponse.statusText);
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Sistema indisponível! ' + errorResponse.statusText,
-          showConfirmButton: true
-        });
-      }
-    });
+    this._pacienteService.pesquisarPorId(this._validService.getValid().id).pipe(
+      map(paciente => this.paciente = paciente),
+      concatMap(() => this._contatoService.consultar(this.paciente.contato.id)))
+      .subscribe(response => {
+        this.contato = response.body?.data;
+        console.log(this.contato);
+        if (this.contato) {
+          this.popularForm();
+        }
+        this.hideForm = false;
+        this._loading.emitChange(false);
+      }, (errorResponse: HttpErrorResponse) => {
+        if (errorResponse.status === 0) {
+          console.log('Sistema indisponível! ' + errorResponse.statusText);
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Sistema indisponível! ' + errorResponse.statusText,
+            showConfirmButton: true
+          });
+        }
+      });
   }
 
   popularForm() {
-    // this.contatoForm.patchValue({
-    //   telefoneFixo: this._cadastro.contato?.telefoneFixo,
-    //   telefoneRecado: this._cadastro.contato?.telefoneRecado,
-    //   telefoneCelular: this._cadastro.contato?.telefoneCelular,
-    //   telefoneWhatsapp: this._cadastro.contato?.telefoneWhatsapp,
-    //   telefoneOuvidoria: this._cadastro.contato?.telefoneOuvidoria,
-    //   email: this._cadastro.contato?.email,
-    //   site: this._cadastro.contato?.site,
-    //   flagAceiteDeclaracao: this._cadastro.contato?.flagAceiteDeclaracao
-    // });
+    if (this.contato) {
+      this.contatoForm.patchValue({
+        telefoneFixo: this.contato.telefoneFixo,
+        telefoneRecado: this.contato.telefoneRecado,
+        telefoneCelular: this.contato.telefoneCelular,
+        telefoneResponsavel: this.contato.telefoneResponsavel,
+        emailResponsavel: this.contato.emailResponsavel,
+      });
+    }
   }
 
   onReturn() {

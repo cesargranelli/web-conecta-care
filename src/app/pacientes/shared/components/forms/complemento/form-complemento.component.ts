@@ -18,7 +18,7 @@ export class FormComplementoComponent implements OnInit {
 
   @Output() loadingEvent = new EventEmitter<boolean>();
   public validationHas: InputValidationHas = new InputValidationHas();
-  public codigoPais: string = '+55';
+  public codigoPais = '+55';
   public estados: Array<Estado> = [];
   public hiddenForm: boolean;
   public contatoForm: FormGroup;
@@ -36,26 +36,14 @@ export class FormComplementoComponent implements OnInit {
     this._valid = this._validService.getValid();
 
     this.contatoForm = this._formBuilder.group({
-      telefoneFixo: [null],
-      telefoneRecado: [null],
+      temTrabalho: [null],
+      experienciaTrabalhoAtual: [null],
       celularPrincipal: [null, [Validators.required]],
       celularSecundario: [null],
     });
   }
 
   ngOnInit(): void {
-    // this._dominioService.listarEstado().pipe(
-    //   map((response) => {
-    //     this._loading.emitChange(true);
-    //     this.estados = response.body;
-    //   }),
-    //   concatMap(() => this._service.getDados(this._valid.id))
-    // ).subscribe(response => {
-    //     this.popularForm();
-    //     setTimeout(() => {
-    //       this._loading.emitChange(false);
-    //     });
-    //   }, null, () => this.contatoForm = false);
 
   }
 
@@ -77,28 +65,6 @@ export class FormComplementoComponent implements OnInit {
     this._contato.celularPrincipal = this._contato.celularPrincipal ? Number(String(this.codigoPais) + String(this._contato.celularPrincipal)) : null;
     this._contato.celularSecundario = this._contato.celularSecundario ? Number(String(this.codigoPais) + String(this._contato.celularSecundario)) : null;
 
-    // this._service.save(this._contato).subscribe(response => {
-    //   setTimeout(() => {
-    //     this._cadastro.contato = this._contato;
-    //     this._router.navigateByUrl(`profissionais/${this._valid.id}/dados-profissionais`);
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'success',
-    //       title: 'Alteração realizada com sucesso!',
-    //       showConfirmButton: false,
-    //       timer: 2000
-    //     });
-    //     this._loading.emitChange(false);
-    //   });
-    // }, () => {
-    //   this._loading.emitChange(false);
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'Ocorreu um erro inexperado ao tentar alterar os dados de contato',
-    //     showConfirmButton: true
-    //   });
-    // });
   }
 
 

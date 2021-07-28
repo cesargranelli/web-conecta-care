@@ -8,11 +8,14 @@ import {SharedLoadingService} from '../../../../../shared/services/shared-loadin
 import {ViaCepService} from '../../../../../services/via-cep.service';
 import Swal from 'sweetalert2';
 import {EnderecoViaCep} from '../../../../../classes/endereco-via-cep.class';
-import {EstadoService} from "../../../../services/estado.service";
-import {EnderecoPaciente} from "../../../../classes/endereco-paciente.class";
-import {map} from "rxjs/internal/operators/map";
-import {concatMap} from "rxjs/internal/operators/concatMap";
-import {EnderecoService} from "../../../../services/endereco.service";
+import {EstadoService} from '../../../../services/estado.service';
+import {EnderecoPaciente} from '../../../../classes/endereco-paciente.class';
+import {map} from 'rxjs/internal/operators/map';
+import {concatMap} from 'rxjs/internal/operators/concatMap';
+import {EnderecoService} from '../../../../services/endereco.service';
+import {SharedValidService} from '../../../../../shared/services/shared-valid.service';
+import {PacienteService} from '../../../../services/paciente.service';
+import {Paciente} from '../../../../classes/paciente.class';
 
 declare var jQuery: any;
 
@@ -41,12 +44,13 @@ export class FormEnderecoComponent implements OnInit {
   public valid: Valid;
   public estadoViaCep: Estado;
   public fotoComprovante: any;
-  public fileInputComprovante: string = 'fileinput-new';
+  public fileInputComprovante = 'fileinput-new';
   public imagemComprovante: any = '../../../../../assets/img/Headshot-Doc-1.png';
   public validationHas: InputValidationHas = new InputValidationHas();
-  public esconderFormulario: boolean = true;
+  public esconderFormulario = true;
   private endereco: EnderecoPaciente;
   private fileComprovante: File;
+  private paciente: Paciente;
 
   constructor(
     private _router: Router,
@@ -54,7 +58,9 @@ export class FormEnderecoComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _estadosService: EstadoService,
     private _viaCep: ViaCepService,
-    private _enderecoService: EnderecoService
+    private _enderecoService: EnderecoService,
+    private _pacienteService: PacienteService,
+    private _valid: SharedValidService,
   ) {
     this._loading.emitChange(true);
     this.enderecoForm = this._formBuilder.group({
@@ -72,7 +78,8 @@ export class FormEnderecoComponent implements OnInit {
   ngOnInit(): void {
     this._estadosService.listarEstado().pipe(
       map(estados => this.estados = estados),
-      concatMap(() => this._enderecoService.pesquisarEnderecoPorIdPaciente(3))
+      concatMap(() => this._pacienteService.pesquisarPorId(this._valid.getValid().id).pipe(map(paciente => this.paciente = paciente))),
+      concatMap(() => this._enderecoService.pesquisarEnderecoPorId(this.paciente.endereco.id))
     ).subscribe(endereco => {
       this.endereco = endereco;
       this.popularForm();
@@ -106,12 +113,11 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.enderecoForm.value);
     this.endereco = this.enderecoForm.value;
     this.endereco.fotoComprovante = this.fotoComprovante;
-    this.endereco.estado = this.estados.filter(estado => estado.id == Number(this.endereco.estado))[0];
-    console.log(this.endereco)
-    console.log('FIM EMIT')
-    this.onSubmitEvent.emit(this.endereco);
+    this.endereco.estado = this.estados.filter(estado => estado.id === Number(this.endereco.estado))[0];
+    // this.onSubmitEvent.emit(this.endereco);
   }
 
   onLoadComprovante(event: any) {

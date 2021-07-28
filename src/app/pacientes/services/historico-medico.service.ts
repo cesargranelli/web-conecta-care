@@ -12,7 +12,7 @@ export class HistoricoMedicoService {
   }
 
   pesquisarHistoricoMedico(id: number): Observable<HttpResponse<any>> {
-    return this._http.get(`${environment.apiConnecta}api/v1/historico-medico/${id}`, {observe: 'response'});
+    return this._http.get(`${environment.apiConnecta}/api/v1/historico-medico/${id}`, {observe: 'response'});
   }
-  
+
 }

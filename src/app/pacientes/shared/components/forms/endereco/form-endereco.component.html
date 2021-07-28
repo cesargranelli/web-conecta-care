@@ -47,7 +47,7 @@
         <div class="form-group col-lg-4 col-md-8">
           <select class="selectpicker" data-live-search="true" data-style="btn btn-primary" data-width="100%"
                   formControlName="estado" id="estado" title="Estado">
-            <option *ngFor="let estado of estados" [value]="estado.id">{{ estado.uf }}</option>
+            <option *ngFor="let estado of estados" [value]="estado.id" [selected]="estado.id === this.endereco?.estado?.id">{{ estado.uf }}</option>
           </select>
         </div>
       </div>
