@@ -78,12 +78,11 @@
                    style="max-width: 100px; max-height: 100px;">
             </div>
             <span class="btn btn-raised btn-round btn-rose btn-file">
-                            <span [hidden]="pacienteForm.controls.fotoPaciente.valid" class="fileinput-new">Foto Paciente</span>
-                            <span [hidden]="pacienteForm.controls.fotoPaciente.invalid"
-                                  class="fileinput-exists">Trocar</span>
-                            <input (change)="onLoadFotoPaciente($event)" data-max-size="2"
-                                   formControlName="fotoPaciente" id="fotoPaciente" type="file">
-                        </span>
+              <span [hidden]="pacienteForm.controls.fotoPaciente.valid" class="fileinput-new">Foto Paciente</span>
+              <span [hidden]="pacienteForm.controls.fotoPaciente.invalid" class="fileinput-exists">Trocar</span>
+            <input (change)="onLoadFotoPaciente($event)" data-max-size="2" formControlName="fotoPaciente"
+                   id="fotoPaciente" type="file">
+            </span>
           </div>
         </div>
         <div class="col-sm-5">
@@ -111,13 +110,12 @@
                      style="max-width: 50px; max-height: 50px;">
               </div>
               <span class="btn btn-raised btn-round btn-rose btn-file">
-                                <span [hidden]="fileInputCpf === null"
-                                      class="fileinput-new">Foto CPF</span>
-                                <span [hidden]="!fileInputCpf"
-                                      class="fileinput-exists">Trocar</span>
-                                <input (change)="onLoadFotoCpf($event)" data-max-size="2"
-                                       formControlName="fotoCpf" id="fotoCpf" type="file">
-                            </span>
+                <span [hidden]="fileInputCpf === null"
+                      class="fileinput-new">Foto CPF</span>
+                <span [hidden]="!fileInputCpf" class="fileinput-exists">Trocar</span>
+                <input (change)="onLoadFotoCpf($event)" data-max-size="2" formControlName="fotoCpf" id="fotoCpf"
+                       type="file">
+              </span>
             </div>
           </div>
         </div>

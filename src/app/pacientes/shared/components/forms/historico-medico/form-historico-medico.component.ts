@@ -43,7 +43,8 @@ export class FormHistoricoMedicoComponent implements OnInit {
               private pacienteService: PacienteService,
               private historicoMedicoService: HistoricoMedicoService,
   ) {
-    this.valid = this.validService.getValid();
+    this.loading.emitChange(true);
+    this.hiddenForm = true;
     this.onSubmitEvent = new EventEmitter<HistoricoMedicoPaciente>();
 
     this.historicoMedicoForm = this.formBuilder.group({
@@ -69,6 +70,7 @@ export class FormHistoricoMedicoComponent implements OnInit {
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
+        this.hiddenForm = false;
         this.loading.emitChange(false);
       });
     });

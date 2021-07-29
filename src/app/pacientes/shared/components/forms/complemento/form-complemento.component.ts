@@ -1,13 +1,15 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Contato } from 'src/app/classes/contato.class';
-import { Estado } from 'src/app/classes/estado.class';
-import { ContatoService } from 'src/app/services/contato.service';
-import { Valid } from 'src/app/services/feat/Valid';
-import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Contato} from 'src/app/classes/contato.class';
+import {Estado} from 'src/app/classes/estado.class';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import {ComplementoService} from '../../../../../services/complemento.service';
+import {PacienteService} from '../../../../services/paciente.service';
+import {map} from 'rxjs/operators';
+import {Paciente} from '../../../../classes/paciente.class';
 
 @Component({
   selector: 'app-form-complemento',
@@ -22,19 +24,17 @@ export class FormComplementoComponent implements OnInit {
   public estados: Array<Estado> = [];
   public hiddenForm: boolean;
   public contatoForm: FormGroup;
-  private _valid: Valid;
   private _contato: Contato;
+  private paciente: Paciente;
 
   constructor(
     private _router: Router,
     private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
-    private _service: ContatoService,
-    // private _dominioService: PacienteService,
+    private _complementoService: ComplementoService,
+    private _pacienteService: PacienteService,
     private _loading: SharedLoadingService
   ) {
-    this._valid = this._validService.getValid();
-
     this.contatoForm = this._formBuilder.group({
       temTrabalho: [null],
       experienciaTrabalhoAtual: [null],
@@ -44,7 +44,8 @@ export class FormComplementoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this._pacienteService.pesquisarPorId(this._validService.getValid().id)
+      .pipe(map(paciente => this.paciente = paciente));
   }
 
   popularForm() {
@@ -59,12 +60,11 @@ export class FormComplementoComponent implements OnInit {
   onSubmit() {
     this._loading.emitChange(true);
     this._contato = this.contatoForm.value;
-    this._contato.proprietarioId = this._valid.id;
+    this._contato.proprietarioId = this._validService.getValid().id;
     this._contato.telefoneFixo = this._contato.telefoneFixo ? Number(String(this.codigoPais) + String(this._contato.telefoneFixo)) : null;
     this._contato.telefoneRecado = this._contato.telefoneRecado ? Number(String(this.codigoPais) + String(this._contato.telefoneRecado)) : null;
     this._contato.celularPrincipal = this._contato.celularPrincipal ? Number(String(this.codigoPais) + String(this._contato.celularPrincipal)) : null;
     this._contato.celularSecundario = this._contato.celularSecundario ? Number(String(this.codigoPais) + String(this._contato.celularSecundario)) : null;
-
   }
 
 

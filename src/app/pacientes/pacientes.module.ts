@@ -22,6 +22,7 @@ import {FormInformacoesGeraisComponent} from './shared/components/forms/informac
 import {FormHistoricoMedicoComponent} from './shared/components/forms/historico-medico/form-historico-medico.component';
 import {FormComplementoComponent} from './shared/components/forms/complemento/form-complemento.component';
 import {FormEnderecoComponent} from './shared/components/forms/endereco/form-endereco.component';
+import {CardVerDadosComponent} from './shared/components/card-ver-dados/card-ver-dados.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {FormEnderecoComponent} from './shared/components/forms/endereco/form-end
     FormInformacoesGeraisComponent,
     FormHistoricoMedicoComponent,
     FormComplementoComponent,
-    FormEnderecoComponent
+    FormEnderecoComponent,
+    CardVerDadosComponent,
   ],
   imports: [
     CommonModule,

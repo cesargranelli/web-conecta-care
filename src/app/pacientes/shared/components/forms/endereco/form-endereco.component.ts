@@ -48,9 +48,9 @@ export class FormEnderecoComponent implements OnInit {
   public imagemComprovante: any = '../../../../../assets/img/Headshot-Doc-1.png';
   public validationHas: InputValidationHas = new InputValidationHas();
   public esconderFormulario = true;
-  private endereco: EnderecoPaciente;
-  private fileComprovante: File;
-  private paciente: Paciente;
+  public endereco: EnderecoPaciente;
+  public fileComprovante: File;
+  public paciente: Paciente;
 
   constructor(
     private _router: Router,
