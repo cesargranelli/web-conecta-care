@@ -103,68 +103,50 @@ export class CadastroLoginComponent implements OnInit {
       this._loading.emitChange(true);
       this._service.cadastrar(usuario).subscribe(response => {
         if (response.status === 201) {
-          const login: Login = new Login(
-            this.cadastroLoginForm.value.email,
-            this.cadastroLoginForm.value.password,
-            new Modulo(this.registroModulo).getModulo()
-          );
           setTimeout(() => {
-            this._loading.emitChange(true);
-            this._authService.login(login).subscribe(response => {
-              if (response) {
-                const email = new SendEmail();
-                email.email = this.cadastroLoginForm.value.email;
-                email.token = this._tokenService.getToken();
-                email.role = new Modulo(this.registroModulo).getModulo();
-                // this._tokenService.removeToken();
-                switch (this.registroModulo) {
-                  case 'profissionais':
-                    this._router.navigateByUrl(`cadastro/profissionais/${this.registroId}/informacoes-gerais`);
-                    break;
-                  case 'homecares':
-                    this._router.navigateByUrl(`homecares/${this.registroId}/cadastro/homecare`);
-                    break;
-                  case 'planos-saude':
-                    this._router.navigateByUrl(`planos-saude/${this.registroId}/cadastro/plano-saude`);
-                    break;
-                  case 'planos-saude-filial':
-                    this._router.navigateByUrl(`planos-saude/${this.registroId}/cadastro/plano-saude`);
-                    break;
-                  case 'pacientes':
-                    this._router.navigateByUrl(`pacientes/${this.registroId}/cadastro/informacoes-gerais`);
-                    break;
-                  default:
-                    this._router.navigateByUrl(`/`);
-                }
+            const email = new SendEmail();
+            email.email = this.cadastroLoginForm.value.email;
+            email.token = response.body.data.token;
+            email.role = new Modulo(this.registroModulo).getModulo();
 
-                // setTimeout(() => {
-                //   this._loading.emitChange(true);
-                //   this._emailService.enviar(email).subscribe(() => {
-                //     this.emailEnviado = true;
-                //     this._loading.emitChange(false);
-                //     this.onSuccess();
-                //     this._router.navigateByUrl(`espera-confirmacao-email`);
-                //   }, httpResponse => {
-                //     Swal.fire({
-                //       position: 'center',
-                //       icon: 'error',
-                //       title: httpResponse.error.data?.message,
-                //       showConfirmButton: true
-                //     });
-                //     this._loading.emitChange(false);
-                //   });
-                // });
-              }
-              this._loading.emitChange(false);
-            }, error => {
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: error.data,
-                showConfirmButton: true
+            setTimeout(() => {
+              this._loading.emitChange(true);
+              this._emailService.enviar(email).subscribe(() => {
+                this.emailEnviado = true;
+                this._loading.emitChange(false);
+                this.onSuccess();
+                this._router.navigateByUrl(`espera-confirmacao-email`);
+              }, httpResponse => {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: httpResponse.error.data?.message,
+                  showConfirmButton: true
+                });
+                this._loading.emitChange(false);
               });
-              this._loading.emitChange(false);
             });
+
+            // switch (this.registroModulo) {
+            //   case 'profissionais':
+            //     this._router.navigateByUrl(`cadastro/profissionais/${this.registroId}/informacoes-gerais`);
+            //     break;
+            //   case 'homecares':
+            //     this._router.navigateByUrl(`homecares/${this.registroId}/cadastro/homecare`);
+            //     break;
+            //   case 'planos-saude':
+            //     this._router.navigateByUrl(`planos-saude/${this.registroId}/cadastro/plano-saude`);
+            //     break;
+            //   case 'planos-saude-filial':
+            //     this._router.navigateByUrl(`planos-saude/${this.registroId}/cadastro/plano-saude`);
+            //     break;
+            //   case 'pacientes':
+            //     this._router.navigateByUrl(`pacientes/${this.registroId}/cadastro/informacoes-gerais`);
+            //     break;
+            //   default:
+            //     this._router.navigateByUrl(`/`);
+            // }
+            this._loading.emitChange(false);
           });
         } else {
           Swal.fire({
