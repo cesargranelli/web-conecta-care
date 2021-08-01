@@ -93,7 +93,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
       fotoRgFrente: [null, [Validators.required]],
       fotoRgVerso: [null, [Validators.required]],
       fotoAssinatura: [null, [Validators.required]],
-      disponivelParaAtendimento: [null, [Validators.required]]
+      disponivelParaAtendimento: [false]
     });
   }
 
@@ -236,7 +236,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
   onSubmit() {
     this._loading.emitChange(true);
     let profissional: Profissional = this.profissionalForm.value;
-    profissional.id = this.valid.id;
+    profissional.id = this.valid?.id;
 
     profissional.fotoCtps = this.fotoCtps;
     profissional.fotoProfissional = this.fotoProfissional;
@@ -279,8 +279,10 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
   }
 
   lpadZero(control: FormControl) {
-    let valor = control.value.padStart(9, '0');
-    this.profissionalForm.controls.rg.setValue(valor.toUpperCase());
+    if (control.value) {
+      let valor = control.value.padStart(9, '0');
+      this.profissionalForm.controls.rg.setValue(valor.toUpperCase());
+    }
   }
 
   limpar() {
