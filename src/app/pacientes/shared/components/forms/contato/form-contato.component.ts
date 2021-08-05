@@ -39,7 +39,7 @@ export class FormContatoComponent implements OnInit {
   public tipoDocumento: string;
   public validationHas: InputValidationHas;
   public especialidades: Array<AreaAtendimento>;
-  public hideForm: boolean = true;
+  public hideForm = true;
   public paciente: Paciente;
 
   private contato: ContatoPaciente;
@@ -52,6 +52,7 @@ export class FormContatoComponent implements OnInit {
     private _contatoService: ContatoService,
     private _pacienteService: PacienteService,
   ) {
+    this._loading.emitChange(true);
     this.valid = this._validService.getValid();
     this.contatoForm = this._formBuilder.group({
       telefoneFixo: [null],

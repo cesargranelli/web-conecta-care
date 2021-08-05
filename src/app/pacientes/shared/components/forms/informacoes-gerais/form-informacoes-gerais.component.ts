@@ -1,19 +1,19 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {concatMap, map} from 'rxjs/operators';
-import {EstadoCivil} from 'src/app/classes/estado-civil.class';
-import {Genero} from 'src/app/classes/genero.class';
-import {TipoEmpresa} from 'src/app/classes/tipo-empresa.class';
-import {EstadoCivilService} from 'src/app/pacientes/services/estado-civil.service';
-import {GeneroService} from 'src/app/pacientes/services/genero.service';
-import {PacienteService} from 'src/app/pacientes/services/paciente.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
-import {Paciente} from '../../../../classes/paciente.class';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
+import { EstadoCivil } from 'src/app/classes/estado-civil.class';
+import { Genero } from 'src/app/classes/genero.class';
+import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
+import { EstadoCivilService } from 'src/app/pacientes/services/estado-civil.service';
+import { GeneroService } from 'src/app/pacientes/services/genero.service';
+import { PacienteService } from 'src/app/pacientes/services/paciente.service';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
+import { Paciente } from '../../../../classes/paciente.class';
 
 declare var jQuery: any;
 
@@ -91,8 +91,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
 
   public ngOnInit() {
     this.paciente = new Paciente();
-    this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
-    console.log(this._validService.getValid());
+    this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);    
     this._generoService.listarGenero().pipe(
       map(response => this.generos = response.body.data),
       concatMap(async () => this._estadoCivilService.listarEstadoCivil().subscribe(response => this.estadosCivil = response.body.data)),
@@ -129,17 +128,17 @@ export class FormInformacoesGeraisComponent implements OnInit {
       if (this.paciente.foto) {
         this.fotoPaciente = this.paciente.foto;
         this.fileInputPaciente = this.paciente.foto;
-        this.pacienteForm.controls.fotoPaciente.setValue(this.paciente.foto, {emitModelToViewChange: false});
+        this.pacienteForm.controls.fotoPaciente.setValue(this.paciente.foto, { emitModelToViewChange: false });
       }
       if (this.paciente.fotoRg) {
         this.fotoRg = this.paciente.fotoRg;
         this.fileInputRg = this.paciente.fotoRg;
-        this.pacienteForm.controls.fotoRg.setValue(this.paciente.fotoRg, {emitModelToViewChange: false});
+        this.pacienteForm.controls.fotoRg.setValue(this.paciente.fotoRg, { emitModelToViewChange: false });
       }
       if (this.paciente.fotoCpf) {
         this.fotoCpf = this.paciente.fotoCpf;
         this.fileInputCpf = this.paciente.fotoCpf;
-        this.pacienteForm.controls.fotoCpf.setValue(this.paciente.fotoCpf, {emitModelToViewChange: false});
+        this.pacienteForm.controls.fotoCpf.setValue(this.paciente.fotoCpf, { emitModelToViewChange: false });
       }
     }
   }
@@ -182,41 +181,46 @@ export class FormInformacoesGeraisComponent implements OnInit {
 
   public onSubmit() {
     this._loading.emitChange(true);
-    let paciente = this.pacienteForm.value;
+    const paciente = this.pacienteForm.value;
 
-    paciente.dataNascimento = this.formatarData(paciente.dataNascimento);
-    paciente.rgDataEmissao = this.formatarData(paciente.rgDataEmissao);
-    paciente.estadoCivil = this.estadosCivil.find(estadoCivil => estadoCivil.id === this.pacienteForm.value.estadoCivil);
-    paciente.genero = this.generos.find(genero => genero.id === this.pacienteForm.value.genero);
-    paciente.foto = this.fotoPaciente;
-    paciente.fotoRg = this.fotoRg;
-    paciente.fotoCpf = this.fotoCpf;
+    console.log(this.pacienteForm.value);
+    
 
-    if (this.dataEmissaoMenorDataNascimento(paciente.rgDataEmissao, paciente.dataNascimento)) {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'A data de emissão do RG deve ser maior do que a data de nascimento',
-        showConfirmButton: true,
-      });
-      return;
-    }
+    // paciente.dataNascimento = this.formatarData(paciente.dataNascimento);
+    // paciente.rgDataEmissao = this.formatarData(paciente.rgDataEmissao);
+    // paciente.estadoCivil = this.estadosCivil.find(estadoCivil => estadoCivil.id === this.pacienteForm.value.estadoCivil);
+    // paciente.genero = this.generos.find(genero => genero.id === this.pacienteForm.value.genero);
+    // paciente.foto = this.fotoPaciente;
+    // paciente.fotoRg = this.fotoRg;
+    // paciente.fotoCpf = this.fotoCpf;
 
-    if (this.validarIdade(paciente.dataNascimento)) {
-      this._loading.emitChange(false);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Necessário ter 18 anos ou mais para se cadastrar',
-        showConfirmButton: true,
-      });
-      return;
-    }
-    if (!this._dadosLocalStorage) {
-      this._validService.setValid(new Valid());
-    }
-    this.onSubmitEvent.emit(paciente);
+    // if (this.dataEmissaoMenorDataNascimento(paciente.rgDataEmissao, paciente.dataNascimento)) {
+    //   this._loading.emitChange(false);
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'error',
+    //     title: 'A data de emissão do RG deve ser maior do que a data de nascimento',
+    //     showConfirmButton: true,
+    //   });
+    //   return;
+    // }
+
+    // if (this.validarIdade(paciente.dataNascimento)) {
+    //   this._loading.emitChange(false);
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'error',
+    //     title: 'Necessário ter 18 anos ou mais para se cadastrar',
+    //     showConfirmButton: true,
+    //   });
+    //   return;
+    // }
+
+    // if (!this._dadosLocalStorage) {
+    //   this._validService.setValid(new Valid());
+    // }
+    
+    // this.onSubmitEvent.emit(paciente);
   }
 
   private dataEmissaoMenorDataNascimento(dataEmissao: string, dataNascimento: string): boolean {
@@ -244,7 +248,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
   }
 
   public dateChange(control: FormControl, name: string) {
-    jQuery(`#${name}`).on('dp.change', function() {
+    jQuery(`#${name}`).on('dp.change', function () {
       control.setValue(jQuery('#' + name)[0].value);
     });
   }

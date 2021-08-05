@@ -42,7 +42,7 @@ export class FormEnderecoComponent implements OnInit {
   public enderecoForm: FormGroup;
   public estados: Array<Estado>;
   public valid: Valid;
-  public estadoViaCep: Estado;
+  public estado: Estado;
   public fotoComprovante: any;
   public fileInputComprovante = 'fileinput-new';
   public imagemComprovante: any = '../../../../../assets/img/Headshot-Doc-1.png';
@@ -77,16 +77,17 @@ export class FormEnderecoComponent implements OnInit {
 
   ngOnInit(): void {
     this._estadosService.listarEstado().pipe(
-      map(estados => this.estados = estados),
+      map(estados => {
+        this.estados = estados;
+        jQuery('select[id=\'estado\']').selectpicker('val', this.estado?.id);
+      }),
       concatMap(() => this._pacienteService.pesquisarPorId(this._valid.getValid().id).pipe(map(paciente => this.paciente = paciente))),
       concatMap(() => this._enderecoService.pesquisarEnderecoPorId(this.paciente.endereco.id))
     ).subscribe(endereco => {
       this.endereco = endereco;
       this.popularForm();
-      console.log(this.endereco);
       setTimeout(() => {
         jQuery('select[id=\'estado\']').selectpicker('refresh');
-        jQuery('select[id=\'estado\']').selectpicker('val', this.estadoViaCep?.id);
         this.esconderFormulario = false;
         this._loading.emitChange(false);
       });
@@ -155,7 +156,7 @@ export class FormEnderecoComponent implements OnInit {
           this.enderecoForm.controls.logradouro.setValue(enderecoViaCep.logradouro);
           this.enderecoForm.controls.bairro.setValue(enderecoViaCep.bairro);
           this.enderecoForm.controls.cidade.setValue(enderecoViaCep.localidade);
-          this.estadoViaCep = this.estados.find(estado => estado.uf == enderecoViaCep.uf);
+          this.estado = this.estados.find(estado => estado.uf == enderecoViaCep.uf);
         }
         this._loading.emitChange(true);
       },
@@ -168,7 +169,7 @@ export class FormEnderecoComponent implements OnInit {
       () => {
         setTimeout(() => {
           jQuery('select[id=\'estado\']').selectpicker('refresh');
-          jQuery('select[id=\'estado\']').selectpicker('val', this.estadoViaCep?.id);
+          jQuery('select[id=\'estado\']').selectpicker('val', this.estado?.id);
           this._loading.emitChange(false);
         });
       });
