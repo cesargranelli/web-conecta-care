@@ -1,6 +1,10 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {HistoricoMedicoPaciente} from '../../classes/historico-medico-paciente.class';
-import {FormGroup} from '@angular/forms';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import Swal from 'sweetalert2';
+import { HistoricoMedicoPaciente } from '../../classes/historico-medico-paciente.class';
+import { HistoricoMedicoService } from '../../services/historico-medico.service';
 
 @Component({
   selector: 'app-historico-medico',
@@ -14,7 +18,10 @@ export class HistoricoMedicoComponent implements OnInit {
   public isCadastro = false;
   public onSubmitEvent = new EventEmitter<HistoricoMedicoPaciente>();
 
-  constructor() {
+  constructor(private validService: SharedValidService,
+    private loading: SharedLoadingService,
+    private historicoMedicoService: HistoricoMedicoService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -23,7 +30,26 @@ export class HistoricoMedicoComponent implements OnInit {
   }
 
   onSubmit(historicoMedicoPaciente: HistoricoMedicoPaciente) {
-    console.log(historicoMedicoPaciente);
+    this.loading.emitChange(true);
+    this.historicoMedicoService.alterar(historicoMedicoPaciente).subscribe(() => {
+      setTimeout(() => {
+        this.router.navigateByUrl(`pacientes/${this.validService.getValid().id}/dados`);
+        this.loading.emitChange(false);
+      });
+    },
+      () => {
+        this.loading.emitChange(false);
+        this.message();
+      });
+  }
+
+  message() {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Ocorreu um erro inexperado ao tentar alterar os dados',
+      showConfirmButton: true
+    });
   }
 
 }
