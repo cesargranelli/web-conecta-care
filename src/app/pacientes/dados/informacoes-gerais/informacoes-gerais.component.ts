@@ -36,6 +36,8 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   onSubmit(paciente: Paciente) {
+    console.log(this.valid);
+    
     this.pacienteService.alterar(paciente).subscribe(paciente => {
       setTimeout(() => {
         Swal.fire({
@@ -45,13 +47,12 @@ export class InformacoesGeraisComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
-        this.router.navigateByUrl(`homecares/${this.valid.id}/dados`);
+        this.router.navigateByUrl(`/paciente/${this.valid.id}/dados`);
         this.loading.emitChange(false);
       });
-    },
-      () => {
-        this.message();
-      });
+    }, (err) => {
+      this.message();
+    });
   }
 
   message() {
