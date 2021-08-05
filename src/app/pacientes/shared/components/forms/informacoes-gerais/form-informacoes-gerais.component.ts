@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { concatMap, map } from 'rxjs/operators';
 import { EstadoCivil } from 'src/app/classes/estado-civil.class';
 import { Genero } from 'src/app/classes/genero.class';
@@ -44,9 +43,9 @@ export class FormInformacoesGeraisComponent implements OnInit {
   public tipoEmpresas: Array<TipoEmpresa>;
   public estadosCivil: Array<EstadoCivil>;
   public validationHas: InputValidationHas = new InputValidationHas();
-  public fileInputPaciente: string = this.FILEINPUT_NEW;
-  public fileInputRg: string = this.FILEINPUT_NEW;
-  public fileInputCpf: string = this.FILEINPUT_NEW;
+  public fileInputPaciente: string | ArrayBuffer = this.FILEINPUT_NEW;
+  public fileInputRg: string | ArrayBuffer = this.FILEINPUT_NEW;
+  public fileInputCpf: string | ArrayBuffer = this.FILEINPUT_NEW;
   public hideForm = true;
   public paciente: Paciente;
   public fotoPaciente: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
@@ -59,11 +58,9 @@ export class FormInformacoesGeraisComponent implements OnInit {
   private _dataAtual: Date;
 
   constructor(
-    private _router: Router,
     private _validService: SharedValidService,
     private _formBuilder: FormBuilder,
     private _pacienteService: PacienteService,
-    private _dominioService: PacienteService,
     private _generoService: GeneroService,
     private _estadoCivilService: EstadoCivilService,
     private _loading: SharedLoadingService
@@ -80,7 +77,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
       dataNascimento: [null, Validators.minLength(10)],
       rg: [null, Validators.minLength(9)],
       rgEmissor: [null, Validators.minLength(3)],
-      rgDataEmissao: [null],
+      rgDataEmissao: [null, Validators.minLength(10)],
       genero: [null, Validators.required],
       estadoCivil: [null, Validators.required],
       fotoPaciente: [null, Validators.required],
@@ -91,7 +88,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
 
   public ngOnInit() {
     this.paciente = new Paciente();
-    this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);    
+    this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
     this._generoService.listarGenero().pipe(
       map(response => this.generos = response.body.data),
       concatMap(async () => this._estadoCivilService.listarEstadoCivil().subscribe(response => this.estadosCivil = response.body.data)),
@@ -181,46 +178,44 @@ export class FormInformacoesGeraisComponent implements OnInit {
 
   public onSubmit() {
     this._loading.emitChange(true);
-    const paciente = this.pacienteForm.value;
+    this.paciente = this.pacienteForm.value;
+    this.paciente.id = this._dadosLocalStorage.id;
+    this.paciente.dataNascimento = this.formatarData(this.paciente.dataNascimento);
+    this.paciente.rgDataEmissao = this.formatarData(this.paciente.rgDataEmissao);
 
-    console.log(this.pacienteForm.value);
-    
+    this.paciente.estadoCivil = this.estadosCivil.find(estadoCivil => estadoCivil.id === this.pacienteForm.value.estadoCivil.id);
+    this.paciente.genero = this.generos.find(genero => genero.id === this.pacienteForm.value.genero.id);
+    this.paciente.foto = this.fotoPaciente;
+    this.paciente.fotoRg = this.fotoRg;
+    this.paciente.fotoCpf = this.fotoCpf;
 
-    // paciente.dataNascimento = this.formatarData(paciente.dataNascimento);
-    // paciente.rgDataEmissao = this.formatarData(paciente.rgDataEmissao);
-    // paciente.estadoCivil = this.estadosCivil.find(estadoCivil => estadoCivil.id === this.pacienteForm.value.estadoCivil);
-    // paciente.genero = this.generos.find(genero => genero.id === this.pacienteForm.value.genero);
-    // paciente.foto = this.fotoPaciente;
-    // paciente.fotoRg = this.fotoRg;
-    // paciente.fotoCpf = this.fotoCpf;
+    if (this.dataEmissaoMenorDataNascimento(this.paciente.rgDataEmissao, this.paciente.dataNascimento)) {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'A data de emissão do RG deve ser maior do que a data de nascimento',
+        showConfirmButton: true,
+      });
+      return;
+    }
 
-    // if (this.dataEmissaoMenorDataNascimento(paciente.rgDataEmissao, paciente.dataNascimento)) {
-    //   this._loading.emitChange(false);
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'A data de emissão do RG deve ser maior do que a data de nascimento',
-    //     showConfirmButton: true,
-    //   });
-    //   return;
-    // }
+    if (this.validarIdade(this.paciente.dataNascimento)) {
+      this._loading.emitChange(false);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Necessário ter 18 anos ou mais para se cadastrar',
+        showConfirmButton: true,
+      });
+      return;
+    }
 
-    // if (this.validarIdade(paciente.dataNascimento)) {
-    //   this._loading.emitChange(false);
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'Necessário ter 18 anos ou mais para se cadastrar',
-    //     showConfirmButton: true,
-    //   });
-    //   return;
-    // }
+    if (!this._dadosLocalStorage) {
+      this._validService.setValid(new Valid());
+    }
 
-    // if (!this._dadosLocalStorage) {
-    //   this._validService.setValid(new Valid());
-    // }
-    
-    // this.onSubmitEvent.emit(paciente);
+    this.onSubmitEvent.emit(this.paciente);
   }
 
   private dataEmissaoMenorDataNascimento(dataEmissao: string, dataNascimento: string): boolean {

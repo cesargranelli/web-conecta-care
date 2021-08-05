@@ -14,9 +14,9 @@ export class Paciente {
   rg: string;
   rgEmissor: string;
   rgDataEmissao: string;
-  foto: string;
-  fotoRg: string;
-  fotoCpf: string;
+  foto: string | ArrayBuffer;
+  fotoRg: string | ArrayBuffer;
+  fotoCpf: string | ArrayBuffer;
   genero: Genero;
   estadoCivil: EstadoCivil;
   endereco: EnderecoPaciente;

@@ -1,11 +1,11 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Documento} from 'src/app/services/feat/documento';
-import {environment} from 'src/environments/environment';
-import {catchError, map} from 'rxjs/operators';
-import {ResponseTemplateInterface} from '../../services/response/responseTemplate.interface';
-import {Paciente} from '../classes/paciente.class';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { Documento } from 'src/app/services/feat/documento';
+import { environment } from 'src/environments/environment';
+import { ResponseTemplateInterface } from '../../services/response/responseTemplate.interface';
+import { Paciente } from '../classes/paciente.class';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,19 @@ export class PacienteService {
       `${environment.apiConnecta}/api/v1/paciente`,
       paciente
     ).pipe(map((dado: ResponseTemplateInterface) => {
-        return dado.data;
-      }),
+      return dado.data;
+    }),
+      catchError(async (err) => console.error(err))
+    );
+  }
+
+  alterar(paciente: Paciente): Observable<any> {
+    return this._http.put(
+      `${environment.apiConnecta}/api/v1/paciente`,
+      paciente
+    ).pipe(map((dado: ResponseTemplateInterface) => {
+      return dado.data;
+    }),
       catchError(async (err) => console.error(err))
     );
   }
@@ -35,8 +46,8 @@ export class PacienteService {
         params: new HttpParams().set(this.DOCUMENTO, documento.numero)
       }
     ).pipe(map((dado: ResponseTemplateInterface) => {
-        return dado.data;
-      }),
+      return dado.data;
+    }),
       catchError(async (err) => console.error(err))
     );
   }
