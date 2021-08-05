@@ -1,21 +1,21 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Estado} from '../../../../../classes/estado.class';
-import {Valid} from '../../../../../services/feat/Valid';
-import {InputValidationHas} from '../../../../../shared/validations/input-validation-has';
-import {Router} from '@angular/router';
-import {SharedLoadingService} from '../../../../../shared/services/shared-loading.service';
-import {ViaCepService} from '../../../../../services/via-cep.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { concatMap } from 'rxjs/internal/operators/concatMap';
+import { map } from 'rxjs/internal/operators/map';
 import Swal from 'sweetalert2';
-import {EnderecoViaCep} from '../../../../../classes/endereco-via-cep.class';
-import {EstadoService} from '../../../../services/estado.service';
-import {EnderecoPaciente} from '../../../../classes/endereco-paciente.class';
-import {map} from 'rxjs/internal/operators/map';
-import {concatMap} from 'rxjs/internal/operators/concatMap';
-import {EnderecoService} from '../../../../services/endereco.service';
-import {SharedValidService} from '../../../../../shared/services/shared-valid.service';
-import {PacienteService} from '../../../../services/paciente.service';
-import {Paciente} from '../../../../classes/paciente.class';
+import { EnderecoViaCep } from '../../../../../classes/endereco-via-cep.class';
+import { Estado } from '../../../../../classes/estado.class';
+import { Valid } from '../../../../../services/feat/Valid';
+import { ViaCepService } from '../../../../../services/via-cep.service';
+import { SharedLoadingService } from '../../../../../shared/services/shared-loading.service';
+import { SharedValidService } from '../../../../../shared/services/shared-valid.service';
+import { InputValidationHas } from '../../../../../shared/validations/input-validation-has';
+import { EnderecoPaciente } from '../../../../classes/endereco-paciente.class';
+import { Paciente } from '../../../../classes/paciente.class';
+import { EnderecoService } from '../../../../services/endereco.service';
+import { EstadoService } from '../../../../services/estado.service';
+import { PacienteService } from '../../../../services/paciente.service';
 
 declare var jQuery: any;
 
@@ -108,17 +108,23 @@ export class FormEnderecoComponent implements OnInit {
       if (this.endereco.fotoComprovante) {
         this.fotoComprovante = this.endereco.fotoComprovante;
         this.imagemComprovante = this.endereco.fotoComprovante;
-        this.enderecoForm.controls.fotoComprovante.setValue(this.endereco.fotoComprovante, {emitModelToViewChange: false});
+        this.enderecoForm.controls.fotoComprovante.setValue(this.endereco.fotoComprovante, { emitModelToViewChange: false });
       }
     }
   }
 
   onSubmit() {
-    console.log(this.enderecoForm.value);
-    this.endereco = this.enderecoForm.value;
+    // this.endereco = this.enderecoForm.value;
+    this.endereco.logradouro = this.enderecoForm.value.logradouro;
+    this.endereco.numero = this.enderecoForm.value.numero;
+    this.endereco.complemento = this.enderecoForm.value.complemento;
+    this.endereco.cep = this.enderecoForm.value.cep;
+    this.endereco.bairro = this.enderecoForm.value.bairro;
+    this.endereco.cidade = this.enderecoForm.value.cidade;
+    this.endereco.estado = this.enderecoForm.value.estado;
     this.endereco.fotoComprovante = this.fotoComprovante;
-    this.endereco.estado = this.estados.filter(estado => estado.id === Number(this.endereco.estado))[0];
-    // this.onSubmitEvent.emit(this.endereco);
+    this.endereco.estado = this.estados.filter(estado => estado.id === Number(this.endereco.estado.id))[0];
+    this.onSubmitEvent.emit(this.endereco);
   }
 
   onLoadComprovante(event: any) {

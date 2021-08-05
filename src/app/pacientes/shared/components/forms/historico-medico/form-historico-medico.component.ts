@@ -1,15 +1,15 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {TipoSanguineoService} from '../../../../services/tipo-sanguineo.service';
-import {TipoSanguineoPaciente} from '../../../../classes/tipo-sanguineo-paciente.class';
-import {SharedValidService} from '../../../../../shared/services/shared-valid.service';
-import {Valid} from '../../../../../services/feat/Valid';
-import {HistoricoMedicoPaciente} from '../../../../classes/historico-medico-paciente.class';
-import {SharedLoadingService} from '../../../../../shared/services/shared-loading.service';
-import {concatMap, map} from 'rxjs/operators';
-import {PacienteService} from '../../../../services/paciente.service';
-import {Paciente} from '../../../../classes/paciente.class';
-import {HistoricoMedicoService} from '../../../../services/historico-medico.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { concatMap, map } from 'rxjs/operators';
+import { Valid } from '../../../../../services/feat/Valid';
+import { SharedLoadingService } from '../../../../../shared/services/shared-loading.service';
+import { SharedValidService } from '../../../../../shared/services/shared-valid.service';
+import { HistoricoMedicoPaciente } from '../../../../classes/historico-medico-paciente.class';
+import { Paciente } from '../../../../classes/paciente.class';
+import { TipoSanguineoPaciente } from '../../../../classes/tipo-sanguineo-paciente.class';
+import { HistoricoMedicoService } from '../../../../services/historico-medico.service';
+import { PacienteService } from '../../../../services/paciente.service';
+import { TipoSanguineoService } from '../../../../services/tipo-sanguineo.service';
 
 declare var jQuery: any;
 
@@ -37,11 +37,11 @@ export class FormHistoricoMedicoComponent implements OnInit {
   public paciente: Paciente;
 
   constructor(private tipoSanguineoService: TipoSanguineoService,
-              private validService: SharedValidService,
-              private formBuilder: FormBuilder,
-              private loading: SharedLoadingService,
-              private pacienteService: PacienteService,
-              private historicoMedicoService: HistoricoMedicoService,
+    private validService: SharedValidService,
+    private formBuilder: FormBuilder,
+    private loading: SharedLoadingService,
+    private pacienteService: PacienteService,
+    private historicoMedicoService: HistoricoMedicoService,
   ) {
     this.loading.emitChange(true);
     this.hiddenForm = true;
@@ -95,13 +95,12 @@ export class FormHistoricoMedicoComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.historicoMedicoPaciente = this.historicoMedicoForm.value;
-    console.log(this.historicoMedicoForm.value);
-    // this.onSubmitEvent.emit(this.historicoMedicoPaciente);
+    this.historicoMedicoPaciente = this.historicoMedicoForm.value;
+    this.onSubmitEvent.emit(this.historicoMedicoPaciente);
   }
 
   public dateChange(control: FormControl, name: string) {
-    jQuery(`#${name}`).on('dp.change', function() {
+    jQuery(`#${name}`).on('dp.change', function () {
       control.setValue(jQuery('#' + name)[0].value);
     });
   }
