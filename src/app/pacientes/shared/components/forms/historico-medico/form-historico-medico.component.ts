@@ -61,19 +61,22 @@ export class FormHistoricoMedicoComponent implements OnInit {
   ngOnInit(): void {
     this.tipoSanguineoService.listarTipoSanguineo().pipe(
       map(response => this.tiposSanguineo = response.body.data),
-      concatMap(() => this.pacienteService.pesquisarPorId(this.validService.getValid().id).pipe(map(paciente => this.paciente = paciente))),
-      concatMap(() => this.historicoMedicoService.pesquisarHistoricoMedico(this.paciente.historicoMedico.id))
-    ).subscribe(response => {
-      this.historicoMedicoPaciente = response.body.data;
-      console.log(this.historicoMedicoPaciente);
-      this.popularForm();
-      jQuery('select').selectpicker('render');
-      setTimeout(() => {
-        jQuery('select').selectpicker('refresh');
-        this.hiddenForm = false;
-        this.loading.emitChange(false);
+      concatMap(() => this.pacienteService.pesquisarPorId(this.validService.getValid().id)))
+      .subscribe(response => {
+        this.paciente = response;
+        if (this.paciente.historicoMedico) {
+          this.historicoMedicoService.pesquisarHistoricoMedico(this.paciente.historicoMedico.id).subscribe(response => {
+            this.historicoMedicoPaciente = response;
+          });
+        }
+        this.popularForm();
+        jQuery('select').selectpicker('render');
+        setTimeout(() => {
+          jQuery('select').selectpicker('refresh');
+          this.hiddenForm = false;
+          this.loading.emitChange(false);
+        });
       });
-    });
     jQuery('.datetimepicker').datetimepicker({
       format: 'DD/MM/YYYY',
       maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
@@ -96,6 +99,7 @@ export class FormHistoricoMedicoComponent implements OnInit {
 
   onSubmit() {
     this.historicoMedicoPaciente = this.historicoMedicoForm.value;
+    this.historicoMedicoPaciente.tipoSanguineo = this.tiposSanguineo.find(tipoSanguineo => tipoSanguineo.id === this.historicoMedicoForm.value.tipoSanguineo);
     this.onSubmitEvent.emit(this.historicoMedicoPaciente);
   }
 

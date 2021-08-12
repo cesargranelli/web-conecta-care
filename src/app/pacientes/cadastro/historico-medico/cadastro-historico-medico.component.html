@@ -9,7 +9,8 @@
               Histórico Médico
             </h3>
           </div>
-          <app-form-historico-medico></app-form-historico-medico>
+          <app-form-historico-medico (onSubmitEvent)="onSubmit($event)" [isCadastro]="isCadastro"
+            [linkBotaoVoltar]="linkBotaoVoltar" [labelBotaoSubmit]="labelBotaoSubmit"></app-form-historico-medico>
         </div>
       </div>
     </div>

@@ -1,13 +1,11 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {Valid} from "../../../services/feat/Valid";
-import {SharedValidService} from "../../../shared/services/shared-valid.service";
-import {SharedLoadingService} from "../../../shared/services/shared-loading.service";
-import {DocumentoService} from "../../../services/documento.service";
-import {Router} from "@angular/router";
-import {CadastroHomeCaresService} from "../../../services/cadastro-homecares.service";
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import Swal from "sweetalert2";
-import {Paciente} from "../../classes/paciente.class";
-import {PacienteService} from "../../services/paciente.service";
+import { Valid } from "../../../services/feat/Valid";
+import { SharedLoadingService } from "../../../shared/services/shared-loading.service";
+import { SharedValidService } from "../../../shared/services/shared-valid.service";
+import { Paciente } from "../../classes/paciente.class";
+import { PacienteService } from "../../services/paciente.service";
 
 @Component({
   selector: 'app-informacoes-gerais',
@@ -26,9 +24,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
     private _validService: SharedValidService,
     private _loading: SharedLoadingService,
     private _service: PacienteService,
-    private _serviceDocumento: DocumentoService,
     private _router: Router,
-    private _cadastro: CadastroHomeCaresService
   ) {
     this._loading.emitChange(true);
     this.dadosLocalStorage = this._validService.getValid();

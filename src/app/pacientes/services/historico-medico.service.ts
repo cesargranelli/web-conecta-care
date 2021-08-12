@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -32,8 +32,13 @@ export class HistoricoMedicoService {
       );
   }
 
-  pesquisarHistoricoMedico(id: number): Observable<HttpResponse<any>> {
-    return this._http.get(`${environment.apiConnecta}/api/v1/historico-medico/${id}`, { observe: 'response' });
+  pesquisarHistoricoMedico(id: number): Observable<HistoricoMedicoPaciente> {
+    return this._http.get(`${environment.apiConnecta}/api/v1/historico-medico/${id}`)
+      .pipe(map((dado: ResponseTemplateInterface) => {
+        return dado.data;
+      }),
+        catchError(async (err) => console.error(err))
+      );
   }
 
 }

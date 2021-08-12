@@ -1,19 +1,17 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Valid} from '../../../../../services/feat/Valid';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {InputValidationHas} from '../../../../../shared/validations/input-validation-has';
-import {AreaAtendimento} from '../../../../../classes/area-atendimento.class';
-import {SharedValidService} from '../../../../../shared/services/shared-valid.service';
-import {Router} from '@angular/router';
-import {SharedLoadingService} from '../../../../../shared/services/shared-loading.service';
-import {HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {ContatoPaciente} from '../../../../classes/contato-paciente.class';
-import {ContatoService} from '../../../../services/contato.service';
-import {concatMap} from 'rxjs/internal/operators/concatMap';
-import {map} from 'rxjs/internal/operators/map';
-import {PacienteService} from '../../../../services/paciente.service';
-import {Paciente} from '../../../../classes/paciente.class';
+import { AreaAtendimento } from '../../../../../classes/area-atendimento.class';
+import { Valid } from '../../../../../services/feat/Valid';
+import { SharedLoadingService } from '../../../../../shared/services/shared-loading.service';
+import { SharedValidService } from '../../../../../shared/services/shared-valid.service';
+import { InputValidationHas } from '../../../../../shared/validations/input-validation-has';
+import { ContatoPaciente } from '../../../../classes/contato-paciente.class';
+import { Paciente } from '../../../../classes/paciente.class';
+import { ContatoService } from '../../../../services/contato.service';
+import { PacienteService } from '../../../../services/paciente.service';
 
 @Component({
   selector: 'app-form-contato-paciente',
@@ -65,28 +63,29 @@ export class FormContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationHas = new InputValidationHas();
-    this._pacienteService.pesquisarPorId(this._validService.getValid().id).pipe(
-      map(paciente => this.paciente = paciente),
-      concatMap(() => this._contatoService.consultar(this.paciente.contato.id)))
-      .subscribe(response => {
-        this.contato = response.body?.data;
-        console.log(this.contato);
-        if (this.contato) {
-          this.popularForm();
-        }
-        this.hideForm = false;
-        this._loading.emitChange(false);
-      }, (errorResponse: HttpErrorResponse) => {
-        if (errorResponse.status === 0) {
-          console.log('Sistema indisponível! ' + errorResponse.statusText);
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Sistema indisponível! ' + errorResponse.statusText,
-            showConfirmButton: true
-          });
-        }
-      });
+    this._pacienteService.pesquisarPorId(this._validService.getValid().id).subscribe(response => {
+      this.paciente = response;
+      if (this.paciente.contato) {
+        this._contatoService.consultar(this.paciente.contato.id).subscribe(response => {
+          this.contato = response;
+        });
+      }
+      if (this.contato) {
+        this.popularForm();
+      }
+      this.hideForm = false;
+      this._loading.emitChange(false);
+    }, (errorResponse: HttpErrorResponse) => {
+      if (errorResponse.status === 0) {
+        console.log('Sistema indisponível! ' + errorResponse.statusText);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Sistema indisponível! ' + errorResponse.statusText,
+          showConfirmButton: true
+        });
+      }
+    });
   }
 
   popularForm() {

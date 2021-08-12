@@ -82,7 +82,7 @@ export class FormEnderecoComponent implements OnInit {
         jQuery('select[id=\'estado\']').selectpicker('val', this.estado?.id);
       }),
       concatMap(() => this._pacienteService.pesquisarPorId(this._valid.getValid().id).pipe(map(paciente => this.paciente = paciente))),
-      concatMap(() => this._enderecoService.pesquisarEnderecoPorId(this.paciente.endereco.id))
+      concatMap(() => this._enderecoService.pesquisarEnderecoPorId(this.paciente?.endereco?.id))
     ).subscribe(endereco => {
       this.endereco = endereco;
       this.popularForm();
@@ -114,16 +114,15 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.endereco = this.enderecoForm.value;
+    this.endereco = new EnderecoPaciente();
     this.endereco.logradouro = this.enderecoForm.value.logradouro;
     this.endereco.numero = this.enderecoForm.value.numero;
     this.endereco.complemento = this.enderecoForm.value.complemento;
     this.endereco.cep = this.enderecoForm.value.cep;
     this.endereco.bairro = this.enderecoForm.value.bairro;
     this.endereco.cidade = this.enderecoForm.value.cidade;
-    this.endereco.estado = this.enderecoForm.value.estado;
     this.endereco.fotoComprovante = this.fotoComprovante;
-    this.endereco.estado = this.estados.filter(estado => estado.id === Number(this.endereco.estado.id))[0];
+    this.endereco.estado = this.estados.filter(estado => estado.id === Number(this.enderecoForm.value.estado))[0];
     this.onSubmitEvent.emit(this.endereco);
   }
 

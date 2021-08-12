@@ -91,9 +91,11 @@ export class FormInformacoesGeraisComponent implements OnInit {
     this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
     this._generoService.listarGenero().pipe(
       map(response => this.generos = response.body.data),
-      concatMap(async () => this._estadoCivilService.listarEstadoCivil().subscribe(response => this.estadosCivil = response.body.data)),
-      concatMap(() => this._pacienteService.pesquisarPorId(this._dadosLocalStorage?.id))
+      concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadosCivil = response.body.data))),
+      concatMap(() => this._pacienteService.pesquisarPorId(this._dadosLocalStorage.id))
     ).subscribe(paciente => {
+      console.log(paciente);
+      
       this.paciente = paciente;
       this.popularForm();
       jQuery('select').selectpicker('render');
