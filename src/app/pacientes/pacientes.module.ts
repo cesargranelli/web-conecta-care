@@ -23,6 +23,9 @@ import {FormHistoricoMedicoComponent} from './shared/components/forms/historico-
 import {FormComplementoComponent} from './shared/components/forms/complemento/form-complemento.component';
 import {FormEnderecoComponent} from './shared/components/forms/endereco/form-endereco.component';
 import {CardVerDadosComponent} from './shared/components/card-ver-dados/card-ver-dados.component';
+import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
+import { QrcodeComponent } from './shared/components/modals/qrcode/qrcode.component';
+import { PrettyStringPipe } from '../utils/pretty-json-to-string.pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,8 @@ import {CardVerDadosComponent} from './shared/components/card-ver-dados/card-ver
     FormComplementoComponent,
     FormEnderecoComponent,
     CardVerDadosComponent,
+    QrcodeComponent,
+    PrettyStringPipe
   ],
   imports: [
     CommonModule,
@@ -52,7 +57,8 @@ import {CardVerDadosComponent} from './shared/components/card-ver-dados/card-ver
     SharedComponentModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule
+    NgxMaskModule,
+    NgxQRCodeModule
   ]
 })
 export class PacientesModule {

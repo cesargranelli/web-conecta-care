@@ -1,0 +1,25 @@
+<div class="modal fade" id="atendimentoProtocolo{{ atendimentoProtocolo.id }}" tabindex="-1" role="dialog" aria-labelledby="atendimentoProtocoloLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="atendimentoProtocoloLabel">
+          Horário agendado às {{ atendimentoProtocolo.hora }}
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="value" 
+            class="qrcode"></ngx-qrcode>
+        <div class="text-center">
+          <p class="align-content-center">{{ atendimentoProtocolo.protocolo.codigoSeguranca }}</p>
+          <h4>Código de Segurança</h4>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

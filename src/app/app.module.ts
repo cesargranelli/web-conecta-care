@@ -3,6 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxLoadingModule } from 'ngx-loading';
 import { NgxMaskModule } from 'ngx-mask';
@@ -42,7 +43,6 @@ import { ProfissionaisModule } from './profissionais/profissionais.module';
 import { HeadersInterceptor } from './services/interceptors/headers.interceptor';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -92,7 +92,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC1TvkS6hk3zAObpWx0KOcZjdJDr5c6J9U'
     }),
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ValidadorCpf,

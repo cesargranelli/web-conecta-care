@@ -1,6 +1,6 @@
 {
   "name": "web-connecta",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.js",
@@ -30,6 +30,7 @@
     "@fullcalendar/list": "^5.7.2",
     "@fullcalendar/timegrid": "^5.7.2",
     "@sweetalert2/ngx-sweetalert2": "^8.1.0",
+    "@techiediaries/ngx-qrcode": "^9.1.0",
     "bufferutil": "^4.0.1",
     "crypto-js": "^4.0.0",
     "http-status-codes": "^1.4.0",
