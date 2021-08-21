@@ -61,13 +61,21 @@ export class ContatoComponent implements OnInit {
       }),
       concatMap(() => this._service.getDados(this._valid.id))
     ).subscribe(response => {
+      console.log(response)
       this._cadastro.contato = response;
       this._contato = response;
       this.popularForm();
       setTimeout(() => {
         this._loading.emitChange(false);
       });
-    }, null, () => this.showForm = false);
+    }, error => {
+      if (error.status == 404) {
+        console.log(error.status);
+        this.showForm = false;
+      }
+      console.log(error.status);
+      this._loading.emitChange(false);
+    });
   }
 
   popularForm() {
