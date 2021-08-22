@@ -4,7 +4,12 @@
       <div class="card card-signup card-plain">
         <div class="modal-header">
           <div class="card-header card-header-primary text-center">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
               <i class="material-icons">clear</i>
             </button>
 
@@ -14,17 +19,28 @@
         <div class="modal-body">
           <div class="wizard-navigation">
             <ul class="nav nav-pills nav-fill">
-              <li id="pacientes" class="nav-item">
-                <a data-toggle="tab" href="#paciente" role="tab" class="nav-link active show" aria-selected="false"
-                   (click)="selecionarOpcao(0)">
+              <li id="nome" class="nav-item">
+                <a
+                  data-toggle="tab"
+                  role="tab"
+                  class="nav-link active show"
+                  aria-selected="false"
+                  (click)="selecionarOpcao(0)"
+                >
                   Nome
                 </a>
               </li>
-              <li id="profissionais" class="nav-item">
-                <a data-toggle="tab" href="#profissional" role="tab" class="nav-link" aria-selected="true"
-                   (click)="selecionarOpcao(1)">
+              <li id="CPF" class="nav-item">
+                <a
+                  data-toggle="tab"
+                  role="tab"
+                  class="nav-link"
+                  aria-selected="true"
+                  (click)="selecionarOpcao(1)"
+                >
                   CPF
-                </a></li>
+                </a>
+              </li>
             </ul>
           </div>
           <form class="form" [formGroup]="criarTratamentoForm" action="">
@@ -32,16 +48,37 @@
               <div class="form-group bmd-form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="material-icons">search</i></div>
+                    <div class="input-group-text">
+                      <i class="material-icons">search</i>
+                    </div>
                   </div>
-                  <input type="text" class="form-control" placeholder="{{placeHolder}}">
+                  <div *ngIf="opcaoSelecionada === 0 || opcaoSelecionada === undefined || opcaoSelecionada === null">                    
+                    <input
+                    type="text"
+                    class="form-control"
+                    placeholder="{{ placeHolder }}"
+                    formControlName="input"
+                    type="text"
+                  />
+                  </div>
+                  <div *ngIf="opcaoSelecionada === 1">
+                    <input
+                      class="form-control"
+                      formControlName="input"
+                      placeholder="{{ placeHolder }}"
+                      mask="000.000.000-00"
+                      type="text"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </form>
         </div>
         <div class="modal-footer justify-content-center">
-          <a class="btn btn-primary btn-link btn-wd btn-lg">Procurar</a>
+          <a class="btn btn-primary btn-link btn-wd btn-lg" (click)="procurar()"
+            >Procurar</a
+          >
         </div>
       </div>
     </div>
