@@ -27,7 +27,7 @@ import { FormEnderecoComponent } from './shared/components/forms/endereco/form-e
 import { FormHomeCareComponent } from './shared/components/forms/homecare/form-homecare.component';
 import { ModalDetalheAtendimentoComponent } from './shared/components/modal/detalhe-atendimento/modal-detalhe-atendimento.component';
 import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
-import { CriarTratamentoComponent } from './shared/components/modal/criar-tratamento/criar-tratamento.component';
+import { ModalCriarTratamentoComponent } from './shared/components/modal/criar-tratamento/modal-criar-tratamento.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -53,7 +53,7 @@ FullCalendarModule.registerPlugins([
     FormEnderecoComponent,
     FormContatoComponent,
     ModalDetalheAtendimentoComponent,
-    CriarTratamentoComponent
+    ModalCriarTratamentoComponent
   ],
   imports: [
     CommonModule,

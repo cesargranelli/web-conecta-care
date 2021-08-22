@@ -6,11 +6,11 @@ declare var jQuery: any;
 declare function carregarTarjaAzul(): void; //Carrega a funcao carregarTarjaAzul() do app.js
 
 @Component({
-    selector: 'app-criar-tratamento',
-    templateUrl: './criar-tratamento.component.html',
-    styleUrls: ['./criar-tratamento.component.css']
+    selector: 'app-modal-criar-tratamento',
+    templateUrl: './modal-criar-tratamento.component.html',
+    styleUrls: ['./modal-criar-tratamento.component.css']
 })
-export class CriarTratamentoComponent implements OnInit {
+export class ModalCriarTratamentoComponent implements OnInit {
 
     public criarTratamentoForm: FormGroup;
     public placeHolder = 'Digite o nome';
