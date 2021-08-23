@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PacienteService } from 'src/app/homecares/services/paciente.service';
+import { ActivatedRoute } from '@angular/router'
 
 declare var jQuery: any;
 
@@ -19,7 +21,9 @@ export class ModalCriarTratamentoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private pacienteService: PacienteService
+    private pacienteService: PacienteService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.criarTratamentoForm = this.formBuilder.group({
       input: [null],
@@ -48,20 +52,17 @@ export class ModalCriarTratamentoComponent implements OnInit {
 
     switch (this.opcaoSelecionada) {
       case 1:
-        console.log('decumento');
-        
         this.pacienteService
           .consultarPorDocumento(this.userInput)
           .subscribe((paciente) => {
-            console.log(paciente);
+            this.router.navigate([`../prontuario/${paciente.id}`], {relativeTo: this.activatedRoute});
           });
         break;
       default:
-        console.log('noem');
         this.pacienteService
           .consultarPorNome(this.userInput)
           .subscribe((paciente) => {
-            console.log(paciente);
+            this.router.navigate([`../prontuario/${paciente.id}`], {relativeTo: this.activatedRoute});
           });
     }
   }

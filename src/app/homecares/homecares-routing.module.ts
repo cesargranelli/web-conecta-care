@@ -10,6 +10,7 @@ import { InformacoesEnderecoComponent } from './dados/endereco/informacoes-ender
 import { InformacoesHomecareComponent } from './dados/homecare/informacoes-homecare.component';
 import { InformacoesLoginComponent } from './dados/login/informacoes-login.component';
 import { HomeCaresComponent } from './homecares.component';
+import { ProntuarioComponent } from './shared/components/prontuario/prontuario.component';
 
 const routes: Routes = [
   {
@@ -26,7 +27,7 @@ const routes: Routes = [
               { path: 'homecare', component: CadastroHomeCareComponent },
               { path: 'endereco', component: CadastroEnderecoComponent },
               { path: 'contato', component: CadastroContatoComponent },
-            ]
+            ],
           },
           {
             path: 'dados',
@@ -35,18 +36,21 @@ const routes: Routes = [
               { path: 'login', component: InformacoesLoginComponent },
               { path: 'homecare', component: InformacoesHomecareComponent },
               { path: 'endereco', component: InformacoesEnderecoComponent },
-              { path: 'contato', component: InformacoesContatoComponent }
-            ]
-          }
-        ]
+              { path: 'contato', component: InformacoesContatoComponent },
+            ],
+          },
+          {
+            path: 'prontuario',
+            children: [{ path: ':id', component: ProntuarioComponent }],
+          },
+        ],
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HomeCaresRoutingModule {
-}
+export class HomeCaresRoutingModule {}

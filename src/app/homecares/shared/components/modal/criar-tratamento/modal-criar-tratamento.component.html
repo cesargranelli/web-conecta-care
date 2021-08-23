@@ -26,6 +26,7 @@
                   class="nav-link active show"
                   aria-selected="false"
                   (click)="selecionarOpcao(0)"
+                  style="cursor: pointer"
                 >
                   Nome
                 </a>
@@ -37,6 +38,7 @@
                   class="nav-link"
                   aria-selected="true"
                   (click)="selecionarOpcao(1)"
+                  style="cursor: pointer"
                 >
                   CPF
                 </a>
@@ -52,14 +54,20 @@
                       <i class="material-icons">search</i>
                     </div>
                   </div>
-                  <div *ngIf="opcaoSelecionada === 0 || opcaoSelecionada === undefined || opcaoSelecionada === null">                    
+                  <div
+                    *ngIf="
+                      opcaoSelecionada === 0 ||
+                      opcaoSelecionada === undefined ||
+                      opcaoSelecionada === null
+                    "
+                  >
                     <input
-                    type="text"
-                    class="form-control"
-                    placeholder="{{ placeHolder }}"
-                    formControlName="input"
-                    type="text"
-                  />
+                      type="text"
+                      class="form-control"
+                      placeholder="{{ placeHolder }}"
+                      formControlName="input"
+                      type="text"
+                    />
                   </div>
                   <div *ngIf="opcaoSelecionada === 1">
                     <input
