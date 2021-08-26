@@ -149,9 +149,6 @@ export class ExperienciaComponent implements OnInit {
         this.experiencia.push(this.experiencia3);
       }
 
-
-      console.log(this.experiencia)
-
       this._service.save(this.experiencia).subscribe(response => {
           this._loading.emitChange(true);
           setTimeout(() => {

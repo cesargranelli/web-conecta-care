@@ -116,8 +116,6 @@ export class EnderecoComponent implements OnInit {
     this._endereco.comprovante = this.comprovante;
     this._endereco.proprietarioId = this.valid.id;
 
-    console.log(this._endereco)
-
     this._service.save(this._endereco).subscribe(response => {
         setTimeout(() => {
           this._cadastro.endereco = this._endereco;

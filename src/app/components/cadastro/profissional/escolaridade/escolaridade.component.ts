@@ -120,8 +120,6 @@ export class EscolaridadeComponent implements OnInit {
 
     this.escolaridade.proprietarioId = this.valid.id;
 
-    console.log(this.escolaridade)
-
     this._service.save(this.escolaridade).subscribe(response => {
         setTimeout(() => {
           this._cadastro.escolaridade = this.escolaridade;

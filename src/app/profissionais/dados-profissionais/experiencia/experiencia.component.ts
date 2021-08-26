@@ -95,24 +95,24 @@ export class ExperienciaComponent implements OnInit {
             this.experienciaForm.patchValue({
               empresa1: experiencia.empresa,
               cargo1: experiencia.cargo,
-              dataAdmissao1: experiencia.dataAdmissao ? this.converterDataExibicao(experiencia.dataAdmissao.date) : null,
-              dataDemissao1: experiencia.dataDemissao ? this.converterDataExibicao(experiencia.dataDemissao.date) : null
+              dataAdmissao1: experiencia.dataAdmissao ? this.converterDataExibicao(experiencia.dataAdmissao) : null,
+              dataDemissao1: experiencia.dataDemissao ? this.converterDataExibicao(experiencia.dataDemissao) : null
             });
             break;
           case 2:
             this.experienciaForm.patchValue({
               empresa2: experiencia.empresa,
               cargo2: experiencia.cargo,
-              dataAdmissao2: experiencia.dataAdmissao ? this.converterDataExibicao(experiencia.dataAdmissao.date) : null,
-              dataDemissao2: experiencia.dataDemissao ? this.converterDataExibicao(experiencia.dataDemissao.date) : null
+              dataAdmissao2: experiencia.dataAdmissao ? this.converterDataExibicao(experiencia.dataAdmissao) : null,
+              dataDemissao2: experiencia.dataDemissao ? this.converterDataExibicao(experiencia.dataDemissao) : null
             });
             break;
           case 3:
             this.experienciaForm.patchValue({
               empresa3: experiencia.empresa,
               cargo3: experiencia.cargo,
-              dataAdmissao3: experiencia.dataAdmissao ? this.converterDataExibicao(experiencia.dataAdmissao.date) : null,
-              dataDemissao3: experiencia.dataDemissao ? this.converterDataExibicao(experiencia.dataDemissao.date) : null
+              dataAdmissao3: experiencia.dataAdmissao ? this.converterDataExibicao(experiencia.dataAdmissao) : null,
+              dataDemissao3: experiencia.dataDemissao ? this.converterDataExibicao(experiencia.dataDemissao) : null
             });
             break;
         }

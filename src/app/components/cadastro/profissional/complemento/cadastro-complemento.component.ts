@@ -134,8 +134,6 @@ export class CadastroComplementoComponent implements OnInit {
 
     this.complemento.proprietarioId = this.valid.id;
 
-    console.log(this.complemento)
-
     this._service.save(this.complemento).subscribe(() => {
       setTimeout(() => {
         this._cadastro.complemento = this.complemento;

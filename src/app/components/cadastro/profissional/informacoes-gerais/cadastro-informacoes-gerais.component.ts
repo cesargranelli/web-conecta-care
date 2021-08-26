@@ -43,7 +43,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
   public imagemFotoProfissional: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
   public fileInputProfissional: string = 'fileinput-new';
   public fileProfissional: File;
-  
+
   public fotoRgFrente: any;
   public imagemFotoRgFrente: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputRgFrente: string = 'fileinput-new';
@@ -58,7 +58,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
   public imagemFotoAssinatura: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputAssinatura: string = 'fileinput-new';
   public fileAssinatura: File;
-  
+
   public valid: Valid;
   public validationHas: InputValidationHas = new InputValidationHas();
   public showForm: boolean = true;
