@@ -40,6 +40,7 @@ export class TratamentoService {
       })
       .pipe(
         map((prontuario: ResponseTemplateInterface) => {
+          this.loadingService.emitChange(false);
           return prontuario.data;
         }),
         catchError(async (httpResponse: HttpErrorResponse) => {
