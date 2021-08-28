@@ -22,7 +22,7 @@ export class PacienteService {
       })
       .pipe(
         map((paciente: ResponseTemplateInterface) => {
-          return paciente.data;
+          return this.avaliaPaciente(paciente);
         })
       );
   }
@@ -34,8 +34,16 @@ export class PacienteService {
       })
       .pipe(
         map((paciente: ResponseTemplateInterface) => {
-          return paciente.data;
+          return this.avaliaPaciente(paciente);
         })
       );
+  }
+
+  avaliaPaciente(paciente: ResponseTemplateInterface) {
+    if (paciente) {
+      return paciente.data;
+    } else {
+      return null;
+    }
   }
 }

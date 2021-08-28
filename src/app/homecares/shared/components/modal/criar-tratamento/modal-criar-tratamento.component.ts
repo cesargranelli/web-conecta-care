@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PacienteService } from 'src/app/homecares/services/paciente.service';
 import { ActivatedRoute } from '@angular/router'
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 
 declare var jQuery: any;
 
@@ -23,7 +24,8 @@ export class ModalCriarTratamentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private pacienteService: PacienteService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private loading: SharedLoadingService
   ) {
     this.criarTratamentoForm = this.formBuilder.group({
       input: [null],
@@ -48,22 +50,39 @@ export class ModalCriarTratamentoComponent implements OnInit {
   }
 
   procurar(): void {
-    this.userInput = this.criarTratamentoForm.value.input;
+    jQuery('.mat-typography.modal-open').removeClass();
+    jQuery('div.modal-backdrop.fade.show').remove();
+    // this.loading.emitChange(true);
+    // this.userInput = this.criarTratamentoForm.value.input;
 
-    switch (this.opcaoSelecionada) {
-      case 1:
-        this.pacienteService
-          .consultarPorDocumento(this.userInput)
-          .subscribe((paciente) => {
-            this.router.navigate([`../prontuario/${paciente.id}`], {relativeTo: this.activatedRoute});
-          });
-        break;
-      default:
-        this.pacienteService
-          .consultarPorNome(this.userInput)
-          .subscribe((paciente) => {
-            this.router.navigate([`../prontuario/${paciente.id}`], {relativeTo: this.activatedRoute});
-          });
-    }
+    // switch (this.opcaoSelecionada) {
+    //   case 0:
+    //     this.pacienteService.consultarPorNome(this.userInput).subscribe((paciente) => {
+    //       if (paciente) {
+    //         this.router.navigate([`../prontuario/${paciente.id}`], { relativeTo: this.activatedRoute });
+    //       }
+    //     }, null, () => {
+    //       this.loading.emitChange(false);
+    //       jQuery('#criarAtendimentoModal').modal('hide');
+    //     });
+    //     break;
+    //   case 1:
+    //     this.pacienteService.consultarPorDocumento(this.userInput).subscribe((paciente) => {
+    //       if (paciente) {
+    //         this.router.navigate([`../prontuario/${paciente.id}`], { relativeTo: this.activatedRoute });
+    //       }
+    //     }, null, () => {
+    //       this.loading.emitChange(false);
+    //       jQuery('#criarAtendimentoModal').modal('hide');
+    //     });
+    //     break;
+    //   default:
+    //     jQuery('#criarAtendimentoModal').modal('hide');
+    //     this.router.navigate([`tratamento/solicitacao`], { relativeTo: this.activatedRoute });
+    //     this.loading.emitChange(false);
+    // }
+    // jQuery('#criarAtendimentoModal').modal('hide');
+    this.router.navigate([`tratamento/solicitacao`], { relativeTo: this.activatedRoute });
+    // this.loading.emitChange(false);
   }
 }
