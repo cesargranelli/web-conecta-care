@@ -67,7 +67,13 @@ export class ContatoComponent implements OnInit {
       setTimeout(() => {
         this._loading.emitChange(false);
       });
-    }, null, () => this.showForm = false);
+      this.showForm = false;
+    }, error => {
+      if (error.status == 404) {
+        this.showForm = false;
+      }
+      this._loading.emitChange(false);
+    });
   }
 
   popularForm() {

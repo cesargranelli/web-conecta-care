@@ -46,12 +46,12 @@ export class EscolaridadeComponent implements OnInit {
 
     this.escolaridadeForm = this._formBuilder.group({
       instrucao: [null, [Validators.required]],
-      instituicaoEnsino1: [null, [Validators.maxLength(50)]],
-      anoConclusao1: [null, [Validators.maxLength(4)]],
-      instituicaoEnsino2: [null, [Validators.maxLength(50)]],
-      anoConclusao2: [null, [Validators.maxLength(4)]],
-      instituicaoEnsino3: [null, [Validators.maxLength(50)]],
-      anoConclusao3: [null, [Validators.maxLength(4)]],
+      instituicaoEnsino1: ["", [Validators.maxLength(50)]],
+      anoConclusao1: ["", [Validators.maxLength(4)]],
+      instituicaoEnsino2: ["", [Validators.maxLength(50)]],
+      anoConclusao2: ["", [Validators.maxLength(4)]],
+      instituicaoEnsino3: ["", [Validators.maxLength(50)]],
+      anoConclusao3: ["", [Validators.maxLength(4)]],
     });
   }
 
@@ -82,12 +82,12 @@ export class EscolaridadeComponent implements OnInit {
 
   popularForm() {
     this.escolaridadeForm.patchValue({
-      instituicaoEnsino1: this._cadastro?.escolaridade?.instituicaoEnsino[0],
-      anoConclusao1: this._cadastro?.escolaridade?.anoConclusao[0],
-      instituicaoEnsino2: this._cadastro?.escolaridade?.instituicaoEnsino[1],
-      anoConclusao2: this._cadastro?.escolaridade?.anoConclusao[1],
-      instituicaoEnsino3: this._cadastro?.escolaridade?.instituicaoEnsino[2],
-      anoConclusao3: this._cadastro?.escolaridade?.anoConclusao[2]
+      instituicaoEnsino1: this._cadastro?.escolaridade?.instituicaoEnsino[0]==undefined ? "" : this._cadastro?.escolaridade?.instituicaoEnsino[0],
+      anoConclusao1: this._cadastro?.escolaridade?.anoConclusao[0]==undefined ? "" : this._cadastro?.escolaridade?.anoConclusao[0],
+      instituicaoEnsino2: this._cadastro?.escolaridade?.instituicaoEnsino[1]==undefined ? "" : this._cadastro?.escolaridade?.instituicaoEnsino[1],
+      anoConclusao2: this._cadastro?.escolaridade?.anoConclusao[1]==undefined ? "" : this._cadastro?.escolaridade?.anoConclusao[1],
+      instituicaoEnsino3: this._cadastro?.escolaridade?.instituicaoEnsino[2]==undefined ? "" : this._cadastro?.escolaridade?.instituicaoEnsino[2],
+      anoConclusao3: this._cadastro?.escolaridade?.anoConclusao[2]==undefined ? "" : this._cadastro?.escolaridade?.anoConclusao[2]
     });
   }
 
@@ -108,10 +108,12 @@ export class EscolaridadeComponent implements OnInit {
     this.escolaridade.instrucao = this.instrucoes.filter(instrucao => instrucao.id == Number(this.escolaridadeForm.value.instrucao))[0];
     // Incluído para corrigir os tipos End
 
+    this.escolaridade.instituicaoEnsino.length=0;
     this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino1);
     this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino2);
     this.escolaridade.instituicaoEnsino.push(this.escolaridadeForm.value.instituicaoEnsino3);
 
+    this.escolaridade.anoConclusao.length=0;
     this.escolaridade.anoConclusao.push(this.escolaridadeForm.value.anoConclusao1);
     this.escolaridade.anoConclusao.push(this.escolaridadeForm.value.anoConclusao2);
     this.escolaridade.anoConclusao.push(this.escolaridadeForm.value.anoConclusao3);

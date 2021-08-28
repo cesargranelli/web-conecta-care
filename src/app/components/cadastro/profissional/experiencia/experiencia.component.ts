@@ -103,6 +103,10 @@ export class ExperienciaComponent implements OnInit {
       return;
     }
 
+    this.experiencia1 = new Experiencia();
+    this.experiencia2 = new Experiencia();
+    this.experiencia3 = new Experiencia();
+
     if (this.experienciaForm.value.experiencia) {
 
       this.experiencia1.posicao = 1;
@@ -121,21 +125,29 @@ export class ExperienciaComponent implements OnInit {
       this.experiencia2.cargo = this.experienciaForm.controls.cargo2.value;
       this.experiencia3.cargo = this.experienciaForm.controls.cargo3.value;
 
-      this.experiencia1.dataAdmissao = this.experienciaForm.controls.dataAdmissao1.value;
-      this.experiencia2.dataAdmissao = this.experienciaForm.controls.dataAdmissao2.value;
-      this.experiencia3.dataAdmissao = this.experienciaForm.controls.dataAdmissao3.value;
+      this.experiencia1.dataAdmissao = this.formataData(this.experienciaForm.controls.dataAdmissao1.value);
+      this.experiencia2.dataAdmissao = this.formataData(this.experienciaForm.controls.dataAdmissao2.value);
+      this.experiencia3.dataAdmissao = this.formataData(this.experienciaForm.controls.dataAdmissao3.value);
 
-      this.experiencia1.dataDemissao = this.experienciaForm.controls.dataDemissao1.value;
-      this.experiencia2.dataDemissao = this.experienciaForm.controls.dataDemissao2.value;
-      this.experiencia3.dataDemissao = this.experienciaForm.controls.dataDemissao3.value;
+      this.experiencia1.dataDemissao = this.formataData(this.experienciaForm.controls.dataDemissao1.value);
+      this.experiencia2.dataDemissao = this.formataData(this.experienciaForm.controls.dataDemissao2.value);
+      this.experiencia3.dataDemissao = this.formataData(this.experienciaForm.controls.dataDemissao3.value);
 
       this.experiencia1.profissionalId = this.valid.id;
       this.experiencia2.profissionalId = this.valid.id;
       this.experiencia3.profissionalId = this.valid.id;
 
-      this.experiencia.push(this.experiencia1);
-      this.experiencia.push(this.experiencia2);
-      this.experiencia.push(this.experiencia3);
+      if (!!this.experiencia1.empresa) {
+        this.experiencia.push(this.experiencia1);
+      }
+
+      if(!!this.experiencia2.empresa) {
+        this.experiencia.push(this.experiencia2);
+      }
+
+      if(!!this.experiencia3.empresa) {
+        this.experiencia.push(this.experiencia3);
+      }
 
       this._service.save(this.experiencia).subscribe(response => {
           this._loading.emitChange(true);
@@ -205,6 +217,19 @@ export class ExperienciaComponent implements OnInit {
     } else {
       return new Date();
     }
+  }
+
+  formataData(dataString: string): string {
+    if (!!dataString) {
+      let data = this.convertToDate(dataString);
+      let dia  = data.getDate().toString().padStart(2, '0');
+      let mes  = (data.getMonth()+1).toString().padStart(2, '0'); //+1 pois no getMonth Janeiro começa com zero.
+      let ano  = data.getFullYear();
+      return dia+"/"+mes+"/"+ano;
+    } else {
+      return null;
+    }
+
   }
 
 }
