@@ -9,231 +9,232 @@
           </div>
           <div class="card-body">
             <div class="tab-content">
-              <div class="dados-gerais">
+              <div class="dados-paciente">
                 <div class="row">
                   <div class="col-lg-2 col-md-3">
-                    <div>Cpf:</div>
+                    <div>Cpf: {{ prontuario?.paciente.cpf }}</div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div>Nome:</div>
+                    <div>Nome: {{ prontuario?.paciente.nome }}</div>
                   </div>
                   <div class="col">
-                    <div>Sexo:</div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div>Data Nasc.:</div>
-                  </div>
-                  <div class="col">
-                    <div>Idade:</div>
+                    <div>Sexo: {{ prontuario?.paciente.genero.tipo }}</div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div>Est. Civil:</div>
+                    <div>
+                      Data Nasc.: {{ prontuario?.paciente.dataNascimento }}
+                    </div>
                   </div>
                   <div class="col">
-                    <div>Contatos (Fones/E-MAIL):</div>
+                    <div>Idade: //TODO//</div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div>Religião:</div>
+                    <div>
+                      Est. Civil: {{ prontuario?.paciente.estadoCivil.tipo }}
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div>
+                      Contatos (Fones/E-MAIL):
+                      {{ prontuario?.paciente.contato }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div>Religião: //TODO//</div>
                   </div>
                 </div>
               </div>
-              <div class="dados-gerais">
+              <div class="dados-tratamento">
                 <div id="accordion" role="tablist">
                   <div class="card card-collapse">
-                    <div class="card-header" role="tab" id="headingOne">
-                      <h5 class="mb-0">
-                        <a
-                          data-toggle="collapse"
-                          href="#collapseOne"
-                          aria-expanded="true"
-                          aria-controls="collapseOne"
-                        >
-                          Tratamento A
-                          <i class="material-icons">keyboard_arrow_down</i>
-                        </a>
-                      </h5>
-                    </div>
-                    <div
-                      id="collapseOne"
-                      class="collapse show"
-                      role="tabpanel"
-                      aria-labelledby="headingOne"
-                      data-parent="#accordion"
+                    <ng-container
+                      *ngFor="
+                        let tratamento of prontuario.tratamentos;
+                        let i = index
+                      "
                     >
-                      <div class="card-body">
-                        <div class="card">
-                          <div class="card-header card-header-info text-center">
-                            Profissional Responsável pelo Tratamento
+                      <div class="card-header" role="tab" id="headingOne">
+                        <h5 class="mb-0">
+                          <a
+                            data-toggle="collapse"
+                            href="#{{ i }}"
+                            aria-expanded="true"
+                            aria-controls="collapseOne"
+                          >
+                            {{ tratamento.descricao }}
+                            <i class="material-icons">keyboard_arrow_down</i>
+                          </a>
+                        </h5>
+                      </div>
+                      <div
+                        id="{{ i }}"
+                        class="collapse {{ i === 0 ? 'show' : '' }}"
+                        role="tabpanel"
+                        aria-labelledby="headingOne"
+                        data-parent="#accordion"
+                      >
+                        <div class="card-body">
+                          <div class="card col-md-12">
+                            <div
+                              class="card-header card-header-info text-center"
+                            >
+                              Profissional Responsável pelo Tratamento
+                            </div>
+                            <div class="card-body">
+                              <div class="dados-gerais">
+                                <div class="row">
+                                  <div class="col-lg-2 col-md-3">
+                                    <div>
+                                      Cpf: {{ tratamento.profissional.cpf }}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div>
+                                      Nome: {{ tratamento.profissional.nome }}
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div>
+                                      Área de Atendimento:
+                                      {{
+                                        tratamento.profissional.especialidades
+                                      }}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div>
+                                      Sobrenome:
+                                      {{ tratamento.profissional.sobrenome }}
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div>
+                                      Telefone Celular:
+                                      {{ tratamento.profissional.celular }}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div>
+                                      Nº do Conselho:
+                                      {{ tratamento.profissional.conselho }}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div>
+                                      Nº do Registro:
+                                      {{ tratamento.profissional.registro }}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <div class="card-body">
-                            <div class="dados-gerais">
-                              <div class="row">
-                                <div class="col-lg-2 col-md-3">
-                                  <div>Cpf:</div>
+                        </div>
+                        <div class="card-body">
+                          <div class="card col-md-12">
+                            <div
+                              class="card-header card-header-info text-center"
+                            >
+                              Atendimentos
+                            </div>
+                            <div class="card-body">
+                              <div class="dados-gerais">
+                                <div class="table-responsive">
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th class="text-center">ID</th>
+                                        <th>Data do Tratamento</th>
+                                        <th>Procedimento</th>
+                                        <th>Medicamentos</th>
+                                        <th>Equipamentos</th>
+                                      </tr>
+                                    </thead>
+                                    <ng-container
+                                      *ngFor="
+                                        let atendimento of tratamento.atendimento
+                                      "
+                                    >
+                                      <tbody>
+                                        <tr>
+                                          <td class="text-center">
+                                            {{ atendimento.id }}
+                                          </td>
+                                          <td>{{ atendimento.data }}</td>
+                                          <td>
+                                            {{
+                                              atendimento.descricaoProcedimento
+                                            }}
+                                          </td>
+                                          <td>
+                                            {{
+                                              atendimento.descricaoMedicamento
+                                            }}
+                                          </td>
+                                          <td>
+                                            {{
+                                              atendimento.descricaoEquipamento
+                                            }}
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </ng-container>
+                                  </table>
                                 </div>
                               </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div>Nome:</div>
-                                </div>
-                                <div class="col">
-                                  <div>Área de Atendimento:</div>
-                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="card col-md-12">
+                              <div
+                                class="card-header card-header-info text-center"
+                              >
+                                Finalização do tratamento
                               </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div>Sobrenome:</div>
-                                </div>
-                                <div class="col">
-                                  <div>Telefone Celular:</div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div>Nº do Conselho:</div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div>Nº do Registro:</div>
+                              <div class="card-body">
+                                <div class="dados-situacao">
+                                  <div class="row">
+                                    <div class="col">
+                                      Observação:
+                                      {{ tratamento.situacao?.observacao }}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      Data / Hora:
+                                      {{ tratamento.situacao?.dataHora }}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      Status: {{ tratamento.situacao?.status }}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="card-body">
-                        <div class="card">
-                          <div class="card-header card-header-info text-center">
-                            Atendimentos
-                          </div>
-                          <div class="card-body">
-                            <div class="dados-gerais">
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th class="text-center">#</th>
-                                      <th>Name</th>
-                                      <th>Job Position</th>
-                                      <th>Since</th>
-                                      <th class="text-right">Salary</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td class="text-center">1</td>
-                                      <td>Andrew Mike</td>
-                                      <td>Develop</td>
-                                      <td>2013</td>
-                                      <td class="text-right">&euro; 99,225</td>
-                                    </tr>
-                                    <tr>
-                                      <td class="text-center">2</td>
-                                      <td>John Doe</td>
-                                      <td>Design</td>
-                                      <td>2012</td>
-                                      <td class="text-right">&euro; 89,241</td>
-                                    </tr>
-                                    <tr>
-                                      <td class="text-center">3</td>
-                                      <td>Alex Mike</td>
-                                      <td>Design</td>
-                                      <td>2010</td>
-                                      <td class="text-right">&euro; 92,144</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card card-collapse">
-                      <div class="card-header" role="tab" id="headingTwo">
-                        <h5 class="mb-0">
-                          <a
-                            class="collapsed"
-                            data-toggle="collapse"
-                            href="#collapseTwo"
-                            aria-expanded="false"
-                            aria-controls="collapseTwo"
-                          >
-                            Collapsible Group Item #2
-                            <i class="material-icons">keyboard_arrow_down</i>
-                          </a>
-                        </h5>
-                      </div>
-                      <div
-                        id="collapseTwo"
-                        class="collapse"
-                        role="tabpanel"
-                        aria-labelledby="headingTwo"
-                        data-parent="#accordion"
-                      >
-                        <div class="card-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high
-                          life accusamus terry richardson ad squid. 3 wolf moon
-                          officia aute, non cupidatat skateboard dolor brunch.
-                          Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-                          wolf moon tempor, sunt aliqua put a bird on it squid
-                          single-origin coffee nulla assumenda shoreditch et.
-                          Nihil anim keffiyeh helvetica, craft beer labore wes
-                          anderson cred nesciunt sapiente ea proident. Ad vegan
-                          excepteur butcher vice lomo. Leggings occaecat craft
-                          beer farm-to-table, raw denim aesthetic synth nesciunt
-                          you probably haven't heard of them accusamus labore
-                          sustainable VHS.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card card-collapse">
-                      <div class="card-header" role="tab" id="headingThree">
-                        <h5 class="mb-0">
-                          <a
-                            class="collapsed"
-                            data-toggle="collapse"
-                            href="#collapseThree"
-                            aria-expanded="false"
-                            aria-controls="collapseThree"
-                          >
-                            Collapsible Group Item #3
-                            <i class="material-icons">keyboard_arrow_down</i>
-                          </a>
-                        </h5>
-                      </div>
-                      <div
-                        id="collapseThree"
-                        class="collapse"
-                        role="tabpanel"
-                        aria-labelledby="headingThree"
-                        data-parent="#accordion"
-                      >
-                        <div class="card-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high
-                          life accusamus terry richardson ad squid. 3 wolf moon
-                          officia aute, non cupidatat skateboard dolor brunch.
-                          Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-                          wolf moon tempor, sunt aliqua put a bird on it squid
-                          single-origin coffee nulla assumenda shoreditch et.
-                          Nihil anim keffiyeh helvetica, craft beer labore wes
-                          anderson cred nesciunt sapiente ea proident. Ad vegan
-                          excepteur butcher vice lomo. Leggings occaecat craft
-                          beer farm-to-table, raw denim aesthetic synth nesciunt
-                          you probably haven't heard of them accusamus labore
-                          sustainable VHS.
-                        </div>
-                      </div>
-                    </div>
+                    </ng-container>
                   </div>
                 </div>
               </div>
