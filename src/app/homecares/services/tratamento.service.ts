@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ResponseTemplateInterface } from '../../services/response/responseTemplate.interface';
@@ -18,7 +19,10 @@ import { Prontuario } from '../classes/prontuario.class';
 export class TratamentoService {
   private endpoint: string = `${environment.apiConnecta}/tratamentos`;
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private loadingService: SharedLoadingService
+  ) {}
 
   consultarProntuario(
     idPaciente: number,
@@ -35,7 +39,7 @@ export class TratamentoService {
         headers: httpOptions.headers,
       })
       .pipe(
-        map((prontuario: ResponseTemplateInterface) => {
+        map((prontuario: ResponseTemplateInterface) => {          
           return prontuario.data;
         }),
         catchError(async (httpResponse: HttpErrorResponse) => {
@@ -45,6 +49,7 @@ export class TratamentoService {
             title: 'Falha ao procurar prontuario',
             showConfirmButton: true,
           });
+          this.loadingService.emitChange(false);
         })
       );
   }

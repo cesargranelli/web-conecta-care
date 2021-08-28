@@ -7,225 +7,239 @@
             <i class="material-icons">info</i>
             <h3 class="card-title">Conclusão do cadastro dos seus dados</h3>
           </div>
-          <div class="card-body">
-            <div class="tab-content">
-              <div class="dados-paciente">
-                <div class="row">
-                  <div class="col-lg-2 col-md-3">
-                    <div>Cpf: {{ prontuario?.paciente.cpf }}</div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div>Nome: {{ prontuario?.paciente.nome }}</div>
-                  </div>
-                  <div class="col">
-                    <div>Sexo: {{ prontuario?.paciente.genero.tipo }}</div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div>
-                      Data Nasc.: {{ prontuario?.paciente.dataNascimento }}
+          <ng-container *ngIf="showForm">
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="dados-paciente">
+                  <div class="row">
+                    <div class="col-lg-2 col-md-3">
+                      <div>Cpf: {{ prontuario?.paciente.cpf }}</div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div>Idade: //TODO//</div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div>
-                      Est. Civil: {{ prontuario?.paciente.estadoCivil.tipo }}
+                  <div class="row">
+                    <div class="col">
+                      <div>Nome: {{ prontuario?.paciente.nome }}</div>
+                    </div>
+                    <div class="col">
+                      <div>Sexo: {{ prontuario?.paciente.genero.tipo }}</div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div>
-                      Contatos (Fones/E-MAIL):
-                      {{ prontuario?.paciente.contato }}
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div>Religião: //TODO//</div>
-                  </div>
-                </div>
-              </div>
-              <div class="dados-tratamento">
-                <div id="accordion" role="tablist">
-                  <div class="card card-collapse">
-                    <ng-container
-                      *ngFor="
-                        let tratamento of prontuario.tratamentos;
-                        let i = index
-                      "
-                    >
-                      <div class="card-header" role="tab" id="headingOne">
-                        <h5 class="mb-0">
-                          <a
-                            data-toggle="collapse"
-                            href="#{{ i }}"
-                            aria-expanded="true"
-                            aria-controls="collapseOne"
-                          >
-                            {{ tratamento.descricao }}
-                            <i class="material-icons">keyboard_arrow_down</i>
-                          </a>
-                        </h5>
+                  <div class="row">
+                    <div class="col">
+                      <div>
+                        Data Nasc.: {{ prontuario?.paciente.dataNascimento }}
                       </div>
-                      <div
-                        id="{{ i }}"
-                        class="collapse {{ i === 0 ? 'show' : '' }}"
-                        role="tabpanel"
-                        aria-labelledby="headingOne"
-                        data-parent="#accordion"
+                    </div>
+                    <div class="col">
+                      <div>Idade: N/A</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div>
+                        Est. Civil: {{ prontuario?.paciente.estadoCivil.tipo }}
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div>
+                        Contatos (Fones/E-MAIL):
+                        {{ prontuario?.paciente.contato }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div>Religião: N/A</div>
+                    </div>
+                    <div class="col">
+                      <div class="float-right">
+                        <button type="button" class="btn btn-primary">
+                          Criar novo tratamento
+                          <i class="material-icons">add</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dados-tratamento">
+                  <div id="accordion" role="tablist">
+                    <div class="card card-collapse">
+                      <ng-container
+                        *ngFor="
+                          let tratamento of prontuario?.tratamentos;
+                          let i = index
+                        "
                       >
-                        <div class="card-body">
-                          <div class="card col-md-12">
-                            <div
-                              class="card-header card-header-info text-center"
+                        <div class="card-header" role="tab" id="headingOne">
+                          <h5 class="mb-0">
+                            <a
+                              data-toggle="collapse"
+                              href="#{{ i }}"
+                              aria-expanded="true"
+                              aria-controls="collapseOne"
                             >
-                              Profissional Responsável pelo Tratamento
-                            </div>
-                            <div class="card-body">
-                              <div class="dados-gerais">
-                                <div class="row">
-                                  <div class="col-lg-2 col-md-3">
-                                    <div>
-                                      Cpf: {{ tratamento.profissional.cpf }}
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col">
-                                    <div>
-                                      Nome: {{ tratamento.profissional.nome }}
-                                    </div>
-                                  </div>
-                                  <div class="col">
-                                    <div>
-                                      Área de Atendimento:
-                                      {{
-                                        tratamento.profissional.especialidades
-                                      }}
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col">
-                                    <div>
-                                      Sobrenome:
-                                      {{ tratamento.profissional.sobrenome }}
-                                    </div>
-                                  </div>
-                                  <div class="col">
-                                    <div>
-                                      Telefone Celular:
-                                      {{ tratamento.profissional.celular }}
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col">
-                                    <div>
-                                      Nº do Conselho:
-                                      {{ tratamento.profissional.conselho }}
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col">
-                                    <div>
-                                      Nº do Registro:
-                                      {{ tratamento.profissional.registro }}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                              {{ tratamento.descricao }}
+                              <i class="material-icons">keyboard_arrow_down</i>
+                            </a>
+                          </h5>
                         </div>
-                        <div class="card-body">
-                          <div class="card col-md-12">
-                            <div
-                              class="card-header card-header-info text-center"
-                            >
-                              Atendimentos
-                            </div>
-                            <div class="card-body">
-                              <div class="dados-gerais">
-                                <div class="table-responsive">
-                                  <table class="table">
-                                    <thead>
-                                      <tr>
-                                        <th class="text-center">ID</th>
-                                        <th>Data do Tratamento</th>
-                                        <th>Procedimento</th>
-                                        <th>Medicamentos</th>
-                                        <th>Equipamentos</th>
-                                      </tr>
-                                    </thead>
-                                    <ng-container
-                                      *ngFor="
-                                        let atendimento of tratamento.atendimento
-                                      "
-                                    >
-                                      <tbody>
-                                        <tr>
-                                          <td class="text-center">
-                                            {{ atendimento.id }}
-                                          </td>
-                                          <td>{{ atendimento.data }}</td>
-                                          <td>
-                                            {{
-                                              atendimento.descricaoProcedimento
-                                            }}
-                                          </td>
-                                          <td>
-                                            {{
-                                              atendimento.descricaoMedicamento
-                                            }}
-                                          </td>
-                                          <td>
-                                            {{
-                                              atendimento.descricaoEquipamento
-                                            }}
-                                          </td>
-                                        </tr>
-                                      </tbody>
-                                    </ng-container>
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
+                        <div
+                          id="{{ i }}"
+                          class="collapse {{ i === 0 ? 'show' : '' }}"
+                          role="tabpanel"
+                          aria-labelledby="headingOne"
+                          data-parent="#accordion"
+                        >
+                          <div class="card-body">
                             <div class="card col-md-12">
                               <div
                                 class="card-header card-header-info text-center"
                               >
-                                Finalização do tratamento
+                                Profissional Responsável pelo Tratamento
                               </div>
                               <div class="card-body">
-                                <div class="dados-situacao">
+                                <div class="dados-gerais">
                                   <div class="row">
-                                    <div class="col">
-                                      Observação:
-                                      {{ tratamento.situacao?.observacao }}
+                                    <div class="col-lg-2 col-md-3">
+                                      <div>
+                                        Cpf: {{ tratamento.profissional.cpf }}
+                                      </div>
                                     </div>
                                   </div>
                                   <div class="row">
                                     <div class="col">
-                                      Data / Hora:
-                                      {{ tratamento.situacao?.dataHora }}
+                                      <div>
+                                        Nome: {{ tratamento.profissional.nome }}
+                                      </div>
+                                    </div>
+                                    <div class="col">
+                                      <div>
+                                        Área de Atendimento:
+                                        {{
+                                          tratamento.profissional.especialidades
+                                        }}
+                                      </div>
                                     </div>
                                   </div>
                                   <div class="row">
                                     <div class="col">
-                                      Status: {{ tratamento.situacao?.status }}
+                                      <div>
+                                        Sobrenome:
+                                        {{ tratamento.profissional.sobrenome }}
+                                      </div>
+                                    </div>
+                                    <div class="col">
+                                      <div>
+                                        Telefone Celular:
+                                        {{ tratamento.profissional.celular }}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <div>
+                                        Nº do Conselho:
+                                        {{ tratamento.profissional.conselho }}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <div>
+                                        Nº do Registro:
+                                        {{ tratamento.profissional.registro }}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <div class="card col-md-12">
+                              <div
+                                class="card-header card-header-info text-center"
+                              >
+                                Atendimentos
+                              </div>
+                              <div class="card-body">
+                                <div class="dados-gerais">
+                                  <div class="table-responsive">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th class="text-center">ID</th>
+                                          <th>Data do Tratamento</th>
+                                          <th>Procedimento</th>
+                                          <th>Medicamentos</th>
+                                          <th>Equipamentos</th>
+                                        </tr>
+                                      </thead>
+                                      <ng-container
+                                        *ngFor="
+                                          let atendimento of tratamento.atendimento
+                                        "
+                                      >
+                                        <tbody>
+                                          <tr>
+                                            <td class="text-center">
+                                              {{ atendimento.id }}
+                                            </td>
+                                            <td>{{ atendimento.data }}</td>
+                                            <td>
+                                              {{
+                                                atendimento.descricaoProcedimento
+                                              }}
+                                            </td>
+                                            <td>
+                                              {{
+                                                atendimento.descricaoMedicamento
+                                              }}
+                                            </td>
+                                            <td>
+                                              {{
+                                                atendimento.descricaoEquipamento
+                                              }}
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </ng-container>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="card col-md-12">
+                                <div
+                                  class="
+                                    card-header card-header-info
+                                    text-center
+                                  "
+                                >
+                                  Finalização do tratamento
+                                </div>
+                                <div class="card-body">
+                                  <div class="dados-situacao">
+                                    <div class="row">
+                                      <div class="col">
+                                        Observação:
+                                        {{ tratamento.situacao?.observacao }}
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                        Data / Hora:
+                                        {{ tratamento.situacao?.dataHora }}
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                        Status:
+                                        {{ tratamento.situacao?.status }}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -233,13 +247,13 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </ng-container>
+                      </ng-container>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>

@@ -15,14 +15,16 @@ export class ProntuarioComponent implements OnInit {
   private idHomecare: number;
   private dadosLocalStorage: Valid;
   public prontuario: Prontuario;
+  public showForm: boolean;
 
   constructor(
     private tratamentoService: TratamentoService,
     private validService: SharedValidService,
     private loadingService: SharedLoadingService
   ) {
-    this.loadingService.emitChange(true);
+    this.showForm = false;
     this.dadosLocalStorage = this.validService.getValid();
+    // this.loadingService.emitChange(true);
   }
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class ProntuarioComponent implements OnInit {
       .consultarProntuario(this.idPaciente, this.idHomecare)
       .subscribe((prontuario) => {
         this.prontuario = prontuario;
-        console.log(this.prontuario);
+        this.showForm = true;
         this.loadingService.emitChange(false);
       });
   }

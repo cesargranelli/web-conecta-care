@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PacienteService } from 'src/app/homecares/services/paciente.service';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 
 declare var jQuery: any;
 
@@ -23,7 +24,8 @@ export class ModalCriarTratamentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private pacienteService: PacienteService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private loadingService: SharedLoadingService
   ) {
     this.criarTratamentoForm = this.formBuilder.group({
       input: [null],
@@ -48,21 +50,28 @@ export class ModalCriarTratamentoComponent implements OnInit {
   }
 
   procurar(): void {
+    this.loadingService.emitChange(true);
     this.userInput = this.criarTratamentoForm.value.input;
-
     switch (this.opcaoSelecionada) {
       case 1:
         this.pacienteService
           .consultarPorDocumento(this.userInput)
           .subscribe((paciente) => {
-            this.router.navigate([`../prontuario/${paciente.id}`], {relativeTo: this.activatedRoute});
+            this.loadingService.emitChange(false);
+            setTimeout(() => {
+              this.router.navigate([`../prontuario/${paciente.id}`], {
+                relativeTo: this.activatedRoute,
+              });
+            });
           });
         break;
       default:
         this.pacienteService
           .consultarPorNome(this.userInput)
           .subscribe((paciente) => {
-            this.router.navigate([`../prontuario/${paciente.id}`], {relativeTo: this.activatedRoute});
+            this.router.navigate([`../prontuario/${paciente.id}`], {
+              relativeTo: this.activatedRoute,
+            });
           });
     }
   }
