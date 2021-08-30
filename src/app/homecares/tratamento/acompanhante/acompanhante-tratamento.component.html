@@ -1,52 +1,53 @@
-<div class="card">
+<div [formGroup]="tratamentoForm.controls.acompanhante" class="card">
     <div class="card-body">
         <div class="row">
-            <label class="col-lg-2 col-md-2 col-form-label" for="cep">CPF</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="cpf">CPF</label>
             <div class="form-group col-lg-4 col-md-4">
-                <input autocomplete="none" class="form-control" formControlName="cep" mask="00000-000" type="text">
+                <input class="form-control" formControlName="cpf" mask="000.000.000-00" type="text">
             </div>
         </div>
         <div class="row">
-            <label class="col-lg-2 col-md-3 col-form-label" for="logradouro">Nome</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="nomeCompleto">Nome</label>
             <div class="form-group col-lg-7 col-md-8">
-                <input class="form-control" formControlName="logradouro" type="text">
+                <input class="form-control" formControlName="nomeCompleto" type="text">
             </div>
         </div>
         <div class="row">
-            <label class="col-lg-2 col-md-3 col-form-label" for="complemento">Data Nascimento</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="dataNascimento">Data Nascimento</label>
             <div class="form-group col-lg-3 col-md-8">
-                <input class="form-control" formControlName="complemento" type="text">
+                <input class="form-control" formControlName="dataNascimento" type="text">
             </div>
-            <label class="col-lg-2 col-md-3 col-form-label" for="numero">Idade</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="idade">Idade</label>
             <div class="form-group col-lg-2 col-md-8">
-                <input class="form-control" formControlName="numero" type="text">
+                <input class="form-control" name="idade" type="text">
             </div>
         </div>
         <div class="row">
-            <label class="col-lg-2 col-md-3 col-form-label" for="bairro">Grau de Parentesco</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="parentesco">Grau de Parentesco</label>
             <div class="form-group col-lg-4 col-md-8">
                 <select class="selectpicker" data-live-search="true" data-style="btn btn-primary" data-width="100%"
-                    formControlName="pais" id="pais" title="País">
-                    <option>Teste</option>
-                    <!-- *ngFor="let pais of paises" [value]="pais.id">{{ pais.nome | uppercase }} -->
+                    formControlName="parentesco" id="parentesco" title="Parentesco">
+                    <option *ngFor="let parentesco of parentescos" [value]="parentesco.id">
+                        {{ parentesco.descricao | uppercase }}</option>
                 </select>
             </div>
-            <label class="col-lg-1 col-md-3 col-form-label" for="numero">Sexo</label>
+            <label class="col-lg-1 col-md-3 col-form-label" for="genero">Sexo</label>
             <div class="form-group col-lg-4 col-md-8">
                 <select class="selectpicker" data-live-search="true" data-style="btn btn-primary" data-width="100%"
-                    formControlName="estado" id="estado" title="Estado">
-                    <option></option>
+                    formControlName="genero" id="genero" title="Gênero">
+                    <option *ngFor="let genero of generos" [value]="genero.id">
+                        {{ genero.descricao | uppercase }}</option>
                 </select>
             </div>
         </div>
         <div class="row">
-            <label class="col-lg-2 col-md-3 col-form-label" for="cidade">Telefone</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="telefone">Telefone</label>
             <div class="form-group col-lg-4 col-md-8">
-                <input class="form-control" formControlName="cidade" type="text">
+                <input class="form-control" formControlName="telefone" type="tel" mask="00 00000-0000">
             </div>
-            <label class="col-lg-1 col-md-3 col-form-label" for="cidade">Celular</label>
+            <label class="col-lg-1 col-md-3 col-form-label" for="celular">Celular</label>
             <div class="form-group col-lg-4 col-md-8">
-                <input class="form-control" formControlName="cidade" type="text">
+                <input class="form-control" formControlName="celular" type="tel" mask="00 00000-0000">
             </div>
         </div>
     </div>

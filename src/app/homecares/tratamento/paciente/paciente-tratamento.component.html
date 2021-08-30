@@ -1,48 +1,58 @@
-<div class="card">
+<div [formGroup]="tratamentoForm" class="card">
     <div class="card-body">
         <div class="row">
-            <label class="col-lg-2 col-md-2 col-form-label" for="cep">CPF</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="pacienteCpf">CPF</label>
             <div class="form-group col-lg-4 col-md-4">
-                <input autocomplete="none" class="form-control" formControlName="cep" mask="00000-000" type="text">
+                <input autocomplete="none" class="form-control" formControlName="pacienteCpf" mask="000.000.000-00"
+                    type="text">
             </div>
-            <button class="btn btn-social btn-just-icon btn-round btn-rose" type="button">
+            <button (click)="pesquisarPaciente(this.tratamentoForm.controls.pacienteCpf.value)"
+                class="btn btn-social btn-just-icon btn-round btn-rose" type="button"
+                [disabled]="!tratamentoForm.controls?.pacienteCpf.valid" [value]="tratamentoForm.controls?.pacienteCpf">
                 <i class="material-icons">search</i>
             </button>
         </div>
         <div class="row">
-            <label class="col-lg-2 col-md-3 col-form-label" for="logradouro">Nome</label>
-            <div class="form-group col-lg-7 col-md-8">
-                <input class="form-control" formControlName="logradouro" type="text" disabled>
+            <label class="col-lg-2 col-md-3 col-form-label" for="pacienteNome">Nome</label>
+            <div class="col-lg-7 col-md-8">
+                <input class="form-control" name="pacienteNome" type="text"
+                    [value]="paciente?.nome.concat(' ').concat(paciente?.sobrenome)" disabled>
             </div>
         </div>
         <div class="row">
-            <label class="col-lg-2 col-md-3 col-form-label" for="complemento">Data Nascimento</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="pacienteDataNascimento">Data Nascimento</label>
             <div class="form-group col-lg-3 col-md-8">
-                <input class="form-control" formControlName="complemento" type="text" disabled>
+                <input class="form-control" name="pacienteDataNascimento" type="text"
+                    [value]="paciente?.dataNascimento | date: 'dd/MM/yyyy'" disabled>
             </div>
-            <label class="col-lg-2 col-md-3 col-form-label" for="numero">Idade</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="pacienteIdade">Idade</label>
             <div class="form-group col-lg-2 col-md-8">
-                <input class="form-control" formControlName="numero" type="text" disabled>
+                <input class="form-control" name="pacienteIdade" [value]="idade(paciente?.dataNascimento)" type="number"
+                    disabled>
             </div>
         </div>
         <div class="row">
-            <label class="col-lg-2 col-md-3 col-form-label" for="bairro">Estado Civil</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="pacienteEstadoCivil">Estado Civil</label>
             <div class="form-group col-lg-3 col-md-8">
-                <input class="form-control" formControlName="bairro" type="text" disabled>
+                <input class="form-control" name="pacienteEstadoCivil" type="text" [value]="paciente?.estadoCivil?.tipo"
+                    disabled>
             </div>
-            <label class="col-lg-2 col-md-3 col-form-label" for="numero">Sexo</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="pacienteGenero">Sexo</label>
             <div class="form-group col-lg-2 col-md-8">
-                <input class="form-control" formControlName="numero" type="text" disabled>
+                <input class="form-control" name="pacienteGenero" type="text" [value]="paciente?.genero?.descricao"
+                    disabled>
             </div>
         </div>
         <div class="row">
-            <label class="col-lg-2 col-md-3 col-form-label" for="cidade">Celular</label>
+            <label class="col-lg-2 col-md-3 col-form-label" for="pacienteCelular">Celular</label>
             <div class="form-group col-lg-3 col-md-8">
-                <input class="form-control" formControlName="cidade" type="text" disabled>
+                <input class="form-control" name="pacienteCelular" type="tel"
+                    [value]="paciente?.contato?.telefoneCelular | mask: '(00) 00000-0000'" disabled>
             </div>
-            <label class="col-lg-1 col-md-3 col-form-label" for="cidade">Email</label>
+            <label class="col-lg-1 col-md-3 col-form-label" for="pacienteEmail">Email</label>
             <div class="form-group col-lg-5 col-md-8">
-                <input class="form-control" formControlName="cidade" type="text" disabled>
+                <input class="form-control" name="pacienteEmail" type="email"
+                    [value]="paciente?.contato?.emailResponsavel" disabled>
             </div>
         </div>
     </div>

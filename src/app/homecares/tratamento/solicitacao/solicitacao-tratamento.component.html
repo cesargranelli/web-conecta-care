@@ -2,61 +2,70 @@
   <div class="container-fluid">
     <div class="col-md-8 col-10 mr-auto ml-auto">
       <div class="wizard-container">
-        <div class="card card-wizard active">
-          <div class="card-header card-header-rose text-center">
-            <h3 class="card-title">
-              Informações Gerais
-            </h3>
-          </div>
-          <div class="card-body">
-            <div class="tab-content">
-              <app-paciente-tratamento></app-paciente-tratamento>
-              <app-endereco-tratamento></app-endereco-tratamento>
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <label class="col-lg-2 col-md-2 col-form-label" for="cep">Descrição do tratamento</label>
-                    <div class="form-group col-lg-9 col-md-9">
-                      <textarea class="form-control" formControlName="descricao" type="text"></textarea>
+        <form [formGroup]="tratamentoForm" (ngSubmit)="onSubmit()" [hidden]="hideForm" class="form-horizontal">
+          <div class="card card-wizard active">
+            <div class="card-header card-header-rose text-center">
+              <h3 class="card-title">
+                Informações Gerais
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <app-paciente-tratamento [tratamentoForm]="tratamentoForm" (eventoPaciente)="eventoPaciente($event)">
+                </app-paciente-tratamento>
+                <app-endereco-tratamento [endereco]="paciente?.endereco"></app-endereco-tratamento>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-2 col-md-2 col-form-label" for="descricaoTratamento">Descrição do
+                        tratamento</label>
+                      <div class="form-group col-lg-9 col-md-9">
+                        <textarea class="form-control" formControlName="descricaoTratamento" type="text"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-9 col-md-9 col-form-label" for="valorDeslocamento">
+                        Para esse tratamento será pago por KM de deslocamento o valor de R$
+                      </label>
+                      <div class="form-group col-lg-2 col-md-2">
+                        <input class="form-control" formControlName="valorDeslocamento" type="text" mask="separator.2"
+                          thousandSeparator="." separatorLimit="100">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <label class="col-lg-9 col-md-9 col-form-label" for="cep">
-                      Para esse tratamento será pago por KM de deslocamento o valor de R$
-                    </label>
-                    <div class="form-group col-lg-2 col-md-2">
-                      <input class="form-control" formControlName="logradouro" type="text">
-                    </div>
-                  </div>
-                </div>
+            </div>
+            <div class="card-header card-header-rose text-center">
+              <h3 class="card-title">
+                Dados do Acompanhante Responsável
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <app-acompanhante-tratamento [tratamentoForm]="tratamentoForm"></app-acompanhante-tratamento>
               </div>
             </div>
-          </div>
-          <div class="card-header card-header-rose text-center">
-            <h3 class="card-title">
-              Dados do Acompanhante Responsável
-            </h3>
-          </div>
-          <div class="card-body">
-            <div class="tab-content">
-              <app-acompanhante-tratamento></app-acompanhante-tratamento>
+            <div class="card-header card-header-rose text-center">
+              <h3 class="card-title">
+                Profissional Responsável pelo Tratamento
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <app-profissional-tratamento [tratamentoForm]="tratamentoForm"
+                  (eventoProfissional)="eventoProfissional($event)"></app-profissional-tratamento>
+              </div>
+              <span class="bmd-form-group is-filled">
+                <button [disabled]="!tratamentoForm.valid" class="btn btn-rose" type="submit">Salvar</button>
+              </span>
             </div>
           </div>
-          <div class="card-header card-header-rose text-center">
-            <h3 class="card-title">
-              Profissional Responsável pelo Tratamento
-            </h3>
-          </div>
-          <div class="card-body">
-            <div class="tab-content">
-              <app-profissional-tratamento></app-profissional-tratamento>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
