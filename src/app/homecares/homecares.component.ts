@@ -50,19 +50,21 @@ export class HomeCaresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._atendimentoService.consultarResumo(this._valid.getValid().id).subscribe(response => {
-      setTimeout(() => {
-        response.body.data.map((atendimento: AtendimentoResumo) => {
-          this.atendimentos.push({
-            id: atendimento.id,
-            date: this.getDateTime(atendimento.data, atendimento.hora),
-            title: atendimento.nomePaciente,
-            color: this.statusConverter.toColor(atendimento.status)
-          });
-          this.calendarOptions.events = this.atendimentos;
+    if (this._valid.getValid().id)
+      this._atendimentoService.consultarResumo(this._valid.getValid().id).subscribe(response => {
+        setTimeout(() => {
+          if (response.status == 200)
+            response.body.data.map((atendimento: AtendimentoResumo) => {
+              this.atendimentos.push({
+                id: atendimento.id,
+                date: this.getDateTime(atendimento.data, atendimento.hora),
+                title: atendimento.nomePaciente,
+                color: this.statusConverter.toColor(atendimento.status)
+              });
+              this.calendarOptions.events = this.atendimentos;
+            });
         });
-      });
-    }, null, () => this._loading.emitChange(false));
+      }, null, () => this._loading.emitChange(false));
   }
 
   private getDateTime(date: string, time: string): string {

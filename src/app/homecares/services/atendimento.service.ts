@@ -22,7 +22,7 @@ export class AtendimentoService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        idHomeCare: '15'
+        idHomeCare: String(idHomeCare)
       })
     };
 

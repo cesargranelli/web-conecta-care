@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="cep">CEP</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="cep" type="text" [value]="endereco?.cep | mask: '00000-000'" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="logradouro">Logradouro</label>
+            <div class="form-group col-lg-8 col-md-8">
+                <input class="form-control" name="logradouro" type="text" [value]="endereco?.logradouro" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="complemento">Complemento</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <input class="form-control" name="complemento" type="text" [value]="endereco?.complemento" disabled>
+            </div>
+            <label class="col-lg-1 col-md-3 col-form-label" for="numero">Bairro</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="numero" type="text" [value]="endereco?.bairro" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="bairro">Cidade</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <input class="form-control" name="bairro" type="text" [value]="endereco?.cidade" disabled>
+            </div>
+            <label class="col-lg-1 col-md-3 col-form-label" for="numero">Estado</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="numero" type="text" [value]="endereco?.estado?.uf" disabled>
+            </div>
+        </div>
+    </div>
+</div>

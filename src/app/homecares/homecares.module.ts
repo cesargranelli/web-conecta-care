@@ -25,10 +25,16 @@ import { CardVerDadosComponent } from './shared/components/card-ver-dados/card-v
 import { FormContatoComponent } from './shared/components/forms/contato/form-contato.component';
 import { FormEnderecoComponent } from './shared/components/forms/endereco/form-endereco.component';
 import { FormHomeCareComponent } from './shared/components/forms/homecare/form-homecare.component';
-import { ModalDetalheAtendimentoComponent } from './shared/components/modal/detalhe-atendimento/modal-detalhe-atendimento.component';
-import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
 import { ModalCriarTratamentoComponent } from './shared/components/modal/criar-tratamento/modal-criar-tratamento.component';
+import { ModalDetalheAtendimentoComponent } from './shared/components/modal/detalhe-atendimento/modal-detalhe-atendimento.component';
 import { ProntuarioComponent } from './shared/components/prontuario/prontuario.component';
+import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
+import { AcompanhanteTratamentoComponent } from './tratamento/acompanhante/acompanhante-tratamento.component';
+import { EnderecoTratamentoComponent } from './tratamento/endereco/endereco-tratamento.component';
+import { PacienteTratamentoComponent } from './tratamento/paciente/paciente-tratamento.component';
+import { ProfissionalTratamentoComponent } from './tratamento/profissional/profissional-tratamento.component';
+import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
+import { TratamentoComponent } from './tratamento/tratamento.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -55,7 +61,13 @@ FullCalendarModule.registerPlugins([
     FormContatoComponent,
     ModalDetalheAtendimentoComponent,
     ModalCriarTratamentoComponent,
-    ProntuarioComponent
+    ProntuarioComponent,
+    TratamentoComponent,
+    SolicitacaoTratamentoComponent,
+    PacienteTratamentoComponent,
+    EnderecoTratamentoComponent,
+    AcompanhanteTratamentoComponent,
+    ProfissionalTratamentoComponent
   ],
   imports: [
     CommonModule,

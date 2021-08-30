@@ -64,4 +64,12 @@ export class PacienteService {
         })
       );
   }
+
+  avaliaPaciente(paciente: ResponseTemplateInterface) {
+    if (paciente) {
+      return paciente.data;
+    } else {
+      return null;
+    }
+  }
 }
