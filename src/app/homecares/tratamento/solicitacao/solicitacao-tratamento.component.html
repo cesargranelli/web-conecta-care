@@ -10,31 +10,29 @@
               </h3>
             </div>
             <div class="card-body">
-              <div class="tab-content">
-                <app-paciente-tratamento [tratamentoForm]="tratamentoForm" (eventoPaciente)="eventoPaciente($event)">
-                </app-paciente-tratamento>
-                <app-endereco-tratamento [endereco]="paciente?.endereco"></app-endereco-tratamento>
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <label class="col-lg-2 col-md-2 col-form-label" for="descricaoTratamento">Descrição do
-                        tratamento</label>
-                      <div class="form-group col-lg-9 col-md-9">
-                        <textarea class="form-control" formControlName="descricaoTratamento" type="text"></textarea>
-                      </div>
+              <app-paciente-tratamento [tratamentoForm]="tratamentoForm" (eventoPaciente)="eventoPaciente($event)">
+              </app-paciente-tratamento>
+              <app-endereco-tratamento [endereco]="paciente?.endereco"></app-endereco-tratamento>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <label class="col-lg-2 col-md-2 col-form-label" for="descricaoTratamento">Descrição do
+                      tratamento</label>
+                    <div class="form-group col-lg-9 col-md-9">
+                      <textarea class="form-control" formControlName="descricaoTratamento" type="text"></textarea>
                     </div>
                   </div>
                 </div>
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <label class="col-lg-9 col-md-9 col-form-label" for="valorDeslocamento">
-                        Para esse tratamento será pago por KM de deslocamento o valor de R$
-                      </label>
-                      <div class="form-group col-lg-2 col-md-2">
-                        <input class="form-control" formControlName="valorDeslocamento" type="text" mask="separator.2"
-                          thousandSeparator="." separatorLimit="100">
-                      </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <label class="col-lg-9 col-md-9 col-form-label" for="valorDeslocamento">
+                      Para esse tratamento será pago por KM de deslocamento o valor de R$
+                    </label>
+                    <div class="form-group col-lg-2 col-md-2">
+                      <input class="form-control" formControlName="valorDeslocamento" type="text" mask="separator.2"
+                        thousandSeparator="." separatorLimit="100">
                     </div>
                   </div>
                 </div>
@@ -46,9 +44,7 @@
               </h3>
             </div>
             <div class="card-body">
-              <div class="tab-content">
-                <app-acompanhante-tratamento [tratamentoForm]="tratamentoForm"></app-acompanhante-tratamento>
-              </div>
+              <app-acompanhante-tratamento [tratamentoForm]="tratamentoForm"></app-acompanhante-tratamento>
             </div>
             <div class="card-header card-header-rose text-center">
               <h3 class="card-title">
@@ -56,10 +52,8 @@
               </h3>
             </div>
             <div class="card-body">
-              <div class="tab-content">
-                <app-profissional-tratamento [tratamentoForm]="tratamentoForm"
-                  (eventoProfissional)="eventoProfissional($event)"></app-profissional-tratamento>
-              </div>
+              <app-profissional-tratamento [tratamentoForm]="tratamentoForm"
+                (eventoProfissional)="eventoProfissional($event)"></app-profissional-tratamento>
               <span class="bmd-form-group is-filled">
                 <button [disabled]="!tratamentoForm.valid" class="btn btn-rose" type="submit">Salvar</button>
               </span>

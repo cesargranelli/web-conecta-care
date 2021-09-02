@@ -64,7 +64,9 @@ export class ProfissionalTratamentoComponent implements OnInit {
   }
 
   especialidades(especialidades: Especialidade[]): any {
-    return especialidades?.map(especialidade => especialidade?.nome);
+    if (!!especialidades)
+      return especialidades?.map(especialidade => especialidade?.nome);
+    return '';
   }
 
 }

@@ -1,7 +1,8 @@
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders
+  HttpHeaders,
+  HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ResponseTemplateInterface } from '../../services/response/responseTemplate.interface';
 import { Prontuario } from '../classes/prontuario.class';
+import { TratamentoAdicionar } from '../classes/tratamento-adicionar.class';
 
 @Injectable({
   providedIn: 'root',
@@ -53,4 +55,9 @@ export class TratamentoService {
         })
       );
   }
+
+  adicionarTratamento(payload: TratamentoAdicionar): Observable<HttpResponse<any>> {
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+  }
+
 }

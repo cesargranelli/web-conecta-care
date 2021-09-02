@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
 import { map } from 'rxjs/internal/operators/map';
 import { Genero } from 'src/app/classes/genero.class';
@@ -39,10 +39,19 @@ export class AcompanhanteTratamentoComponent implements OnInit {
       )
     ).subscribe(null, null, () => {
       setTimeout(() => {
-        jQuery('select[id=\'parentesco\']').selectpicker('refresh');
-        jQuery('select[id=\'genero\']').selectpicker('refresh');
+        jQuery('select').selectpicker('refresh');
+        jQuery('.datetimepicker').datetimepicker({
+          locale: 'pt-BR',
+          format: 'L'
+        });
         this.loading.emitChange(false);
       });
+    });
+  }
+
+  dateChange(control: FormControl, name: string) {
+    jQuery(`#${name}`).on('dp.change', function () {
+      control.setValue(jQuery('#' + name)[0].value);
     });
   }
 
