@@ -10,14 +10,14 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-acompanhante-tratamento',
-  templateUrl: './acompanhante-tratamento.component.html',
-  styleUrls: ['./acompanhante-tratamento.component.css']
+  selector: 'app-tratamento-atendimento',
+  templateUrl: './tratamento-atendimento.component.html',
+  styleUrls: ['./tratamento-atendimento.component.css']
 })
-export class AcompanhanteTratamentoComponent implements OnInit {
+export class TratamentoAtendimentoComponent implements OnInit {
 
   @Input()
-  tratamentoForm: FormGroup;
+  tratamentoAbertoForm: FormGroup;
 
   generos: Genero[];
   parentescos: Parentesco[];

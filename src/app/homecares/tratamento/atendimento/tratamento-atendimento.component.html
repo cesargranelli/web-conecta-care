@@ -1,0 +1,56 @@
+<div [formGroup]="tratamentoAbertoForm" class="card">
+    <!-- <div class="card-body">
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="cpf">CPF</label>
+            <div class="form-group col-lg-4 col-md-4">
+                <input class="form-control" formControlName="cpf" mask="000.000.000-00" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="nomeCompleto">Nome</label>
+            <div class="form-group col-lg-7 col-md-8">
+                <input class="form-control" formControlName="nomeCompleto" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="dataNascimento">Data Nascimento</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control datetimepicker" formControlName="dataNascimento" type="text"
+                    (focus)="dateChange(tratamentoForm.controls?.acompanhante.get('dataNascimento'), 'dataNascimento')"
+                    mask="00/00/0000" id="dataNascimento">
+            </div>
+            <label class="col-lg-2 col-md-3 col-form-label" for="idade">Idade</label>
+            <div class="form-group col-lg-2 col-md-8">
+                <input class="form-control" formControlName="idade" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="parentesco">Grau de Parentesco</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="parentesco"
+                    id="parentesco" title="Parentesco">
+                    <option *ngFor="let parentesco of parentescos" [ngValue]="parentesco">
+                        {{ parentesco.descricao | uppercase }}</option>
+                </select>
+            </div>
+            <label class="col-lg-1 col-md-3 col-form-label" for="genero">Sexo</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="genero"
+                    id="genero" title="Gênero">
+                    <option *ngFor="let genero of generos" [ngValue]="genero">
+                        {{ genero.descricao | uppercase }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" formGroupName="contato">
+            <label class="col-lg-2 col-md-3 col-form-label" for="telefoneResponsavel">Telefone</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <input class="form-control" formControlName="telefoneResponsavel" type="tel" mask="00 00000-0000">
+            </div>
+            <label class="col-lg-1 col-md-3 col-form-label" for="telefoneCelular">Celular</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <input class="form-control" formControlName="telefoneCelular" type="tel" mask="00 00000-0000">
+            </div>
+        </div>
+    </div> -->
+</div>

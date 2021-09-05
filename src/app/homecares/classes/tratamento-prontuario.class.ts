@@ -2,7 +2,7 @@ import { ProntuarioAtendimento as AtendimentoProntuario } from './atendimento-pr
 import { ProfissionalProntuario } from './profissional-prontuario.class';
 import { SituacaoProntuario } from './situacao-prontuario.class';
 
-export class Tratamento {
+export class TratamentoProntuario {
   id: number;
   descricao: string;
   profissional: ProfissionalProntuario;

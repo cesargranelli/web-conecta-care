@@ -24,7 +24,7 @@ export class TratamentoService {
   constructor(
     private _http: HttpClient,
     private loadingService: SharedLoadingService
-  ) {}
+  ) { }
 
   consultarProntuario(
     idPaciente: number,
@@ -41,7 +41,7 @@ export class TratamentoService {
         headers: httpOptions.headers,
       })
       .pipe(
-        map((prontuario: ResponseTemplateInterface) => {          
+        map((prontuario: ResponseTemplateInterface) => {
           return prontuario.data;
         }),
         catchError(async (httpResponse: HttpErrorResponse) => {
@@ -57,7 +57,20 @@ export class TratamentoService {
   }
 
   adicionarTratamento(payload: TratamentoAdicionar): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
+  }
+
+  consultarTratamentoEmAberto(pacienteId: string, homeCareId: string): Observable<HttpResponse<any>> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        pacienteId: pacienteId,
+        homeCareId: homeCareId,
+      }),
+    };
+
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/aberto`, {
+      headers: httpOptions.headers, observe: 'response'
+    });
   }
 
 }

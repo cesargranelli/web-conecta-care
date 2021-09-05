@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StatusTratamento } from 'src/app/enums/status-tratamento.enum';
 import { Paciente } from 'src/app/pacientes/classes/paciente.class';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
@@ -9,8 +11,8 @@ import Swal from 'sweetalert2';
 import { ProfissionalAtendimento } from '../../classes/profissional-atendimento.class';
 import { SituacaoTratamento } from '../../classes/situacao-tratamento.class';
 import { TratamentoAdicionar } from '../../classes/tratamento-adicionar.class';
+import { TratamentoStorageService } from '../../services/tratamento-storage.service';
 import { TratamentoService } from '../../services/tratamento.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 declare var jQuery: any;
 
@@ -33,7 +35,10 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private validService: SharedValidService,
     private loading: SharedLoadingService,
-    private tratamentoService: TratamentoService
+    private tratamentoService: TratamentoService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private tratamentoStorageService: TratamentoStorageService
   ) {
     this.tratamentoForm = this.formBuilder.group({
       pacienteCpf: [null, [Validators.required, validCpf(true)]],
@@ -63,33 +68,22 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     this.loading.emitChange(true);
     this.tratamento = this.construirObjetoAdicionarTratamento();
     this.tratamentoService.adicionarTratamento(this.tratamento)
-      .subscribe(response => {
-        Swal.fire({
-          position: 'center',
-          icon: 'info',
-          title: 'Novo tratamento adicionado com sucesso!',
-          showConfirmButton: true,
-        });
-        // TODO: Enviar para tela de consulta do tratamento
+      .subscribe(() => {
+        this.mensagemSwal('info', 'Novo tratamento adicionado com sucesso!')
+          .then(() => this.router.navigate([`../`], { relativeTo: this.activatedRoute }));
         this.loading.emitChange(false);
       }, (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status == 412) {
-          Swal.fire({
-            position: 'center',
-            icon: 'warning',
-            title: errorResponse.error?.data.message,
-            showConfirmButton: true,
-          });
-          // TODO: Enviar para tela de consulta do tratamento
+          this.mensagemSwal('warning', errorResponse.error?.data.message);
+          this.tratamentoService.consultarTratamentoEmAberto(String(this.paciente.id), String(this.validService?.getValid()?.id))
+            .subscribe(response => {
+              this.tratamentoStorageService.tratamentoAberto = response.body?.data;
+              this.router.navigate([`../`], { relativeTo: this.activatedRoute });
+            });
           this.loading.emitChange(false);
           return;
         }
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Falha ao tentar adicionar novo tratamento!',
-          showConfirmButton: true,
-        });
+        this.mensagemSwal('error', 'Falha ao tentar adicionar novo tratamento!');
         this.loading.emitChange(false);
       }, () => this.loading.emitChange(false));
   }
@@ -115,6 +109,15 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     tratamento.homeCareId = this.validService?.getValid()?.id;
     tratamento.situacao = new SituacaoTratamento(null, new Date().toISOString(), StatusTratamento.ABERTO);
     return tratamento;
+  }
+
+  private mensagemSwal(icon: any, title: string) {
+    return Swal.fire({
+      position: 'center',
+      icon: icon,
+      title: title,
+      showConfirmButton: true,
+    });
   }
 
 }

@@ -6,11 +6,11 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-paciente-tratamento',
-  templateUrl: './paciente-tratamento.component.html',
-  styleUrls: ['./paciente-tratamento.component.css']
+  selector: 'app-tratamento-solicitacao-paciente',
+  templateUrl: './tratamento-solicitacao-paciente.component.html',
+  styleUrls: ['./tratamento-solicitacao-paciente.component.css']
 })
-export class PacienteTratamentoComponent implements OnInit {
+export class TratamentoSolicitacaoPacienteComponent implements OnInit {
 
   @Input()
   tratamentoForm: FormGroup;

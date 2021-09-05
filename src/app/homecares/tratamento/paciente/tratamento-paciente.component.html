@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="pacientecCpf">CPF</label>
+            <div class="form-group col-lg-4 col-md-4">
+                <input class="form-control" name="pacientecCpf" type="text"
+                    [value]="paciente?.cpf | mask: '000.000.000-00'" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="nome">Nome</label>
+            <div class="col-lg-7 col-md-8">
+                <input class="form-control" name="nome" type="text"
+                    [value]="paciente?.nome.concat(' ').concat(paciente?.sobrenome)" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="dataNascimento">Data Nascimento</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="dataNascimento" type="text"
+                    [value]="paciente?.dataNascimento | date: 'dd/MM/yyyy'" disabled>
+            </div>
+            <label class="col-lg-2 col-md-3 col-form-label" for="idade">Idade</label>
+            <div class="form-group col-lg-2 col-md-8">
+                <input class="form-control" name="idade" [value]="idade(paciente?.dataNascimento)" type="number"
+                    disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="estadoCivil">Estado Civil</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="estadoCivil" type="text" [value]="paciente?.estadoCivil" disabled>
+            </div>
+            <label class="col-lg-2 col-md-3 col-form-label" for="genero">Sexo</label>
+            <div class="form-group col-lg-2 col-md-8">
+                <input class="form-control" name="genero" type="text" [value]="paciente?.genero" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="celular">Celular</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="celular" type="tel"
+                    [value]="paciente?.contato?.telefoneCelular | mask: '(00) 00000-0000'" disabled>
+            </div>
+            <label class="col-lg-1 col-md-3 col-form-label" for="email">Email</label>
+            <div class="form-group col-lg-5 col-md-8">
+                <input class="form-control" name="email" type="email" [value]="paciente?.contato?.emailResponsavel"
+                    disabled>
+            </div>
+        </div>
+    </div>
+</div>

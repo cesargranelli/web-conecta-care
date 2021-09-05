@@ -4,15 +4,24 @@
       <div class="wizard-container">
         <form [formGroup]="tratamentoForm" (ngSubmit)="onSubmit()" [hidden]="hideForm" class="form-horizontal">
           <div class="card card-wizard active">
+            <div name="principal">
+              <div class="card-header card-header-rose text-center">
+                <i class="material-icons">check_box</i>
+                <h3 class="card-title">
+                  Novo Tratamento
+                </h3>
+              </div>
+              <div class="card-body"></div>
+            </div>
             <div class="card-header card-header-rose text-center">
               <h3 class="card-title">
                 Informações Gerais
               </h3>
             </div>
             <div class="card-body">
-              <app-paciente-tratamento [tratamentoForm]="tratamentoForm" (eventoPaciente)="eventoPaciente($event)">
-              </app-paciente-tratamento>
-              <app-endereco-tratamento [endereco]="paciente?.endereco"></app-endereco-tratamento>
+              <app-tratamento-solicitacao-paciente [tratamentoForm]="tratamentoForm" (eventoPaciente)="eventoPaciente($event)">
+              </app-tratamento-solicitacao-paciente>
+              <app-tratamento-solicitacao-endereco [endereco]="paciente?.endereco"></app-tratamento-solicitacao-endereco>
               <div class="card">
                 <div class="card-body">
                   <div class="row">
@@ -44,7 +53,7 @@
               </h3>
             </div>
             <div class="card-body">
-              <app-acompanhante-tratamento [tratamentoForm]="tratamentoForm"></app-acompanhante-tratamento>
+              <app-tratamento-solicitacao-acompanhante [tratamentoForm]="tratamentoForm"></app-tratamento-solicitacao-acompanhante>
             </div>
             <div class="card-header card-header-rose text-center">
               <h3 class="card-title">
@@ -52,8 +61,8 @@
               </h3>
             </div>
             <div class="card-body">
-              <app-profissional-tratamento [tratamentoForm]="tratamentoForm"
-                (eventoProfissional)="eventoProfissional($event)"></app-profissional-tratamento>
+              <app-tratamento-solicitacao-profissional [tratamentoForm]="tratamentoForm"
+                (eventoProfissional)="eventoProfissional($event)"></app-tratamento-solicitacao-profissional>
               <span class="bmd-form-group is-filled">
                 <button [disabled]="!tratamentoForm.valid" class="btn btn-rose" type="submit">Salvar</button>
               </span>

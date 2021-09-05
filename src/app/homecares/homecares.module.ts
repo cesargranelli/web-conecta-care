@@ -29,10 +29,15 @@ import { ModalCriarTratamentoComponent } from './shared/components/modal/criar-t
 import { ModalDetalheAtendimentoComponent } from './shared/components/modal/detalhe-atendimento/modal-detalhe-atendimento.component';
 import { ProntuarioComponent } from './shared/components/prontuario/prontuario.component';
 import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
-import { AcompanhanteTratamentoComponent } from './tratamento/acompanhante/acompanhante-tratamento.component';
-import { EnderecoTratamentoComponent } from './tratamento/endereco/endereco-tratamento.component';
-import { PacienteTratamentoComponent } from './tratamento/paciente/paciente-tratamento.component';
-import { ProfissionalTratamentoComponent } from './tratamento/profissional/profissional-tratamento.component';
+import { TratamentoAcompanhanteComponent } from './tratamento/acompanhante/tratamento-acompanhante.component';
+import { TratamentoAtendimentoComponent } from './tratamento/atendimento/tratamento-atendimento.component';
+import { TratamentoEnderecoComponent } from './tratamento/endereco/tratamento-endereco.component';
+import { TratamentoPacienteComponent } from './tratamento/paciente/tratamento-paciente.component';
+import { TratamentoProfissionalComponent } from './tratamento/profissional/tratamento-profissional.component';
+import { TratamentoSolicitacaoAcompanhanteComponent } from './tratamento/solicitacao/acompanhante/tratamento-solicitacao-acompanhante.component';
+import { TratamentoSolicitacaoEnderecoComponent } from './tratamento/solicitacao/endereco/tratamento-solicitacao-endereco.component';
+import { TratamentoSolicitacaoPacienteComponent } from './tratamento/solicitacao/paciente/tratamento-solicitacao-paciente.component';
+import { TratamentoSolicitacaoProfissionalComponent } from './tratamento/solicitacao/profissional/tratamento-solicitacao-profissional.component';
 import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
 import { TratamentoComponent } from './tratamento/tratamento.component';
 
@@ -63,11 +68,16 @@ FullCalendarModule.registerPlugins([
     ModalCriarTratamentoComponent,
     ProntuarioComponent,
     TratamentoComponent,
+    TratamentoPacienteComponent,
+    TratamentoEnderecoComponent,
+    TratamentoAcompanhanteComponent,
+    TratamentoProfissionalComponent,
+    TratamentoAtendimentoComponent,
     SolicitacaoTratamentoComponent,
-    PacienteTratamentoComponent,
-    EnderecoTratamentoComponent,
-    AcompanhanteTratamentoComponent,
-    ProfissionalTratamentoComponent
+    TratamentoSolicitacaoPacienteComponent,
+    TratamentoSolicitacaoEnderecoComponent,
+    TratamentoSolicitacaoAcompanhanteComponent,
+    TratamentoSolicitacaoProfissionalComponent
   ],
   imports: [
     CommonModule,

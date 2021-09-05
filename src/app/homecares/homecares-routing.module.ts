@@ -12,6 +12,7 @@ import { InformacoesLoginComponent } from './dados/login/informacoes-login.compo
 import { HomeCaresComponent } from './homecares.component';
 import { ProntuarioComponent } from './shared/components/prontuario/prontuario.component';
 import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
+import { TratamentoComponent } from './tratamento/tratamento.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,7 @@ const routes: Routes = [
           {
             path: 'tratamento',
             children: [
+              { path: '', component: TratamentoComponent },
               { path: 'solicitacao', component: SolicitacaoTratamentoComponent }
             ],
           },
@@ -60,4 +62,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomeCaresRoutingModule {}
+export class HomeCaresRoutingModule { }
