@@ -70,22 +70,26 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     this.tratamentoService.adicionarTratamento(this.tratamento)
       .subscribe(() => {
         this.mensagemSwal('info', 'Novo tratamento adicionado com sucesso!')
-          .then(() => this.router.navigate([`../`], { relativeTo: this.activatedRoute }));
+          .then(() => this.buscarTratamentoEmAberto());
         this.loading.emitChange(false);
       }, (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status == 412) {
           this.mensagemSwal('warning', errorResponse.error?.data.message);
-          this.tratamentoService.consultarTratamentoEmAberto(String(this.paciente.id), String(this.validService?.getValid()?.id))
-            .subscribe(response => {
-              this.tratamentoStorageService.tratamentoAberto = response.body?.data;
-              this.router.navigate([`../`], { relativeTo: this.activatedRoute });
-            });
+          this.buscarTratamentoEmAberto();
           this.loading.emitChange(false);
           return;
         }
         this.mensagemSwal('error', 'Falha ao tentar adicionar novo tratamento!');
         this.loading.emitChange(false);
       }, () => this.loading.emitChange(false));
+  }
+
+  buscarTratamentoEmAberto() {
+    this.tratamentoService.consultarTratamentoEmAberto(String(this.paciente.id), String(this.validService?.getValid()?.id))
+      .subscribe(response => {
+        this.tratamentoStorageService.tratamentoAberto = response.body?.data;
+        this.router.navigate([`../`], { relativeTo: this.activatedRoute });
+      });
   }
 
   eventoPaciente(paciente: Paciente) {
