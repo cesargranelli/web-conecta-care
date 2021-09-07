@@ -40,6 +40,7 @@ import { TratamentoSolicitacaoPacienteComponent } from './tratamento/solicitacao
 import { TratamentoSolicitacaoProfissionalComponent } from './tratamento/solicitacao/profissional/tratamento-solicitacao-profissional.component';
 import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
 import { TratamentoComponent } from './tratamento/tratamento.component';
+import { CardAtendimentosComponent } from './shared/components/card-atendimentos/card-atendimentos.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -77,7 +78,8 @@ FullCalendarModule.registerPlugins([
     TratamentoSolicitacaoPacienteComponent,
     TratamentoSolicitacaoEnderecoComponent,
     TratamentoSolicitacaoAcompanhanteComponent,
-    TratamentoSolicitacaoProfissionalComponent
+    TratamentoSolicitacaoProfissionalComponent,
+    CardAtendimentosComponent
   ],
   imports: [
     CommonModule,

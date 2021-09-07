@@ -155,61 +155,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="card-body">
-                            <div class="card col-md-12">
-                              <div
-                                class="card-header card-header-info text-center"
-                              >
-                                Atendimentos
-                              </div>
-                              <div class="card-body">
-                                <div class="dados-gerais">
-                                  <div class="table-responsive">
-                                    <table class="table">
-                                      <thead>
-                                        <tr>
-                                          <th class="text-center">ID</th>
-                                          <th>Data do Tratamento</th>
-                                          <th>Procedimento</th>
-                                          <th>Medicamentos</th>
-                                          <th>Equipamentos</th>
-                                        </tr>
-                                      </thead>
-                                      <ng-container
-                                        *ngFor="
-                                          let atendimento of tratamento.atendimento
-                                        "
-                                      >
-                                        <tbody>
-                                          <tr>
-                                            <td class="text-center">
-                                              {{ atendimento.id }}
-                                            </td>
-                                            <td>{{ atendimento.data }}</td>
-                                            <td>
-                                              {{
-                                                atendimento.descricaoProcedimento
-                                              }}
-                                            </td>
-                                            <td>
-                                              {{
-                                                atendimento.descricaoMedicamento
-                                              }}
-                                            </td>
-                                            <td>
-                                              {{
-                                                atendimento.descricaoEquipamento
-                                              }}
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                      </ng-container>
-                                    </table>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          <app-card-atendimentos [atendimentos]="tratamento.atendimentos"></app-card-atendimentos>
                           <div class="row">
                             <div class="col">
                               <div class="card col-md-12">

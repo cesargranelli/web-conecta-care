@@ -1,4 +1,4 @@
-export class ProntuarioAtendimento {
+export class Atendimento {
   id: number;
   data: Date;
   hora: Date;
