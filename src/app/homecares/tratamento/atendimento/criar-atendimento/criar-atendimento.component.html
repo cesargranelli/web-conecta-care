@@ -5,19 +5,21 @@
         <div class="card card-wizard active">
           <div name="principal">
             <div class="card-header card-header-rose text-center">
-              <i class="material-icons">check_box</i>
-              <h3 class="card-title">Tratamento em Andamento</h3>
+              <i class="material-icons">info</i>
+              <h3 class="card-title">Atendimentos</h3>
             </div>
             <div class="card-body">
               <div class="row">
-                <label class="col-lg-2 col-md-3 col-form-label" for="dataHoraAtendimento"
+                <label
+                  class="col-lg-2 col-md-3 col-form-label"
+                  for="dataHoraAtendimento"
                   >Data Hora do Atendimento:
                 </label>
                 <div class="form-group col-lg-3 col-md-8">
                   <input
-                    class="form-control"
+                    class="form-control datetimepicker"
                     name="dataHoraAtendimento"
-                    type="text"                    
+                    type="text"
                   />
                 </div>
                 <label
@@ -29,19 +31,26 @@
                   <input
                     class="form-control"
                     name="plantaoResponsavelHome"
-                    type="text"                    
+                    type="text"
                   />
                 </div>
               </div>
               <div class="row">
-                <label class="col-lg-2 col-md-3 col-form-label" for="cpfProfissional"
+                <label
+                  class="col-lg-2 col-md-3 col-form-label"
+                  for="cpfProfissional"
                   >Cpf Profissional:
                 </label>
                 <div class="form-group col-lg-3 col-md-8">
                   <input
+                    #cpfProfissional
+                    autocomplete="off"
                     class="form-control"
+                    formControlName="cpf"
+                    id="cpfProfissional"
+                    mask="000.000.000-00"
                     name="cpfProfissional"
-                    type="text"                    
+                    type="text"
                   />
                 </div>
                 <label
@@ -53,12 +62,14 @@
                   <input
                     class="form-control"
                     name="contatoPlantaoHome"
-                    type="text"                    
+                    type="text"
                   />
                 </div>
               </div>
               <div class="row">
-                <label class="col-lg-2 col-md-3 col-form-label" for="nomeProfissional"
+                <label
+                  class="col-lg-2 col-md-3 col-form-label"
+                  for="nomeProfissional"
                   >Nome Profissional:
                 </label>
                 <div class="form-group col-lg-3 col-md-8">
@@ -66,7 +77,6 @@
                     class="form-control"
                     name="nomeProfissional"
                     type="text"
-                    
                   />
                 </div>
                 <label
@@ -79,12 +89,13 @@
                     class="form-control"
                     name="responsavelPaciente"
                     type="text"
-                    
                   />
                 </div>
               </div>
               <div class="row">
-                <label class="col-lg-2 col-md-3 col-form-label" for="logradouroAtendimento"
+                <label
+                  class="col-lg-2 col-md-3 col-form-label"
+                  for="logradouroAtendimento"
                   >Logradouro Atendimento:
                 </label>
                 <div class="form-group col-lg-3 col-md-8">
@@ -92,7 +103,6 @@
                     class="form-control"
                     name="logradouroAtendimento"
                     type="text"
-                    
                   />
                 </div>
                 <label
@@ -105,12 +115,13 @@
                     class="form-control"
                     name="contatoResponsavelPaciente"
                     type="text"
-                    
                   />
                 </div>
               </div>
               <div class="row">
-                <label class="col-lg-2 col-md-3 col-form-label" for="protocoloAtendimento"
+                <label
+                  class="col-lg-2 col-md-3 col-form-label"
+                  for="protocoloAtendimento"
                   >Protocolo Atendimento:
                 </label>
                 <div class="form-group col-lg-3 col-md-8">
@@ -118,13 +129,14 @@
                     class="form-control"
                     name="protocoloAtendimento"
                     type="text"
-                    
                   />
                 </div>
               </div>
               <div class="row p-3"></div>
               <div class="row">
-                <label class="col-lg-2 col-md-3 col-form-label" for="valorAtendimentoHomecare"
+                <label
+                  class="col-lg-2 col-md-3 col-form-label"
+                  for="valorAtendimentoHomecare"
                   >#Valor Atendimento Homecare:
                 </label>
                 <div class="form-group col-lg-3 col-md-8">
@@ -132,12 +144,13 @@
                     class="form-control"
                     name="valorAtendimentoHomecare"
                     type="text"
-                    
                   />
                 </div>
               </div>
               <div class="row">
-                <label class="col-lg-2 col-md-3 col-form-label" for="valorAtendimentoCliente"
+                <label
+                  class="col-lg-2 col-md-3 col-form-label"
+                  for="valorAtendimentoCliente"
                   >#Valor Atendimento Cliente:
                 </label>
                 <div class="form-group col-lg-3 col-md-8">
@@ -145,12 +158,13 @@
                     class="form-control"
                     name="valorAtendimentoCliente"
                     type="text"
-                    
                   />
                 </div>
               </div>
               <div class="row">
-                <label class="col-lg-2 col-md-3 col-form-label" for="valorAtendimentoProfissional"
+                <label
+                  class="col-lg-2 col-md-3 col-form-label"
+                  for="valorAtendimentoProfissional"
                   >#Valor Atendimento Profissional:
                 </label>
                 <div class="form-group col-lg-3 col-md-8">
@@ -158,12 +172,13 @@
                     class="form-control"
                     name="valorAtendimentoProfissional"
                     type="text"
-                    
                   />
                 </div>
               </div>
               <div class="row">
-                <label class="col-lg-2 col-md-3 col-form-label" for="valorAjudaCusto"
+                <label
+                  class="col-lg-2 col-md-3 col-form-label"
+                  for="valorAjudaCusto"
                   >#Valor Ajuda de custo:
                 </label>
                 <div class="form-group col-lg-3 col-md-8">
@@ -171,7 +186,6 @@
                     class="form-control"
                     name="valorAjudaCusto"
                     type="text"
-                    
                   />
                 </div>
               </div>
@@ -184,13 +198,12 @@
                 <label class="col-lg-2 col-md-3 col-form-label" for="observacao"
                   >Observação:
                 </label>
-                <div class="form-group col-lg-3 col-md-8">
-                  <input
+                <div class="form-group col-lg-8 col-md-8">
+                  <textarea
                     class="form-control"
-                    name="observacao"
+                    formControlName="observacao"
                     type="text"
-                    
-                  />
+                  ></textarea>
                 </div>
               </div>
               <div class="row">
