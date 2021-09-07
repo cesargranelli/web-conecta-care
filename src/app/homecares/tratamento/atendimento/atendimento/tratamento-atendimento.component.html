@@ -1,0 +1,36 @@
+<div class="card-body">
+  <div class="dados-gerais">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center">ID</th>
+            <th>Data do Tratamento</th>
+            <th>Procedimento</th>
+            <th>Medicamentos</th>
+            <th>Equipamentos</th>
+          </tr>
+        </thead>
+        <ng-container *ngFor="let atendimento of atendimentos">
+          <tbody>
+            <tr>
+              <td class="text-center">
+                {{ atendimento.id }}
+              </td>
+              <td>{{ atendimento.data }}</td>
+              <td>
+                {{ atendimento.descricaoProcedimento }}
+              </td>
+              <td>
+                {{ atendimento.descricaoMedicamento }}
+              </td>
+              <td>
+                {{ atendimento.descricaoEquipamento }}
+              </td>
+            </tr>
+          </tbody>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</div>
