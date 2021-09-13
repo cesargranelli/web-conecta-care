@@ -1,9 +1,9 @@
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
-import {SharedTokenService} from 'src/app/shared/services/shared-token.service';
-import {environment} from '../../environments/environment';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -17,9 +17,7 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     return next.handle(request).pipe(catchError(error => {
-      if (error instanceof HttpErrorResponse && error.status === 401) {
-        return this.handle401Error(request, next);
-      } else {
+      if (error instanceof HttpErrorResponse) {
         return throwError(error);
       }
     }));
@@ -32,9 +30,5 @@ export class TokenInterceptor implements HttpInterceptor {
         'Authorization': `Bearer ${token}`
       }
     });
-  }
-
-  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    return next.handle(this.addToken(request, this._tokenService.getToken()));
   }
 }
