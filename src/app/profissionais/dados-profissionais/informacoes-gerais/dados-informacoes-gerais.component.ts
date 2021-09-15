@@ -34,7 +34,7 @@ export class DadosInformacoesGeraisComponent implements OnInit {
   public validationHas: InputValidationHas = new InputValidationHas();
   public showForm: boolean = true;
   public profissional: Profissional;
-  
+
   public fotoCtps: any;
   public imagemFotoCtps: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputCtps: string = 'fileinput-new';
@@ -44,7 +44,7 @@ export class DadosInformacoesGeraisComponent implements OnInit {
   public imagemFotoProfissional: string = '../../../../../assets/img/Headshot-Placeholder-1.png';
   public fileInputProfissional: string = 'fileinput-new';
   public fileProfissional: File;
-  
+
   public fotoRgFrente: any;
   public imagemFotoRgFrente: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputRgFrente: string = 'fileinput-new';
@@ -59,7 +59,7 @@ export class DadosInformacoesGeraisComponent implements OnInit {
   public imagemFotoAssinatura: string = '../../../../../assets/img/default-paisagem.png';
   public fileInputAssinatura: string = 'fileinput-new';
   public fileAssinatura: File;
-  
+
   private _dadosLocalStorage: Valid;
   private _dataAtual: Date;
 
@@ -87,8 +87,8 @@ export class DadosInformacoesGeraisComponent implements OnInit {
       tipoEmpresa: [null, Validators.required],
       estadoCivil: [null, Validators.required],
       cnpj: [null, [validCnpj(false)]],
-      ctps: [null, Validators.required],
-      ctpsSerie: [null, Validators.required],
+      ctps: [null, Validators.required, Validators.maxLength(11)],
+      ctpsSerie: [null, Validators.required, Validators.maxLength(10)],
       fotoCtps: [null, Validators.required],
       fotoProfissional: [null, Validators.required],
       fotoRgFrente: [null, Validators.required],
