@@ -46,15 +46,15 @@ export class SolicitacaoTratamentoComponent implements OnInit {
       descricaoTratamento: [null, [Validators.required, Validators.maxLength(100)]],
       valorDeslocamento: [null],
       acompanhante: this.formBuilder.group({
-        cpf: [null, [Validators.maxLength(11)]],
-        nomeCompleto: [null, [Validators.maxLength(100)]],
-        dataNascimento: [null, [Validators.minLength(10)]],
-        idade: [null, [Validators.maxLength(3)]],
+        cpf: [null],
+        nomeCompleto: [null],
+        dataNascimento: [null],
+        idade: [null],
         parentesco: [null],
         genero: [null],
         contato: this.formBuilder.group({
-          telefoneResponsavel: [null, [Validators.minLength(11)]],
-          telefoneCelular: [null, [Validators.minLength(11)]]
+          telefoneResponsavel: [null],
+          telefoneCelular: [null]
         })
       })
     });
