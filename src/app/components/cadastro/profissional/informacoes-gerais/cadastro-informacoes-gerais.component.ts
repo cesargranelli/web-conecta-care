@@ -86,7 +86,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
       tipoEmpresa: [null, [Validators.required]],
       estadoCivil: [null, [Validators.required]],
       cnpj: [null, [validCnpj(false)]],
-      ctps: [null, [Validators.required]],
+      ctps: [null, [Validators.required, Validators.maxLength(11)]],
       ctpsSerie: [null, [Validators.required]],
       fotoCtps: [null, [Validators.required]],
       fotoProfissional: [null, [Validators.required]],

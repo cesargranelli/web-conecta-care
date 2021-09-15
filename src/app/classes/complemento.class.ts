@@ -5,7 +5,7 @@ export class Complemento {
   zonaEleitoral: string;
   secaoEleitoral: string;
   numeroHabilitacao: number;
-  dataValidadeHabilitacao: DataValidadeHabilitacao;
+  dataValidadeHabilitacao: string;
   categoriaCNH: CategoriaCNH;
   fotoCNHFrente: any;
   fotoCNHVerso: any;
