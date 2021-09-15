@@ -67,9 +67,12 @@
               <app-tratamento-solicitacao-profissional [tratamentoForm]="tratamentoForm"
                 (eventoProfissional)="eventoProfissional($event)"></app-tratamento-solicitacao-profissional>
               <span class="bmd-form-group is-filled">
-                <button
-                  [disabled]="!(tratamentoForm.controls.pacienteCpf.valid && tratamentoForm.controls.profissionalCpf.valid && tratamentoForm.controls.descricaoTratamento.valid && tratamentoForm.controls.valorDeslocamento.valid)"
-                  class="btn btn-rose" type="submit">Salvar</button>
+                <button [disabled]="!(tratamentoForm.controls.pacienteCpf.valid && 
+                    tratamentoForm.controls.profissionalCpf.valid && 
+                    tratamentoForm.controls.descricaoTratamento.valid && 
+                    tratamentoForm.controls.valorDeslocamento.valid && 
+                    tratamentoForm.controls.pacienteId.valid && 
+                    tratamentoForm.controls.profissionalId.valid)" class="btn btn-rose" type="submit">Salvar</button>
               </span>
             </div>
           </div>

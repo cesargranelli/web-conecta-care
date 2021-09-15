@@ -56,7 +56,9 @@ export class SolicitacaoTratamentoComponent implements OnInit {
           telefoneResponsavel: [null],
           telefoneCelular: [null]
         })
-      })
+      }),
+      profissionalId: [null, Validators.required],
+      pacienteId: [null, Validators.required]
     });
   }
 
@@ -94,10 +96,12 @@ export class SolicitacaoTratamentoComponent implements OnInit {
 
   eventoPaciente(paciente: Paciente) {
     this.paciente = paciente;
+    this.tratamentoForm.controls.pacienteId.setValue(this.paciente?.id);
   }
 
   eventoProfissional(profissional: ProfissionalAtendimento) {
     this.profissional = profissional;
+    this.tratamentoForm.controls.profissionalId.setValue(this.profissional.id);
   }
 
   construirObjetoAdicionarTratamento(): TratamentoAdicionar {
