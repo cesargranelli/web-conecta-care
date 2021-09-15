@@ -1,4 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+
+  HttpParams
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,7 +17,7 @@ import { environment } from 'src/environments/environment';
 export class PacienteService {
   private endpoint: string = `${environment.apiConnecta}/api/v1/paciente`;
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
 
   consultarPorNome(nome: string): Observable<Paciente> {
     return this._http
@@ -22,9 +26,8 @@ export class PacienteService {
       })
       .pipe(
         map((paciente: ResponseTemplateInterface) => {
-          return paciente.data;
-        })
-      );
+          return this.avaliaPaciente(paciente);
+        }));
   }
 
   consultarPorDocumento(documento: string): Observable<Paciente> {
@@ -34,8 +37,15 @@ export class PacienteService {
       })
       .pipe(
         map((paciente: ResponseTemplateInterface) => {
-          return paciente.data;
-        })
-      );
+          return this.avaliaPaciente(paciente);
+        }));
+  }
+
+  avaliaPaciente(paciente: ResponseTemplateInterface) {
+    if (paciente) {
+      return paciente.data;
+    } else {
+      return null;
+    }
   }
 }

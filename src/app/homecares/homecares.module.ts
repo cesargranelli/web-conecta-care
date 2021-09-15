@@ -21,20 +21,33 @@ import { InformacoesHomecareComponent } from './dados/homecare/informacoes-homec
 import { InformacoesLoginComponent } from './dados/login/informacoes-login.component';
 import { HomeCaresRoutingModule } from './homecares-routing.module';
 import { HomeCaresComponent } from './homecares.component';
+import { CardAtendimentosComponent } from './shared/components/card-atendimentos/card-atendimentos.component';
 import { CardVerDadosComponent } from './shared/components/card-ver-dados/card-ver-dados.component';
 import { FormContatoComponent } from './shared/components/forms/contato/form-contato.component';
 import { FormEnderecoComponent } from './shared/components/forms/endereco/form-endereco.component';
 import { FormHomeCareComponent } from './shared/components/forms/homecare/form-homecare.component';
-import { ModalDetalheAtendimentoComponent } from './shared/components/modal/detalhe-atendimento/modal-detalhe-atendimento.component';
-import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
 import { ModalCriarTratamentoComponent } from './shared/components/modal/criar-tratamento/modal-criar-tratamento.component';
+import { ModalDetalheAtendimentoComponent } from './shared/components/modal/detalhe-atendimento/modal-detalhe-atendimento.component';
 import { ProntuarioComponent } from './shared/components/prontuario/prontuario.component';
+import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
+import { TratamentoAcompanhanteComponent } from './tratamento/acompanhante/tratamento-acompanhante.component';
+import { TratamentoAtendimentoComponent } from './tratamento/atendimento/atendimento/tratamento-atendimento.component';
+import { CriarAtendimentoComponent } from './tratamento/atendimento/criar-atendimento/criar-atendimento.component';
+import { TratamentoEnderecoComponent } from './tratamento/endereco/tratamento-endereco.component';
+import { TratamentoPacienteComponent } from './tratamento/paciente/tratamento-paciente.component';
+import { TratamentoProfissionalComponent } from './tratamento/profissional/tratamento-profissional.component';
+import { TratamentoSolicitacaoAcompanhanteComponent } from './tratamento/solicitacao/acompanhante/tratamento-solicitacao-acompanhante.component';
+import { TratamentoSolicitacaoEnderecoComponent } from './tratamento/solicitacao/endereco/tratamento-solicitacao-endereco.component';
+import { TratamentoSolicitacaoPacienteComponent } from './tratamento/solicitacao/paciente/tratamento-solicitacao-paciente.component';
+import { TratamentoSolicitacaoProfissionalComponent } from './tratamento/solicitacao/profissional/tratamento-solicitacao-profissional.component';
+import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
+import { TratamentoComponent } from './tratamento/tratamento.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
   listPlugin,
-  interactionPlugin
+  interactionPlugin,
 ]);
 
 @NgModule({
@@ -55,7 +68,20 @@ FullCalendarModule.registerPlugins([
     FormContatoComponent,
     ModalDetalheAtendimentoComponent,
     ModalCriarTratamentoComponent,
-    ProntuarioComponent
+    ProntuarioComponent,
+    TratamentoComponent,
+    TratamentoPacienteComponent,
+    TratamentoEnderecoComponent,
+    TratamentoAcompanhanteComponent,
+    TratamentoProfissionalComponent,
+    TratamentoAtendimentoComponent,
+    SolicitacaoTratamentoComponent,
+    TratamentoSolicitacaoPacienteComponent,
+    TratamentoSolicitacaoEnderecoComponent,
+    TratamentoSolicitacaoAcompanhanteComponent,
+    TratamentoSolicitacaoProfissionalComponent,
+    CardAtendimentosComponent,
+    CriarAtendimentoComponent,
   ],
   imports: [
     CommonModule,
@@ -63,23 +89,20 @@ FullCalendarModule.registerPlugins([
     HomeCaresRoutingModule,
     NgxMaskModule,
     SharedComponentModule,
-    FullCalendarModule
+    FullCalendarModule,
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class HomeCaresModule {
-}
+export class HomeCaresModule {}

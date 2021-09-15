@@ -11,6 +11,9 @@ import { InformacoesHomecareComponent } from './dados/homecare/informacoes-homec
 import { InformacoesLoginComponent } from './dados/login/informacoes-login.component';
 import { HomeCaresComponent } from './homecares.component';
 import { ProntuarioComponent } from './shared/components/prontuario/prontuario.component';
+import { CriarAtendimentoComponent } from './tratamento/atendimento/criar-atendimento/criar-atendimento.component';
+import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
+import { TratamentoComponent } from './tratamento/tratamento.component';
 
 const routes: Routes = [
   {
@@ -42,6 +45,20 @@ const routes: Routes = [
           {
             path: 'prontuario',
             children: [{ path: ':id', component: ProntuarioComponent }],
+          },
+          {
+            path: 'tratamento',
+            children: [
+              { path: '', component: TratamentoComponent },
+              {
+                path: 'novo-atendimento',
+                component: CriarAtendimentoComponent,
+              },
+              {
+                path: 'solicitacao',
+                component: SolicitacaoTratamentoComponent,
+              },
+            ],
           },
         ],
       },

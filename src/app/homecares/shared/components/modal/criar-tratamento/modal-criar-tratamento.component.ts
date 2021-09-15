@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PacienteService } from 'src/app/homecares/services/paciente.service';
-import { ActivatedRoute } from '@angular/router'
+import { Paciente } from 'src/app/pacientes/classes/paciente.class';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
@@ -23,7 +25,8 @@ export class ModalCriarTratamentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private pacienteService: PacienteService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private loading: SharedLoadingService
   ) {
     this.criarTratamentoForm = this.formBuilder.group({
       input: [null],
@@ -48,22 +51,43 @@ export class ModalCriarTratamentoComponent implements OnInit {
   }
 
   procurar(): void {
+    this.loading.emitChange(true);
     this.userInput = this.criarTratamentoForm.value.input;
-
     switch (this.opcaoSelecionada) {
-      case 1:
-        this.pacienteService
-          .consultarPorDocumento(this.userInput)
-          .subscribe((paciente) => {
-            this.router.navigate([`../prontuario/${paciente.id}`], {relativeTo: this.activatedRoute});
-          });
+      case 0:
+        this.pacienteService.consultarPorNome(this.userInput).subscribe((paciente) => {
+          this.redirecionamento(paciente);
+        }, null);
         break;
-      default:
-        this.pacienteService
-          .consultarPorNome(this.userInput)
-          .subscribe((paciente) => {
-            this.router.navigate([`../prontuario/${paciente.id}`], {relativeTo: this.activatedRoute});
-          });
+      case 1:
+        this.pacienteService.consultarPorDocumento(this.userInput).subscribe((paciente) => {
+          this.redirecionamento(paciente);
+        }, null);
+        break;
     }
   }
+
+  private redirecionamento(paciente: Paciente) {
+    this.loading.emitChange(false);
+    jQuery('.mat-typography.modal-open').removeClass();
+    jQuery('div.modal-backdrop.fade.show').remove();
+    if (paciente) {
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: 'Paciente já possui tratamento em andamento',
+        showConfirmButton: true,
+      });
+      this.router.navigate([`../prontuario/${paciente.id}`], { relativeTo: this.activatedRoute });
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: 'Paciente ainda não possui tratamento em andamento',
+        showConfirmButton: true,
+      });
+      this.router.navigate([`tratamento/solicitacao`], { relativeTo: this.activatedRoute });
+    }
+  }
+
 }

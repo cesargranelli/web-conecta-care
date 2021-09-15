@@ -1,0 +1,51 @@
+<div [formGroup]="tratamentoForm" class="card">
+    <div class="card-body">
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="profissionalCpf">CPF</label>
+            <div class="form-group col-lg-4 col-md-4">
+                <input class="form-control" formControlName="profissionalCpf" mask="000.000.000-00" type="text">
+            </div>
+            <button (click)="pesquisarProfissional(this.tratamentoForm.controls?.profissionalCpf?.value)"
+                [disabled]="!tratamentoForm.controls?.profissionalCpf.valid"
+                [value]="tratamentoForm.controls?.profissionalCpf"
+                class="btn btn-social btn-just-icon btn-round btn-rose" type="button">
+                <i class="material-icons">search</i>
+            </button>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="nomeCompleto">Nome</label>
+            <div class="form-group col-lg-7 col-md-8">
+                <input class="form-control" name="nomeCompleto" type="text"
+                    [value]="profissional?.nome.concat(' ').concat(profissional?.sobrenome)" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="conselho">Conselho</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="conselho" type="text" [value]="profissional?.conselho" disabled>
+            </div>
+            <label class="col-lg-1 col-md-3 col-form-label" for="conselhoNumero">Nº</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="conselhoNumero" type="text" [value]="profissional?.conselhoNumero" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="registro">Registro</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="registro" type="text" [value]="profissional?.registro" disabled>
+            </div>
+            <label class="col-lg-1 col-md-3 col-form-label" for="celular">Celular</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control" name="celular" type="text"
+                    [value]="profissional?.celular | mask: '(00) 00000-0000'" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="especialidade">Área Atendemento</label>
+            <div class="form-group col-lg-9 col-md-8">
+                <input class="form-control" name="especialidade" [value]="especialidades(profissional?.especialidades)"
+                    type=" text" disabled>
+            </div>
+        </div>
+    </div>
+</div>

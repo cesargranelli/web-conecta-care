@@ -1,0 +1,83 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-10 mr-auto ml-auto">
+      <div class="wizard-container">
+        <form [formGroup]="tratamentoForm" (ngSubmit)="onSubmit()" [hidden]="hideForm" class="form-horizontal">
+          <div class="card card-wizard active">
+            <div name="principal">
+              <div class="card-header card-header-rose text-center">
+                <i class="material-icons">check_box</i>
+                <h3 class="card-title">
+                  Novo Tratamento
+                </h3>
+              </div>
+              <div class="card-body"></div>
+            </div>
+            <div class="card-header card-header-rose text-center">
+              <h3 class="card-title">
+                Informações Gerais
+              </h3>
+            </div>
+            <div class="card-body">
+              <app-tratamento-solicitacao-paciente [tratamentoForm]="tratamentoForm"
+                (eventoPaciente)="eventoPaciente($event)">
+              </app-tratamento-solicitacao-paciente>
+              <app-tratamento-solicitacao-endereco [endereco]="paciente?.endereco">
+              </app-tratamento-solicitacao-endereco>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <label class="col-lg-2 col-md-2 col-form-label" for="descricaoTratamento">Descrição do
+                      tratamento</label>
+                    <div class="form-group col-lg-9 col-md-9">
+                      <textarea class="form-control" formControlName="descricaoTratamento" type="text"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <label class="col-lg-9 col-md-9 col-form-label" for="valorDeslocamento">
+                      Para esse tratamento será pago por KM de deslocamento o valor de R$
+                    </label>
+                    <div class="form-group col-lg-2 col-md-2">
+                      <input class="form-control" formControlName="valorDeslocamento" type="text" mask="separator.2"
+                        thousandSeparator="." separatorLimit="100">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-header card-header-rose text-center">
+              <h3 class="card-title">
+                Dados do Acompanhante Responsável
+              </h3>
+            </div>
+            <div class="card-body">
+              <app-tratamento-solicitacao-acompanhante [tratamentoForm]="tratamentoForm">
+              </app-tratamento-solicitacao-acompanhante>
+            </div>
+            <div class="card-header card-header-rose text-center">
+              <h3 class="card-title">
+                Profissional Responsável pelo Tratamento
+              </h3>
+            </div>
+            <div class="card-body">
+              <app-tratamento-solicitacao-profissional [tratamentoForm]="tratamentoForm"
+                (eventoProfissional)="eventoProfissional($event)"></app-tratamento-solicitacao-profissional>
+              <span class="bmd-form-group is-filled">
+                <button [disabled]="!(tratamentoForm.controls.pacienteCpf.valid && 
+                    tratamentoForm.controls.profissionalCpf.valid && 
+                    tratamentoForm.controls.descricaoTratamento.valid && 
+                    tratamentoForm.controls.valorDeslocamento.valid && 
+                    tratamentoForm.controls.pacienteId.valid && 
+                    tratamentoForm.controls.profissionalId.valid)" class="btn btn-rose" type="submit">Salvar</button>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

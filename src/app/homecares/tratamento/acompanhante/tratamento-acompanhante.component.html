@@ -1,0 +1,54 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="acompanhanteCpf">CPF</label>
+            <div class="form-group col-lg-4 col-md-4">
+                <input class="form-control" name="acompanhanteCpf" type="text"
+                    [value]="acompanhante?.cpf | mask: '000.000.000-00'" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="acompanhanteNomeCompleto">Nome</label>
+            <div class="form-group col-lg-7 col-md-8">
+                <input class="form-control" name="acompanhanteNomeCompleto" type="text" [value]="acompanhante?.nome"
+                    disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="acompanhanteDataNascimento">Data Nascimento</label>
+            <div class="form-group col-lg-3 col-md-8">
+                <input class="form-control datetimepicker" name="acompanhanteDataNascimento" type="text"
+                    [value]="acompanhante?.dataNascimento | date: 'dd/MM/yyyy'" disabled>
+            </div>
+            <label class="col-lg-2 col-md-3 col-form-label" for="acompanhanteIdade">Idade</label>
+            <div class="form-group col-lg-2 col-md-8">
+                <input class="form-control" name="acompanhanteIdade" [value]="idade(acompanhante?.dataNascimento)"
+                    type="text" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="acompanhanteParentesco">Grau de Parentesco</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <input class="form-control" name="acompanhanteParentesco" [value]="acompanhante?.parentesco"
+                    type="text" disabled>
+            </div>
+            <label class="col-lg-1 col-md-3 col-form-label" for="acompanhanteGenero">Sexo</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <input class="form-control" name="acompanhanteGenero" [value]="acompanhante?.genero"
+                    type="text" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2 col-md-3 col-form-label" for="acompanhanteTelefoneResponsavel">Telefone</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <input class="form-control" name="acompanhanteTelefoneResponsavel" type="tel"
+                    [value]="acompanhante?.contato.telefoneResponsavel | mask: '00 00000-0000'" disabled>
+            </div>
+            <label class="col-lg-1 col-md-3 col-form-label" for="acompanhanteTelefoneCelular">Celular</label>
+            <div class="form-group col-lg-4 col-md-8">
+                <input class="form-control" name="acompanhanteTelefoneCelular" type="tel"
+                    [value]="acompanhante?.contato.telefoneCelular | mask: '00 00000-0000'" disabled>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,8 @@ export class AuthService {
 
   private readonly endpoint: string = `${environment.apiConnecta}`;
   private readonly usuarioNaoCadastrado: string = 'Ops! Você ainda não possui cadastro na plataforma.';
+  private readonly usuarioOuSenhaInvalidos: string = 'Ops! Usuário ou senha inválidos.';
+  private readonly usuarioNaoCompletouCadastro: string = 'Ops! Usuário pendente de confirmação ou cadastro incompleto.';
   private readonly sistemaIndisponivel: string = 'Ops! Sistema indisponível no momento. Tente novamente em alguns instantes.';
 
   constructor(
@@ -67,7 +69,15 @@ export class AuthService {
   }
 
   handlerError(httpErrorResponse: HttpErrorResponse): string {
-    return httpErrorResponse.error.status == 403 ? this.usuarioNaoCadastrado : this.sistemaIndisponivel;
+    if (httpErrorResponse.error.status == 401) {
+      return this.usuarioOuSenhaInvalidos;
+    } else if (httpErrorResponse.error.status == 403) {
+      return this.usuarioNaoCadastrado;
+    } else if (httpErrorResponse.error.status == 412) {
+      return this.usuarioNaoCompletouCadastro;
+    } else {
+      return this.sistemaIndisponivel;
+    }
   }
 
 }

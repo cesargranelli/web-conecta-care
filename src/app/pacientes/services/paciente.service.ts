@@ -46,7 +46,7 @@ export class PacienteService {
         params: new HttpParams().set(this.DOCUMENTO, documento.numero)
       }
     ).pipe(map((dado: ResponseTemplateInterface) => {
-      return dado.data;
+      return dado?.data;
     }),
       catchError(async (err) => console.error(err))
     );

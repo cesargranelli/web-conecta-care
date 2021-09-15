@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Prontuario } from 'src/app/homecares/classes/prontuario.class';
 import { TratamentoService } from 'src/app/homecares/services/tratamento.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
@@ -13,27 +14,32 @@ export class ProntuarioComponent implements OnInit {
   private idPaciente: number;
   private idHomecare: number;
   private dadosLocalStorage: Valid;
+  public prontuario: Prontuario;
+  public showForm: boolean;
 
   constructor(
     private tratamentoService: TratamentoService,
     private validService: SharedValidService,
     private loadingService: SharedLoadingService
   ) {
-    this.loadingService.emitChange(true);
+    this.showForm = false;
     this.dadosLocalStorage = this.validService.getValid();
+    // this.loadingService.emitChange(true);
   }
 
   ngOnInit(): void {
-    this.idPaciente = this.lerIrPaciente();
+    this.idPaciente = this.lerPacienteIdFomUrl();
     this.idHomecare = this.dadosLocalStorage.id;
     this.tratamentoService
       .consultarProntuario(this.idPaciente, this.idHomecare)
       .subscribe((prontuario) => {
-        console.log(prontuario);
+        this.prontuario = prontuario;
+        this.showForm = true;
+        this.loadingService.emitChange(false);
       });
   }
 
-  lerIrPaciente(): number {
+  lerPacienteIdFomUrl(): number {
     const pathNameList = window.location.pathname.split('/');
     return +pathNameList.slice(-1).pop();
   }
