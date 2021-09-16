@@ -14,6 +14,7 @@ import { ProntuarioComponent } from './shared/components/prontuario/prontuario.c
 import { CriarAtendimentoComponent } from './tratamento/atendimento/criar-atendimento/criar-atendimento.component';
 import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
 import { TratamentoComponent } from './tratamento/tratamento.component';
+import { TratamentoListaEmAbertoComponent } from './tratamento/lista-em-aberto/tratamento-lista-em-aberto.component';
 
 const routes: Routes = [
   {
@@ -44,12 +45,20 @@ const routes: Routes = [
           },
           {
             path: 'prontuario',
-            children: [{ path: ':id', component: ProntuarioComponent }],
+            children: [
+              {
+                path: ':id',
+                component: ProntuarioComponent
+              }
+            ],
           },
           {
             path: 'tratamento',
             children: [
-              { path: '', component: TratamentoComponent },
+              {
+                path: '',
+                component: TratamentoComponent
+              },
               {
                 path: 'novo-atendimento',
                 component: CriarAtendimentoComponent,
@@ -58,6 +67,10 @@ const routes: Routes = [
                 path: 'solicitacao',
                 component: SolicitacaoTratamentoComponent,
               },
+              {
+                path: 'lista-em-aberto',
+                component: TratamentoListaEmAbertoComponent
+              }
             ],
           },
         ],

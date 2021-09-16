@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PacienteTratamentoAberto } from '../../classes/paciente-tratamento-aberto.class';
+import { AcompanhanteTratamentoAberto } from 'src/app/homecares/classes/acompanhante-tratamento-aberto.class';
 
 @Component({
-  selector: 'app-tratamento-paciente',
-  templateUrl: './tratamento-paciente.component.html',
-  styleUrls: ['./tratamento-paciente.component.css']
+  selector: 'app-tratamento-acompanhante',
+  templateUrl: './tratamento-acompanhante.component.html',
+  styleUrls: ['./tratamento-acompanhante.component.css']
 })
-export class TratamentoPacienteComponent implements OnInit {
+export class TratamentoAcompanhanteComponent implements OnInit {
 
   @Input()
-  paciente: PacienteTratamentoAberto;
+  acompanhante: AcompanhanteTratamentoAberto;
 
   constructor() { }
 

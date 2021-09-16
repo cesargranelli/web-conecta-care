@@ -1,17 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AcompanhanteTratamentoAberto } from '../../classes/acompanhante-tratamento-aberto.class';
-
-declare var jQuery: any;
+import { PacienteTratamentoAberto } from 'src/app/homecares/classes/paciente-tratamento-aberto.class';
 
 @Component({
-  selector: 'app-tratamento-acompanhante',
-  templateUrl: './tratamento-acompanhante.component.html',
-  styleUrls: ['./tratamento-acompanhante.component.css']
+  selector: 'app-tratamento-paciente',
+  templateUrl: './tratamento-paciente.component.html',
+  styleUrls: ['./tratamento-paciente.component.css']
 })
-export class TratamentoAcompanhanteComponent implements OnInit {
+export class TratamentoPacienteComponent implements OnInit {
 
   @Input()
-  acompanhante: AcompanhanteTratamentoAberto;
+  paciente: PacienteTratamentoAberto;
 
   constructor() { }
 

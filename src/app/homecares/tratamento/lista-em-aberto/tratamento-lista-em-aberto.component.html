@@ -1,0 +1,48 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-8 col-10 mr-auto ml-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard active">
+          <div class="card-header card-header-rose text-center">
+            <i class="material-icons">pending_actions</i>
+            <h3 class="card-title">Tratamentos em Andamento</h3>
+          </div>
+          <div class="card-body">
+            <div class="material-datatables">
+              <div class="dataTables_wrapper dt-bootstrap4" id="datatables_wrapper">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <table cellspacing="0" class="table table-striped" id="datatables" style="width:100%"
+                           width="100%">
+                      <thead>
+                      <tr>
+                        <th>Nº Tratamento</th>
+                        <th>Paciente</th>
+                        <th>Descrição</th>
+                        <th class="disabled-sorting text-center">Detalhar</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let tratamentoEmAberto of tratamentosEmAberto">
+                        <td>{{ tratamentoEmAberto.id }}</td>
+                        <td>{{ tratamentoEmAberto.nomePaciente }}</td>
+                        <td>{{ tratamentoEmAberto.descricao }}</td>
+                        <td class="text-center">
+                          <button class="btn btn-link btn-rose btn-just-icon" routerLink="['../{{tratamentoEmAberto.id}}']"
+                                  title="Ver detalhes">
+                            <i class="material-icons">visibility</i>
+                          </button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

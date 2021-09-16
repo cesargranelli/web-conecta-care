@@ -19,8 +19,14 @@
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item">
+            <a class="nav-link" href="homecares/{{valid.id}}/tratamento/lista-em-aberto">
+              <i class="material-icons">pending_actions</i>
+              Tratamentos
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ '/homecares/' + valid.id }}">
-              <i class="material-icons">schedule</i>
+              <i class="material-icons">support_agent</i>
               Atendimentos
             </a>
           </li>
@@ -36,22 +42,16 @@
               Dados Homecare
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLink="homecares/{{valid.id}}/eventos">
               <i class="material-icons">insert_invitation</i>
               Financeiro
             </a>
-          </li>
+          </li> -->
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="material-icons">list_alt</i>
               Equipamentos
-            </a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="material-icons">call</i>
-              Relatórios
             </a>
           </li> -->
           <li class="nav-item active">

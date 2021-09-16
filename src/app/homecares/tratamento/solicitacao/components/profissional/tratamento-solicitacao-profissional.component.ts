@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Especialidade } from 'src/app/classes/especialidade.class';
 import { Profissional } from 'src/app/classes/profissional.class';
+import { ProfissionalAtendimento } from 'src/app/homecares/classes/profissional-atendimento.class';
 import { ProfissionalService } from 'src/app/services/profissional.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import Swal from 'sweetalert2';
-import { ProfissionalAtendimento } from '../../../classes/profissional-atendimento.class';
 
 @Component({
   selector: 'app-tratamento-solicitacao-profissional',

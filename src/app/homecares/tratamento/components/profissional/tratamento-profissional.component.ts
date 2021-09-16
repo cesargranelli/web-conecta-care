@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Especialidade } from 'src/app/classes/especialidade.class';
-import { ProfissionalTratamentoAberto } from '../../classes/profissional-tratamento-aberto.class';
+import { ProfissionalTratamentoAberto } from 'src/app/homecares/classes/profissional-tratamento-aberto.class';
 
 @Component({
   selector: 'app-tratamento-profissional',

@@ -5,6 +5,9 @@ import { PacienteService } from 'src/app/homecares/services/paciente.service';
 import { Paciente } from 'src/app/pacientes/classes/paciente.class';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import Swal from 'sweetalert2';
+import { TratamentoService } from 'src/app/homecares/services/tratamento.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { TratamentoAberto } from 'src/app/homecares/classes/tratamento-aberto.class';
 
 declare var jQuery: any;
 
@@ -23,7 +26,9 @@ export class ModalCriarTratamentoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private sharedValidService: SharedValidService,
     private pacienteService: PacienteService,
+    private tratamentoService: TratamentoService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private loading: SharedLoadingService
@@ -56,29 +61,37 @@ export class ModalCriarTratamentoComponent implements OnInit {
     switch (this.opcaoSelecionada) {
       case 0:
         this.pacienteService.consultarPorNome(this.userInput).subscribe((paciente) => {
-          this.redirecionamento(paciente);
+          this.consultaTratamentoEmAberto(paciente);
         }, null);
         break;
       case 1:
         this.pacienteService.consultarPorDocumento(this.userInput).subscribe((paciente) => {
-          this.redirecionamento(paciente);
+          this.consultaTratamentoEmAberto(paciente);
         }, null);
         break;
     }
+    this.loading.emitChange(false);
   }
 
-  private redirecionamento(paciente: Paciente) {
+  private consultaTratamentoEmAberto(paciente: Paciente) {
+    this.tratamentoService.consultarTratamentoEmAberto(String(paciente?.id), String(this.sharedValidService.getValid()?.id))
+      .subscribe(tratamentoEmAberto => {
+        this.redirecionamento(tratamentoEmAberto?.body?.data);
+      });
+  }
+
+  private redirecionamento(tratamentoEmAberto: TratamentoAberto) {
     this.loading.emitChange(false);
     jQuery('.mat-typography.modal-open').removeClass();
     jQuery('div.modal-backdrop.fade.show').remove();
-    if (paciente) {
+    if (tratamentoEmAberto) {
       Swal.fire({
         position: 'center',
         icon: 'info',
         title: 'Paciente já possui tratamento em andamento',
         showConfirmButton: true,
       });
-      this.router.navigate([`../prontuario/${paciente.id}`], { relativeTo: this.activatedRoute });
+      this.router.navigate([`../prontuario/${tratamentoEmAberto?.paciente.id}`], { relativeTo: this.activatedRoute });
     } else {
       Swal.fire({
         position: 'center',

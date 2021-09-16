@@ -50,4 +50,12 @@ export class TratamentoComponent implements OnInit {
     this.loading.emitChange(false);
   }
 
+  // buscarTratamentoEmAberto() {
+  //   this.tratamentoService.consultarTratamentoEmAberto(String(this.paciente.id), String(this.validService?.getValid()?.id))
+  //     .subscribe(response => {
+  //       this.tratamentoStorageService.tratamentoAberto = response.body?.data;
+  //       this.router.navigate([`../`], { relativeTo: this.activatedRoute });
+  //     });
+  // }
+
 }

@@ -15,17 +15,14 @@ export class ModalDetalheAtendimentoComponent implements OnChanges, OnDestroy {
 
   public atendimentoDetalhes: AtendimentoDetalhes;
 
-  constructor(
-    private service: AtendimentoService
-  ) {
-  }
+  constructor(private service: AtendimentoService) { }
 
   ngOnChanges(simpleChanges: SimpleChanges): void {
     this.atendimentoDetalhes = new AtendimentoDetalhes();
-    this.service.consultarDetalhes(this.atendimentoId).subscribe(atendimentoDetalhes => {
-      this.atendimentoDetalhes = atendimentoDetalhes;
-      console.log(this.atendimentoDetalhes);
-    });
+    if (this.atendimentoId)
+      this.service.consultarDetalhes(this.atendimentoId).subscribe(atendimentoDetalhes => {
+        this.atendimentoDetalhes = atendimentoDetalhes;
+      });
   }
 
   ngOnDestroy() {

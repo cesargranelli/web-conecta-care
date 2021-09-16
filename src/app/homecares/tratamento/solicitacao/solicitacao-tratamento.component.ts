@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 import { ProfissionalAtendimento } from '../../classes/profissional-atendimento.class';
 import { SituacaoTratamento } from '../../classes/situacao-tratamento.class';
 import { TratamentoAdicionar } from '../../classes/tratamento-adicionar.class';
-import { TratamentoStorageService } from '../../services/tratamento-storage.service';
 import { TratamentoService } from '../../services/tratamento.service';
 
 declare var jQuery: any;
@@ -37,8 +36,7 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     private loading: SharedLoadingService,
     private tratamentoService: TratamentoService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private tratamentoStorageService: TratamentoStorageService
+    private activatedRoute: ActivatedRoute
   ) {
     this.tratamentoForm = this.formBuilder.group({
       pacienteCpf: [null, [Validators.required, validCpf(true)]],
@@ -72,26 +70,18 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     this.tratamentoService.adicionarTratamento(this.tratamento)
       .subscribe(() => {
         this.mensagemSwal('info', 'Novo tratamento adicionado com sucesso!')
-          .then(() => this.buscarTratamentoEmAberto());
+          .then(() => this.router.navigate([`../lista-em-aberto`], { relativeTo: this.activatedRoute }));
         this.loading.emitChange(false);
       }, (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status == 412) {
           this.mensagemSwal('warning', errorResponse.error?.data.message);
-          this.buscarTratamentoEmAberto();
+          this.router.navigate([`../lista-em-aberto`], { relativeTo: this.activatedRoute });
           this.loading.emitChange(false);
           return;
         }
         this.mensagemSwal('error', 'Falha ao tentar adicionar novo tratamento!');
         this.loading.emitChange(false);
       }, () => this.loading.emitChange(false));
-  }
-
-  buscarTratamentoEmAberto() {
-    this.tratamentoService.consultarTratamentoEmAberto(String(this.paciente.id), String(this.validService?.getValid()?.id))
-      .subscribe(response => {
-        this.tratamentoStorageService.tratamentoAberto = response.body?.data;
-        this.router.navigate([`../`], { relativeTo: this.activatedRoute });
-      });
   }
 
   eventoPaciente(paciente: Paciente) {

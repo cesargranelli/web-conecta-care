@@ -68,9 +68,22 @@ export class TratamentoService {
       }),
     };
 
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/aberto/paciente`, {
+      headers: httpOptions.headers, observe: 'response'
+    });
+  }
+
+  listarTratamentoEmAberto(homeCareId: string): Observable<HttpResponse<any>> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        homeCareId: homeCareId,
+      }),
+    };
+
     return this._http.get<HttpResponse<any>>(`${this.endpoint}/aberto`, {
       headers: httpOptions.headers, observe: 'response'
     });
+    
   }
 
 }
