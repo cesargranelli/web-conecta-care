@@ -108,7 +108,7 @@ export class DadosComplementoComponent implements OnInit {
         numeroHabilitacao: this.complemento?.numeroHabilitacao,
         categoriaCNH: this.complemento.categoriaCNH,
         secaoEleitoral: this.complemento.secaoEleitoral,
-        dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao?.date) ? this.converterDataExibicao(this.complemento.dataValidadeHabilitacao?.date) : null,
+        dataValidadeHabilitacao: this.converterDataExibicao(this.complemento.dataValidadeHabilitacao) ? this.converterDataExibicao(this.complemento.dataValidadeHabilitacao) : null,
         numeroReservista: this.complemento.numeroReservista,
         nomeMae: this.complemento.nomeMae,
         profissaoMae: this.complemento.profissaoMae,

@@ -134,6 +134,10 @@ export class CadastroComplementoComponent implements OnInit {
 
     this.complemento.proprietarioId = this.valid.id;
 
+    this.complemento.dataValidadeHabilitacao = this.formataData(this.complemento.dataValidadeHabilitacao);
+
+    console.log(this.complemento);
+
     this._service.save(this.complemento).subscribe(() => {
       setTimeout(() => {
         this._cadastro.complemento = this.complemento;
@@ -189,4 +193,24 @@ export class CadastroComplementoComponent implements OnInit {
     });
   }
 
-}
+  convertToDate(stringDate: string): Date {
+    if (!!stringDate) {
+      const arrayDate: string[] = stringDate.split('/').reverse();
+      return new Date(Number(arrayDate[0]), Number(arrayDate[1]) - 1, Number(arrayDate[2]), 0, 0, 0);
+    } else {
+      return new Date();
+    }
+  }
+
+  formataData(dataString: string): string {
+    if (!!dataString) {
+      let data = this.convertToDate(dataString);
+      let dia = data.getDate().toString().padStart(2, '0');
+      let mes = (data.getMonth() + 1).toString().padStart(2, '0'); //+1 pois no getMonth Janeiro começa com zero.
+      let ano = data.getFullYear();
+      return dia + "/" + mes + "/" + ano;
+    } else {
+      return null;
+    }
+  }
+  }

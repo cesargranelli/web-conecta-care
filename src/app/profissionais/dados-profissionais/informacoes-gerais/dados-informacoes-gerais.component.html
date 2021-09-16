@@ -98,12 +98,12 @@
                   <label class="col-lg-2 col-md-3 col-form-label" for="ctps">Nº CTPS *</label>
                   <div [ngClass]="validationHas.validation(profissionalForm.controls?.ctps)"
                        class="form-group col-lg-3 col-md-8">
-                    <input class="form-control" formControlName="ctps" id="ctps" type="text">
+                    <input class="form-control" formControlName="ctps" id="ctps" maxlength="11" type="text">
                   </div>
                   <label class="col-lg-3 col-md-3 col-form-label" for="ctpsSerie">Nº Série CTPS *</label>
                   <div [ngClass]="validationHas.validation(profissionalForm.controls?.ctpsSerie)"
                        class="form-group col-lg-3 col-md-8">
-                    <input class="form-control" formControlName="ctpsSerie" id="ctpsSerie" name="ctpsSerie" type="text">
+                    <input class="form-control" formControlName="ctpsSerie" id="ctpsSerie" name="ctpsSerie" maxlength="10" type="text">
                   </div>
                 </div>
                 <div class="row">
