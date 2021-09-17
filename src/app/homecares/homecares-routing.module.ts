@@ -71,7 +71,7 @@ const routes: Routes = [
                     component: TratamentoListaEmAbertoComponent
                   },
                   {
-                    path: ':id',
+                    path: ':tratamento_id',
                     component: TratamentoComponent
                   }
                 ]

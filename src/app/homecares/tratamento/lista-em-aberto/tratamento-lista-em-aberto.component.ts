@@ -41,7 +41,13 @@ export class TratamentoListaEmAbertoComponent implements OnInit {
       );
   }
 
-  onSubmit() {
+  navigation(tratamentoId: number, pacienteId: number) {
+    this.router.navigate([tratamentoId], {
+      relativeTo: this.activatedRoute,
+      state: {
+        pacienteId: pacienteId
+      }
+    });
   }
 
   inicializarDataTable() {

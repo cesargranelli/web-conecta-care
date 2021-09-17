@@ -5,7 +5,6 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { ProfissionalAtendimento } from '../classes/profissional-atendimento.class';
 import { TratamentoAberto } from '../classes/tratamento-aberto.class';
-import { TratamentoStorageService } from '../services/tratamento-storage.service';
 import { TratamentoService } from '../services/tratamento.service';
 
 declare var jQuery: any;
@@ -28,34 +27,37 @@ export class TratamentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private validService: SharedValidService,
     private loading: SharedLoadingService,
-    private tratamentoStorageService: TratamentoStorageService,
     private tratamentoService: TratamentoService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
+    this.loading.emitChange(true);
     this.tratamentoAbertoForm = this.formBuilder.group({
       observacaoTratamento: [null, [Validators.required, Validators.maxLength(100)]]
     });
   }
 
   ngOnInit(): void {
-    if (this.tratamentoStorageService?.tratamentoAberto?.id) {
-      this.tratamentoAberto = this.tratamentoStorageService?.tratamentoAberto;
+    if (history.state?.pacienteId) {
+      this.tratamentoService.consultarTratamentoEmAberto(String(45), String(this.validService?.getValid()?.id))
+        .subscribe(response => {
+          if (response) {
+            this.tratamentoAberto = response.body?.data;
+            this.loading.emitChange(false);
+            this.hideForm = false;
+          } else {
+            this.loading.emitChange(false);
+            this.router.navigate([`../`], { relativeTo: this.activatedRoute });
+          }
+        });
+    } else {
+      this.router.navigate([`../`], { relativeTo: this.activatedRoute });
     }
-    this.hideForm = false;
   }
 
   onSubmit() {
     this.loading.emitChange(true);
     this.loading.emitChange(false);
   }
-
-  // buscarTratamentoEmAberto() {
-  //   this.tratamentoService.consultarTratamentoEmAberto(String(this.paciente.id), String(this.validService?.getValid()?.id))
-  //     .subscribe(response => {
-  //       this.tratamentoStorageService.tratamentoAberto = response.body?.data;
-  //       this.router.navigate([`../`], { relativeTo: this.activatedRoute });
-  //     });
-  // }
 
 }

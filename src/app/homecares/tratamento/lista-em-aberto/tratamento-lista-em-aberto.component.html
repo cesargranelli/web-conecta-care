@@ -28,7 +28,7 @@
                         <td>{{ tratamentoEmAberto.nomePaciente }}</td>
                         <td>{{ tratamentoEmAberto.descricao }}</td>
                         <td class="text-center">
-                          <button class="btn btn-link btn-rose btn-just-icon" routerLink="{{tratamentoEmAberto.id}}"
+                          <button class="btn btn-link btn-rose btn-just-icon" (click)="navigation(tratamentoEmAberto.id, tratamentoEmAberto.pacienteId)"
                                   title="Ver detalhes">
                             <i class="material-icons">visibility</i>
                           </button>
