@@ -12,9 +12,9 @@ import { InformacoesLoginComponent } from './dados/login/informacoes-login.compo
 import { HomeCaresComponent } from './homecares.component';
 import { ProntuarioComponent } from './shared/components/prontuario/prontuario.component';
 import { CriarAtendimentoComponent } from './tratamento/atendimento/criar-atendimento/criar-atendimento.component';
+import { TratamentoListaEmAbertoComponent } from './tratamento/lista-em-aberto/tratamento-lista-em-aberto.component';
 import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
 import { TratamentoComponent } from './tratamento/tratamento.component';
-import { TratamentoListaEmAbertoComponent } from './tratamento/lista-em-aberto/tratamento-lista-em-aberto.component';
 
 const routes: Routes = [
   {
@@ -56,10 +56,6 @@ const routes: Routes = [
             path: 'tratamento',
             children: [
               {
-                path: '',
-                component: TratamentoComponent
-              },
-              {
                 path: 'novo-atendimento',
                 component: CriarAtendimentoComponent,
               },
@@ -68,8 +64,17 @@ const routes: Routes = [
                 component: SolicitacaoTratamentoComponent,
               },
               {
-                path: 'lista-em-aberto',
-                component: TratamentoListaEmAbertoComponent
+                path: 'em-andamento',
+                children: [
+                  {
+                    path: '',
+                    component: TratamentoListaEmAbertoComponent
+                  },
+                  {
+                    path: ':id',
+                    component: TratamentoComponent
+                  }
+                ]
               }
             ],
           },
@@ -83,4 +88,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomeCaresRoutingModule {}
+export class HomeCaresRoutingModule { }

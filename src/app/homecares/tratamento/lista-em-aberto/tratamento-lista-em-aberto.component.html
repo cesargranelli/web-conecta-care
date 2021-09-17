@@ -7,7 +7,7 @@
             <i class="material-icons">pending_actions</i>
             <h3 class="card-title">Tratamentos em Andamento</h3>
           </div>
-          <div class="card-body">
+          <div class="card-body" [hidden]="hideForm">
             <div class="material-datatables">
               <div class="dataTables_wrapper dt-bootstrap4" id="datatables_wrapper">
                 <div class="row">
@@ -19,7 +19,7 @@
                         <th>Nº Tratamento</th>
                         <th>Paciente</th>
                         <th>Descrição</th>
-                        <th class="disabled-sorting text-center">Detalhar</th>
+                        <th class="disabled-sorting text-center">Visualizar</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -28,7 +28,7 @@
                         <td>{{ tratamentoEmAberto.nomePaciente }}</td>
                         <td>{{ tratamentoEmAberto.descricao }}</td>
                         <td class="text-center">
-                          <button class="btn btn-link btn-rose btn-just-icon" routerLink="['../{{tratamentoEmAberto.id}}']"
+                          <button class="btn btn-link btn-rose btn-just-icon" routerLink="{{tratamentoEmAberto.id}}"
                                   title="Ver detalhes">
                             <i class="material-icons">visibility</i>
                           </button>

@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ResponseTemplateInterface } from '../../services/response/responseTemplate.interface';
 import { Prontuario } from '../classes/prontuario.class';
+import { TratamentoAbertoLista } from '../classes/tratamento-aberto-lista.class';
 import { TratamentoAdicionar } from '../classes/tratamento-adicionar.class';
 
 @Injectable({
@@ -73,17 +74,30 @@ export class TratamentoService {
     });
   }
 
-  listarTratamentoEmAberto(homeCareId: string): Observable<HttpResponse<any>> {
+  listarTratamentoEmAberto(homeCareId: string): Observable<TratamentoAbertoLista[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         homeCareId: homeCareId,
       }),
     };
 
-    return this._http.get<HttpResponse<any>>(`${this.endpoint}/aberto`, {
-      headers: httpOptions.headers, observe: 'response'
-    });
-    
+    return this._http.get(`${this.endpoint}/aberto`, {
+      headers: httpOptions.headers
+    }).pipe(
+      map((tratamentoEmAberto: ResponseTemplateInterface) => {
+        return tratamentoEmAberto.data;
+      }),
+      catchError(async (httpResponse: HttpErrorResponse) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Falha ao procurar lista de tratamentos em aberto',
+          showConfirmButton: true,
+        });
+        this.loadingService.emitChange(false);
+      })
+    );
+
   }
 
 }

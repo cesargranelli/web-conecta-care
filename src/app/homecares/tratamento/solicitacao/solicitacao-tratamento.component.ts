@@ -70,12 +70,12 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     this.tratamentoService.adicionarTratamento(this.tratamento)
       .subscribe(() => {
         this.mensagemSwal('info', 'Novo tratamento adicionado com sucesso!')
-          .then(() => this.router.navigate([`../lista-em-aberto`], { relativeTo: this.activatedRoute }));
+          .then(() => this.router.navigate([`../em-andamento`], { relativeTo: this.activatedRoute }));
         this.loading.emitChange(false);
       }, (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status == 412) {
           this.mensagemSwal('warning', errorResponse.error?.data.message);
-          this.router.navigate([`../lista-em-aberto`], { relativeTo: this.activatedRoute });
+          this.router.navigate([`../em-andamento`], { relativeTo: this.activatedRoute });
           this.loading.emitChange(false);
           return;
         }
