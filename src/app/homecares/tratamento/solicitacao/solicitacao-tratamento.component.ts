@@ -69,18 +69,13 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     this.tratamento = this.construirObjetoAdicionarTratamento();
     this.tratamentoService.adicionarTratamento(this.tratamento)
       .subscribe(() => {
-        this.mensagemSwal('info', 'Novo tratamento adicionado com sucesso!')
-          .then(() => this.router.navigate([`../em-andamento`], { relativeTo: this.activatedRoute }));
-        this.loading.emitChange(false);
+        this.mensagemSwal('info', 'Novo tratamento adicionado com sucesso!', true);
       }, (errorResponse: HttpErrorResponse) => {
-        if (errorResponse.status == 412) {
-          this.mensagemSwal('warning', errorResponse.error?.data.message);
-          this.router.navigate([`../em-andamento`], { relativeTo: this.activatedRoute });
-          this.loading.emitChange(false);
-          return;
+        if (errorResponse.error.status == 412) {
+          this.mensagemSwal('warning', errorResponse.error?.data.message, true);
+        } else {
+          this.mensagemSwal('error', 'Falha ao tentar adicionar novo tratamento!', false);
         }
-        this.mensagemSwal('error', 'Falha ao tentar adicionar novo tratamento!');
-        this.loading.emitChange(false);
       }, () => this.loading.emitChange(false));
   }
 
@@ -109,13 +104,18 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     return tratamento;
   }
 
-  private mensagemSwal(icon: any, title: string) {
-    return Swal.fire({
+  private mensagemSwal(icon: any, title: string, navegar: boolean) {
+    Swal.fire({
       position: 'center',
       icon: icon,
       title: title,
       showConfirmButton: true,
     });
+    this.loading.emitChange(false);
+
+    if (navegar) {
+      this.router.navigate([`../em-andamento`], { relativeTo: this.activatedRoute });
+    }
   }
 
 }
