@@ -110,8 +110,7 @@ export class FormContatoComponent implements OnInit {
 
   onSubmit() {
     this.contato = this.contatoForm.value;
-    if (!!this.contato.id)
-      this.contato.id = this._validService.getValid()?.id;
+    this.contato.idPaciente = this.valid?.id;
     this.onSubmitEvent.emit(this.contato);
   }
 

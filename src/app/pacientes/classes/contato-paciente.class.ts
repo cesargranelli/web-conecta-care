@@ -5,4 +5,5 @@ export class ContatoPaciente {
   telefoneCelular: string;
   telefoneResponsavel: string;
   emailResponsavel: string;
+  idPaciente: number;
 }
