@@ -37,7 +37,7 @@ export class InformacoesGeraisComponent implements OnInit {
 
   onSubmit(paciente: Paciente) {
     console.log(this.valid);
-    
+
     this.pacienteService.alterar(paciente).subscribe(paciente => {
       setTimeout(() => {
         Swal.fire({

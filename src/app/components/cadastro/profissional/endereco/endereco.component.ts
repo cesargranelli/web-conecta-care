@@ -165,7 +165,7 @@ export class EnderecoComponent implements OnInit {
             showConfirmButton: true,
           });
         }
-        this._loading.emitChange(true);
+        this._loading.emitChange(false);
         let enderecoViaCep: EnderecoViaCep = response.body;
         this.enderecoForm.controls.logradouro.setValue(enderecoViaCep.logradouro);
         this.enderecoForm.controls.bairro.setValue(enderecoViaCep.bairro);

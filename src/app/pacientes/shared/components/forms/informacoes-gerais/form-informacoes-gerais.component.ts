@@ -94,8 +94,6 @@ export class FormInformacoesGeraisComponent implements OnInit {
       concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadosCivil = response.body.data))),
       concatMap(() => this._pacienteService.pesquisarPorId(this._dadosLocalStorage.id))
     ).subscribe(paciente => {
-      console.log(paciente);
-      
       this.paciente = paciente;
       this.popularForm();
       jQuery('select').selectpicker('render');
@@ -179,6 +177,8 @@ export class FormInformacoesGeraisComponent implements OnInit {
   }
 
   public onSubmit() {
+
+
     this._loading.emitChange(true);
     this.paciente = this.pacienteForm.value;
     this.paciente.id = this._dadosLocalStorage.id;
@@ -251,11 +251,19 @@ export class FormInformacoesGeraisComponent implements OnInit {
   }
 
   private formatarData(data: string): string {
-    const dataArray: Array<string> = data.split(this.SLASH);
-    const dia = dataArray[0];
-    const mes = dataArray[1];
-    const ano = dataArray[2];
-    return ano + this.HIFEN + mes + this.HIFEN + dia;
+    if (data.indexOf(this.SLASH) != -1) {
+      const dataArray: Array<string> = data.split(this.SLASH);
+      const dia = dataArray[0];
+      const mes = dataArray[1];
+      const ano = dataArray[2];
+      return ano + this.HIFEN + mes + this.HIFEN + dia;
+    } else {
+      const dataArray: Array<string> = data.split(this.HIFEN);
+      const dia = dataArray[2];
+      const mes = dataArray[1];
+      const ano = dataArray[0];
+      return ano + this.HIFEN + mes + this.HIFEN + dia;
+    }
   }
 
   public limparForm() {
