@@ -14,6 +14,7 @@ import { ResponseTemplateInterface } from '../../services/response/responseTempl
 import { Prontuario } from '../classes/prontuario.class';
 import { TratamentoAbertoLista } from '../classes/tratamento-aberto-lista.class';
 import { TratamentoAdicionar } from '../classes/tratamento-adicionar.class';
+import { TratamentoEncerrar } from '../classes/tratamento-encerrar.class';
 
 @Injectable({
   providedIn: 'root',
@@ -85,7 +86,7 @@ export class TratamentoService {
       headers: httpOptions.headers
     }).pipe(
       map((tratamentoEmAberto: ResponseTemplateInterface) => {
-        return tratamentoEmAberto.data;
+        return tratamentoEmAberto?.data;
       }),
       catchError(async (httpResponse: HttpErrorResponse) => {
         Swal.fire({
@@ -98,6 +99,10 @@ export class TratamentoService {
       })
     );
 
+  }
+
+  encerrarTratamento(payload: TratamentoEncerrar): Observable<HttpResponse<any>> {
+    return this._http.put<HttpResponse<any>>(`${this.endpoint}/encerramento`, payload, { observe: 'response' });
   }
 
 }

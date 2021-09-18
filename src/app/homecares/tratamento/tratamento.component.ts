@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StatusTratamento } from 'src/app/enums/status-tratamento.enum';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import Swal from 'sweetalert2';
 import { ProfissionalAtendimento } from '../classes/profissional-atendimento.class';
+import { SituacaoTratamento } from '../classes/situacao-tratamento.class';
 import { TratamentoAberto } from '../classes/tratamento-aberto.class';
+import { TratamentoEncerrar } from '../classes/tratamento-encerrar.class';
 import { TratamentoService } from '../services/tratamento.service';
 
 declare var jQuery: any;
@@ -20,6 +24,7 @@ export class TratamentoComponent implements OnInit {
 
   profissional: ProfissionalAtendimento;
   tratamentoAberto: TratamentoAberto;
+  tratamento: TratamentoEncerrar;
 
   hideForm: boolean = true;
 
@@ -39,7 +44,7 @@ export class TratamentoComponent implements OnInit {
 
   ngOnInit(): void {
     if (history.state?.pacienteId) {
-      this.tratamentoService.consultarTratamentoEmAberto(String(45), String(this.validService?.getValid()?.id))
+      this.tratamentoService.consultarTratamentoEmAberto(String(history.state?.pacienteId), String(this.validService?.getValid()?.id))
         .subscribe(response => {
           if (response) {
             this.tratamentoAberto = response.body?.data;
@@ -57,7 +62,30 @@ export class TratamentoComponent implements OnInit {
 
   onSubmit() {
     this.loading.emitChange(true);
-    this.loading.emitChange(false);
+    this.tratamento = this.construirObjetoEncerrarTratamento();
+    this.tratamentoService.encerrarTratamento(this.tratamento)
+      .subscribe(() => {
+        this.loading.emitChange(false);
+        this.mensagemSwal('info', 'Tratamento encerrado com sucesso!')
+        this.router.navigate([`../`], { relativeTo: this.activatedRoute });
+      }, () => this.mensagemSwal('error', 'Falha ao tentar encerrar novo tratamento!'));
+  }
+
+  construirObjetoEncerrarTratamento(): TratamentoEncerrar {
+    let tratamento = new TratamentoEncerrar();
+    tratamento.tratamentoId = this.tratamentoAberto?.id;
+    tratamento.observacao = String(this.tratamentoAbertoForm.controls?.observacaoTratamento.value);
+    tratamento.situacao = new SituacaoTratamento(null, new Date().toISOString(), StatusTratamento.ENCERRADO);
+    return tratamento;
+  }
+
+  private mensagemSwal(icon: any, title: string) {
+    return Swal.fire({
+      position: 'center',
+      icon: icon,
+      title: title,
+      showConfirmButton: true,
+    });
   }
 
 }

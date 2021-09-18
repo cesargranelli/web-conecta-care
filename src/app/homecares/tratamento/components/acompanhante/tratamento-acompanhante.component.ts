@@ -25,6 +25,8 @@ export class TratamentoAcompanhanteComponent implements OnInit {
         new Date(hoje.getFullYear(), nascimento.getMonth(), nascimento.getDate()))
         diferencaAnos--;
       return diferencaAnos;
+    } else {
+      return '';
     }
   }
 
