@@ -4,11 +4,11 @@
       <table class="table">
         <thead>
           <tr>
-            <th class="text-center">ID</th>
-            <th>Data do Tratamento</th>
-            <th>Procedimento</th>
-            <th>Medicamentos</th>
-            <th>Equipamentos</th>
+            <th class="text-center">Número</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Profissional</th>
+            <th>Situação</th>
           </tr>
         </thead>
         <ng-container *ngFor="let atendimento of atendimentos">
@@ -17,15 +17,15 @@
               <td class="text-center">
                 {{ atendimento.id }}
               </td>
-              <td>{{ atendimento.data }}</td>
+              <td>{{ atendimento.data | date: 'dd/MM/yyyy' }}</td>
               <td>
-                {{ atendimento.descricaoProcedimento }}
+                {{ atendimento.hora }}
               </td>
               <td>
-                {{ atendimento.descricaoMedicamento }}
+                {{ atendimento.nomeProfissional }}
               </td>
               <td>
-                {{ atendimento.descricaoEquipamento }}
+                {{ atendimento.situacao.status }}
               </td>
             </tr>
           </tbody>
