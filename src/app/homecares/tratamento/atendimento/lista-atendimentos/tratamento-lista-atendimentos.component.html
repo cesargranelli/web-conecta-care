@@ -1,0 +1,36 @@
+<div class="card-body">
+  <div class="dados-gerais">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center">Número</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Profissional</th>
+            <th>Situação</th>
+          </tr>
+        </thead>
+        <ng-container *ngFor="let atendimento of atendimentos">
+          <tbody>
+            <tr>
+              <td class="text-center">
+                {{ atendimento.id }}
+              </td>
+              <td>{{ atendimento.data | date: 'dd/MM/yyyy' }}</td>
+              <td>
+                {{ atendimento.hora }}
+              </td>
+              <td>
+                {{ atendimento.nomeProfissional }}
+              </td>
+              <td>
+                {{ atendimento.situacao.status }}
+              </td>
+            </tr>
+          </tbody>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</div>

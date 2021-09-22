@@ -10,130 +10,93 @@
             </div>
             <div class="card-body"></div>
           </div>
-          <div name="paciente">
-            <div class="card-header card-header-rose text-center">
-              <h3 class="card-title">Informações Gerais</h3>
-            </div>
-            <div class="card-body">
-              <app-tratamento-paciente [paciente]="tratamentoAberto?.paciente">
-              </app-tratamento-paciente>
-              <app-tratamento-endereco
-                [endereco]="tratamentoAberto?.paciente.endereco"
-              ></app-tratamento-endereco>
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <label
-                      class="col-lg-2 col-md-2 col-form-label"
-                      for="descricaoTratamento"
-                      >Descrição do tratamento</label
-                    >
-                    <div class="form-group col-lg-9 col-md-9">
-                      <textarea
-                        class="form-control"
-                        name="descricaoTratamento"
-                        type="text"
-                        [value]="tratamentoAberto?.descricao"
-                        disabled
-                      ></textarea>
+          <div [hidden]="hideForm">
+            <div name="paciente">
+              <div class="card-header card-header-rose text-center">
+                <h3 class="card-title">Informações Gerais</h3>
+              </div>
+              <div class="card-body">
+                <app-tratamento-paciente [paciente]="tratamentoAberto?.paciente">
+                </app-tratamento-paciente>
+                <app-tratamento-endereco [endereco]="tratamentoAberto?.paciente.endereco"></app-tratamento-endereco>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-2 col-md-2 col-form-label" for="descricaoTratamento">Descrição do
+                        tratamento</label>
+                      <div class="form-group col-lg-9 col-md-9">
+                        <textarea class="form-control" name="descricaoTratamento" type="text"
+                          [value]="tratamentoAberto?.descricao" disabled></textarea>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <label
-                      class="col-lg-9 col-md-9 col-form-label"
-                      for="valorDeslocamento"
-                    >
-                      Para esse tratamento será pago por KM de deslocamento o
-                      valor de R$
-                    </label>
-                    <div class="form-group col-lg-2 col-md-2">
-                      <input
-                        class="form-control"
-                        name="valorDeslocamento"
-                        type="text"
-                        [value]="
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-9 col-md-9 col-form-label" for="valorDeslocamento">
+                        Para esse tratamento será pago por KM de deslocamento o
+                        valor de R$
+                      </label>
+                      <div class="form-group col-lg-2 col-md-2">
+                        <input class="form-control" name="valorDeslocamento" type="text" [value]="
                           tratamentoAberto?.valorKilometragem | mask: '0.00'
-                        "
-                        disabled
-                      />
+                        " disabled />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card-header card-header-rose text-center">
-            <h3 class="card-title">Dados do Acompanhante Responsável</h3>
-          </div>
-          <div class="card-body">
-            <app-tratamento-acompanhante
-              [acompanhante]="tratamentoAberto?.acompanhante"
-            ></app-tratamento-acompanhante>
-          </div>
-          <div class="card-header card-header-rose text-center">
-            <h3 class="card-title">Profissional Responsável pelo Tratamento</h3>
-          </div>
-          <div class="card-body">
-            <app-tratamento-profissional
-              [profissional]="tratamentoAberto?.profissional"
-            >
-            </app-tratamento-profissional>
-          </div>
-          <div class="card-header card-header-rose text-center">
-            <h3 class="card-title">Atendimentos</h3>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <button class="btn btn-rose float-right" [routerLink]="'../../novo-atendimento'">Novo atendimento</button>
-              </div>
-            </div>
-            <app-tratamento-atendimento
-              [atendimentos]="tratamentoAberto?.atendimentos"
-            ></app-tratamento-atendimento>
-          </div>
-          <form
-            [formGroup]="tratamentoAbertoForm"
-            (ngSubmit)="onSubmit()"
-            class="form-horizontal"
-          >
             <div class="card-header card-header-rose text-center">
-              <h3 class="card-title">Finalização do Tratamento</h3>
+              <h3 class="card-title">Dados do Acompanhante Responsável</h3>
             </div>
             <div class="card-body">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <label
-                      class="col-lg-3 col-md-3 col-form-label"
-                      for="observacaoTratamento"
-                      >Observação</label
-                    >
-                    <div class="form-group col-lg-9 col-md-9">
-                      <textarea
-                        class="form-control"
-                        formControlName="observacaoTratamento"
-                        type="text"
-                      ></textarea>
-                    </div>
-                  </div>
-                  <span class="bmd-form-group is-filled">
-                    <button
-                      [disabled]="!tratamentoAbertoForm.valid"
-                      class="btn btn-rose"
-                      type="submit"
-                    >
-                      Finalizar
-                    </button>
-                  </span>
+              <app-tratamento-acompanhante [acompanhante]="tratamentoAberto?.acompanhante">
+              </app-tratamento-acompanhante>
+            </div>
+            <div class="card-header card-header-rose text-center">
+              <h3 class="card-title">Profissional Responsável pelo Tratamento</h3>
+            </div>
+            <div class="card-body">
+              <app-tratamento-profissional [profissional]="tratamentoAberto?.profissional">
+              </app-tratamento-profissional>
+            </div>
+            <div class="card-header card-header-rose text-center">
+              <h3 class="card-title">Atendimentos</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <button class="btn btn-rose float-right" [routerLink]="'novo-atendimento'">Novo atendimento</button>
                 </div>
               </div>
+              <app-tratamento-lista-atendimentos [atendimentos]="tratamentoAberto?.atendimentos">
+              </app-tratamento-lista-atendimentos>
             </div>
-          </form>
+            <form [formGroup]="tratamentoAbertoForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+              <div class="card-header card-header-rose text-center">
+                <h3 class="card-title">Finalização do Tratamento</h3>
+              </div>
+              <div class="card-body">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-3 col-md-3 col-form-label" for="observacaoTratamento">Observação</label>
+                      <div class="form-group col-lg-9 col-md-9">
+                        <textarea class="form-control" formControlName="observacaoTratamento" type="text"></textarea>
+                      </div>
+                    </div>
+                    <span class="bmd-form-group is-filled">
+                      <button [disabled]="!tratamentoAbertoForm.valid" class="btn btn-rose" type="submit">
+                        Finalizar
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

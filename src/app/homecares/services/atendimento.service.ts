@@ -5,6 +5,7 @@ import {environment} from 'src/environments/environment';
 import {map} from 'rxjs/operators';
 import {ResponseTemplateInterface} from '../../services/response/responseTemplate.interface';
 import {AtendimentoDetalhes} from '../classes/atendimento-detalhes.class';
+import { AtendimentoAdicionar } from '../classes/atendimento-adicionar.class';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,10 @@ export class AtendimentoService {
         return atendimentoDetalhes.data;
       })
     );
+  }
+
+  adicionarTratamento(payload: AtendimentoAdicionar): Observable<HttpResponse<any>> {
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
 }

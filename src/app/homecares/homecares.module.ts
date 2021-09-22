@@ -31,7 +31,8 @@ import { ModalDetalheAtendimentoComponent } from './shared/components/modal/deta
 import { ProntuarioComponent } from './shared/components/prontuario/prontuario.component';
 import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
 import { TratamentoAtendimentoComponent } from './tratamento/atendimento/atendimento/tratamento-atendimento.component';
-import { CriarAtendimentoComponent } from './tratamento/atendimento/criar-atendimento/criar-atendimento.component';
+import { TratamentoListaAtendimentosComponent } from './tratamento/atendimento/lista-atendimentos/tratamento-lista-atendimentos.component';
+import { NovoAtendimentoComponent } from './tratamento/atendimento/novo-atendimento/novo-atendimento.component';
 import { TratamentoAcompanhanteComponent } from './tratamento/components/acompanhante/tratamento-acompanhante.component';
 import { TratamentoEnderecoComponent } from './tratamento/components/endereco/tratamento-endereco.component';
 import { TratamentoPacienteComponent } from './tratamento/components/paciente/tratamento-paciente.component';
@@ -75,6 +76,7 @@ FullCalendarModule.registerPlugins([
     TratamentoEnderecoComponent,
     TratamentoAcompanhanteComponent,
     TratamentoProfissionalComponent,
+    TratamentoListaAtendimentosComponent,
     TratamentoAtendimentoComponent,
     SolicitacaoTratamentoComponent,
     TratamentoSolicitacaoPacienteComponent,
@@ -82,7 +84,7 @@ FullCalendarModule.registerPlugins([
     TratamentoSolicitacaoAcompanhanteComponent,
     TratamentoSolicitacaoProfissionalComponent,
     CardAtendimentosComponent,
-    CriarAtendimentoComponent,
+    NovoAtendimentoComponent,
     TratamentoListaEmAbertoComponent
   ],
   imports: [

@@ -10,6 +10,7 @@ import { SituacaoTratamento } from '../classes/situacao-tratamento.class';
 import { TratamentoAberto } from '../classes/tratamento-aberto.class';
 import { TratamentoEncerrar } from '../classes/tratamento-encerrar.class';
 import { TratamentoService } from '../services/tratamento.service';
+import { TratamentoStorageService } from '../services/tratamento-storage.service';
 
 declare var jQuery: any;
 
@@ -33,6 +34,7 @@ export class TratamentoComponent implements OnInit {
     private validService: SharedValidService,
     private loading: SharedLoadingService,
     private tratamentoService: TratamentoService,
+    private tratamentoStorage: TratamentoStorageService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
@@ -48,6 +50,7 @@ export class TratamentoComponent implements OnInit {
         .subscribe(response => {
           if (response) {
             this.tratamentoAberto = response.body?.data;
+            this.tratamentoStorage.tratamentoAberto = this.tratamentoAberto;
             this.loading.emitChange(false);
             this.hideForm = false;
           } else {

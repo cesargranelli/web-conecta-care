@@ -11,7 +11,7 @@ import { InformacoesHomecareComponent } from './dados/homecare/informacoes-homec
 import { InformacoesLoginComponent } from './dados/login/informacoes-login.component';
 import { HomeCaresComponent } from './homecares.component';
 import { ProntuarioComponent } from './shared/components/prontuario/prontuario.component';
-import { CriarAtendimentoComponent } from './tratamento/atendimento/criar-atendimento/criar-atendimento.component';
+import { NovoAtendimentoComponent } from './tratamento/atendimento/novo-atendimento/novo-atendimento.component';
 import { TratamentoListaEmAbertoComponent } from './tratamento/lista-em-aberto/tratamento-lista-em-aberto.component';
 import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
 import { TratamentoComponent } from './tratamento/tratamento.component';
@@ -56,10 +56,6 @@ const routes: Routes = [
             path: 'tratamento',
             children: [
               {
-                path: 'novo-atendimento',
-                component: CriarAtendimentoComponent,
-              },
-              {
                 path: 'solicitacao',
                 component: SolicitacaoTratamentoComponent,
               },
@@ -72,7 +68,16 @@ const routes: Routes = [
                   },
                   {
                     path: ':tratamento_id',
-                    component: TratamentoComponent
+                    children: [
+                      {
+                        path: '',
+                        component: TratamentoComponent
+                      },
+                      {
+                        path: 'novo-atendimento',
+                        component: NovoAtendimentoComponent,
+                      }
+                    ]
                   }
                 ]
               }
