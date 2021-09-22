@@ -16,37 +16,46 @@ export class PacientesComponent implements OnInit {
   atendimentosProtocolo: AtendimentoProtocolo[];
 
   constructor(
-    private _validService: SharedValidService,
-    private _loading: SharedLoadingService,
-    private _atendimentoService: AtendimentoService
-    ) {
-      this._loading.emitChange(true);
-    }
+    private validService: SharedValidService,
+    private loading: SharedLoadingService,
+    private atendimentoService: AtendimentoService
+  ) {
+    this.loading.emitChange(true);
+  }
 
   ngOnInit(): void {
-    this._atendimentoService.atendimentosProtocolo(String(this._validService.getValid().id), this.dataAtualFormatada())
+    this.atendimentoService.atendimentosProtocolo(String(this.validService.getValid()?.id), this.dataAtualFormatada())
       .subscribe(response => {
-        this.atendimentosProtocolo = response.body.data;
-        this._loading.emitChange(false);
-    }, (errorResponse: HttpErrorResponse) => {
-      if (errorResponse.status === 0) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Sistema indisponível! ' + errorResponse.statusText,
-          showConfirmButton: true
-        });
-      }
-      this._loading.emitChange(false);
-    });
+        if (response?.status == 204) {
+          Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: 'Você ainda não possui nenhum tratamento com atendimentos agendados!',
+            showConfirmButton: true
+          });
+        } else {
+          this.atendimentosProtocolo = response.body?.data;
+        }
+        this.loading.emitChange(false);
+      }, (errorResponse: HttpErrorResponse) => {
+        if (errorResponse.status === 0) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Sistema indisponível! ' + errorResponse.statusText,
+            showConfirmButton: true
+          });
+        }
+        this.loading.emitChange(false);
+      });
   }
 
   dataAtualFormatada() {
     var data = new Date(),
-        dia  = data.getDate().toString().padStart(2, '0'),
-        mes  = (data.getMonth()+1).toString().padStart(2, '0'),
-        ano  = data.getFullYear();
-    return dia+"/"+mes+"/"+ano;
+      dia = data.getDate().toString().padStart(2, '0'),
+      mes = (data.getMonth() + 1).toString().padStart(2, '0'),
+      ano = data.getFullYear();
+    return dia + "/" + mes + "/" + ano;
   }
 
 }
