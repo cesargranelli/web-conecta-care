@@ -41,6 +41,7 @@ import { PlanosSaudeFilialModule } from './planos-saude-filial/planos-saude-fili
 import { PlanosSaudeModule } from './planos-saude/planos-saude.module';
 import { ProfissionaisModule } from './profissionais/profissionais.module';
 import { HeadersInterceptor } from './services/interceptors/headers.interceptor';
+import { SizeBodyInterceptor } from './services/interceptors/size-body.interceptor';
 import { ValidadorCnpj } from './utils/validador-cnpj.utils';
 import { ValidadorCpf } from './utils/validador-cpf.utils';
 
@@ -105,6 +106,11 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SizeBodyInterceptor,
       multi: true
     }
   ],

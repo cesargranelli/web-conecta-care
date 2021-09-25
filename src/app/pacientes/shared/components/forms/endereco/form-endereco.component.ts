@@ -48,7 +48,7 @@ export class FormEnderecoComponent implements OnInit {
   public imagemComprovante: any = '../../../../../assets/img/Headshot-Doc-1.png';
   public validationHas: InputValidationHas = new InputValidationHas();
   public esconderFormulario = true;
-  public endereco: EnderecoPaciente;
+  public endereco: EnderecoPaciente = new EnderecoPaciente();
   public fileComprovante: File;
   public paciente: Paciente;
 
@@ -114,7 +114,6 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   onSubmit() {
-    this.endereco = new EnderecoPaciente();
     this.endereco.logradouro = this.enderecoForm.value.logradouro;
     this.endereco.numero = this.enderecoForm.value.numero;
     this.endereco.complemento = this.enderecoForm.value.complemento;
