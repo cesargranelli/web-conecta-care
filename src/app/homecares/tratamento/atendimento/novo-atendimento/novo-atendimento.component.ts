@@ -2,7 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { concatMap, map } from 'rxjs/operators';
 import { Estado } from 'src/app/classes/estado.class';
+import { Grupo } from 'src/app/classes/grupo.class';
+import { Modelo } from 'src/app/classes/modelo.class';
 import { Profissional } from 'src/app/classes/profissional.class';
 import { StatusAtendimento } from 'src/app/enums/status-atendimento.enum';
 import { AtendimentoAdicionar } from 'src/app/homecares/classes/atendimento-adicionar.class';
@@ -34,8 +37,9 @@ export class NovoAtendimentoComponent implements OnInit {
 
   profissional: Profissional;
   endereco: AtendimentoEndereco;
-
   atendimento: AtendimentoAdicionar;
+  modelos: Modelo[];
+  grupos: Grupo[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,14 +71,29 @@ export class NovoAtendimentoComponent implements OnInit {
       valorAtendimentoCliente: [null, [Validators.required]],
       valorAtendimentoProfissional: [null, [Validators.required]],
       valorAjudaCusto: [null, [Validators.required]],
-      observacao: [null, [Validators.required]]
+      observacao: [null, [Validators.required]],
+      modelos: [null],
+      grupos: [null]
     });
   }
 
   ngOnInit(): void {
+    this.dominioService.getModelos().pipe(
+      map((response) => {
+        this.modelos = response.body;
+      }),
+      concatMap(() => this.dominioService.getGrupos().pipe(
+        map(response => {
+          this.grupos = response.body;
+        }))
+      )
+    ).subscribe(() => {
+      setTimeout(() => {
+        jQuery('.selectpicker').selectpicker('refresh');
+        this.loading.emitChange(false);
+      });
+    });
     if (this.tratamentoDadosService.tratamentoAberto) {
-      jQuery('select').selectpicker('refresh');
-
       delete this.tratamentoDadosService.tratamentoAberto?.paciente.endereco.id;
       this.endereco = this.tratamentoDadosService.tratamentoAberto?.paciente.endereco;
       this.atendimentoForm.controls.endereco.patchValue(this.endereco, { onlySelf: true, emitEvent: true });
@@ -120,6 +139,7 @@ export class NovoAtendimentoComponent implements OnInit {
     atendimento.observacao = this.atendimentoForm.controls.observacao.value;
     atendimento.situacao = new SituacaoAtendimento(null, new Date().toISOString(), StatusAtendimento.Agendado);
     atendimento.recorrencia = this.recorrenciaDefault();
+    atendimento.grupos = this.atendimentoForm.controls.grupos.value;
     return atendimento;
   }
 
@@ -247,6 +267,51 @@ export class NovoAtendimentoComponent implements OnInit {
     recorrencia.diaria = new Diaria(new Date(), new Date(), 1);
 
     return recorrencia;
+  }
+
+  classificaGruposAPartirDaEscolhaDoModelo() {
+    let nomeGrupos: Array<string> = Array<string>();
+    let grupos: Array<Grupo> = Array<Grupo>();
+    this.atendimentoForm.controls.modelos.value.forEach((descricao: string) => {
+      this.modelos.filter((modelo: Modelo) => modelo.descricao.toUpperCase() == descricao)
+        .map(modelo => {
+          modelo.grupos.forEach((grupo: Grupo) => {
+            nomeGrupos.push(grupo.descricao.toUpperCase());
+            grupos.push(grupo);
+          })
+        });
+    });
+    this.atendimentoForm.controls.grupos.patchValue(grupos, { onlySelf: true, emitEvent: true });
+    setTimeout(() => {
+      jQuery('select[id=\'grupos\']').val(nomeGrupos);
+      jQuery('.selectpicker').selectpicker('refresh');
+    });
+  }
+
+  classificaModelosAPartirDaEscolhaDoGrupo() {
+    let nomeModelos: Array<string> = Array<string>();
+    let nomeGrupos: Array<string> = Array<string>();
+    let modelos: Array<Modelo> = Array<Modelo>();
+    let grupos: Array<Grupo> = Array<Grupo>();
+    this.atendimentoForm.controls.grupos.value.forEach((descricao: string) => {
+      nomeGrupos.push(descricao.toUpperCase());
+      grupos.push(this.grupos.filter(grupo => grupo.descricao.toUpperCase() == descricao)[0]);
+      this.modelos.forEach((modelo: Modelo) => {
+        modelo.grupos.forEach((grupo: Grupo) => {
+          if (grupo.descricao.toUpperCase() == descricao) {
+            nomeModelos.push(modelo.descricao.toUpperCase());
+            modelos.push(modelo);
+          }
+        })
+      });
+    });
+    this.atendimentoForm.controls.modelos.patchValue(modelos);
+    this.atendimentoForm.controls.grupos.patchValue(grupos);
+    setTimeout(() => {
+      jQuery('select[id=\'modelos\']').val(nomeModelos);
+      jQuery('select[id=\'grupos\']').val(nomeGrupos);
+      jQuery('.selectpicker').selectpicker('refresh');
+    });
   }
 
 }

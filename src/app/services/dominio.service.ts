@@ -9,7 +9,9 @@ import { Conselho } from '../classes/conselho.class';
 import { EstadoCivil } from '../classes/estado-civil.class';
 import { Estado } from '../classes/estado.class';
 import { Genero } from '../classes/genero.class';
+import { Grupo } from '../classes/grupo.class';
 import { Instrucao } from '../classes/instrucao.class';
+import { Modelo } from '../classes/modelo.class';
 import { Pais } from '../classes/pais.class';
 import { Parentesco } from '../classes/parentesco.class';
 import { TipoConta } from '../classes/tipo-conta.class';
@@ -78,6 +80,14 @@ export class DominioService {
 
   getParentescos(): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<Parentesco[]>>(`${this.endpoint}/parentesco`, { observe: 'response' });
+  }
+
+  getModelos(): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<Modelo[]>>(`${this.endpoint}/modelo`, { observe: 'response' });
+  }
+
+  getGrupos(): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<Grupo[]>>(`${this.endpoint}/grupo`, { observe: 'response' });
   }
 
 }

@@ -1,6 +1,6 @@
 import { Time } from '@angular/common';
-import { AtendimentoCampo } from './atendimento-campo.class';
 import { AtendimentoEndereco } from './atendimento-endereco.class';
+import { AtendimentoGrupo } from './atendimento-grupo.class';
 import { AtendimentoRecorrencia } from './atendimento-recorrencia.class';
 import { SituacaoAtendimento } from './situacao-atendimento.class';
 
@@ -19,7 +19,7 @@ export class AtendimentoAdicionar {
   valorPaciente: number;
   valorAjudaCusto: number;
   observacao: string;
-  campos: AtendimentoCampo[];
+  grupos: Array<AtendimentoGrupo>;
   situacao: SituacaoAtendimento;
   recorrencia: AtendimentoRecorrencia;
 }

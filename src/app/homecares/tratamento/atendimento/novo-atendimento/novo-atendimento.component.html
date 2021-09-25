@@ -9,48 +9,45 @@
               <h3 class="card-title">Informações do Atendimento</h3>
             </div>
             <div class="card-body">
-              <div class="card-body">
-                <div class="row">
-                  <label class="col-lg-2 col-md-3 col-form-label text-right" for="data">Data:</label>
-                  <div class="form-group col-lg-2 col-md-3">
-                    <input class="form-control datepicker" formControlName="data" type="text" id="data"
-                      (focus)="dateChange(atendimentoForm.controls?.data, 'data')" autocomplete="none">
-                  </div>
-                  <label class="col-lg-1 col-md-2 col-form-label text-right" for="hora">Hora:</label>
-                  <div class="form-group col-lg-2 col-md-3">
-                    <input class="form-control timepicker" formControlName="hora" type="text" id="hora"
-                      (focus)="dateChange(atendimentoForm.controls?.hora, 'hora')" autocomplete="none">
-                  </div>
+              <div class="row">
+                <label class="col-lg-2 col-md-3 col-form-label text-right" for="data">Data:</label>
+                <div class="form-group col-lg-2 col-md-3">
+                  <input class="form-control datepicker" formControlName="data" type="text" id="data"
+                    (focus)="dateChange(atendimentoForm.controls?.data, 'data')" autocomplete="none">
+                </div>
+                <label class="col-lg-1 col-md-2 col-form-label text-right" for="hora">Hora:</label>
+                <div class="form-group col-lg-2 col-md-3">
+                  <input class="form-control timepicker" formControlName="hora" type="text" id="hora"
+                    (focus)="dateChange(atendimentoForm.controls?.hora, 'hora')" autocomplete="none">
                 </div>
               </div>
-              <div class="card-body">
-                <div class="row">
-                  <label class="col-lg-2 col-md-3 col-form-label text-right" for="profissionalCpf">Cpf
-                    Profissional:</label>
-                  <div class="form-group col-lg-2 col-md-7">
-                    <input class="form-control" formControlName="profissionalCpf" mask="000.000.000-00" type="text"
-                      autocomplete="none">
-                  </div>
-                  <button (click)="pesquisarProfissional(this.atendimentoForm.controls?.profissionalCpf.value)"
-                    [disabled]="!atendimentoForm.controls?.profissionalCpf.valid"
-                    [value]="atendimentoForm.controls?.profissionalCpf"
-                    class="btn btn-social btn-just-icon btn-round btn-rose" type="button">
-                    <i class="material-icons">search</i>
-                  </button>
-                  <label class="col-lg-2 col-md-3 col-form-label text-right" for="profissionalNome">Nome:</label>
-                  <div class="form-group col-lg-5 col-md-8">
-                    <input class="form-control" formControlName="profissionalNome" type="text">
-                  </div>
+              <div class="row">
+                <label class="col-lg-2 col-md-3 col-form-label text-right" for="profissionalCpf">Cpf
+                  Profissional:</label>
+                <div class="form-group col-lg-2 col-md-7">
+                  <input class="form-control" formControlName="profissionalCpf" mask="000.000.000-00" type="text"
+                    autocomplete="none">
+                </div>
+                <button (click)="pesquisarProfissional(this.atendimentoForm.controls?.profissionalCpf.value)"
+                  [disabled]="!atendimentoForm.controls?.profissionalCpf.valid"
+                  [value]="atendimentoForm.controls?.profissionalCpf"
+                  class="btn btn-social btn-just-icon btn-round btn-rose" type="button">
+                  <i class="material-icons">search</i>
+                </button>
+                <label class="col-lg-2 col-md-3 col-form-label text-right" for="profissionalNome">Nome:</label>
+                <div class="form-group col-lg-5 col-md-8">
+                  <input class="form-control" formControlName="profissionalNome" type="text">
                 </div>
               </div>
-              <div class="card-body" [formGroup]="atendimentoForm.controls.endereco">
+              <div [formGroup]="atendimentoForm.controls.endereco">
                 <div class="row">
                   <label class="col-lg-2 col-md-3 col-form-label text-right" for="cep">CEP Atendimento:</label>
                   <div class="form-group col-lg-2 col-md-7">
                     <input class="form-control" formControlName="cep" mask="00000-000" type="text" autocomplete="none">
                   </div>
                   <button (click)="pesquisarCep(this.atendimentoForm.controls?.endereco.get('cep').value)"
-                    [disabled]="!atendimentoForm.controls?.endereco.get('cep').valid" [value]="atendimentoForm.controls?.endereco.get('cep')"
+                    [disabled]="!atendimentoForm.controls?.endereco.get('cep').valid"
+                    [value]="atendimentoForm.controls?.endereco.get('cep')"
                     class="btn btn-social btn-just-icon btn-round btn-rose" type="button">
                     <i class="material-icons">search</i>
                   </button>
@@ -62,8 +59,7 @@
                 <div class="row">
                   <label class="col-lg-2 col-md-3 col-form-label text-right" for="numero">Número:</label>
                   <div class="form-group col-lg-2 col-md-8">
-                    <input class="form-control" formControlName="numero" mask="999999" type="text"
-                      autocomplete="none">
+                    <input class="form-control" formControlName="numero" mask="999999" type="text" autocomplete="none">
                   </div>
                   <label class="col-lg-2 col-md-3 col-form-label text-right" for="complemento">Complemento:</label>
                   <div class="form-group col-lg-5 col-md-8">
@@ -71,39 +67,54 @@
                   </div>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="row">
-                  <label class="col-lg-4 col-md-6 col-form-label text-right" for="valorAtendimentoHomecare">
-                    Valor Atendimento Homecare:
-                  </label>
-                  <div class="form-group col-lg-2 col-md-2">
-                    <input class="form-control" formControlName="valorAtendimentoHomecare" type="text"
-                      mask="separator.2" thousandSeparator="." separatorLimit="100">
-                  </div>
-                  <label class="col-lg-3 col-md-6 col-form-label text-right" for="valorAtendimentoCliente">
-                    Valor Atendimento Cliente:
-                  </label>
-                  <div class="form-group col-lg-2 col-md-2">
-                    <input class="form-control" formControlName="valorAtendimentoCliente" type="text" mask="separator.2"
-                      thousandSeparator="." separatorLimit="100">
-                  </div>
-                </div>
-                <div class="row">
-                  <label class="col-lg-4 col-md-6 col-form-label text-right" for="valorAtendimentoProfissional">
-                    Valor Atendimento Profissional:
-                  </label>
-                  <div class="form-group col-lg-2 col-md-2">
-                    <input class="form-control" formControlName="valorAtendimentoProfissional" type="text"
-                      mask="separator.2" thousandSeparator="." separatorLimit="100">
-                  </div>
-                  <label class="col-lg-3 col-md-6 col-form-label text-right" for="valorAjudaCusto" mask="separator.2"
+              <div class="row">
+                <label class="col-lg-4 col-md-6 col-form-label text-right" for="valorAtendimentoHomecare">
+                  Valor Atendimento Homecare:
+                </label>
+                <div class="form-group col-lg-2 col-md-2">
+                  <input class="form-control" formControlName="valorAtendimentoHomecare" type="text" mask="separator.2"
                     thousandSeparator="." separatorLimit="100">
-                    Valor Ajuda de custo:
-                  </label>
-                  <div class="form-group col-lg-2 col-md-2">
-                    <input class="form-control" formControlName="valorAjudaCusto" type="text" mask="separator.2"
-                      thousandSeparator="." separatorLimit="100">
-                  </div>
+                </div>
+                <label class="col-lg-3 col-md-6 col-form-label text-right" for="valorAtendimentoCliente">
+                  Valor Atendimento Cliente:
+                </label>
+                <div class="form-group col-lg-2 col-md-2">
+                  <input class="form-control" formControlName="valorAtendimentoCliente" type="text" mask="separator.2"
+                    thousandSeparator="." separatorLimit="100">
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-lg-4 col-md-6 col-form-label text-right" for="valorAtendimentoProfissional">
+                  Valor Atendimento Profissional:
+                </label>
+                <div class="form-group col-lg-2 col-md-2">
+                  <input class="form-control" formControlName="valorAtendimentoProfissional" type="text"
+                    mask="separator.2" thousandSeparator="." separatorLimit="100">
+                </div>
+                <label class="col-lg-3 col-md-6 col-form-label text-right" for="valorAjudaCusto" mask="separator.2"
+                  thousandSeparator="." separatorLimit="100">
+                  Valor Ajuda de custo:
+                </label>
+                <div class="form-group col-lg-2 col-md-2">
+                  <input class="form-control" formControlName="valorAjudaCusto" type="text" mask="separator.2"
+                    thousandSeparator="." separatorLimit="100">
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-lg-2 col-md-3 col-form-label" for="modelos">Modelos:</label>
+                <div class="form-group col-lg-4 col-md-8">
+                  <select class="selectpicker" multiple data-style="btn btn-primary" data-width="100%"
+                    formControlName="modelos" id="modelos" title="Modelos" (change)="classificaGruposAPartirDaEscolhaDoModelo()">
+                    <option *ngFor="let modelo of modelos">{{ modelo.descricao | uppercase }}
+                    </option>
+                  </select>
+                </div>
+                <label class="col-lg-1 col-md-3 col-form-label" for="grupos">Grupos:</label>
+                <div class="form-group col-lg-4 col-md-8">
+                  <select class="selectpicker" multiple data-style="btn btn-primary" data-width="100%"
+                    formControlName="grupos" id="grupos" title="Grupos" (change)="classificaModelosAPartirDaEscolhaDoGrupo()">
+                    <option *ngFor="let grupo of grupos">{{ grupo.descricao | uppercase }}</option>
+                  </select>
                 </div>
               </div>
               <div class="card-body">
@@ -117,7 +128,8 @@
               <div class="card-body">
                 <div class="row">
                   <span class="bmd-form-group is-filled">
-                    <button [disabled]="!atendimentoForm.valid" class="btn btn-rose" type="submit">Salvar</button>
+                    <!-- <button [disabled]="!atendimentoForm.valid" class="btn btn-rose" type="submit">Salvar</button> -->
+                    <button class="btn btn-rose" type="submit">Salvar</button>
                   </span>
                 </div>
               </div>
