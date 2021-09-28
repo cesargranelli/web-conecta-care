@@ -21,7 +21,7 @@
                       <div>Nome: {{ prontuario?.paciente.nome }}</div>
                     </div>
                     <div class="col">
-                      <div>Sexo: {{ prontuario?.paciente.genero.tipo }}</div>
+                      <div>Sexo: {{ prontuario?.paciente?.genero?.tipo }}</div>
                     </div>
                   </div>
                   <div class="row">
@@ -37,27 +37,19 @@
                   <div class="row">
                     <div class="col">
                       <div>
-                        Est. Civil: {{ prontuario?.paciente.estadoCivil.tipo }}
+                        Est. Civil: {{ prontuario?.paciente?.estadoCivil?.tipo }}
                       </div>
                     </div>
                     <div class="col">
                       <div>
                         Contatos (Fones/E-MAIL):
-                        {{ prontuario?.paciente.contato }}
+                        {{ prontuario?.paciente.contato.telefoneCelular }}
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col">
                       <div>Religião: N/A</div>
-                    </div>
-                    <div class="col">
-                      <div class="float-right">
-                        <button type="button" class="btn btn-primary" [routerLink]="['../../tratamento/solicitacao']">
-                          Criar novo tratamento
-                          <i class="material-icons">add</i>
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -93,7 +85,7 @@
                           <div class="card-body">
                             <div class="card col-md-12">
                               <div
-                                class="card-header card-header-info text-center"
+                                class="card-header card-header-rose text-center"
                               >
                                 Profissional Responsável pelo Tratamento
                               </div>
@@ -161,7 +153,7 @@
                               <div class="card col-md-12">
                                 <div
                                   class="
-                                    card-header card-header-info
+                                    card-header card-header-rose
                                     text-center
                                   "
                                 >

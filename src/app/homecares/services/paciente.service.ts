@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { Paciente } from 'src/app/pacientes/classes/paciente.class';
 import { ResponseTemplateInterface } from 'src/app/services/response/responseTemplate.interface';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,12 @@ export class PacienteService {
     if (paciente) {
       return paciente.data;
     } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: 'Paciente não possui cadastro ou cadastro incompleto!',
+        showConfirmButton: true,
+      });
       return null;
     }
   }

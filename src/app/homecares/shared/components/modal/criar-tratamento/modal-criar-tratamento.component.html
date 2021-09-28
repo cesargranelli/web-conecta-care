@@ -19,7 +19,7 @@
         <div class="modal-body">
           <div class="wizard-navigation">
             <ul class="nav nav-pills nav-fill">
-              <li id="nome" class="nav-item">
+              <!-- <li id="nome" class="nav-item">
                 <a
                   data-toggle="tab"
                   role="tab"
@@ -30,12 +30,12 @@
                 >
                   Nome
                 </a>
-              </li>
+              </li> -->
               <li id="CPF" class="nav-item">
                 <a
                   data-toggle="tab"
                   role="tab"
-                  class="nav-link"
+                  class="nav-link active show"
                   aria-selected="true"
                   (click)="selecionarOpcao(1)"
                   style="cursor: pointer"
@@ -54,7 +54,7 @@
                       <i class="material-icons">search</i>
                     </div>
                   </div>
-                  <div
+                  <!-- <div
                     *ngIf="
                       opcaoSelecionada === 0 ||
                       opcaoSelecionada === undefined ||
@@ -68,7 +68,7 @@
                       formControlName="input"
                       type="text"
                     />
-                  </div>
+                  </div> -->
                   <div *ngIf="opcaoSelecionada === 1">
                     <input
                       class="form-control"

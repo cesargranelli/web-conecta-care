@@ -21,8 +21,8 @@ declare function carregarTarjaAzul(): void; //Carrega a funcao carregarTarjaAzul
 })
 export class ModalCriarTratamentoComponent implements OnInit {
   public criarTratamentoForm: FormGroup;
-  public placeHolder = 'Digite o nome';
-  public opcaoSelecionada: number;
+  public placeHolder = 'Digite o CPF';
+  public opcaoSelecionada: number = 1;
   private userInput: string;
 
   constructor(
@@ -62,13 +62,19 @@ export class ModalCriarTratamentoComponent implements OnInit {
     switch (this.opcaoSelecionada) {
       case 0:
         this.pacienteService.consultarPorNome(this.userInput).subscribe((paciente) => {
-          this.consultaTratamentoEmAberto(paciente);
-        }, null);
+          if (paciente) {
+            this.consultaTratamentoEmAberto(paciente);
+          }
+          this.loading.emitChange(false);
+        }, () => this.loading.emitChange(false));
         break;
       case 1:
         this.pacienteService.consultarPorDocumento(this.userInput).subscribe((paciente) => {
-          this.consultaTratamentoEmAberto(paciente);
-        }, null);
+          if (paciente) {
+            this.consultaTratamentoEmAberto(paciente);
+          }
+          this.loading.emitChange(false);
+        }, () => this.loading.emitChange(false));
         break;
     }
   }
@@ -87,7 +93,6 @@ export class ModalCriarTratamentoComponent implements OnInit {
             title: 'Ops! Ocorreu um erro inexperrado',
             showConfirmButton: true,
           });
-          console.log(httpErrorResponse);
           this.loading.emitChange(false);
         }
       });
