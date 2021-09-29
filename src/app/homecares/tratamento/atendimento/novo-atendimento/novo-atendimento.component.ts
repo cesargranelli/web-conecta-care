@@ -93,9 +93,9 @@ export class NovoAtendimentoComponent implements OnInit {
         this.loading.emitChange(false);
       });
     });
-    if (this.tratamentoDadosService.tratamentoAberto) {
-      delete this.tratamentoDadosService.tratamentoAberto?.paciente.endereco.id;
-      this.endereco = this.tratamentoDadosService.tratamentoAberto?.paciente.endereco;
+    if (this.tratamentoDadosService?.tratamentoAberto) {
+      delete this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.id;
+      this.endereco = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco;
       this.atendimentoForm.controls.endereco.patchValue(this.endereco, { onlySelf: true, emitEvent: true });
 
       this.inicializaDatepicker();
