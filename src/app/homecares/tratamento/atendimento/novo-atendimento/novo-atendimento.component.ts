@@ -94,6 +94,7 @@ export class NovoAtendimentoComponent implements OnInit {
       });
     });
     if (this.tratamentoDadosService?.tratamentoAberto) {
+      this.endereco = new AtendimentoEndereco();
       this.endereco.logradouro = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.logradouro;
       this.endereco.numero = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.numero;
       this.endereco.complemento = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.complemento;
