@@ -93,15 +93,15 @@ export class NovoAtendimentoComponent implements OnInit {
         this.loading.emitChange(false);
       });
     });
-    if (this.tratamentoDadosService?.tratamentoAberto) {
+    if (this.tratamentoDadosService.tratamentoAberto) {
       this.endereco = new AtendimentoEndereco();
-      this.endereco.logradouro = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.logradouro;
-      this.endereco.numero = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.numero;
-      this.endereco.complemento = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.complemento;
-      this.endereco.bairro = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.bairro;
-      this.endereco.cidade = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.cidade;
-      this.endereco.estado = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.estado;
-      this.endereco.cep = this.tratamentoDadosService?.tratamentoAberto?.paciente.endereco.cep;
+      this.endereco.logradouro = this.tratamentoDadosService.tratamentoAberto?.paciente.endereco?.logradouro;
+      this.endereco.numero = this.tratamentoDadosService.tratamentoAberto?.paciente.endereco?.numero;
+      this.endereco.complemento = this.tratamentoDadosService.tratamentoAberto?.paciente.endereco?.complemento;
+      this.endereco.bairro = this.tratamentoDadosService.tratamentoAberto?.paciente.endereco?.bairro;
+      this.endereco.cidade = this.tratamentoDadosService.tratamentoAberto?.paciente.endereco?.cidade;
+      this.endereco.estado = this.tratamentoDadosService.tratamentoAberto?.paciente.endereco?.estado;
+      this.endereco.cep = this.tratamentoDadosService.tratamentoAberto?.paciente.endereco?.cep;
       this.atendimentoForm.controls.endereco.patchValue(this.endereco, { onlySelf: true, emitEvent: true });
 
       this.inicializaDatepicker();
