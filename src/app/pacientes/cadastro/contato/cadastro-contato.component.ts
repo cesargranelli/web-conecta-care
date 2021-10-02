@@ -1,12 +1,12 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {Valid} from '../../../services/feat/Valid';
-import {FormGroup} from '@angular/forms';
-import {SharedValidService} from '../../../shared/services/shared-valid.service';
-import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
-import {Router} from '@angular/router';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {ContatoService} from '../../services/contato.service';
-import {ContatoPaciente} from '../../classes/contato-paciente.class';
+import { Valid } from '../../../services/feat/Valid';
+import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
+import { SharedValidService } from '../../../shared/services/shared-valid.service';
+import { ContatoPaciente } from '../../classes/contato-paciente.class';
+import { ContatoService } from '../../services/contato.service';
 
 @Component({
   selector: 'app-contato',
@@ -42,11 +42,11 @@ export class CadastroContatoComponent implements OnInit {
   onSubmit(contato: ContatoPaciente) {
     this._loading.emitChange(true);
     this._service.cadastrar(contato).subscribe(() => {
-        setTimeout(() => {
-          this._router.navigateByUrl(`pacientes/${this.valid.id}`);
-          this._loading.emitChange(false);
-        });
-      },
+      setTimeout(() => {
+        this._router.navigateByUrl(`pacientes/${this.valid.id}`);
+        this._loading.emitChange(false);
+      });
+    },
       () => {
         this._loading.emitChange(false);
         this.message();

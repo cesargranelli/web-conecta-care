@@ -67,14 +67,16 @@ export class FormContatoComponent implements OnInit {
       this.paciente = response;
       if (this.paciente.contato) {
         this._contatoService.consultar(this.paciente.contato.id).subscribe(response => {
-          this.contato = response;
+          setTimeout(() => {
+            this.contato = response;
+            if (this.contato) {
+              this.popularForm();
+              this.hideForm = false;
+              this._loading.emitChange(false);
+            }
+          });
         });
       }
-      if (this.contato) {
-        this.popularForm();
-      }
-      this.hideForm = false;
-      this._loading.emitChange(false);
     }, (errorResponse: HttpErrorResponse) => {
       if (errorResponse.status === 0) {
         console.log('Sistema indisponível! ' + errorResponse.statusText);

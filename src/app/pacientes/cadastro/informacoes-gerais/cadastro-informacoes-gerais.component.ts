@@ -65,20 +65,11 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
           });
         });
       } else {
-        this._service.registrar(paciente).subscribe(novoPaciente => {
-          this.dadosLocalStorage.id = novoPaciente.id;
+        this._service.registrar(paciente).subscribe(() => {
           this._validService.setValid(this.dadosLocalStorage);
           setTimeout(() => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Alteração realizada com sucesso!',
-              showConfirmButton: false,
-              timer: 2000
-            }).then(() => {
-              this._router.navigateByUrl(`pacientes/${this.dadosLocalStorage.id}/cadastro/endereco`);
-              this._loading.emitChange(false);
-            });
+            this._router.navigateByUrl(`pacientes/${this.dadosLocalStorage.id}/cadastro/endereco`);
+            this._loading.emitChange(false);
           });
         }, () => {
           this._loading.emitChange(false);

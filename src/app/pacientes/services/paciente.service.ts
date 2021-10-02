@@ -22,7 +22,7 @@ export class PacienteService {
       `${environment.apiConnecta}/api/v1/paciente`,
       paciente
     ).pipe(map((dado: ResponseTemplateInterface) => {
-      return dado.data;
+      return dado?.data;
     }),
       catchError(async (err) => console.error(err))
     );
@@ -33,7 +33,7 @@ export class PacienteService {
       `${environment.apiConnecta}/api/v1/paciente`,
       paciente
     ).pipe(map((dado: ResponseTemplateInterface) => {
-      return dado.data;
+      return dado?.data;
     }),
       catchError(async (err) => console.error(err))
     );
@@ -57,7 +57,7 @@ export class PacienteService {
       `${environment.apiConnecta}/api/v1/paciente/${id}`
     ).pipe(
       map((dado: ResponseTemplateInterface) => {
-        return dado.data;
+        return dado?.data;
       }),
       catchError(async (err) => console.error(err))
     );

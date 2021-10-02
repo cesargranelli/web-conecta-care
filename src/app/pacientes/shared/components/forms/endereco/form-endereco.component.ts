@@ -114,6 +114,9 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.endereco) {
+      this.endereco = new EnderecoPaciente();
+    }
     this.endereco.logradouro = this.enderecoForm.value.logradouro;
     this.endereco.numero = this.enderecoForm.value.numero;
     this.endereco.complemento = this.enderecoForm.value.complemento;

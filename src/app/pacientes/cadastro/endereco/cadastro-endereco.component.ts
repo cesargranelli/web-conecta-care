@@ -1,12 +1,11 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {Valid} from '../../../services/feat/Valid';
-import {FormGroup} from '@angular/forms';
-import {SharedValidService} from '../../../shared/services/shared-valid.service';
-import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
-import {Router} from '@angular/router';
-import Swal from 'sweetalert2';
-import {EnderecoPaciente} from '../../classes/endereco-paciente.class';
-import {EnderecoService} from '../../services/endereco.service';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Valid } from '../../../services/feat/Valid';
+import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
+import { SharedValidService } from '../../../shared/services/shared-valid.service';
+import { EnderecoPaciente } from '../../classes/endereco-paciente.class';
+import { EnderecoService } from '../../services/endereco.service';
 
 @Component({
   selector: 'app-endereco',
@@ -48,37 +47,11 @@ export class CadastroEnderecoComponent implements OnInit {
   onSubmit(endereco: EnderecoPaciente) {
     this._loading.emitChange(true);
     endereco.idPaciente = this._dadosLocalStorage.id;
-    console.log(endereco);
     this._service.cadastrar(endereco).subscribe(() => {
       setTimeout(() => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Alteração realizada com sucesso!',
-          showConfirmButton: false,
-          timer: 2000
-        });
         this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/contato`);
         this._loading.emitChange(false);
       });
-    });
-  }
-
-  // private navigate(endereco: EnderecoHomeCare) {
-  //   setTimeout(() => {
-  //     this._cadastro.endereco = endereco;
-  //     this._router.navigateByUrl(`homecares/${this._dadosLocalStorage.id}/cadastro/contato`);
-  //     this._loading.emitChange(false);
-  //   });
-  // }
-
-  private message() {
-    this._loading.emitChange(false);
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'Ocorreu um erro inexperado ao tentar inserir endereço',
-      showConfirmButton: true
     });
   }
 

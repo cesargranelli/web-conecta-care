@@ -90,7 +90,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
     this.paciente = new Paciente();
     this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
     this._generoService.listarGenero().pipe(
-      map(response => this.generos = response.body.data),
+      map(response => this.generos = response.body?.data),
       concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadosCivil = response.body.data))),
       concatMap(() => this._pacienteService.pesquisarPorId(this._dadosLocalStorage.id))
     ).subscribe(paciente => {
@@ -104,8 +104,19 @@ export class FormInformacoesGeraisComponent implements OnInit {
       });
     });
     jQuery('.datetimepicker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+      locale: 'pt-BR',
+      format: 'L',
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+      }
     });
   }
 
@@ -177,8 +188,6 @@ export class FormInformacoesGeraisComponent implements OnInit {
   }
 
   public onSubmit() {
-
-
     this._loading.emitChange(true);
     this.paciente = this.pacienteForm.value;
     this.paciente.id = this._dadosLocalStorage.id;

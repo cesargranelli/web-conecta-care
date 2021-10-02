@@ -1,14 +1,14 @@
-<app-menu *ngIf="!login && !isHomePage()"></app-menu>
-<app-menu-profissionais *ngIf="storageValid?.role?.toString()=='ROLE_PROFISSIONAL' && !isHomePage()"></app-menu-profissionais>
-<app-menu-pacientes *ngIf="storageValid?.role?.toString()=='ROLE_PACIENTE' && !isHomePage()"></app-menu-pacientes>
-<app-menu-homecares *ngIf="storageValid?.role?.toString()=='ROLE_HOMECARE' && !isHomePage()"></app-menu-homecares>
-<app-menu-planos-saude *ngIf="storageValid?.role?.toString()=='ROLE_PLANO_SAUDE' && !isHomePage()"></app-menu-planos-saude>
-<app-menu-planos-saude-filial *ngIf="storageValid?.role?.toString()=='ROLE_PLANO_SAUDE_FILIAL' && !isHomePage()"></app-menu-planos-saude-filial>
-<app-menu-admin *ngIf="storageValid?.role?.toString()=='ROLE_ADMIN_ROOT' && !isHomePage()"></app-menu-admin>
+<app-menu *ngIf="(!login && !isHomePage) || statusValid!='COMPLETO'"></app-menu>
+<app-menu-profissionais *ngIf="roleValid=='ROLE_PROFISSIONAL' && statusValid=='COMPLETO' && !isHomePage"></app-menu-profissionais>
+<app-menu-pacientes *ngIf="roleValid=='ROLE_PACIENTE' && statusValid=='COMPLETO' && !isHomePage"></app-menu-pacientes>
+<app-menu-homecares *ngIf="roleValid=='ROLE_HOMECARE' && statusValid=='COMPLETO' && !isHomePage"></app-menu-homecares>
+<app-menu-planos-saude *ngIf="roleValid=='ROLE_PLANO_SAUDE' && statusValid=='COMPLETO' && !isHomePage"></app-menu-planos-saude>
+<app-menu-planos-saude-filial *ngIf="roleValid=='ROLE_PLANO_SAUDE_FILIAL' && statusValid=='COMPLETO' && !isHomePage"></app-menu-planos-saude-filial>
+<app-menu-admin *ngIf="roleValid=='ROLE_ADMIN_ROOT' && statusValid=='COMPLETO' && !isHomePage"></app-menu-admin>
 
 <router-outlet></router-outlet>
 
-<ng-container *ngIf="!isHomePage()">
+<ng-container *ngIf="!isHomePage">
   <footer class="footer navbar-fixed-bottom">
     <div class="container">
       <nav class="navbar navbar-transparent justify-content-center text-white font-weight-bold">
