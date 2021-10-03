@@ -50,7 +50,8 @@ export class CadastroContatoComponent implements OnInit {
       this._service.cadastrar(contato).subscribe(response => {
           setTimeout(() => {
             this._cadastro.contato = contato;
-            this._router.navigateByUrl(`homecares/${this.valid.id}`);
+            // this._router.navigateByUrl(`homecares/${this.valid.id}`);
+            this._router.navigateByUrl(`../login`);
             this._loading.emitChange(false);
           });
         },

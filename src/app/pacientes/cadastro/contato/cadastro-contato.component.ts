@@ -43,7 +43,8 @@ export class CadastroContatoComponent implements OnInit {
     this._loading.emitChange(true);
     this._service.cadastrar(contato).subscribe(() => {
       setTimeout(() => {
-        this._router.navigateByUrl(`pacientes/${this.valid.id}`);
+        // this._router.navigateByUrl(`pacientes/${this.valid.id}`);
+        this._router.navigateByUrl(`../login`);
         this._loading.emitChange(false);
       });
     },

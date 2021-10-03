@@ -116,7 +116,8 @@ export class CadastroContaComponent implements OnInit {
             timer: 2000
           });
           this._cadastro.conta = this.conta;
-          this._router.navigateByUrl(`profissionais/${this.valid.id}`);
+          // this._router.navigateByUrl(`profissionais/${this.valid.id}`);
+          this._router.navigateByUrl(`../login`);
           this._loading.emitChange(false);
         });
       },
