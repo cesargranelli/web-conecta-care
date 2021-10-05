@@ -65,7 +65,7 @@ export class FormContatoComponent implements OnInit {
     this.validationHas = new InputValidationHas();
     this._pacienteService.pesquisarPorId(this._validService.getValid().id).subscribe(response => {
       this.paciente = response;
-      if (this.paciente.contato) {
+      if (this.paciente?.contato) {
         this._contatoService.consultar(this.paciente.contato.id).subscribe(response => {
           setTimeout(() => {
             this.contato = response;

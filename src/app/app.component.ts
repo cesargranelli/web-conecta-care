@@ -19,7 +19,7 @@ export class AppComponent {
     private _valid: SharedValidService
   ) {
     this.isHomePage;
-    console.log(environment.name); // Logs false for default environment
+    console.log(environment.name + ' - ' + this.versaoPublicada); // Logs false for default environment
     this._loading.changeEmitted$.subscribe(eventLoading => this.loading = eventLoading);
   }
 
