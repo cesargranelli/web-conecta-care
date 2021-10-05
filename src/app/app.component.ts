@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {environment} from './../environments/environment';
-import {SharedLoadingService} from './shared/services/shared-loading.service';
-import {SharedValidService} from './shared/services/shared-valid.service';
+import { Component } from '@angular/core';
+import { environment } from './../environments/environment';
+import { SharedLoadingService } from './shared/services/shared-loading.service';
+import { SharedValidService } from './shared/services/shared-valid.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,7 @@ export class AppComponent {
 
   public title = 'web-connecta';
   public loading: boolean = false;
+  public versaoPublicada: string = '1.8.1';
 
   constructor(
     private _loading: SharedLoadingService,

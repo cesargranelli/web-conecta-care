@@ -38,7 +38,7 @@ export class FormContatoComponent implements OnInit {
   public validationHas: InputValidationHas;
   public especialidades: Array<AreaAtendimento>;
   public hideForm = true;
-  public paciente: Paciente;
+  public paciente: Paciente = new Paciente();
 
   private contato: ContatoPaciente;
 

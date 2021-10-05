@@ -1,4 +1,4 @@
-<app-menu *ngIf="(!login && !isHomePage) || statusValid!='COMPLETO'"></app-menu>
+<app-menu *ngIf="!login || !isHomePage || statusValid!='COMPLETO'"></app-menu>
 <app-menu-profissionais *ngIf="roleValid=='ROLE_PROFISSIONAL' && statusValid=='COMPLETO' && !isHomePage"></app-menu-profissionais>
 <app-menu-pacientes *ngIf="roleValid=='ROLE_PACIENTE' && statusValid=='COMPLETO' && !isHomePage"></app-menu-pacientes>
 <app-menu-homecares *ngIf="roleValid=='ROLE_HOMECARE' && statusValid=='COMPLETO' && !isHomePage"></app-menu-homecares>
