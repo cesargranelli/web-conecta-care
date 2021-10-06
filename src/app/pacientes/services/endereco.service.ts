@@ -19,7 +19,7 @@ export class EnderecoService {
   public cadastrar(enderecoPaciente: EnderecoPaciente) {
     return this._http.post(`${environment.apiConnecta}/api/v1/endereco`, enderecoPaciente)
       .pipe(map((dado: ResponseTemplateInterface) => {
-        return dado.data;
+        return dado?.data;
       }),
         catchError(async (err) => console.error(err))
       );
@@ -28,7 +28,7 @@ export class EnderecoService {
   public alterar(enderecoPaciente: EnderecoPaciente) {
     return this._http.put(`${environment.apiConnecta}/api/v1/endereco`, enderecoPaciente)
       .pipe(map((dado: ResponseTemplateInterface) => {
-        return dado.data;
+        return dado?.data;
       }),
         catchError(async (err) => console.error(err))
       );
@@ -38,7 +38,7 @@ export class EnderecoService {
   public pesquisarEnderecoPorId(id: number): Observable<EnderecoPaciente> {
     return this._http.get(`${environment.apiConnecta}/api/v1/endereco/${id}`).pipe(
       map((dado: ResponseTemplateInterface) => {
-        return dado.data;
+        return dado?.data;
       }),
       catchError(async (err) => console.error(err))
     );
@@ -50,7 +50,7 @@ export class EnderecoService {
       { params: new HttpParams().set(this.ID_PACIENTE, String(idPaciente)) }
     ).pipe(
       map((dado: ResponseTemplateInterface) => {
-        return dado.data;
+        return dado?.data;
       }),
       catchError(async (err) => console.error(err))
     );

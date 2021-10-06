@@ -41,14 +41,24 @@ export class CadastroContatoComponent implements OnInit {
 
   onSubmit(contato: ContatoPaciente) {
     this._loading.emitChange(true);
-    this._service.cadastrar(contato).subscribe(() => {
-      setTimeout(() => {
-        // this._router.navigateByUrl(`pacientes/${this.valid.id}`);
-        this._router.navigateByUrl(`../login`);
-        this._loading.emitChange(false);
-      });
-    },
-      () => {
+    this._service.consultar(contato?.id ? contato?.id : 0)
+      .subscribe((contatoCallback: ContatoPaciente) => {
+        if (contatoCallback) {
+          this._service.alterar(contato).subscribe(() => {
+            setTimeout(() => {
+              this._router.navigate([`./login`]);
+              this._loading.emitChange(false);
+            });
+          });
+        } else {
+          this._service.cadastrar(contato).subscribe(() => {
+            setTimeout(() => {
+              this._router.navigate([`./login`]);
+              this._loading.emitChange(false);
+            });
+          });
+        }
+      }, () => {
         this._loading.emitChange(false);
         this.message();
       });

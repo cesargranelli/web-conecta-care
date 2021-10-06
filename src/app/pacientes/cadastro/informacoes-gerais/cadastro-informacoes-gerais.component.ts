@@ -38,22 +38,14 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
 
   onSubmit(paciente: Paciente) {
     this._loading.emitChange(true);
-    this._service.pesquisarPorId(paciente.id).subscribe((pacienteCallback: Paciente) => {
+    this._service.pesquisarPorId(paciente?.id).subscribe((pacienteCallback: Paciente) => {
       if (pacienteCallback) {
         this._service.alterar(paciente).subscribe(pacienteAtualizado => {
           this.dadosLocalStorage.id = pacienteAtualizado.id;
           this._validService.setValid(this.dadosLocalStorage);
           setTimeout(() => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Alteração realizada com sucesso!',
-              showConfirmButton: false,
-              timer: 2000
-            }).then(() => {
-              this._router.navigateByUrl(`pacientes/${this.dadosLocalStorage.id}/cadastro/endereco`);
-              this._loading.emitChange(false);
-            });
+            this._router.navigateByUrl(`pacientes/${this.dadosLocalStorage.id}/cadastro/endereco`);
+            this._loading.emitChange(false);
           });
         }, () => {
           this._loading.emitChange(false);

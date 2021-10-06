@@ -47,12 +47,31 @@ export class CadastroEnderecoComponent implements OnInit {
   onSubmit(endereco: EnderecoPaciente) {
     this._loading.emitChange(true);
     endereco.idPaciente = this._dadosLocalStorage.id;
-    this._service.cadastrar(endereco).subscribe(() => {
-      setTimeout(() => {
-        this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/contato`);
-        this._loading.emitChange(false);
+    this._service.pesquisarEnderecoPorId(endereco?.id ? endereco?.id : 0)
+      .subscribe((enderecoCallback: EnderecoPaciente) => {
+        if (enderecoCallback) {
+          this._service.alterar(endereco).subscribe(enderecoAtualizado => {
+            setTimeout(() => {
+              this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/contato`);
+              this._loading.emitChange(false);
+            });
+          });
+        } else {
+          this._service.cadastrar(endereco).subscribe(() => {
+            setTimeout(() => {
+              this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/contato`);
+              this._loading.emitChange(false);
+            });
+          });
+        }
+      }, () => {
+        this._service.cadastrar(endereco).subscribe(() => {
+          setTimeout(() => {
+            this._router.navigateByUrl(`pacientes/${this._dadosLocalStorage.id}/cadastro/contato`);
+            this._loading.emitChange(false);
+          });
+        });
       });
-    });
   }
 
 }

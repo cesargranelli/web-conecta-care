@@ -66,17 +66,13 @@ export class FormContatoComponent implements OnInit {
     this._pacienteService.pesquisarPorId(this._validService.getValid().id).subscribe(response => {
       this.paciente = response;
       if (this.paciente?.contato) {
-        this._contatoService.consultar(this.paciente.contato.id).subscribe(response => {
-          setTimeout(() => {
-            this.contato = response;
-            if (this.contato) {
-              this.popularForm();
-              this.hideForm = false;
-              this._loading.emitChange(false);
-            }
-          });
+        setTimeout(() => {
+          this.contato = this.paciente?.contato;
+          this.popularForm();
         });
       }
+      this.hideForm = false;
+      this._loading.emitChange(false);
     }, (errorResponse: HttpErrorResponse) => {
       if (errorResponse.status === 0) {
         console.log('Sistema indisponível! ' + errorResponse.statusText);
@@ -115,6 +111,5 @@ export class FormContatoComponent implements OnInit {
     this.contato.idPaciente = this.valid?.id;
     this.onSubmitEvent.emit(this.contato);
   }
-
 
 }
