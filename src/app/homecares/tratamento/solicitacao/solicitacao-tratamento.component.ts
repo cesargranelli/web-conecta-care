@@ -69,11 +69,14 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     this.tratamento = this.construirObjetoAdicionarTratamento();
     this.tratamentoService.adicionarTratamento(this.tratamento)
       .subscribe(() => {
+        this.loading.emitChange(false);
         this.mensagemSwal('info', 'Novo tratamento adicionado com sucesso!', true);
       }, (errorResponse: HttpErrorResponse) => {
         if (errorResponse.error.status == 412) {
+          this.loading.emitChange(false);
           this.mensagemSwal('warning', errorResponse.error?.data.message, true);
         } else {
+          this.loading.emitChange(false);
           this.mensagemSwal('error', 'Falha ao tentar adicionar novo tratamento!', false);
         }
       }, () => this.loading.emitChange(false));
@@ -111,7 +114,6 @@ export class SolicitacaoTratamentoComponent implements OnInit {
       title: title,
       showConfirmButton: true,
     });
-    this.loading.emitChange(false);
 
     if (navegar) {
       this.router.navigate([`../em-andamento`], { relativeTo: this.activatedRoute });
