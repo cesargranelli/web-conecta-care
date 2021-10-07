@@ -12,7 +12,7 @@ export class AppComponent {
 
   public title = 'web-connecta';
   public loading: boolean = false;
-  public versaoPublicada: string = '1.8.1';
+  public versaoPublicada: string = '1.8.2';
 
   constructor(
     private _loading: SharedLoadingService,

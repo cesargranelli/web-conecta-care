@@ -93,7 +93,6 @@ export class SolicitacaoTratamentoComponent implements OnInit {
   }
 
   construirObjetoAdicionarTratamento(): TratamentoAdicionar {
-    console.log(this.tratamentoForm.value)
     let tratamento = new TratamentoAdicionar();
     tratamento.descricao = this.tratamentoForm.controls?.descricaoTratamento.value;
     tratamento.valorKilometragem = Number(this.tratamentoForm.controls?.valorDeslocamento.value);
@@ -105,7 +104,6 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     tratamento.profissionalId = this.profissional?.id;
     tratamento.homeCareId = this.validService?.getValid()?.id;
     tratamento.situacao = new SituacaoTratamento(null, new Date().toISOString(), StatusTratamento.ABERTO);
-    console.log(tratamento)
     return tratamento;
   }
 
