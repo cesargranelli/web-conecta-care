@@ -5,7 +5,7 @@ import { Parentesco } from './parentesco.class';
 export class Acompanhante {
   nomeCompleto: string;
   cpf: string;
-  dataNascimento: Date;
+  dataNascimento: string;
   genero: Genero;
   parentesco: Parentesco;
   contato: ContatoAcompanhante;

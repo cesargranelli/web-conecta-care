@@ -93,31 +93,37 @@ export class SolicitacaoTratamentoComponent implements OnInit {
   }
 
   construirObjetoAdicionarTratamento(): TratamentoAdicionar {
+    console.log(this.tratamentoForm.value)
     let tratamento = new TratamentoAdicionar();
     tratamento.descricao = this.tratamentoForm.controls?.descricaoTratamento.value;
     tratamento.valorKilometragem = Number(this.tratamentoForm.controls?.valorDeslocamento.value);
     tratamento.pacienteId = this.paciente?.id;
     if (this.tratamentoForm.controls?.acompanhante.get('cpf').value) {
       tratamento.acompanhante = this.tratamentoForm.controls?.acompanhante.value;
-      tratamento.acompanhante.dataNascimento = new Date(tratamento.acompanhante.dataNascimento);
+      tratamento.acompanhante.dataNascimento = this.formatDate(new Date(tratamento.acompanhante.dataNascimento));
     }
     tratamento.profissionalId = this.profissional?.id;
     tratamento.homeCareId = this.validService?.getValid()?.id;
     tratamento.situacao = new SituacaoTratamento(null, new Date().toISOString(), StatusTratamento.ABERTO);
+    console.log(tratamento)
     return tratamento;
   }
 
   private mensagemSwal(icon: any, title: string, navegar: boolean) {
+    if (navegar) {
+      this.router.navigate([`../em-andamento`], { relativeTo: this.activatedRoute });
+    }
+    
     Swal.fire({
       position: 'center',
       icon: icon,
       title: title,
-      showConfirmButton: true,
+      showConfirmButton: true
     });
+  }
 
-    if (navegar) {
-      this.router.navigate([`../em-andamento`], { relativeTo: this.activatedRoute });
-    }
+  private formatDate(data: Date): string {
+    return String(data.getFullYear() + '-' + (data.getMonth() < 10 ? '0' + data.getMonth() : data.getMonth()) + '-' + (data.getDate() < 10 ? '0' + data.getDate() : data.getDate()));
   }
 
 }
