@@ -12,7 +12,7 @@ export class AppComponent {
 
   public title = 'web-connecta';
   public loading: boolean = false;
-  public versaoPublicada: string = '1.8.2';
+  public versaoPublicada: string = '1.9.0';
 
   constructor(
     private _loading: SharedLoadingService,
@@ -32,7 +32,7 @@ export class AppComponent {
   }
 
   get isHomePage(): boolean {
-    return window.location.pathname === '/';
+    return window.location.pathname === '/home';
   }
 
   get roleValid(): string {
