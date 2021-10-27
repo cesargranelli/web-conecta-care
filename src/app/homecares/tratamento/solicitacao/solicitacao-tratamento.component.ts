@@ -8,6 +8,7 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import Swal from 'sweetalert2';
+import { Acompanhante } from '../../classes/acompanhante.class';
 import { ProfissionalAtendimento } from '../../classes/profissional-atendimento.class';
 import { SituacaoTratamento } from '../../classes/situacao-tratamento.class';
 import { TratamentoAdicionar } from '../../classes/tratamento-adicionar.class';
@@ -67,19 +68,21 @@ export class SolicitacaoTratamentoComponent implements OnInit {
   onSubmit() {
     this.loading.emitChange(true);
     this.tratamento = this.construirObjetoAdicionarTratamento();
-    this.tratamentoService.adicionarTratamento(this.tratamento)
-      .subscribe(() => {
-        this.loading.emitChange(false);
-        this.mensagemSwal('info', 'Novo tratamento adicionado com sucesso!', true);
-      }, (errorResponse: HttpErrorResponse) => {
-        if (errorResponse.error.status == 412) {
+    if (this.tratamento) {
+      this.tratamentoService.adicionarTratamento(this.tratamento)
+        .subscribe(() => {
           this.loading.emitChange(false);
-          this.mensagemSwal('warning', errorResponse.error?.data.message, true);
-        } else {
-          this.loading.emitChange(false);
-          this.mensagemSwal('error', 'Falha ao tentar adicionar novo tratamento!', false);
-        }
-      }, () => this.loading.emitChange(false));
+          this.mensagemSwal('info', 'Novo tratamento adicionado com sucesso!', true);
+        }, (errorResponse: HttpErrorResponse) => {
+          if (errorResponse.error.status == 412) {
+            this.loading.emitChange(false);
+            this.mensagemSwal('warning', errorResponse.error?.data.message, true);
+          } else {
+            this.loading.emitChange(false);
+            this.mensagemSwal('error', 'Falha ao tentar adicionar novo tratamento!', false);
+          }
+        }, () => this.loading.emitChange(false));
+    }
   }
 
   eventoPaciente(paciente: Paciente) {
@@ -99,7 +102,12 @@ export class SolicitacaoTratamentoComponent implements OnInit {
     tratamento.pacienteId = this.paciente?.id;
     if (this.tratamentoForm.controls?.acompanhante.get('cpf').value) {
       tratamento.acompanhante = this.tratamentoForm.controls?.acompanhante.value;
-      tratamento.acompanhante.dataNascimento = this.formatDate(new Date(tratamento.acompanhante.dataNascimento));
+      if (!this.validarCamposAcompanhante(tratamento.acompanhante)) {
+        this.mensagemSwal('info', 'Informações para cadastrar acompanhante incompletas!', false);
+        return null;
+      } else {
+        tratamento.acompanhante.dataNascimento = this.formatDate(tratamento.acompanhante.dataNascimento);
+      }
     }
     tratamento.profissionalId = this.profissional?.id;
     tratamento.homeCareId = this.validService?.getValid()?.id;
@@ -109,19 +117,34 @@ export class SolicitacaoTratamentoComponent implements OnInit {
 
   private mensagemSwal(icon: any, title: string, navegar: boolean) {
     if (navegar) {
-      this.router.navigate([`../em-andamento`], { relativeTo: this.activatedRoute });
+      this.router.navigate([`../../tratamento/em-andamento`], { relativeTo: this.activatedRoute });
     }
-    
+
     Swal.fire({
       position: 'center',
       icon: icon,
       title: title,
       showConfirmButton: true
     });
+    this.loading.emitChange(false);
   }
 
-  private formatDate(data: Date): string {
-    return String(data.getFullYear() + '-' + (data.getMonth() < 10 ? '0' + data.getMonth() : data.getMonth()) + '-' + (data.getDate() < 10 ? '0' + data.getDate() : data.getDate()));
+  private formatDate(data: string): string {
+    return data.substring(6) + '-' + data.substring(3, 5) + '-' + data.substring(0, 2);
+  }
+
+  private validarCamposAcompanhante(acompanhante: Acompanhante): boolean {
+    if (!!!acompanhante.cpf ||
+      !!!acompanhante.nomeCompleto ||
+      !!!acompanhante.dataNascimento ||
+      !!!acompanhante.parentesco ||
+      !!!acompanhante.genero ||
+      !!!acompanhante.contato.telefoneResponsavel ||
+      !!!acompanhante.contato.telefoneCelular
+    ) {
+      return false;
+    }
+    return true;
   }
 
 }

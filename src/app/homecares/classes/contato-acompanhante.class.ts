@@ -1,5 +1,5 @@
 export class ContatoAcompanhante {
   telefoneFixo: number;
-  telefoneRecado: number;
+  telefoneResponsavel: number;
   telefoneCelular: number;
 }
