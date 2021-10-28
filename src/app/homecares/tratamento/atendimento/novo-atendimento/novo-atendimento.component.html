@@ -117,6 +117,16 @@
                   </select>
                 </div>
               </div>
+              <div class="row">
+                <label class="col-lg-2 col-md-3 col-form-label" for="tipoAtendimento">Tipo Atendimento:</label>
+                <div class="form-group col-lg-4 col-md-8">
+                  <select class="selectpicker" data-style="btn btn-primary" data-width="100%"
+                    formControlName="tipoAtendimento" id="tipoAtendimento" title="Tipo Atendimento">
+                    <option *ngFor="let tipo of tipoAtendimentos">{{ tipo.nome | uppercase }}
+                    </option>
+                  </select>
+                </div>
+              </div>
               <div class="card-body">
                 <div class="row">
                   <label class="col-lg-2 col-md-3 col-form-label" for="observacao">Observação:</label>
@@ -128,8 +138,7 @@
               <div class="card-body">
                 <div class="row">
                   <span class="bmd-form-group is-filled">
-                    <!-- <button [disabled]="!atendimentoForm.valid" class="btn btn-rose" type="submit">Salvar</button> -->
-                    <button class="btn btn-rose" type="submit">Salvar</button>
+                    <button [disabled]="!atendimentoForm.valid" class="btn btn-rose" type="submit">Salvar</button>
                   </span>
                 </div>
               </div>

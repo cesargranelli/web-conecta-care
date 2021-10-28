@@ -13,6 +13,7 @@ import { AtendimentoEndereco } from 'src/app/homecares/classes/atendimento-ender
 import { AtendimentoRecorrencia } from 'src/app/homecares/classes/atendimento-recorrencia.class';
 import { Diaria } from 'src/app/homecares/classes/diaria.class';
 import { SituacaoAtendimento } from 'src/app/homecares/classes/situacao-atendimento.class';
+import { TipoAtendimento } from 'src/app/homecares/classes/tipo-atendimento.class';
 import { AtendimentoService } from 'src/app/homecares/services/atendimento.service';
 import { TratamentoStorageService } from 'src/app/homecares/services/tratamento-storage.service';
 import { DominioService } from 'src/app/services/dominio.service';
@@ -40,6 +41,7 @@ export class NovoAtendimentoComponent implements OnInit {
   atendimento: AtendimentoAdicionar;
   modelos: Modelo[];
   grupos: Grupo[];
+  tipoAtendimentos: TipoAtendimento[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -73,7 +75,8 @@ export class NovoAtendimentoComponent implements OnInit {
       valorAjudaCusto: [null, [Validators.required]],
       observacao: [null, [Validators.required]],
       modelos: [null],
-      grupos: [null]
+      grupos: [null],
+      tipoAtendimento: [null, [Validators.required]]
     });
   }
 
@@ -85,6 +88,11 @@ export class NovoAtendimentoComponent implements OnInit {
       concatMap(() => this.dominioService.getGrupos().pipe(
         map(response => {
           this.grupos = response.body;
+        }))
+      ),
+      concatMap(() => this.dominioService.getAreasAtendimento().pipe(
+        map(response => {
+          this.tipoAtendimentos = response.body;
         }))
       )
     ).subscribe(() => {
@@ -108,7 +116,7 @@ export class NovoAtendimentoComponent implements OnInit {
       this.inicializaTimepicker();
       this.hideForm = false;
     } else {
-      this.router.navigate([`../`], { relativeTo: this.activatedRoute });
+      this.router.navigate([`../../`], { relativeTo: this.activatedRoute });
     }
   }
 
@@ -116,7 +124,6 @@ export class NovoAtendimentoComponent implements OnInit {
     this.loading.emitChange(true);
 
     this.atendimento = this.construirObjetoAdicionarAtendimento();
-
     this.atendimentoService.adicionarTratamento(this.atendimento)
       .subscribe(() => {
         this.showSwal('info', 'Novo atendimento adicionado com sucesso!', true);
@@ -132,9 +139,9 @@ export class NovoAtendimentoComponent implements OnInit {
   construirObjetoAdicionarAtendimento(): AtendimentoAdicionar {
     let atendimento = new AtendimentoAdicionar();
     atendimento.homeCareId = this.validService.getValid()?.id;
-    atendimento.tratamentoId = this.tratamentoDadosService.tratamentoAberto.id;
-    atendimento.profissionalId = this.profissional.id;
-    atendimento.pacienteId = this.tratamentoDadosService.tratamentoAberto.paciente.id;
+    atendimento.tratamentoId = this.tratamentoDadosService?.tratamentoAberto?.id;
+    atendimento.profissionalId = this.profissional?.id;
+    atendimento.pacienteId = this.tratamentoDadosService.tratamentoAberto?.paciente?.id;
     atendimento.data = new Date(Number(this.atendimentoForm.controls.data.value.substring(6, 10)), Number(this.atendimentoForm.controls.data.value.substring(3, 5) - 1), Number(this.atendimentoForm.controls.data.value.substring(0, 2)));
     atendimento.hora = this.atendimentoForm.controls.hora.value;
     atendimento.endereco = this.construirObjetoAtendimentoEndereco();
@@ -146,6 +153,7 @@ export class NovoAtendimentoComponent implements OnInit {
     atendimento.situacao = new SituacaoAtendimento(null, new Date().toISOString(), StatusAtendimento.Agendado);
     atendimento.recorrencia = this.recorrenciaDefault();
     atendimento.grupos = this.atendimentoForm.controls.grupos.value;
+    atendimento.tipoAtendimento = this.tipoAtendimentos.filter(tipoatendimento => tipoatendimento.nome.toUpperCase() == this.atendimentoForm.controls.tipoAtendimento.value)[0];
     return atendimento;
   }
 

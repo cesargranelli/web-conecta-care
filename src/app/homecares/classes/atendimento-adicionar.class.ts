@@ -3,6 +3,7 @@ import { AtendimentoEndereco } from './atendimento-endereco.class';
 import { AtendimentoGrupo } from './atendimento-grupo.class';
 import { AtendimentoRecorrencia } from './atendimento-recorrencia.class';
 import { SituacaoAtendimento } from './situacao-atendimento.class';
+import { TipoAtendimento } from './tipo-atendimento.class';
 
 export class AtendimentoAdicionar {
   homeCareId: number;
@@ -22,4 +23,5 @@ export class AtendimentoAdicionar {
   grupos: Array<AtendimentoGrupo>;
   situacao: SituacaoAtendimento;
   recorrencia: AtendimentoRecorrencia;
+  tipoAtendimento: TipoAtendimento;
 }
