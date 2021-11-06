@@ -11,6 +11,9 @@ export class SizeBodyInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.sizeMiB(this.memorySizeOf(request.body)) > 0) {
+      console.log(this.formatByteSize(this.memorySizeOf(request.body)))
+    }
     // if (this.sizeMiB(this.memorySizeOf(request.body)) > 2) {
     //   Swal.fire({
     //     position: 'center',
@@ -61,7 +64,7 @@ export class SizeBodyInterceptor implements HttpInterceptor {
     if (bytes < 1024) return bytes + " bytes";
     else if (bytes < 1048576) return (bytes / 1024).toFixed(3) + " KiB";
     else if (bytes < 1073741824) return (bytes / 1048576).toFixed(3) + " MiB";
-    else return (bytes / 1073741824).toFixed(3) + " GiB";
+    else return (bytes / 1073741824).toFixed(3) + " GB";
   };
 
   private sizeMiB(bytes: any) {
