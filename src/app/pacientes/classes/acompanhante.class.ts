@@ -4,8 +4,7 @@ import {Parentesco} from './parentesco.class';
 
 export class Acompanhante {
   id: number;
-  nome: string;
-  sobrenome: string;
+  nomeCompleto: string;
   cpf: string;
   dataNascimento: string;
   genero: Genero;
