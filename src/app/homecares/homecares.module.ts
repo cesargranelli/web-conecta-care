@@ -38,6 +38,7 @@ import { TratamentoEnderecoComponent } from './tratamento/components/endereco/tr
 import { TratamentoPacienteComponent } from './tratamento/components/paciente/tratamento-paciente.component';
 import { TratamentoProfissionalComponent } from './tratamento/components/profissional/tratamento-profissional.component';
 import { TratamentoListaEmAbertoComponent } from './tratamento/lista-em-aberto/tratamento-lista-em-aberto.component';
+import { TratamentoPreviewComponent } from './tratamento/preview/tratamento-preview.component';
 import { TratamentoSolicitacaoAcompanhanteComponent } from './tratamento/solicitacao/components/acompanhante/tratamento-solicitacao-acompanhante.component';
 import { TratamentoSolicitacaoEnderecoComponent } from './tratamento/solicitacao/components/endereco/tratamento-solicitacao-endereco.component';
 import { TratamentoSolicitacaoPacienteComponent } from './tratamento/solicitacao/components/paciente/tratamento-solicitacao-paciente.component';
@@ -85,7 +86,8 @@ FullCalendarModule.registerPlugins([
     TratamentoSolicitacaoProfissionalComponent,
     CardAtendimentosComponent,
     NovoAtendimentoComponent,
-    TratamentoListaEmAbertoComponent
+    TratamentoListaEmAbertoComponent,
+    TratamentoPreviewComponent
   ],
   imports: [
     CommonModule,

@@ -13,6 +13,7 @@ import { HomeCaresComponent } from './homecares.component';
 import { ProntuarioComponent } from './prontuario/prontuario.component';
 import { NovoAtendimentoComponent } from './tratamento/atendimento/novo-atendimento/novo-atendimento.component';
 import { TratamentoListaEmAbertoComponent } from './tratamento/lista-em-aberto/tratamento-lista-em-aberto.component';
+import { TratamentoPreviewComponent } from './tratamento/preview/tratamento-preview.component';
 import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
 import { TratamentoComponent } from './tratamento/tratamento.component';
 
@@ -58,6 +59,10 @@ const routes: Routes = [
               {
                 path: 'solicitacao',
                 component: SolicitacaoTratamentoComponent,
+              },
+              {
+                path: 'preview',
+                component: TratamentoPreviewComponent,
               },
               {
                 path: 'em-andamento',
