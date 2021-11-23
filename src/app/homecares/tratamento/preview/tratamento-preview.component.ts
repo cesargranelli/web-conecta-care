@@ -7,6 +7,8 @@ import { TratamentoService } from '../../services/tratamento.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DominioService } from 'src/app/services/dominio.service';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
+import { StatusAtendimento } from 'src/app/classes/status-atendimento.class';
+import { HomeCare } from 'src/app/homecares/classes/homecare.class';
 import { concatMap, map } from 'rxjs/operators';
 
 declare var jQuery: any;
@@ -22,6 +24,8 @@ export class TratamentoPreviewComponent implements OnInit {
   //tratamentosEmAberto: Array<TratamentoAbertoLista>;
   public previewFilterForm: FormGroup;  
   public areasAtendimento: AreaAtendimento[];
+  public statusAtendimento: StatusAtendimento[];
+  public homesCares: HomeCare[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -79,10 +83,12 @@ export class TratamentoPreviewComponent implements OnInit {
         //this.inicializarDataTable();
         //this.loading.emitChange(false);
         //this.hideForm = false;
-      })
+      }),
+      concatMap(() => this._dominioService.getStatusAtendimento().pipe(map(response => this.statusAtendimento = response.body)))
       ).subscribe(null, null, () => {
         setTimeout(() => {
           jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
+          jQuery(`select[id='statusAtendimento']`).selectpicker('refresh');
           //jQuery(`select[id='especialidade']`).selectpicker('val', this._cadastro.planoSaude?.especialidades);
           //this.carregarEspecialidades();
           //this._loading.emitChange(false);
