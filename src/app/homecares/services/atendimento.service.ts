@@ -52,4 +52,38 @@ export class AtendimentoService {
     return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
+  consultarPreview(cpfProfissional: string | null, cpfPaciente: string | null, 
+    periodoDe: string | null, periodoAte: string | null, 
+    areaAtendimento: string | null, statusAtendimento: string | null,
+    homeCare: string | null): Observable<HttpResponse<any>> {
+    
+    console.log(cpfProfissional);
+    console.log(cpfPaciente);
+    console.log(periodoDe);
+    console.log(periodoAte);
+    console.log(areaAtendimento);
+    console.log(statusAtendimento);
+    console.log(homeCare);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        //cpfProfissional: cpfProfissional,
+        //cpfPaciente: cpfPaciente,
+        periodoDe: periodoDe,
+        periodoAte: periodoAte,
+        //areaAtendimento: areaAtendimento,
+        //statusAtendimento: statusAtendimento,
+        homeCareId: homeCare
+      })
+    };
+
+    console.log(httpOptions.headers);
+    return this._http.get<HttpResponse<any>>(`${this.endpoint.concat('/preview')}`, {
+      headers: httpOptions.headers,
+      observe: 'response'
+    });
+
+  }
+  
 }

@@ -8,8 +8,12 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DominioService } from 'src/app/services/dominio.service';
 import { AreaAtendimento } from 'src/app/classes/area-atendimento.class';
 import { StatusAtendimento } from 'src/app/classes/status-atendimento.class';
+import { HomecareService } from 'src/app/homecares/services/homecare.service';
+import { AtendimentoService } from 'src/app/homecares/services/atendimento.service';
 import { HomeCare } from 'src/app/homecares/classes/homecare.class';
+import { AtendimentoPreview } from 'src/app/homecares/classes/atendimento-preview.class';
 import { concatMap, map } from 'rxjs/operators';
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 
 declare var jQuery: any;
 
@@ -25,11 +29,14 @@ export class TratamentoPreviewComponent implements OnInit {
   public previewFilterForm: FormGroup;  
   public areasAtendimento: AreaAtendimento[];
   public statusAtendimento: StatusAtendimento[];
+  public atendimentosPreview: AtendimentoPreview[];
   public homesCares: HomeCare[];
 
   constructor(
     private formBuilder: FormBuilder,
     private _dominioService: DominioService,
+    private _homeCareService: HomecareService,
+    private _atendimentoService: AtendimentoService
     //private validService: SharedValidService,
     //private loading: SharedLoadingService,
     //private tratamentoService: TratamentoService,
@@ -54,21 +61,8 @@ export class TratamentoPreviewComponent implements OnInit {
       );
     */
 
-    this.previewFilterForm = this.formBuilder.group({
-      cpfProfissional: [null],
-      cpfPaciente: [null],
-      periodoDe: [null],
-      periodoAte: [null],
-      areaAtendimento: [null],
-      statusAtendimento: [null],
-      homeCare: [null],
-    });
-  
-    jQuery('.datetimepicker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
-    });
-    
+    //
+    this.limparFiltros();
     //
     this.carregarAreasAtendimento();
   }
@@ -84,11 +78,13 @@ export class TratamentoPreviewComponent implements OnInit {
         //this.loading.emitChange(false);
         //this.hideForm = false;
       }),
-      concatMap(() => this._dominioService.getStatusAtendimento().pipe(map(response => this.statusAtendimento = response.body)))
+      concatMap(() => this._dominioService.getStatusAtendimento().pipe(map(response => this.statusAtendimento = response.body))),
+      concatMap(() => this._homeCareService.getAll().pipe(map(response => this.homesCares = response.body.data)))
       ).subscribe(null, null, () => {
         setTimeout(() => {
           jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
           jQuery(`select[id='statusAtendimento']`).selectpicker('refresh');
+          jQuery(`select[id='homeCare']`).selectpicker('refresh');          
           //jQuery(`select[id='especialidade']`).selectpicker('val', this._cadastro.planoSaude?.especialidades);
           //this.carregarEspecialidades();
           //this._loading.emitChange(false);
@@ -97,6 +93,7 @@ export class TratamentoPreviewComponent implements OnInit {
       }
     );
   }
+
   navigation(tratamentoId: number, pacienteId: number) {
     /*
     this.router.navigate([tratamentoId], {
@@ -128,11 +125,66 @@ export class TratamentoPreviewComponent implements OnInit {
   }
 
   dateChange(control: FormControl, name: string) {
-    console.log(control);
-    console.log(name);
     jQuery(`#${name}`).on('dp.change', function(event: any) {
       control.setValue(event?.date?._d?.toLocaleDateString());
     });
   }
 
+  consultarPreview() {
+    console.log('consultarPreview');
+
+    console.log(this.previewFilterForm);
+
+    this._atendimentoService.consultarPreview(
+        this.previewFilterForm.value.cpfProfissional || null,
+        this.previewFilterForm.value.cpfPaciente || null,
+        this.previewFilterForm.value.periodoDe || null,
+        this.previewFilterForm.value.periodoAte || null,
+        this.previewFilterForm.value.areaAtendimento || null,
+        this.previewFilterForm.value.statusAtendimento || null,
+        this.previewFilterForm.value.homeCare || null
+        )
+      .subscribe(atendimentos => {
+        console.log(atendimentos.body);
+        this.atendimentosPreview = atendimentos.body.data;
+        //this.tratamentosEmAberto = tratamentos;
+        this.inicializarDataTable();
+        //this.loading.emitChange(false);
+        //this.hideForm = false;
+      }//,
+        //() => this.loading.emitChange(false),
+        //() => this.loading.emitChange(false)
+      );
+
+  }
+
+  limparFiltros() {
+    console.log('limparFiltros');
+
+    this.previewFilterForm = this.formBuilder.group({
+      cpfProfissional: [null],
+      cpfPaciente: [null],
+      periodoDe: [null],
+      periodoAte: [null],
+      areaAtendimento: [null],
+      statusAtendimento: [null],
+      homeCare: [null],
+    });
+
+    jQuery('.datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY',
+      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+    });
+
+    setTimeout(() => {
+      jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
+      jQuery(`select[id='statusAtendimento']`).selectpicker('refresh');
+      jQuery(`select[id='homeCare']`).selectpicker('refresh');          
+      //jQuery(`select[id='especialidade']`).selectpicker('val', this._cadastro.planoSaude?.especialidades);
+      //this.carregarEspecialidades();
+      //this._loading.emitChange(false);
+      //this.hideForm = false;
+    });        
+
+  }
 }

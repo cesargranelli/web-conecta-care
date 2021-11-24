@@ -57,9 +57,9 @@
                         <label class="col-lg-12 col-md-12" for="periodoDe">Status Atendimento:</label>
                         <div class="form-group col-lg-12 col-md-12">
                           <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="statusAtendimento" 
-                            id="statusAtendimento" multiple="multiple" title="Selecione">
+                            id="statusAtendimento" title="Selecione">
                             <option *ngFor="let staAtendimento of statusAtendimento"
-                                    [value]="staAtendimento.id">{{ staAtendimento.nome | uppercase }}</option>
+                                    [value]="staAtendimento.id">{{ staAtendimento.descricao | uppercase }}</option>
                           </select>
                         </div>
                       </div>
@@ -67,17 +67,17 @@
                         <label class="col-lg-12 col-md-12" for="periodoDe">Home Care:</label>
                         <div class="form-group col-lg-12 col-md-12">
                           <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="homeCare" 
-                            id="homeCare" multiple="multiple" title="Selecione">
+                            id="homeCare" title="Selecione">
                             <option *ngFor="let homeCare of homesCares"
                                     [value]="homeCare.id">{{ homeCare.nome | uppercase }}</option>
                           </select>
                         </div>
                       </div>
                       <div style="text-align: right;">
-                        <button class="btn btn-gray" type="button">
+                        <button class="btn btn-gray" type="button" (click)="limparFiltros()">
                           Limpar
                         </button>
-                        <button class="btn btn-rose" type="button">
+                        <button class="btn btn-rose" type="button" (click)="consultarPreview()">
                           Pesquisar
                         </button>
                           
@@ -87,32 +87,62 @@
                   <div class="col-sm-8">
                     <div style="min-height: 485px; max-height: 485px; overflow-y: scroll;">
                       Tabela
-                      <!--
+
                       <table cellspacing="0" class="table table-striped" id="datatables" style="width:100%"
                             width="100%">
+                        
                         <thead>
                         <tr>
-                          <th>Nº Tratamento</th>
-                          <th>Paciente</th>
-                          <th>Descrição</th>
-                          <th class="disabled-sorting text-center">Visualizar</th>
+                          <th>Resultado da busca:</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let tratamentoEmAberto of tratamentosEmAberto">
-                          <td>{{ tratamentoEmAberto.id }}</td>
-                          <td>{{ tratamentoEmAberto.nomePaciente }}</td>
-                          <td>{{ tratamentoEmAberto.descricao }}</td>
+                        <tr *ngFor="let atendimentoPreview of atendimentosPreview">
+                          <td>
+                            <div class="row">
+                              <div class="col-6">
+                                Profissional: {{ atendimentoPreview.profissionalNome }}
+                              </div>
+                              <div class="col-6">
+                                Tipo:: {{ atendimentoPreview.tipoAtendimentoNome }}
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-6">
+                                Paciente: {{ atendimentoPreview.pacienteNome }}
+                              </div>
+                              <div class="col-6">
+                                Status: {{ atendimentoPreview.statusAtendimento }}
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-6">
+                                Data e Hora: {{ atendimentoPreview.data }} {{ atendimentoPreview.hora }}
+                              </div>
+                              <div class="col-6">
+                                HomeCare: {{ atendimentoPreview.homeCareNome }}
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-12">
+                                Observação: {{ atendimentoPreview.observacao }}
+                              </div>
+                            </div>
+                          </td>
+                          <!-- <td>{{ tratamentoEmAberto.nomePaciente }}</td> -->
+                          <!-- <td>{{ tratamentoEmAberto.descricao }}</td> -->
+                          <!-- 
                           <td class="text-center">
                             <button class="btn btn-link btn-rose btn-just-icon" (click)="navigation(tratamentoEmAberto.id, tratamentoEmAberto.pacienteId)"
                                     title="Ver detalhes">
                               <i class="material-icons">visibility</i>
                             </button>
                           </td>
+                           -->
                         </tr>
                         </tbody>
                       </table>
-                      -->
+
                     </div>
                     <div style="text-align: right;">
                       <img src="assets/img/file_json.png" class="mr-2">
