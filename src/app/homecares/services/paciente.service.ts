@@ -66,4 +66,11 @@ export class PacienteService {
     });
   }
 
+  consultarPacientePorNome(nome: string): Observable<any> {
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/listaCpf`,
+    {
+      headers: new HttpHeaders().set('nome', nome), observe: 'response'
+    });
+  }
+
 }
