@@ -80,4 +80,11 @@ export class ProfissionalService {
     });
   }
 
+  consultarProfissionalPorNome(nome: string): Observable<any> {
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/nome`,
+    {
+      headers: new HttpHeaders().set('nome', nome), observe: 'response'
+    });
+  }
+
 }

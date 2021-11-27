@@ -10,7 +10,9 @@ import { InformacoesEnderecoComponent } from './dados/endereco/informacoes-ender
 import { InformacoesHomecareComponent } from './dados/homecare/informacoes-homecare.component';
 import { InformacoesLoginComponent } from './dados/login/informacoes-login.component';
 import { HomeCaresComponent } from './homecares.component';
+import { HomecarePacienteComponent } from './paciente/homecare-paciente.component';
 import { HomecareProfissionalComponent } from './profissional/homecare-profissional.component';
+import { HomecareProfissionalPesquisaComponent } from './profissional/nome/homecare-profissional-pesquisa.component';
 import { ProntuarioComponent } from './prontuario/prontuario.component';
 import { NovoAtendimentoComponent } from './tratamento/atendimento/novo-atendimento/novo-atendimento.component';
 import { TratamentoListaEmAbertoComponent } from './tratamento/lista-em-aberto/tratamento-lista-em-aberto.component';
@@ -87,6 +89,10 @@ const routes: Routes = [
           {
             path: 'profissional',
             component: HomecareProfissionalComponent
+          },
+          {
+            path: 'paciente',
+            component: HomecarePacienteComponent
           }
         ],
       },

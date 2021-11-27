@@ -1,7 +1,10 @@
 import {
   HttpClient,
 
-  HttpParams
+  HttpHeaders,
+
+  HttpParams,
+  HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -55,4 +58,12 @@ export class PacienteService {
       return null;
     }
   }
+
+  consultarPacientePorCpf(cpf: string): Observable<any> {
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/cpf`,
+    {
+      headers: new HttpHeaders().set('cpf', cpf), observe: 'response'
+    });
+  }
+
 }

@@ -188,14 +188,14 @@ export class FormInformacoesGeraisComponent implements OnInit {
   }
 
   public onSubmit() {
+
     this._loading.emitChange(true);
     this.paciente = this.pacienteForm.value;
     this.paciente.id = this._dadosLocalStorage.id;
     this.paciente.dataNascimento = this.formatarData(this.paciente.dataNascimento);
     this.paciente.rgDataEmissao = this.formatarData(this.paciente.rgDataEmissao);
-
-    this.paciente.estadoCivil = this.estadosCivil.find(estadoCivil => estadoCivil.id === this.pacienteForm.value.estadoCivil.id);
-    this.paciente.genero = this.generos.find(genero => genero.id === this.pacienteForm.value.genero.id);
+    this.paciente.estadoCivil = this.estadosCivil.find(estadoCivil => estadoCivil.id === this.pacienteForm.controls.estadoCivil.value);
+    this.paciente.genero = this.generos.find(genero => genero.id === this.pacienteForm.controls.genero.value);
     this.paciente.foto = this.fotoPaciente;
     this.paciente.fotoRg = this.fotoRg;
     this.paciente.fotoCpf = this.fotoCpf;
