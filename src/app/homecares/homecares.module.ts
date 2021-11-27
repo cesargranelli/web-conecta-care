@@ -45,6 +45,7 @@ import { TratamentoSolicitacaoProfissionalComponent } from './tratamento/solicit
 import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
 import { TratamentoComponent } from './tratamento/tratamento.component';
 import { HomecareProfissionalComponent } from './profissional/homecare-profissional.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -96,6 +97,7 @@ FullCalendarModule.registerPlugins([
     NgxMaskModule,
     SharedComponentModule,
     FullCalendarModule,
+    NgxLoadingModule.forRoot({})
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
