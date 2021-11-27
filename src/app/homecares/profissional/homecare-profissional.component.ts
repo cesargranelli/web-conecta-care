@@ -115,7 +115,7 @@ export class HomecareProfissionalComponent implements OnInit {
         () => {
           setTimeout(() => {
             jQuery(`select[id='cpf']`).selectpicker('refresh');
-            jQuery(`select[id='cpf']`).selectpicker('val', this.profissionalPesquisa?.cpf);
+            // jQuery(`select[id='cpf']`).selectpicker('val', this.profissionalPesquisa?.cpf);
             this.loading.emitChange(false);
           });
         }

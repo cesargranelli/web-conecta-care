@@ -12,7 +12,6 @@ import { InformacoesLoginComponent } from './dados/login/informacoes-login.compo
 import { HomeCaresComponent } from './homecares.component';
 import { HomecarePacienteComponent } from './paciente/homecare-paciente.component';
 import { HomecareProfissionalComponent } from './profissional/homecare-profissional.component';
-import { HomecareProfissionalPesquisaComponent } from './profissional/nome/homecare-profissional-pesquisa.component';
 import { ProntuarioComponent } from './prontuario/prontuario.component';
 import { NovoAtendimentoComponent } from './tratamento/atendimento/novo-atendimento/novo-atendimento.component';
 import { TratamentoListaEmAbertoComponent } from './tratamento/lista-em-aberto/tratamento-lista-em-aberto.component';
