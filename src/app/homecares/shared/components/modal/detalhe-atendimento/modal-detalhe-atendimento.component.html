@@ -1,7 +1,5 @@
 <div class="modal fade bd-example-modal-lg" id="detalheAtendimentoModal" tabindex="-1" role="dialog"
-     aria-labelledby="atendimentoModalLabel"
-     aria-hidden="true"
-     *ngIf="atendimentoDetalhes">
+  aria-labelledby="atendimentoModalLabel" aria-hidden="true" *ngIf="atendimentoDetalhes">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -10,7 +8,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" [hidden]="showForm">
         <div class="container">
           <div class="row">
             <div class="col">
@@ -41,7 +39,8 @@
                 <p>Responsável Pelo Paciente: {{atendimentoDetalhes?.acompanhante?.nomeCompleto}}</p>
               </div>
               <div class="row">
-                <p>Contato do Responsável do Paciente: {{atendimentoDetalhes?.acompanhante?.contato?.telefoneResponsavel}}</p>
+                <p>Contato do Responsável do Paciente:
+                  {{atendimentoDetalhes?.acompanhante?.contato?.telefoneResponsavel}}</p>
               </div>
             </div>
           </div>
@@ -65,8 +64,55 @@
               </div>
             </div>
           </div>
+          <hr>
+          <div class="col-md-12 col-12 mr-auto ml-auto">
+            <div id="accordion" role="tablist">
+              <div class="card card-collapse" *ngFor="let modelo of modelos">
+                <div class="card-header" role="tab" id="headingOne">
+                  <h5 class="mb-0">
+                    <a data-toggle="collapse" href="#{{ modelo.id }}" aria-expanded="false" aria-controls="collapseOne">
+                      Modelo: {{ modelo.descricao }}
+                      <i class="material-icons">keyboard_arrow_down</i>
+                    </a>
+                  </h5>
+                </div>
+                <div id="{{ modelo.id }}" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label">Grupos:</label>
+                        <br>
+                        <div class="col-lg-10 col-md-9 offset-lg-2" *ngFor="let grupo of modelo.grupos">
+                          <!-- <p>{{ grupo.descricao }}</p> -->
+                          <div class="form-check disabled">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="" disabled>
+                              {{ grupo.descricao }}
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col">
+              <div class="row">
+                <p>Observação: {{atendimentoDetalhes?.observacao}}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<ngx-loading [show]="loading"></ngx-loading>
