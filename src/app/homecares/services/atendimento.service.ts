@@ -14,7 +14,8 @@ import { AtendimentoAdicionar } from '../classes/atendimento-adicionar.class';
 @Injectable()
 export class AtendimentoService {
 
-  private endpoint: string = `${environment.apiConnecta}/atendimentos`;
+  //private endpoint: string = `${environment.apiConnecta}/atendimentos`;
+  private endpoint: string = `http://localhost:8080/atendimentos`;
 
   constructor(private _http: HttpClient) {
   }
@@ -57,28 +58,24 @@ export class AtendimentoService {
     areaAtendimento: string | null, statusAtendimento: string | null,
     homeCare: string | null): Observable<HttpResponse<any>> {
     
-    console.log(cpfProfissional);
-    console.log(cpfPaciente);
-    console.log(periodoDe);
-    console.log(periodoAte);
-    console.log(areaAtendimento);
-    console.log(statusAtendimento);
-    console.log(homeCare);
+    let cpfProfissionalFilter = cpfProfissional ? cpfProfissional : '';
+    let cpfPacienteFilter = cpfPaciente ? cpfPaciente : '';
+    let areaAtendimentoFilter = areaAtendimento ? areaAtendimento : '';
+    let statusAtendimentoFilter = statusAtendimento ? statusAtendimento : '';
 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        //cpfProfissional: cpfProfissional,
-        //cpfPaciente: cpfPaciente,
+        //cpfProfissional: cpfProfissionalFilter,
+        //cpfPaciente: cpfPacienteFilter,
+        //areaAtendimentoId: areaAtendimentoFilter,
+        //statusAtendimentoId: statusAtendimentoFilter,
         periodoDe: periodoDe,
         periodoAte: periodoAte,
-        //areaAtendimento: areaAtendimento,
-        //statusAtendimento: statusAtendimento,
         homeCareId: homeCare
       })
     };
 
-    console.log(httpOptions.headers);
     return this._http.get<HttpResponse<any>>(`${this.endpoint.concat('/preview')}`, {
       headers: httpOptions.headers,
       observe: 'response'
