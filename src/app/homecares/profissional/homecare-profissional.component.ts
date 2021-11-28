@@ -58,20 +58,13 @@ export class HomecareProfissionalComponent implements OnInit {
       .subscribe((profissionalCompleto: any) => {
         if (profissionalCompleto) {
           this.profissionalCompleto = profissionalCompleto?.body?.data;
-
-
-
-          if (this.profissionalCompleto.carreira.areasAtendimento.length > 1) {
-            var areaAtendimentoConcatenado = this.profissionalCompleto.carreira.areasAtendimento[0].nome;
-            for (var i = 1; i < this.profissionalCompleto.carreira.areasAtendimento.length; i++) {
-              areaAtendimentoConcatenado += ", " + this.profissionalCompleto.carreira.areasAtendimento[i].nome;
+          if (this.profissionalCompleto?.carreira?.areasAtendimento.length > 1) {
+            var areaAtendimentoConcatenado = this.profissionalCompleto?.carreira?.areasAtendimento[0].nome;
+            for (var i = 1; i < this.profissionalCompleto?.carreira?.areasAtendimento.length; i++) {
+              areaAtendimentoConcatenado += ", " + this.profissionalCompleto?.carreira?.areasAtendimento[i].nome;
             }
             this.profissionalCompleto.carreira.areasAtendimento[0].nome = areaAtendimentoConcatenado;
           }
-
-
-
-          console.log(this.profissionalCompleto);
           this.hideProfissionalCompletoForm = false;
         } else {
           this.showSwal('Profissional não localizado', 'info');
@@ -96,9 +89,6 @@ export class HomecareProfissionalComponent implements OnInit {
       .subscribe((profissionalPesquisa: any) => {
         if (profissionalPesquisa) {
           this.profissionalPesquisa = profissionalPesquisa?.body?.data;
-
-          console.log(this.profissionalPesquisa);
-
           this.hideProfissionalPesquisaForm = false;
         } else {
           this.showSwal('Profissional não localizado', 'info');
@@ -115,7 +105,6 @@ export class HomecareProfissionalComponent implements OnInit {
         () => {
           setTimeout(() => {
             jQuery(`select[id='cpf']`).selectpicker('refresh');
-            // jQuery(`select[id='cpf']`).selectpicker('val', this.profissionalPesquisa?.cpf);
             this.loading.emitChange(false);
           });
         }
@@ -123,7 +112,6 @@ export class HomecareProfissionalComponent implements OnInit {
   }
 
   buscaProfissional() {
-    console.log(this.profissionalPesquisaForm.controls.cpf.value);
     this.pesquisarProfissionalPorCpf(this.profissionalPesquisaForm.controls?.cpf.value);
   }
 
