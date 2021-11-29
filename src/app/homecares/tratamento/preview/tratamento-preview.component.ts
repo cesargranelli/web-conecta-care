@@ -34,11 +34,15 @@ export class TratamentoPreviewComponent implements OnInit {
   public atendimentosPreview: AtendimentoPreview[];
   public homesCares: HomeCare[];
 
+  valid:any;
+
   constructor(
     private formBuilder: FormBuilder,
     private _dominioService: DominioService,
     private _homeCareService: HomecareService,
-    private _atendimentoService: AtendimentoService
+    private _atendimentoService: AtendimentoService,
+    private _validService: SharedValidService,
+    private _loading: SharedLoadingService,
     //private validService: SharedValidService,
     //private loading: SharedLoadingService,
     //private tratamentoService: TratamentoService,
@@ -64,9 +68,14 @@ export class TratamentoPreviewComponent implements OnInit {
     */
 
     //
+    this.valid = this._validService.getValid();
+
     this.limparFiltros();
     //
     this.carregarAreasAtendimento();
+    //
+    this.inicializarDataTable();
+
   }
 
   carregarAreasAtendimento() {
@@ -113,12 +122,11 @@ export class TratamentoPreviewComponent implements OnInit {
   }
 
   consultarPreview() {
-    console.log('consultarPreview');
-    console.log(this.previewFilterForm);
 
+    let homeCareId = (this.valid && this.valid.role === 'ROLE_HOMECARE') ? this.valid.id : this.previewFilterForm.value.homeCare;
+    if (this.previewFilterForm.valid && homeCareId) {
 
-    if (this.previewFilterForm.valid) {
-
+      this._loading.emitChange(true);
       this._atendimentoService.consultarPreview(
           this.previewFilterForm.value.cpfProfissional || null,
           this.previewFilterForm.value.cpfPaciente || null,
@@ -126,12 +134,18 @@ export class TratamentoPreviewComponent implements OnInit {
           this.previewFilterForm.value.periodoAte || null,
           this.previewFilterForm.value.areaAtendimento || null,
           this.previewFilterForm.value.statusAtendimento || null,
-          this.previewFilterForm.value.homeCare || null
+          homeCareId
           )
-        .subscribe(atendimentos => {
-          this.atendimentosPreview = atendimentos.body.data;
-          this.inicializarDataTable();
+        .subscribe(response => {
+          console.log(response);
+          this.atendimentosPreview = response.data;
+          this._loading.emitChange(false);
+        },
+        (e) => {
+          console.log(e);
+          this._loading.emitChange(false);
         });
+
       } else {
         Swal.fire({
           position: 'center',
@@ -143,9 +157,57 @@ export class TratamentoPreviewComponent implements OnInit {
       }
   }
 
+  downloadPdf() {
+
+    let homeCareId = (this.valid && this.valid.role === 'ROLE_HOMECARE') ? this.valid.id : this.previewFilterForm.value.homeCare;
+    console.log(homeCareId);
+    if (this.previewFilterForm.valid && homeCareId) {
+
+      this._loading.emitChange(true);
+      this._atendimentoService.downloadPdf(
+          this.previewFilterForm.value.cpfProfissional || null,
+          this.previewFilterForm.value.cpfPaciente || null,
+          this.previewFilterForm.value.periodoDe || null,
+          this.previewFilterForm.value.periodoAte || null,
+          this.previewFilterForm.value.areaAtendimento || null,
+          this.previewFilterForm.value.statusAtendimento || null,
+          homeCareId
+          )
+        .subscribe((response: any) => {
+          this._loading.emitChange(false);
+          console.log(response)
+          if (!response || response.size === 0) {
+            Swal.fire({
+              position: 'center',
+              icon: 'warning',
+              title: 'Não foi possível gerar o relatório!',
+              showConfirmButton: true
+            });
+            return;
+          }
+          this.downLoadFile(response, 'pdf', 'preview.pdf');
+          //this.atendimentosPreview = atendimentos.body.data;
+          //this.inicializarDataTable();
+        },
+        (e) => {
+          this._loading.emitChange(false);
+          console.log(e);
+        });
+  
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Preencha os campos obrigatórios!',
+          showConfirmButton: true
+        });
+
+      }
+
+  }
+
   limparFiltros() {
 
-    let dataAtual = new Date();
     let dataDe = new Date();
     dataDe.setDate(dataDe.getDate() - 15);
 
@@ -159,7 +221,7 @@ export class TratamentoPreviewComponent implements OnInit {
       periodoAte: [this.formatDate(dataAte), [Validators.required]],
       areaAtendimento: [null],
       statusAtendimento: [null],
-      homeCare: [null,  [Validators.required]],
+      homeCare: [null],
     });
 
     jQuery('.datetimepicker').datetimepicker({
@@ -184,13 +246,29 @@ export class TratamentoPreviewComponent implements OnInit {
       const strDate = date.toString();
       date = new Date(strDate);
     }
-    return `${this.paddy(date.getDate(), 2, '0')}//${this.paddy(date.getMonth() + 1, 2, '0')}/${date.getFullYear()}`;
+    return `${this.paddy(date.getDate(), 2, '0')}/${this.paddy(date.getMonth() + 1, 2, '0')}/${date.getFullYear()}`;
   }
 
   paddy(num: number, padlen: number, padchar: string) {
     const pad_char = typeof padchar !== 'undefined' ? padchar : '0';
     const pad = new Array(1 + padlen).join(pad_char);
     return (pad + num).slice(-pad.length);
+  }
+  /**
+   * Method is use to download file.
+   * @param data - Array Buffer data
+   * @param type - type of the document.
+   */
+  downLoadFile(data: any, ftype: string, nome: string) {
+    const blob = new Blob([data], { type: 'application/' + ftype });
+    const url = window.URL.createObjectURL(blob);
+
+    Object.assign(document.createElement('a'), {
+      target: '_blank',
+      download: nome,
+      href: url,
+    }).click();
+
   }
   
 }

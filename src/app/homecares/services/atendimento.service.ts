@@ -14,8 +14,7 @@ import { AtendimentoAdicionar } from '../classes/atendimento-adicionar.class';
 @Injectable()
 export class AtendimentoService {
 
-  //private endpoint: string = `${environment.apiConnecta}/atendimentos`;
-  private endpoint: string = `http://localhost:8080/atendimentos`;
+  private endpoint: string = `${environment.apiConnecta}/atendimentos`;
 
   constructor(private _http: HttpClient) {
   }
@@ -56,23 +55,24 @@ export class AtendimentoService {
   consultarPreview(cpfProfissional: string | null, cpfPaciente: string | null, 
     periodoDe: string | null, periodoAte: string | null, 
     areaAtendimento: string | null, statusAtendimento: string | null,
-    homeCare: string | null): Observable<HttpResponse<any>> {
+    homeCare: string): Observable<HttpResponse<any>> {
     
-    let cpfProfissionalFilter = cpfProfissional ? cpfProfissional : '';
-    let cpfPacienteFilter = cpfPaciente ? cpfPaciente : '';
-    let areaAtendimentoFilter = areaAtendimento ? areaAtendimento : '';
-    let statusAtendimentoFilter = statusAtendimento ? statusAtendimento : '';
+    console.log('consultarPreview -> ' + homeCare);
+    let cpfProfissionalFilter = cpfProfissional ? cpfProfissional : ' ';
+    let cpfPacienteFilter = cpfPaciente ? cpfPaciente : ' ';
+    let areaAtendimentoFilter = areaAtendimento ? areaAtendimento : ' ';
+    let statusAtendimentoFilter = statusAtendimento ? statusAtendimento : ' ';
 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        //cpfProfissional: cpfProfissionalFilter,
-        //cpfPaciente: cpfPacienteFilter,
-        //areaAtendimentoId: areaAtendimentoFilter,
-        //statusAtendimentoId: statusAtendimentoFilter,
-        periodoDe: periodoDe,
-        periodoAte: periodoAte,
-        homeCareId: homeCare
+        cpfProfissional: String(cpfProfissionalFilter),
+        cpfPaciente: String(cpfPacienteFilter),
+        areaAtendimentoId: String(areaAtendimentoFilter),
+        statusAtendimentoId: String(statusAtendimentoFilter),
+        homeCareId: String(homeCare),
+        periodoDe: String(periodoDe),
+        periodoAte: String(periodoAte)
       })
     };
 
@@ -81,6 +81,37 @@ export class AtendimentoService {
       observe: 'response'
     });
 
+  }
+
+  downloadPdf(cpfProfissional: string | null, cpfPaciente: string | null, 
+    periodoDe: string | null, periodoAte: string | null, 
+    areaAtendimento: string | null, statusAtendimento: string | null,
+    homeCare: string): Observable<Blob> {
+    
+    console.log('downloadPdf -> ' + homeCare);
+    let cpfProfissionalFilter = cpfProfissional ? cpfProfissional : ' ';
+    let cpfPacienteFilter = cpfPaciente ? cpfPaciente : ' ';
+    let areaAtendimentoFilter = areaAtendimento ? areaAtendimento : ' ';
+    let statusAtendimentoFilter = statusAtendimento ? statusAtendimento : ' ';
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        cpfProfissional: String(cpfProfissionalFilter),
+        cpfPaciente: String(cpfPacienteFilter),
+        areaAtendimentoId: String(areaAtendimentoFilter),
+        statusAtendimentoId: String(statusAtendimentoFilter),
+        homeCareId: String(homeCare),
+        periodoDe: String(periodoDe),
+        periodoAte: String(periodoAte)
+      })
+    };
+
+    return this._http.get(`${this.endpoint.concat('/preview/pdf')}`, { 
+        headers: httpOptions.headers,
+        responseType: 'blob'
+      },
+     )
   }
   
 }
