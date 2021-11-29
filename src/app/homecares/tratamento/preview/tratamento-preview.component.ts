@@ -138,7 +138,7 @@ export class TratamentoPreviewComponent implements OnInit {
           )
         .subscribe(response => {
           console.log(response);
-          this.atendimentosPreview = response.data;
+          this.atendimentosPreview = response.body.data;
           this._loading.emitChange(false);
         },
         (e) => {

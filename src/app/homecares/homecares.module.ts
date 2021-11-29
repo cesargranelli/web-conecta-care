@@ -90,7 +90,7 @@ FullCalendarModule.registerPlugins([
     CardAtendimentosComponent,
     NovoAtendimentoComponent,
     TratamentoListaEmAbertoComponent,
-    TratamentoPreviewComponent
+    TratamentoPreviewComponent,
     HomecareProfissionalComponent,
     HomecarePacienteComponent,
   ],
