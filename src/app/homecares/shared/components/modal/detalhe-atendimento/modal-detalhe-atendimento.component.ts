@@ -1,6 +1,8 @@
-import {Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
-import {AtendimentoService} from '../../../../services/atendimento.service';
-import {AtendimentoDetalhes} from '../../../../classes/atendimento-detalhes.class';
+import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { AtendimentoGrupo } from 'src/app/homecares/classes/atendimento-grupo.class';
+import { AtendimentoModelo } from 'src/app/homecares/classes/atendimento-modelo.class';
+import { AtendimentoDetalhes } from '../../../../classes/atendimento-detalhes.class';
+import { AtendimentoService } from '../../../../services/atendimento.service';
 
 declare var jQuery: any;
 
@@ -13,20 +15,57 @@ export class ModalDetalheAtendimentoComponent implements OnChanges, OnDestroy {
 
   @Input() atendimentoId: number;
 
-  public atendimentoDetalhes: AtendimentoDetalhes;
+  atendimentoDetalhes: AtendimentoDetalhes;
+  modelos: AtendimentoModelo[];
+
+  showForm: boolean = true;
+  loading: boolean = false;
 
   constructor(private service: AtendimentoService) { }
 
   ngOnChanges(simpleChanges: SimpleChanges): void {
     this.atendimentoDetalhes = new AtendimentoDetalhes();
-    if (this.atendimentoId)
+    if (this.atendimentoId) {
+      this.showForm = true;
+      this.loading = true;
       this.service.consultarDetalhes(this.atendimentoId).subscribe(atendimentoDetalhes => {
-        this.atendimentoDetalhes = atendimentoDetalhes;
+        setTimeout(() => {
+          this.atendimentoDetalhes = atendimentoDetalhes;
+          this.modelos = this.getModelos(this.atendimentoDetalhes.grupos);
+        });
+      }, null, () => {
+        this.loading = false;
+        this.showForm = false;
       });
+    }
   }
 
   ngOnDestroy() {
     this.atendimentoDetalhes = null;
+  }
+
+  getModelos(grupos: AtendimentoGrupo[]): AtendimentoModelo[] {
+    let modelosDuplicados = new Array<AtendimentoModelo>();
+    let modelo = new AtendimentoModelo();
+    // Monta os modelos
+    grupos.forEach((grupo: AtendimentoGrupo) => {
+      modelo.id = grupo.modelo.id;
+      modelo.descricao = grupo.modelo.descricao;
+      modelosDuplicados.push(modelo);
+    });
+    // Reduz os grupos
+    let modelos = modelosDuplicados.filter(function (elem, pos, self) {
+      return self.indexOf(elem) == pos;
+    });
+    // Adiciona grupos aos modelos
+    modelos.forEach((modelo: AtendimentoModelo) => {
+      grupos.forEach((grupo: AtendimentoGrupo) => {
+        if (modelo.id == grupo.modelo.id) {
+          modelo.grupos.push(grupo);
+        }
+      });
+    });
+    return modelos;
   }
 
 }

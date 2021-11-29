@@ -1,8 +1,9 @@
-import {Endereco} from '../../classes/endereco.class';
-import {Pais} from '../../classes/pais.class';
-import {Plantonista} from './plantonista.class';
-import {Acompanhante} from '../../pacientes/classes/acompanhante.class';
-import {AtendimentoRecorrencia} from './atendimento-recorrencia.class';
+import { Endereco } from '../../classes/endereco.class';
+import { Pais } from '../../classes/pais.class';
+import { Plantonista } from './plantonista.class';
+import { Acompanhante } from '../../pacientes/classes/acompanhante.class';
+import { AtendimentoRecorrencia } from './atendimento-recorrencia.class';
+import { AtendimentoGrupo } from './atendimento-grupo.class';
 
 export class AtendimentoDetalhes {
   id: number;
@@ -19,12 +20,5 @@ export class AtendimentoDetalhes {
   valorProfissional: string;
   valorPaciente: string;
   valorAjudaCusto: string;
-  campos: {
-    id: number;
-    descricao: string;
-    tipo: string;
-    tamanho: string;
-    padrao: string;
-    obrigatorio: string;
-  };
+  grupos: AtendimentoGrupo[];
 }

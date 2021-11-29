@@ -131,8 +131,19 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
       });
 
     jQuery('.datetimepicker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+      locale: 'pt-BR',
+      format: 'L',
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+      }
     });
 
     this._loading.emitChange(false);
@@ -154,27 +165,27 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
     if (this._cadastro.profissional?.fotoCtps) {
       this.fotoCtps = this._cadastro.profissional?.fotoCtps;
       this.imagemFotoCtps = this._cadastro.profissional?.fotoCtps;
-      this.profissionalForm.controls.fotoCtps.setValue(this._cadastro.profissional?.fotoCtps, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoCtps.setValue(this._cadastro.profissional?.fotoCtps, { emitModelToViewChange: false });
     }
     if (this._cadastro.profissional?.fotoProfissional) {
       this.fotoProfissional = this._cadastro.profissional?.fotoProfissional;
       this.imagemFotoProfissional = this._cadastro.profissional?.fotoProfissional;
-      this.profissionalForm.controls.fotoProfissional.setValue(this._cadastro.profissional?.fotoProfissional, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoProfissional.setValue(this._cadastro.profissional?.fotoProfissional, { emitModelToViewChange: false });
     }
     if (this._cadastro.profissional?.fotoRgFrente) {
       this.fotoRgFrente = this._cadastro.profissional?.fotoRgFrente;
       this.imagemFotoRgFrente = this._cadastro.profissional?.fotoRgFrente;
-      this.profissionalForm.controls.fotoRgFrente.setValue(this._cadastro.profissional?.fotoRgFrente, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoRgFrente.setValue(this._cadastro.profissional?.fotoRgFrente, { emitModelToViewChange: false });
     }
     if (this._cadastro.profissional?.fotoRgVerso) {
       this.fotoRgVerso = this._cadastro.profissional?.fotoRgVerso;
       this.imagemFotoRgVerso = this._cadastro.profissional?.fotoRgVerso;
-      this.profissionalForm.controls.fotoRgVerso.setValue(this._cadastro.profissional?.fotoRgVerso, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoRgVerso.setValue(this._cadastro.profissional?.fotoRgVerso, { emitModelToViewChange: false });
     }
     if (this._cadastro.profissional?.fotoAssinatura) {
       this.fotoAssinatura = this._cadastro.profissional?.fotoAssinatura;
       this.imagemFotoAssinatura = this._cadastro.profissional?.fotoAssinatura;
-      this.profissionalForm.controls.fotoAssinatura.setValue(this._cadastro.profissional?.fotoAssinatura, {emitModelToViewChange: false});
+      this.profissionalForm.controls.fotoAssinatura.setValue(this._cadastro.profissional?.fotoAssinatura, { emitModelToViewChange: false });
     }
   }
 
@@ -298,7 +309,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
   }
 
   dateChange(control: FormControl, name: string) {
-    jQuery(`#${name}`).on('dp.change', function(event: any) {
+    jQuery(`#${name}`).on('dp.change', function (event: any) {
       control.setValue(jQuery('#' + name)[0].value);
     });
   }

@@ -1,0 +1,801 @@
+<div class="container conteudo">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 col-sm-12 ml-auto mr-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard" data-color="rose" id="wizardProfile">
+
+          <div class="wizard-navigation">
+            <ul class="nav nav-pills nav-fill">
+              <li #buscarPorCpf class="nav-item" id="buscaPorCpf" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#buscarPorCpf" role="tab">
+                  Buscar por CPF
+                </a>
+              </li>
+              <li #buscarPorNome class="nav-item" id="buscaPorNome" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#buscarPorNome" role="tab">
+                  Buscar por Nome
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane" id="buscarPorCpf">
+                <!-- <div class="card-header card-header-rose text-center">
+                  <i class="material-icons">info</i>
+                  <h3 class="card-title">
+                    Pesquisar informações do profissional por CPF
+                  </h3>
+                </div> -->
+                <form [formGroup]="profissionalCompletoForm" class="form-horizontal">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-4 col-md-3 col-form-label" for="profissionalCpf">CPF</label>
+                      <div class="form-group col-lg-4 col-md-4">
+                        <input autocomplete="none" class="form-control" formControlName="profissionalCpf"
+                          mask="000.000.000-00" type="text">
+                      </div>
+                      <button
+                        (click)="pesquisarProfissionalPorCpf(this.profissionalCompletoForm.controls.profissionalCpf.value)"
+                        class="btn btn-social btn-just-icon btn-round btn-rose" type="button"
+                        [disabled]="!profissionalCompletoForm.controls?.profissionalCpf.valid"
+                        [value]="profissionalCompletoForm.controls?.profissionalCpf">
+                        <i class="material-icons">search</i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane" id="buscarPorNome">
+                <form [formGroup]="profissionalPesquisaForm" class="form-horizontal">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-4 col-md-3 col-form-label" for="nome">Nome</label>
+                      <div class="form-group col-lg-4 col-md-4">
+                        <input autocomplete="none" class="form-control" formControlName="nome" type="text">
+                      </div>
+                      <button (click)="pesquisarProfissionalPorNome(this.profissionalPesquisaForm.controls.nome.value)"
+                        class="btn btn-social btn-just-icon btn-round btn-rose" type="button"
+                        [value]="profissionalPesquisaForm.controls?.nome">
+                        <i class="material-icons">search</i>
+                      </button>
+                    </div>
+                    <br>
+                    <br>
+                    <div [hidden]=hideProfissionalPesquisaForm>
+                      <div class="row">
+                        <label class="col-lg-3 col-md-3 col-form-label" for="cpf">Lista de CPF</label>
+                        <div class="form-group col-lg-7 col-md-4">
+                          <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="cpf"
+                            id="cpf" title="Selecione" (change)="buscaProfissional()">
+                            <option *ngFor="let profissional of profissionalPesquisa" [value]="profissional?.cpf">{{ profissional?.cpf + ' - ' + profissional?.nomeCompleto }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+            <div [hidden]="hideProfissionalCompletoForm">
+              <div name="informacoes-gerais" class="form-group col-lg-12 col-md-12">
+                <div id="accordion" role="tablist">
+                  <div class="card card-collapse">
+                    <div class="card-header" role="tab" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#informacoes-gerais" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          INFORMAÇÕES GERAIS
+                          <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div id="informacoes-gerais" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="nome">Primeiro nome</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="nome" type="text"
+                          [value]="profissionalCompleto?.profissional?.nome" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="sobrenome">Sobrenome</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="sobrenome" type="text"
+                          [value]="profissionalCompleto?.profissional?.sobrenome" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="dataNascimento">Data
+                        Nascimento</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="dataNascimento" type="text"
+                          [value]="profissionalCompleto?.profissional?.dataNascimento" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="rg">RG</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="rg" type="text"
+                          [value]="profissionalCompleto?.profissional?.rg" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="rgEmissor">Emissor</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="rgEmissor" type="text"
+                          [value]="profissionalCompleto?.profissional?.rgEmissor" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="rgDataEmissao">Data Emissão
+                        RG</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="rgDataEmissao" type="text"
+                          [value]="profissionalCompleto?.profissional?.rgDataEmissao" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="pis">PIS</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="pis" type="text"
+                          [value]="profissionalCompleto?.profissional?.pis" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="sexo">Sexo</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="sexo" type="text"
+                          [value]="profissionalCompleto?.profissional?.genero?.descricao" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="tipoEmpresa">Tipo Empresa</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="tipoEmpresa" type="text"
+                          [value]="profissionalCompleto?.profissional?.tipoEmpresa?.sigla" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="estadoCivil">Estado Civil</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="estadoCivil" type="text"
+                          [value]="profissionalCompleto?.profissional?.estadoCivil?.tipo" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="cnpj">Nº CNPJ</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="cnpj" type="text"
+                          [value]="profissionalCompleto?.profissional?.cnpj" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="ctps">Nº CTPS</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="ctps" type="text"
+                          [value]="profissionalCompleto?.profissional?.ctps" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="ctpsSerie">CTPS Série</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="ctpsSerie" type="text"
+                          [value]="profissionalCompleto?.profissional?.ctpsSerie" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-3 col-md-4 col-form-label" for="disponivelParaAtendimento">Disponível
+                        para
+                        atendimento?</label>
+                      <div class="form-group col-lg-2 col-md-6">
+                        <input class="form-control" name="disponivelParaAtendimento" type="text"
+                          [value]="profissionalCompleto?.profissional?.disponivelParaAtendimento ? 'Sim' : 'Não'"
+                          disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div name="endereco" class="form-group col-lg-12 col-md-12">
+                <div id="accordion" role="tablist">
+                  <div class="card card-collapse">
+                    <div class="card-header" role="tab" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#endereco" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          ENDEREÇO
+                          <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div id="endereco" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="cep">CEP</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="cep" type="text"
+                          [value]="profissionalCompleto?.endereco?.cep" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="endereco">Endereço</label>
+                      <div class="form-group col-lg-4 col-md-8">
+                        <input class="form-control" name="endereco" type="text"
+                          [value]="profissionalCompleto?.endereco?.logradouro" disabled>
+                      </div>
+                      <label class="col-lg-2 col-md-3 col-form-label" for="numero">Número</label>
+                      <div class="form-group col-lg-2 col-md-6">
+                        <input class="form-control" name="numero" type="text"
+                          [value]="profissionalCompleto?.endereco?.numero" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="complemento">Complemento</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="complemento" type="text"
+                          [value]="profissionalCompleto?.endereco?.complemento" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="bairro">Bairro</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="bairro" type="text"
+                          [value]="profissionalCompleto?.endereco?.bairro" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="cidade">Cidade</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="cidade" type="text"
+                          [value]="profissionalCompleto?.endereco?.cidade" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="pais">País</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="pais" type="text"
+                          [value]="profissionalCompleto?.endereco?.pais?.nome" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="uf">UF</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="uf" type="text"
+                          [value]="profissionalCompleto?.endereco?.estado?.uf" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div name="contato" class="form-group col-lg-12 col-md-12">
+                <div id="accordion" role="tablist">
+                  <div class="card card-collapse">
+                    <div class="card-header" role="tab" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#contato" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          CONTATO
+                          <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div id="contato" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="foneFixo">Fone Fixo</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="foneFixo" type="text"
+                          [value]="profissionalCompleto?.telefone?.telefoneFixo" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="celularPrincipal">Celular
+                        Principal</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="celularPrincipal" type="text"
+                          [value]="profissionalCompleto?.telefone?.celularPrincipal" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="foneRecado">Fone Recado</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="foneRecado" type="text"
+                          [value]="profissionalCompleto?.telefone?.telefoneRecado" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="celularSecundario">Celular
+                        Secundário</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="celularSecundario" type="text"
+                          [value]="profissionalCompleto?.telefone?.celularSecundario" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div name="carreira" class="form-group col-lg-12 col-md-12">
+                <div id="accordion" role="tablist">
+                  <div class="card card-collapse">
+                    <div class="card-header" role="tab" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#carreira" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          CARREIRA
+                          <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div id="carreira" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="conselho">Conselho</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="conselho" type="text"
+                          [value]="profissionalCompleto?.carreira?.conselho?.sigla" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="registroProfissional">Nº Registro em
+                        Conselho
+                        Regional de Enfermagem</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="registroProfissional" type="text"
+                          [value]="profissionalCompleto?.carreira?.registroProfissional" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="ufConselho">UF Conselho</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="ufConselho" type="text"
+                          [value]="profissionalCompleto?.carreira?.ufConselho?.uf" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="areaAtendimento">Área
+                        Atendimento</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="areaAtendimento" type="text"
+                          [value]="profissionalCompleto?.carreira?.areasAtendimento[0].nome" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="referenciaNome1">Referência Nome
+                        1</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="referenciaNome1" type="text"
+                          [value]="profissionalCompleto?.carreira?.nomeReferencia1" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="referenciaFone1">Referência Fone
+                        1</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="referenciaFone1" type="text"
+                          [value]="profissionalCompleto?.carreira?.telefoneReferencia1" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="referenciaNome2">Referência Nome
+                        2</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="referenciaNome2" type="text"
+                          [value]="profissionalCompleto?.carreira?.nomeReferencia2" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="referenciaFone2">Referência Fone
+                        2</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="referenciaFone2" type="text"
+                          [value]="profissionalCompleto?.carreira?.telefoneReferencia2" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="veiculo">Veículo utilizado para os
+                        atendimentos</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="veiculo" type="text"
+                          [value]="profissionalCompleto?.carreira?.transporte?.tipo" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div name="experiencia" class="form-group col-lg-12 col-md-12">
+                <div id="accordion" role="tablist">
+                  <div class="card card-collapse">
+                    <div class="card-header" role="tab" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#experiencia" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          EXPERIÊNCIA
+                          <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div id="experiencia" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-3 col-md-4 col-form-label" for="experienciaProfissional">Experiência
+                        Profissional?</label>
+                      <div class="form-group col-lg-2 col-md-6">
+                        <input class="form-control" name="experienciaProfissional" type="text"
+                          [value]="profissionalCompleto?.experiencia != null ? 'Sim' : 'Não'" disabled>
+                      </div>
+                    </div>
+                    <div [hidden]="profissionalCompleto?.experiencia == null">
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="empresa1">Empresa anterior
+                          1</label>
+                        <div class="form-group col-lg-9 col-md-8">
+                          <input class="form-control" name="empresa1" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[0]?.empresa : ''"
+                            disabled>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="cargo1">Cargo anterior 1</label>
+                        <div class="form-group col-lg-9 col-md-8">
+                          <input class="form-control" name="cargo1" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[0]?.cargo : ''"
+                            disabled>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="dataAdmissao1">Data admissão
+                          1</label>
+                        <div class="form-group col-lg-3 col-md-8">
+                          <input class="form-control" name="dataAdmissao1" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[0]?.dataAdmissao : ''"
+                            disabled>
+                        </div>
+                        <label class="col-lg-3 col-md-3 col-form-label" for="dataDemissao1">Data demissão
+                          1</label>
+                        <div class="form-group col-lg-3 col-md-8">
+                          <input class="form-control" name="dataDemissao1" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[0]?.dataDemissao : ''"
+                            disabled>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="empresa2">Empresa anterior
+                          2</label>
+                        <div class="form-group col-lg-9 col-md-8">
+                          <input class="form-control" name="empresa2" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[1]?.empresa : ''"
+                            disabled>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="cargo2">Cargo anterior 2</label>
+                        <div class="form-group col-lg-9 col-md-8">
+                          <input class="form-control" name="cargo2" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[1]?.cargo : ''"
+                            disabled>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="dataAdmissao2">Data admissão
+                          2</label>
+                        <div class="form-group col-lg-3 col-md-8">
+                          <input class="form-control" name="dataAdmissao2" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[1]?.dataAdmissao : ''"
+                            disabled>
+                        </div>
+                        <label class="col-lg-3 col-md-3 col-form-label" for="dataDemissao2">Data demissão
+                          2</label>
+                        <div class="form-group col-lg-3 col-md-8">
+                          <input class="form-control" name="dataDemissao2" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[1]?.dataDemissao : ''"
+                            disabled>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="empresa3">Empresa anterior
+                          3</label>
+                        <div class="form-group col-lg-9 col-md-8">
+                          <input class="form-control" name="empresa3" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[2]?.empresa : ''"
+                            disabled>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="cargo3">Cargo anterior 3</label>
+                        <div class="form-group col-lg-9 col-md-8">
+                          <input class="form-control" name="cargo3" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[2]?.cargo : ''"
+                            disabled>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="dataAdmissao3">Data admissão
+                          3</label>
+                        <div class="form-group col-lg-3 col-md-8">
+                          <input class="form-control" name="dataAdmissao3" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[2]?.dataAdmissao : ''"
+                            disabled>
+                        </div>
+                        <label class="col-lg-3 col-md-3 col-form-label" for="dataDemissao3">Data demissão
+                          3</label>
+                        <div class="form-group col-lg-3 col-md-8">
+                          <input class="form-control" name="dataDemissao3" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[2]?.dataDemissao : ''"
+                            disabled>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-lg-2 col-md-3 col-form-label" for="observacao">Observação</label>
+                        <div class="form-group col-lg-9 col-md-8">
+                          <input class="form-control" name="observacao" type="text"
+                            [value]="profissionalCompleto?.experiencia != null ? profissionalCompleto?.experiencia[0]?.observacao : ''"
+                            disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div name="escolaridade" class="form-group col-lg-12 col-md-12">
+                <div id="accordion" role="tablist">
+                  <div class="card card-collapse">
+                    <div class="card-header" role="tab" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#escolaridade" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          ESCOLARIDADE
+                          <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div id="escolaridade" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="grauInstrucao">Grau de
+                        instrução</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="grauInstrucao" type="text"
+                          [value]="profissionalCompleto?.escolaridade?.instrucao?.grau" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="instituicaoEnsino1">Instituição de
+                        ensino
+                        1</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="instituicaoEnsino1" type="text"
+                          [value]="profissionalCompleto?.escolaridade?.instituicaoEnsino[0]" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="anoConclusao1">Ano conclusão
+                        1</label>
+                      <div class="form-group col-lg-2 col-md-8">
+                        <input class="form-control" name="anoConclusao1" type="text"
+                          [value]="profissionalCompleto?.escolaridade?.anoConclusao[0]" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="instituicaoEnsino2">Instituição de
+                        ensino
+                        2</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="instituicaoEnsino2" type="text"
+                          [value]="profissionalCompleto?.escolaridade?.instituicaoEnsino[1]" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="anoConclusao2">Ano conclusão
+                        2</label>
+                      <div class="form-group col-lg-2 col-md-8">
+                        <input class="form-control" name="anoConclusao2" type="text"
+                          [value]="profissionalCompleto?.escolaridade?.anoConclusao[1]" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="instituicaoEnsino1">Instituição de
+                        ensino
+                        3</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="instituicaoEnsino1" type="text"
+                          [value]="profissionalCompleto?.escolaridade?.instituicaoEnsino[2]" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="anoConclusao3">Ano conclusão
+                        3</label>
+                      <div class="form-group col-lg-2 col-md-8">
+                        <input class="form-control" name="anoConclusao3" type="text"
+                          [value]="profissionalCompleto?.escolaridade?.anoConclusao[2]" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="tituloEleitoral">Título
+                        eleitoral</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="tituloEleitoral" type="text"
+                          [value]="profissionalCompleto?.complemento?.tituloEleitoral" disabled>
+                      </div>
+                      <label class="col-lg-1 col-md-3 col-form-label" for="zona">Zona</label>
+                      <div class="form-group col-lg-2 col-md-8">
+                        <input class="form-control" name="zona" type="text"
+                          [value]="profissionalCompleto?.complemento?.zonaEleitoral" disabled>
+                      </div>
+                      <label class="col-lg-1 col-md-3 col-form-label" for="secao">Seção</label>
+                      <div class="form-group col-lg-2 col-md-8">
+                        <input class="form-control" name="secao" type="text"
+                          [value]="profissionalCompleto?.complemento?.secaoEleitoral" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div name="complemento" class="form-group col-lg-12 col-md-12">
+                <div id="accordion" role="tablist">
+                  <div class="card card-collapse">
+                    <div class="card-header" role="tab" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#complemento" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          COMPLEMENTO
+                          <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div id="complemento" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="habilitacao">Nº Habilitação</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="habilitacao" type="text"
+                          [value]="profissionalCompleto?.complemento?.numeroHabilitacao" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="dataValidade">Data validade</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="dataValidade" type="text"
+                          [value]="profissionalCompleto?.complemento?.dataValidadeHabilitacao" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="categoria">Categoria</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="categoria" type="text"
+                          [value]="profissionalCompleto?.complemento?.categoriaCNH?.sigla" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="reservista">Nº Reservista</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="reservista" type="text"
+                          [value]="profissionalCompleto?.complemento?.numeroReservista" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="nomeMae">Nome mãe</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="nomeMae" type="text"
+                          [value]="profissionalCompleto?.complemento?.nomeMae" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="profissaoMae">Profissão mãe</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="profissaoMae" type="text"
+                          [value]="profissionalCompleto?.complemento?.profissaoMae" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="nomePai">Nome pai</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="nomePai" type="text"
+                          [value]="profissionalCompleto?.complemento?.nomePai" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="profissaoPai">Profissão pai</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="profissaoPai" type="text"
+                          [value]="profissionalCompleto?.complemento?.profissaoPai" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="nomeConjuge">Nome cônjuge</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="nomeConjuge" type="text"
+                          [value]="profissionalCompleto?.complemento?.nomeConjuge" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="profissaoConjuge">Profissão
+                        cônjuge</label>
+                      <div class="form-group col-lg-9 col-md-8">
+                        <input class="form-control" name="profissaoConjuge" type="text"
+                          [value]="profissionalCompleto?.complemento?.profissaoConjuge" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-3 col-md-4 col-form-label" for="carteiraVacinacao">Carteira de
+                        Vacinação?</label>
+                      <div class="form-group col-lg-2 col-md-6">
+                        <input class="form-control" name="carteiraVacinacao" type="text"
+                          [value]="profissionalCompleto?.complemento?.carteiraVacinacao ? 'Sim' : 'Não'"
+                          disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div name="conta" class="form-group col-lg-12 col-md-12">
+                <div id="accordion" role="tablist">
+                  <div class="card card-collapse">
+                    <div class="card-header" role="tab" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#conta" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          CONTA
+                          <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div id="conta" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="tipoConta">Tipo conta
+                        bancária</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="tipoConta" type="text"
+                          [value]="profissionalCompleto?.conta?.tipo?.descricao" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="bancoConta">Banco conta</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="bancoConta" type="text"
+                          [value]="profissionalCompleto?.conta?.banco?.descricao" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="agencia">Nº Agência</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="agencia" type="text"
+                          [value]="profissionalCompleto?.conta?.agencia" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="conta">Nº Conta</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="conta" type="text"
+                          [value]="profissionalCompleto?.conta?.numero" disabled>
+                      </div>
+                      <label class="col-lg-3 col-md-3 col-form-label" for="digito">Nº Dígito Conta</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="digito" type="text"
+                          [value]="profissionalCompleto?.conta?.digito" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="pix1">Chave PIX 1</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="pix1" type="text"
+                          [value]="profissionalCompleto?.conta?.chave_pix_primaria" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="pix2">Chave PIX 2</label>
+                      <div class="form-group col-lg-3 col-md-8">
+                        <input class="form-control" name="pix2" type="text"
+                          [value]="profissionalCompleto?.conta?.chave_pix_secundaria" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

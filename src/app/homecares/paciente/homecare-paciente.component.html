@@ -1,0 +1,268 @@
+<div class="container conteudo">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 col-sm-12 ml-auto mr-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard" data-color="rose" id="wizardProfile">
+
+          <div class="wizard-navigation">
+            <ul class="nav nav-pills nav-fill">
+              <li #buscarPorCpf class="nav-item" id="buscaPorCpf" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#buscarPorCpf" role="tab">
+                  Buscar por CPF
+                </a>
+              </li>
+              <li #buscarPorNome class="nav-item" id="buscaPorNome" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#buscarPorNome" role="tab">
+                  Buscar por Nome
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane" id="buscarPorCpf">
+                <form [formGroup]="pacienteCompletoForm" class="form-horizontal">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-4 col-md-3 col-form-label" for="pacienteCpf">CPF</label>
+                      <div class="form-group col-lg-4 col-md-4">
+                        <input autocomplete="none" class="form-control" formControlName="pacienteCpf"
+                          mask="000.000.000-00" type="text">
+                      </div>
+                      <button (click)="pesquisarPaciente(this.pacienteCompletoForm.controls.pacienteCpf.value)"
+                        class="btn btn-social btn-just-icon btn-round btn-rose" type="button"
+                        [disabled]="!pacienteCompletoForm.controls?.pacienteCpf.valid"
+                        [value]="pacienteCompletoForm.controls?.pacienteCompletoForm">
+                        <i class="material-icons">search</i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane" id="buscarPorNome">
+                <form [formGroup]="pacientePesquisaForm" class="form-horizontal">
+                  <div class="card-body">
+                    <div class="row">
+                      <label class="col-lg-4 col-md-3 col-form-label" for="nome">Nome</label>
+                      <div class="form-group col-lg-4 col-md-4">
+                        <input autocomplete="none" class="form-control" formControlName="nome" type="text">
+                      </div>
+                      <button (click)="pesquisarPacientePorNome(this.pacientePesquisaForm.controls.nome.value)"
+                        class="btn btn-social btn-just-icon btn-round btn-rose" type="button"
+                        [value]="pacientePesquisaForm.controls?.nome">
+                        <i class="material-icons">search</i>
+                      </button>
+                    </div>
+                    <br>
+                    <br>
+                    <div [hidden]=hidePacientePesquisaForm>
+                      <div class="row">
+                        <label class="col-lg-3 col-md-3 col-form-label" for="cpf">Lista de CPF</label>
+                        <div class="form-group col-lg-7 col-md-4">
+                          <select class="selectpicker" data-style="btn btn-primary" data-width="100%"
+                            formControlName="cpf" id="cpf" title="Selecione" (change)="buscaPaciente()">
+                            <option *ngFor="let paciente of pacientePesquisa" [value]="paciente?.cpf">{{ paciente?.cpf + ' - ' + paciente?.nomeCompleto }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div [hidden]="hidePacienteCompletoForm">
+            <div name="informacoes-gerais" class="form-group col-lg-12 col-md-12">
+              <div id="accordion" role="tablist">
+                <div class="card card-collapse">
+                  <div class="card-header" role="tab" id="headingOne">
+                    <h5 class="mb-0">
+                      <a data-toggle="collapse" href="#informacoes-gerais" aria-expanded="false"
+                        aria-controls="collapseOne">
+                        INFORMAÇÕES GERAIS
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </a>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div id="informacoes-gerais" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                data-parent="#accordion">
+                <div class="card-body">
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="nome">Primeiro nome</label>
+                    <div class="form-group col-lg-9 col-md-8">
+                      <input class="form-control" name="nome" type="text" [value]="paciente?.nome" disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="sobrenome">Sobrenome</label>
+                    <div class="form-group col-lg-9 col-md-8">
+                      <input class="form-control" name="sobrenome" type="text" [value]="paciente?.sobrenome" disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="dataNascimento">Data Nascimento</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="dataNascimento" type="text" [value]="paciente?.dataNascimento"
+                        disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="rg">RG</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="rg" type="text" [value]="paciente?.rg" disabled>
+                    </div>
+                    <label class="col-lg-3 col-md-3 col-form-label" for="rgEmissor">Emissor</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="rgEmissor" type="text" [value]="paciente?.rgEmissor" disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="rgDataEmissao">Data Emissão RG</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="rgDataEmissao" type="text" [value]="paciente?.rgDataEmissao"
+                        disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="sexo">Sexo</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="sexo" type="text" [value]="paciente?.genero?.descricao"
+                        disabled>
+                    </div>
+                    <label class="col-lg-2 col-md-3 col-form-label" for="estadoCivil">Estado Civil</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="estadoCivil" type="text" [value]="paciente?.estadoCivil?.tipo"
+                        disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div name="endereco" class="form-group col-lg-12 col-md-12">
+              <div id="accordion" role="tablist">
+                <div class="card card-collapse">
+                  <div class="card-header" role="tab" id="headingOne">
+                    <h5 class="mb-0">
+                      <a data-toggle="collapse" href="#endereco" aria-expanded="false" aria-controls="collapseOne">
+                        ENDEREÇO
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </a>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div id="endereco" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="cep">CEP</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="cep" type="text" [value]="paciente?.endereco?.cep" disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="endereco">Endereço</label>
+                    <div class="form-group col-lg-4 col-md-8">
+                      <input class="form-control" name="endereco" type="text" [value]="paciente?.endereco?.logradouro"
+                        disabled>
+                    </div>
+                    <label class="col-lg-2 col-md-3 col-form-label" for="numero">Número</label>
+                    <div class="form-group col-lg-2 col-md-6">
+                      <input class="form-control" name="numero" type="text" [value]="paciente?.endereco?.numero"
+                        disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="complemento">Complemento</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="complemento" type="text"
+                        [value]="paciente?.endereco?.complemento" disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="bairro">Bairro</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="bairro" type="text" [value]="paciente?.endereco?.bairro"
+                        disabled>
+                    </div>
+                    <label class="col-lg-3 col-md-3 col-form-label" for="cidade">Cidade</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="cidade" type="text" [value]="paciente?.endereco?.cidade"
+                        disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="pais">País</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="pais" type="text" [value]="paciente?.endereco?.pais?.nome"
+                        disabled>
+                    </div>
+                    <label class="col-lg-3 col-md-3 col-form-label" for="uf">UF</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="uf" type="text" [value]="paciente?.endereco?.estado?.uf"
+                        disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div name="contato" class="form-group col-lg-12 col-md-12">
+              <div id="accordion" role="tablist">
+                <div class="card card-collapse">
+                  <div class="card-header" role="tab" id="headingOne">
+                    <h5 class="mb-0">
+                      <a data-toggle="collapse" href="#contato" aria-expanded="false" aria-controls="collapseOne">
+                        CONTATO
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </a>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div id="contato" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="telefoneFixo">Telefone Fixo</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="telefoneFixo" type="text"
+                        [value]="paciente?.contato?.telefoneFixo" disabled>
+                    </div>
+                    <label class="col-lg-3 col-md-3 col-form-label" for="celularPrincipal">Celular</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="celularPrincipal" type="text"
+                        [value]="paciente?.contato?.telefoneCelular" disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="foneRecado">Recado</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="foneRecado" type="text"
+                        [value]="paciente?.contato?.telefoneRecado" disabled>
+                    </div>
+                    <label class="col-lg-3 col-md-3 col-form-label" for="celularResponsavel">Celular Responsável
+                      Acompanhante</label>
+                    <div class="form-group col-lg-3 col-md-8">
+                      <input class="form-control" name="celularResponsavel" type="text"
+                        [value]="paciente?.contato?.telefoneResponsavel" disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="emailResponsavel">Email Responsável
+                      Acompanhante</label>
+                    <div class="form-group col-lg-9 col-md-8">
+                      <input class="form-control" name="emailResponsavel" type="text"
+                        [value]="paciente?.contato?.emailResponsavel" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

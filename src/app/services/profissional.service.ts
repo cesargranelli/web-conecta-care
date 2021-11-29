@@ -73,4 +73,18 @@ export class ProfissionalService {
     );
   }
 
+  consultarProfissionalCompletoPorCpf(cpf: string): Observable<any> {
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/completo`,
+    {
+      headers: new HttpHeaders().set('cpf', cpf), observe: 'response'
+    });
+  }
+
+  consultarProfissionalPorNome(nome: string): Observable<any> {
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/nome`,
+    {
+      headers: new HttpHeaders().set('nome', nome), observe: 'response'
+    });
+  }
+
 }

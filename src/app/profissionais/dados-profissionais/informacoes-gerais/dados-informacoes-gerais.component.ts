@@ -116,8 +116,19 @@ export class DadosInformacoesGeraisComponent implements OnInit {
       });
     });
     jQuery('.datetimepicker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+      locale: 'pt-BR',
+      format: 'L',
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+      }
     });
   }
 
