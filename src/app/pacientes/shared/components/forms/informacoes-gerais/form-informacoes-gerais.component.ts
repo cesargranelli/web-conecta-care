@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { concatMap, map } from 'rxjs/operators';
 import { EstadoCivil } from 'src/app/classes/estado-civil.class';
 import { Genero } from 'src/app/classes/genero.class';
 import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
+import { Role } from 'src/app/enums/role.enum';
 import { EstadoCivilService } from 'src/app/pacientes/services/estado-civil.service';
 import { GeneroService } from 'src/app/pacientes/services/genero.service';
 import { PacienteService } from 'src/app/pacientes/services/paciente.service';
@@ -51,10 +53,11 @@ export class FormInformacoesGeraisComponent implements OnInit {
   public fotoPaciente: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   public fotoRg: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   public fotoCpf: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
+  public campoHabilitado: boolean;
   private _filePaciente: File;
   private _fileRg: File;
   private _fileCpf: File;
-  private _dadosLocalStorage: Valid;
+  private _dadosLocalStorage: Valid = new Valid();
   private _dataAtual: Date;
 
   constructor(
@@ -63,12 +66,14 @@ export class FormInformacoesGeraisComponent implements OnInit {
     private _pacienteService: PacienteService,
     private _generoService: GeneroService,
     private _estadoCivilService: EstadoCivilService,
-    private _loading: SharedLoadingService
+    private _loading: SharedLoadingService,
+    private _route: ActivatedRoute
   ) {
     this.onSubmitEvent = new EventEmitter<Paciente>();
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage.id = this._route.snapshot.params.paciente_id;
     this._loading.emitChange(true);
     this.hideForm = true;
+    this.campoHabilitado = this._validService.getValid()?.role == Role.Paciente ? true : false;
 
     this.pacienteForm = this._formBuilder.group({
       nome: [null, Validators.required],
@@ -99,6 +104,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
+        this.pacienteForm.disable({ onlySelf: !this.campoHabilitado });
         this.hideForm = false;
         this._loading.emitChange(false);
       });
@@ -126,12 +132,12 @@ export class FormInformacoesGeraisComponent implements OnInit {
         nome: this.paciente.nome,
         sobrenome: this.paciente.sobrenome,
         cpf: this.paciente.cpf,
-        dataNascimento: this.paciente.dataNascimento,
+        dataNascimento: this.formatarData(this.paciente.dataNascimento),
         rg: this.paciente.rg,
         rgEmissor: this.paciente.rgEmissor,
-        rgDataEmissao: this.paciente.rgDataEmissao,
-        genero: this.paciente.genero,
-        estadoCivil: this.paciente.estadoCivil
+        rgDataEmissao: this.formatarData(this.paciente.rgDataEmissao),
+        genero: this.paciente.genero.id,
+        estadoCivil: this.paciente.estadoCivil.id
       });
       if (this.paciente.foto) {
         this.fotoPaciente = this.paciente.foto;
@@ -271,7 +277,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
       const dia = dataArray[2];
       const mes = dataArray[1];
       const ano = dataArray[0];
-      return ano + this.HIFEN + mes + this.HIFEN + dia;
+      return dia + this.SLASH + mes + this.SLASH + ano;
     }
   }
 

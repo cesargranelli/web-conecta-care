@@ -3,120 +3,111 @@
     <div class="tab-content">
       <div class="row">
         <label class="col-lg-2 col-md-3 col-form-label" for="nome">Primeiro nome *</label>
-        <div [ngClass]="validationHas.validation(pacienteForm.controls?.nome)"
-             class="form-group col-lg-9 col-md-8">
+        <div [ngClass]="validationHas.validation(pacienteForm.controls?.nome)" class="form-group col-lg-9 col-md-8">
           <input class="form-control" formControlName="nome" id="nome" type="text">
         </div>
       </div>
       <div class="row">
         <label class="col-lg-2 col-md-3 col-form-label" for="sobrenome">Sobrenome *</label>
         <div [ngClass]="validationHas.validation(pacienteForm.controls?.sobrenome)"
-             class="form-group col-lg-9 col-md-8">
+          class="form-group col-lg-9 col-md-8">
           <input class="form-control" formControlName="sobrenome" id="sobrenome" type="text">
         </div>
       </div>
       <div class="row">
         <label class="col-lg-2 col-md-3 col-form-label" for="cpf">CPF *</label>
-        <div [ngClass]="validationHas.validation(pacienteForm.controls?.cpf)"
-             class="form-group col-lg-4 col-md-8">
+        <div [ngClass]="validationHas.validation(pacienteForm.controls?.cpf)" class="form-group col-lg-4 col-md-8">
           <input class="form-control" formControlName="cpf" id="cpf" mask="000.000.000-00" type="text">
         </div>
         <label class="col-lg-2 col-md-3 col-form-label" for="dataNascimento">Data Nascimento *</label>
         <div [ngClass]="validationHas.validation(pacienteForm.controls?.dataNascimento)"
-             class="form-group col-lg-3 col-md-8">
-          <input (focus)="dateChange(pacienteForm.controls?.dataNascimento, 'dataNascimento')"
-                 autocomplete="none" class="form-control datetimepicker" formControlName="dataNascimento"
-                 id="dataNascimento" maxlength="10" type="text" mask="00/00/0000">
+          class="form-group col-lg-3 col-md-8">
+          <input (focus)="dateChange(pacienteForm.controls?.dataNascimento, 'dataNascimento')" autocomplete="none"
+            class="form-control datetimepicker" formControlName="dataNascimento" id="dataNascimento" maxlength="10"
+            type="text" mask="00/00/0000">
         </div>
       </div>
       <div class="row">
         <label class="col-lg-2 col-md-3 col-form-label" for="rg">RG *</label>
-        <div class="form-group col-lg-3 col-md-8">
+        <div class="form-group col-lg-4 col-md-8">
           <input class="form-control" formControlName="rg" id="rg" mask="00.000.000-A" type="text">
         </div>
-        <label class="col-lg-3 col-md-3 col-form-label" for="rgEmissor">Emissor *</label>
+        <label class="col-lg-2 col-md-3 col-form-label" for="rgEmissor">Emissor *</label>
         <div class="form-group col-lg-3 col-md-8">
           <input class="form-control" formControlName="rgEmissor" id="rgEmissor" type="text">
         </div>
       </div>
       <div class="row">
         <label class="col-lg-2 col-md-3 col-form-label" for="rgDataEmissao">Data Emissão RG *</label>
-        <div class="form-group col-lg-3 col-md-8">
-          <input (focus)="dateChange(pacienteForm.controls?.rgDataEmissao, 'rgDataEmissao')"
-                 autocomplete="none" class="form-control datetimepicker" formControlName="rgDataEmissao"
-                 id="rgDataEmissao" maxlength="10" type="text" mask="00/00/0000">
+        <div class="form-group col-lg-4 col-md-8">
+          <input (focus)="dateChange(pacienteForm.controls?.rgDataEmissao, 'rgDataEmissao')" autocomplete="none"
+            class="form-control datetimepicker" formControlName="rgDataEmissao" id="rgDataEmissao" maxlength="10"
+            type="text" mask="00/00/0000">
         </div>
       </div>
       <div class="row">
         <label class="col-lg-2 col-md-3 col-form-label" for="genero">Sexo*</label>
-        <div class="form-group col-lg-3 col-md-8">
+        <div class="form-group col-lg-4 col-md-8">
           <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="genero"
-                  id="genero" title="Selecione">
+            id="genero" title="Selecione">
             <option *ngFor="let genero of generos" [ngValue]="genero.id"
-                    [selected]="genero.id === paciente?.genero?.id"
-            >{{ genero.descricao }}</option>
+              [selected]="genero.id === paciente?.genero?.id">{{ genero.descricao }}</option>
           </select>
         </div>
       </div>
       <div class="row">
         <label class="col-lg-2 col-md-3 col-form-label" for="estadoCivil">Estado Civil *</label>
-        <div class="form-group col-lg-3 col-md-8">
-          <select class="selectpicker" data-style="btn btn-primary" data-width="100%"
-                  formControlName="estadoCivil" id="estadoCivil" title="Selecione">
+        <div class="form-group col-lg-4 col-md-8">
+          <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="estadoCivil"
+            id="estadoCivil" title="Selecione">
             <option *ngFor="let estadoCivil of estadosCivil" [ngValue]="estadoCivil.id"
-                    [selected]="estadoCivil.id === paciente?.estadoCivil?.id"
-            >{{ estadoCivil.tipo }}</option>
+              [selected]="estadoCivil.id === paciente?.estadoCivil?.id">{{ estadoCivil.tipo }}</option>
           </select>
         </div>
       </div>
       <div class="row">
-        <label class="col-lg-2 col-form-label" for="fotoPaciente">Foto do paciente*</label>
-        <div class="col-lg-5">
+        <label class="col-lg-2 col-md-3 col-form-label" for="fotoPaciente">Foto do paciente*</label>
+        <div class="col-lg-4 col-md-8">
           <div [ngClass]="fileInputPaciente" class="fileinput text-center" data-provides="fileinput">
-            <div [ngClass]="fileInputPaciente" class="thumbnail img-circle img-raised">
-              <img [src]="fotoPaciente" alt="..." rel="nofollow"
-                   style="max-width: 100px; max-height: 100px;">
+            <div [ngClass]="fileInputPaciente" class="thumbnail foto img-raised">
+              <img [src]="fotoPaciente" alt="..." rel="nofollow">
             </div>
-            <span class="btn btn-raised btn-round btn-rose btn-file">
+            <span class="btn btn-raised btn-round btn-rose btn-file" [hidden]="!campoHabilitado">
               <span [hidden]="pacienteForm.controls.fotoPaciente.valid" class="fileinput-new">Foto Paciente</span>
-              <span [hidden]="pacienteForm.controls.fotoPaciente.invalid" class="fileinput-exists">Trocar</span>
-            <input (change)="onLoadFotoPaciente($event)" data-max-size="2" formControlName="fotoPaciente"
-                   id="fotoPaciente" type="file">
+              <span [hidden]="pacienteForm.controls.fotoPaciente.invalid"
+                class="fileinput-exists">{{pacienteForm.controls.fotoPaciente.valid}}</span>
+              <input (change)="onLoadFotoPaciente($event)" data-max-size="2" formControlName="fotoPaciente"
+                id="fotoPaciente" type="file">
             </span>
           </div>
         </div>
-        <div class="col-sm-5">
-          <div class="row">
-            <label class=" col-form-label" for="fotoRg">Foto do RG*</label>
-            <div [ngClass]="fileInputRg" class="fileinput text-center" data-provides="fileinput">
-              <div [ngClass]="fileInputRg" class="thumbnail img-circle img-raised">
-                <img [src]="fotoRg" alt="..." rel="nofollow"
-                     style="max-width: 50px; max-height: 50px;">
-              </div>
-              <span class="btn btn-raised btn-round btn-rose btn-file">
-                                <span [hidden]="pacienteForm.controls.fotoRg.valid" class="fileinput-new">Foto RG</span>
-                                <span [hidden]="pacienteForm.controls.fotoRg.invalid"
-                                      class="fileinput-exists">Trocar</span>
-                                <input (change)="onLoadFotoRg($event)" data-max-size="2"
-                                       formControlName="fotoRg" id="fotoRg" type="file">
-                            </span>
+        <label class="col-lg-2 col-md-3 col-form-label" for="fotoRg">Foto do RG*</label>
+        <div class="col-lg-4 col-md-8">
+          <div [ngClass]="fileInputRg" class="fileinput text-center" data-provides="fileinput">
+            <div [ngClass]="fileInputRg" class="thumbnail foto img-raised">
+              <img [src]="fotoRg" alt="..." rel="nofollow">
             </div>
+            <span class="btn btn-raised btn-round btn-rose btn-file" [hidden]="!campoHabilitado">
+              <span [hidden]="pacienteForm.controls.fotoRg.valid" class="fileinput-new">Foto RG</span>
+              <span [hidden]="pacienteForm.controls.fotoRg.invalid" class="fileinput-exists">Trocar</span>
+              <input (change)="onLoadFotoRg($event)" data-max-size="2" formControlName="fotoRg" id="fotoRg" type="file">
+            </span>
           </div>
-          <div class="row">
-            <label class=" col-form-label" for="fotoCpf">Foto do CPF</label>
-            <div [ngClass]="fileInputCpf" class="fileinput text-center" data-provides="fileinput">
-              <div [ngClass]="fileInputCpf" class="thumbnail img-circle img-raised">
-                <img [src]="fotoCpf" alt="..." rel="nofollow"
-                     style="max-width: 50px; max-height: 50px;">
-              </div>
-              <span class="btn btn-raised btn-round btn-rose btn-file">
-                <span [hidden]="fileInputCpf === null"
-                      class="fileinput-new">Foto CPF</span>
-                <span [hidden]="!fileInputCpf" class="fileinput-exists">Trocar</span>
-                <input (change)="onLoadFotoCpf($event)" data-max-size="2" formControlName="fotoCpf" id="fotoCpf"
-                       type="file">
-              </span>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-2 col-md-3 col-form-label" for="fotoCpf">Foto do CPF</label>
+        <div class="col-lg-4 col-md-8">
+          <div [ngClass]="fileInputCpf" class="fileinput text-center" data-provides="fileinput">
+            <div [ngClass]="fileInputCpf" class="thumbnail foto img-raised">
+              <img [src]="fotoCpf" alt="..." rel="nofollow">
             </div>
+            <span class="btn btn-raised btn-round btn-rose btn-file" [hidden]="!campoHabilitado">
+              <span [hidden]="fileInputCpf === null" class="fileinput-new">Foto CPF</span>
+              <span [hidden]="!fileInputCpf" class="fileinput-exists">Trocar</span>
+              <input (change)="onLoadFotoCpf($event)" data-max-size="2" formControlName="fotoCpf" id="fotoCpf"
+                type="file">
+            </span>
           </div>
         </div>
       </div>
@@ -130,12 +121,12 @@
     </span>
     <span *ngIf="isCadastro" class="bmd-form-group is-filled">
       <button *ngIf="linkBotaoVoltar != null" [routerLink]="['../']" class="btn btn-gray"
-              type="button">Retornar</button>
+        type="button">Retornar</button>
       <button (click)="limparForm()" class="btn btn-gray" type="button">Limpar</button>
     </span>
     <span class="bmd-form-group is-filled">
-        <button [disabled]="!pacienteForm.valid" class="btn btn-rose"
-                type="submit">{{ labelBotaoSubmit }}</button>
+      <button [disabled]="!pacienteForm.valid" class="btn btn-rose" type="submit"
+        [hidden]="!campoHabilitado">{{ labelBotaoSubmit }}</button>
     </span>
   </div>
 </form>

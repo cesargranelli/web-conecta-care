@@ -1,19 +1,21 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Paciente } from 'src/app/pacientes/classes/paciente.class';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import Swal from 'sweetalert2';
 import { PacientePesquisa } from '../classes/paciente-pesquisa.class';
 import { PacienteService } from '../services/paciente.service';
+import { Valid } from 'src/app/services/feat/Valid';
 
 declare var jQuery: any;
 
 declare function carregarTarjaAzul(): void; //Carrega a funcao carregarTarjaAzul() do app.js
 declare function hideToolTip(): void; //Carrega a funcao hideToolTip() do app.js
 declare function injetaToolTip(): void; //Carrega a funcao injetaToolTip() do app.js
-
 
 @Component({
   selector: 'app-tratamento',
@@ -25,15 +27,20 @@ export class HomecarePacienteComponent implements OnInit {
   pacienteCompletoForm: FormGroup;
   paciente: Paciente;
   hidePacienteCompletoForm: boolean = true;
+  valid: Valid;
+  desabilitarCampos: boolean = true;
 
   pacientePesquisaForm: FormGroup;
   pacientePesquisa: PacientePesquisa[];
   hidePacientePesquisaForm: boolean = true;
 
   constructor(
+    private validService: SharedValidService,
     private formBuilder: FormBuilder,
     private loading: SharedLoadingService,
-    private pacienteService: PacienteService
+    private pacienteService: PacienteService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.pacienteCompletoForm = this.formBuilder.group({
       pacienteCpf: [null, [Validators.required, validCpf(true)]],
@@ -44,6 +51,7 @@ export class HomecarePacienteComponent implements OnInit {
     });
     jQuery('html').removeClass('nav-open');
     jQuery('button').removeClass('toggled');
+    this.valid = this.validService.getValid();
   }
 
   ngOnInit(): void {
@@ -59,6 +67,7 @@ export class HomecarePacienteComponent implements OnInit {
         if (paciente) {
           this.paciente = paciente?.body?.data;
           this.hidePacienteCompletoForm = false;
+          this.router.navigate([`${this.paciente.id}`], { relativeTo: this.route });
         } else {
           this.showSwal('Paciente não localizado', 'info');
         }
