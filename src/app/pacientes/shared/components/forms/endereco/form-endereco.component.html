@@ -53,13 +53,12 @@
       </div>
       <div class="row">
         <label class="col-lg-2 col-md-3 col-form-label" for="fotoComprovante">Comprovante *</label>
-        <div class="col-lg-5 col-md-8">
+        <div class="col-lg-4 col-md-8">
           <div [ngClass]="fileInputComprovante" class="fileinput text-center" data-provides="fileinput">
-            <div [ngClass]="fileInputComprovante" class="thumbnail img-circle img-raised">
+            <div [ngClass]="fileInputComprovante" class="thumbnail foto img-raised">
               <img [src]="imagemComprovante" alt="..." rel="nofollow">
             </div>
-            <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
-            <span class="btn btn-raised btn-round btn-rose btn-file">
+            <span class="btn btn-raised btn-round btn-rose btn-file" [hidden]="!campoHabilitado">
               <span [hidden]="enderecoForm.controls.fotoComprovante.valid">Selecionar comprovante</span>
               <span [hidden]="enderecoForm.controls.fotoComprovante.invalid">Trocar</span>
               <input (change)="onLoadComprovante($event)" data-max-size="2" formControlName="fotoComprovante" type="file">
@@ -80,8 +79,7 @@
       <button (click)="limpar()" class="btn btn-gray" type="button">Limpar</button>
     </span>
     <span class="bmd-form-group is-filled">
-      <button  class="btn btn-rose"
-              type="submit">{{ labelBotaoSubmit }}</button>
+      <button  class="btn btn-rose" type="submit" [hidden]="!campoHabilitado">{{ labelBotaoSubmit }}</button>
     </span>
   </div>
 </form>

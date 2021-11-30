@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
 import { map } from 'rxjs/internal/operators/map';
 import Swal from 'sweetalert2';
@@ -16,6 +16,7 @@ import { Paciente } from '../../../../classes/paciente.class';
 import { EnderecoService } from '../../../../services/endereco.service';
 import { EstadoService } from '../../../../services/estado.service';
 import { PacienteService } from '../../../../services/paciente.service';
+import { Role } from 'src/app/enums/role.enum';
 
 declare var jQuery: any;
 
@@ -51,6 +52,8 @@ export class FormEnderecoComponent implements OnInit {
   public endereco: EnderecoPaciente = new EnderecoPaciente();
   public fileComprovante: File;
   public paciente: Paciente;
+  pacienteId: number;
+  campoHabilitado: boolean;
 
   constructor(
     private _router: Router,
@@ -61,8 +64,12 @@ export class FormEnderecoComponent implements OnInit {
     private _enderecoService: EnderecoService,
     private _pacienteService: PacienteService,
     private _valid: SharedValidService,
+    private _route: ActivatedRoute
   ) {
     this._loading.emitChange(true);
+    this.pacienteId = this._route.snapshot.params.paciente_id;
+    this.campoHabilitado = this._valid.getValid()?.role == Role.Paciente ? true : false;
+
     this.enderecoForm = this._formBuilder.group({
       logradouro: [null, [Validators.required, Validators.maxLength(60)]],
       numero: [null, [Validators.required, Validators.maxLength(10)]],
@@ -81,13 +88,14 @@ export class FormEnderecoComponent implements OnInit {
         this.estados = estados;
         jQuery('select[id=\'estado\']').selectpicker('val', this.estado?.id);
       }),
-      concatMap(() => this._pacienteService.pesquisarPorId(this._valid.getValid().id).pipe(map(paciente => this.paciente = paciente))),
+      concatMap(() => this._pacienteService.pesquisarPorId(this.pacienteId).pipe(map(paciente => this.paciente = paciente))),
       concatMap(() => this._enderecoService.pesquisarEnderecoPorId(this.paciente?.endereco?.id))
     ).subscribe(endereco => {
       this.endereco = endereco;
       this.popularForm();
       setTimeout(() => {
         jQuery('select[id=\'estado\']').selectpicker('refresh');
+        this.enderecoForm.disable({ onlySelf: !this.campoHabilitado });
         this.esconderFormulario = false;
         this._loading.emitChange(false);
       });
