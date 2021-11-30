@@ -83,12 +83,11 @@ export class AtendimentoService {
 
   }
 
-  downloadPdf(cpfProfissional: string | null, cpfPaciente: string | null, 
+  downloadFile(cpfProfissional: string | null, cpfPaciente: string | null, 
     periodoDe: string | null, periodoAte: string | null, 
     areaAtendimento: string | null, statusAtendimento: string | null,
-    homeCare: string): Observable<Blob> {
+    homeCare: string, gerarPara: string): Observable<Blob> {
     
-    console.log('downloadPdf -> ' + homeCare);
     let cpfProfissionalFilter = cpfProfissional ? cpfProfissional : ' ';
     let cpfPacienteFilter = cpfPaciente ? cpfPaciente : ' ';
     let areaAtendimentoFilter = areaAtendimento ? areaAtendimento : ' ';
@@ -103,11 +102,12 @@ export class AtendimentoService {
         statusAtendimentoId: String(statusAtendimentoFilter),
         homeCareId: String(homeCare),
         periodoDe: String(periodoDe),
-        periodoAte: String(periodoAte)
+        periodoAte: String(periodoAte),
+        gerarPara: String(gerarPara)
       })
     };
 
-    return this._http.get(`${this.endpoint.concat('/preview/pdf')}`, { 
+    return this._http.get(`${this.endpoint.concat('/preview/file')}`, { 
         headers: httpOptions.headers,
         responseType: 'blob'
       },

@@ -35,6 +35,7 @@ export class TratamentoPreviewComponent implements OnInit {
   public homesCares: HomeCare[];
 
   valid:any;
+  table: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,39 +44,19 @@ export class TratamentoPreviewComponent implements OnInit {
     private _atendimentoService: AtendimentoService,
     private _validService: SharedValidService,
     private _loading: SharedLoadingService,
-    //private validService: SharedValidService,
-    //private loading: SharedLoadingService,
-    //private tratamentoService: TratamentoService,
-    //private router: Router,
-    //private activatedRoute: ActivatedRoute
   ) {
-    //this.loading.emitChange(true);
 
   }
 
   ngOnInit(): void {
-    /*
-    this.tratamentoService.listarTratamentoEmAberto(String(this.validService.getValid()?.id))
-      .subscribe(tratamentos => {
-        this.tratamentosEmAberto = tratamentos;
-        this.inicializarDataTable();
-        this.loading.emitChange(false);
-        this.hideForm = false;
-      },
-        () => this.loading.emitChange(false),
-        () => this.loading.emitChange(false)
-      );
-    */
-
     //
     this.valid = this._validService.getValid();
-
+    //
     this.limparFiltros();
     //
     this.carregarAreasAtendimento();
     //
-    this.inicializarDataTable();
-
+    //this.inicializarDataTable();
   }
 
   carregarAreasAtendimento() {
@@ -97,7 +78,12 @@ export class TratamentoPreviewComponent implements OnInit {
   }
 
   inicializarDataTable() {
+
     jQuery(document).ready(function () {
+
+      if (jQuery('#datatables').DataTable()) {
+        jQuery('#datatables').DataTable().destroy();
+      }
       jQuery('#datatables').DataTable({
         'pagingType': 'full_numbers',
         'lengthMenu': [
@@ -137,12 +123,10 @@ export class TratamentoPreviewComponent implements OnInit {
           homeCareId
           )
         .subscribe(response => {
-          console.log(response);
           this.atendimentosPreview = response.body.data;
           this._loading.emitChange(false);
         },
         (e) => {
-          console.log(e);
           this._loading.emitChange(false);
         });
 
@@ -157,25 +141,24 @@ export class TratamentoPreviewComponent implements OnInit {
       }
   }
 
-  downloadPdf() {
+  consultarPreviewFile(gerarPara: string) {
 
     let homeCareId = (this.valid && this.valid.role === 'ROLE_HOMECARE') ? this.valid.id : this.previewFilterForm.value.homeCare;
-    console.log(homeCareId);
     if (this.previewFilterForm.valid && homeCareId) {
 
       this._loading.emitChange(true);
-      this._atendimentoService.downloadPdf(
+      this._atendimentoService.downloadFile(
           this.previewFilterForm.value.cpfProfissional || null,
           this.previewFilterForm.value.cpfPaciente || null,
           this.previewFilterForm.value.periodoDe || null,
           this.previewFilterForm.value.periodoAte || null,
           this.previewFilterForm.value.areaAtendimento || null,
           this.previewFilterForm.value.statusAtendimento || null,
-          homeCareId
+          homeCareId,
+          gerarPara
           )
         .subscribe((response: any) => {
           this._loading.emitChange(false);
-          console.log(response)
           if (!response || response.size === 0) {
             Swal.fire({
               position: 'center',
@@ -185,13 +168,10 @@ export class TratamentoPreviewComponent implements OnInit {
             });
             return;
           }
-          this.downLoadFile(response, 'pdf', 'preview.pdf');
-          //this.atendimentosPreview = atendimentos.body.data;
-          //this.inicializarDataTable();
+          this.downLoadFile(response, gerarPara);
         },
         (e) => {
           this._loading.emitChange(false);
-          console.log(e);
         });
   
       } else {
@@ -259,10 +239,11 @@ export class TratamentoPreviewComponent implements OnInit {
    * @param data - Array Buffer data
    * @param type - type of the document.
    */
-  downLoadFile(data: any, ftype: string, nome: string) {
+  downLoadFile(data: any, ftype: string) {
     const blob = new Blob([data], { type: 'application/' + ftype });
     const url = window.URL.createObjectURL(blob);
 
+    let nome = 'preview.' + ftype.toLowerCase();
     Object.assign(document.createElement('a'), {
       target: '_blank',
       download: nome,

@@ -87,11 +87,7 @@
                   </div>
                   <div class="col-sm-8">
                     <div style="min-height: 485px; max-height: 485px; overflow-y: scroll;">
-                      Tabela
-
-                      <table cellspacing="0" class="table table-striped" id="datatables" style="width:100%"
-                            width="100%">
-                        
+                      <table cellspacing="0" class="table table-striped" id="datatables" style="width:100%">
                         <thead>
                         <tr>
                           <th>Resultado da busca:</th>
@@ -130,27 +126,17 @@
                               </div>
                             </div>
                           </td>
-                          <!-- <td>{{ tratamentoEmAberto.nomePaciente }}</td> -->
-                          <!-- <td>{{ tratamentoEmAberto.descricao }}</td> -->
-                          <!-- 
-                          <td class="text-center">
-                            <button class="btn btn-link btn-rose btn-just-icon" (click)="navigation(tratamentoEmAberto.id, tratamentoEmAberto.pacienteId)"
-                                    title="Ver detalhes">
-                              <i class="material-icons">visibility</i>
-                            </button>
-                          </td>
-                           -->
                         </tr>
                         </tbody>
                       </table>
 
                     </div>
                     <div style="text-align: right;">
-                      <img src="assets/img/file_json.png" class="mr-2" >
-                      <img src="assets/img/file_pdf.png" class="mr-2" (click)="downloadPdf()" style="cursor: pointer;">
-                      <img src="assets/img/file_xml.png" class="mr-2">
-                      <img src="assets/img/file_xls.png" class="mr-2">
-                      <img src="assets/img/file_csv.png" class="mr-2">
+                      <img src="assets/img/file_json.png" class="mr-2" (click)="consultarPreviewFile('JSON')" style="cursor: pointer;">
+                      <img src="assets/img/file_pdf.png" class="mr-2" (click)="consultarPreviewFile('PDF')" style="cursor: pointer;">
+                      <img src="assets/img/file_xml.png" class="mr-2" (click)="consultarPreviewFile('XML')" style="cursor: pointer;">
+                      <img src="assets/img/file_xls.png" class="mr-2" (click)="consultarPreviewFile('XLSX')" style="cursor: pointer;">
+                      <img src="assets/img/file_csv.png" class="mr-2" (click)="consultarPreviewFile('CSV')" style="cursor: pointer;">
                     </div>
                   </div>
                 </div>
