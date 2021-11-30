@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { concatMap, map } from 'rxjs/operators';
+import { Role } from 'src/app/enums/role.enum';
 import { Valid } from '../../../../../services/feat/Valid';
 import { SharedLoadingService } from '../../../../../shared/services/shared-loading.service';
 import { SharedValidService } from '../../../../../shared/services/shared-valid.service';
@@ -36,15 +38,21 @@ export class FormHistoricoMedicoComponent implements OnInit {
   public tiposSanguineo: Array<TipoSanguineoPaciente>;
   public paciente: Paciente;
 
+  pacienteId: number;
+  campoHabilitado: boolean;
+
   constructor(private tipoSanguineoService: TipoSanguineoService,
     private validService: SharedValidService,
     private formBuilder: FormBuilder,
     private loading: SharedLoadingService,
     private pacienteService: PacienteService,
     private historicoMedicoService: HistoricoMedicoService,
+    private route: ActivatedRoute
   ) {
     this.loading.emitChange(true);
     this.hiddenForm = true;
+    this.pacienteId = this.route.snapshot.params.paciente_id;
+    this.campoHabilitado = this.validService.getValid()?.role == Role.Paciente ? true : false;
     this.onSubmitEvent = new EventEmitter<HistoricoMedicoPaciente>();
 
     this.historicoMedicoForm = this.formBuilder.group({
@@ -61,7 +69,7 @@ export class FormHistoricoMedicoComponent implements OnInit {
   ngOnInit(): void {
     this.tipoSanguineoService.listarTipoSanguineo().pipe(
       map(response => this.tiposSanguineo = response.body.data),
-      concatMap(() => this.pacienteService.pesquisarPorId(this.validService.getValid().id)))
+      concatMap(() => this.pacienteService.pesquisarPorId(this.pacienteId)))
       .subscribe(response => {
         this.paciente = response;
         if (this.paciente.historicoMedico) {
@@ -73,13 +81,25 @@ export class FormHistoricoMedicoComponent implements OnInit {
         jQuery('select').selectpicker('render');
         setTimeout(() => {
           jQuery('select').selectpicker('refresh');
+          this.historicoMedicoForm.disable({ onlySelf: !this.campoHabilitado });
           this.hiddenForm = false;
           this.loading.emitChange(false);
         });
       });
     jQuery('.datetimepicker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+      locale: 'pt-BR',
+      format: 'L',
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+      }
     });
   }
 

@@ -46,7 +46,7 @@
     </span>
     <span class="bmd-form-group is-filled">
         <button [disabled]="!contatoForm.valid" class="btn btn-rose"
-                type="submit">{{ labelBotaoSubmit }}</button>
+                type="submit" [hidden]="!campoHabilitado">{{ labelBotaoSubmit }}</button>
     </span>
   </div>
 </form>
