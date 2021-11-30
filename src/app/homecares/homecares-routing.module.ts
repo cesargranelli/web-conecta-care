@@ -17,6 +17,7 @@ import { HomecareProfissionalComponent } from './profissional/homecare-profissio
 import { ProntuarioComponent } from './prontuario/prontuario.component';
 import { NovoAtendimentoComponent } from './tratamento/atendimento/novo-atendimento/novo-atendimento.component';
 import { TratamentoListaEmAbertoComponent } from './tratamento/lista-em-aberto/tratamento-lista-em-aberto.component';
+import { TratamentoPreviewComponent } from './tratamento/preview/tratamento-preview.component';
 import { SolicitacaoTratamentoComponent } from './tratamento/solicitacao/solicitacao-tratamento.component';
 import { TratamentoComponent } from './tratamento/tratamento.component';
 import { InformacoesGeraisComponent } from '../pacientes/dados/informacoes-gerais/informacoes-gerais.component';
@@ -62,6 +63,10 @@ const routes: Routes = [
             path: 'tratamento',
             children: [
               { path: 'solicitacao', component: SolicitacaoTratamentoComponent },
+              {
+                path: 'preview',
+                component: TratamentoPreviewComponent,
+              },
               {
                 path: 'em-andamento',
                 children: [

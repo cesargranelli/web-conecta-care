@@ -28,4 +28,8 @@ export class HomecareService {
     return this._http.get<HttpResponse<any>>(`${this.endpoint}/${id}`, {observe: 'response'});
   }
 
+  getAll(): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}`, {observe: 'response'});
+  }
+
 }

@@ -17,6 +17,7 @@ import { Parentesco } from '../classes/parentesco.class';
 import { TipoConta } from '../classes/tipo-conta.class';
 import { TipoEmpresa } from '../classes/tipo-empresa.class';
 import { Transporte } from '../classes/transporte.class';
+import { StatusAtendimento } from '../classes/status-atendimento.class';
 
 @Injectable({
   providedIn: 'root'
@@ -88,6 +89,10 @@ export class DominioService {
 
   getGrupos(): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<Grupo[]>>(`${this.endpoint}/grupo`, { observe: 'response' });
+  }
+
+  getStatusAtendimento(): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<StatusAtendimento[]>>(`${this.endpoint}/status-atendimento`, { observe: 'response' });
   }
 
 }
