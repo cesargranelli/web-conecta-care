@@ -17,14 +17,14 @@
                         <label class="col-lg-5 col-md-5 col-form-label" for="telefoneCelular">C.P.F. Profissional:</label>
                         <div class="form-group col-lg-7 col-md-7">
                           <input class="form-control" formControlName="cpfProfissional" id="cpfProfissional" mask="000.000.000-00"
-                                placeholder="000.000.000-00" type="text">
+                                placeholder="000.000.000-00" type="text" (focus)="limparAtendimentosTabela()">
                         </div>
                       </div>
                       <div class="row">
                         <label class="col-lg-5 col-md-5 col-form-label" for="cpfPaciente">C.P.F. Cliente:</label>
                         <div class="form-group col-lg-7 col-md-7">
                           <input class="form-control" formControlName="cpfPaciente" id="cpfPaciente" mask="000.000.000-00"
-                                placeholder="000.000.000-00" type="text">
+                                placeholder="000.000.000-00" type="text" (focus)="limparAtendimentosTabela()">
                         </div>
                       </div>
                       <div class="row">
@@ -48,7 +48,7 @@
                         <div class="form-group col-lg-12 col-md-12">
                           <!-- multiple="multiple" -->
                           <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="areaAtendimento" 
-                            id="areaAtendimento" title="Selecione">
+                            id="areaAtendimento" title="Selecione" (change)="limparAtendimentosTabela()">
                             <option *ngFor="let areaAtendimento of areasAtendimento"
                                     [value]="areaAtendimento.id">{{ areaAtendimento.nome | uppercase }}</option>
                           </select>
@@ -58,7 +58,7 @@
                         <label class="col-lg-12 col-md-12" for="periodoDe">Status Atendimento:</label>
                         <div class="form-group col-lg-12 col-md-12">
                           <select class="selectpicker" data-style="btn btn-primary" data-width="100%" formControlName="statusAtendimento" 
-                            id="statusAtendimento" title="Selecione">
+                            id="statusAtendimento" title="Selecione" (change)="limparAtendimentosTabela()">
                             <option *ngFor="let staAtendimento of statusAtendimento"
                                     [value]="staAtendimento.id">{{ staAtendimento.descricao | uppercase }}</option>
                           </select>

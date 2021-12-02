@@ -105,6 +105,8 @@ export class TratamentoPreviewComponent implements OnInit {
     jQuery(`#${name}`).on('dp.change', function(event: any) {
       control.setValue(event?.date?._d?.toLocaleDateString());
     });
+
+    this.limparAtendimentosTabela();
   }
 
   consultarPreview() {
@@ -204,9 +206,9 @@ export class TratamentoPreviewComponent implements OnInit {
       homeCare: [null],
     });
 
+      // maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
     jQuery('.datetimepicker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+      format: 'DD/MM/YYYY'
     });
 
     setTimeout(() => {
@@ -215,6 +217,11 @@ export class TratamentoPreviewComponent implements OnInit {
       jQuery(`select[id='homeCare']`).selectpicker('refresh');          
     });        
 
+    this.limparAtendimentosTabela();
+  }
+
+  limparAtendimentosTabela() {
+    this.atendimentosPreview = [];
   }
 
   formatDate(date?: Date) {
@@ -234,6 +241,7 @@ export class TratamentoPreviewComponent implements OnInit {
     const pad = new Array(1 + padlen).join(pad_char);
     return (pad + num).slice(-pad.length);
   }
+
   /**
    * Method is use to download file.
    * @param data - Array Buffer data
