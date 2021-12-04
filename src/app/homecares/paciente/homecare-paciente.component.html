@@ -22,7 +22,7 @@
           <div class="card-body">
             <div class="tab-content">
               <div class="tab-pane" id="buscarPorCpf">
-                <form [formGroup]="pacienteCompletoForm" class="form-horizontal">
+                <form [formGroup]="pesquisaCpfForm" class="form-horizontal">
                   <div class="card-body">
                     <div class="row">
                       <label class="col-lg-4 col-md-3 col-form-label" for="pacienteCpf">CPF</label>
@@ -30,10 +30,10 @@
                         <input autocomplete="none" class="form-control" formControlName="pacienteCpf"
                           mask="000.000.000-00" type="text">
                       </div>
-                      <button (click)="pesquisarPaciente(this.pacienteCompletoForm.controls.pacienteCpf.value)"
+                      <button (click)="pesquisarPacientePorCpf(this.pesquisaCpfForm.controls.pacienteCpf.value)"
                         class="btn btn-social btn-just-icon btn-round btn-rose" type="button"
-                        [disabled]="!pacienteCompletoForm.controls?.pacienteCpf.valid"
-                        [value]="pacienteCompletoForm.controls?.pacienteCompletoForm">
+                        [disabled]="!pesquisaCpfForm.controls?.pacienteCpf.valid"
+                        [value]="pesquisaCpfForm.controls?.cpf">
                         <i class="material-icons">search</i>
                       </button>
                     </div>
@@ -41,22 +41,22 @@
                 </form>
               </div>
               <div class="tab-pane" id="buscarPorNome">
-                <form [formGroup]="pacientePesquisaForm" class="form-horizontal">
+                <form [formGroup]="pesquisaNomeForm" class="form-horizontal">
                   <div class="card-body">
                     <div class="row">
                       <label class="col-lg-4 col-md-3 col-form-label" for="nome">Nome</label>
                       <div class="form-group col-lg-4 col-md-4">
                         <input autocomplete="none" class="form-control" formControlName="nome" type="text">
                       </div>
-                      <button (click)="pesquisarPacientePorNome(this.pacientePesquisaForm.controls.nome.value)"
+                      <button (click)="pesquisarPacientePorNome(this.pesquisaNomeForm.controls.nome.value)"
                         class="btn btn-social btn-just-icon btn-round btn-rose" type="button"
-                        [value]="pacientePesquisaForm.controls?.nome">
+                        [value]="pesquisaNomeForm.controls?.nome">
                         <i class="material-icons">search</i>
                       </button>
                     </div>
                     <br>
                     <br>
-                    <div [hidden]=hidePacientePesquisaForm>
+                    <div [hidden]="hidePesquisaNomeForm">
                       <div class="row">
                         <label class="col-lg-3 col-md-3 col-form-label" for="cpf">Lista de CPF</label>
                         <div class="form-group col-lg-7 col-md-4">
@@ -139,6 +139,34 @@
                         disabled>
                     </div>
                   </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="fotoPaciente">Foto do paciente*</label>
+                    <div class="col-lg-4 col-md-8">
+                      <div class="fileinput text-center">
+                        <div class="thumbnail foto img-raised">
+                          <img [src]="paciente?.foto" alt="..." rel="nofollow">
+                        </div>
+                      </div>
+                    </div>
+                    <label class="col-lg-2 col-md-3 col-form-label" for="fotoRg">Foto do RG*</label>
+                    <div class="col-lg-4 col-md-8">
+                      <div class="fileinput text-center">
+                        <div class="thumbnail foto img-raised">
+                          <img [src]="paciente?.fotoRg" alt="..." rel="nofollow">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="fotoCpf">Foto do CPF</label>
+                    <div class="col-lg-4 col-md-8">
+                      <div class="fileinput text-center">
+                        <div class="thumbnail foto img-raised">
+                          <img [src]="paciente?.fotoCpf" alt="..." rel="nofollow">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -204,6 +232,16 @@
                     <div class="form-group col-lg-3 col-md-8">
                       <input class="form-control" name="uf" type="text" [value]="paciente?.endereco?.estado?.uf"
                         disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-lg-2 col-md-3 col-form-label" for="fotoComprovante">Comprovante *</label>
+                    <div class="col-lg-4 col-md-8">
+                      <div class="fileinput text-center" data-provides="fileinput">
+                        <div class="thumbnail foto img-raised">
+                          <img [src]="paciente?.endereco?.fotoComprovante" alt="..." rel="nofollow">
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

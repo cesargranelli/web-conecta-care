@@ -1,15 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Paciente } from 'src/app/pacientes/classes/paciente.class';
+import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import Swal from 'sweetalert2';
 import { PacientePesquisa } from '../classes/paciente-pesquisa.class';
 import { PacienteService } from '../services/paciente.service';
-import { Valid } from 'src/app/services/feat/Valid';
 
 declare var jQuery: any;
 
@@ -24,28 +23,26 @@ declare function injetaToolTip(): void; //Carrega a funcao injetaToolTip() do ap
 })
 export class HomecarePacienteComponent implements OnInit {
 
-  pacienteCompletoForm: FormGroup;
+  pesquisaCpfForm: FormGroup;
   paciente: Paciente;
   hidePacienteCompletoForm: boolean = true;
   valid: Valid;
   desabilitarCampos: boolean = true;
 
-  pacientePesquisaForm: FormGroup;
+  pesquisaNomeForm: FormGroup;
   pacientePesquisa: PacientePesquisa[];
-  hidePacientePesquisaForm: boolean = true;
+  hidePesquisaNomeForm: boolean = true;
 
   constructor(
     private validService: SharedValidService,
     private formBuilder: FormBuilder,
     private loading: SharedLoadingService,
-    private pacienteService: PacienteService,
-    private router: Router,
-    private route: ActivatedRoute
+    private pacienteService: PacienteService
   ) {
-    this.pacienteCompletoForm = this.formBuilder.group({
+    this.pesquisaCpfForm = this.formBuilder.group({
       pacienteCpf: [null, [Validators.required, validCpf(true)]],
     });
-    this.pacientePesquisaForm = this.formBuilder.group({
+    this.pesquisaNomeForm = this.formBuilder.group({
       nome: [null, [Validators.required]],
       cpf: [null]
     });
@@ -59,18 +56,21 @@ export class HomecarePacienteComponent implements OnInit {
     injetaToolTip();
   }
 
-  pesquisarPaciente(pacienteCpf: string): any {
+  pesquisarPacientePorCpf(pacienteCpf: string): any {
+    this.paciente = null;
     this.hidePacienteCompletoForm = true;
     this.loading.emitChange(true);
     this.pacienteService.consultarPacientePorCpf(pacienteCpf)
       .subscribe((paciente: any) => {
-        if (paciente) {
-          this.paciente = paciente?.body?.data;
-          this.hidePacienteCompletoForm = false;
-          this.router.navigate([`${this.paciente.id}`], { relativeTo: this.route });
-        } else {
-          this.showSwal('Paciente não localizado', 'info');
-        }
+        setTimeout(() => {
+          if (paciente) {
+            this.paciente = paciente?.body?.data;
+            this.hidePacienteCompletoForm = false;
+          } else {
+            this.showSwal('Paciente não localizado', 'info');
+          }
+        });
+        this.loading.emitChange(false);
       },
         (error: HttpErrorResponse) => {
           if (error.status == 404) {
@@ -80,23 +80,26 @@ export class HomecarePacienteComponent implements OnInit {
           }
           this.loading.emitChange(false)
         },
-        () => this.loading.emitChange(false)
+        // () => this.loading.emitChange(false)
       );
-
   }
 
   pesquisarPacientePorNome(nome: string): any {
-    this.hidePacientePesquisaForm = true;
+    this.paciente = null;
+    this.hidePacienteCompletoForm = true;
+    this.hidePesquisaNomeForm = true;
     this.loading.emitChange(true);
     this.pacienteService.consultarPacientePorNome(nome)
       .subscribe((pacientePesquisa: any) => {
-        if (pacientePesquisa) {
-          this.pacientePesquisa = pacientePesquisa?.body?.data;
-
-          this.hidePacientePesquisaForm = false;
-        } else {
-          this.showSwal('Paciente não localizado', 'info');
-        }
+        setTimeout(() => {
+          if (pacientePesquisa) {
+            this.pacientePesquisa = pacientePesquisa?.body?.data;
+            this.hidePacienteCompletoForm = false;
+            this.hidePesquisaNomeForm = false;
+          } else {
+            this.showSwal('Paciente não localizado', 'info');
+          }
+        });
       },
         (error: HttpErrorResponse) => {
           if (error.status == 404) {
@@ -109,7 +112,6 @@ export class HomecarePacienteComponent implements OnInit {
         () => {
           setTimeout(() => {
             jQuery(`select[id='cpf']`).selectpicker('refresh');
-            // jQuery(`select[id='cpf']`).selectpicker('val', this.profissionalPesquisa?.cpf);
             this.loading.emitChange(false);
           });
         }
@@ -117,7 +119,7 @@ export class HomecarePacienteComponent implements OnInit {
   }
 
   buscaPaciente() {
-    this.pesquisarPaciente(this.pacientePesquisaForm.controls?.cpf.value);
+    this.pesquisarPacientePorCpf(this.pesquisaNomeForm.controls.cpf.value);
   }
 
   private showSwal(title: string, icon: any) {
