@@ -83,12 +83,14 @@ export class HomecareProfissionalComponent implements OnInit {
   }
 
   pesquisarProfissionalPorNome(nome: string): any {
+    this.hideProfissionalCompletoForm = true;
     this.hideProfissionalPesquisaForm = true;
     this.loading.emitChange(true);
     this.profissionalService.consultarProfissionalPorNome(nome)
       .subscribe((profissionalPesquisa: any) => {
         if (profissionalPesquisa) {
           this.profissionalPesquisa = profissionalPesquisa?.body?.data;
+          this.hideProfissionalCompletoForm = false;
           this.hideProfissionalPesquisaForm = false;
         } else {
           this.showSwal('Profissional não localizado', 'info');

@@ -190,6 +190,54 @@
                           disabled>
                       </div>
                     </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="fotoCtps">Foto da página da CPTS com sua foto *</label>
+                      <div class="col-lg-4 col-md-8">
+                        <div class="fileinput text-center">
+                          <div class="thumbnail foto img-raised">
+                            <img [src]="profissionalCompleto?.profissional?.fotoCtps" alt="..." rel="nofollow">
+                          </div>
+                        </div>
+                      </div>
+                      <label class="col-lg-2 col-md-3 col-form-label" for="fotoProfissional">Foto 3x4 *</label>
+                      <div class="col-lg-4 col-md-8">
+                        <div class="fileinput text-center">
+                          <div class="thumbnail foto img-raised">
+                            <img [src]="profissionalCompleto?.profissional?.fotoProfissional" alt="..." rel="nofollow">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="fotoRgFrente">Foto da parte da frente do seu RG
+                        *</label>
+                      <div class="col-lg-4 col-md-8">
+                        <div class="fileinput text-center">
+                          <div class="thumbnail foto img-raised">
+                            <img [src]="profissionalCompleto?.profissional?.fotoRgFrente" alt="..." rel="nofollow">
+                          </div>
+                        </div>
+                      </div>
+                      <label class="col-lg-2 col-md-3 col-form-label" for="fotoRgVerso">Foto da parte do verso do seu RG
+                        *</label>
+                      <div class="col-lg-4 col-md-8">
+                        <div class="fileinput text-center">
+                          <div class="thumbnail foto img-raised">
+                            <img [src]="profissionalCompleto?.profissional?.fotoRgVerso" alt="..." rel="nofollow">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="fotoAssinatura">Assinatura</label>
+                      <div class="col-lg-4 col-md-8">
+                        <div class="fileinput text-center">
+                          <div class="thumbnail foto img-raised">
+                            <img [src]="profissionalCompleto?.profissional?.fotoAssinatura" alt="..." rel="nofollow">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -258,6 +306,16 @@
                       <div class="form-group col-lg-3 col-md-8">
                         <input class="form-control" name="uf" type="text"
                           [value]="profissionalCompleto?.endereco?.estado?.uf" disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="comprovante">Comprovante *</label>
+                      <div class="col-lg-4 col-md-8">
+                        <div class="fileinput text-center">
+                          <div class="thumbnail foto img-raised">
+                            <img [src]="profissionalCompleto?.endereco?.comprovante" alt="..." rel="nofollow">
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -719,6 +777,24 @@
                         <input class="form-control" name="carteiraVacinacao" type="text"
                           [value]="profissionalCompleto?.complemento?.carteiraVacinacao ? 'Sim' : 'Não'"
                           disabled>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-lg-2 col-md-3 col-form-label" for="fotoCNHFrente">Foto CNH Frente</label>
+                      <div class="col-lg-4 col-md-8">
+                        <div class="fileinput text-center">
+                          <div class="thumbnail foto img-raised">
+                            <img [src]="profissionalCompleto?.complemento?.fotoCNHFrente" alt="..." rel="nofollow">
+                          </div>
+                        </div>
+                      </div>
+                      <label class="col-lg-2 col-md-3 col-form-label" for="fotoCNHVerso">Foto CNH Verso</label>
+                      <div class="col-lg-4 col-md-8">
+                        <div class="fileinput text-center">
+                          <div class="thumbnail foto img-raised">
+                            <img [src]="profissionalCompleto?.complemento?.fotoCNHVerso" alt="..." rel="nofollow">
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
