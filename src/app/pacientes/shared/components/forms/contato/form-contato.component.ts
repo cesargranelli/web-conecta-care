@@ -78,7 +78,7 @@ export class FormContatoComponent implements OnInit {
         setTimeout(() => {
           this.contato = this.paciente?.contato;
           this.popularForm();
-          this.contatoForm.disable({ onlySelf: !this.campoHabilitado });
+          // this.contatoForm.disable({ onlySelf: !this.campoHabilitado });
           this.hideForm = false;
         });
       }

@@ -95,7 +95,7 @@ export class FormEnderecoComponent implements OnInit {
       this.popularForm();
       setTimeout(() => {
         jQuery('select[id=\'estado\']').selectpicker('refresh');
-        this.enderecoForm.disable({ onlySelf: !this.campoHabilitado });
+        // this.enderecoForm.disable({ onlySelf: !this.campoHabilitado });
         this.esconderFormulario = false;
         this._loading.emitChange(false);
       });

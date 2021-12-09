@@ -81,7 +81,7 @@ export class FormHistoricoMedicoComponent implements OnInit {
         jQuery('select').selectpicker('render');
         setTimeout(() => {
           jQuery('select').selectpicker('refresh');
-          this.historicoMedicoForm.disable({ onlySelf: !this.campoHabilitado });
+          // this.historicoMedicoForm.disable({ onlySelf: !this.campoHabilitado });
           this.hiddenForm = false;
           this.loading.emitChange(false);
         });

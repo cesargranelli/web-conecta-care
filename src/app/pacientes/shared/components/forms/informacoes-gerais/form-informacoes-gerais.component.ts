@@ -104,7 +104,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
       jQuery('select').selectpicker('render');
       setTimeout(() => {
         jQuery('select').selectpicker('refresh');
-        this.pacienteForm.disable({ onlySelf: !this.campoHabilitado });
+        // this.pacienteForm.disable({ onlySelf: !this.campoHabilitado });
         this.hideForm = false;
         this._loading.emitChange(false);
       });
