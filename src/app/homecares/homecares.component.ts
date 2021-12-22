@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {CalendarOptions, EventInput} from '@fullcalendar/angular';
+import { Component, OnInit } from '@angular/core';
+import { CalendarOptions, EventInput } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/pt-br';
-import {SharedLoadingService} from '../shared/services/shared-loading.service';
-import {SharedValidService} from '../shared/services/shared-valid.service';
-import {AtendimentoResumo} from './classes/atendimento-resumo.class';
-import {AtendimentoService} from './services/atendimento.service';
-import {StatusConverter} from './shared/utils/status.converter';
+import { SharedLoadingService } from '../shared/services/shared-loading.service';
+import { SharedValidService } from '../shared/services/shared-valid.service';
+import { AtendimentoResumo } from './classes/atendimento-resumo.class';
+import { AtendimentoService } from './services/atendimento.service';
+import { StatusConverter } from './shared/utils/status.converter';
 
 declare var jQuery: any;
 
@@ -30,10 +30,11 @@ export class HomeCaresComponent implements OnInit {
     dayMaxEvents: true,
     eventTimeFormat: {
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     },
     eventColor: '#5FA8D5',
     progressiveEventRendering: true,
+    defaultTimedEventDuration: '00:00',
     eventClick: this.modal.bind(this)
   };
 
