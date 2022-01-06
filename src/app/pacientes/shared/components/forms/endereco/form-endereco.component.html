@@ -51,7 +51,7 @@
           </select>
         </div>
       </div>
-      <div class="row">
+      <div class="row" [hidden]="pacienteDependente">
         <label class="col-lg-2 col-md-3 col-form-label" for="fotoComprovante">Comprovante *</label>
         <div class="col-lg-4 col-md-8">
           <div [ngClass]="fileInputComprovante" class="fileinput text-center" data-provides="fileinput">

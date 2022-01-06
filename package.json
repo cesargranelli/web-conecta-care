@@ -1,7 +1,7 @@
 {
   "name": "web-connecta",
-  "version": "1.13.0",
-  "date": "2022-01-08",
+  "version": "1.14.0",
+  "date": "2022-01-06",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.js",

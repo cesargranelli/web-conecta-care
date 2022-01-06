@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Modulo } from 'src/app/enums/modulo.enum';
+import { Role } from 'src/app/enums/role.enum';
 import Swal from 'sweetalert2';
 import { AreaAtendimento } from '../../../../../classes/area-atendimento.class';
 import { Valid } from '../../../../../services/feat/Valid';
@@ -12,7 +14,6 @@ import { ContatoPaciente } from '../../../../classes/contato-paciente.class';
 import { Paciente } from '../../../../classes/paciente.class';
 import { ContatoService } from '../../../../services/contato.service';
 import { PacienteService } from '../../../../services/paciente.service';
-import { Role } from 'src/app/enums/role.enum';
 
 @Component({
   selector: 'app-form-contato-paciente',
@@ -56,7 +57,7 @@ export class FormContatoComponent implements OnInit {
     private _route: ActivatedRoute
   ) {
     this.pacienteId = this._route.snapshot.params.paciente_id;
-    this.campoHabilitado = this._validService.getValid()?.role == Role.Paciente ? true : false;
+    this.campoHabilitado = this._validService.getValid(Modulo.Paciente)?.role == Role.Paciente ? true : false;
 
     this.contatoForm = this._formBuilder.group({
       telefoneFixo: [null],
@@ -74,14 +75,12 @@ export class FormContatoComponent implements OnInit {
     this.validationHas = new InputValidationHas();
     this._pacienteService.pesquisarPorId(this.pacienteId).subscribe(response => {
       this.paciente = response;
-      if (this.paciente?.contato) {
-        setTimeout(() => {
-          this.contato = this.paciente?.contato;
-          this.popularForm();
-          // this.contatoForm.disable({ onlySelf: !this.campoHabilitado });
-          this.hideForm = false;
-        });
-      }
+      setTimeout(() => {
+        this.contato = this.paciente?.contato;
+        this.popularForm();
+        // this.contatoForm.disable({ onlySelf: !this.campoHabilitado });
+        this.hideForm = false;
+      });
     }, (errorResponse: HttpErrorResponse) => {
       if (errorResponse.status === 0) {
         console.log('Sistema indisponível! ' + errorResponse.statusText);

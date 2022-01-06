@@ -10,6 +10,7 @@ import {SharedLoadingService} from '../../../shared/services/shared-loading.serv
 import Swal from 'sweetalert2';
 import { Estado } from 'src/app/classes/estado.class';
 import {concatMap, map} from 'rxjs/operators';
+import { Modulo } from 'src/app/enums/modulo.enum';
 
 @Component({
   selector: 'app-complemento',
@@ -36,7 +37,7 @@ export class CadastroComplementoComponent implements OnInit {
     // private _dominioService: PacienteService,
     private _loading: SharedLoadingService
   ) {
-    this._valid = this._validService.getValid();
+    this._valid = this._validService.getValid(Modulo.Paciente);
 
     this.contatoForm = this._formBuilder.group({
       telefoneFixo: [null],

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { environment } from './../environments/environment';
+import { Modulo } from './enums/modulo.enum';
+import { Valid } from './services/feat/Valid';
 import { SharedLoadingService } from './shared/services/shared-loading.service';
 import { SharedValidService } from './shared/services/shared-valid.service';
 
@@ -10,9 +12,10 @@ import { SharedValidService } from './shared/services/shared-valid.service';
 })
 export class AppComponent {
 
+  public chave: string;
   public title = 'web-connecta';
   public loading: boolean = false;
-  public versaoPublicada: string = '1.13.0';
+  public versaoPublicada: string = '1.14.0';
 
   constructor(
     private _loading: SharedLoadingService,
@@ -21,14 +24,16 @@ export class AppComponent {
     this.isHomePage;
     console.log(environment.name + ' - ' + this.versaoPublicada); // Logs false for default environment
     this._loading.changeEmitted$.subscribe(eventLoading => this.loading = eventLoading);
+
+    this.chave = this._valid.getValid() ? null : Modulo.Paciente;
   }
 
   get login(): boolean {
-    return this._valid.isValidate();
+    return this._valid.isValidate(this.chave);
   }
 
   get storageValid(): any {
-    return this._valid.getValid();
+    return this._valid.getValid(this.chave);
   }
 
   get isHomePage(): boolean {
@@ -36,11 +41,11 @@ export class AppComponent {
   }
 
   get roleValid(): string {
-    return this._valid.getValid()?.role;
+    return this._valid.getValid(this.chave)?.role;
   }
 
   get statusValid(): string {
-    return this._valid.getValid()?.status;
+    return this._valid.getValid(this.chave)?.status;
   }
 
 }

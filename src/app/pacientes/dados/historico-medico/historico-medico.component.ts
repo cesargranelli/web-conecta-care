@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Modulo } from 'src/app/enums/modulo.enum';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
@@ -33,7 +34,7 @@ export class HistoricoMedicoComponent implements OnInit {
     this.loading.emitChange(true);
     this.historicoMedicoService.alterar(historicoMedicoPaciente).subscribe(() => {
       setTimeout(() => {
-        this.router.navigateByUrl(`pacientes/${this.validService.getValid().id}/dados`);
+        this.router.navigateByUrl(`pacientes/${this.validService.getValid(Modulo.Paciente).id}/dados`);
         this.loading.emitChange(false);
       });
     },

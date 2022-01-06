@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Modulo } from 'src/app/enums/modulo.enum';
 import Swal from 'sweetalert2';
 import { Valid } from '../../../services/feat/Valid';
 import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
@@ -30,7 +31,7 @@ export class CadastroContatoComponent implements OnInit {
     private _router: Router
   ) {
     this._loading.emitChange(true);
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.getValid(Modulo.Paciente);
   }
 
   ngOnInit(): void {

@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
 import { map } from 'rxjs/internal/operators/map';
+import { Modulo } from 'src/app/enums/modulo.enum';
+import { Role } from 'src/app/enums/role.enum';
 import Swal from 'sweetalert2';
 import { EnderecoViaCep } from '../../../../../classes/endereco-via-cep.class';
 import { Estado } from '../../../../../classes/estado.class';
@@ -16,7 +18,7 @@ import { Paciente } from '../../../../classes/paciente.class';
 import { EnderecoService } from '../../../../services/endereco.service';
 import { EstadoService } from '../../../../services/estado.service';
 import { PacienteService } from '../../../../services/paciente.service';
-import { Role } from 'src/app/enums/role.enum';
+import { DadosResponsavelDependenteService } from '../../../services/dados-responsavel-dependente.service';
 
 declare var jQuery: any;
 
@@ -54,6 +56,7 @@ export class FormEnderecoComponent implements OnInit {
   public paciente: Paciente;
   pacienteId: number;
   campoHabilitado: boolean;
+  pacienteDependente: boolean = false;
 
   constructor(
     private _router: Router,
@@ -64,11 +67,12 @@ export class FormEnderecoComponent implements OnInit {
     private _enderecoService: EnderecoService,
     private _pacienteService: PacienteService,
     private _valid: SharedValidService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _dados: DadosResponsavelDependenteService
   ) {
     this._loading.emitChange(true);
     this.pacienteId = this._route.snapshot.params.paciente_id;
-    this.campoHabilitado = this._valid.getValid()?.role == Role.Paciente ? true : false;
+    this.campoHabilitado = this._valid.getValid(Modulo.Paciente)?.role == Role.Paciente ? true : false;
 
     this.enderecoForm = this._formBuilder.group({
       logradouro: [null, [Validators.required, Validators.maxLength(60)]],
@@ -80,6 +84,11 @@ export class FormEnderecoComponent implements OnInit {
       fotoComprovante: [null, [Validators.required]],
       estado: [null, [Validators.required]]
     });
+
+    if (this._dados.responsavel?.titularId != null) {
+      this.pacienteDependente = true;
+      this.enderecoForm.controls.fotoComprovante.setValidators(null);
+    }
   }
 
   ngOnInit(): void {
@@ -133,6 +142,7 @@ export class FormEnderecoComponent implements OnInit {
     this.endereco.cidade = this.enderecoForm.value.cidade;
     this.endereco.fotoComprovante = this.fotoComprovante;
     this.endereco.estado = this.estados.filter(estado => estado.id === Number(this.enderecoForm.value.estado))[0];
+    this.endereco.idPaciente = this.paciente.id;
     this.onSubmitEvent.emit(this.endereco);
   }
 

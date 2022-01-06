@@ -1,11 +1,13 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {ContatoPaciente} from '../../classes/contato-paciente.class';
-import {SharedValidService} from '../../../shared/services/shared-valid.service';
-import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
-import {ContatoService} from '../../services/contato.service';
-import {Router} from '@angular/router';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Modulo } from 'src/app/enums/modulo.enum';
+import { Valid } from 'src/app/services/feat/Valid';
 import Swal from 'sweetalert2';
-import {FormGroup} from '@angular/forms';
+import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
+import { SharedValidService } from '../../../shared/services/shared-valid.service';
+import { ContatoPaciente } from '../../classes/contato-paciente.class';
+import { ContatoService } from '../../services/contato.service';
 
 @Component({
   selector: 'app-contato',
@@ -19,12 +21,14 @@ export class ContatoComponent implements OnInit {
   public labelBotaoSubmit: string;
   public onSubmitEvent = new EventEmitter<FormGroup>();
   public contatoFormGroup: FormGroup;
+  public valid: Valid;
 
   constructor(private _validService: SharedValidService,
               private _loading: SharedLoadingService,
               private _service: ContatoService,
               private _router: Router,
   ) {
+    this.valid = this._validService.getValid(Modulo.Paciente);
   }
 
   ngOnInit(): void {
@@ -35,10 +39,9 @@ export class ContatoComponent implements OnInit {
   
   onSubmit(contato: ContatoPaciente) {
     this._loading.emitChange(true);
-    console.log(contato);
     this._service.alterar(contato).subscribe(() => {
         setTimeout(() => {
-          this._router.navigateByUrl(`pacientes/${this._validService.getValid().id}/dados`);
+          this._router.navigateByUrl(`pacientes/${this.valid.id}/dados`);
           this._loading.emitChange(false);
         });
       },

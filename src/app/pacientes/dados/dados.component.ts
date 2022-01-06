@@ -15,7 +15,7 @@ export class DadosComponent implements OnInit {
     {icon: 'house', link: './endereco', value: 'Ver', stats: 'Endereço'},
     {icon: 'contact_phone', link: './contato', value: 'Ver', stats: 'Informações de Contato'},
     // {icon: 'check_box', link: './complemento', value: 'Ver', stats: 'Informações Complementares'},
-    {icon: 'check_box', link: './historico-medico', value: 'Ver', stats: 'Historico Medico'},
+    // {icon: 'check_box', link: './historico-medico', value: 'Ver', stats: 'Historico Medico'},
   ];
 
   constructor() {

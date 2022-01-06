@@ -32,6 +32,7 @@ export class MenuProfissionaisComponent implements OnInit {
 
   logout() {
     this._authService.removeTokens();
+    this._validService.removeValid();
     jQuery('html').removeClass('nav-open');
   }
 

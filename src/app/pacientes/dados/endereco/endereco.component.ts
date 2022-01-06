@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Modulo } from 'src/app/enums/modulo.enum';
+import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
@@ -17,12 +19,15 @@ export class EnderecoComponent implements OnInit {
   public linkBotaoVoltar: string;
   public isCadastro = false;
   public onSubmitEvent = new EventEmitter<EnderecoPaciente>();
+  public valid: Valid;
 
   constructor(private validService: SharedValidService,
     private loading: SharedLoadingService,
     private enderecoService: EnderecoService,
     private router: Router
-  ) { }
+  ) {
+    this.valid = this.validService.getValid(Modulo.Paciente);
+  }
 
   ngOnInit(): void {
     this.linkBotaoVoltar = '../';
@@ -33,7 +38,7 @@ export class EnderecoComponent implements OnInit {
     this.loading.emitChange(true);
     this.enderecoService.alterar(enderecoPaciente).subscribe(() => {
       setTimeout(() => {
-        this.router.navigateByUrl(`pacientes/${this.validService.getValid().id}/dados`);
+        this.router.navigateByUrl(`pacientes/${this.valid.id}/dados`);
         this.loading.emitChange(false);
       });
     },
