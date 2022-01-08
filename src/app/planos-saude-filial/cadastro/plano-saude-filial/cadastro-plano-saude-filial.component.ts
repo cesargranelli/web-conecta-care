@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Modulo } from 'src/app/classes/modulo';
+import { Modulo } from 'src/app/classes/modulo.class';
 import { PlanoSaudeFilial } from 'src/app/planos-saude-filial/classes/plano-saude-filial.class';
 import { CadastroPlanosSaudeFilialService } from 'src/app/planos-saude-filial/services/cadastro-planos-saude-filial.service';
 import { PlanoSaudeFilialService } from 'src/app/planos-saude-filial/services/plano-saude-filial.service';

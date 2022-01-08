@@ -32,6 +32,7 @@ export class HomecarePacienteComponent implements OnInit {
   pesquisaNomeForm: FormGroup;
   pacientePesquisa: PacientePesquisa[];
   hidePesquisaNomeForm: boolean = true;
+  hideDependentes: boolean = true;
 
   constructor(
     private validService: SharedValidService,
@@ -66,6 +67,12 @@ export class HomecarePacienteComponent implements OnInit {
           if (paciente) {
             this.paciente = paciente?.body?.data;
             this.hidePacienteCompletoForm = false;
+            if (this.paciente.tipoPaciente.id == 1) {
+              this.hideDependentes = false;
+            } else {
+              this.hideDependentes = true;
+            }
+            console.log(this.paciente)
           } else {
             this.showSwal('Paciente não localizado', 'info');
           }

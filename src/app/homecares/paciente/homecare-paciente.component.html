@@ -74,6 +74,93 @@
           </div>
 
           <div [hidden]="hidePacienteCompletoForm">
+            <div name="dependentes" class="form-group col-lg-12 col-md-12" [hidden]="hideDependentes">
+              <div id="accordion" role="tablist">
+                <div class="card card-collapse">
+                  <div class="card-header" role="tab" id="headingOne">
+                    <h5 class="mb-0">
+                      <a data-toggle="collapse" href="#dependentes" aria-expanded="false"
+                        aria-controls="collapseOne">
+                        DEPENDENTES
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </a>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div id="dependentes" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                data-parent="#accordion">
+                  <div class="card-header text-right">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criarAtendimentoModal">
+                      Adicionar dependente <i class="material-icons">add</i>
+                    </button>
+                  </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="text-center" style="width: 10%">#</th>
+                      <th style="width: 30%">Nome Completo</th>
+                      <th style="width: 20%">Parentesco</th>
+                      <th style="width: 20%">CPF</th>
+                      <th class="text-right" style="width: 30%">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center">1</td>
+                      <td>Dependente 1</td>
+                      <td>CÔNJUGE</td>
+                      <td>12345678901</td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" class="btn btn-info">
+                            <i class="material-icons">person</i>
+                        </button>
+                        <button type="button" rel="tooltip" class="btn btn-success">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" rel="tooltip" class="btn btn-danger">
+                            <i class="material-icons">delete_outline</i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">2</td>
+                      <td>Dependente 2</td>
+                      <td>PRIMO</td>
+                      <td>12343678901</td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" class="btn btn-info">
+                            <i class="material-icons">person</i>
+                        </button>
+                        <button type="button" rel="tooltip" class="btn btn-success">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" rel="tooltip" class="btn btn-danger">
+                            <i class="material-icons">delete_outline</i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">3</td>
+                      <td>Dependente 3</td>
+                      <td>IRMÃO</td>
+                      <td>12343128901</td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" class="btn btn-info">
+                            <i class="material-icons">person</i>
+                        </button>
+                        <button type="button" rel="tooltip" class="btn btn-success">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" rel="tooltip" class="btn btn-danger">
+                            <i class="material-icons">delete_outline</i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
             <div name="informacoes-gerais" class="form-group col-lg-12 col-md-12">
               <div id="accordion" role="tablist">
                 <div class="card card-collapse">

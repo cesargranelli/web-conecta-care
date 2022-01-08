@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/classes/login.class';
-import { Modulo } from 'src/app/classes/modulo';
+import { Modulo } from 'src/app/classes/modulo.class';
 import { Authorization } from 'src/app/services/feat/token';
 import { Valid } from 'src/app/services/feat/Valid';
 import { UsuarioService } from 'src/app/services/usuario.service';

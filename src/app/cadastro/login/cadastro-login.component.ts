@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Modulo } from 'src/app/classes/modulo';
+import { Modulo } from 'src/app/classes/modulo.class';
 import { Role } from 'src/app/classes/role';
 import { Usuario } from 'src/app/classes/usuario.class';
 import { UsuarioService } from 'src/app/services/usuario.service';
