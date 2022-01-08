@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { Modulo } from 'src/app/enums/modulo.enum';
 import Swal from "sweetalert2";
 import { Valid } from "../../../services/feat/Valid";
 import { SharedLoadingService } from "../../../shared/services/shared-loading.service";
@@ -27,7 +28,7 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
     private _router: Router,
   ) {
     this._loading.emitChange(true);
-    this.dadosLocalStorage = this._validService.getValid();
+    this.dadosLocalStorage = this._validService.getValid(Modulo.Paciente);
   }
 
   ngOnInit(): void {

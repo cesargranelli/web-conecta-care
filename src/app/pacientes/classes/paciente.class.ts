@@ -1,9 +1,9 @@
-import {Genero} from "../../classes/genero.class";
-import {EstadoCivil} from "../../classes/estado-civil.class";
-import {EnderecoPaciente} from "./endereco-paciente.class";
-import {ContatoPaciente} from "./contato-paciente.class";
-import {HistoricoMedicoPaciente} from "./historico-medico-paciente.class";
 import { TipoPaciente } from "./tipo-paciente.class";
+import { EstadoCivil } from "../../classes/estado-civil.class";
+import { Genero } from "../../classes/genero.class";
+import { ContatoPaciente } from "./contato-paciente.class";
+import { EnderecoPaciente } from "./endereco-paciente.class";
+import { HistoricoMedicoPaciente } from "./historico-medico-paciente.class";
 
 export class Paciente {
 

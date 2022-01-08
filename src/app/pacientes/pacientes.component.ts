@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Modulo } from '../enums/modulo.enum';
 import { SharedLoadingService } from '../shared/services/shared-loading.service';
 import { SharedValidService } from '../shared/services/shared-valid.service';
 import { AtendimentoProtocolo } from './classes/atendimento-protocolo.class';
@@ -24,7 +25,7 @@ export class PacientesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.atendimentoService.atendimentosProtocolo(String(this.validService.getValid()?.id), this.dataAtualFormatada())
+    this.atendimentoService.atendimentosProtocolo(String(this.validService.getValid(Modulo.Paciente)?.id), this.dataAtualFormatada())
       .subscribe(response => {
         if (response?.status == 204) {
           Swal.fire({

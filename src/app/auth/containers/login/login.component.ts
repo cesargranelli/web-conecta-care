@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               });
               return;
             }
-            this._validService.setValid(valid);
+            this.setValid(valid);
             this._loading.emitChange(false);
             let component = this.converter.toComponent(valid.role);
             this._router.navigateByUrl(`${component}/${valid.id}`);
@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   setValid(response: any) {
-    this._validService.setValid({id: response?.id, email: response?.email, role: this.converter.getRole(response?.role)});
+    this._validService.setValid({id: response?.id, email: response?.email, role: this.converter.getRole(response?.role), status: response?.status, modulo: this.modulo.getModulo() == 'PACIENTE' ? this.modulo.getModulo() : null});
   }
 
   ngOnDestroy() {

@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from 'src/app/auth/services/auth.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Modulo } from 'src/app/enums/modulo.enum';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 
 declare var jQuery: any;
 
@@ -32,6 +33,8 @@ export class MenuHomecaresComponent implements OnInit {
 
   logout() {
     this._authService.removeTokens();
+    this._validService.removeValid(Modulo.Paciente);
+    this._validService.removeValid();
     jQuery('html').removeClass('nav-open');
   }
 

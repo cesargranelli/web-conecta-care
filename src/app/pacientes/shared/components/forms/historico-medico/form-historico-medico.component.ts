@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { concatMap, map } from 'rxjs/operators';
+import { Modulo } from 'src/app/enums/modulo.enum';
 import { Role } from 'src/app/enums/role.enum';
 import { Valid } from '../../../../../services/feat/Valid';
 import { SharedLoadingService } from '../../../../../shared/services/shared-loading.service';
@@ -52,7 +53,7 @@ export class FormHistoricoMedicoComponent implements OnInit {
     this.loading.emitChange(true);
     this.hiddenForm = true;
     this.pacienteId = this.route.snapshot.params.paciente_id;
-    this.campoHabilitado = this.validService.getValid()?.role == Role.Paciente ? true : false;
+    this.campoHabilitado = this.validService.getValid(Modulo.Paciente)?.role == Role.Paciente ? true : false;
     this.onSubmitEvent = new EventEmitter<HistoricoMedicoPaciente>();
 
     this.historicoMedicoForm = this.formBuilder.group({

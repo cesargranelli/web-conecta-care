@@ -5,6 +5,7 @@ import { concatMap, map } from 'rxjs/operators';
 import { EstadoCivil } from 'src/app/classes/estado-civil.class';
 import { Genero } from 'src/app/classes/genero.class';
 import { TipoEmpresa } from 'src/app/classes/tipo-empresa.class';
+import { Modulo } from 'src/app/enums/modulo.enum';
 import { Role } from 'src/app/enums/role.enum';
 import { EstadoCivilService } from 'src/app/pacientes/services/estado-civil.service';
 import { GeneroService } from 'src/app/pacientes/services/genero.service';
@@ -15,6 +16,7 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 import { Paciente } from '../../../../classes/paciente.class';
+import { DadosResponsavelDependenteService } from '../../../services/dados-responsavel-dependente.service';
 
 declare var jQuery: any;
 
@@ -54,6 +56,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
   public fotoRg: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   public fotoCpf: string | ArrayBuffer = this.CAMINHO_IMAGEM_DUMMY;
   public campoHabilitado: boolean;
+  public pacienteDependente: boolean = false;
   private _filePaciente: File;
   private _fileRg: File;
   private _fileCpf: File;
@@ -67,13 +70,14 @@ export class FormInformacoesGeraisComponent implements OnInit {
     private _generoService: GeneroService,
     private _estadoCivilService: EstadoCivilService,
     private _loading: SharedLoadingService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _dados: DadosResponsavelDependenteService
   ) {
     this.onSubmitEvent = new EventEmitter<Paciente>();
     this._dadosLocalStorage.id = this._route.snapshot.params.paciente_id;
     this._loading.emitChange(true);
     this.hideForm = true;
-    this.campoHabilitado = this._validService.getValid()?.role == Role.Paciente ? true : false;
+    this.campoHabilitado = this._validService.getValid(Modulo.Paciente)?.role == Role.Paciente ? true : false;
 
     this.pacienteForm = this._formBuilder.group({
       nome: [null, Validators.required],
@@ -89,6 +93,13 @@ export class FormInformacoesGeraisComponent implements OnInit {
       fotoRg: [null, Validators.required],
       fotoCpf: [null],
     });
+
+    if (this._dados.responsavel?.titularId != null) {
+      this.pacienteDependente = true;
+      this.pacienteForm.controls.fotoPaciente.setValidators(null);
+      this.pacienteForm.controls.fotoRg.setValidators(null);
+      this.pacienteForm.controls.fotoCpf.setValidators(null);
+    }
   }
 
   public ngOnInit() {
@@ -205,6 +216,10 @@ export class FormInformacoesGeraisComponent implements OnInit {
     this.paciente.foto = this.fotoPaciente;
     this.paciente.fotoRg = this.fotoRg;
     this.paciente.fotoCpf = this.fotoCpf;
+
+    this.paciente.titularId = this._dados.responsavel.titularId;
+    this.paciente.responsavelCadastroId = this._dados.responsavel.responsavelCadastroId;
+    this.paciente.modulo = this._dados.responsavel.modulo;
 
     if (this.dataEmissaoMenorDataNascimento(this.paciente.rgDataEmissao, this.paciente.dataNascimento)) {
       this._loading.emitChange(false);

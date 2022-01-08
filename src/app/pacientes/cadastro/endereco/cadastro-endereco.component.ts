@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Modulo } from 'src/app/enums/modulo.enum';
 import { Valid } from '../../../services/feat/Valid';
 import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
 import { SharedValidService } from '../../../shared/services/shared-valid.service';
@@ -27,7 +28,7 @@ export class CadastroEnderecoComponent implements OnInit {
     private _router: Router
   ) {
     this._loading.emitChange(true);
-    this._dadosLocalStorage = this._validService.getValid();
+    this._dadosLocalStorage = this._validService.getValid(Modulo.Paciente);
   }
 
   ngOnInit(): void {
@@ -46,7 +47,7 @@ export class CadastroEnderecoComponent implements OnInit {
 
   onSubmit(endereco: EnderecoPaciente) {
     this._loading.emitChange(true);
-    endereco.idPaciente = this._dadosLocalStorage.id;
+    // endereco.idPaciente = this._dadosLocalStorage.id;
     this._service.pesquisarEnderecoPorId(endereco?.id ? endereco?.id : 0)
       .subscribe((enderecoCallback: EnderecoPaciente) => {
         if (enderecoCallback) {

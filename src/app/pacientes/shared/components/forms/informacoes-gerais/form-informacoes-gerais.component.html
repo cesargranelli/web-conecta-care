@@ -65,7 +65,7 @@
           </select>
         </div>
       </div>
-      <div class="row">
+      <div class="row" [hidden]="pacienteDependente">
         <label class="col-lg-2 col-md-3 col-form-label" for="fotoPaciente">Foto do paciente*</label>
         <div class="col-lg-4 col-md-8">
           <div [ngClass]="fileInputPaciente" class="fileinput text-center" data-provides="fileinput">
@@ -95,7 +95,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" [hidden]="pacienteDependente">
         <label class="col-lg-2 col-md-3 col-form-label" for="fotoCpf">Foto do CPF</label>
         <div class="col-lg-4 col-md-8">
           <div [ngClass]="fileInputCpf" class="fileinput text-center" data-provides="fileinput">

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Modulo } from 'src/app/enums/modulo.enum';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
@@ -15,7 +16,6 @@ import { PacienteService } from '../../services/paciente.service';
 })
 export class InformacoesGeraisComponent implements OnInit {
 
-  public router: Router;
   public isCadastro: boolean;
   public linkBotaoVoltar: string;
   public labelBotaoSubmit: string;
@@ -25,8 +25,9 @@ export class InformacoesGeraisComponent implements OnInit {
   constructor(
     private pacienteService: PacienteService,
     private validService: SharedValidService,
-    private loading: SharedLoadingService) {
-    this.valid = this.validService.getValid();
+    private loading: SharedLoadingService,
+    private router: Router) {
+    this.valid = this.validService.getValid(Modulo.Paciente);
   }
 
   ngOnInit(): void {
@@ -36,8 +37,6 @@ export class InformacoesGeraisComponent implements OnInit {
   }
 
   onSubmit(paciente: Paciente) {
-    console.log(this.valid);
-
     this.pacienteService.alterar(paciente).subscribe(paciente => {
       setTimeout(() => {
         Swal.fire({
@@ -47,7 +46,7 @@ export class InformacoesGeraisComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
-        this.router.navigateByUrl(`/paciente/${this.valid.id}/dados`);
+        this.router.navigateByUrl(`/pacientes/${this.valid.id}/dados`);
         this.loading.emitChange(false);
       });
     }, (err) => {

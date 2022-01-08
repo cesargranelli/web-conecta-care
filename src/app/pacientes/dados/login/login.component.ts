@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {Valid} from '../../../services/feat/Valid';
-import {Router} from '@angular/router';
-import {SharedValidService} from '../../../shared/services/shared-valid.service';
-import {LoginService} from '../../../auth/services/login.service';
-import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Modulo } from 'src/app/enums/modulo.enum';
+import { LoginService } from '../../../auth/services/login.service';
+import { Valid } from '../../../services/feat/Valid';
+import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
+import { SharedValidService } from '../../../shared/services/shared-valid.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
     private _loading: SharedLoadingService
   ) {
     this._loading.emitChange(true);
-    this.valid = this._validService.getValid();
+    this.valid = this._validService.getValid(Modulo.Paciente);
   }
 
   ngOnInit(): void {
