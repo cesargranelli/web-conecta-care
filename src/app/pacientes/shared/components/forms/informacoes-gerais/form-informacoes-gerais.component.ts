@@ -217,9 +217,11 @@ export class FormInformacoesGeraisComponent implements OnInit {
     this.paciente.fotoRg = this.fotoRg;
     this.paciente.fotoCpf = this.fotoCpf;
 
-    this.paciente.titularId = this._dados.responsavel.titularId;
-    this.paciente.responsavelCadastroId = this._dados.responsavel.responsavelCadastroId;
-    this.paciente.modulo = this._dados.responsavel.modulo;
+    if (this._dados.responsavel?.titularId != null) {
+      this.paciente.titularId = this._dados.responsavel.titularId;
+      this.paciente.responsavelCadastroId = this._dados.responsavel.responsavelCadastroId;
+      this.paciente.modulo = this._dados.responsavel.modulo;
+    }
 
     if (this.dataEmissaoMenorDataNascimento(this.paciente.rgDataEmissao, this.paciente.dataNascimento)) {
       this._loading.emitChange(false);

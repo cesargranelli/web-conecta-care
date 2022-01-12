@@ -17,7 +17,7 @@ export class AuthService {
 
   private readonly endpoint: string = `${environment.apiConnecta}`;
   private readonly usuarioNaoCadastrado: string = 'Ops! Você ainda não possui cadastro na plataforma.';
-  private readonly usuarioOuSenhaInvalidos: string = 'Ops! Usuário ou senha inválidos.';
+  private readonly emailOuSenhaInvalidos: string = 'Ops! Email ou senha inválidos.';
   private readonly usuarioNaoCompletouCadastro: string = 'Ops! Usuário pendente de confirmação ou cadastro incompleto.';
   private readonly sistemaIndisponivel: string = 'Ops! Sistema indisponível no momento. Tente novamente em alguns instantes.';
 
@@ -34,7 +34,7 @@ export class AuthService {
       .pipe(
         tap(response => this.storeTokens(response.data)),
         map(response => {
-          if(response.status == 200) {
+          if (response.status == 200) {
             return true;
           } else {
             Swal.fire({
@@ -70,7 +70,7 @@ export class AuthService {
 
   handlerError(httpErrorResponse: HttpErrorResponse): string {
     if (httpErrorResponse.error.status == 401) {
-      return this.usuarioOuSenhaInvalidos;
+      return this.emailOuSenhaInvalidos;
     } else if (httpErrorResponse.error.status == 403) {
       return this.usuarioNaoCadastrado;
     } else if (httpErrorResponse.error.status == 412) {
