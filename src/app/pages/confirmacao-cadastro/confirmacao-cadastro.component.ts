@@ -1,14 +1,14 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ngxLoadingAnimationTypes} from 'ngx-loading';
-import {Role} from 'src/app/enums/role.enum';
-import {CadastroService} from 'src/app/services/cadastro.service';
-import {Authorization} from 'src/app/services/feat/token';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedTokenService} from 'src/app/shared/services/shared-token.service';
-import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { Modulo } from 'src/app/enums/modulo.enum';
+import { Role } from 'src/app/enums/role.enum';
+import { CadastroService } from 'src/app/services/cadastro.service';
+import { Authorization } from 'src/app/services/feat/token';
+import { Valid } from 'src/app/services/feat/Valid';
+import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
-import { Modulo } from 'src/app/classes/modulo.class';
 
 @Component({
   selector: 'app-confirmacao-cadastro',
@@ -37,31 +37,35 @@ export class ConfirmacaoCadastroComponent implements OnInit {
       this.authorization.token = value.token;
       this._tokenService.setToken(value.token);
       this._cadastroService.validar(this.authorization).subscribe(response => {
-          let valid: Valid = response.body.data;
-          this._validService.setValid(valid);
-          setTimeout(() => {
-            if (valid != null) {
-              console.log(`Perfil do usuário: ${valid.role}`);
-              switch (valid.role) {
-                case Role.Profissional:
-                  this._router.navigateByUrl(`cadastro/profissionais/${valid.id}/informacoes-gerais`);
-                  break;
-                case Role.Homecare:
-                  this._router.navigateByUrl(`homecares/${valid.id}/cadastro/homecare`);
-                  break;
-                case Role.PlanoSaude:
-                  this._router.navigateByUrl(`planos-saude/${valid.id}/cadastro/plano-saude`);
-                  break;
-                case Role.Paciente:
-                  this._router.navigateByUrl(`pacientes/${valid.id}/cadastro/informacoes-gerais`);
-                  break;
-                default:
-                  this._router.navigateByUrl(`/`);
-              }
+        let valid: Valid = response.body.data;
+        setTimeout(() => {
+          if (valid != null) {
+            console.log(`Perfil do usuário: ${valid.role}`);
+            switch (valid.role) {
+              case Role.Profissional:
+                this._validService.setValid(valid);
+                this._router.navigateByUrl(`cadastro/profissionais/${valid.id}/informacoes-gerais`);
+                break;
+              case Role.Homecare:
+                this._validService.setValid(valid);
+                this._router.navigateByUrl(`homecares/${valid.id}/cadastro/homecare`);
+                break;
+              case Role.PlanoSaude:
+                this._validService.setValid(valid);
+                this._router.navigateByUrl(`planos-saude/${valid.id}/cadastro/plano-saude`);
+                break;
+              case Role.Paciente:
+                valid.modulo = Modulo.Paciente;
+                this._validService.setValid(valid);
+                this._router.navigateByUrl(`pacientes/${valid.id}/cadastro/informacoes-gerais`);
+                break;
+              default:
+                this._router.navigateByUrl(`/`);
             }
-            this.loading = false;
-          });
-        },
+          }
+          this.loading = false;
+        });
+      },
         () => {
           this.loading = false;
           Swal.fire({
