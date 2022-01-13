@@ -7,6 +7,7 @@ import { SharedComponentModule } from '../shared/components/shared-component.mod
 import { PrettyStringPipe } from '../utils/pretty-json-to-string.pipe';
 import { CadastroComplementoComponent } from './cadastro/complemento/cadastro-complemento.component';
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
+import { CadastroDependenteCpfComponent } from './cadastro/dependente-cpf/cadastro-dependente-cpf.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
 import { CadastroHistoricoMedicoComponent } from './cadastro/historico-medico/cadastro-historico-medico.component';
 import { CadastroInformacoesGeraisComponent } from './cadastro/informacoes-gerais/cadastro-informacoes-gerais.component';
@@ -50,7 +51,8 @@ import { DadosResponsavelDependenteService as DadosResponsavelDependenteService 
     FormEnderecoComponent,
     CardVerDadosComponent,
     QrcodeComponent,
-    PrettyStringPipe
+    PrettyStringPipe,
+    CadastroDependenteCpfComponent
   ],
   imports: [
     CommonModule,

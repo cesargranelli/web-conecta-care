@@ -91,7 +91,7 @@
               <div id="dependentes" class="collapse" role="tabpanel" aria-labelledby="headingOne"
                 data-parent="#accordion">
                   <div class="card-header text-right">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criarAtendimentoModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criarAtendimentoModal" (click)="adicionaDependente(paciente?.id)">
                       Adicionar dependente <i class="material-icons">add</i>
                     </button>
                   </div>

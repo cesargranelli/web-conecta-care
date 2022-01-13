@@ -1,7 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Modulo } from 'src/app/enums/modulo.enum';
 import { Paciente } from 'src/app/pacientes/classes/paciente.class';
+import { Responsavel } from 'src/app/pacientes/classes/responsavel.class';
+import { DadosResponsavelDependenteService } from 'src/app/pacientes/shared/services/dados-responsavel-dependente.service';
 import { Valid } from 'src/app/services/feat/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
@@ -38,7 +42,9 @@ export class HomecarePacienteComponent implements OnInit {
     private validService: SharedValidService,
     private formBuilder: FormBuilder,
     private loading: SharedLoadingService,
-    private pacienteService: PacienteService
+    private pacienteService: PacienteService,
+    private dados: DadosResponsavelDependenteService,
+    private router: Router
   ) {
     this.pesquisaCpfForm = this.formBuilder.group({
       pacienteCpf: [null, [Validators.required, validCpf(true)]],
@@ -127,6 +133,14 @@ export class HomecarePacienteComponent implements OnInit {
 
   buscaPaciente() {
     this.pesquisarPacientePorCpf(this.pesquisaNomeForm.controls.cpf.value);
+  }
+
+  adicionaDependente(titularId: number) {
+    console.log(titularId);
+    this.dados.responsavel.modulo = Modulo.Homecare;
+    this.dados.responsavel.responsavelCadastroId = this.valid.id;
+    this.dados.responsavel.titularId = titularId;
+    this.router.navigateByUrl(`pacientes/0/cadastro/informacoes-gerais`)
   }
 
   private showSwal(title: string, icon: any) {

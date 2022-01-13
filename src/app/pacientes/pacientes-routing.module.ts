@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { CadastroComplementoComponent } from './cadastro/complemento/cadastro-complemento.component';
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
+import { CadastroDependenteCpfComponent } from './cadastro/dependente-cpf/cadastro-dependente-cpf.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
 import { CadastroHistoricoMedicoComponent } from './cadastro/historico-medico/cadastro-historico-medico.component';
 import { CadastroInformacoesGeraisComponent } from './cadastro/informacoes-gerais/cadastro-informacoes-gerais.component';
@@ -21,30 +22,36 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: ':paciente_id',
+        path: '',
         children: [
-          { path: '', component: PacientesComponent },
+          { path: 'cadastro-dependente-cpf', component: CadastroDependenteCpfComponent },
           {
-            path: 'cadastro',
+            path: ':paciente_id',
             children: [
-              // {path: 'login', component: CadastroLoginComponent},
-              { path: 'informacoes-gerais', component: CadastroInformacoesGeraisComponent },
-              { path: 'endereco', component: CadastroEnderecoComponent },
-              { path: 'contato', component: CadastroContatoComponent },
-              { path: 'complemento', component: CadastroComplementoComponent },
-              { path: 'historico-medico', component: CadastroHistoricoMedicoComponent }
-            ]
-          },
-          {
-            path: 'dados',
-            children: [
-              { path: '', component: DadosComponent },
-              { path: 'login', component: LoginComponent },
-              { path: 'informacoes-gerais', component: InformacoesGeraisComponent },
-              { path: 'endereco', component: EnderecoComponent },
-              { path: 'contato', component: ContatoComponent },
-              { path: 'complemento', component: ComplementoComponent },
-              { path: 'historico-medico', component: HistoricoMedicoComponent },
+              { path: '', component: PacientesComponent },
+              {
+                path: 'cadastro',
+                children: [
+                  // {path: 'login', component: CadastroLoginComponent},
+                  { path: 'informacoes-gerais', component: CadastroInformacoesGeraisComponent },
+                  { path: 'endereco', component: CadastroEnderecoComponent },
+                  { path: 'contato', component: CadastroContatoComponent },
+                  { path: 'complemento', component: CadastroComplementoComponent },
+                  { path: 'historico-medico', component: CadastroHistoricoMedicoComponent }
+                ]
+              },
+              {
+                path: 'dados',
+                children: [
+                  { path: '', component: DadosComponent },
+                  { path: 'login', component: LoginComponent },
+                  { path: 'informacoes-gerais', component: InformacoesGeraisComponent },
+                  { path: 'endereco', component: EnderecoComponent },
+                  { path: 'contato', component: ContatoComponent },
+                  { path: 'complemento', component: ComplementoComponent },
+                  { path: 'historico-medico', component: HistoricoMedicoComponent },
+                ]
+              }
             ]
           }
         ]
