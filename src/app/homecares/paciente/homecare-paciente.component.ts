@@ -140,7 +140,7 @@ export class HomecarePacienteComponent implements OnInit {
     this.dados.responsavel.modulo = Modulo.Homecare;
     this.dados.responsavel.responsavelCadastroId = this.valid.id;
     this.dados.responsavel.titularId = titularId;
-    this.router.navigateByUrl(`pacientes/0/cadastro/informacoes-gerais`)
+    this.router.navigateByUrl(`pacientes/cadastro-dependente-cpf`)
   }
 
   private showSwal(title: string, icon: any) {
