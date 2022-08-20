@@ -76,7 +76,7 @@ export class SolicitacaoTratamentoComponent implements OnInit {
         }, (errorResponse: HttpErrorResponse) => {
           if (errorResponse.error.status == 412) {
             this.loading.emitChange(false);
-            this.mensagemSwal('warning', errorResponse.error?.data.message, true);
+            this.mensagemSwal('warning', errorResponse.error?.message, true);
           } else {
             this.loading.emitChange(false);
             this.mensagemSwal('error', 'Falha ao tentar adicionar novo tratamento!', false);

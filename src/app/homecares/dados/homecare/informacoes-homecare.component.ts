@@ -37,11 +37,11 @@ export class InformacoesHomecareComponent implements OnInit {
 
   ngOnInit(): void {
     this._service.consultar(this.valid.id).subscribe(response => {
-      this.cnpj = response.body.data.cnpj;
-      if (response.body.data.id) {
-        this._cadastro.homeCare = response.body.data;
+      this.cnpj = response.body.cnpj;
+      if (response.body.id) {
+        this._cadastro.homeCare = response.body;
       } else {
-        this._cadastro.homeCare.cnpj = response.body.data.cnpj;
+        this._cadastro.homeCare.cnpj = response.body.cnpj;
       }
     },
       (errorResponse: HttpErrorResponse) => {

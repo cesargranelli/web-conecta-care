@@ -67,7 +67,7 @@ export class CadastroLoginComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: httpResponse.error.data.message,
+        title: httpResponse.error.message,
         showConfirmButton: true
       });
       this._loading.emitChange(false);

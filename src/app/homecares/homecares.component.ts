@@ -55,7 +55,7 @@ export class HomeCaresComponent implements OnInit {
       this._atendimentoService.consultarResumo(this._valid.getValid().id).subscribe(response => {
         setTimeout(() => {
           if (response.status == 200)
-            response.body.data.map((atendimento: AtendimentoResumo) => {
+            response.body.map((atendimento: AtendimentoResumo) => {
               this.atendimentos.push({
                 id: atendimento.id,
                 date: this.getDateTime(atendimento.data, atendimento.hora),

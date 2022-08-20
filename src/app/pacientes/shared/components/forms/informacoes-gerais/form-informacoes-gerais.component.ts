@@ -106,8 +106,8 @@ export class FormInformacoesGeraisComponent implements OnInit {
     this.paciente = new Paciente();
     this._dataAtual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
     this._generoService.listarGenero().pipe(
-      map(response => this.generos = response.body?.data),
-      concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadosCivil = response.body.data))),
+      map(response => this.generos = response.body),
+      concatMap(() => this._estadoCivilService.listarEstadoCivil().pipe(map(response => this.estadosCivil = response.body))),
       concatMap(() => this._pacienteService.pesquisarPorId(this._dadosLocalStorage.id))
     ).subscribe(paciente => {
       this.paciente = paciente;

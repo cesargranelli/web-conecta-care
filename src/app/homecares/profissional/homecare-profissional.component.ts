@@ -57,7 +57,7 @@ export class HomecareProfissionalComponent implements OnInit {
     this.profissionalService.consultarProfissionalCompletoPorCpf(profissionalCpf)
       .subscribe((profissionalCompleto: any) => {
         if (profissionalCompleto) {
-          this.profissionalCompleto = profissionalCompleto?.body?.data;
+          this.profissionalCompleto = profissionalCompleto?.body;
           if (this.profissionalCompleto?.carreira?.areasAtendimento.length > 1) {
             var areaAtendimentoConcatenado = this.profissionalCompleto?.carreira?.areasAtendimento[0].nome;
             for (var i = 1; i < this.profissionalCompleto?.carreira?.areasAtendimento.length; i++) {
@@ -89,7 +89,7 @@ export class HomecareProfissionalComponent implements OnInit {
     this.profissionalService.consultarProfissionalPorNome(nome)
       .subscribe((profissionalPesquisa: any) => {
         if (profissionalPesquisa) {
-          this.profissionalPesquisa = profissionalPesquisa?.body?.data;
+          this.profissionalPesquisa = profissionalPesquisa?.body;
           this.hideProfissionalCompletoForm = false;
           this.hideProfissionalPesquisaForm = false;
         } else {

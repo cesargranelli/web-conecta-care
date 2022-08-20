@@ -1,10 +1,9 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {Contato} from '../classes/contato.class';
-import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Contato } from '../classes/contato.class';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +18,8 @@ export class ContatoService {
   }
 
   getDados(id: number): Observable<Contato> {
-    return this._http.get(`${this.endpoint}/${id}`).pipe(map((contatoResponse: ResponseTemplateInterface) => {
-        return contatoResponse.data;
+    return this._http.get(`${this.endpoint}/${id}`).pipe(map((contatoResponse: Contato) => {
+        return contatoResponse;
       })
     );
   }

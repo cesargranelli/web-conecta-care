@@ -1,10 +1,9 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {Complemento} from '../classes/complemento.class';
-import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Complemento } from '../classes/complemento.class';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +18,8 @@ export class ComplementoService {
   }
 
   getDados(id: number): Observable<Complemento> {
-    return this._http.get(`${this.endpoint}/${id}`).pipe(map((complemento: ResponseTemplateInterface) => {
-        return complemento.data;
+    return this._http.get(`${this.endpoint}/${id}`).pipe(map((complemento: Complemento) => {
+        return complemento;
       })
     );
   }

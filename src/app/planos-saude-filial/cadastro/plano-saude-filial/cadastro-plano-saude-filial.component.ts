@@ -43,7 +43,7 @@ export class CadastroPlanoSaudeFilialComponent implements OnInit {
 
   ngOnInit(): void {
     this._service.consultar(this._cadastro.planoSaude.id).subscribe(response =>
-        this._cadastro.planoSaude = response.body.data,
+        this._cadastro.planoSaude = response.body,
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Plano de Saúde não cadastrado!');
@@ -70,8 +70,8 @@ export class CadastroPlanoSaudeFilialComponent implements OnInit {
     if (!this._cadastro.planoSaude.id) {
       this._serviceDocumento.registrar({numero: numero, tipo: tipo, modulo: modulo.getModulo()}).subscribe(response => {
         this._loading.emitChange(false);
-        if (response.body.data?.id) {
-          this._cadastro.planoSaude.id = response.body.data.id;
+        if (response.body?.id) {
+          this._cadastro.planoSaude.id = response.body.id;
 
           this._service.cadastrar(this._cadastro.planoSaude).subscribe(response => {
             this.navigate();

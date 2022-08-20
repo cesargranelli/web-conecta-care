@@ -37,7 +37,7 @@ export class InformacoesPlanoSaudeFilialComponent implements OnInit {
 
   ngOnInit(): void {
     this._service.consultar(this.valid?.id).subscribe(response => {
-      this._cadastro.planoSaude = response.body.data;
+      this._cadastro.planoSaude = response.body;
       this.cnpj = this._cadastro.planoSaude?.cnpj;
     },
       (errorResponse: HttpErrorResponse) => {

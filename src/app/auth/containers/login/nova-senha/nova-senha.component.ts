@@ -70,7 +70,7 @@ export class NovaSenhaComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: httpError.error.data.message,
+          title: httpError.error.message,
           showConfirmButton: true
         });
       });

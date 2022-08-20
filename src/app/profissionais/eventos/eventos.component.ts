@@ -40,7 +40,7 @@ export class EventosComponent implements OnInit {
     this._profissionalService.listarEventos(this.idProfissional).pipe(
       map(response => {
         this._loading.emitChange(true);
-        this.eventosFuturos = response.body.data;
+        this.eventosFuturos = response.body;
       })
     ).subscribe(
       null, null, () => {
@@ -56,7 +56,7 @@ export class EventosComponent implements OnInit {
     this._profissionalService.listarEventos(this.idProfissional).pipe(
       map(response => {
         this._loading.emitChange(true);
-        this.eventosFuturos = response.body.data;
+        this.eventosFuturos = response.body;
       })
     ).subscribe(
       null, null, () => {

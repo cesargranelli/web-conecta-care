@@ -1,10 +1,9 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {Endereco} from '../classes/endereco.class';
-import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Endereco } from '../classes/endereco.class';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +24,8 @@ export class EnderecoService {
   }
 
   getDados(id: number): Observable<Endereco> {
-    return this._http.get(`${this.endpoint}/${id}`).pipe(map((enderecoResponseInterface: ResponseTemplateInterface) => {
-        return enderecoResponseInterface.data;
+    return this._http.get(`${this.endpoint}/${id}`).pipe(map((enderecoResponseInterface: Endereco) => {
+        return enderecoResponseInterface;
       })
     );
   }

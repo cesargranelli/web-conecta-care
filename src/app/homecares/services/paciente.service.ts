@@ -1,8 +1,6 @@
 import {
   HttpClient,
-
   HttpHeaders,
-
   HttpParams,
   HttpResponse
 } from '@angular/common/http';
@@ -10,7 +8,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Paciente } from 'src/app/pacientes/classes/paciente.class';
-import { ResponseTemplateInterface } from 'src/app/services/response/responseTemplate.interface';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -29,7 +26,7 @@ export class PacienteService {
         params: new HttpParams().set('nome', nome),
       })
       .pipe(
-        map((paciente: ResponseTemplateInterface) => {
+        map((paciente: Paciente) => {
           return this.avaliaPaciente(paciente);
         }));
   }
@@ -40,14 +37,14 @@ export class PacienteService {
         params: new HttpParams().set('documento', documento),
       })
       .pipe(
-        map((paciente: ResponseTemplateInterface) => {
+        map((paciente: Paciente) => {
           return this.avaliaPaciente(paciente);
         }));
   }
 
-  avaliaPaciente(paciente: ResponseTemplateInterface) {
+  avaliaPaciente(paciente: Paciente) {
     if (paciente) {
-      return paciente.data;
+      return paciente;
     } else {
       Swal.fire({
         position: 'center',

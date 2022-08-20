@@ -1,10 +1,9 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {Experiencia} from '../classes/experiencia.class';
-import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Experiencia } from '../classes/experiencia.class';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +18,8 @@ export class ExperienciaService {
   }
 
   getDados(id: number): Observable<Array<Experiencia>> {
-    return this._http.get(`${this.endpoint}/${id}`).pipe(map((experiencias: ResponseTemplateInterface) => {
-        return experiencias.data;
+    return this._http.get(`${this.endpoint}/${id}`).pipe(map((experiencias: Array<Experiencia>) => {
+        return experiencias;
       })
     );
   }

@@ -66,7 +66,7 @@ export class FormContatoComponent implements OnInit {
     this.validationHas = new InputValidationHas();
     this._service.consultar(this.valid.id).pipe(
       map(response => {
-        this._cadastro.contato = response.body.data;
+        this._cadastro.contato = response.body;
       })
     ).subscribe(null,
       (errorResponse: HttpErrorResponse) => {

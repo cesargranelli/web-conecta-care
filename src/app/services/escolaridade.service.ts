@@ -1,10 +1,9 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {Escolaridade} from '../classes/escolaridade.class';
-import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Escolaridade } from '../classes/escolaridade.class';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +18,8 @@ export class EscolaridadeService {
   }
 
   getDados(id: number): Observable<Escolaridade> {
-    return this._http.get(`${this.endpoint}/${id}`).pipe(map((escolaridade: ResponseTemplateInterface) => {
-        return escolaridade.data;
+    return this._http.get(`${this.endpoint}/${id}`).pipe(map((escolaridade: Escolaridade) => {
+        return escolaridade;
       })
     );
   }

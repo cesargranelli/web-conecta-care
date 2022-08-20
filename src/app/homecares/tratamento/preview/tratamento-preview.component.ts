@@ -66,7 +66,7 @@ export class TratamentoPreviewComponent implements OnInit {
         this.areasAtendimento = response.body;
       }),
       concatMap(() => this._dominioService.getStatusAtendimento().pipe(map(response => this.statusAtendimento = response.body))),
-      concatMap(() => this._homeCareService.getAll().pipe(map(response => this.homesCares = response.body.data)))
+      concatMap(() => this._homeCareService.getAll().pipe(map(response => this.homesCares = response.body)))
       ).subscribe(null, null, () => {
         setTimeout(() => {
           jQuery(`select[id='areaAtendimento']`).selectpicker('refresh');
@@ -125,7 +125,7 @@ export class TratamentoPreviewComponent implements OnInit {
           homeCareId
           )
         .subscribe(response => {
-          this.atendimentosPreview = response.body.data;
+          this.atendimentosPreview = response.body;
           this._loading.emitChange(false);
         },
         (e) => {

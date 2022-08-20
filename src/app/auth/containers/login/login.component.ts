@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (response) {
           this.authorization.token = this._storeToken.getToken();
           this._usuarioService.consultar().subscribe(responseValid => {
-            let valid: Valid = responseValid.body.data;
+            let valid: Valid = responseValid.body;
             if (valid.status.toUpperCase() != 'COMPLETO') {
               this._storeToken.removeToken();
               Swal.fire({
@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             Swal.fire({
               position: 'center',
               icon: 'error',
-              title: error.data,
+              title: error,
               showConfirmButton: true
             });
           });

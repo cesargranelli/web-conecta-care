@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -7,7 +7,6 @@ import { Profissional } from '../classes/profissional.class';
 import { ProfissionalAtendimento } from '../homecares/classes/profissional-atendimento.class';
 import { Documento } from './feat/documento';
 import { Registro } from './feat/registro';
-import { ResponseTemplateInterface } from "./response/responseTemplate.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +22,8 @@ export class ProfissionalService {
 
   getDados(id: number): Observable<Profissional> {
     return this._http.get(`${this.endpoint}/${id}`)
-      .pipe(map((profissionalResponseInterface: ResponseTemplateInterface) => {
-        return profissionalResponseInterface.data;
+      .pipe(map((profissionalResponseInterface: Profissional) => {
+        return profissionalResponseInterface;
       })
       );
   }
@@ -54,8 +53,8 @@ export class ProfissionalService {
 
   pesquisarPorCpf(cpf: string): Observable<Profissional> {
     return this._http.get(`${this.endpoint}/cpf/${cpf}`)
-      .pipe(map((profissional: ResponseTemplateInterface) => {
-        return profissional?.data;
+      .pipe(map((profissional: any) => {
+        return profissional;
       }),
         catchError(async (err) => console.error(err))
       );
@@ -66,8 +65,8 @@ export class ProfissionalService {
       {
         headers: new HttpHeaders().set('profissionais', id)
       }
-    ).pipe(map((profissionais: ResponseTemplateInterface) => {
-      return profissionais?.data[0];
+    ).pipe(map((profissionais: any) => {
+      return profissionais[0];
     }),
       catchError(async (err) => console.error(err))
     );

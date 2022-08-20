@@ -82,7 +82,7 @@ export class ModalCriarTratamentoComponent implements OnInit {
   private consultaTratamentoEmAberto(paciente: Paciente) {
     this.tratamentoService.consultarTratamentoEmAberto(String(paciente?.id), String(this.sharedValidService.getValid()?.id))
       .subscribe(tratamentoEmAberto => {
-        this.redirecionamento(tratamentoEmAberto?.body?.data);
+        this.redirecionamento(tratamentoEmAberto?.body);
       }, (httpErrorResponse: HttpErrorResponse) => {
         if (httpErrorResponse.error.status == 412) {
           this.redirecionamento(null);

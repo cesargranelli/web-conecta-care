@@ -10,7 +10,6 @@ import { catchError, map } from 'rxjs/operators';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { ResponseTemplateInterface } from '../../services/response/responseTemplate.interface';
 import { Prontuario } from '../classes/prontuario.class';
 import { TratamentoAbertoLista } from '../classes/tratamento-aberto-lista.class';
 import { TratamentoAdicionar } from '../classes/tratamento-adicionar.class';
@@ -43,8 +42,8 @@ export class TratamentoService {
         headers: httpOptions.headers,
       })
       .pipe(
-        map((prontuario: ResponseTemplateInterface) => {
-          return prontuario.data;
+        map((prontuario: any) => {
+          return prontuario;
         }),
         catchError(async (httpResponse: HttpErrorResponse) => {
           Swal.fire({
@@ -85,8 +84,8 @@ export class TratamentoService {
     return this._http.get(`${this.endpoint}/aberto`, {
       headers: httpOptions.headers
     }).pipe(
-      map((tratamentoEmAberto: ResponseTemplateInterface) => {
-        return tratamentoEmAberto?.data;
+      map((tratamentoEmAberto: any) => {
+        return tratamentoEmAberto;
       }),
       catchError(async (httpResponse: HttpErrorResponse) => {
         Swal.fire({

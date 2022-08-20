@@ -72,7 +72,7 @@ export class FormPlanoSaudeFilialComponent implements OnInit {
       }),
       concatMap(() => this._service.listarMatriz().pipe(
         map(response => {
-          this.planosSaudeMatriz = response.body.data;
+          this.planosSaudeMatriz = response.body;
         }))
       ),
     ).subscribe(

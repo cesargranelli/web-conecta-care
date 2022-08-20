@@ -69,8 +69,8 @@ export class CadastroDependenteCpfComponent implements OnInit, OnDestroy {
     this._loading.emitChange(true);
     this._documentoService.registrar({numero: numero, tipo: tipo, modulo: modulo}).subscribe(response => {
         this._loading.emitChange(false);
-        if (response.body.data?.id) {
-          this._router.navigateByUrl(`pacientes/${response.body.data?.id}/cadastro/informacoes-gerais`);
+        if (response.body?.id) {
+          this._router.navigateByUrl(`pacientes/${response.body?.id}/cadastro/informacoes-gerais`);
         } else {
           this.cpfCnpjJaCadastrado = true;
         }
@@ -79,7 +79,7 @@ export class CadastroDependenteCpfComponent implements OnInit, OnDestroy {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: httpResponse.error.data.message || httpResponse.error.data.error[0],
+          title: httpResponse.error.message || httpResponse.error.error[0],
           showConfirmButton: true
         });
         this._loading.emitChange(false);

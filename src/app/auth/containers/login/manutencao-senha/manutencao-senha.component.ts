@@ -50,7 +50,7 @@ export class ManutencaoSenhaComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: response.body.data?.message,
+          title: response.body?.message,
           showConfirmButton: true
         });
       }, err => {
@@ -58,7 +58,7 @@ export class ManutencaoSenhaComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: err.error.data?.message,
+          title: err.error?.message,
           showConfirmButton: true
         });
       });

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Documento } from 'src/app/services/feat/documento';
 import { environment } from 'src/environments/environment';
-import { ResponseTemplateInterface } from '../../services/response/responseTemplate.interface';
 import { Paciente } from '../classes/paciente.class';
 
 @Injectable({
@@ -21,8 +20,8 @@ export class PacienteService {
     return this._http.post(
       `${environment.apiConnecta}/api/v1/paciente`,
       paciente
-    ).pipe(map((dado: ResponseTemplateInterface) => {
-      return dado?.data;
+    ).pipe(map((dado: any) => {
+      return dado;
     }),
       catchError(async (err) => console.error(err))
     );
@@ -32,8 +31,8 @@ export class PacienteService {
     return this._http.put(
       `${environment.apiConnecta}/api/v1/paciente`,
       paciente
-    ).pipe(map((dado: ResponseTemplateInterface) => {
-      return dado?.data;
+    ).pipe(map((dado: any) => {
+      return dado;
     }),
       catchError(async (err) => console.error(err))
     );
@@ -45,8 +44,8 @@ export class PacienteService {
       {
         params: new HttpParams().set(this.DOCUMENTO, documento.numero)
       }
-    ).pipe(map((dado: ResponseTemplateInterface) => {
-      return dado?.data;
+    ).pipe(map((dado: any) => {
+      return dado;
     }),
       catchError(async (err) => console.error(err))
     );
@@ -56,8 +55,8 @@ export class PacienteService {
     return this._http.get(
       `${environment.apiConnecta}/api/v1/paciente/${id}`
     ).pipe(
-      map((dado: ResponseTemplateInterface) => {
-        return dado?.data;
+      map((dado: any) => {
+        return dado;
       }),
       catchError(async (err) => console.error(err))
     );

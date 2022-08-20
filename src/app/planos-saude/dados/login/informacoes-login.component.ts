@@ -38,7 +38,7 @@ export class InformacoesLoginComponent implements OnInit {
     });
 
     this._service.verLogin().subscribe(response => {
-      this.loginForm.controls.email.setValue(response.body.data?.email);
+      this.loginForm.controls.email.setValue(response.body?.email);
       this._loading.emitChange(false);
     });
   }
@@ -57,7 +57,7 @@ export class InformacoesLoginComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: response.body.data?.message,
+          title: response.body?.message,
           showConfirmButton: true
         });
         this._router.navigateByUrl(`planos-saude/${this.valid.id}/dados`);
@@ -66,7 +66,7 @@ export class InformacoesLoginComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: err.error.data?.message,
+          title: err.error?.message,
           showConfirmButton: true
         });
         this._loading.emitChange(false);

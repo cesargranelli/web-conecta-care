@@ -67,7 +67,7 @@ export class FormContatoComponent implements OnInit {
     if (this._cadastro.planoSaude?.id) {
       this._service.consultar(this._cadastro.planoSaude.id).pipe(
         map(response => {
-          this._cadastro.contato = response.body.data;
+          this._cadastro.contato = response.body;
         })
       ).subscribe(null,
         (errorResponse: HttpErrorResponse) => {

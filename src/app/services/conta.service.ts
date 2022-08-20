@@ -1,10 +1,9 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {Conta} from '../classes/conta.class';
-import {ResponseTemplateInterface} from "./response/responseTemplate.interface";
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Conta } from '../classes/conta.class';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +19,8 @@ export class ContaService {
   }
 
   getDados(id: number): Observable<Conta> {
-    return this._http.get(`${this.endpointGetDados}/${id}`).pipe(map((contaResponse: ResponseTemplateInterface) => {
-        return contaResponse.data;
+    return this._http.get(`${this.endpointGetDados}/${id}`).pipe(map((contaResponse: Conta) => {
+        return contaResponse;
       })
     );
   }

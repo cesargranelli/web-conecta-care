@@ -42,8 +42,8 @@ export class AtendimentoService {
     return this._http.get(`${this.endpoint}/${idAtendimento}`, {
       headers: httpOptions.headers
     }).pipe(
-      map((atendimentoDetalhes: ResponseTemplateInterface) => {
-        return atendimentoDetalhes.data;
+      map((atendimentoDetalhes: any) => {
+        return atendimentoDetalhes;
       })
     );
   }

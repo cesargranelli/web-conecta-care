@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { ResponseTemplateInterface } from '../../services/response/responseTemplate.interface';
 import { ContatoPaciente } from '../classes/contato-paciente.class';
 
 @Injectable({
@@ -16,8 +15,8 @@ export class ContatoService {
 
   consultar(id: number): Observable<ContatoPaciente> {
     return this._http.get(`${environment.apiConnecta}/api/v1/contato/${id}`).pipe(
-      map((dado: ResponseTemplateInterface) => {
-        return dado?.data;
+      map((dado: any) => {
+        return dado;
       }),
       catchError(async (err) => console.error(err))
     );
@@ -25,8 +24,8 @@ export class ContatoService {
 
   cadastrar(contato: ContatoPaciente): Observable<HttpResponse<any>> {
     return this._http.post(`${environment.apiConnecta}/api/v1/contato`, contato)
-      .pipe(map((dado: ResponseTemplateInterface) => {
-        return dado?.data;
+      .pipe(map((dado: any) => {
+        return dado;
       }),
         catchError(async (err) => console.error(err))
       );
@@ -34,8 +33,8 @@ export class ContatoService {
 
   alterar(contato: ContatoPaciente): Observable<HttpResponse<any>> {
     return this._http.put(`${environment.apiConnecta}/api/v1/contato`, contato)
-      .pipe(map((dado: ResponseTemplateInterface) => {
-        return dado?.data;
+      .pipe(map((dado: any) => {
+        return dado;
       }),
         catchError(async (err) => console.error(err))
       );

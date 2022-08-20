@@ -35,7 +35,7 @@ export class CadastroPlanoSaudeComponent implements OnInit {
     this._loading.emitChange(true);
     this.valid = this._validService.getValid();
     this._serviceDocumento.pesquisar(this.valid?.id).subscribe(response => {
-      this._cadastro.planoSaude.cnpj = response.body.data.documento;
+      this._cadastro.planoSaude.cnpj = response.body.documento;
     },
     (errorResponse: HttpErrorResponse) => {
       if (errorResponse.status === 404) {
@@ -48,7 +48,7 @@ export class CadastroPlanoSaudeComponent implements OnInit {
 
   ngOnInit(): void {
     this._service.consultar(this.valid?.id).subscribe(response =>
-        this._cadastro.planoSaude = response.body.data,
+        this._cadastro.planoSaude = response.body,
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Plano de Saúde não cadastrado!');

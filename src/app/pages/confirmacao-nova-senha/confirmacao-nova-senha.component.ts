@@ -35,7 +35,7 @@ export class ConfirmacaoNovaSenhaComponent implements OnInit {
         this.authorization.token = value.token;
         this._tokenService.setToken(value.token);
         this._service.validaToken(this.authorization).subscribe(response => {
-            this.validaToken = response.body.data;
+            this.validaToken = response.body;
             if (this.validaToken?.id != undefined) {
               console.log(`Perfil do usuário: ${this.validaToken.role}`);
               this._loading.emitChange(false);
@@ -47,7 +47,7 @@ export class ConfirmacaoNovaSenhaComponent implements OnInit {
               Swal.fire({
                 position: 'center',
                 icon: 'warning',
-                title: response.body.data.message,
+                title: response.body.message,
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true

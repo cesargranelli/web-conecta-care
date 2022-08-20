@@ -129,7 +129,7 @@ export class NovoAtendimentoComponent implements OnInit {
         this.showSwal('info', 'Novo atendimento adicionado com sucesso!', true);
       }, (errorResponse: HttpErrorResponse) => {
         if (errorResponse.error.status == 412) {
-          this.showSwal('warning', errorResponse.error?.data.message, true);
+          this.showSwal('warning', errorResponse.error?.message, true);
         } else {
           this.showSwal('error', 'Falha ao tentar adicionar novo atendimento!', false);
         }

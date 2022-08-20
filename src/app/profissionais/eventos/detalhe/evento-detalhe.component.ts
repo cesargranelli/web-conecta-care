@@ -29,7 +29,7 @@ export class EventoDetalheComponent implements OnInit {
     this._eventoService.detalhes(this.idEvento).pipe(
       tap(() => this._loading.emitChange(true)),
       map(response => {
-        this.detalheEvento = response.body.data;
+        this.detalheEvento = response.body;
       })
     ).subscribe(
       null, null, () => {

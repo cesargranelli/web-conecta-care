@@ -69,7 +69,7 @@ export class FormHistoricoMedicoComponent implements OnInit {
 
   ngOnInit(): void {
     this.tipoSanguineoService.listarTipoSanguineo().pipe(
-      map(response => this.tiposSanguineo = response.body.data),
+      map(response => this.tiposSanguineo = response.body),
       concatMap(() => this.pacienteService.pesquisarPorId(this.pacienteId)))
       .subscribe(response => {
         this.paciente = response;

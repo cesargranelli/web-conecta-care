@@ -39,7 +39,7 @@ export class CadastroEnderecoComponent implements OnInit {
   ngOnInit(): void {
     if (this._cadastro.planoSaude?.id) {
       this._service.consultar(this._cadastro.planoSaude?.id).subscribe(response =>
-        this._cadastro.endereco = response.body.data,
+        this._cadastro.endereco = response.body,
         (errorResponse: HttpErrorResponse) => {
           if (errorResponse.status === 404) {
             console.log('Não existem dados cadastrados!');

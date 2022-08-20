@@ -71,7 +71,7 @@ export class HomecarePacienteComponent implements OnInit {
       .subscribe((paciente: any) => {
         setTimeout(() => {
           if (paciente) {
-            this.paciente = paciente?.body?.data;
+            this.paciente = paciente?.body;
             this.hidePacienteCompletoForm = false;
             if (this.paciente.tipoPaciente.id == 1) {
               this.hideDependentes = false;
@@ -106,7 +106,7 @@ export class HomecarePacienteComponent implements OnInit {
       .subscribe((pacientePesquisa: any) => {
         setTimeout(() => {
           if (pacientePesquisa) {
-            this.pacientePesquisa = pacientePesquisa?.body?.data;
+            this.pacientePesquisa = pacientePesquisa?.body;
             this.hidePacienteCompletoForm = false;
             this.hidePesquisaNomeForm = false;
           } else {

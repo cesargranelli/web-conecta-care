@@ -35,7 +35,7 @@ export class PacientesComponent implements OnInit {
             showConfirmButton: true
           });
         } else {
-          this.atendimentosProtocolo = response.body?.data;
+          this.atendimentosProtocolo = response.body;
         }
         this.loading.emitChange(false);
       }, (errorResponse: HttpErrorResponse) => {

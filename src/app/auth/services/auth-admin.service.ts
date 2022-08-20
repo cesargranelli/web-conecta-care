@@ -31,7 +31,7 @@ export class AuthAdminService {
     this._loading.emitChange(true);
     return this._http.post<any>(`${this.endpoint}/admin/login`, user)
       .pipe(
-        tap(response => this.storeTokens(response.data)),
+        tap(response => this.storeTokens(response)),
         map(response => {
           if(response.status == 200) {
             this._loading.emitChange(false);
@@ -40,7 +40,7 @@ export class AuthAdminService {
             Swal.fire({
               position: 'center',
               icon: 'warning',
-              title: response.data?.message,
+              title: response?.message,
               showConfirmButton: true
             });
             this._loading.emitChange(false);
@@ -71,7 +71,7 @@ export class AuthAdminService {
   }
 
   handlerError(httpErrorResponse: HttpErrorResponse): string {
-    return httpErrorResponse.error.data?.message;
+    return httpErrorResponse.error?.message;
   }
 
 }

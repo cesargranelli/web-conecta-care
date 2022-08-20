@@ -105,7 +105,7 @@ export class CadastroLoginComponent implements OnInit {
           setTimeout(() => {
             const email = new SendEmail();
             email.email = this.cadastroLoginForm.value.email;
-            email.token = response.body.data.token;
+            email.token = response.body.token;
             email.role = new Modulo(this.registroModulo).getModulo();
 
             setTimeout(() => {
