@@ -1,23 +1,26 @@
 <app-menu *ngIf="!login || isHomePage || statusValid!='COMPLETO'"></app-menu>
-<app-menu-profissionais *ngIf="roleValid=='ROLE_PROFISSIONAL' && statusValid=='COMPLETO' && !isHomePage"></app-menu-profissionais>
+<app-menu-profissionais
+  *ngIf="roleValid=='ROLE_PROFISSIONAL' && statusValid=='COMPLETO' && !isHomePage"></app-menu-profissionais>
 <app-menu-pacientes *ngIf="roleValid=='ROLE_PACIENTE' && statusValid=='COMPLETO' && !isHomePage"></app-menu-pacientes>
 <app-menu-homecares *ngIf="roleValid=='ROLE_HOMECARE' && statusValid=='COMPLETO' && !isHomePage"></app-menu-homecares>
-<app-menu-planos-saude *ngIf="roleValid=='ROLE_PLANO_SAUDE' && statusValid=='COMPLETO' && !isHomePage"></app-menu-planos-saude>
-<app-menu-planos-saude-filial *ngIf="roleValid=='ROLE_PLANO_SAUDE_FILIAL' && statusValid=='COMPLETO' && !isHomePage"></app-menu-planos-saude-filial>
+<app-menu-planos-saude
+  *ngIf="roleValid=='ROLE_PLANO_SAUDE' && statusValid=='COMPLETO' && !isHomePage"></app-menu-planos-saude>
+<app-menu-planos-saude-filial
+  *ngIf="roleValid=='ROLE_PLANO_SAUDE_FILIAL' && statusValid=='COMPLETO' && !isHomePage"></app-menu-planos-saude-filial>
 <app-menu-admin *ngIf="roleValid=='ROLE_ADMIN_ROOT' && statusValid=='COMPLETO' && !isHomePage"></app-menu-admin>
 
 <router-outlet></router-outlet>
 
 <ng-container *ngIf="!isHomePage">
-  <footer class="footer">
+  <!-- <footer class="footer">
     <div class="container-fluid">
       <nav class="float-left navbar navbar-transparent text-white font-weight-bold">
         <div class="copyright float-right">&copy; Connecta Care. Todos os direitos reservados.</div>
         <div class="float-right">Para suporte: (11) 96061-0464</div>
       </nav>
     </div>
-  </footer>
-  <!-- <footer>
+  </footer> -->
+  <footer>
     <div id="logo-foot" class="left"><img src="../assets/img/logo-foot.svg"></div>
     <nav>
       <ul>
@@ -26,8 +29,8 @@
         <li><a href="./contato.htm">CONTATO</a></li>
       </ul>
       <ul>
-         <li><a href="#link">SUPORTE T&Eacute;CNICO</a></li>
-          <li><a href="#link">CONV&Ecirc;NIOS</a></li>
+        <li><a href="#link">SUPORTE T&Eacute;CNICO</a></li>
+        <li><a href="#link">CONV&Ecirc;NIOS</a></li>
       </ul>
       <ul>
         <li><a href="#link">PROFISSIONAIS DA SA&Uacute;DE</a></li>
@@ -36,9 +39,12 @@
       </ul>
     </nav>
     <section id="social">
-      <a href="#whats" alt="NOSSO NÚMERO é +55 11 91234-5678"><img src="../assets/img/whats.svg" style="width: 40px;"></a>
-      <a href="https://instagram.com/connectacaresaude?igshid=10ultrcechm84" target="_blank"><img src="../assets/img/insta.svg" style="width: 40px;"></a>
-      <a href="https://www.facebook.com/connectacaresaude/" target="_blank"><img src="../assets/img/face.svg" style="width: 40px;"></a>
+      <a href="#whats" alt="NOSSO NÚMERO é +55 11 91234-5678"><img src="../assets/img/whats.svg"
+          style="width: 40px;"></a>
+      <a href="https://instagram.com/connectacaresaude?igshid=10ultrcechm84" target="_blank"><img
+          src="../assets/img/insta.svg" style="width: 40px;"></a>
+      <a href="https://www.facebook.com/connectacaresaude/" target="_blank"><img src="../assets/img/face.svg"
+          style="width: 40px;"></a>
       <a href="contato.htm" target="_blank"><img src="../assets/img/mail.svg" style="width: 40px;"></a>
     </section>
     <section id="play-app">
@@ -49,6 +55,6 @@
       <p>&copy; {{anoAtual}} - Connecta Care. Todos os direitos reservados.
       </p>
     </address>
-  </footer> -->
+  </footer>
 </ng-container>
 <ngx-loading [show]="loading"></ngx-loading>
