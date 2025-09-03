@@ -1,5 +1,5 @@
 {
-  "name": "web-connecta",
+  "name": "conecta-care-web",
   "version": "1.14.0",
   "date": "2022-01-06",
   "scripts": {
@@ -15,7 +15,7 @@
     "@agm/core": "^3.0.0-beta.0",
     "@angular/animations": "~10.2.0",
     "@angular/cdk": "^10.2.7",
-    "@angular/common": "~10.2.0",
+    "@angular/common": "^10.2.0",
     "@angular/compiler": "~10.2.0",
     "@angular/core": "~10.2.0",
     "@angular/forms": "~10.2.0",

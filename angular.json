@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "web-connecta": {
+    "conecta-care-web": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "outputHashing": "all",
           "options": {
-            "outputPath": "dist/web-connecta",
+            "outputPath": "dist/conecta-care-web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -106,25 +106,25 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "outputHashing": "all",
           "options": {
-            "browserTarget": "web-connecta:build"
+            "browserTarget": "conecta-care-web:build"
           },
           "proxyConfig": "./proxy.config.js",
           "configurations": {
             "production": {
-              "browserTarget": "web-connecta:build:production"
+              "browserTarget": "conecta-care-web:build:production"
             },
             "staging": {
-              "browserTarget": "web-connecta:build:staging"
+              "browserTarget": "conecta-care-web:build:staging"
             },
             "develop": {
-              "browserTarget": "web-connecta:build:develop"
+              "browserTarget": "conecta-care-web:build:develop"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "web-connecta:build"
+            "browserTarget": "conecta-care-web:build"
           }
         },
         "test": {
@@ -162,18 +162,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "web-connecta:serve"
+            "devServerTarget": "conecta-care-web:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "web-connecta:serve:production"
+              "devServerTarget": "conecta-care-web:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "web-connecta",
+  "defaultProject": "conecta-care-web",
   "cli": {
     "analytics": false
   }
