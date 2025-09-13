@@ -11,23 +11,24 @@
           </div>
           <div class="wizard-navigation">
             <ul class="nav nav-pills nav-fill">
-              <li #paciente (click)="setRole(paciente.id)" class="nav-item" id="pacientes" style="width: 25%;">
+              <li #paciente (click)="setModulo(paciente.id)" class="nav-item" id="pacientes" style="width: 25%;">
                 <a class="nav-link" data-toggle="tab" href="#paciente" role="tab">
                   Paciente
                 </a>
               </li>
-              <li #profissional (click)="setRole(profissional.id)" class="nav-item" id="profissionais" style="width: 25%;">
+              <li #profissional (click)="setModulo(profissional.id)" class="nav-item" id="profissionais"
+                style="width: 25%;">
                 <a class="nav-link" data-toggle="tab" href="#profissional" role="tab">
                   Profissional
                 </a>
               </li>
-              <li #homecare (click)="setRole(homecare.id)" class="nav-item" id="homecares" style="width: 25%;">
+              <li #homecare (click)="setModulo(homecare.id)" class="nav-item" id="homecares" style="width: 25%;">
                 <a class="nav-link" data-toggle="tab" href="#homecare" role="tab">
                   Homecare
                 </a>
               </li>
-              <li #planoSaude (click)="setRole(planoSaude.id)" class="nav-item" id="planos-saude" style="width: 25%;">
-                <a class="nav-link" data-toggle="tab" href="#planoSaude" role="tab">
+              <li #planoSaude (click)="setModulo(planoSaude.id)" class="nav-item" id="planos-saude" style="width: 25%;">
+                <a class="nav-link" data-toggle="tab" href="#plano-saude" role="tab">
                   Plano de Saúde
                 </a>
               </li>
@@ -35,7 +36,43 @@
           </div>
           <div class="card-body">
             <div class="tab-content">
+              <!-- {{formSubmitted.value.modulo.path}} -->
               <div class="tab-pane" id="paciente">
+                <form (ngSubmit)="onSubmitTest(formSubmitted)" [formGroup]="formSubmitted">
+                  <div [ngClass]="input.validation(formSubmitted)=='done' ? 'has-success' : 'has-danger'"
+                    class="form-row justify-content-center">
+                    <div class="col-lg-6 col-md-6 col-sm-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">face</i>
+                          </span>
+                        </div>
+                        <input #cpfPaciente autocomplete="off" class="form-control" formControlName="documento"
+                          id="cpfPaciente" mask="000.000.000-00" name="cpfPaciente" placeholder="CPF (Obrigatório)"
+                          type="text">
+                      </div>
+                      <span class="form-control-feedback">
+                        <i class="material-icons">{{ input.validation(formSubmitted) }}</i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-row justify-content-center">
+                    <div class="form-group">
+                      <button [disabled]="!formSubmitted.get('documento')?.valid"
+                        [ngClass]="!formSubmitted.get('documento')?.valid ? 'btn-link' : ''" class="btn btn-rose"
+                        name="btnCpfPaciente" type="submit">Cadastrar
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="text-center text-danger">
+                      <span *ngIf="cpfCnpjJaCadastrado">*** CPF ou CNPJ já cadastrado ***</span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- <div class="tab-pane" id="paciente">
                 <form (ngSubmit)="onSubmit(pacienteForm, cpfPaciente)" [formGroup]="pacienteForm">
                   <div [ngClass]="input.validation(pacienteForm)=='done' ? 'has-success' : 'has-danger'"
                        class="form-row justify-content-center">
@@ -70,33 +107,31 @@
                     </div>
                   </div>
                 </form>
-              </div>
+              </div> -->
               <div class="tab-pane" id="profissional">
                 <form (ngSubmit)="onSubmit(profissionalForm, cpfProfissional)" [formGroup]="profissionalForm">
                   <div [ngClass]="input.validation(profissionalForm)=='done' ? 'has-success' : 'has-danger'"
-                       class="form-row justify-content-center">
+                    class="form-row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-sm-8">
                       <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">
-                              <i class="material-icons">face</i>
-                            </span>
+                          <span class="input-group-text">
+                            <i class="material-icons">face</i>
+                          </span>
                         </div>
                         <input #cpfProfissional autocomplete="off" class="form-control" formControlName="cpf"
-                               id="cpfProfissional"
-                               mask="000.000.000-00" name="cpfProfissional" placeholder="CPF (Obrigatório)"
-                               type="text">
+                          id="cpfProfissional" mask="000.000.000-00" name="cpfProfissional"
+                          placeholder="CPF (Obrigatório)" type="text">
                       </div>
                       <span class="form-control-feedback">
-                          <i class="material-icons">{{ input.validation(profissionalForm) }}</i>
-                        </span>
+                        <i class="material-icons">{{ input.validation(profissionalForm) }}</i>
+                      </span>
                     </div>
                   </div>
                   <div class="form-row justify-content-center">
                     <div class="form-group">
                       <button [disabled]="!profissionalForm.valid" [ngClass]="!profissionalForm.valid ? 'btn-link' : ''"
-                              class="btn btn-rose"
-                              name="btnCpfProfissional" type="submit">Cadastrar
+                        class="btn btn-rose" name="btnCpfProfissional" type="submit">Cadastrar
                       </button>
                     </div>
                   </div>
@@ -110,29 +145,27 @@
               <div class="tab-pane" id="homecare">
                 <form (ngSubmit)="onSubmit(homecareForm, cnpjHomecare)" [formGroup]="homecareForm">
                   <div [ngClass]="input.validation(homecareForm)=='done' ? 'has-success' : 'has-danger'"
-                       class="form-row justify-content-center">
+                    class="form-row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-sm-8">
                       <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">
-                              <i class="material-icons">face</i>
-                            </span>
+                          <span class="input-group-text">
+                            <i class="material-icons">face</i>
+                          </span>
                         </div>
                         <input #cnpjHomecare autocomplete="off" class="form-control" formControlName="cnpj"
-                               id="cnpjHomecare"
-                               mask="00.000.000/0000-00" name="cnpjHomecare" placeholder="CNPJ/MEI (Obrigatório)"
-                               type="text">
+                          id="cnpjHomecare" mask="00.000.000/0000-00" name="cnpjHomecare"
+                          placeholder="CNPJ/MEI (Obrigatório)" type="text">
                       </div>
                       <span class="form-control-feedback">
-                          <i class="material-icons">{{ input.validation(homecareForm) }}</i>
-                        </span>
+                        <i class="material-icons">{{ input.validation(homecareForm) }}</i>
+                      </span>
                     </div>
                   </div>
                   <div class="form-row justify-content-center">
                     <div class="form-group">
                       <button [disabled]="!homecareForm.valid" [ngClass]="!homecareForm.valid ? 'btn-link' : ''"
-                              class="btn btn-rose"
-                              name="btnCnpjHomecare" type="submit">Cadastrar
+                        class="btn btn-rose" name="btnCnpjHomecare" type="submit">Cadastrar
                       </button>
                     </div>
                   </div>
@@ -146,29 +179,27 @@
               <div class="tab-pane" id="planoSaude">
                 <form (ngSubmit)="onSubmit(planoSaudeForm, cnpjPlanoSaude)" [formGroup]="planoSaudeForm">
                   <div [ngClass]="input.validation(planoSaudeForm)=='done' ? 'has-success' : 'has-danger'"
-                       class="form-row justify-content-center">
+                    class="form-row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-sm-8">
                       <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">
-                              <i class="material-icons">face</i>
-                            </span>
+                          <span class="input-group-text">
+                            <i class="material-icons">face</i>
+                          </span>
                         </div>
                         <input #cnpjPlanoSaude autocomplete="off" class="form-control" formControlName="cnpj"
-                               id="cnpjPlanoSaude"
-                               mask="00.000.000/0000-00" name="cnpjPlanoSaude" placeholder="CNPJ/MEI (Obrigatório)"
-                               type="text">
+                          id="cnpjPlanoSaude" mask="00.000.000/0000-00" name="cnpjPlanoSaude"
+                          placeholder="CNPJ/MEI (Obrigatório)" type="text">
                       </div>
                       <span class="form-control-feedback">
-                          <i class="material-icons">{{ input.validation(planoSaudeForm) }}</i>
-                        </span>
+                        <i class="material-icons">{{ input.validation(planoSaudeForm) }}</i>
+                      </span>
                     </div>
                   </div>
                   <div class="form-row justify-content-center">
                     <div class="form-group">
                       <button [disabled]="!planoSaudeForm.valid" [ngClass]="!planoSaudeForm.valid ? 'btn-link' : ''"
-                              class="btn btn-rose"
-                              name="btnCnpjPlanoSaude" type="submit">Cadastrar
+                        class="btn btn-rose" name="btnCnpjPlanoSaude" type="submit">Cadastrar
                       </button>
                     </div>
                   </div>

@@ -37,16 +37,16 @@ export class CadastroHomeCareComponent implements OnInit {
     this._serviceDocumento.pesquisar(this.valid?.id).subscribe(response => {
       this._cadastro.homeCare.cnpj = response.body.documento;
     },
-    (errorResponse: HttpErrorResponse) => {
-      if (errorResponse.status === 404) {
-        console.log('Documento não cadastrado!');
-      }
-    });
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse.status === 404) {
+          console.log('Documento não cadastrado!');
+        }
+      });
   }
 
   ngOnInit(): void {
     this._service.consultar(this.valid?.id).subscribe(response =>
-        this._cadastro.homeCare = response.body,
+      this._cadastro.homeCare = response.body,
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Não existem dados cadastrados!');
@@ -66,13 +66,13 @@ export class CadastroHomeCareComponent implements OnInit {
         this._cadastro.homeCare = homeCare;
         this.navigate(homeCare);
       },
-      () => {
-        this.message();
-      });
+        () => {
+          this.message();
+        });
     } else {
       this._service.alterar(homeCare).subscribe(response => {
-          this.navigate(homeCare);
-        },
+        this.navigate(homeCare);
+      },
         () => {
           this.message();
         });

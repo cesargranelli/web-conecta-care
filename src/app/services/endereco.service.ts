@@ -12,7 +12,7 @@ import { Endereco } from '../classes/endereco.class';
 @Injectable()
 export class EnderecoService {
 
-  private endpoint: string = `${environment.apiConnecta}/enderecos`;
+  private endpoint: string = `${environment.apiConecta}/enderecos`;
   private endpointViaCep: string = `${environment.apiCep}/ws/{cep}/json`;
 
   constructor(private _http: HttpClient) {
@@ -20,18 +20,18 @@ export class EnderecoService {
 
   findViaCep(pathParam: string): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<any>>(`${this.endpointViaCep.replace('{cep}', pathParam)}`,
-      {observe: 'response'});
+      { observe: 'response' });
   }
 
   getDados(id: number): Observable<Endereco> {
     return this._http.get(`${this.endpoint}/${id}`).pipe(map((enderecoResponseInterface: Endereco) => {
-        return enderecoResponseInterface;
-      })
+      return enderecoResponseInterface;
+    })
     );
   }
 
   save(payload: Endereco): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
 }

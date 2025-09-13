@@ -1,12 +1,12 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Modulo} from 'src/app/classes/modulo.class';
-import {DocumentoService} from 'src/app/services/documento.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {validCnpj} from 'src/app/shared/validations/directives/valid-cnpj.directive';
-import {validCpf} from 'src/app/shared/validations/directives/valid-cpf.directive';
-import {InputValidation} from 'src/app/shared/validations/input-validation';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Modulo } from 'src/app/classes/modulo.class';
+import { DocumentoService } from 'src/app/services/documento.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
+import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
+import { InputValidation } from 'src/app/shared/validations/input-validation';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -67,14 +67,14 @@ export class CadastroDependenteCpfComponent implements OnInit, OnDestroy {
     const tipo = "CPF";
     const modulo = "PACIENTE";
     this._loading.emitChange(true);
-    this._documentoService.registrar({numero: numero, tipo: tipo, modulo: modulo}).subscribe(response => {
-        this._loading.emitChange(false);
-        if (response.body?.id) {
-          this._router.navigateByUrl(`pacientes/${response.body?.id}/cadastro/informacoes-gerais`);
-        } else {
-          this.cpfCnpjJaCadastrado = true;
-        }
-      },
+    this._documentoService.registrar({ numero: numero, tipo: tipo, modulo: modulo }).subscribe(response => {
+      this._loading.emitChange(false);
+      if (response.body?.id) {
+        this._router.navigateByUrl(`pacientes/${response.body?.id}/cadastro/informacoes-gerais`);
+      } else {
+        this.cpfCnpjJaCadastrado = true;
+      }
+    },
       httpResponse => {
         Swal.fire({
           position: 'center',

@@ -20,7 +20,7 @@ import { TratamentoEncerrar } from '../classes/tratamento-encerrar.class';
 })
 @Injectable()
 export class TratamentoService {
-  private endpoint: string = `${environment.apiConnecta}/tratamentos`;
+  private endpoint: string = `${environment.apiConecta}/tratamentos`;
 
   constructor(
     private _http: HttpClient,

@@ -26,7 +26,7 @@ import { StatusAtendimento } from '../classes/status-atendimento.class';
 @Injectable()
 export class DominioService {
 
-  private endpoint: string = `${environment.apiConnecta}/dominio`;
+  private endpoint: string = `${environment.apiConecta}/dominio`;
 
   constructor(private _http: HttpClient) {
   }

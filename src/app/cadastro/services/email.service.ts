@@ -11,12 +11,12 @@ import { SendEmail } from '../classes/send-email.class';
 @Injectable()
 export class EmailService {
 
-  private endpoint: string = `${environment.apiConnecta}/emails`;
+  private endpoint: string = `${environment.apiConecta}/emails`;
 
   constructor(private _http: HttpClient) { }
 
   enviar(payload: SendEmail): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
 }

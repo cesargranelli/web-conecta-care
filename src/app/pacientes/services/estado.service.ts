@@ -14,7 +14,7 @@ export class EstadoService {
   }
 
   public listarEstado(): Observable<Array<Estado>> {
-    return this._http.get(`${environment.apiConnecta}/api/v1/estado`).pipe(
+    return this._http.get(`${environment.apiConecta}/api/v1/estado`).pipe(
       map((dado: any) => {
         return dado;
       }),

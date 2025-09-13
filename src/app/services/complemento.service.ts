@@ -12,20 +12,20 @@ import { Complemento } from '../classes/complemento.class';
 @Injectable()
 export class ComplementoService {
 
-  private endpoint: string = `${environment.apiConnecta}/complementos/profissional`;
+  private endpoint: string = `${environment.apiConecta}/complementos/profissional`;
 
   constructor(private _http: HttpClient) {
   }
 
   getDados(id: number): Observable<Complemento> {
     return this._http.get(`${this.endpoint}/${id}`).pipe(map((complemento: Complemento) => {
-        return complemento;
-      })
+      return complemento;
+    })
     );
   }
 
   save(payload: Complemento): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
 }

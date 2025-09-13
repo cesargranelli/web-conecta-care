@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class AuthService {
 
-  private readonly endpoint: string = `${environment.apiConnecta}`;
+  private readonly endpoint: string = `${environment.apiConecta}`;
   private readonly usuarioNaoCadastrado: string = 'Ops! Você ainda não possui cadastro na plataforma.';
   private readonly emailOuSenhaInvalidos: string = 'Ops! Email ou senha inválidos.';
   private readonly usuarioNaoCompletouCadastro: string = 'Ops! Usuário pendente de confirmação ou cadastro incompleto.';

@@ -1,10 +1,10 @@
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {environment} from 'src/environments/environment';
-import {map} from 'rxjs/operators';
-import {ResponseTemplateInterface} from '../../services/response/responseTemplate.interface';
-import {AtendimentoDetalhes} from '../classes/atendimento-detalhes.class';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
+import { ResponseTemplateInterface } from '../../services/response/responseTemplate.interface';
+import { AtendimentoDetalhes } from '../classes/atendimento-detalhes.class';
 import { AtendimentoAdicionar } from '../classes/atendimento-adicionar.class';
 
 @Injectable({
@@ -14,7 +14,7 @@ import { AtendimentoAdicionar } from '../classes/atendimento-adicionar.class';
 @Injectable()
 export class AtendimentoService {
 
-  private endpoint: string = `${environment.apiConnecta}/atendimentos`;
+  private endpoint: string = `${environment.apiConecta}/atendimentos`;
 
   constructor(private _http: HttpClient) {
   }
@@ -52,11 +52,11 @@ export class AtendimentoService {
     return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
-  consultarPreview(cpfProfissional: string | null, cpfPaciente: string | null, 
-    periodoDe: string | null, periodoAte: string | null, 
+  consultarPreview(cpfProfissional: string | null, cpfPaciente: string | null,
+    periodoDe: string | null, periodoAte: string | null,
     areaAtendimento: string | null, statusAtendimento: string | null,
     homeCare: string): Observable<HttpResponse<any>> {
-    
+
     console.log('consultarPreview -> ' + homeCare);
     let cpfProfissionalFilter = cpfProfissional ? cpfProfissional : ' ';
     let cpfPacienteFilter = cpfPaciente ? cpfPaciente : ' ';
@@ -83,11 +83,11 @@ export class AtendimentoService {
 
   }
 
-  downloadFile(cpfProfissional: string | null, cpfPaciente: string | null, 
-    periodoDe: string | null, periodoAte: string | null, 
+  downloadFile(cpfProfissional: string | null, cpfPaciente: string | null,
+    periodoDe: string | null, periodoAte: string | null,
     areaAtendimento: string | null, statusAtendimento: string | null,
     homeCare: string, gerarPara: string): Observable<Blob> {
-    
+
     let cpfProfissionalFilter = cpfProfissional ? cpfProfissional : ' ';
     let cpfPacienteFilter = cpfPaciente ? cpfPaciente : ' ';
     let areaAtendimentoFilter = areaAtendimento ? areaAtendimento : ' ';
@@ -107,11 +107,11 @@ export class AtendimentoService {
       })
     };
 
-    return this._http.get(`${this.endpoint.concat('/preview/file')}`, { 
-        headers: httpOptions.headers,
-        responseType: 'blob'
-      },
-     )
+    return this._http.get(`${this.endpoint.concat('/preview/file')}`, {
+      headers: httpOptions.headers,
+      responseType: 'blob'
+    },
+    )
   }
-  
+
 }

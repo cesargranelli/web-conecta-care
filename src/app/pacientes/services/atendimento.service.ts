@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AtendimentoService {
 
-  private endpoint: string = `${environment.apiConnecta}/atendimentos`;
+  private endpoint: string = `${environment.apiConecta}/atendimentos`;
 
   constructor(private _http: HttpClient) {
   }

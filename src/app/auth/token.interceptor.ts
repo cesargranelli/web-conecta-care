@@ -12,7 +12,7 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this._tokenService.getToken() && request.url.includes(environment.apiConnecta)) {
+    if (this._tokenService.getToken() && request.url.includes(environment.apiConecta)) {
       request = this.addToken(request, this._tokenService.getToken());
     }
 

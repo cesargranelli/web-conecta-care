@@ -14,7 +14,7 @@ export class ContatoService {
   }
 
   consultar(id: number): Observable<ContatoPaciente> {
-    return this._http.get(`${environment.apiConnecta}/api/v1/contato/${id}`).pipe(
+    return this._http.get(`${environment.apiConecta}/api/v1/contato/${id}`).pipe(
       map((dado: any) => {
         return dado;
       }),
@@ -23,7 +23,7 @@ export class ContatoService {
   }
 
   cadastrar(contato: ContatoPaciente): Observable<HttpResponse<any>> {
-    return this._http.post(`${environment.apiConnecta}/api/v1/contato`, contato)
+    return this._http.post(`${environment.apiConecta}/api/v1/contato`, contato)
       .pipe(map((dado: any) => {
         return dado;
       }),
@@ -32,7 +32,7 @@ export class ContatoService {
   }
 
   alterar(contato: ContatoPaciente): Observable<HttpResponse<any>> {
-    return this._http.put(`${environment.apiConnecta}/api/v1/contato`, contato)
+    return this._http.put(`${environment.apiConecta}/api/v1/contato`, contato)
       .pipe(map((dado: any) => {
         return dado;
       }),

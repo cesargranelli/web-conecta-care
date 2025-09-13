@@ -15,7 +15,7 @@ import { Registro } from './feat/registro';
 @Injectable()
 export class ProfissionalService {
 
-  private endpoint: string = `${environment.apiConnecta}/profissionais`;
+  private endpoint: string = `${environment.apiConecta}/profissionais`;
 
   constructor(private _http: HttpClient) {
   }
@@ -74,16 +74,16 @@ export class ProfissionalService {
 
   consultarProfissionalCompletoPorCpf(cpf: string): Observable<any> {
     return this._http.get<HttpResponse<any>>(`${this.endpoint}/completo`,
-    {
-      headers: new HttpHeaders().set('cpf', cpf), observe: 'response'
-    });
+      {
+        headers: new HttpHeaders().set('cpf', cpf), observe: 'response'
+      });
   }
 
   consultarProfissionalPorNome(nome: string): Observable<any> {
     return this._http.get<HttpResponse<any>>(`${this.endpoint}/nome`,
-    {
-      headers: new HttpHeaders().set('nome', nome), observe: 'response'
-    });
+      {
+        headers: new HttpHeaders().set('nome', nome), observe: 'response'
+      });
   }
 
 }

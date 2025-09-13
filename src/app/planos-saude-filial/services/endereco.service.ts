@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class EnderecoService {
 
-  private endpoint: string = `${environment.apiConnecta}/planos-saude/{id}/enderecos`;
+  private endpoint: string = `${environment.apiConecta}/planos-saude/{id}/enderecos`;
   private endpointViaCep: string = `${environment.apiCep}/ws/{cep}/json`;
 
   constructor(private _http: HttpClient) {
@@ -19,19 +19,19 @@ export class EnderecoService {
 
   findViaCep(pathParam: string): Observable<HttpResponse<any>> {
     return this._http.get<HttpResponse<any>>(`${this.endpointViaCep.replace('{cep}', pathParam)}`,
-      {observe: 'response'});
+      { observe: 'response' });
   }
 
   cadastrar(payload: EnderecoPlanoSaudeFilial): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.idPlanoSaude))}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.idPlanoSaude))}`, payload, { observe: 'response' });
   }
 
   alterar(payload: EnderecoPlanoSaudeFilial): Observable<HttpResponse<any>> {
-    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.idPlanoSaude))}`, payload, {observe: 'response'});
+    return this._http.put<HttpResponse<any>>(`${this.endpoint.replace('{id}', String(payload.idPlanoSaude))}`, payload, { observe: 'response' });
   }
 
   consultar(idPlanoSaude: number): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<any>>(`${this.endpoint.replace('{id}', idPlanoSaude.toString())}`, {observe: 'response'});
+    return this._http.get<HttpResponse<any>>(`${this.endpoint.replace('{id}', idPlanoSaude.toString())}`, { observe: 'response' });
   }
 
 }

@@ -16,12 +16,12 @@ export class UsuarioService {
   }
 
   cadastrar(login: Usuario): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<CadastroUsuario>>(`${environment.apiConnecta}/usuarios`, login,
-      {observe: 'response'});
+    return this._http.post<HttpResponse<CadastroUsuario>>(`${environment.apiConecta}/usuarios`, login,
+      { observe: 'response' });
   }
 
   consultar(): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<ConsultaUsuario>>(`${environment.apiConnecta}/usuarios`,
-      {observe: 'response'});
+    return this._http.get<HttpResponse<ConsultaUsuario>>(`${environment.apiConecta}/usuarios`,
+      { observe: 'response' });
   }
 }

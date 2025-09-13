@@ -37,18 +37,18 @@ export class CadastroPlanoSaudeComponent implements OnInit {
     this._serviceDocumento.pesquisar(this.valid?.id).subscribe(response => {
       this._cadastro.planoSaude.cnpj = response.body.documento;
     },
-    (errorResponse: HttpErrorResponse) => {
-      if (errorResponse.status === 404) {
-        console.log('Documento não cadastrado!');
-      } else if (errorResponse.status === 0) {
-        console.log(errorResponse.statusText);
-      }
-    });
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse.status === 404) {
+          console.log('Documento não cadastrado!');
+        } else if (errorResponse.status === 0) {
+          console.log(errorResponse.statusText);
+        }
+      });
   }
 
   ngOnInit(): void {
     this._service.consultar(this.valid?.id).subscribe(response =>
-        this._cadastro.planoSaude = response.body,
+      this._cadastro.planoSaude = response.body,
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 404) {
           console.log('Plano de Saúde não cadastrado!');
@@ -70,13 +70,13 @@ export class CadastroPlanoSaudeComponent implements OnInit {
         this._cadastro.planoSaude = planoSaude;
         this.navigate(planoSaude);
       },
-      () => {
-        this.message();
-      });
+        () => {
+          this.message();
+        });
     } else {
       this._service.alterar(planoSaude).subscribe(response => {
-          this.navigate(planoSaude);
-        },
+        this.navigate(planoSaude);
+      },
         () => {
           this.message();
         });

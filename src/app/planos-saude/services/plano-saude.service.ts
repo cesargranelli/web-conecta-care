@@ -11,21 +11,21 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class PlanoSaudeService {
 
-  private endpoint: string = `${environment.apiConnecta}/planos-saude`;
+  private endpoint: string = `${environment.apiConecta}/planos-saude`;
 
   constructor(private _http: HttpClient) {
   }
 
   cadastrar(payload: PlanoSaude): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
   alterar(payload: PlanoSaude): Observable<HttpResponse<any>> {
-    return this._http.put<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.put<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
   consultar(id: number): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<any>>(`${this.endpoint}/${id}`, {observe: 'response'});
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/${id}`, { observe: 'response' });
   }
 
 }

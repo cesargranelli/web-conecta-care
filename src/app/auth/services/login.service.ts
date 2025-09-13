@@ -15,33 +15,33 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class LoginService {
 
-  private _endpoint: string = `${environment.apiConnecta}/login`;
+  private _endpoint: string = `${environment.apiConecta}/login`;
 
   constructor(private _http: HttpClient) {
   }
 
   verLogin(): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<ResponseApi>>(`${this._endpoint}`, {observe: 'response'});
+    return this._http.get<HttpResponse<ResponseApi>>(`${this._endpoint}`, { observe: 'response' });
   }
 
   esqueciMinhaSenha(esqueciMinhaSenha: EsqueciMinhaSenha): Observable<HttpResponse<any>> {
     return this._http.post<HttpResponse<ResponseApi>>(`${this._endpoint}/esqueci-minha-senha`, esqueciMinhaSenha,
-      {observe: 'response'});
+      { observe: 'response' });
   }
 
   validaToken(authorization: Authorization): Observable<HttpResponse<any>> {
     return this._http.post<HttpResponse<ResponseApi>>(`${this._endpoint}/validacao`, authorization,
-      {observe: 'response'});
+      { observe: 'response' });
   }
 
   novaSenha(novaSenha: NovaSenha): Observable<HttpResponse<any>> {
     return this._http.patch<HttpResponse<ResponseApi>>(`${this._endpoint}/nova-senha`, novaSenha,
-      {observe: 'response'});
+      { observe: 'response' });
   }
 
   buscarValid(loginValid: LoginValid): Observable<HttpResponse<any>> {
     return this._http.post<HttpResponse<ResponseApi>>(`${this._endpoint}/valid`, loginValid,
-    {observe: 'response'});
+      { observe: 'response' });
   }
 
 }

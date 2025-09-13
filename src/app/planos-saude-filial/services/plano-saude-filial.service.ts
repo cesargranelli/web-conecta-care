@@ -11,25 +11,25 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class PlanoSaudeFilialService {
 
-  private endpoint: string = `${environment.apiConnecta}/planos-saude`;
+  private endpoint: string = `${environment.apiConecta}/planos-saude`;
 
   constructor(private _http: HttpClient) {
   }
 
   cadastrar(payload: PlanoSaudeFilial): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
   alterar(payload: PlanoSaudeFilial): Observable<HttpResponse<any>> {
-    return this._http.put<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.put<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
   consultar(id: number): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<any>>(`${this.endpoint}/${id}`, {observe: 'response'});
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/${id}`, { observe: 'response' });
   }
 
   listarMatriz(): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<any>>(`${this.endpoint}/matriz`, {observe: 'response'});
+    return this._http.get<HttpResponse<any>>(`${this.endpoint}/matriz`, { observe: 'response' });
   }
 
 }

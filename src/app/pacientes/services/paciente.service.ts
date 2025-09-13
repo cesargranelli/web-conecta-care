@@ -18,7 +18,7 @@ export class PacienteService {
 
   registrar(paciente: Paciente): Observable<any> {
     return this._http.post(
-      `${environment.apiConnecta}/api/v1/paciente`,
+      `${environment.apiConecta}/api/v1/paciente`,
       paciente
     ).pipe(map((dado: any) => {
       return dado;
@@ -29,7 +29,7 @@ export class PacienteService {
 
   alterar(paciente: Paciente): Observable<any> {
     return this._http.put(
-      `${environment.apiConnecta}/api/v1/paciente`,
+      `${environment.apiConecta}/api/v1/paciente`,
       paciente
     ).pipe(map((dado: any) => {
       return dado;
@@ -40,7 +40,7 @@ export class PacienteService {
 
   pesquisarPorCpf(documento: Documento): Observable<Paciente> {
     return this._http.get(
-      `${environment.apiConnecta}/api/v1/paciente`,
+      `${environment.apiConecta}/api/v1/paciente`,
       {
         params: new HttpParams().set(this.DOCUMENTO, documento.numero)
       }
@@ -53,7 +53,7 @@ export class PacienteService {
 
   pesquisarPorId(id: number): Observable<Paciente> {
     return this._http.get(
-      `${environment.apiConnecta}/api/v1/paciente/${id}`
+      `${environment.apiConecta}/api/v1/paciente/${id}`
     ).pipe(
       map((dado: any) => {
         return dado;

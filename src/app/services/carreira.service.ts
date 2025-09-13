@@ -12,20 +12,20 @@ import { Carreira } from '../classes/carreira.class';
 @Injectable()
 export class CarreiraService {
 
-  private endpoint: string = `${environment.apiConnecta}/carreiras`;
+  private endpoint: string = `${environment.apiConecta}/carreiras`;
 
   constructor(private _http: HttpClient) {
   }
 
   getDados(id: number): Observable<Carreira> {
     return this._http.get(`${this.endpoint}/${id}`).pipe(map((carreira: Carreira) => {
-        return carreira;
-      })
+      return carreira;
+    })
     );
   }
 
   save(payload: Carreira): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
 }

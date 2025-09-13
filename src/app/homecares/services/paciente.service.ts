@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 })
 @Injectable()
 export class PacienteService {
-  private endpoint: string = `${environment.apiConnecta}/api/v1/paciente`;
+  private endpoint: string = `${environment.apiConecta}/api/v1/paciente`;
 
   constructor(private _http: HttpClient) { }
 
@@ -58,16 +58,16 @@ export class PacienteService {
 
   consultarPacientePorCpf(cpf: string): Observable<any> {
     return this._http.get<HttpResponse<any>>(`${this.endpoint}/cpf`,
-    {
-      headers: new HttpHeaders().set('cpf', cpf), observe: 'response'
-    });
+      {
+        headers: new HttpHeaders().set('cpf', cpf), observe: 'response'
+      });
   }
 
   consultarPacientePorNome(nome: string): Observable<any> {
     return this._http.get<HttpResponse<any>>(`${this.endpoint}/listaCpf`,
-    {
-      headers: new HttpHeaders().set('nome', nome), observe: 'response'
-    });
+      {
+        headers: new HttpHeaders().set('nome', nome), observe: 'response'
+      });
   }
 
 }

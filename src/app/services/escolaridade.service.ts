@@ -12,20 +12,20 @@ import { Escolaridade } from '../classes/escolaridade.class';
 @Injectable()
 export class EscolaridadeService {
 
-  private endpoint: string = `${environment.apiConnecta}/escolaridade`;
+  private endpoint: string = `${environment.apiConecta}/escolaridade`;
 
   constructor(private _http: HttpClient) {
   }
 
   getDados(id: number): Observable<Escolaridade> {
     return this._http.get(`${this.endpoint}/${id}`).pipe(map((escolaridade: Escolaridade) => {
-        return escolaridade;
-      })
+      return escolaridade;
+    })
     );
   }
 
   save(payload: Escolaridade): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
 }

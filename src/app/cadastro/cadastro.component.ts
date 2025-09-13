@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Modulo } from 'src/app/classes/modulo.class';
+import { Modulo } from 'src/app/models/modulo.class';
 import { DocumentoService } from 'src/app/services/documento.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
@@ -31,30 +31,37 @@ export class CadastroComponent implements OnInit, OnDestroy {
   public homecareForm: FormGroup;
   public planoSaudeForm: FormGroup;
 
+  public formSubmitted: FormGroup;
+
   public cpfCnpjJaCadastrado = false;
   public input: InputValidation = new InputValidation();
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private _documentoService: DocumentoService,
-    private _router: Router,
-    private _loading: SharedLoadingService
+    private formBuilder: FormBuilder,
+    private documentoService: DocumentoService,
+    private router: Router,
+    private loading: SharedLoadingService
   ) {
     jQuery('html').removeClass('nav-open');
     jQuery('button').removeClass('toggled');
   }
 
   ngOnInit(): void {
-    this.pacienteForm = this._formBuilder.group({
+    this.formSubmitted = this.formBuilder.group({
+      documento: ['', [Validators.required, validCpf(true)]],
+      modulo: [this.modulo, []],
+    });
+
+    this.pacienteForm = this.formBuilder.group({
       cpf: ['', [Validators.required, validCpf(true)]],
     });
-    this.profissionalForm = this._formBuilder.group({
+    this.profissionalForm = this.formBuilder.group({
       cpf: ['', [Validators.required, validCpf(true)]],
     });
-    this.homecareForm = this._formBuilder.group({
+    this.homecareForm = this.formBuilder.group({
       cnpj: ['', [Validators.required, validCnpj(true)]],
     });
-    this.planoSaudeForm = this._formBuilder.group({
+    this.planoSaudeForm = this.formBuilder.group({
       cnpj: ['', [Validators.required, validCnpj(true)]],
     });
     this.modulo.setModulo('pacientes');
@@ -66,28 +73,34 @@ export class CadastroComponent implements OnInit, OnDestroy {
     const numero: string = form.get(element.getAttribute('formControlName')).value;
     const tipo: string = element.getAttribute('formControlName').toUpperCase();
     const modulo: string = this.modulo.getModulo();
-    this._loading.emitChange(true);
-    this._documentoService.registrar({numero: numero, tipo: tipo, modulo: modulo}).subscribe(response => {
-        this._loading.emitChange(false);
-        if (response.body?.id) {
-          this._router.navigateByUrl(`${this.modulo.getNome()}/${response.body?.id}/cadastro/login`);
-        } else {
-          this.cpfCnpjJaCadastrado = true;
-        }
-      },
-      httpResponse => {
+    this.loading.emitChange(true);
+    this.documentoService.registro({ numero: numero, tipo: tipo, modulo: modulo }).subscribe(response => {
+      this.loading.emitChange(false);
+      console.log(response);
+      if (response?.id) {
+        this.router.navigateByUrl(`${this.modulo.getNome()}/${response?.id}/cadastro/login`);
+      } else if (response !== undefined && response.id === undefined) {
+        this.cpfCnpjJaCadastrado = true;
+      } else {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: httpResponse.error.message || httpResponse.error.error[0],
+          title: 'Erro ao processar o cadastro. Tente novamente mais tarde.',
           showConfirmButton: true
         });
-        this._loading.emitChange(false);
-      });
+      }
+    });
   }
 
-  setRole(perfil: string) {
-    this.modulo = new Modulo(perfil);
+  onSubmitTest(form: FormGroup) {
+    const documento: string = form.controls.documento.value;
+    console.log(form);
+    console.log(documento);
+  }
+
+  setModulo(perfil: string) {
+    this.modulo.setModulo(perfil);
+    console.log(this.modulo);
   }
 
   ngOnDestroy() {

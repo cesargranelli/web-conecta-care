@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class AuthAdminService {
 
-  private readonly endpoint: string = `${environment.apiConnecta}`;
+  private readonly endpoint: string = `${environment.apiConecta}`;
   private converterRole: RoleConverter = new RoleConverter();
 
   constructor(
@@ -33,7 +33,7 @@ export class AuthAdminService {
       .pipe(
         tap(response => this.storeTokens(response)),
         map(response => {
-          if(response.status == 200) {
+          if (response.status == 200) {
             this._loading.emitChange(false);
             return true;
           } else {
@@ -62,7 +62,7 @@ export class AuthAdminService {
 
   storeTokens(data: LoginData): void {
     this._storeToken.setToken(data.token);
-    this._storeValid.setValid({id: data.id, email: data.email, role: this.converterRole.getRole(data.role)});
+    this._storeValid.setValid({ id: data.id, email: data.email, role: this.converterRole.getRole(data.role) });
   }
 
   removeTokens(): void {

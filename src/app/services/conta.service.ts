@@ -12,21 +12,21 @@ import { Conta } from '../classes/conta.class';
 @Injectable()
 export class ContaService {
 
-  private endpoint: string = `${environment.apiConnecta}/contas`;
-  private endpointGetDados: string = `${environment.apiConnecta}/contas`;
+  private endpoint: string = `${environment.apiConecta}/contas`;
+  private endpointGetDados: string = `${environment.apiConecta}/contas`;
 
   constructor(private _http: HttpClient) {
   }
 
   getDados(id: number): Observable<Conta> {
     return this._http.get(`${this.endpointGetDados}/${id}`).pipe(map((contaResponse: Conta) => {
-        return contaResponse;
-      })
+      return contaResponse;
+    })
     );
   }
 
   save(payload: Conta): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
 }

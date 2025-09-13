@@ -14,7 +14,7 @@ export class HistoricoMedicoService {
   }
 
   public cadastrar(historicoMedicoPaciente: HistoricoMedicoPaciente) {
-    return this._http.post(`${environment.apiConnecta}/api/v1/historico-medico`, historicoMedicoPaciente)
+    return this._http.post(`${environment.apiConecta}/api/v1/historico-medico`, historicoMedicoPaciente)
       .pipe(map((dado: any) => {
         return dado;
       }),
@@ -23,7 +23,7 @@ export class HistoricoMedicoService {
   }
 
   public alterar(historicoMedicoPaciente: HistoricoMedicoPaciente) {
-    return this._http.put(`${environment.apiConnecta}/api/v1/historico-medico`, historicoMedicoPaciente)
+    return this._http.put(`${environment.apiConecta}/api/v1/historico-medico`, historicoMedicoPaciente)
       .pipe(map((dado: any) => {
         return dado;
       }),
@@ -32,7 +32,7 @@ export class HistoricoMedicoService {
   }
 
   pesquisarHistoricoMedico(id: number): Observable<HistoricoMedicoPaciente> {
-    return this._http.get(`${environment.apiConnecta}/api/v1/historico-medico/${id}`)
+    return this._http.get(`${environment.apiConecta}/api/v1/historico-medico/${id}`)
       .pipe(map((dado: any) => {
         return dado;
       }),

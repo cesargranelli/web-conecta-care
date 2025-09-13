@@ -12,20 +12,20 @@ import { Experiencia } from '../classes/experiencia.class';
 @Injectable()
 export class ExperienciaService {
 
-  private endpoint: string = `${environment.apiConnecta}/experiencias`;
+  private endpoint: string = `${environment.apiConecta}/experiencias`;
 
   constructor(private _http: HttpClient) {
   }
 
   getDados(id: number): Observable<Array<Experiencia>> {
     return this._http.get(`${this.endpoint}/${id}`).pipe(map((experiencias: Array<Experiencia>) => {
-        return experiencias;
-      })
+      return experiencias;
+    })
     );
   }
 
   save(payload: Experiencia[]): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, {observe: 'response'});
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 
 }
