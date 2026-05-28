@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RecaptchaModule } from 'ng-recaptcha';
-import { NgxMaskModule } from 'ngx-mask';
+import { RecaptchaModule } from 'ng-recaptcha-2';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { SharedComponentModule } from '../shared/components/shared-component.module';
 import { CadastroRoutingModule } from './cadastro-routing.module';
 import { CadastroComponent } from './cadastro.component';
@@ -20,7 +20,8 @@ import { BasicRecaptchaComponent } from '../components/recaptcha/basic-recaptcha
     ReactiveFormsModule,
     SharedComponentModule,
     CadastroRoutingModule,
-    NgxMaskModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     RecaptchaModule
   ],
   schemas: [

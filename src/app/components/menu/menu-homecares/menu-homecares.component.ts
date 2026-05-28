@@ -8,6 +8,7 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-menu-homecares',
   templateUrl: './menu-homecares.component.html',
   styleUrls: ['./menu-homecares.component.css']

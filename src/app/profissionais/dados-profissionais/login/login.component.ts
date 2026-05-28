@@ -10,6 +10,7 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'pr-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

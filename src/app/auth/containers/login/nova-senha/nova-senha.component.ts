@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { ValidPassword } from 'src/app/shared/constants/valid.password';
 
 @Component({
+  standalone: false,
   selector: 'app-nova-senha',
   templateUrl: './nova-senha.component.html',
   styleUrls: ['./nova-senha.component.css']

@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {AuthAdminService} from 'src/app/auth/services/auth-admin.service';
 
 @Component({
+  standalone: false,
   selector: 'app-menu-logado',
   templateUrl: './menu-logado.component.html',
   styleUrls: ['./menu-logado.component.css']

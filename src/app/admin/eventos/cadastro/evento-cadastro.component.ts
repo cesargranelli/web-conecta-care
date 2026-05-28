@@ -16,6 +16,7 @@ import {concatMap, map} from 'rxjs/operators';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-evento-cadastro',
   templateUrl: './evento-cadastro.component.html',
   styleUrls: ['./evento-cadastro.component.css']

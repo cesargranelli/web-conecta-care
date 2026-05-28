@@ -10,6 +10,7 @@ import { ContatoPaciente } from '../../classes/contato-paciente.class';
 import { ContatoService } from '../../services/contato.service';
 
 @Component({
+  standalone: false,
   selector: 'app-contato',
   templateUrl: './cadastro-contato.component.html',
   styleUrls: ['./cadastro-contato.component.css']

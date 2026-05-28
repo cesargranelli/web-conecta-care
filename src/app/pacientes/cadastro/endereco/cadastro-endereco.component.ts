@@ -9,6 +9,7 @@ import { EnderecoPaciente } from '../../classes/endereco-paciente.class';
 import { EnderecoService } from '../../services/endereco.service';
 
 @Component({
+  standalone: false,
   selector: 'app-endereco',
   templateUrl: './cadastro-endereco.component.html',
   styleUrls: ['./cadastro-endereco.component.css']

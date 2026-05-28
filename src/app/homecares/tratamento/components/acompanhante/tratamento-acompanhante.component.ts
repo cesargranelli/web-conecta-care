@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AcompanhanteTratamentoAberto } from 'src/app/homecares/classes/acompanhante-tratamento-aberto.class';
 
 @Component({
+  standalone: false,
   selector: 'app-tratamento-acompanhante',
   templateUrl: './tratamento-acompanhante.component.html',
   styleUrls: ['./tratamento-acompanhante.component.css']

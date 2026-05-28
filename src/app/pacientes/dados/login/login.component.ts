@@ -8,6 +8,7 @@ import { SharedLoadingService } from '../../../shared/services/shared-loading.se
 import { SharedValidService } from '../../../shared/services/shared-valid.service';
 
 @Component({
+  standalone: false,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

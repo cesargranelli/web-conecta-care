@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-cadastro-plano-saude-filial',
   templateUrl: './cadastro-plano-saude-filial.component.html',
   styleUrls: ['./cadastro-plano-saude-filial.component.css']

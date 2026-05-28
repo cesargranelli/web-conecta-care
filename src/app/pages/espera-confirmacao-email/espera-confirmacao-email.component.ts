@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-espera-confirmacao-email',
   templateUrl: './espera-confirmacao-email.component.html',
   styleUrls: ['./espera-confirmacao-email.component.css']

@@ -20,6 +20,7 @@ import {concatMap, map} from 'rxjs/operators';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-carreira',
   templateUrl: './carreira.component.html',
   styleUrls: ['./carreira.component.css']

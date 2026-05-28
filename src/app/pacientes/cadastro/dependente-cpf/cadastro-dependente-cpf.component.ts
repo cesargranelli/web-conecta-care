@@ -16,6 +16,7 @@ declare function hideToolTip(): void; //Carrega a funcao hideToolTip() do app.js
 declare function injetaToolTip(): void; //Carrega a funcao injetaToolTip() do app.js
 
 @Component({
+  standalone: false,
   selector: 'app-cadastro-dependente-cpf',
   templateUrl: './cadastro-dependente-cpf.component.html',
   styleUrls: ['./cadastro-dependente-cpf.component.css'],

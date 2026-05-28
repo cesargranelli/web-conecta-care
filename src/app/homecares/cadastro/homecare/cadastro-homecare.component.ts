@@ -12,6 +12,7 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-cadastro-homecare',
   templateUrl: './cadastro-homecare.component.html',
   styleUrls: ['./cadastro-homecare.component.css']

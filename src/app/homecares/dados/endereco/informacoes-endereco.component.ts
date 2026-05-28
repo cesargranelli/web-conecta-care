@@ -11,6 +11,7 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-informacoes-endereco',
   templateUrl: './informacoes-endereco.component.html',
   styleUrls: ['./informacoes-endereco.component.css']

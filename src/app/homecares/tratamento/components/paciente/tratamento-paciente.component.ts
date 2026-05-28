@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PacienteTratamentoAberto } from 'src/app/homecares/classes/paciente-tratamento-aberto.class';
 
 @Component({
+  standalone: false,
   selector: 'app-tratamento-paciente',
   templateUrl: './tratamento-paciente.component.html',
   styleUrls: ['./tratamento-paciente.component.css']

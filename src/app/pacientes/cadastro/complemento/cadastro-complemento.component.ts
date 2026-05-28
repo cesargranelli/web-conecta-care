@@ -13,6 +13,7 @@ import {concatMap, map} from 'rxjs/operators';
 import { Modulo } from 'src/app/enums/modulo.enum';
 
 @Component({
+  standalone: false,
   selector: 'app-complemento',
   templateUrl: './cadastro-complemento.component.html',
   styleUrls: ['./cadastro-complemento.component.css']

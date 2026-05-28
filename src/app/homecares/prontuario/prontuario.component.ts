@@ -6,6 +6,7 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 
 @Component({
+  standalone: false,
   selector: 'app-prontuario',
   templateUrl: './prontuario.component.html',
   styleUrls: ['./prontuario.component.css'],

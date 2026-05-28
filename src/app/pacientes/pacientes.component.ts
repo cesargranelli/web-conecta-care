@@ -8,6 +8,7 @@ import { AtendimentoProtocolo } from './classes/atendimento-protocolo.class';
 import { AtendimentoService } from './services/atendimento.service';
 
 @Component({
+  standalone: false,
   selector: 'app-pacientes',
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.css']

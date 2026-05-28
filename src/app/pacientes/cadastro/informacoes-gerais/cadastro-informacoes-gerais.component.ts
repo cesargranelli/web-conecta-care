@@ -9,6 +9,7 @@ import { Paciente } from "../../classes/paciente.class";
 import { PacienteService } from "../../services/paciente.service";
 
 @Component({
+  standalone: false,
   selector: 'app-informacoes-gerais',
   templateUrl: './cadastro-informacoes-gerais.component.html',
   styleUrls: ['./cadastro-informacoes-gerais.component.css']

@@ -1,4 +1,3 @@
-import { AgmCoreModule } from "@agm/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,7 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxLoadingModule } from 'ngx-loading';
-import { NgxMaskModule } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -76,7 +76,8 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskDirective,
+    NgxMaskPipe,
     HttpClientModule,
     NgxLoadingModule.forRoot({
       fullScreenBackdrop: true
@@ -90,12 +91,11 @@ import { ValidadorCpf } from './utils/validador-cpf.utils';
     AuthModule,
     AdminModule,
     CadastroModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC1TvkS6hk3zAObpWx0KOcZjdJDr5c6J9U'
-    }),
+    GoogleMapsModule,
     BrowserAnimationsModule
   ],
   providers: [
+    provideNgxMask(),
     ValidadorCpf,
     ValidadorCnpj,
     {

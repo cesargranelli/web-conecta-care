@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-cadastro-endereco-homecare',
   templateUrl: './cadastro-endereco.component.html',
   styleUrls: ['./cadastro-endereco.component.css']

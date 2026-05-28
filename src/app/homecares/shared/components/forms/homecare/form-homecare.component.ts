@@ -12,6 +12,7 @@ import { InputValidationHas } from 'src/app/shared/validations/input-validation-
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-form-homecare',
   templateUrl: './form-homecare.component.html',
   styleUrls: ['./form-homecare.component.css']

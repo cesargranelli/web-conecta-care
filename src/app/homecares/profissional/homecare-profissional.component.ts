@@ -15,6 +15,7 @@ declare function hideToolTip(): void; //Carrega a funcao hideToolTip() do app.js
 declare function injetaToolTip(): void; //Carrega a funcao injetaToolTip() do app.js
 
 @Component({
+  standalone: false,
   selector: 'app-tratamento',
   templateUrl: './homecare-profissional.component.html',
   styleUrls: ['./homecare-profissional.component.css']

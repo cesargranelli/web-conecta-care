@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 import {concatMap, map} from 'rxjs/operators';
 
 @Component({
+  standalone: false,
   selector: 'app-contato',
   templateUrl: './contato.component.html',
   styleUrls: ['./contato.component.css']

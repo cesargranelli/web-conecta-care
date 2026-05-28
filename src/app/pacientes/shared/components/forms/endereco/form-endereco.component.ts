@@ -23,6 +23,7 @@ import { DadosResponsavelDependenteService } from '../../../services/dados-respo
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-form-endereco-paciente',
   templateUrl: './form-endereco.component.html',
   styleUrls: ['./form-endereco.component.css']

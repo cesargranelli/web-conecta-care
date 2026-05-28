@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-dados-planos-saude',
   templateUrl: './dados-planos-saude.component.html',
   styleUrls: ['./dados-planos-saude.component.css']

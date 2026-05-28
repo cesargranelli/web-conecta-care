@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-form-plano-saude-filial',
   templateUrl: './form-plano-saude-filial.component.html',
   styleUrls: ['./form-plano-saude-filial.component.css']

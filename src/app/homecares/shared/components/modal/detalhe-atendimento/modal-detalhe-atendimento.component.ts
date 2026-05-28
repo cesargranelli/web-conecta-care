@@ -7,6 +7,7 @@ import { AtendimentoService } from '../../../../services/atendimento.service';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-modal-detalhe-atendimento',
   templateUrl: './modal-detalhe-atendimento.component.html',
   styleUrls: ['./modal-detalhe-atendimento.component.css']

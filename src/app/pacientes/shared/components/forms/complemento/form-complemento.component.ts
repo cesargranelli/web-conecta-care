@@ -13,6 +13,7 @@ import { Paciente } from '../../../../classes/paciente.class';
 import { PacienteService } from '../../../../services/paciente.service';
 
 @Component({
+  standalone: false,
   selector: 'app-form-complemento',
   templateUrl: './form-complemento.component.html',
   styleUrls: ['./form-complemento.component.css']

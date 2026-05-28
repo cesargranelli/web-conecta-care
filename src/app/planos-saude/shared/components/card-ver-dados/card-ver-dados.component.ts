@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-card-ver-dados-planos-saude',
   templateUrl: './card-ver-dados.component.html',
   styleUrls: ['./card-ver-dados.component.css']

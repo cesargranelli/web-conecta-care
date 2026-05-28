@@ -14,6 +14,7 @@ import { InputValidationHas } from 'src/app/shared/validations/input-validation-
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-form-contato-plano-saude',
   templateUrl: './form-contato.component.html',
   styleUrls: ['./form-contato.component.css']

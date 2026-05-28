@@ -18,6 +18,7 @@ import {Role} from '../../../enums/role.enum';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-endereco',
   templateUrl: './endereco.component.html',
   styleUrls: ['./endereco.component.css']

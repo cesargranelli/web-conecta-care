@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-connecta',
   templateUrl: './connecta.component.html',
   styleUrls: ['./connecta.component.css']

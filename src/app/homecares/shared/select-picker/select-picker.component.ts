@@ -3,6 +3,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-select-picker',
   templateUrl: './select-picker.component.html',
   styleUrls: ['./select-picker.component.css']

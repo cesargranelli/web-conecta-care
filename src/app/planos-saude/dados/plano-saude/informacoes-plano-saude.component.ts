@@ -11,6 +11,7 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-informacoes-plano-saude',
   templateUrl: './informacoes-plano-saude.component.html',
   styleUrls: ['./informacoes-plano-saude.component.css']

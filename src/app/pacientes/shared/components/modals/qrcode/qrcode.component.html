@@ -10,8 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="value" 
-            class="qrcode"></ngx-qrcode>
+        <img [src]="qrCodeUrl" alt="QR Code" class="qrcode" *ngIf="qrCodeUrl">
         <div class="text-center">
           <p class="align-content-center">{{ atendimentoProtocolo.protocolo.codigoSeguranca }}</p>
           <h4>Código de Segurança</h4>

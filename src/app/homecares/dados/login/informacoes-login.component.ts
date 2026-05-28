@@ -9,6 +9,7 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import { Valid } from 'src/app/services/feat/Valid';
 
 @Component({
+  standalone: false,
   selector: 'pr-login',
   templateUrl: './informacoes-login.component.html',
   styleUrls: ['./informacoes-login.component.css']

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarOptions, EventInput } from '@fullcalendar/angular';
-import esLocale from '@fullcalendar/core/locales/pt-br';
+import { CalendarOptions, EventInput } from '@fullcalendar/core';
+import ptBrLocale from '@fullcalendar/core/locales/pt-br';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
 import { SharedLoadingService } from '../shared/services/shared-loading.service';
 import { SharedValidService } from '../shared/services/shared-valid.service';
 import { AtendimentoResumo } from './classes/atendimento-resumo.class';
@@ -10,6 +14,7 @@ import { StatusConverter } from './shared/utils/status.converter';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-homecares',
   templateUrl: './homecares.component.html',
   styleUrls: ['./homecares.component.css']
@@ -17,8 +22,9 @@ declare var jQuery: any;
 export class HomeCaresComponent implements OnInit {
 
   calendarOptions: CalendarOptions = {
+    plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
-    locale: esLocale,
+    locale: ptBrLocale,
     fixedWeekCount: false,
     headerToolbar: {
       end: ''

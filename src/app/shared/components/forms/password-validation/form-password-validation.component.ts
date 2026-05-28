@@ -3,6 +3,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-form-password-validation',
   templateUrl: './form-password-validation.component.html',
   styleUrls: ['./form-password-validation.component.css']

@@ -10,6 +10,7 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-tratamento-solicitacao-acompanhante',
   templateUrl: './tratamento-solicitacao-acompanhante.component.html',
   styleUrls: ['./tratamento-solicitacao-acompanhante.component.css']

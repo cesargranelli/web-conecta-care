@@ -8,6 +8,7 @@ import { TratamentoService } from '../../services/tratamento.service';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-tratamento-lista-em-aberto',
   templateUrl: './tratamento-lista-em-aberto.component.html',
   styleUrls: ['./tratamento-lista-em-aberto.component.css']

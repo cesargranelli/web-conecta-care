@@ -6,6 +6,7 @@ import { SharedLoadingService } from './shared/services/shared-loading.service';
 import { SharedValidService } from './shared/services/shared-valid.service';
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

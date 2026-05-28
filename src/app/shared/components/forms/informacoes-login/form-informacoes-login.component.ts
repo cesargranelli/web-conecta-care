@@ -7,6 +7,7 @@ import { InputValidationHas } from 'src/app/shared/validations/input-validation-
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-form-informacoes-login',
   templateUrl: './form-informacoes-login.component.html',
   styleUrls: ['./form-informacoes-login.component.css']

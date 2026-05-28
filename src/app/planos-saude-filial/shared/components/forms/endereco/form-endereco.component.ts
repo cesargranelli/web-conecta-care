@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-form-endereco-plano-saude-filial',
   templateUrl: './form-endereco.component.html',
   styleUrls: ['./form-endereco.component.css']

@@ -11,6 +11,7 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-confirmacao-cadastro',
   templateUrl: './confirmacao-cadastro.component.html',
   styleUrls: ['./confirmacao-cadastro.component.css']

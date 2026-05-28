@@ -3,11 +3,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import listPlugin from '@fullcalendar/list';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import { NgxMaskModule } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { TokenInterceptor } from 'src/app/auth/token.interceptor';
 import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { HeadersInterceptor } from '../services/interceptors/headers.interceptor';
@@ -48,13 +44,6 @@ import { TratamentoComponent } from './tratamento/tratamento.component';
 import { HomecareProfissionalComponent } from './profissional/homecare-profissional.component';
 import { HomecarePacienteComponent } from './paciente/homecare-paciente.component';
 import { NgxLoadingModule } from 'ngx-loading';
-
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  timeGridPlugin,
-  listPlugin,
-  interactionPlugin,
-]);
 
 @NgModule({
   declarations: [
@@ -98,7 +87,8 @@ FullCalendarModule.registerPlugins([
     CommonModule,
     ReactiveFormsModule,
     HomeCaresRoutingModule,
-    NgxMaskModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     SharedComponentModule,
     FullCalendarModule,
     NgxLoadingModule.forRoot({})

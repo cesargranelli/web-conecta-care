@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-conta',
   templateUrl: './cadastro-conta.component.html',
   styleUrls: ['./cadastro-conta.component.css']

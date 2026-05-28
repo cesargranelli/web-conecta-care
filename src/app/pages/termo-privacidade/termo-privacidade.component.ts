@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-termo-privacidade',
   templateUrl: './termo-privacidade.component.html',
   styleUrls: ['./termo-privacidade.component.css']

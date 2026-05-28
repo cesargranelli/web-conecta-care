@@ -11,22 +11,20 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "outputHashing": "all",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/web-connecta",
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "browser": "src/main.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/.htaccess"
+              { "glob": "favicon.ico", "input": "src" },
+              { "glob": "**/*", "input": "src/assets" },
+              { "glob": ".htaccess", "input": "src" }
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "@angular/material/prebuilt-themes/rose-red.css",
               "src/styles.css",
               "src/assets/css/material-dashboard.css"
             ],
@@ -61,18 +59,10 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "6mb",
                   "maximumError": "10mb"
                 },
                 {
@@ -80,100 +70,78 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "outputHashing": "all"
             },
             "staging": {
-              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.staging.ts"
                 }
-              ]
+              ],
+              "outputHashing": "all"
             },
             "develop": {
-              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.develop.ts"
                 }
-              ]
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "outputHashing": "all",
-          "options": {
-            "browserTarget": "web-connecta:build"
-          },
-          "proxyConfig": "./proxy.config.js",
           "configurations": {
             "production": {
-              "browserTarget": "web-connecta:build:production"
+              "buildTarget": "web-connecta:build:production"
             },
             "staging": {
-              "browserTarget": "web-connecta:build:staging"
+              "buildTarget": "web-connecta:build:staging"
             },
             "develop": {
-              "browserTarget": "web-connecta:build:develop"
+              "buildTarget": "web-connecta:build:develop"
+            },
+            "development": {
+              "buildTarget": "web-connecta:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "web-connecta:build"
+            "buildTarget": "web-connecta:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              { "glob": "favicon.ico", "input": "src" },
+              { "glob": "**/*", "input": "src/assets" }
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "@angular/material/prebuilt-themes/rose-red.css",
               "src/styles.css"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "web-connecta:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "web-connecta:serve:production"
-            }
           }
         }
       }
     }
   },
-  "defaultProject": "web-connecta",
   "cli": {
     "analytics": false
   }

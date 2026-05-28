@@ -17,6 +17,7 @@ import { TipoSanguineoService } from '../../../../services/tipo-sanguineo.servic
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-form-historico-medico',
   templateUrl: './form-historico-medico.component.html',
   styleUrls: ['./form-historico-medico.component.css']

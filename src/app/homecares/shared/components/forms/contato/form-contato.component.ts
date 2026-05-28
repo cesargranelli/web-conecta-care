@@ -13,6 +13,7 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 @Component({
+  standalone: false,
   selector: 'app-form-contato-homecare',
   templateUrl: './form-contato.component.html',
   styleUrls: ['./form-contato.component.css']

@@ -14,6 +14,7 @@ import { Valid } from 'src/app/services/feat/Valid';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-cadastro-login-plano-saude-filial',
   templateUrl: './cadastro-login.component.html',
   styleUrls: ['./cadastro-login.component.css']

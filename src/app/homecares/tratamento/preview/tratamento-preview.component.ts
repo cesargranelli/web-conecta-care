@@ -13,13 +13,13 @@ import { AtendimentoService } from 'src/app/homecares/services/atendimento.servi
 import { HomeCare } from 'src/app/homecares/classes/homecare.class';
 import { AtendimentoPreview } from 'src/app/homecares/classes/atendimento-preview.class';
 import { concatMap, map } from 'rxjs/operators';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-tratamento-preview',
   templateUrl: './tratamento-preview.component.html',
   styleUrls: ['./tratamento-preview.component.css']

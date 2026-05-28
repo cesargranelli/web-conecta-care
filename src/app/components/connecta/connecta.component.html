@@ -37,14 +37,14 @@
   </section>
 </section>
 
-<agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]="4.5">
-  <agm-marker [latitude]="-15.721387" [longitude]="-48.0774459"></agm-marker>
-  <agm-marker [latitude]="-3.7766285" [longitude]="-38.5680622"></agm-marker>
-  <agm-marker [latitude]="-3.8025183" [longitude]="-38.5711255"></agm-marker>
-  <agm-marker [latitude]="-21.1794579" [longitude]="-47.8726269"></agm-marker>
-  <agm-marker [latitude]="-8.0991148" [longitude]="-35.0360535"></agm-marker>
-  <agm-marker [latitude]="-8.0991148" [longitude]="-35.0360535"></agm-marker>
-</agm-map>
+<google-map [center]="{lat: lat, lng: lng}" [zoom]="4.5" [options]="{scrollwheel: false}" height="400px" width="100%">
+  <map-marker [position]="{lat: -15.721387, lng: -48.0774459}"></map-marker>
+  <map-marker [position]="{lat: -3.7766285, lng: -38.5680622}"></map-marker>
+  <map-marker [position]="{lat: -3.8025183, lng: -38.5711255}"></map-marker>
+  <map-marker [position]="{lat: -21.1794579, lng: -47.8726269}"></map-marker>
+  <map-marker [position]="{lat: -8.0991148, lng: -35.0360535}"></map-marker>
+  <map-marker [position]="{lat: -8.0991148, lng: -35.0360535}"></map-marker>
+</google-map>
 
 <section class="bg-color-gb txt-mkt">
   <!-- QTDA script -->

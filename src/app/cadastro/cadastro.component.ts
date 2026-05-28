@@ -16,6 +16,7 @@ declare function hideToolTip(): void; //Carrega a funcao hideToolTip() do app.js
 declare function injetaToolTip(): void; //Carrega a funcao injetaToolTip() do app.js
 
 @Component({
+  standalone: false,
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css'],

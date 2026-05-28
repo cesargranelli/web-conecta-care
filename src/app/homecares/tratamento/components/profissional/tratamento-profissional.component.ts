@@ -3,6 +3,7 @@ import { Especialidade } from 'src/app/classes/especialidade.class';
 import { ProfissionalTratamentoAberto } from 'src/app/homecares/classes/profissional-tratamento-aberto.class';
 
 @Component({
+  standalone: false,
   selector: 'app-tratamento-profissional',
   templateUrl: './tratamento-profissional.component.html',
   styleUrls: ['./tratamento-profissional.component.css']

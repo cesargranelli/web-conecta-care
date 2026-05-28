@@ -17,6 +17,7 @@ import { TratamentoService } from '../../services/tratamento.service';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-solicitacao-tratamento',
   templateUrl: './solicitacao-tratamento.component.html',
   styleUrls: ['./solicitacao-tratamento.component.css']

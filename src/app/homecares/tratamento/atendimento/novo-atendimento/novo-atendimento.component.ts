@@ -26,6 +26,7 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-novo-atendimento',
   templateUrl: './novo-atendimento.component.html',
   styleUrls: ['./novo-atendimento.component.css']

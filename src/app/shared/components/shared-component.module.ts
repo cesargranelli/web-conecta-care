@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { RecaptchaModule } from 'ng-recaptcha';
-import { NgxMaskModule } from 'ngx-mask';
+import { RecaptchaModule } from 'ng-recaptcha-2';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { FormEnderecoComponent } from './forms/endereco/form-endereco.component';
 import { FormInformacoesLoginComponent } from './forms/informacoes-login/form-informacoes-login.component';
 import { FormPasswordValidationComponent } from './forms/password-validation/form-password-validation.component';
@@ -20,7 +20,8 @@ import { BasicRecaptchaComponent } from './recaptcha/basic-recaptcha.component';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    NgxMaskModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     RecaptchaModule
   ],
   schemas: [

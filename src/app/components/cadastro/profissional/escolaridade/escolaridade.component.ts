@@ -17,6 +17,7 @@ import {map} from 'rxjs/operators';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-escolaridade',
   templateUrl: './escolaridade.component.html',
   styleUrls: ['./escolaridade.component.css']

@@ -19,6 +19,7 @@ import { EmailService } from '../services/email.service';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-cadastro-login',
   templateUrl: './cadastro-login.component.html',
   styleUrls: ['./cadastro-login.component.css']

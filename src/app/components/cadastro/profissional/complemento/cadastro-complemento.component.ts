@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-complemento',
   templateUrl: './cadastro-complemento.component.html',
   styleUrls: ['./cadastro-complemento.component.css']

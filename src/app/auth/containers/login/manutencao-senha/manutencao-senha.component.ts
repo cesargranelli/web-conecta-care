@@ -9,6 +9,7 @@ import {InputValidationHas} from 'src/app/shared/validations/input-validation-ha
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-manutencao-senha',
   templateUrl: './manutencao-senha.component.html',
   styleUrls: ['./manutencao-senha.component.css']

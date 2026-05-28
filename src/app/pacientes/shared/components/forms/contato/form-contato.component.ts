@@ -16,6 +16,7 @@ import { ContatoService } from '../../../../services/contato.service';
 import { PacienteService } from '../../../../services/paciente.service';
 
 @Component({
+  standalone: false,
   selector: 'app-form-contato-paciente',
   templateUrl: './form-contato.component.html',
   styleUrls: ['./form-contato.component.css']

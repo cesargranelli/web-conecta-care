@@ -15,6 +15,7 @@ import { TratamentoStorageService } from '../services/tratamento-storage.service
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-tratamento',
   templateUrl: './tratamento.component.html',
   styleUrls: ['./tratamento.component.css']

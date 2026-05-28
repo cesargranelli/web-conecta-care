@@ -10,6 +10,7 @@ import { Paciente } from '../../classes/paciente.class';
 import { PacienteService } from '../../services/paciente.service';
 
 @Component({
+  standalone: false,
   selector: 'app-informacoes-gerais',
   templateUrl: './informacoes-gerais.component.html',
   styleUrls: ['./informacoes-gerais.component.css']

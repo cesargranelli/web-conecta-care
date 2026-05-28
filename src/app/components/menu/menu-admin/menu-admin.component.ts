@@ -5,6 +5,7 @@ import {Valid} from 'src/app/services/feat/Valid';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-menu-admin',
   templateUrl: './menu-admin.component.html',
   styleUrls: ['./menu-admin.component.css']

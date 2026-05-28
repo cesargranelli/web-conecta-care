@@ -6,6 +6,7 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-tratamento-solicitacao-paciente',
   templateUrl: './tratamento-solicitacao-paciente.component.html',
   styleUrls: ['./tratamento-solicitacao-paciente.component.css']

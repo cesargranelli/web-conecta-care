@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
-import { NgxMaskModule } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { SharedComponentModule } from '../shared/components/shared-component.module';
 import { PrettyStringPipe } from '../utils/pretty-json-to-string.pipe';
 import { CadastroComplementoComponent } from './cadastro/complemento/cadastro-complemento.component';
@@ -27,7 +26,7 @@ import { FormEnderecoComponent } from './shared/components/forms/endereco/form-e
 import { FormHistoricoMedicoComponent } from './shared/components/forms/historico-medico/form-historico-medico.component';
 import { FormInformacoesGeraisComponent } from './shared/components/forms/informacoes-gerais/form-informacoes-gerais.component';
 import { QrcodeComponent } from './shared/components/modals/qrcode/qrcode.component';
-import { DadosResponsavelDependenteService as DadosResponsavelDependenteService } from './shared/services/dados-responsavel-dependente.service';
+import { DadosResponsavelDependenteService } from './shared/services/dados-responsavel-dependente.service';
 
 @NgModule({
   declarations: [
@@ -60,8 +59,8 @@ import { DadosResponsavelDependenteService as DadosResponsavelDependenteService 
     SharedComponentModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule,
-    NgxQRCodeModule
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   providers: [
     DadosResponsavelDependenteService

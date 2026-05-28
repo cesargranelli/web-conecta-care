@@ -15,6 +15,7 @@ declare var jQuery: any;
 declare function carregarTarjaAzul(): void; //Carrega a funcao carregarTarjaAzul() do app.js
 
 @Component({
+  standalone: false,
   selector: 'app-modal-criar-tratamento',
   templateUrl: './modal-criar-tratamento.component.html',
   styleUrls: ['./modal-criar-tratamento.component.css'],

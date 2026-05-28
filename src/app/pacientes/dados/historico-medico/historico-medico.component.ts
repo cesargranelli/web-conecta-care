@@ -8,6 +8,7 @@ import { HistoricoMedicoPaciente } from '../../classes/historico-medico-paciente
 import { HistoricoMedicoService } from '../../services/historico-medico.service';
 
 @Component({
+  standalone: false,
   selector: 'app-historico-medico',
   templateUrl: './historico-medico.component.html',
   styleUrls: ['./historico-medico.component.css']

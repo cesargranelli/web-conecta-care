@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-informacoes-gerais',
   templateUrl: './cadastro-informacoes-gerais.component.html',
   styleUrls: ['./cadastro-informacoes-gerais.component.css'],

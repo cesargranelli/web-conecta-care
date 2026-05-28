@@ -6,6 +6,7 @@ import {Evento} from '../models/evento.class';
 import {map, tap} from 'rxjs/operators';
 
 @Component({
+  standalone: false,
   selector: 'app-evento-detalhe',
   templateUrl: './evento-detalhe.component.html',
   styleUrls: ['./evento-detalhe.component.css']

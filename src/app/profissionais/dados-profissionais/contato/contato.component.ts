@@ -15,6 +15,7 @@ import { DominioService } from 'src/app/services/dominio.service';
 import { Pais } from 'src/app/classes/pais.class';
 
 @Component({
+  standalone: false,
   selector: 'app-contato',
   templateUrl: './contato.component.html',
   styleUrls: ['./contato.component.css']

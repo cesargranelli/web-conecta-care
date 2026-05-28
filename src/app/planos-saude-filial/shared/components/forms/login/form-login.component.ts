@@ -6,6 +6,7 @@ import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 @Component({
+  standalone: false,
   selector: 'app-form-login-filial',
   templateUrl: './form-login.component.html',
   styleUrls: ['./form-login.component.css']

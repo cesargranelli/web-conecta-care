@@ -11,6 +11,7 @@ import {map} from 'rxjs/operators';
 declare var jQuery: any;
 
 @Component({
+  standalone: false,
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
   styleUrls: ['./eventos.component.css'],

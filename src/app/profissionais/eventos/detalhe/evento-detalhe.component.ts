@@ -6,6 +6,7 @@ import {SharedLoadingService} from 'src/app/shared/services/shared-loading.servi
 import {map, tap} from 'rxjs/operators';
 
 @Component({
+  standalone: false,
   selector: 'app-evento-detalhe',
   templateUrl: './evento-detalhe.component.html',
   styleUrls: ['./evento-detalhe.component.css']

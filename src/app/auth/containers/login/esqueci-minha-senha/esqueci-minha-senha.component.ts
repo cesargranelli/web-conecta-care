@@ -9,6 +9,7 @@ import {InputValidationHas} from 'src/app/shared/validations/input-validation-ha
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-esqueci-minha-senha',
   templateUrl: './esqueci-minha-senha.component.html',
   styleUrls: ['./esqueci-minha-senha.component.css']
