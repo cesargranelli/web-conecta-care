@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../auth/guards/auth.guard';
+import { authGuard } from '../auth/guards/auth.guard';
 import { DadosComponent } from '../pacientes/dados/dados.component';
 import { LoginComponent } from '../pacientes/dados/login/login.component';
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
@@ -29,7 +29,7 @@ import { HistoricoMedicoComponent } from '../pacientes/dados/historico-medico/hi
 const routes: Routes = [
   {
     path: 'homecares',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     children: [
       {
         path: ':homecare_id',

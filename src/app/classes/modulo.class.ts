@@ -1,33 +1,36 @@
 import { Modulo as ModuloEnum } from '../enums/modulo.enum';
 
-export class Modulo {
+export class Module {
 
-  constructor(private _name?: string) {
-  }
+  constructor(private _name?: string) {}
 
-  public getNome() {
+  getName(): string | undefined {
     return this._name;
   }
 
-  public setModulo(nomeModulo: string): void {
-    this._name = nomeModulo;
+  setModule(name: string): void {
+    this._name = name;
   }
 
-  public getModulo(): ModuloEnum {
+  getModule(): ModuloEnum {
     switch (this._name) {
-      case 'pacientes':
-        return ModuloEnum.Paciente;
-      case 'profissionais':
-        return ModuloEnum.Profissional;
-      case 'homecares':
-        return ModuloEnum.Homecare;
+      case 'pacientes':      return ModuloEnum.Paciente;
+      case 'profissionais':  return ModuloEnum.Profissional;
+      case 'homecares':      return ModuloEnum.Homecare;
       case 'planos-saude':
-        return ModuloEnum.PlanoSaude;
-      case 'planos-saude-filial':
-        return ModuloEnum.PlanoSaude;
-      default:
-        break;
+      case 'planos-saude-filial': return ModuloEnum.PlanoSaude;
+      default:               return undefined!;
     }
   }
 
+  // --------------- legacy aliases (kept for backward compatibility) ---------------
+  /** @deprecated Use getName() */
+  getNome(): string | undefined { return this.getName(); }
+  /** @deprecated Use setModule() */
+  setModulo(name: string): void { this.setModule(name); }
+  /** @deprecated Use getModule() */
+  getModulo(): ModuloEnum { return this.getModule(); }
 }
+
+/** @deprecated Use Module instead */
+export { Module as Modulo };

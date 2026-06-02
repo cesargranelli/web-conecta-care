@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { TokenInterceptor } from '../auth/token.interceptor';
 import { CardVerDadosComponent } from './components/card/card-ver-dados/card-ver-dados.component';
 import { CarreiraComponent } from './dados-profissionais/carreira/carreira.component';
 import { DadosComplementoComponent } from './dados-profissionais/complemento/dados-complemento.component';
@@ -39,16 +37,7 @@ import { ProfissionaisComponent } from './profissionais.component';
     ],
     imports: [CommonModule, ReactiveFormsModule, ProfissionaisRoutingModule, NgxMaskDirective, NgxMaskPipe],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    exports: [
-        CardVerDadosComponent
-    ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: TokenInterceptor,
-            multi: true
-        }
-    ]
+    exports: [CardVerDadosComponent]
 })
 export class ProfissionaisModule {
 }

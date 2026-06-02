@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../auth/guards/auth.guard';
+import { authGuard } from '../auth/guards/auth.guard';
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
 import { CadastroEnderecoComponent } from './cadastro/endereco/cadastro-endereco.component';
 import { CadastroLoginComponent } from './cadastro/login/cadastro-login.component';
@@ -15,7 +15,7 @@ import { PlanosSaudeFilialComponent } from './planos-saude-filial.component';
 const routes: Routes = [
   {
     path: 'planos-saude',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     children: [
       {
         path: ':id',
@@ -40,7 +40,7 @@ const routes: Routes = [
   },
   {
     path: 'planos-saude-filial',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     children: [
       {
         path: ':id',

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../auth/guards/auth.guard';
+import { authGuard } from '../auth/guards/auth.guard';
 import { CadastroComplementoComponent } from './cadastro/complemento/cadastro-complemento.component';
 import { CadastroContatoComponent } from './cadastro/contato/cadastro-contato.component';
 import { CadastroDependenteCpfComponent } from './cadastro/dependente-cpf/cadastro-dependente-cpf.component';
@@ -19,7 +19,7 @@ import { PacientesComponent } from './pacientes.component';
 const routes: Routes = [
   {
     path: 'pacientes',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     children: [
       {
         path: '',

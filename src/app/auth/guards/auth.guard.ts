@@ -1,31 +1,14 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Valid } from 'src/app/services/feat/Valid';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
 import { SharedTokenService } from 'src/app/shared/services/shared-token.service';
-import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { RoleConverter } from 'src/app/utils/role.converter';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate {
+export const authGuard: CanActivateFn = () => {
+  const tokenService = inject(SharedTokenService);
+  const router = inject(Router);
 
-  private converter: RoleConverter = new RoleConverter();
-
-  constructor(
-    private _tokenService: SharedTokenService,
-    private _validService: SharedValidService,
-    private _router: Router
-  ) { }
-
-  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    let valid: Valid = this._validService.getValid();
-    if (this._tokenService.isLoggedIn()) {
-      return this._tokenService.isLoggedIn();
-    } else {
-      this._router.navigate([`/login`]);
-    }
+  if (tokenService.isLoggedIn()) {
+    return true;
   }
 
-}
+  return router.createUrlTree(['/login']);
+};
