@@ -15,14 +15,12 @@ import { InformacoesLoginComponent } from './dados/login/informacoes-login.compo
 import { HomeCaresRoutingModule } from './homecares-routing.module';
 import { HomeCaresComponent } from './homecares.component';
 import { CardAtendimentosComponent } from './shared/components/card-atendimentos/card-atendimentos.component';
-import { CardVerDadosComponent } from './shared/components/card-ver-dados/card-ver-dados.component';
 import { FormContatoComponent } from './shared/components/forms/contato/form-contato.component';
 import { FormEnderecoComponent } from './shared/components/forms/endereco/form-endereco.component';
 import { FormHomeCareComponent } from './shared/components/forms/homecare/form-homecare.component';
 import { ModalCriarTratamentoComponent } from './shared/components/modal/criar-tratamento/modal-criar-tratamento.component';
 import { ModalDetalheAtendimentoComponent } from './shared/components/modal/detalhe-atendimento/modal-detalhe-atendimento.component';
 import { ProntuarioComponent } from './prontuario/prontuario.component';
-import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
 import { TratamentoAtendimentoComponent } from './tratamento/atendimento/atendimento/tratamento-atendimento.component';
 import { TratamentoListaAtendimentosComponent } from './tratamento/atendimento/lista-atendimentos/tratamento-lista-atendimentos.component';
 import { NovoAtendimentoComponent } from './tratamento/atendimento/novo-atendimento/novo-atendimento.component';
@@ -48,8 +46,6 @@ import { NgxLoadingModule } from 'ngx-loading';
     CadastroHomeCareComponent,
     CadastroEnderecoComponent,
     CadastroContatoComponent,
-    SelectPickerComponent,
-    CardVerDadosComponent,
     DadosHomecaresComponent,
     InformacoesLoginComponent,
     InformacoesContatoComponent,

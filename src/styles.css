@@ -1,60 +1,16 @@
-/* ── Argon Design System — global integration ── */
-
-/* Custom fonts */
-@font-face {
-  font-family: 'montserrat';
-  src: url('app/shared/fonts/Montserrat-Regular.ttf');
-}
-
-/* ── Design tokens (Argon palette) ── */
-:root {
-  /* Brand */
-  --cc-primary:       #5e72e4;
-  --cc-primary-dark:  #233dd2;
-  --cc-default:       #172b4d;
-  --cc-info:          #11cdef;
-  --cc-success:       #2dce89;
-  --cc-warning:       #fb6340;
-  --cc-danger:        #f5365c;
-
-  /* Neutrals */
-  --cc-text:          #32325d;
-  --cc-text-muted:    #8898aa;
-  --cc-border:        #dee2e6;
-  --cc-bg-page:       #f4f5f7;
-  --cc-bg-card:       #ffffff;
-
-  /* Shape */
-  --cc-radius:        0.375rem;
-  --cc-radius-lg:     0.75rem;
-  --cc-shadow:        0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
-  --cc-shadow-sm:     0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-
-  /* Typography */
-  --cc-font:          'Open Sans', 'Nunito Sans', sans-serif;
-  --cc-font-heading:  'Nunito Sans', 'Open Sans', sans-serif;
-}
-
-/* ── Base reset ── */
 *, *::before, *::after { box-sizing: border-box; }
-
 html, body { height: 100%; margin: 0; padding: 0; }
 
 body {
-  font-family: var(--cc-font);
-  font-size: 1rem;
-  color: var(--cc-text);
-  background-color: var(--cc-bg-page);
+  font-family: 'Inter', var(--p-font-family, system-ui, sans-serif);
+  color: var(--p-text-color);
+  background-color: var(--p-surface-ground);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Neutralise Argon globals that bleed into Angular components ──
-   Argon ships Bootstrap 4 resets — these rules ensure our standalone
-   components using :host scoping aren't double-reset in odd ways      */
-
-/* Argon sets ul/ol margin-bottom:1rem — fine globally, components override via :host */
-h1, h2, h3, h4, h5, h6 { font-family: var(--cc-font-heading); }
-
-/* Angular Material typography integration */
-.mat-typography { font-family: var(--cc-font); }
-.card-title     { font-family: var(--cc-font-heading); }
+:root {
+  --cc-shadow:    0 10px 30px rgba(0, 0, 0, 0.08);
+  --cc-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --cc-default:   #1e293b;
+}

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { authGuard } from '../auth/guards/auth.guard';
 import { CarreiraComponent } from './dados-profissionais/carreira/carreira.component';
 import { DadosComplementoComponent } from './dados-profissionais/complemento/dados-complemento.component';
 import { DadosContaComponent } from './dados-profissionais/conta/dados-conta.component';
@@ -18,7 +17,6 @@ import { ProfissionaisComponent } from './profissionais.component';
 const routes: Routes = [
   {
     path: 'profissionais',
-    canActivate: [authGuard],
     children: [
       {
         path: ':id',

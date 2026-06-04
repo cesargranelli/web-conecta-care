@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { CardVerDadosComponent } from './components/card/card-ver-dados/card-ver-dados.component';
+import { SharedComponentModule } from '../shared/components/shared-component.module';
 import { CarreiraComponent } from './dados-profissionais/carreira/carreira.component';
 import { DadosComplementoComponent } from './dados-profissionais/complemento/dados-complemento.component';
 import { DadosContaComponent } from './dados-profissionais/conta/dados-conta.component';
@@ -31,13 +31,11 @@ import { ProfissionaisComponent } from './profissionais.component';
         EscolaridadeComponent,
         DadosComplementoComponent,
         DadosContaComponent,
-        CardVerDadosComponent,
         EventosComponent,
         EventoDetalheComponent,
     ],
-    imports: [CommonModule, ReactiveFormsModule, ProfissionaisRoutingModule, NgxMaskDirective, NgxMaskPipe],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    exports: [CardVerDadosComponent]
+    imports: [CommonModule, ReactiveFormsModule, ProfissionaisRoutingModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProfissionaisModule {
 }

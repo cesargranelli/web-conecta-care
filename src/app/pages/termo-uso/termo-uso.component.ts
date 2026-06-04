@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [],
   selector: 'app-termo-uso',
   templateUrl: './termo-uso.component.html',
   styleUrls: ['./termo-uso.component.css']

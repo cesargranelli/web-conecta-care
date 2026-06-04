@@ -24,17 +24,14 @@
               { "glob": ".htaccess", "input": "src" }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/assets/css/argon-design-system.css",
+              "node_modules/primeicons/primeicons.css",
               "src/styles.css"
             ],
             "scripts": [
               "src/assets/js/core/jquery.min.js",
-              "src/assets/js/core/popper.min.js",
               "src/assets/js/plugins/moment-with-locales.js",
               "src/assets/js/plugins/sweetalert2.js",
-              "src/assets/js/plugins/jquery.dataTables.min.js",
-              "src/assets/js/argon-design-system.js"
+              "src/assets/js/plugins/jquery.dataTables.min.js"
             ]
           },
           "configurations": {

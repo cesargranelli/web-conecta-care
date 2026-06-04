@@ -19,7 +19,6 @@ import { InformacoesGeraisComponent } from './dados/informacoes-gerais/informaco
 import { LoginComponent } from './dados/login/login.component';
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { PacientesComponent } from './pacientes.component';
-import { CardVerDadosComponent } from './shared/components/card-ver-dados/card-ver-dados.component';
 import { FormComplementoComponent } from './shared/components/forms/complemento/form-complemento.component';
 import { FormContatoComponent } from './shared/components/forms/contato/form-contato.component';
 import { FormEnderecoComponent } from './shared/components/forms/endereco/form-endereco.component';
@@ -48,7 +47,6 @@ import { DadosResponsavelDependenteService } from './shared/services/dados-respo
     FormHistoricoMedicoComponent,
     FormComplementoComponent,
     FormEnderecoComponent,
-    CardVerDadosComponent,
     QrcodeComponent,
     PrettyStringPipe,
     CadastroDependenteCpfComponent

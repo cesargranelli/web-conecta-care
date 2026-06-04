@@ -8,7 +8,8 @@ import { SharedTokenService } from 'src/app/shared/services/shared-token.service
 import Swal from 'sweetalert2';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [],
   selector: 'app-confirmacao-nova-senha',
   templateUrl: './confirmacao-nova-senha.component.html',
   styleUrls: ['./confirmacao-nova-senha.component.css']

@@ -1,37 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from './components/layout/footer/footer.component';
+import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { Modulo } from './enums/modulo.enum';
 import { Valid } from './services/feat/Valid';
 import { SharedLoadingService } from './shared/services/shared-loading.service';
 import { SharedValidService } from './shared/services/shared-valid.service';
 
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'app-root',
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  private readonly _valid = inject(SharedValidService);
 
-  readonly title = 'web-connecta';
-  loading = false;
-
-  constructor(
-    private _loading: SharedLoadingService,
-    private _valid: SharedValidService,
-  ) {
-    this._loading.changeEmitted$.subscribe(v => this.loading = v);
+  constructor(private _loading: SharedLoadingService) {
+    this._loading.changeEmitted$.subscribe();
   }
 
   get isHomePage(): boolean {
     return window.location.pathname === '/home';
   }
 
-  /** Returns the first Valid found across all modules, or null if unauthenticated. */
   get activeValid(): Valid | null {
-    const modules: Array<Modulo | string> = [
+    const modules: Array<string> = [
       Modulo.Paciente, Modulo.Profissional, Modulo.Homecare,
       Modulo.PlanoSaude, Modulo.Root, 'valid',
     ];
-    return modules.map(m => this._valid.getValid(m as string)).find(v => !!v) ?? null;
+    return modules.map(m => this._valid.getValid(m)).find(v => !!v) ?? null;
   }
 }

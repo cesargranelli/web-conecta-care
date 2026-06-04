@@ -1,0 +1,956 @@
+{
+  "meta": {
+    "projeto": "web-conecta-care",
+    "framework": "Angular 9 (bootstrap) + Angular 17+ standalone/signals",
+    "gerado_em": "2026-06-04",
+    "total_arquivos_ts": 350,
+    "modulos_lazy": ["admin", "pacientes", "profissionais", "homecares", "planos-saude", "planos-saude-filial"],
+    "arquitetura": "Standalone bootstrap (main.ts -> bootstrapApplication), módulos NgModule para features legadas",
+    "interceptors": ["tokenInterceptor", "headersInterceptor", "sizeBodyInterceptor"],
+    "guard": "authGuard (CanActivateFn)",
+    "ui_libs": ["PrimeNG (Aura theme)", "ngx-mask", "sweetalert2", "ng-recaptcha-2", "FullCalendar", "ngx-loading"],
+    "environment_vars": ["environment.apiConnecta", "environment.apiCep"]
+  },
+
+  "core": {
+    "bootstrap": {
+      "path": "src/main.ts",
+      "description": "bootstrapApplication(AppComponent, appConfig)"
+    },
+    "app_component": {
+      "path": "src/app/app.component.ts",
+      "selector": "app-root",
+      "standalone": true,
+      "imports": ["RouterOutlet", "NavbarComponent", "FooterComponent"],
+      "description": "Shell raiz; gerencia loading global e expõe activeValid para o template"
+    },
+    "app_config": {
+      "path": "src/app/app.config.ts",
+      "providers": [
+        "provideZoneChangeDetection",
+        "provideRouter(APP_ROUTES, withComponentInputBinding, withRouterConfig(paramsInheritanceStrategy:always))",
+        "provideHttpClient(withInterceptors([tokenInterceptor, headersInterceptor, sizeBodyInterceptor]))",
+        "provideAnimationsAsync",
+        "providePrimeNG (Aura theme, darkModeSelector:false)",
+        "provideNgxMask"
+      ]
+    },
+    "app_routes": {
+      "path": "src/app/app.routes.ts",
+      "routes": [
+        { "path": "", "redirectTo": "login" },
+        { "path": "login", "component": "LoginComponent" },
+        { "path": "login/manutencao-senha", "component": "ManutencaoSenhaComponent" },
+        { "path": "login/esqueci-minha-senha", "component": "EsqueciMinhaSenhaComponent" },
+        { "path": "login/nova-senha/:id", "component": "NovaSenhaComponent" },
+        { "path": "admin/login", "component": "LoginAdminComponent" },
+        { "path": "cadastro", "component": "RegisterComponent" },
+        { "path": "cadastro/profissionais/:id", "guard": "authGuard", "lazy": "CADASTRO_PROFISSIONAL_ROUTES" },
+        { "path": "confirmacao-nova-senha/:token", "lazy": "ConfirmacaoNovaSenhaComponent" },
+        { "path": "espera-confirmacao-email", "lazy": "EsperaConfirmacaoEmailComponent" },
+        { "path": "termo-e-condicoes-de-uso", "lazy": "TermoUsoComponent" },
+        { "path": "politica-de-privacidade", "lazy": "TermoPrivacidadeComponent" },
+        { "path": "confirmacao-cadastro/:token", "lazy": "ConfirmacaoCadastroComponent" },
+        { "path": "pacientes", "guard": "authGuard", "lazy": "PacientesModule" },
+        { "path": "profissionais", "guard": "authGuard", "lazy": "ProfissionaisModule" },
+        { "path": "homecares", "guard": "authGuard", "lazy": "HomeCaresModule" },
+        { "path": "planos-saude", "guard": "authGuard", "lazy": "PlanosSaudeModule" },
+        { "path": "planos-saude-filial", "guard": "authGuard", "lazy": "PlanosSaudeFilialModule" },
+        { "path": "admin", "lazy": "AdminModule" },
+        { "path": "**", "redirectTo": "login" }
+      ]
+    }
+  },
+
+  "auth": {
+    "routes": {
+      "path": "src/app/auth/auth.routes.ts",
+      "file": "AUTH_ROUTES",
+      "entries": [
+        { "path": "", "component": "LoginComponent" },
+        { "path": "login", "component": "LoginComponent" },
+        { "path": "login/manutencao-senha", "component": "ManutencaoSenhaComponent" },
+        { "path": "login/esqueci-minha-senha", "component": "EsqueciMinhaSenhaComponent" },
+        { "path": "login/nova-senha/:id", "component": "NovaSenhaComponent" },
+        { "path": "admin/login", "component": "LoginAdminComponent" }
+      ]
+    },
+    "guards": {
+      "auth_guard": {
+        "path": "src/app/auth/guards/auth.guard.ts",
+        "type": "CanActivateFn",
+        "logica": "Verifica SharedTokenService.isLoggedIn(); se falso redireciona para /login"
+      }
+    },
+    "interceptors": {
+      "token_interceptor": {
+        "path": "src/app/auth/interceptors/token.interceptor.ts",
+        "logica": "Injeta header Authorization: Bearer <token> em requisições para environment.apiConnecta; trata HttpErrorResponse"
+      },
+      "headers_interceptor": {
+        "path": "src/app/auth/interceptors/headers.interceptor.ts",
+        "logica": "Adiciona Content-Type: application/json a todas as requisições"
+      },
+      "size_body_interceptor": {
+        "path": "src/app/auth/interceptors/size-body.interceptor.ts",
+        "logica": "Calcula e loga no console o tamanho do body da requisição (bytes/KiB/MiB); sem bloqueio"
+      }
+    },
+    "services": {
+      "auth_service": {
+        "path": "src/app/auth/services/auth.service.ts",
+        "providedIn": "root",
+        "endpoint_base": "${apiConnecta}",
+        "metodos": [
+          { "nome": "login", "http": "POST", "url": "/login", "descricao": "Autentica usuário; armazena token via SharedTokenService" },
+          { "nome": "storeTokens", "http": null, "descricao": "Chama SharedTokenService.setToken" },
+          { "nome": "removeTokens", "http": null, "descricao": "Remove token e valid do localStorage" }
+        ]
+      },
+      "auth_admin_service": {
+        "path": "src/app/auth/services/auth-admin.service.ts",
+        "providedIn": "root",
+        "endpoint_base": "${apiConnecta}",
+        "metodos": [
+          { "nome": "login", "http": "POST", "url": "/admin/login", "descricao": "Autentica admin; armazena token e valid" },
+          { "nome": "storeTokens", "http": null, "descricao": "Persiste token + valid (com role convertida)" },
+          { "nome": "removeTokens", "http": null }
+        ]
+      },
+      "login_service": {
+        "path": "src/app/auth/services/login.service.ts",
+        "note": "Duplicata de src/app/services/login.service.ts",
+        "providedIn": "root",
+        "endpoint_base": "${apiConnecta}/login",
+        "metodos": [
+          { "nome": "verLogin", "http": "GET", "url": "/login" },
+          { "nome": "esqueciMinhaSenha", "http": "POST", "url": "/login/esqueci-minha-senha" },
+          { "nome": "validaToken", "http": "POST", "url": "/login/validacao" },
+          { "nome": "novaSenha", "http": "PATCH", "url": "/login/nova-senha" },
+          { "nome": "buscarValid", "http": "POST", "url": "/login/valid" }
+        ]
+      }
+    },
+    "components": {
+      "login": {
+        "path": "src/app/auth/containers/login/login.component.ts",
+        "selector": "app-login",
+        "standalone": true,
+        "imports": ["CommonModule", "ReactiveFormsModule", "RouterModule"],
+        "descricao": "Login principal; seleciona módulo (pacientes/profissionais/etc); usa AuthService + UsuarioService"
+      },
+      "login_admin": {
+        "path": "src/app/auth/containers/login-admin/login-admin.component.ts",
+        "selector": "app-login-admin",
+        "standalone": true,
+        "imports": ["CommonModule", "ReactiveFormsModule", "RouterModule"],
+        "descricao": "Login exclusivo para admin; usa AuthAdminService; navega para admin/eventos"
+      },
+      "esqueci_minha_senha": {
+        "path": "src/app/auth/containers/login/esqueci-minha-senha/esqueci-minha-senha.component.ts",
+        "standalone": "unknown (não lido)"
+      },
+      "manutencao_senha": {
+        "path": "src/app/auth/containers/login/manutencao-senha/manutencao-senha.component.ts",
+        "standalone": "unknown (não lido)"
+      },
+      "nova_senha": {
+        "path": "src/app/auth/containers/login/nova-senha/nova-senha.component.ts",
+        "standalone": "unknown (não lido)"
+      }
+    }
+  },
+
+  "admin": {
+    "module": {
+      "path": "src/app/admin/admin.module.ts",
+      "standalone": false,
+      "declarations": ["EventosComponent", "EventoCadastroComponent", "EventoDetalheComponent"],
+      "imports": ["CommonModule", "ReactiveFormsModule", "AdminRoutingModule", "NgxMaskDirective", "NgxMaskPipe"]
+    },
+    "routing": {
+      "path": "src/app/admin/admin-routing.module.ts",
+      "routes": [
+        { "path": "admin", "redirectTo": "admin/login" },
+        { "path": "admin/eventos", "component": "EventosComponent" },
+        { "path": "admin/eventos/cadastro", "component": "EventoCadastroComponent" },
+        { "path": "admin/eventos/:id", "component": "EventoDetalheComponent" }
+      ]
+    },
+    "components": {
+      "eventos": {
+        "path": "src/app/admin/eventos/eventos.component.ts",
+        "standalone": false
+      },
+      "evento_cadastro": {
+        "path": "src/app/admin/eventos/cadastro/evento-cadastro.component.ts",
+        "standalone": false
+      },
+      "evento_detalhe": {
+        "path": "src/app/admin/eventos/detalhe/evento-detalhe.component.ts",
+        "standalone": false
+      }
+    },
+    "models": [
+      "src/app/admin/models/login-admin.model.ts",
+      "src/app/admin/models/token-admin.model.ts",
+      "src/app/admin/eventos/models/evento.class.ts"
+    ]
+  },
+
+  "pacientes": {
+    "module": {
+      "path": "src/app/pacientes/pacientes.module.ts",
+      "standalone": false,
+      "declarations": [
+        "PacientesComponent", "CadastroInformacoesGeraisComponent", "CadastroEnderecoComponent",
+        "CadastroContatoComponent", "CadastroComplementoComponent", "CadastroHistoricoMedicoComponent",
+        "FormContatoComponent", "DadosComponent", "ComplementoComponent", "ContatoComponent",
+        "EnderecoComponent", "HistoricoMedicoComponent", "InformacoesGeraisComponent",
+        "LoginComponent", "FormInformacoesGeraisComponent", "FormHistoricoMedicoComponent",
+        "FormComplementoComponent", "FormEnderecoComponent", "CardVerDadosComponent",
+        "QrcodeComponent", "PrettyStringPipe", "CadastroDependenteCpfComponent"
+      ],
+      "imports": ["CommonModule", "PacientesRoutingModule", "SharedComponentModule", "FormsModule", "ReactiveFormsModule", "NgxMaskDirective", "NgxMaskPipe"]
+    },
+    "routing": {
+      "path": "src/app/pacientes/pacientes-routing.module.ts",
+      "guard": "authGuard",
+      "routes_raiz": "pacientes/:paciente_id",
+      "sub_routes": [
+        "pacientes/cadastro-dependente-cpf",
+        "pacientes/:id (PacientesComponent)",
+        "pacientes/:id/cadastro/informacoes-gerais",
+        "pacientes/:id/cadastro/endereco",
+        "pacientes/:id/cadastro/contato",
+        "pacientes/:id/cadastro/complemento",
+        "pacientes/:id/cadastro/historico-medico",
+        "pacientes/:id/dados (DadosComponent)",
+        "pacientes/:id/dados/login",
+        "pacientes/:id/dados/informacoes-gerais",
+        "pacientes/:id/dados/endereco",
+        "pacientes/:id/dados/contato",
+        "pacientes/:id/dados/complemento",
+        "pacientes/:id/dados/historico-medico"
+      ]
+    },
+    "services": {
+      "paciente_service": {
+        "path": "src/app/pacientes/services/paciente.service.ts",
+        "endpoint_base": "${apiConnecta}/api/v1/paciente",
+        "metodos": [
+          { "nome": "registrar", "http": "POST", "url": "/api/v1/paciente" },
+          { "nome": "alterar", "http": "PUT", "url": "/api/v1/paciente" },
+          { "nome": "pesquisarPorCpf", "http": "GET", "url": "/api/v1/paciente?documento=" },
+          { "nome": "pesquisarPorId", "http": "GET", "url": "/api/v1/paciente/:id" }
+        ]
+      },
+      "atendimento_service": { "path": "src/app/pacientes/services/atendimento.service.ts" },
+      "contato_service": { "path": "src/app/pacientes/services/contato.service.ts" },
+      "endereco_service": { "path": "src/app/pacientes/services/endereco.service.ts" },
+      "estado_civil_service": { "path": "src/app/pacientes/services/estado-civil.service.ts" },
+      "estado_service": { "path": "src/app/pacientes/services/estado.service.ts" },
+      "genero_service": { "path": "src/app/pacientes/services/genero.service.ts" },
+      "historico_medico_service": { "path": "src/app/pacientes/services/historico-medico.service.ts" },
+      "tipo_sanguineo_service": { "path": "src/app/pacientes/services/tipo-sanguineo.service.ts" },
+      "dados_responsavel_dependente": { "path": "src/app/pacientes/shared/services/dados-responsavel-dependente.service.ts" }
+    },
+    "classes": [
+      "acompanhante.class.ts", "atendimento-protocolo.class.ts", "contato-paciente.class.ts",
+      "endereco-paciente.class.ts", "historico-medico-paciente.class.ts", "paciente.class.ts",
+      "parentesco.class.ts", "protocolo.class.ts", "responsavel.class.ts",
+      "tipo-paciente.class.ts", "tipo-sanguineo-paciente.class.ts"
+    ]
+  },
+
+  "profissionais": {
+    "module": {
+      "path": "src/app/profissionais/profissionais.module.ts",
+      "standalone": false,
+      "declarations": [
+        "ProfissionaisComponent", "DadosProfissionaisComponent", "DadosInformacoesGeraisComponent",
+        "LoginComponent", "EnderecoComponent", "ContatoComponent", "CarreiraComponent",
+        "ExperienciaComponent", "EscolaridadeComponent", "DadosComplementoComponent",
+        "DadosContaComponent", "CardVerDadosComponent", "EventosComponent", "EventoDetalheComponent"
+      ],
+      "imports": ["CommonModule", "ReactiveFormsModule", "ProfissionaisRoutingModule", "NgxMaskDirective", "NgxMaskPipe"]
+    },
+    "routing": {
+      "path": "src/app/profissionais/profissionais-routing.module.ts",
+      "guard": "authGuard",
+      "routes_raiz": "profissionais/:id",
+      "sub_routes": [
+        "profissionais/:id (ProfissionaisComponent)",
+        "profissionais/:id/dados-profissionais",
+        "profissionais/:id/dados-profissionais/login",
+        "profissionais/:id/dados-profissionais/informacoes-gerais",
+        "profissionais/:id/dados-profissionais/endereco",
+        "profissionais/:id/dados-profissionais/contato",
+        "profissionais/:id/dados-profissionais/carreira",
+        "profissionais/:id/dados-profissionais/experiencia",
+        "profissionais/:id/dados-profissionais/escolaridade",
+        "profissionais/:id/dados-profissionais/complemento",
+        "profissionais/:id/dados-profissionais/conta",
+        "profissionais/:id/eventos",
+        "profissionais/:id/eventos/:idEvento"
+      ]
+    },
+    "registration_routes": {
+      "path": "src/app/components/cadastro/profissional/cadastro-profissional.routes.ts",
+      "nome": "CADASTRO_PROFISSIONAL_ROUTES",
+      "access": "authGuard via app.routes.ts"
+    },
+    "registration_components": [
+      "src/app/components/cadastro/profissional/informacoes-gerais/cadastro-informacoes-gerais.component.ts",
+      "src/app/components/cadastro/profissional/endereco/endereco.component.ts",
+      "src/app/components/cadastro/profissional/contato/contato.component.ts",
+      "src/app/components/cadastro/profissional/carreira/carreira.component.ts",
+      "src/app/components/cadastro/profissional/escolaridade/escolaridade.component.ts",
+      "src/app/components/cadastro/profissional/experiencia/experiencia.component.ts",
+      "src/app/components/cadastro/profissional/complemento/cadastro-complemento.component.ts",
+      "src/app/components/cadastro/profissional/conta/cadastro-conta.component.ts"
+    ]
+  },
+
+  "homecares": {
+    "module": {
+      "path": "src/app/homecares/homecares.module.ts",
+      "standalone": false,
+      "imports_extras": ["FullCalendarModule", "NgxLoadingModule"],
+      "declarations_count": 34
+    },
+    "routing": {
+      "path": "src/app/homecares/homecares-routing.module.ts",
+      "guard": "authGuard",
+      "routes_raiz": "homecares/:homecare_id",
+      "sub_routes": [
+        "homecares/:id (HomeCaresComponent)",
+        "homecares/:id/cadastro/homecare",
+        "homecares/:id/cadastro/endereco",
+        "homecares/:id/cadastro/contato",
+        "homecares/:id/dados",
+        "homecares/:id/dados/login",
+        "homecares/:id/dados/homecare",
+        "homecares/:id/dados/endereco",
+        "homecares/:id/dados/contato",
+        "homecares/:id/prontuario/:prontuario_id",
+        "homecares/:id/tratamento/solicitacao",
+        "homecares/:id/tratamento/preview",
+        "homecares/:id/tratamento/em-andamento",
+        "homecares/:id/tratamento/em-andamento/:tratamento_id",
+        "homecares/:id/tratamento/em-andamento/:tratamento_id/novo-atendimento",
+        "homecares/:id/profissional",
+        "homecares/:id/paciente",
+        "homecares/:id/paciente/:paciente_id (dados completos do paciente reusados)"
+      ]
+    },
+    "services": {
+      "homecare_service": {
+        "path": "src/app/homecares/services/homecare.service.ts",
+        "endpoint_base": "${apiConnecta}/homecares",
+        "metodos": [
+          { "nome": "cadastrar", "http": "POST", "url": "/homecares" },
+          { "nome": "alterar", "http": "PUT", "url": "/homecares" },
+          { "nome": "consultar", "http": "GET", "url": "/homecares/:id" },
+          { "nome": "getAll", "http": "GET", "url": "/homecares" }
+        ]
+      },
+      "tratamento_service": {
+        "path": "src/app/homecares/services/tratamento.service.ts",
+        "endpoint_base": "${apiConnecta}/tratamentos",
+        "metodos": [
+          { "nome": "consultarProntuario", "http": "GET", "url": "/tratamentos/prontuario", "headers": ["idPaciente", "idHomeCare"] },
+          { "nome": "adicionarTratamento", "http": "POST", "url": "/tratamentos" },
+          { "nome": "consultarTratamentoEmAberto", "http": "GET", "url": "/tratamentos/aberto/paciente", "headers": ["pacienteId", "homeCareId"] },
+          { "nome": "listarTratamentoEmAberto", "http": "GET", "url": "/tratamentos/aberto", "headers": ["homeCareId"] },
+          { "nome": "encerrarTratamento", "http": "PUT", "url": "/tratamentos/encerramento" }
+        ]
+      },
+      "atendimento_service": {
+        "path": "src/app/homecares/services/atendimento.service.ts",
+        "endpoint_base": "${apiConnecta}/atendimentos",
+        "metodos": [
+          { "nome": "consultarResumo", "http": "GET", "url": "/atendimentos/resumo", "headers": ["idHomeCare"] },
+          { "nome": "consultarDetalhes", "http": "GET", "url": "/atendimentos/:id" },
+          { "nome": "adicionarTratamento", "http": "POST", "url": "/atendimentos" },
+          { "nome": "consultarPreview", "http": "GET", "url": "/atendimentos/preview", "headers": ["cpfProfissional", "cpfPaciente", "areaAtendimentoId", "statusAtendimentoId", "homeCareId", "periodoDe", "periodoAte"] },
+          { "nome": "downloadFile", "http": "GET", "url": "/atendimentos/preview/file", "responseType": "blob" }
+        ]
+      },
+      "paciente_service": { "path": "src/app/homecares/services/paciente.service.ts" },
+      "contato_service": { "path": "src/app/homecares/services/contato.service.ts" },
+      "endereco_service": { "path": "src/app/homecares/services/endereco.service.ts" },
+      "tratamento_storage_service": { "path": "src/app/homecares/services/tratamento-storage.service.ts", "descricao": "Estado local de tratamento em criação" }
+    },
+    "classes_count": 30,
+    "classes_path": "src/app/homecares/classes/"
+  },
+
+  "planos_saude": {
+    "module": {
+      "path": "src/app/planos-saude/planos-saude.module.ts",
+      "standalone": false,
+      "declarations": [
+        "PlanosSaudeComponent", "CadastroPlanoSaudeComponent", "CadastroEnderecoComponent",
+        "CadastroContatoComponent", "SelectPickerComponent", "CardVerDadosComponent",
+        "DadosPlanosSaudeComponent", "InformacoesLoginComponent", "InformacoesContatoComponent",
+        "InformacoesEnderecoComponent", "InformacoesPlanoSaudeComponent",
+        "FormPlanoSaudeComponent", "FormEnderecoComponent", "FormContatoComponent"
+      ]
+    },
+    "routing": {
+      "path": "src/app/planos-saude/planos-saude-routing.module.ts",
+      "guard": "authGuard",
+      "routes_raiz": "planos-saude/:id",
+      "sub_routes": [
+        "planos-saude/:id (PlanosSaudeComponent)",
+        "planos-saude/:id/cadastro/plano-saude",
+        "planos-saude/:id/cadastro/endereco",
+        "planos-saude/:id/cadastro/contato",
+        "planos-saude/:id/dados",
+        "planos-saude/:id/dados/login",
+        "planos-saude/:id/dados/plano-saude",
+        "planos-saude/:id/dados/endereco",
+        "planos-saude/:id/dados/contato"
+      ]
+    },
+    "services": {
+      "plano_saude_service": {
+        "path": "src/app/planos-saude/services/plano-saude.service.ts",
+        "endpoint_base": "${apiConnecta}/planos-saude",
+        "metodos": [
+          { "nome": "cadastrar", "http": "POST", "url": "/planos-saude" },
+          { "nome": "alterar", "http": "PUT", "url": "/planos-saude" },
+          { "nome": "consultar", "http": "GET", "url": "/planos-saude/:id" }
+        ]
+      },
+      "cadastro_planos_saude_service": {
+        "path": "src/app/planos-saude/services/cadastro-planos-saude.service.ts",
+        "descricao": "State holder para wizard de cadastro (sem HTTP)"
+      },
+      "contato_service": { "path": "src/app/planos-saude/services/contato.service.ts" },
+      "endereco_service": { "path": "src/app/planos-saude/services/endereco.service.ts" }
+    },
+    "classes": [
+      "contato-plano-saude.class.ts",
+      "endereco-plano-saude.class.ts",
+      "plano-saude.class.ts"
+    ]
+  },
+
+  "planos_saude_filial": {
+    "module": {
+      "path": "src/app/planos-saude-filial/planos-saude-filial.module.ts",
+      "standalone": false,
+      "declarations_extras": ["CadastroLoginComponent", "FormLoginComponent"]
+    },
+    "routing": {
+      "path": "src/app/planos-saude-filial/planos-saude-filial-routing.module.ts",
+      "guard": "authGuard",
+      "routes": [
+        "planos-saude/:id/cadastro/filial",
+        "planos-saude/:id/cadastro/filial/endereco",
+        "planos-saude/:id/cadastro/filial/contato",
+        "planos-saude/:id/cadastro/filial/login",
+        "planos-saude-filial/:id (PlanosSaudeFilialComponent)",
+        "planos-saude-filial/:id/dados",
+        "planos-saude-filial/:id/dados/login",
+        "planos-saude-filial/:id/dados/filial",
+        "planos-saude-filial/:id/dados/endereco",
+        "planos-saude-filial/:id/dados/contato"
+      ]
+    },
+    "services": {
+      "plano_saude_filial_service": {
+        "path": "src/app/planos-saude-filial/services/plano-saude-filial.service.ts",
+        "endpoint_base": "${apiConnecta}/planos-saude",
+        "metodos": [
+          { "nome": "cadastrar", "http": "POST", "url": "/planos-saude" },
+          { "nome": "alterar", "http": "PUT", "url": "/planos-saude" },
+          { "nome": "consultar", "http": "GET", "url": "/planos-saude/:id" },
+          { "nome": "listarMatriz", "http": "GET", "url": "/planos-saude/matriz" }
+        ]
+      },
+      "cadastro_planos_saude_filial_service": {
+        "path": "src/app/planos-saude-filial/services/cadastro-planos-saude-filial.service.ts",
+        "descricao": "State holder para wizard de cadastro filial (sem HTTP)"
+      },
+      "contato_service": { "path": "src/app/planos-saude-filial/services/contato.service.ts" },
+      "endereco_service": { "path": "src/app/planos-saude-filial/services/endereco.service.ts" }
+    },
+    "classes": [
+      "contato-plano-saude-filial.class.ts",
+      "endereco-plano-saude-filial.class.ts",
+      "plano-saude-filial.class.ts"
+    ]
+  },
+
+  "registration": {
+    "routes": {
+      "path": "src/app/registration/registration.routes.ts",
+      "nome": "CADASTRO_ROUTES",
+      "entries": [
+        { "path": "", "component": "RegisterComponent" },
+        { "path": ":modulo/:id/cadastro/login", "component": "RegistrationCredentialsComponent" }
+      ]
+    },
+    "components": {
+      "register": {
+        "path": "src/app/registration/register/register.component.ts",
+        "selector": "app-register",
+        "standalone": true,
+        "imports": ["CommonModule", "ReactiveFormsModule", "RouterModule", "NgxMaskDirective", "ButtonModule", "CardModule", "InputTextModule", "PasswordModule", "MessageModule"],
+        "descricao": "Wizard 3-steps: seleção de perfil -> documento (CPF/CNPJ) -> credenciais. Usa Angular Signals. Navega para /:perfil/:id/cadastro/login após sucesso"
+      },
+      "registration_document": {
+        "path": "src/app/registration/registration-document.component.ts"
+      },
+      "registration_type": {
+        "path": "src/app/registration/registration-type.component.ts"
+      }
+    },
+    "services": {
+      "registration_service": {
+        "path": "src/app/registration/services/registration.service.ts",
+        "providedIn": "root",
+        "endpoint_base": "${apiConnecta}",
+        "metodos": [
+          { "nome": "registerDocument", "http": "POST", "url": "/documentos" },
+          { "nome": "registerCredentials", "http": "POST", "url": "/usuarios" },
+          { "nome": "register", "http": "POST+POST", "descricao": "Combina registerDocument + registerCredentials via switchMap" }
+        ]
+      },
+      "email_service": {
+        "path": "src/app/registration/services/email.service.ts",
+        "endpoint_base": "${apiConnecta}/emails",
+        "metodos": [
+          { "nome": "send", "http": "POST", "url": "/emails" }
+        ]
+      }
+    },
+    "models": [
+      "src/app/registration/models/registration.model.ts (Profile, PROFILES[], RegistrationPayload, DocumentType, RegistrationStep)",
+      "src/app/registration/models/email-payload.model.ts"
+    ]
+  },
+
+  "shared": {
+    "module": {
+      "path": "src/app/shared/components/shared-component.module.ts",
+      "standalone": false,
+      "declarations": ["FormInformacoesLoginComponent", "FormEnderecoComponent", "BasicRecaptchaComponent", "FormPasswordValidationComponent"],
+      "exports": ["FormInformacoesLoginComponent", "FormEnderecoComponent", "FormPasswordValidationComponent"],
+      "imports": ["CommonModule", "ReactiveFormsModule", "RouterModule", "NgxMaskDirective", "NgxMaskPipe", "RecaptchaModule"]
+    },
+    "services": {
+      "shared_token_service": {
+        "path": "src/app/shared/services/shared-token.service.ts",
+        "providedIn": "root",
+        "descricao": "Gerencia JWT no localStorage (key='token'); emite evento via SharedEventTokenService",
+        "metodos": ["isLoggedIn()", "getToken()", "setToken(token)", "removeToken()"]
+      },
+      "shared_valid_service": {
+        "path": "src/app/shared/services/shared-valid.service.ts",
+        "providedIn": "root",
+        "descricao": "Gerencia objeto Valid no localStorage com chave dinâmica por módulo; emite evento via SharedEventValidService",
+        "metodos": ["isValidate(chave?)", "getValid(chave?)", "setValid(valid)", "removeValid(chave?)"]
+      },
+      "shared_loading_service": {
+        "path": "src/app/shared/services/shared-loading.service.ts",
+        "providedIn": "root",
+        "descricao": "Bus de eventos de loading; Subject<any> com changeEmitted$"
+      },
+      "shared_status_page_service": {
+        "path": "src/app/shared/services/shared-status-page.service.ts",
+        "providedIn": "root",
+        "descricao": "Controla flag 'status' no localStorage"
+      },
+      "shared_event_token_service": {
+        "path": "src/app/shared/services/shared-event-token.service.ts",
+        "descricao": "Subject para eventos de token (login/logout)"
+      },
+      "shared_event_valid_service": {
+        "path": "src/app/shared/services/shared-event-valid.service.ts",
+        "descricao": "Subject para eventos de valid"
+      }
+    },
+    "validations": {
+      "valid_cpf_directive": {
+        "path": "src/app/shared/validations/directives/valid-cpf.directive.ts",
+        "tipo": "ValidatorFn",
+        "descricao": "Usa ValidadorCpf para validar CPF em formulários reativos"
+      },
+      "valid_cnpj_directive": {
+        "path": "src/app/shared/validations/directives/valid-cnpj.directive.ts",
+        "tipo": "ValidatorFn",
+        "descricao": "Usa ValidadorCnpj para validar CNPJ em formulários reativos"
+      },
+      "valid_equals": {
+        "path": "src/app/shared/validations/directives/valid-equals.ts",
+        "descricao": "Validador de igualdade entre campos (ex: senha + confirmação)"
+      },
+      "input_validation": {
+        "path": "src/app/shared/validations/input-validation.ts",
+        "descricao": "Retorna 'clear' | 'done' | '' baseado no estado do AbstractControl"
+      },
+      "input_validation_has": {
+        "path": "src/app/shared/validations/input-validation-has.ts",
+        "descricao": "Retorna 'has-danger' | 'has-success' | '' para CSS de bootstrap"
+      }
+    },
+    "constants": {
+      "valid_password": {
+        "path": "src/app/shared/constants/valid.password.ts",
+        "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%¨&*()-+=<,>.:;?/])[A-Za-z0-9!@#$%¨&*()-+=<,>.:;?/]{8,20}$",
+        "descricao": "Mínimo 8 chars; deve ter maiúsculas, minúsculas, números e caracteres especiais"
+      }
+    },
+    "components_shared": [
+      "src/app/shared/components/forms/endereco/form-endereco.component.ts",
+      "src/app/shared/components/forms/informacoes-login/form-informacoes-login.component.ts",
+      "src/app/shared/components/forms/password-validation/form-password-validation.component.ts",
+      "src/app/shared/components/recaptcha/basic-recaptcha.component.ts"
+    ]
+  },
+
+  "core_services": {
+    "usuario_service": {
+      "path": "src/app/services/usuario.service.ts",
+      "providedIn": "root",
+      "endpoint_base": "${apiConnecta}/usuarios",
+      "metodos": [
+        { "nome": "cadastrar", "http": "POST", "url": "/usuarios" },
+        { "nome": "consultar", "http": "GET", "url": "/usuarios" }
+      ]
+    },
+    "cadastro_service": {
+      "path": "src/app/services/cadastro.service.ts",
+      "endpoint_base": "${apiConnecta}/usuarios",
+      "metodos": [
+        { "nome": "validar", "http": "PUT", "url": "/usuarios/validacao" }
+      ]
+    },
+    "cadastro_profissionais_service": {
+      "path": "src/app/services/cadastro-profissionais.service.ts",
+      "descricao": "State holder para wizard de cadastro de profissional (sem HTTP); guarda Profissional, Endereco, Carreira, etc."
+    },
+    "cadastro_homecares_service": {
+      "path": "src/app/services/cadastro-homecares.service.ts",
+      "descricao": "State holder para wizard de cadastro de homecare (sem HTTP)"
+    },
+    "dominio_service": {
+      "path": "src/app/services/dominio.service.ts",
+      "endpoint_base": "${apiConnecta}/dominio",
+      "metodos": [
+        { "nome": "getGeneros", "http": "GET", "url": "/dominio/genero" },
+        { "nome": "getTipoEmpresas", "http": "GET", "url": "/dominio/tipo-empresa" },
+        { "nome": "getEstadoCivis", "http": "GET", "url": "/dominio/estado-civil" },
+        { "nome": "getEstados", "http": "GET", "url": "/dominio/estado" },
+        { "nome": "getConselhos", "http": "GET", "url": "/dominio/conselho" },
+        { "nome": "getAreasAtendimento", "http": "GET", "url": "/dominio/area-atendimento" },
+        { "nome": "getTransportes", "http": "GET", "url": "/dominio/transporte" },
+        { "nome": "getInstrucoes", "http": "GET", "url": "/dominio/instrucao" },
+        { "nome": "getCategoriasCNH", "http": "GET", "url": "/dominio/categoria-cnh" },
+        { "nome": "getTipoContas", "http": "GET", "url": "/dominio/tipo-conta" },
+        { "nome": "getBancos", "http": "GET", "url": "/dominio/banco" },
+        { "nome": "getPaises", "http": "GET", "url": "/dominio/pais" },
+        { "nome": "getParentescos", "http": "GET", "url": "/dominio/parentesco" },
+        { "nome": "getModelos", "http": "GET", "url": "/dominio/modelo" },
+        { "nome": "getGrupos", "http": "GET", "url": "/dominio/grupo" },
+        { "nome": "getStatusAtendimento", "http": "GET", "url": "/dominio/status-atendimento" }
+      ]
+    },
+    "profissional_service": {
+      "path": "src/app/services/profissional.service.ts",
+      "endpoint_base": "${apiConnecta}/profissionais",
+      "metodos": [
+        { "nome": "getDados", "http": "GET", "url": "/profissionais/:id" },
+        { "nome": "registrar", "http": "POST", "url": "/profissionais/registrar" },
+        { "nome": "save", "http": "POST", "url": "/profissionais" },
+        { "nome": "listarEventos", "http": "GET", "url": "/profissionais/:id/eventos" },
+        { "nome": "confirmarEvento", "http": "PUT", "url": "/profissionais/:id/eventos/:idEvento" },
+        { "nome": "rejeitarEvento", "http": "DELETE", "url": "/profissionais/:id/eventos/:idEvento" },
+        { "nome": "pesquisarPorCpf", "http": "GET", "url": "/profissionais/cpf/:cpf" },
+        { "nome": "pesquisarPorId", "http": "GET", "url": "/profissionais/atendimento", "header": "profissionais" },
+        { "nome": "consultarProfissionalCompletoPorCpf", "http": "GET", "url": "/profissionais/completo", "header": "cpf" },
+        { "nome": "consultarProfissionalPorNome", "http": "GET", "url": "/profissionais/nome", "header": "nome" }
+      ]
+    },
+    "carreira_service": {
+      "path": "src/app/services/carreira.service.ts",
+      "endpoint_base": "${apiConnecta}/carreiras",
+      "metodos": [
+        { "nome": "getDados", "http": "GET", "url": "/carreiras/:id" },
+        { "nome": "save", "http": "POST", "url": "/carreiras" }
+      ]
+    },
+    "complemento_service": {
+      "path": "src/app/services/complemento.service.ts",
+      "endpoint_base": "${apiConnecta}/complementos/profissional",
+      "metodos": [
+        { "nome": "getDados", "http": "GET", "url": "/complementos/profissional/:id" },
+        { "nome": "save", "http": "POST", "url": "/complementos/profissional" }
+      ]
+    },
+    "contato_service": {
+      "path": "src/app/services/contato.service.ts",
+      "endpoint_base": "${apiConnecta}/contatos/telefones",
+      "metodos": [
+        { "nome": "getDados", "http": "GET", "url": "/contatos/telefones/:id" },
+        { "nome": "save", "http": "POST", "url": "/contatos/telefones" }
+      ]
+    },
+    "endereco_service": {
+      "path": "src/app/services/endereco.service.ts",
+      "endpoint_base": "${apiConnecta}/enderecos + ${apiCep}/ws",
+      "metodos": [
+        { "nome": "findViaCep", "http": "GET", "url": "${apiCep}/ws/:cep/json" },
+        { "nome": "getDados", "http": "GET", "url": "/enderecos/:id" },
+        { "nome": "save", "http": "POST", "url": "/enderecos" }
+      ]
+    },
+    "conta_service": {
+      "path": "src/app/services/conta.service.ts",
+      "endpoint_base": "${apiConnecta}/contas",
+      "metodos": [
+        { "nome": "getDados", "http": "GET", "url": "/contas/:id" },
+        { "nome": "save", "http": "POST", "url": "/contas" }
+      ]
+    },
+    "escolaridade_service": {
+      "path": "src/app/services/escolaridade.service.ts",
+      "endpoint_base": "${apiConnecta}/escolaridade",
+      "metodos": [
+        { "nome": "getDados", "http": "GET", "url": "/escolaridade/:id" },
+        { "nome": "save", "http": "POST", "url": "/escolaridade" }
+      ]
+    },
+    "experiencia_service": {
+      "path": "src/app/services/experiencia.service.ts",
+      "endpoint_base": "${apiConnecta}/experiencias",
+      "metodos": [
+        { "nome": "getDados", "http": "GET", "url": "/experiencias/:id" },
+        { "nome": "save", "http": "POST", "url": "/experiencias" }
+      ]
+    },
+    "evento_service": {
+      "path": "src/app/services/evento.service.ts",
+      "endpoint_base": "${apiConnecta}/eventos",
+      "metodos": [
+        { "nome": "cadastrar", "http": "POST", "url": "/eventos" },
+        { "nome": "listarFuturos", "http": "GET", "url": "/eventos" },
+        { "nome": "detalhes", "http": "GET", "url": "/eventos/:id" },
+        { "nome": "enviar", "http": "PUT", "url": "/eventos/:id" },
+        { "nome": "cancelar", "http": "DELETE", "url": "/eventos/:id" }
+      ]
+    },
+    "convenio_service": {
+      "path": "src/app/services/convenio.service.ts",
+      "endpoint_base": "${apiConnecta}/convenios",
+      "metodos": [
+        { "nome": "pesquisarCnpj", "http": "POST", "url": "/convenios/cnpj" }
+      ]
+    },
+    "document_service": {
+      "path": "src/app/services/document.service.ts",
+      "endpoint_base": "${apiConnecta}/documentos",
+      "metodos": [
+        { "nome": "register", "http": "POST", "url": "/documentos" },
+        { "nome": "findById", "http": "GET", "url": "/documentos/:id" }
+      ]
+    },
+    "documento_service": {
+      "path": "src/app/services/documento.service.ts",
+      "note": "Similar a DocumentService; mantido por retrocompatibilidade",
+      "endpoint_base": "${apiConnecta}/documentos",
+      "metodos": [
+        { "nome": "registrar", "http": "POST", "url": "/documentos" },
+        { "nome": "pesquisar", "http": "GET", "url": "/documentos/:id" }
+      ]
+    },
+    "via_cep_service": {
+      "path": "src/app/services/via-cep.service.ts",
+      "endpoint_base": "${apiCep}/ws/:cep/json",
+      "metodos": [
+        { "nome": "findViaCep", "http": "GET", "url": "${apiCep}/ws/:cep/json" }
+      ]
+    },
+    "login_service": {
+      "path": "src/app/services/login.service.ts",
+      "note": "Versão raiz; duplicata existe em auth/services/login.service.ts",
+      "endpoint_base": "${apiConnecta}/login",
+      "metodos": [
+        { "nome": "login", "http": "POST", "url": "/login" },
+        { "nome": "esqueciMinhaSenha", "http": "POST", "url": "/login/esqueci-minha-senha" },
+        { "nome": "validaToken", "http": "POST", "url": "/login/validacao" },
+        { "nome": "novaSenha", "http": "POST", "url": "/login/nova-senha" }
+      ]
+    }
+  },
+
+  "core_classes": {
+    "path": "src/app/classes/",
+    "arquivos": [
+      "area-atendimento.class.ts", "banco.class.ts", "carreira.class.ts",
+      "categoria-cnh.class.ts", "complemento.class.ts", "conselho.class.ts",
+      "conta.class.ts", "contato.class.ts", "endereco-via-cep.class.ts",
+      "endereco.class.ts", "escolaridade.class.ts", "especialidade.class.ts",
+      "esqueci-senha.ts", "estado-civil.class.ts", "estado.class.ts",
+      "experiencia.class.ts", "genero.class.ts", "grupo.class.ts",
+      "instrucao.class.ts", "login-valid.class.ts", "login.class.ts",
+      "modelo.class.ts", "modulo.class.ts", "nova-senha.ts",
+      "pais.class.ts", "parentesco.class.ts", "perfil.ts",
+      "profissional.class.ts", "role.ts", "status-atendimento.class.ts",
+      "tipo-conta.class.ts", "tipo-empresa.class.ts", "transporte.class.ts",
+      "usuario.class.ts"
+    ]
+  },
+
+  "core_enums": {
+    "path": "src/app/enums/",
+    "enums": {
+      "Role": {
+        "path": "src/app/enums/role.enum.ts",
+        "valores": ["ROLE_ADMIN_ROOT", "ROLE_PACIENTE", "ROLE_PROFISSIONAL", "ROLE_HOMECARE", "ROLE_PLANO_SAUDE", "ROLE_PLANO_SAUDE_FILIAL"]
+      },
+      "Modulo": {
+        "path": "src/app/enums/modulo.enum.ts",
+        "valores": ["ROOT", "PACIENTE", "PROFISSIONAL", "HOMECARE", "PLANO_SAUDE"]
+      },
+      "StatusAtendimento": {
+        "path": "src/app/enums/status-atendimento.enum.ts",
+        "valores": ["AGENDADO", "DESLOCAMENTO", "DESLOCAMENTO_ATRASADO", "CHECK_IN", "CHECK_IN_ATRASADO", "CHECK_IN_MANUAL", "CHECK_IN_MANUAL_ATRASADO", "ATRASADO", "CHECK_OUT", "CANCELADO"]
+      },
+      "StatusColor": {
+        "path": "src/app/enums/status-color.enum.ts",
+        "descricao": "Mapa StatusAtendimento -> cor hex para calendário"
+      },
+      "StatusEvento": {
+        "path": "src/app/enums/status-evento.enum.ts",
+        "valores": ["ABERTO", "ENCERRADO", "FINALIZADO"]
+      },
+      "StatusTratamento": {
+        "path": "src/app/enums/status-tratamento.enum.ts",
+        "valores": ["ABERTO", "ENCERRADO"]
+      }
+    }
+  },
+
+  "utils": {
+    "path": "src/app/utils/",
+    "arquivos": {
+      "role_converter": {
+        "path": "src/app/utils/role.converter.ts",
+        "classe": "RoleConverter",
+        "metodos": ["toComponent(role) -> string (rota)", "toRole(component) -> Role", "getRole(roleString) -> Role"]
+      },
+      "base64_converter": {
+        "path": "src/app/utils/base64.converter.ts",
+        "classe": "Base64Converter",
+        "descricao": "Converte File para base64 via FileReader"
+      },
+      "validador_cpf": {
+        "path": "src/app/utils/validador-cpf.utils.ts",
+        "classe": "ValidadorCpf",
+        "descricao": "Validação de CPF por dígito verificador (módulo 11); @Injectable"
+      },
+      "validador_cnpj": {
+        "path": "src/app/utils/validador-cnpj.utils.ts",
+        "classe": "ValidadorCnpj",
+        "descricao": "Validação de CNPJ por dígito verificador (módulo 11); @Injectable"
+      },
+      "pretty_json_pipe": {
+        "path": "src/app/utils/pretty-json-to-string.pipe.ts",
+        "descricao": "Pipe Angular para formatar JSON no template"
+      }
+    }
+  },
+
+  "layout_components": {
+    "navbar": {
+      "path": "src/app/components/layout/navbar/navbar.component.ts"
+    },
+    "footer": {
+      "path": "src/app/components/layout/footer/footer.component.ts"
+    },
+    "menu_components": [
+      "src/app/components/menu/menu.component.ts",
+      "src/app/components/menu/menu-logado/menu-logado.component.ts",
+      "src/app/components/menu/menu-admin/menu-admin.component.ts",
+      "src/app/components/menu/menu-pacientes/menu-pacientes.component.ts",
+      "src/app/components/menu/menu-profissionais/menu-profissionais.component.ts",
+      "src/app/components/menu/menu-homecares/menu-homecares.component.ts",
+      "src/app/components/menu/menu-planos-saude/menu-planos-saude.component.ts",
+      "src/app/components/menu/menu-planos-saude-filial/menu-planos-saude-filial.component.ts"
+    ],
+    "connecta": {
+      "path": "src/app/components/connecta/connecta.component.ts"
+    },
+    "recaptcha": {
+      "path": "src/app/components/recaptcha/basic-recaptcha.component.ts"
+    }
+  },
+
+  "pages": {
+    "confirmacao_cadastro": {
+      "path": "src/app/pages/confirmacao-cadastro/confirmacao-cadastro.component.ts",
+      "route": "confirmacao-cadastro/:token",
+      "lazy": true,
+      "standalone": true
+    },
+    "confirmacao_nova_senha": {
+      "path": "src/app/pages/confirmacao-nova-senha/confirmacao-nova-senha.component.ts",
+      "route": "confirmacao-nova-senha/:token",
+      "lazy": true,
+      "standalone": true
+    },
+    "espera_confirmacao_email": {
+      "path": "src/app/pages/espera-confirmacao-email/espera-confirmacao-email.component.ts",
+      "route": "espera-confirmacao-email",
+      "lazy": true,
+      "standalone": true
+    },
+    "termo_privacidade": {
+      "path": "src/app/pages/termo-privacidade/termo-privacidade.component.ts",
+      "route": "politica-de-privacidade",
+      "lazy": true,
+      "standalone": true
+    },
+    "termo_uso": {
+      "path": "src/app/pages/termo-uso/termo-uso.component.ts",
+      "route": "termo-e-condicoes-de-uso",
+      "lazy": true,
+      "standalone": true
+    }
+  },
+
+  "observacoes": {
+    "duplicatas": [
+      "src/app/services/login.service.ts e src/app/auth/services/login.service.ts - mesma responsabilidade",
+      "src/app/services/document.service.ts e src/app/services/documento.service.ts - endpoints idênticos /documentos",
+      "Via CEP implementado em via-cep.service.ts E em endereco.service.ts (método findViaCep duplicado)"
+    ],
+    "services_legados_em_services_feat": [
+      "src/app/services/feat/cadastro-usuario.ts",
+      "src/app/services/feat/consulta-usuario.ts",
+      "src/app/services/feat/document.ts",
+      "src/app/services/feat/documento-cnpj.ts",
+      "src/app/services/feat/documento-cpf.ts",
+      "src/app/services/feat/documento.ts",
+      "src/app/services/feat/registration-document.ts (interface RegistrationDocument)",
+      "src/app/services/feat/registration-record.ts (interface RegistrationRecord)",
+      "src/app/services/feat/registration.ts",
+      "src/app/services/feat/registro.ts",
+      "src/app/services/feat/response-api.ts",
+      "src/app/services/feat/token.ts (classe Authorization)",
+      "src/app/services/feat/Valid.ts (classe Valid: {email, role, id, status, modulo})",
+      "src/app/services/interceptors/headers.interceptor.ts (versão obsoleta)",
+      "src/app/services/interceptors/size-body.interceptor.ts (versão obsoleta)",
+      "src/app/services/response/responseTemplate.interface.ts",
+      "src/app/services/response/valida-token.ts"
+    ],
+    "arquitetura_mista": "O projeto possui módulos NgModule legados (pacientes, profissionais, homecares, planos-saude, planos-saude-filial, admin) e componentes standalone modernos (app-root, login, register, pages/*). A migração para standalone está em andamento.",
+    "state_management": "Sem NgRx/state library. Estado de cadastro via services state-holder (CadastroProfissionaisService, CadastroHomeCaresService, etc.) e localStorage via SharedTokenService/SharedValidService.",
+    "planos_saude_filial_routing_issue": "PlanosSaudeFilialRoutingModule define rotas sob 'planos-saude' E 'planos-saude-filial', mas o app.routes.ts carrega apenas PlanosSaudeFilialModule para o path 'planos-saude-filial'. O path 'planos-saude' para filial é servido pelo mesmo módulo mas pode conflitar com PlanosSaudeModule."
+  }
+}

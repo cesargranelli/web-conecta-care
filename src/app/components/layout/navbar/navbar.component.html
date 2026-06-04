@@ -1,51 +1,65 @@
-<header class="navbar-host">
-  <nav class="navbar">
+<header class="cc-navbar">
+  <nav class="cc-navbar__inner">
+
     <!-- Brand -->
-    <a class="brand" routerLink="/">
-      <span class="brand-dot"></span>
-      <span class="brand-name">Conecta Care</span>
+    <a class="cc-brand" routerLink="/">
+      <span class="cc-brand__dot"></span>
+      <span class="cc-brand__name">Conecta Care</span>
     </a>
 
-    <!-- Desktop links -->
-    <ul class="nav-links" [class.open]="mobileOpen()">
+    <!-- Desktop nav -->
+    <ul class="cc-nav__links" [class.cc-nav__links--open]="mobileOpen()">
       @if (valid()) {
         @for (link of links; track link.route) {
           <li>
-            <a class="nav-link" [routerLink]="link.route" routerLinkActive="active" (click)="mobileOpen.set(false)">
-              <span class="material-icons nav-icon">{{ link.icon }}</span>
+            <a class="cc-nav__link"
+               [routerLink]="link.route"
+               routerLinkActive="cc-nav__link--active"
+               (click)="mobileOpen.set(false)">
+              <i [class]="link.icon + ' cc-nav__icon'"></i>
               {{ link.label }}
             </a>
           </li>
         }
         <li>
-          <button class="nav-logout" (click)="logout()">
-            <span class="material-icons nav-icon">exit_to_app</span>
-            Sair
-          </button>
+          <p-button
+            label="Sair"
+            icon="pi pi-sign-out"
+            severity="danger"
+            [text]="true"
+            size="small"
+            (onClick)="logout()" />
         </li>
       } @else {
         <li>
-          <a class="nav-link" routerLink="/cadastro" routerLinkActive="active" (click)="mobileOpen.set(false)">
-            <span class="material-icons nav-icon">person_add</span>
+          <a class="cc-nav__link"
+             routerLink="/cadastro"
+             routerLinkActive="cc-nav__link--active"
+             (click)="mobileOpen.set(false)">
+            <i class="pi pi-user-plus cc-nav__icon"></i>
             Cadastre-se
           </a>
         </li>
         <li>
-          <a class="nav-link nav-cta" routerLink="/login" routerLinkActive="active" (click)="mobileOpen.set(false)">
-            <span class="material-icons nav-icon">fingerprint</span>
-            Login
-          </a>
+          <p-button
+            label="Login"
+            icon="pi pi-sign-in"
+            size="small"
+            routerLink="/login"
+            (click)="mobileOpen.set(false)" />
         </li>
       }
     </ul>
 
     <!-- Mobile hamburger -->
-    <button class="hamburger" (click)="toggleMobile()" [attr.aria-expanded]="mobileOpen()" aria-label="Menu">
-      @if (mobileOpen()) {
-        <span class="material-icons">close</span>
-      } @else {
-        <span class="material-icons">menu</span>
-      }
-    </button>
+    <p-button
+      class="cc-hamburger"
+      [icon]="mobileOpen() ? 'pi pi-times' : 'pi pi-bars'"
+      [text]="true"
+      [rounded]="true"
+      [attr.aria-expanded]="mobileOpen()"
+      aria-label="Menu"
+      (onClick)="toggleMobile()" />
+
   </nav>
 </header>

@@ -14,12 +14,10 @@ import { InformacoesLoginComponent } from './dados/login/informacoes-login.compo
 import { InformacoesPlanoSaudeFilialComponent } from './dados/plano-saude-filial/informacoes-plano-saude-filial.component';
 import { PlanosSaudeFilialRoutingModule } from './planos-saude-filial-routing.module';
 import { PlanosSaudeFilialComponent } from './planos-saude-filial.component';
-import { CardVerDadosComponent } from './shared/components/card-ver-dados/card-ver-dados.component';
 import { FormContatoComponent } from './shared/components/forms/contato/form-contato.component';
 import { FormEnderecoComponent } from './shared/components/forms/endereco/form-endereco.component';
 import { FormLoginComponent } from './shared/components/forms/login/form-login.component';
 import { FormPlanoSaudeFilialComponent } from './shared/components/forms/plano-saude-filial/form-plano-saude-filial.component';
-import { SelectPickerComponent } from './shared/select-picker/select-picker.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +26,6 @@ import { SelectPickerComponent } from './shared/select-picker/select-picker.comp
     CadastroPlanoSaudeFilialComponent,
     CadastroEnderecoComponent,
     CadastroContatoComponent,
-    SelectPickerComponent,
-    CardVerDadosComponent,
     DadosPlanosSaudeFilialComponent,
     InformacoesLoginComponent,
     InformacoesContatoComponent,

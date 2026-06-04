@@ -8,13 +8,17 @@ import { FormEnderecoComponent } from './forms/endereco/form-endereco.component'
 import { FormInformacoesLoginComponent } from './forms/informacoes-login/form-informacoes-login.component';
 import { FormPasswordValidationComponent } from './forms/password-validation/form-password-validation.component';
 import { BasicRecaptchaComponent } from './recaptcha/basic-recaptcha.component';
+import { CardVerDadosComponent } from './cards/card-ver-dados/card-ver-dados.component';
+import { SelectPickerComponent } from './selects/select-picker/select-picker.component';
 
 @NgModule({
   declarations: [
     FormInformacoesLoginComponent,
     FormEnderecoComponent,
     BasicRecaptchaComponent,
-    FormPasswordValidationComponent
+    FormPasswordValidationComponent,
+    CardVerDadosComponent,
+    SelectPickerComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +34,9 @@ import { BasicRecaptchaComponent } from './recaptcha/basic-recaptcha.component';
   exports: [
     FormInformacoesLoginComponent,
     FormEnderecoComponent,
-    FormPasswordValidationComponent
+    FormPasswordValidationComponent,
+    CardVerDadosComponent,
+    SelectPickerComponent
   ]
 })
 export class SharedComponentModule {

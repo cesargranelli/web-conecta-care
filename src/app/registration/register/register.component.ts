@@ -1,16 +1,15 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  ReactiveFormsModule,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { finalize } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { MessageModule } from 'primeng/message';
 import { validCnpj } from 'src/app/shared/validations/directives/valid-cnpj.directive';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import { Profile, PROFILES, RegistrationStep } from '../models/registration.model';
@@ -19,21 +18,23 @@ import { RegistrationService } from '../services/registration.service';
 function passwordMatchValidator(): ValidatorFn {
   return (group: AbstractControl) =>
     group.get('password')?.value === group.get('confirmPassword')?.value
-      ? null
-      : { passwordMismatch: true };
+      ? null : { passwordMismatch: true };
 }
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, NgxMaskDirective],
+  imports: [
+    CommonModule, ReactiveFormsModule, RouterModule, NgxMaskDirective,
+    ButtonModule, CardModule, InputTextModule, PasswordModule, MessageModule,
+  ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
   animations: [
     trigger('slideIn', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(24px)' }),
-        animate('220ms ease-out', style({ opacity: 1, transform: 'none' })),
+        style({ opacity: 0, transform: 'translateX(20px)' }),
+        animate('200ms ease-out', style({ opacity: 1, transform: 'none' })),
       ]),
     ]),
   ],
@@ -50,7 +51,6 @@ export class RegisterComponent {
   readonly selectedProfile = signal<Profile | null>(null);
 
   readonly docForm = this.fb.group({ document: ['', Validators.required] });
-
   readonly credForm = this.fb.group(
     {
       email: ['', [Validators.required, Validators.email]],
@@ -85,10 +85,8 @@ export class RegisterComponent {
     if (this.credForm.invalid) return;
     const profile = this.selectedProfile()!;
     const { email, password } = this.credForm.value;
-
     this.loading.set(true);
     this.error.set(null);
-
     this.svc
       .register(
         { number: this.docForm.value.document!, type: profile.docType, module: profile.module },
@@ -97,8 +95,7 @@ export class RegisterComponent {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: record => this.router.navigateByUrl(`/${profile.id}/${record.id}/cadastro/login`),
-        error: err =>
-          this.error.set(err.error?.message ?? err.error?.error?.[0] ?? 'Erro ao realizar cadastro.'),
+        error: err => this.error.set(err.error?.message ?? err.error?.error?.[0] ?? 'Erro ao realizar cadastro.'),
       });
   }
 
