@@ -7,15 +7,15 @@ import { Complemento } from '../models/complemento.class';
 
 @Injectable({ providedIn: 'root' })
 export class ComplementoService {
-  private endpoint = ${environment.apiConnecta}/complementos/profissional;
+  private endpoint = `${environment.apiConnecta}/complementos/profissional`;
 
   constructor(private _http: HttpClient) {}
 
   getDados(id: number): Observable<Complemento> {
-    return this._http.get(${this.endpoint}/).pipe(map((c: Complemento) => c));
+    return this._http.get(`${this.endpoint}/${id}`).pipe(map((c: Complemento) => c));
   }
 
   save(payload: Complemento): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(${this.endpoint}, payload, { observe: 'response' });
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 }

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
+
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-cadastro-contato-plano-saude',
   templateUrl: './cadastro-contato.component.html',
   styleUrls: ['./cadastro-contato.component.css']
@@ -92,3 +92,4 @@ export class CadastroContatoComponent implements OnInit {
   }
 
 }
+

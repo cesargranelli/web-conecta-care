@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
+
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ declare var jQuery: any;
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-informacoes-gerais',
   templateUrl: './cadastro-informacoes-gerais.component.html',
   styleUrls: ['./cadastro-informacoes-gerais.component.css'],
@@ -322,3 +322,4 @@ export class CadastroInformacoesGeraisComponent implements OnInit {
   }
 
 }
+

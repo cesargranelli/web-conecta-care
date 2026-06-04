@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Especialidade } from 'src/app/core/models/especialidade.class';
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-tratamento-solicitacao-profissional',
   templateUrl: './tratamento-solicitacao-profissional.component.html',
   styleUrls: ['./tratamento-solicitacao-profissional.component.css']
@@ -77,3 +77,4 @@ export class TratamentoSolicitacaoProfissionalComponent implements OnInit {
   }
 
 }
+

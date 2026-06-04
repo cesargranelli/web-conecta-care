@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
+
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { EnderecoService } from '../../services/endereco.service';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-endereco',
   templateUrl: './cadastro-endereco.component.html',
   styleUrls: ['./cadastro-endereco.component.css']
@@ -83,3 +83,4 @@ export class CadastroEnderecoComponent implements OnInit {
   }
 
 }
+

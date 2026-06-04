@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
@@ -16,7 +16,7 @@ declare var jQuery: any;
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-tratamento-solicitacao-acompanhante',
   templateUrl: './tratamento-solicitacao-acompanhante.component.html',
   styleUrls: ['./tratamento-solicitacao-acompanhante.component.css']
@@ -63,3 +63,4 @@ export class TratamentoSolicitacaoAcompanhanteComponent implements OnInit {
   }
 
 }
+

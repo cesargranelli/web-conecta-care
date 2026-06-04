@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
+
 import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { AtendimentoGrupo } from 'src/app/features/homecares/models/atendimento-grupo.model';
 import { AtendimentoModelo } from 'src/app/features/homecares/models/atendimento-modelo.model';
@@ -13,7 +13,7 @@ declare var jQuery: any;
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-modal-detalhe-atendimento',
   templateUrl: './modal-detalhe-atendimento.component.html',
   styleUrls: ['./modal-detalhe-atendimento.component.css']
@@ -76,3 +76,4 @@ export class ModalDetalheAtendimentoComponent implements OnChanges, OnDestroy {
   }
 
 }
+

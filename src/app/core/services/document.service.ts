@@ -8,13 +8,13 @@ import { RegistrationRecord } from '../models/registration-record';
 @Injectable({ providedIn: 'root' })
 export class DocumentService {
   private readonly http = inject(HttpClient);
-  private readonly endpoint = ${environment.apiConnecta}/documentos;
+  private readonly endpoint = `${environment.apiConnecta}/documentos`;
 
   register(document: RegistrationDocument): Observable<RegistrationRecord> {
     return this.http.post<RegistrationRecord>(this.endpoint, document);
   }
 
   findById(id: number): Observable<HttpResponse<RegistrationRecord>> {
-    return this.http.get<RegistrationRecord>(${this.endpoint}/, { observe: 'response' });
+    return this.http.get<RegistrationRecord>(`${this.endpoint}/${id}`, { observe: 'response' });
   }
 }

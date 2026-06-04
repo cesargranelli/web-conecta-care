@@ -7,8 +7,8 @@ import { Endereco } from '../models/endereco.class';
 
 @Injectable({ providedIn: 'root' })
 export class EnderecoService {
-  private endpoint = ${environment.apiConnecta}/enderecos;
-  private endpointViaCep = ${environment.apiCep}/ws/{cep}/json;
+  private endpoint = `${environment.apiConnecta}/enderecos`;
+  private endpointViaCep = `${environment.apiCep}/ws/{cep}/json`;
 
   constructor(private _http: HttpClient) {}
 
@@ -19,12 +19,10 @@ export class EnderecoService {
   }
 
   getDados(id: number): Observable<Endereco> {
-    return this._http.get(${this.endpoint}/).pipe(
-      map((e: Endereco) => e)
-    );
+    return this._http.get(`${this.endpoint}/${id}`).pipe(map((e: Endereco) => e));
   }
 
   save(payload: Endereco): Observable<HttpResponse<any>> {
-    return this._http.post<HttpResponse<any>>(${this.endpoint}, payload, { observe: 'response' });
+    return this._http.post<HttpResponse<any>>(`${this.endpoint}`, payload, { observe: 'response' });
   }
 }
