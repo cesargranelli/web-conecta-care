@@ -26,16 +26,8 @@ import {
   CadastroInformacoesGeraisComponent
 } from './components/cadastro/profissional/informacoes-gerais/cadastro-informacoes-gerais.component';
 import {ConnectaComponent} from './components/connecta/connecta.component';
-import {MenuAdminComponent} from './components/menu/menu-admin/menu-admin.component';
-import {MenuHomecaresComponent} from './components/menu/menu-homecares/menu-homecares.component';
-import {MenuLogadoComponent} from './components/menu/menu-logado/menu-logado.component';
-import {MenuPacientesComponent} from './components/menu/menu-pacientes/menu-pacientes.component';
-import {
-  MenuPlanosSaudeFilialComponent
-} from './components/menu/menu-planos-saude-filial/menu-planos-saude-filial.component';
-import {MenuPlanosSaudeComponent} from './components/menu/menu-planos-saude/menu-planos-saude.component';
-import {MenuProfissionaisComponent} from './components/menu/menu-profissionais/menu-profissionais.component';
-import {MenuComponent} from './components/menu/menu.component';
+import {NavbarComponent} from './components/layout/navbar/navbar.component';
+import {FooterComponent} from './components/layout/footer/footer.component';
 import {HomeCaresModule} from './homecares/homecares.module';
 import {PacientesModule} from './pacientes/pacientes.module';
 import {ConfirmacaoCadastroComponent} from './pages/confirmacao-cadastro/confirmacao-cadastro.component';
@@ -52,14 +44,6 @@ import {ValidadorCpf} from './utils/validador-cpf.utils';
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
-    MenuLogadoComponent,
-    MenuProfissionaisComponent,
-    MenuPacientesComponent,
-    MenuHomecaresComponent,
-    MenuPlanosSaudeComponent,
-    MenuPlanosSaudeFilialComponent,
-    MenuAdminComponent,
     ConnectaComponent,
     CadastroInformacoesGeraisComponent,
     EnderecoComponent,
@@ -82,9 +66,7 @@ import {ValidadorCpf} from './utils/validador-cpf.utils';
     AppRoutingModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    NgxLoadingModule.forRoot({
-      fullScreenBackdrop: true
-    }),
+    NgxLoadingModule.forRoot({ fullScreenBackdrop: true }),
     SweetAlert2Module.forRoot(),
     ProfissionaisModule,
     PacientesModule,
@@ -93,7 +75,10 @@ import {ValidadorCpf} from './utils/validador-cpf.utils';
     PlanosSaudeFilialModule,
     AdminModule,
     GoogleMapsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    // Design system layout components
+    NavbarComponent,
+    FooterComponent,
   ],
   providers: [
     provideHttpClient(

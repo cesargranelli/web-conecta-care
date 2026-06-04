@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { environment } from './../environments/environment';
 import { Modulo } from './enums/modulo.enum';
 import { Valid } from './services/feat/Valid';
 import { SharedLoadingService } from './shared/services/shared-loading.service';
@@ -13,40 +12,26 @@ import { SharedValidService } from './shared/services/shared-valid.service';
 })
 export class AppComponent {
 
-  public chave: string;
-  public title = 'web-connecta';
-  public loading: boolean = false;
-  public versaoPublicada: string = '1.14.0';
+  readonly title = 'web-connecta';
+  loading = false;
 
   constructor(
     private _loading: SharedLoadingService,
-    private _valid: SharedValidService
+    private _valid: SharedValidService,
   ) {
-    this.isHomePage;
-    console.log(environment.name + ' - ' + this.versaoPublicada); // Logs false for default environment
-    this._loading.changeEmitted$.subscribe(eventLoading => this.loading = eventLoading);
-
-    this.chave = this._valid.getValid() ? null : Modulo.Paciente;
-  }
-
-  get login(): boolean {
-    return this._valid.isValidate(this.chave);
-  }
-
-  get storageValid(): any {
-    return this._valid.getValid(this.chave);
+    this._loading.changeEmitted$.subscribe(v => this.loading = v);
   }
 
   get isHomePage(): boolean {
     return window.location.pathname === '/home';
   }
 
-  get roleValid(): string {
-    return this._valid.getValid(this.chave)?.role;
+  /** Returns the first Valid found across all modules, or null if unauthenticated. */
+  get activeValid(): Valid | null {
+    const modules: Array<Modulo | string> = [
+      Modulo.Paciente, Modulo.Profissional, Modulo.Homecare,
+      Modulo.PlanoSaude, Modulo.Root, 'valid',
+    ];
+    return modules.map(m => this._valid.getValid(m as string)).find(v => !!v) ?? null;
   }
-
-  get statusValid(): string {
-    return this._valid.getValid(this.chave)?.status;
-  }
-
 }

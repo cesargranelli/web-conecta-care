@@ -1,0 +1,51 @@
+<header class="navbar-host">
+  <nav class="navbar">
+    <!-- Brand -->
+    <a class="brand" routerLink="/">
+      <span class="brand-dot"></span>
+      <span class="brand-name">Conecta Care</span>
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="nav-links" [class.open]="mobileOpen()">
+      @if (valid()) {
+        @for (link of links; track link.route) {
+          <li>
+            <a class="nav-link" [routerLink]="link.route" routerLinkActive="active" (click)="mobileOpen.set(false)">
+              <span class="material-icons nav-icon">{{ link.icon }}</span>
+              {{ link.label }}
+            </a>
+          </li>
+        }
+        <li>
+          <button class="nav-logout" (click)="logout()">
+            <span class="material-icons nav-icon">exit_to_app</span>
+            Sair
+          </button>
+        </li>
+      } @else {
+        <li>
+          <a class="nav-link" routerLink="/cadastro" routerLinkActive="active" (click)="mobileOpen.set(false)">
+            <span class="material-icons nav-icon">person_add</span>
+            Cadastre-se
+          </a>
+        </li>
+        <li>
+          <a class="nav-link nav-cta" routerLink="/login" routerLinkActive="active" (click)="mobileOpen.set(false)">
+            <span class="material-icons nav-icon">fingerprint</span>
+            Login
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- Mobile hamburger -->
+    <button class="hamburger" (click)="toggleMobile()" [attr.aria-expanded]="mobileOpen()" aria-label="Menu">
+      @if (mobileOpen()) {
+        <span class="material-icons">close</span>
+      } @else {
+        <span class="material-icons">menu</span>
+      }
+    </button>
+  </nav>
+</header>

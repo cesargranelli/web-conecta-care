@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {authGuard} from './auth/guards/auth.guard';
 import {AUTH_ROUTES} from './auth/auth.routes';
-import {RegistrationDocumentComponent} from './registration/registration-document.component';
+import { RegisterComponent } from './registration/register/register.component';
 import {CarreiraComponent} from './components/cadastro/profissional/carreira/carreira.component';
 import {
   CadastroComplementoComponent
@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     path: 'cadastro',
     children: [
-      {path: '', component: RegistrationDocumentComponent},
+      { path: '', component: RegisterComponent },
       {path: ':modulo/:id/cadastro/login', component: LoginComponent},
       {
         path: 'profissionais',

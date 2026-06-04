@@ -1,0 +1,121 @@
+<div class="register-page">
+  <div class="register-card">
+
+    <!-- Progress -->
+    <div class="progress-track">
+      <div class="progress-fill" [style.width.%]="(stepIndex() + 1) * 33.33"></div>
+    </div>
+    <div class="step-labels">
+      <span [class.active]="step() === 'profile'" [class.done]="stepIndex() > 0">Perfil</span>
+      <span [class.active]="step() === 'document'" [class.done]="stepIndex() > 1">Documento</span>
+      <span [class.active]="step() === 'credentials'">Credenciais</span>
+    </div>
+
+    <!-- STEP 1: Profile -->
+    @if (step() === 'profile') {
+      <div class="step-content" [@slideIn]>
+        <h1 class="step-title">Quem é você?</h1>
+        <p class="step-subtitle">Escolha o perfil para criar sua conta</p>
+
+        <div class="profile-grid">
+          @for (p of profiles; track p.id) {
+            <button class="profile-card" type="button" (click)="selectProfile(p)">
+              <span class="profile-icon">{{ p.icon }}</span>
+              <span class="profile-label">{{ p.label }}</span>
+              <span class="profile-arrow">→</span>
+            </button>
+          }
+        </div>
+
+        <p class="login-hint">Já tem conta? <a routerLink="/login">Entrar</a></p>
+      </div>
+    }
+
+    <!-- STEP 2: Document -->
+    @if (step() === 'document') {
+      <div class="step-content" [@slideIn]>
+        <button class="back-btn" type="button" (click)="back()">← Voltar</button>
+
+        <div class="selected-profile-badge">
+          <span>{{ selectedProfile()!.icon }}</span>
+          <span>{{ selectedProfile()!.label }}</span>
+        </div>
+
+        <h1 class="step-title">Informe seu {{ selectedProfile()!.docType }}</h1>
+        <p class="step-subtitle">Usaremos para identificar sua conta</p>
+
+        <form [formGroup]="docForm" (ngSubmit)="submitDocument()">
+          <div class="field-group" [class.field-error]="docCtrl.touched && docCtrl.invalid">
+            <label class="field-label">{{ selectedProfile()!.docType }}</label>
+            <input
+              class="field-input"
+              formControlName="document"
+              [mask]="selectedProfile()!.docMask"
+              [placeholder]="selectedProfile()!.docPlaceholder"
+              autocomplete="off"
+              type="text"
+            />
+            @if (docCtrl.touched && docCtrl.invalid) {
+              <span class="field-hint error">{{ selectedProfile()!.docType }} inválido</span>
+            }
+          </div>
+
+          @if (error()) {
+            <div class="alert-error">{{ error() }}</div>
+          }
+
+          <button class="btn-primary" type="submit" [disabled]="docForm.invalid">Continuar</button>
+        </form>
+      </div>
+    }
+
+    <!-- STEP 3: Credentials -->
+    @if (step() === 'credentials') {
+      <div class="step-content" [@slideIn]>
+        <button class="back-btn" type="button" (click)="back()">← Voltar</button>
+
+        <h1 class="step-title">Crie seu acesso</h1>
+        <p class="step-subtitle">Email e senha para entrar na plataforma</p>
+
+        <form [formGroup]="credForm" (ngSubmit)="submitCredentials()">
+          <div class="field-group" [class.field-error]="emailCtrl.touched && emailCtrl.invalid">
+            <label class="field-label">Email</label>
+            <input class="field-input" formControlName="email" type="email" placeholder="seu@email.com" autocomplete="email" />
+            @if (emailCtrl.touched && emailCtrl.hasError('email')) {
+              <span class="field-hint error">Email inválido</span>
+            }
+          </div>
+
+          <div class="field-group" [class.field-error]="passwordCtrl.touched && passwordCtrl.invalid">
+            <label class="field-label">Senha</label>
+            <input class="field-input" formControlName="password" type="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" />
+            @if (passwordCtrl.touched && passwordCtrl.hasError('minlength')) {
+              <span class="field-hint error">Mínimo 8 caracteres</span>
+            }
+          </div>
+
+          <div class="field-group" [class.field-error]="confirmCtrl.touched && credForm.hasError('passwordMismatch')">
+            <label class="field-label">Confirmar senha</label>
+            <input class="field-input" formControlName="confirmPassword" type="password" placeholder="Repita a senha" autocomplete="new-password" />
+            @if (confirmCtrl.touched && credForm.hasError('passwordMismatch')) {
+              <span class="field-hint error">As senhas não coincidem</span>
+            }
+          </div>
+
+          @if (error()) {
+            <div class="alert-error">{{ error() }}</div>
+          }
+
+          <button class="btn-primary" type="submit" [disabled]="credForm.invalid || loading()">
+            @if (loading()) {
+              <span class="spinner"></span>
+            } @else {
+              Criar conta
+            }
+          </button>
+        </form>
+      </div>
+    }
+
+  </div>
+</div>

@@ -24,31 +24,17 @@
               { "glob": ".htaccess", "input": "src" }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/rose-red.css",
-              "src/styles.css",
-              "src/assets/css/material-dashboard.css"
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/assets/css/argon-design-system.css",
+              "src/styles.css"
             ],
             "scripts": [
               "src/assets/js/core/jquery.min.js",
               "src/assets/js/core/popper.min.js",
-              "src/assets/js/core/bootstrap-material-design.min.js",
-              "src/assets/js/plugins/perfect-scrollbar.jquery.min.js",
               "src/assets/js/plugins/moment-with-locales.js",
               "src/assets/js/plugins/sweetalert2.js",
-              "src/assets/js/plugins/jquery.validate.min.js",
-              "src/assets/js/plugins/jquery.bootstrap-wizard.js",
-              "src/assets/js/plugins/bootstrap-selectpicker.js",
-              "src/assets/js/plugins/bootstrap-datetimepicker.min.js",
               "src/assets/js/plugins/jquery.dataTables.min.js",
-              "src/assets/js/plugins/bootstrap-tagsinput.js",
-              "src/assets/js/plugins/jasny-bootstrap.min.js",
-              "src/assets/js/plugins/jquery-jvectormap.js",
-              "src/assets/js/plugins/nouislider.min.js",
-              "src/assets/js/plugins/core.js",
-              "src/assets/js/plugins/arrive.min.js",
-              "src/assets/js/plugins/bootstrap-notify.js",
-              "src/assets/js/app.js",
-              "src/assets/js/material-dashboard.min.js"
+              "src/assets/js/argon-design-system.js"
             ]
           },
           "configurations": {
