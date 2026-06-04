@@ -1,24 +1,27 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {concatMap} from 'rxjs/internal/operators/concatMap';
-import {map} from 'rxjs/internal/operators/map';
-import {EnderecoViaCep} from 'src/app/classes/endereco-via-cep.class';
-import {Endereco} from 'src/app/classes/endereco.class';
-import {Estado} from 'src/app/classes/estado.class';
-import {Pais} from 'src/app/classes/pais.class';
-import {CadastroHomeCaresService} from 'src/app/services/cadastro-homecares.service';
-import {DominioService} from 'src/app/services/dominio.service';
-import {Valid} from 'src/app/services/feat/Valid';
-import {ViaCepService} from 'src/app/services/via-cep.service';
-import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
-import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { NgxMaskDirective } from 'ngx-mask';
+import { concatMap } from 'rxjs/internal/operators/concatMap';
+import { map } from 'rxjs/internal/operators/map';
+import { EnderecoViaCep } from 'src/app/core/models/endereco-via-cep.class';
+import { Endereco } from 'src/app/core/models/endereco.class';
+import { Estado } from 'src/app/core/models/estado.class';
+import { Pais } from 'src/app/core/models/pais.class';
+import { CadastroHomeCaresService } from 'src/app/core/services/cadastro-homecares.service';
+import { DominioService } from 'src/app/core/services/dominio.service';
+import { Valid } from 'src/app/core/models/Valid';
+import { ViaCepService } from 'src/app/core/services/via-cep.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, NgxMaskDirective],
   selector: 'app-form-endereco',
   templateUrl: './form-endereco.component.html',
   styleUrls: ['./form-endereco.component.css']

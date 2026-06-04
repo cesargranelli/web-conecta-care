@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from './components/layout/footer/footer.component';
-import { NavbarComponent } from './components/layout/navbar/navbar.component';
-import { Modulo } from './enums/modulo.enum';
-import { Valid } from './services/feat/Valid';
+import { FooterComponent } from './layout/footer/footer.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
+import { Modulo } from './core/enums/modulo.enum';
+import { Valid } from './core/models/Valid';
 import { SharedLoadingService } from './shared/services/shared-loading.service';
 import { SharedValidService } from './shared/services/shared-valid.service';
 

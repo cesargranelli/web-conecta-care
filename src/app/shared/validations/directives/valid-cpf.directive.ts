@@ -1,5 +1,5 @@
 import {AbstractControl, ValidatorFn} from '@angular/forms';
-import {ValidadorCpf} from 'src/app/utils/validador-cpf.utils';
+import {ValidadorCpf} from 'src/app/core/utils/validador-cpf.utils';
 
 export function validCpf(obrigatorio: boolean): ValidatorFn {
   let validaCpf: ValidadorCpf = new ValidadorCpf();

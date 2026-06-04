@@ -1,32 +1,28 @@
-import {Injectable} from '@angular/core';
-import {SharedEventTokenService} from './shared-event-token.service';
+import { inject, Injectable } from '@angular/core';
+import { StorageService } from 'src/app/core/services/storage.service';
+import { SharedEventTokenService } from './shared-event-token.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SharedTokenService {
   private readonly key = 'token';
-
-  constructor(
-    private _eventToken: SharedEventTokenService
-  ) {
-  }
+  private readonly storage = inject(StorageService);
+  private readonly _eventToken = inject(SharedEventTokenService);
 
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
 
-  getToken(): string {
-    return localStorage.getItem(this.key);
+  getToken(): string | null {
+    return this.storage.get<string>(this.key);
   }
 
-  setToken(token: string) {
-    localStorage.setItem(this.key, token);
+  setToken(token: string): void {
+    this.storage.set(this.key, token);
     this._eventToken.emitChange(true);
   }
 
-  removeToken() {
-    localStorage.removeItem(this.key);
+  removeToken(): void {
+    this.storage.remove(this.key);
     this._eventToken.emitChange(false);
   }
 }

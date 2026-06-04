@@ -1,0 +1,65 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { Documento } from 'src/app/core/models/documento';
+import { environment } from 'src/environments/environment';
+import { Paciente } from 'src/app/core/models/paciente.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PacienteService {
+
+  private readonly DOCUMENTO: string = 'documento';
+
+  constructor(private _http: HttpClient) {
+  }
+
+  registrar(paciente: Paciente): Observable<any> {
+    return this._http.post(
+      `${environment.apiConnecta}/api/v1/paciente`,
+      paciente
+    ).pipe(map((dado: any) => {
+      return dado;
+    }),
+      catchError(async (err) => console.error(err))
+    );
+  }
+
+  alterar(paciente: Paciente): Observable<any> {
+    return this._http.put(
+      `${environment.apiConnecta}/api/v1/paciente`,
+      paciente
+    ).pipe(map((dado: any) => {
+      return dado;
+    }),
+      catchError(async (err) => console.error(err))
+    );
+  }
+
+  pesquisarPorCpf(documento: Documento): Observable<Paciente> {
+    return this._http.get(
+      `${environment.apiConnecta}/api/v1/paciente`,
+      {
+        params: new HttpParams().set(this.DOCUMENTO, documento.numero)
+      }
+    ).pipe(map((dado: any) => {
+      return dado;
+    }),
+      catchError(async (err) => console.error(err))
+    );
+  }
+
+  pesquisarPorId(id: number): Observable<Paciente> {
+    return this._http.get(
+      `${environment.apiConnecta}/api/v1/patient/${id}`
+    ).pipe(
+      map((dado: any) => {
+        return dado;
+      }),
+      catchError(async (err) => console.error(err))
+    );
+  }
+
+}

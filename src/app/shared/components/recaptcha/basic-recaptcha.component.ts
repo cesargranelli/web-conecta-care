@@ -1,9 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {environment} from 'src/environments/environment';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RecaptchaModule } from 'ng-recaptcha-2';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  standalone: false,
-  selector: 'app-recaptcha',
+  selector: 'app-basic-recaptcha',
+  standalone: true,
+  imports: [RecaptchaModule],
   templateUrl: './basic-recaptcha.component.html',
   styleUrls: ['./basic-recaptcha.component.css']
 })
@@ -11,9 +13,6 @@ export class BasicRecaptchaComponent implements OnInit {
 
   public siteKey: string;
   @Output() captcha = new EventEmitter<boolean>();
-
-  constructor() {
-  }
 
   ngOnInit(): void {
     this.siteKey = environment.siteKey;
@@ -24,5 +23,4 @@ export class BasicRecaptchaComponent implements OnInit {
       this.captcha.emit(true);
     }
   }
-
 }

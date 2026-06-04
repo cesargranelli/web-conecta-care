@@ -1,30 +1,29 @@
-import {Injectable} from '@angular/core';
-import {Valid} from 'src/app/services/feat/Valid';
-import {SharedEventValidService} from './shared-event-valid.service';
+import { inject, Injectable } from '@angular/core';
+import { StorageService } from 'src/app/core/services/storage.service';
+import { Valid } from 'src/app/core/models/Valid';
+import { SharedEventValidService } from './shared-event-valid.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SharedValidService {
   private readonly key = 'valid';
+  private readonly storage = inject(StorageService);
+  private readonly _eventValid = inject(SharedEventValidService);
 
-  constructor(private _eventValid: SharedEventValidService) { }
-
-  isValidate(chave?: string) {
-    return !!this.getValid(chave != null ? chave : this.key);
+  isValidate(chave?: string): boolean {
+    return !!this.getValid(chave);
   }
 
-  getValid(chave?: string): Valid {
-    return JSON.parse(localStorage.getItem(chave != null ? chave : this.key));
+  getValid(chave?: string): Valid | null {
+    return this.storage.get<Valid>(chave ?? this.key);
   }
 
-  setValid(valid: Valid) {
-    localStorage.setItem(valid.modulo != null ? valid.modulo : this.key, JSON.stringify(valid));
+  setValid(valid: Valid): void {
+    this.storage.set(valid.modulo ?? this.key, valid);
     this._eventValid.emitChange(true);
   }
 
-  removeValid(chave?: string) {
-    localStorage.removeItem(chave != null ? chave : this.key);
+  removeValid(chave?: string): void {
+    this.storage.remove(chave ?? this.key);
     this._eventValid.emitChange(false);
   }
 }

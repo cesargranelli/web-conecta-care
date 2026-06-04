@@ -1,27 +1,64 @@
-# WebConnectaCare
+# Conecta Care — Web
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+Portal web do Conecta Care, desenvolvido em Angular 21 com PrimeNG 21 (tema Aura) e bootstrap standalone.
 
-## Development server
+## Stack
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+| Tecnologia | Versão |
+|---|---|
+| Angular | 21 |
+| PrimeNG | 21 (tema Aura) |
+| TypeScript | 5.x |
+| Bootstrap | Standalone (via `bootstrapApplication`) |
 
-## Code scaffolding
+## Como rodar
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+npm install
+ng serve
+```
 
-## Build
+Acesse `http://localhost:4200/`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Para build de produção:
 
-## Running unit tests
+```bash
+ng build --configuration production
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Estrutura de pastas
 
-## Running end-to-end tests
+```
+src/
+├── app/
+│   ├── admin/           # Módulo admin (eventos)
+│   ├── auth/            # Autenticação (guards, serviços, login)
+│   ├── core/
+│   │   └── services/    # StorageService e serviços globais
+│   ├── enums/           # Enums (Role, Modulo)
+│   ├── planos-saude/    # Módulo planos de saúde (operadoras)
+│   ├── planos-saude-filial/ # Módulo planos de saúde filial
+│   ├── registration/    # Fluxo de cadastro
+│   ├── services/
+│   │   └── feat/        # Interfaces de domínio (Valid, etc.)
+│   └── shared/
+│       ├── components/  # Componentes reutilizáveis
+│       ├── services/    # SharedValidService, SharedTokenService
+│       └── validations/ # Validações customizadas
+├── assets/
+│   ├── fonts/           # Fontes (.ttf)
+│   ├── img/             # Imagens
+│   └── css/             # Estilos globais
+└── environments/        # Configuração de ambiente
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Scripts disponíveis
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+| Comando | Descrição |
+|---|---|
+| `ng serve` | Servidor de desenvolvimento (`localhost:4200`) |
+| `ng build` | Build de desenvolvimento |
+| `ng build --configuration production` | Build de produção |
+| `ng test` | Testes unitários via Karma |
+| `ng e2e` | Testes end-to-end via Protractor |
+| `ng generate component <nome>` | Gera novo componente |

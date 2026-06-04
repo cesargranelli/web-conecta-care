@@ -1,0 +1,58 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { EnderecoPaciente } from 'src/app/core/models/endereco-paciente.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EnderecoService {
+
+  private readonly ID_PACIENTE: string = 'idPaciente';
+
+  constructor(private _http: HttpClient) {
+  }
+
+  public cadastrar(enderecoPaciente: EnderecoPaciente) {
+    return this._http.post(`${environment.apiConnecta}/api/v1/endereco`, enderecoPaciente)
+      .pipe(map((dado: any) => {
+        return dado;
+      }),
+        catchError(async (err) => console.error(err))
+      );
+  }
+
+  public alterar(enderecoPaciente: EnderecoPaciente) {
+    return this._http.put(`${environment.apiConnecta}/api/v1/endereco`, enderecoPaciente)
+      .pipe(map((dado: any) => {
+        return dado;
+      }),
+        catchError(async (err) => console.error(err))
+      );
+  }
+
+
+  public pesquisarEnderecoPorId(id: number): Observable<EnderecoPaciente> {
+    return this._http.get(`${environment.apiConnecta}/api/v1/address/${id}`).pipe(
+      map((dado: any) => {
+        return dado;
+      }),
+      catchError(async (err) => console.error(err))
+    );
+  }
+
+  public pesquisarEnderecoPorIdPaciente(idPaciente: number): Observable<EnderecoPaciente> {
+    return this._http.get(
+      `${environment.apiConnecta}/api/v1/endereco`,
+      { params: new HttpParams().set(this.ID_PACIENTE, String(idPaciente)) }
+    ).pipe(
+      map((dado: any) => {
+        return dado;
+      }),
+      catchError(async (err) => console.error(err))
+    );
+  }
+
+}
