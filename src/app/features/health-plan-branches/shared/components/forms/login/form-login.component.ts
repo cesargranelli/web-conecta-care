@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,7 +11,8 @@ import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
   selector: 'app-form-login-filial',
   templateUrl: './form-login.component.html',
   styleUrls: ['./form-login.component.css']

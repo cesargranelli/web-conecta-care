@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -26,7 +31,8 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
   selector: 'app-novo-atendimento',
   templateUrl: './novo-atendimento.component.html',
   styleUrls: ['./novo-atendimento.component.css']

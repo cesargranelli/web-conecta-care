@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Modulo } from 'src/app/core/enums/modulo.enum';
@@ -8,7 +13,8 @@ import { HistoricoMedicoPaciente } from 'src/app/core/models/historico-medico-pa
 import { HistoricoMedicoService } from '../../services/historico-medico.service';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
   selector: 'app-historico-medico',
   templateUrl: './historico-medico.component.html',
   styleUrls: ['./historico-medico.component.css']

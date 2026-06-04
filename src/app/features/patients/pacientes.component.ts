@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
@@ -8,7 +13,8 @@ import { AtendimentoProtocolo } from 'src/app/features/patients/models/atendimen
 import { AtendimentoService } from './services/atendimento.service';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
   selector: 'app-pacientes',
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.css']

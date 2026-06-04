@@ -1,3 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,7 +19,8 @@ declare function hideToolTip(): void; //Carrega a funcao hideToolTip() do app.js
 declare function injetaToolTip(): void; //Carrega a funcao injetaToolTip() do app.js
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-tratamento',
   templateUrl: './homecare-profissional.component.html',
   styleUrls: ['./homecare-profissional.component.css']

@@ -1,3 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,7 +21,8 @@ import { TratamentoService } from '../../services/tratamento.service';
 declare var jQuery: any;
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-solicitacao-tratamento',
   templateUrl: './solicitacao-tratamento.component.html',
   styleUrls: ['./solicitacao-tratamento.component.css']

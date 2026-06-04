@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,7 +24,8 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
   selector: 'app-informacoes-gerais',
   templateUrl: './dados-informacoes-gerais.component.html',
   styleUrls: ['./dados-informacoes-gerais.component.css']

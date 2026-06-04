@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Modulo } from 'src/app/core/enums/modulo.enum';
@@ -9,7 +14,8 @@ import { EnderecoPaciente } from 'src/app/core/models/endereco-paciente.model';
 import { EnderecoService } from '../../services/endereco.service';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
   selector: 'app-endereco',
   templateUrl: './endereco.component.html',
   styleUrls: ['./endereco.component.css']

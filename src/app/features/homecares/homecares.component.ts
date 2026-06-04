@@ -1,3 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { Component, OnInit } from '@angular/core';
 import { CalendarOptions, EventInput } from '@fullcalendar/core';
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
@@ -14,7 +18,8 @@ import { StatusConverter } from './shared/utils/status.converter';
 declare var jQuery: any;
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-homecares',
   templateUrl: './homecares.component.html',
   styleUrls: ['./homecares.component.css']

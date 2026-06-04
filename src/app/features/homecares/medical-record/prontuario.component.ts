@@ -1,3 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { Component, OnInit } from '@angular/core';
 import { Prontuario } from 'src/app/features/homecares/models/prontuario.model';
 import { TratamentoService } from 'src/app/features/homecares/services/tratamento.service';
@@ -6,7 +10,8 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-prontuario',
   templateUrl: './prontuario.component.html',
   styleUrls: ['./prontuario.component.css'],

@@ -1,3 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -16,7 +20,8 @@ import {concatMap, map} from 'rxjs/operators';
 declare var jQuery: any;
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-evento-cadastro',
   templateUrl: './evento-cadastro.component.html',
   styleUrls: ['./evento-cadastro.component.css']

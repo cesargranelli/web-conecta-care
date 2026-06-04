@@ -1,7 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": "./",
+    "rootDir": "./src",
     "paths": {
       "src/*": ["src/*"]
     },
@@ -13,8 +15,6 @@
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,

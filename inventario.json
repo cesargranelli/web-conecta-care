@@ -211,7 +211,7 @@
         "FormComplementoComponent", "FormEnderecoComponent", "CardVerDadosComponent",
         "QrcodeComponent", "PrettyStringPipe", "CadastroDependenteCpfComponent"
       ],
-      "imports": ["CommonModule", "PacientesRoutingModule", "SharedComponentModule", "FormsModule", "ReactiveFormsModule", "NgxMaskDirective", "NgxMaskPipe"]
+      "imports": ["CommonModule", "PacientesRoutingModule", "FormsModule", "ReactiveFormsModule", "NgxMaskDirective", "NgxMaskPipe"]
     },
     "routing": {
       "path": "src/app/pacientes/pacientes-routing.module.ts",

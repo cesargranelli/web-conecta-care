@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -11,7 +16,8 @@ import { SharedValidService } from 'src/app/shared/services/shared-valid.service
 import Swal from 'sweetalert2';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
   selector: 'app-informacoes-plano-saude-filial',
   templateUrl: './informacoes-plano-saude-filial.component.html',
   styleUrls: ['./informacoes-plano-saude-filial.component.css']

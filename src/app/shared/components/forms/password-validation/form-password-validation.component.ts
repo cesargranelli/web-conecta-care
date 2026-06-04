@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges } from '@angular/core';
 
 declare var jQuery: any;
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule],
   selector: 'app-form-password-validation',
   templateUrl: './form-password-validation.component.html',
   styleUrls: ['./form-password-validation.component.css']

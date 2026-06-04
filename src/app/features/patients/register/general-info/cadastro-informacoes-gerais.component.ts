@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Modulo } from 'src/app/core/enums/modulo.enum';
@@ -9,7 +14,8 @@ import { Paciente } from "../../models/paciente.model";
 import { PacienteService } from "../../services/paciente.service";
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
   selector: 'app-informacoes-gerais',
   templateUrl: './cadastro-informacoes-gerais.component.html',
   styleUrls: ['./cadastro-informacoes-gerais.component.css']

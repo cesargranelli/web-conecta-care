@@ -1,48 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { RecaptchaModule } from 'ng-recaptcha-2';
-import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { CardVerDadosComponent } from './cards/card-ver-dados/card-ver-dados.component';
-import { FormContatoComponent } from './forms/form-contato/form-contato.component';
-import { FormEnderecoComponent } from './forms/address/form-endereco.component';
-import { FormInformacoesLoginComponent } from './forms/informacoes-login/form-informacoes-login.component';
-import { FormPasswordValidationComponent } from './forms/password-validation/form-password-validation.component';
-import { BasicRecaptchaComponent } from './recaptcha/basic-recaptcha.component';
-import { SelectPickerComponent } from './selects/select-picker/select-picker.component';
+/**
+ * Shared Components Barrel Export
+ * Exporting all standalone components from shared/components
+ * 
+ * Note: This file was previously a NgModule (SharedComponentModule).
+ * All components are now standalone and should be imported directly where needed.
+ */
 
-@NgModule({
-  declarations: [
-    FormInformacoesLoginComponent,
-    BasicRecaptchaComponent,
-    FormPasswordValidationComponent,
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule,
-    NgxMaskDirective,
-    NgxMaskPipe,
-    RecaptchaModule,
-    // Standalone components
-    CardVerDadosComponent,
-    SelectPickerComponent,
-    FormContatoComponent,
-    FormEnderecoComponent,
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
-  exports: [
-    FormInformacoesLoginComponent,
-    FormPasswordValidationComponent,
-    // Standalone components
-    CardVerDadosComponent,
-    SelectPickerComponent,
-    FormContatoComponent,
-    FormEnderecoComponent,
-  ]
-})
-export class SharedComponentModule {
-}
+export { BasicRecaptchaComponent } from './recaptcha/basic-recaptcha.component';
+export { CardVerDadosComponent } from './cards/card-ver-dados/card-ver-dados.component';
+export { FormContatoComponent } from './forms/form-contato/form-contato.component';
+export { FormEnderecoComponent } from './forms/address/form-endereco.component';
+export { FormInformacoesLoginComponent } from './forms/informacoes-login/form-informacoes-login.component';
+export { FormPasswordValidationComponent } from './forms/password-validation/form-password-validation.component';
+export { SelectPickerComponent } from './selects/select-picker/select-picker.component';

@@ -1,5 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { validEqualsEmail, validEqualsPassword } from 'src/app/shared/validations/directives/valid-equals';
 import { InputValidation } from 'src/app/shared/validations/input-validation';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
@@ -7,7 +8,8 @@ import { InputValidationHas } from 'src/app/shared/validations/input-validation-
 declare var jQuery: any;
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   selector: 'app-form-informacoes-login',
   templateUrl: './form-informacoes-login.component.html',
   styleUrls: ['./form-informacoes-login.component.css']

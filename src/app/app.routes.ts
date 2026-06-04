@@ -84,17 +84,17 @@ export const APP_ROUTES: Routes = [
   {
     path: 'patients',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/patients/pacientes.module').then(m => m.PacientesModule),
+    loadChildren: () => import('./features/patients/patients.routes').then(m => m.PATIENTS_ROUTES),
   },
   {
     path: 'professionals',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/professionals/profissionais.module').then(m => m.ProfissionaisModule),
+    loadChildren: () => import('./features/professionals/professionals.routes').then(m => m.PROFESSIONALS_ROUTES),
   },
   {
     path: 'homecares',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/homecares/homecares.module').then(m => m.HomeCaresModule),
+    loadChildren: () => import('./features/homecares/homecares.routes').then(m => m.HOMECARES_ROUTES),
   },
   {
     path: 'health-plans',

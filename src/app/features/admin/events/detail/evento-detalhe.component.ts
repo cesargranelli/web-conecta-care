@@ -1,3 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EventoService} from 'src/app/core/services/evento.service';
@@ -6,7 +10,8 @@ import {Evento} from '../models/evento.model';
 import {map, tap} from 'rxjs/operators';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
   selector: 'app-evento-detalhe',
   templateUrl: './evento-detalhe.component.html',
   styleUrls: ['./evento-detalhe.component.css']

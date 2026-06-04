@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { SharedComponentModule } from 'src/app/shared/components/shared-component.module';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Evento} from 'src/app/features/admin/events/models/evento.model';
@@ -6,7 +11,8 @@ import {SharedLoadingService} from 'src/app/shared/services/shared-loading.servi
 import {map, tap} from 'rxjs/operators';
 
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, SharedComponentModule],
   selector: 'app-evento-detalhe',
   templateUrl: './evento-detalhe.component.html',
   styleUrls: ['./evento-detalhe.component.css']
