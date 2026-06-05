@@ -4,14 +4,15 @@ import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {InputValidationHas} from '../../../shared/validations/input-validation-has';
+import { FormComplementoComponent } from 'src/app/features/patients/shared/components/forms/supplemental/form-complemento.component';
+import {InputValidationHas} from 'src/app/shared/validations/input-validation-has';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Valid} from '../../../services/feat/Valid';
+import {Valid} from 'src/app/core/models/Valid';
 import {Contato} from 'src/app/core/models/contato.class';
 import {Router} from '@angular/router';
-import {SharedValidService} from '../../../shared/services/shared-valid.service';
-import {ContatoService} from '../../../services/contato.service';
-import {SharedLoadingService} from '../../../shared/services/shared-loading.service';
+import {SharedValidService} from 'src/app/shared/services/shared-valid.service';
+import {ContatoService} from 'src/app/core/services/contato.service';
+import {SharedLoadingService} from 'src/app/shared/services/shared-loading.service';
 import Swal from 'sweetalert2';
 import { Estado } from 'src/app/core/models/estado.class';
 import {concatMap, map} from 'rxjs/operators';
@@ -19,7 +20,7 @@ import { Modulo } from 'src/app/core/enums/modulo.enum';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormComplementoComponent],
   selector: 'app-complemento',
   templateUrl: './cadastro-complemento.component.html',
   styleUrls: ['./cadastro-complemento.component.css']

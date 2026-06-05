@@ -13,8 +13,8 @@ import { Modulo } from 'src/app/core/enums/modulo.enum';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
-import { ComplementoService } from '../../../../../services/complemento.service';
-import { Paciente } from 'src/app/core/models/paciente.model';
+import { ComplementoService } from 'src/app/core/services/complemento.service';
+import { Paciente } from 'src/app/features/patients/models/paciente.model';
 import { PacienteService } from '../../../../services/paciente.service';
 
 @Component({

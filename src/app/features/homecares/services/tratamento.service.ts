@@ -10,10 +10,10 @@ import { catchError, map } from 'rxjs/operators';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { Prontuario } from 'src/app/core/models/prontuario.model';
-import { TratamentoAbertoLista } from 'src/app/core/models/tratamento-aberto-lista.model';
-import { TratamentoAdicionar } from 'src/app/core/models/tratamento-adicionar.model';
-import { TratamentoEncerrar } from 'src/app/core/models/tratamento-encerrar.model';
+import { Prontuario } from 'src/app/features/homecares/models/prontuario.model';
+import { TratamentoAbertoLista } from 'src/app/features/homecares/models/tratamento-aberto-lista.model';
+import { TratamentoAdicionar } from 'src/app/features/homecares/models/tratamento-adicionar.model';
+import { TratamentoEncerrar } from 'src/app/features/homecares/models/tratamento-encerrar.model';
 
 @Injectable({
   providedIn: 'root',

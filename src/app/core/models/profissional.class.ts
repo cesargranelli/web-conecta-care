@@ -1,5 +1,5 @@
 import { EstadoCivil } from './estado-civil.class';
-import { Genero } from './genero.model';
+import { Genero } from './genero.class';
 import { TipoEmpresa } from './tipo-empresa.class';
 
 export class Profissional {

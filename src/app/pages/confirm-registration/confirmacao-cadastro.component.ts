@@ -10,9 +10,11 @@ import { SharedTokenService } from 'src/app/shared/services/shared-token.service
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
+import { NgxLoadingModule } from 'ngx-loading';
+
 @Component({
   standalone: true,
-  imports: [],
+  imports: [NgxLoadingModule],
   selector: 'app-confirmacao-cadastro',
   templateUrl: './confirmacao-cadastro.component.html',
   styleUrls: ['./confirmacao-cadastro.component.css']

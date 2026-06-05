@@ -11,16 +11,17 @@ import { Role } from 'src/app/core/enums/role.enum';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import Swal from 'sweetalert2';
-import { PlanoSaudeFilial } from 'src/app/core/models/plano-saude-filial.model';
+import { PlanoSaudeFilial } from 'src/app/features/health-plan-branches/models/plano-saude-filial.model';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { CadastroPlanosSaudeFilialService } from '../../services/cadastro-planos-saude-filial.service';
+import { FormLoginComponent } from 'src/app/features/health-plan-branches/shared/components/forms/login/form-login.component';
 import { Valid } from 'src/app/core/models/Valid';
 
 declare var jQuery: any;
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormLoginComponent],
   selector: 'app-cadastro-login-plano-saude-filial',
   templateUrl: './cadastro-login.component.html',
   styleUrls: ['./cadastro-login.component.css']

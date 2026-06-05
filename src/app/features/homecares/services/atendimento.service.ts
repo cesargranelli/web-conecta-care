@@ -3,9 +3,9 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {map} from 'rxjs/operators';
-import {ResponseTemplateInterface} from '../../services/response/responseTemplate.interface';
-import {AtendimentoDetalhes} from 'src/app/core/models/atendimento-detalhes.model';
-import { AtendimentoAdicionar } from 'src/app/core/models/atendimento-adicionar.model';
+import {ResponseTemplateInterface} from 'src/app/core/models/response-template.interface';
+import {AtendimentoDetalhes} from 'src/app/features/homecares/models/atendimento-detalhes.model';
+import { AtendimentoAdicionar } from 'src/app/features/homecares/models/atendimento-adicionar.model';
 
 @Injectable({
   providedIn: 'root'

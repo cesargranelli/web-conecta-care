@@ -8,7 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { concatMap, map } from 'rxjs/operators';
 import { EstadoCivil } from 'src/app/core/models/estado-civil.class';
-import { Genero } from 'src/app/core/models/genero.model';
+import { Genero } from 'src/app/core/models/genero.class';
 import { TipoEmpresa } from 'src/app/core/models/tipo-empresa.class';
 import { Modulo } from 'src/app/core/enums/modulo.enum';
 import { Role } from 'src/app/core/enums/role.enum';
@@ -20,7 +20,7 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
 import Swal from 'sweetalert2';
-import { Paciente } from 'src/app/core/models/paciente.model';
+import { Paciente } from 'src/app/features/patients/models/paciente.model';
 import { DadosResponsavelDependenteService } from '../../../services/dados-responsavel-dependente.service';
 
 declare var jQuery: any;
@@ -67,7 +67,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
   private _filePaciente: File;
   private _fileRg: File;
   private _fileCpf: File;
-  private _dadosLocalStorage: Valid = new Valid();
+  private _dadosLocalStorage: Valid = {} as Valid;
   private _dataAtual: Date;
 
   constructor(
@@ -253,7 +253,7 @@ export class FormInformacoesGeraisComponent implements OnInit {
     }
 
     if (!this._dadosLocalStorage) {
-      this._validService.setValid(new Valid());
+      this._validService.setValid({} as Valid);
     }
 
     this.onSubmitEvent.emit(this.paciente);

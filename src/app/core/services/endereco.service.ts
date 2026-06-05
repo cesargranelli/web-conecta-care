@@ -12,10 +12,8 @@ export class EnderecoService {
 
   constructor(private _http: HttpClient) {}
 
-  findViaCep(pathParam: string): Observable<HttpResponse<any>> {
-    return this._http.get<HttpResponse<any>>(
-      this.endpointViaCep.replace('{cep}', pathParam), { observe: 'response' }
-    );
+  findViaCep(cep: string): Observable<HttpResponse<any>> {
+    return this._http.get<HttpResponse<any>>(this.endpointViaCep.replace('{cep}', cep), { observe: 'response' });
   }
 
   getDados(id: number): Observable<Endereco> {

@@ -7,15 +7,17 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Modulo } from 'src/app/core/enums/modulo.enum';
 import Swal from "sweetalert2";
-import { Valid } from "../../../services/feat/Valid";
-import { SharedLoadingService } from "../../../shared/services/shared-loading.service";
-import { SharedValidService } from "../../../shared/services/shared-valid.service";
-import { Paciente } from "../../models/paciente.model";
+import { Valid } from 'src/app/core/models/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { Paciente } from 'src/app/features/patients/models/paciente.model';
 import { PacienteService } from "../../services/paciente.service";
+
+import { FormInformacoesGeraisComponent } from 'src/app/features/patients/shared/components/forms/general-info/form-informacoes-gerais.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormInformacoesGeraisComponent],
   selector: 'app-informacoes-gerais',
   templateUrl: './cadastro-informacoes-gerais.component.html',
   styleUrls: ['./cadastro-informacoes-gerais.component.css']

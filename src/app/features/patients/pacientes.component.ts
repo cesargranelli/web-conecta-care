@@ -7,8 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Modulo } from 'src/app/core/enums/modulo.enum';
-import { SharedLoadingService } from '../shared/services/shared-loading.service';
-import { SharedValidService } from '../shared/services/shared-valid.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { AtendimentoProtocolo } from 'src/app/features/patients/models/atendimento-protocolo.model';
 import { AtendimentoService } from './services/atendimento.service';
 

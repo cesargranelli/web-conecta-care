@@ -1,11 +1,20 @@
-import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { Modulo } from './core/enums/modulo.enum';
 import { Valid } from './core/models/Valid';
 import { SharedLoadingService } from './shared/services/shared-loading.service';
 import { SharedValidService } from './shared/services/shared-valid.service';
+
+const PUBLIC_ROUTES = [
+  '/login', '/register', '/cadastro', '/admin/login',
+  '/confirm-registration', '/confirm-password',
+  '/waiting-email-confirmation', '/terms-of-use', '/privacy-policy',
+  '/confirmacao-cadastro', '/confirmacao-nova-senha',
+  '/espera-confirmacao-email', '/termo-e-condicoes-de-uso', '/politica-de-privacidade',
+];
 
 @Component({
   standalone: true,
@@ -16,13 +25,19 @@ import { SharedValidService } from './shared/services/shared-valid.service';
 })
 export class AppComponent {
   private readonly _valid = inject(SharedValidService);
+  private readonly router = inject(Router);
+
+  readonly isPublicPage = signal(true);
 
   constructor(private _loading: SharedLoadingService) {
     this._loading.changeEmitted$.subscribe();
-  }
 
-  get isHomePage(): boolean {
-    return window.location.pathname === '/home';
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: NavigationEnd) => {
+        const path = e.urlAfterRedirects.split('?')[0];
+        this.isPublicPage.set(PUBLIC_ROUTES.some(r => path === r || path.startsWith(r + '/')));
+      });
   }
 
   get activeValid(): Valid | null {

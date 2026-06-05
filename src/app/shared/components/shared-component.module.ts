@@ -2,7 +2,7 @@
  * Shared Components Barrel Export
  * Exporting all standalone components from shared/components
  * 
- * Note: This file was previously a NgModule (SharedComponentModule).
+ * Note: This file was previously a NgModule ().
  * All components are now standalone and should be imported directly where needed.
  */
 

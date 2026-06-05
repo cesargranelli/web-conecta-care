@@ -11,12 +11,12 @@ import { Modulo } from 'src/app/core/enums/modulo.enum';
 import { Role } from 'src/app/core/enums/role.enum';
 import Swal from 'sweetalert2';
 import { AreaAtendimento } from 'src/app/core/models/area-atendimento.class';
-import { Valid } from '../../../../../services/feat/Valid';
-import { SharedLoadingService } from '../../../../../shared/services/shared-loading.service';
-import { SharedValidService } from '../../../../../shared/services/shared-valid.service';
-import { InputValidationHas } from '../../../../../shared/validations/input-validation-has';
-import { ContatoPaciente } from 'src/app/core/models/contato-paciente.model';
-import { Paciente } from 'src/app/core/models/paciente.model';
+import { Valid } from 'src/app/core/models/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { InputValidationHas } from 'src/app/shared/validations/input-validation-has';
+import { ContatoPaciente } from 'src/app/features/patients/models/contato-paciente.model';
+import { Paciente } from 'src/app/features/patients/models/paciente.model';
 import { ContatoService } from '../../../../services/contato.service';
 import { PacienteService } from '../../../../services/paciente.service';
 

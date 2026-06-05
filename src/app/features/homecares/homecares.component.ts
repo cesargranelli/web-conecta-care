@@ -9,17 +9,21 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { SharedLoadingService } from '../shared/services/shared-loading.service';
-import { SharedValidService } from '../shared/services/shared-valid.service';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { AtendimentoResumo } from 'src/app/features/homecares/models/atendimento-resumo.model';
 import { AtendimentoService } from './services/atendimento.service';
 import { StatusConverter } from './shared/utils/status.converter';
 
 declare var jQuery: any;
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { ModalDetalheAtendimentoComponent } from 'src/app/features/homecares/shared/components/modal/detalhe-atendimento/modal-detalhe-atendimento.component';
+import { ModalCriarTratamentoComponent } from 'src/app/features/homecares/shared/components/modal/criar-tratamento/modal-criar-tratamento.component';
+
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FullCalendarModule, ModalDetalheAtendimentoComponent, ModalCriarTratamentoComponent],
   selector: 'app-homecares',
   templateUrl: './homecares.component.html',
   styleUrls: ['./homecares.component.css']

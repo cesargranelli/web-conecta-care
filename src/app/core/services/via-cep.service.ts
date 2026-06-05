@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ViaCepService {
-  private endpointViaCep = ${environment.apiCep}/ws/{cep}/json;
+  private endpointViaCep = `${environment.apiCep}/ws/{cep}/json`;
 
   constructor(private _http: HttpClient) {}
 

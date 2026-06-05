@@ -102,7 +102,7 @@ export class FormEnderecoComponent implements OnInit {
 
   popularForm() {
     this.enderecoForm.controls.logradouro.setValue(this._cadastro.endereco?.logradouro);
-    this.enderecoForm.controls.numero.setValue(this._cadastro.endereco?.numero);
+    this.enderecoForm.controls.number.setValue(this._cadastro.endereco?.number);
     this.enderecoForm.controls.complemento.setValue(this._cadastro.endereco?.complemento);
     this.enderecoForm.controls.cep.setValue(this._cadastro.endereco?.cep);
     this.enderecoForm.controls.bairro.setValue(this._cadastro.endereco?.bairro);

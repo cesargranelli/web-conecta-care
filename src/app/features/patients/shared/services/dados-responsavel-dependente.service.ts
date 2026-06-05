@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Responsavel } from 'src/app/core/models/responsavel.model';
+import { Responsavel } from 'src/app/features/patients/models/responsavel.model';
 
 @Injectable({
   providedIn: 'root',

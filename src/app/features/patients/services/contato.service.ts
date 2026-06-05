@@ -2,8 +2,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
-import { ContatoPaciente } from 'src/app/core/models/contato-paciente.model';
+import { environment } from 'src/environments/environment';
+import { ContatoPaciente } from 'src/app/features/patients/models/contato-paciente.model';
 
 @Injectable({
   providedIn: 'root'

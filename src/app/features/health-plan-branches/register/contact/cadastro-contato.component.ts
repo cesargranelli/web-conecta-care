@@ -13,10 +13,11 @@ import { Valid } from 'src/app/core/models/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
+import { FormContatoComponent as FormContatoFilialComponent } from 'src/app/features/health-plan-branches/shared/components/forms/contact/form-contato.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormContatoFilialComponent],
   selector: 'app-cadastro-contato-plano-saude-filial',
   templateUrl: './cadastro-contato.component.html',
   styleUrls: ['./cadastro-contato.component.css']

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TratamentoAberto } from 'src/app/core/models/tratamento-aberto.model';
+import { TratamentoAberto } from 'src/app/features/homecares/models/tratamento-aberto.model';
 
 @Injectable({
   providedIn: 'root'

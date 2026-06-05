@@ -16,6 +16,7 @@ import { InputValidationHas } from 'src/app/shared/validations/input-validation-
 import { RoleConverter } from 'src/app/core/utils/role.converter';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
+import { FormPasswordValidationComponent } from 'src/app/shared/components/forms/password-validation/form-password-validation.component';
 
 declare var jQuery: any;
 declare function carregarTarjaAzul(): void;
@@ -25,7 +26,7 @@ declare function injetaToolTip(): void;
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, FormPasswordValidationComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

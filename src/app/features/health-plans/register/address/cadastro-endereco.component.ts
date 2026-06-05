@@ -14,12 +14,13 @@ import { Valid } from 'src/app/core/models/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
+import { FormEnderecoComponent } from 'src/app/features/health-plans/shared/components/forms/address/form-endereco.component';
 
 declare var jQuery: any;
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormEnderecoComponent],
   selector: 'app-cadastro-endereco-plano-saude',
   templateUrl: './cadastro-endereco.component.html',
   styleUrls: ['./cadastro-endereco.component.css']

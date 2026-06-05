@@ -1,7 +1,9 @@
-<app-navbar *ngIf="!isHomePage" [valid]="activeValid"></app-navbar>
+@if (!isPublicPage()) {
+  <app-navbar [valid]="activeValid"></app-navbar>
+}
 
 <router-outlet></router-outlet>
 
-<app-footer *ngIf="!isHomePage"></app-footer>
-
-<!--<ngx-loading [show]="loading"></ngx-loading>-->
+@if (!isPublicPage()) {
+  <app-footer></app-footer>
+}

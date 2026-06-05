@@ -16,7 +16,7 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import Swal from 'sweetalert2';
-import { PacientePesquisa } from 'src/app/core/models/paciente-pesquisa.model';
+import { PacientePesquisa } from 'src/app/features/homecares/models/paciente-pesquisa.model';
 import { PacienteService } from '../services/paciente.service';
 
 declare var jQuery: any;

@@ -8,7 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { concatMap, map } from 'rxjs/operators';
 import { EstadoCivil } from 'src/app/core/models/estado-civil.class';
-import { Genero } from 'src/app/core/models/genero.model';
+import { Genero } from 'src/app/core/models/genero.class';
 import { Profissional } from 'src/app/core/models/profissional.class';
 import { TipoEmpresa } from 'src/app/core/models/tipo-empresa.class';
 import { CadastroProfissionaisService } from 'src/app/core/services/cadastro-profissionais.service';

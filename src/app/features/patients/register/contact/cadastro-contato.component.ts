@@ -8,15 +8,16 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Modulo } from 'src/app/core/enums/modulo.enum';
 import Swal from 'sweetalert2';
-import { Valid } from '../../../services/feat/Valid';
-import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
-import { SharedValidService } from '../../../shared/services/shared-valid.service';
-import { ContatoPaciente } from 'src/app/core/models/contato-paciente.model';
+import { Valid } from 'src/app/core/models/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { ContatoPaciente } from 'src/app/features/patients/models/contato-paciente.model';
 import { ContatoService } from '../../services/contato.service';
+import { FormContatoComponent } from 'src/app/features/patients/shared/components/forms/contact/form-contato.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormContatoComponent],
   selector: 'app-contato',
   templateUrl: './cadastro-contato.component.html',
   styleUrls: ['./cadastro-contato.component.css']

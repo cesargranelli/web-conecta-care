@@ -1,5 +1,5 @@
-import { Genero } from 'src/app/core/models/genero.model';
-import { Parentesco } from 'src/app/core/models/parentesco.model';
+import { Genero } from 'src/app/core/models/genero.class';
+import { Parentesco } from 'src/app/core/models/parentesco.class';
 import { ContatoPaciente } from 'src/app/features/patients/models/contato-paciente.model';
 
 export class AcompanhanteTratamentoAberto {

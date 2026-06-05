@@ -7,8 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { concatMap } from 'rxjs/internal/operators/concatMap';
 import { map } from 'rxjs/internal/operators/map';
-import { Genero } from 'src/app/core/models/genero.model';
-import { Parentesco } from 'src/app/core/models/parentesco.model';
+import { Genero } from 'src/app/core/models/genero.class';
+import { Parentesco } from 'src/app/core/models/parentesco.class';
 import { DominioService } from 'src/app/core/services/dominio.service';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 

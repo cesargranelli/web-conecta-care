@@ -9,8 +9,8 @@ import { ProfissionalService } from 'src/app/core/services/profissional.service'
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import Swal from 'sweetalert2';
-import { ProfissionalCompleto } from 'src/app/core/models/profissional-completo.model';
-import { ProfissionalPesquisa } from 'src/app/core/models/profissional-pesquisa.model';
+import { ProfissionalCompleto } from 'src/app/features/homecares/models/profissional-completo.model';
+import { ProfissionalPesquisa } from 'src/app/features/homecares/models/profissional-pesquisa.model';
 
 declare var jQuery: any;
 

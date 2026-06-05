@@ -3,7 +3,7 @@ import { CarreiraComponent } from './profile/career/carreira.component';
 import { DadosComplementoComponent } from './profile/supplemental/dados-complemento.component';
 import { DadosContaComponent } from './profile/bank-account/dados-conta.component';
 import { ContatoComponent } from './profile/contact/contato.component';
-import { DadosProfissionaisComponent } from './profile/profile.component';
+import { DadosProfissionaisComponent } from './profile/dados-profissionais.component';
 import { EnderecoComponent } from './profile/address/endereco.component';
 import { EscolaridadeComponent } from './profile/education/escolaridade.component';
 import { ExperienciaComponent } from './profile/experience/experiencia.component';

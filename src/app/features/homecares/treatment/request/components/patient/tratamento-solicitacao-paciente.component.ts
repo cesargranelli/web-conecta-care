@@ -37,7 +37,7 @@ export class TratamentoSolicitacaoPacienteComponent implements OnInit {
 
   pesquisarPaciente(pacienteCpf: string): any {
     this.loading.emitChange(true);
-    this.pacienteService.pesquisarPorCpf({ numero: pacienteCpf, tipo: 'CPF', modulo: 'PACIENTE' })
+    this.pacienteService.pesquisarPorCpf({ number: pacienteCpf, type: 'CPF', module: 'PACIENTE' })
       .subscribe((paciente: Paciente) => {
         if (paciente) {
           this.eventoPaciente.emit(paciente);

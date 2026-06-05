@@ -11,17 +11,18 @@ import { Modulo } from 'src/app/core/models/modulo.class';
 import { PlanoSaudeFilial } from 'src/app/features/health-plan-branches/models/plano-saude-filial.model';
 import { CadastroPlanosSaudeFilialService } from 'src/app/features/health-plan-branches/services/cadastro-planos-saude-filial.service';
 import { PlanoSaudeFilialService } from 'src/app/features/health-plan-branches/services/plano-saude-filial.service';
-import { DocumentoService } from 'src/app/core/services/document.service';
+import { DocumentService } from 'src/app/core/services/document.service';
 import { Valid } from 'src/app/core/models/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
+import { FormPlanoSaudeFilialComponent } from 'src/app/features/health-plan-branches/shared/components/forms/plano-saude-filial/form-plano-saude-filial.component';
 
 declare var jQuery: any;
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormPlanoSaudeFilialComponent],
   selector: 'app-cadastro-plano-saude-filial',
   templateUrl: './cadastro-plano-saude-filial.component.html',
   styleUrls: ['./cadastro-plano-saude-filial.component.css']
@@ -38,7 +39,7 @@ export class CadastroPlanoSaudeFilialComponent implements OnInit {
     private _validService: SharedValidService,
     private _loading: SharedLoadingService,
     private _service: PlanoSaudeFilialService,
-    private _serviceDocumento: DocumentoService,
+    private _serviceDocumento: DocumentService,
     private _router: Router,
     private _cadastro: CadastroPlanosSaudeFilialService
   ) {
@@ -77,8 +78,8 @@ export class CadastroPlanoSaudeFilialComponent implements OnInit {
     if (!this._cadastro.planoSaude.id) {
       this._serviceDocumento.registrar({numero: numero, tipo: tipo, modulo: modulo.getModulo()}).subscribe(response => {
         this._loading.emitChange(false);
-        if (response.body?.id) {
-          this._cadastro.planoSaude.id = response.body.id;
+        if (response?.id) {
+          this._cadastro.planoSaude.id = response.id;
 
           this._service.cadastrar(this._cadastro.planoSaude).subscribe(response => {
             this.navigate();

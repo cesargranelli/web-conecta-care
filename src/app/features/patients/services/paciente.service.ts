@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Documento } from 'src/app/core/models/documento';
 import { environment } from 'src/environments/environment';
-import { Paciente } from 'src/app/core/models/paciente.model';
+import { Paciente } from 'src/app/features/patients/models/paciente.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,7 @@ export class PacienteService {
     return this._http.get(
       `${environment.apiConnecta}/api/v1/paciente`,
       {
-        params: new HttpParams().set(this.DOCUMENTO, documento.numero)
+        params: new HttpParams().set(this.DOCUMENTO, documento.number)
       }
     ).pipe(map((dado: any) => {
       return dado;

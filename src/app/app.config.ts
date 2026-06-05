@@ -1,5 +1,5 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding, withRouterConfig } from '@angular/router';
 import Aura from '@primeng/themes/aura';
@@ -9,6 +9,7 @@ import { tokenInterceptor } from './features/auth/interceptors/token.interceptor
 import { APP_ROUTES } from './app.routes';
 import { provideNgxMask } from 'ngx-mask';
 import { providePrimeNG } from 'primeng/config';
+import { NgxLoadingModule } from 'ngx-loading';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,5 +27,6 @@ export const appConfig: ApplicationConfig = {
       theme: { preset: Aura, options: { darkModeSelector: false } },
     }),
     provideNgxMask(),
+    importProvidersFrom(NgxLoadingModule.forRoot({})),
   ],
 };

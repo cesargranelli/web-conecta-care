@@ -1,6 +1,6 @@
 import { TipoPaciente } from "./tipo-paciente.model";
-import { EstadoCivil } from "../../models/estado-civil.class";
-import { Genero } from "../../models/genero.model";
+import { EstadoCivil } from 'src/app/core/models/estado-civil.class';
+import { Genero } from 'src/app/core/models/genero.class';
 import { ContatoPaciente } from "./contato-paciente.model";
 import { EnderecoPaciente } from "./endereco-paciente.model";
 import { HistoricoMedicoPaciente } from "./historico-medico-paciente.model";

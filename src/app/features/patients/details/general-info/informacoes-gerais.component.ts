@@ -11,12 +11,13 @@ import { Valid } from 'src/app/core/models/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
-import { Paciente } from 'src/app/core/models/paciente.model';
+import { Paciente } from 'src/app/features/patients/models/paciente.model';
 import { PacienteService } from '../../services/paciente.service';
+import { FormInformacoesGeraisComponent } from 'src/app/features/patients/shared/components/forms/general-info/form-informacoes-gerais.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormInformacoesGeraisComponent],
   selector: 'app-informacoes-gerais',
   templateUrl: './informacoes-gerais.component.html',
   styleUrls: ['./informacoes-gerais.component.css']

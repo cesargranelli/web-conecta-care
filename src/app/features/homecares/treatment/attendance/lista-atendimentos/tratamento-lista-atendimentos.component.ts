@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 import { Component, Input, OnInit } from '@angular/core';
-import { Atendimento } from 'src/app/core/models/atendimento-prontuario.model';
+import { Atendimento } from 'src/app/features/homecares/models/atendimento-prontuario.model';
 
 declare var jQuery: any;
 

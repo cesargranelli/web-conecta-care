@@ -11,7 +11,7 @@ export class ConvenioService {
 
   pesquisarCnpj(documento: DocumentoCnpj): Observable<HttpResponse<any>> {
     return this._http.post<HttpResponse<DocumentoCnpj>>(
-      ${environment.apiConnecta}/convenios/cnpj, documento, { observe: 'response' }
+      `${environment.apiConnecta}/convenios/cnpj`, documento, { observe: 'response' }
     );
   }
 }

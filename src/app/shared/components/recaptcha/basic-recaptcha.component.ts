@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { RecaptchaModule } from 'ng-recaptcha-2';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-basic-recaptcha',

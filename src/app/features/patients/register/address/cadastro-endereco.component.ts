@@ -7,15 +7,16 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Modulo } from 'src/app/core/enums/modulo.enum';
-import { Valid } from '../../../services/feat/Valid';
-import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
-import { SharedValidService } from '../../../shared/services/shared-valid.service';
-import { EnderecoPaciente } from 'src/app/core/models/endereco-paciente.model';
+import { Valid } from 'src/app/core/models/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { EnderecoPaciente } from 'src/app/features/patients/models/endereco-paciente.model';
 import { EnderecoService } from '../../services/endereco.service';
+import { FormEnderecoComponent } from 'src/app/features/patients/shared/components/forms/address/form-endereco.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormEnderecoComponent],
   selector: 'app-endereco',
   templateUrl: './cadastro-endereco.component.html',
   styleUrls: ['./cadastro-endereco.component.css']

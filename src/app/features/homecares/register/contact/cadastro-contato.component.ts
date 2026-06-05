@@ -14,9 +14,11 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
+import { FormContatoComponent } from 'src/app/features/homecares/shared/components/forms/contact/form-contato.component';
+
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormContatoComponent],
   selector: 'app-cadastro-contato-homecare',
   templateUrl: './cadastro-contato.component.html',
   styleUrls: ['./cadastro-contato.component.css']

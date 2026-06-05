@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
-import { TratamentoAbertoLista } from 'src/app/core/models/tratamento-aberto-lista.model';
+import { TratamentoAbertoLista } from 'src/app/features/homecares/models/tratamento-aberto-lista.model';
 import { TratamentoService } from '../../services/tratamento.service';
 
 declare var jQuery: any;

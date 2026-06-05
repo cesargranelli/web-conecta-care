@@ -12,18 +12,22 @@ import { SharedLoadingService } from 'src/app/shared/services/shared-loading.ser
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import { validCpf } from 'src/app/shared/validations/directives/valid-cpf.directive';
 import Swal from 'sweetalert2';
-import { Acompanhante } from 'src/app/core/models/acompanhante.model';
-import { ProfissionalAtendimento } from 'src/app/core/models/profissional-atendimento.model';
-import { SituacaoTratamento } from 'src/app/core/models/situacao-tratamento.model';
-import { TratamentoAdicionar } from 'src/app/core/models/tratamento-adicionar.model';
+import { Acompanhante } from 'src/app/features/homecares/models/acompanhante.model';
+import { ProfissionalAtendimento } from 'src/app/features/homecares/models/profissional-atendimento.model';
+import { SituacaoTratamento } from 'src/app/features/homecares/models/situacao-tratamento.model';
+import { TratamentoAdicionar } from 'src/app/features/homecares/models/tratamento-adicionar.model';
 import { TratamentoService } from '../../services/tratamento.service';
 
 declare var jQuery: any;
 
+import { TratamentoSolicitacaoPacienteComponent } from 'src/app/features/homecares/treatment/request/components/patient/tratamento-solicitacao-paciente.component';
+import { TratamentoSolicitacaoEnderecoComponent } from 'src/app/features/homecares/treatment/request/components/address/tratamento-solicitacao-endereco.component';
+import { TratamentoSolicitacaoAcompanhanteComponent } from 'src/app/features/homecares/treatment/request/components/acompanhante/tratamento-solicitacao-acompanhante.component';
+import { TratamentoSolicitacaoProfissionalComponent } from 'src/app/features/homecares/treatment/request/components/professional/tratamento-solicitacao-profissional.component';
+
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
-  selector: 'app-solicitacao-tratamento',
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, TratamentoSolicitacaoPacienteComponent, TratamentoSolicitacaoEnderecoComponent, TratamentoSolicitacaoAcompanhanteComponent, TratamentoSolicitacaoProfissionalComponent],
   templateUrl: './solicitacao-tratamento.component.html',
   styleUrls: ['./solicitacao-tratamento.component.css']
 })

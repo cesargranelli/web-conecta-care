@@ -10,15 +10,16 @@ import { Router } from '@angular/router';
 import { PlanoSaude } from 'src/app/features/health-plans/models/plano-saude.model';
 import { CadastroPlanosSaudeService } from 'src/app/features/health-plans/services/cadastro-planos-saude.service';
 import { PlanoSaudeService } from 'src/app/features/health-plans/services/plano-saude.service';
-import { DocumentoService } from 'src/app/core/services/document.service';
+import { DocumentService } from 'src/app/core/services/document.service';
 import { Valid } from 'src/app/core/models/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
+import { FormPlanoSaudeComponent } from 'src/app/features/health-plans/shared/components/forms/plano-saude/form-plano-saude.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormPlanoSaudeComponent],
   selector: 'app-cadastro-plano-saude',
   templateUrl: './cadastro-plano-saude.component.html',
   styleUrls: ['./cadastro-plano-saude.component.css']
@@ -35,14 +36,14 @@ export class CadastroPlanoSaudeComponent implements OnInit {
     private _validService: SharedValidService,
     private _loading: SharedLoadingService,
     private _service: PlanoSaudeService,
-    private _serviceDocumento: DocumentoService,
+    private _serviceDocumento: DocumentService,
     private _router: Router,
     private _cadastro: CadastroPlanosSaudeService
   ) {
     this._loading.emitChange(true);
     this.valid = this._validService.getValid();
     this._serviceDocumento.pesquisar(this.valid?.id).subscribe(response => {
-      this._cadastro.planoSaude.cnpj = response.body.documento;
+      this._cadastro.planoSaude.cnpj = response.body.numero;
     },
     (errorResponse: HttpErrorResponse) => {
       if (errorResponse.status === 404) {

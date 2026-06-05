@@ -17,4 +17,14 @@ export class DocumentService {
   findById(id: number): Observable<HttpResponse<RegistrationRecord>> {
     return this.http.get<RegistrationRecord>(`${this.endpoint}/${id}`, { observe: 'response' });
   }
+
+  /** Legacy method used by some components */
+  registrar(payload: { numero: string; tipo: string; modulo: string }): Observable<RegistrationRecord> {
+    return this.http.post<RegistrationRecord>(this.endpoint, payload);
+  }
+
+  /** Legacy method used by some components */
+  pesquisar(id: number): Observable<HttpResponse<RegistrationRecord>> {
+    return this.http.get<RegistrationRecord>(`${this.endpoint}/${id}`, { observe: 'response' });
+  }
 }

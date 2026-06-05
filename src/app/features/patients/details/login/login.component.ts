@@ -8,9 +8,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Modulo } from 'src/app/core/enums/modulo.enum';
 import { LoginService } from '../../../auth/services/login.service';
-import { Valid } from '../../../services/feat/Valid';
-import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
-import { SharedValidService } from '../../../shared/services/shared-valid.service';
+import { Valid } from 'src/app/core/models/Valid';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 
 @Component({
   standalone: true,

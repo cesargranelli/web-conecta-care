@@ -16,4 +16,3 @@ export * from './cadastro.service';
 export * from './cadastro-profissionais.service';
 export * from './cadastro-homecares.service';
 export * from './document.service';
-export * from './documento.service';

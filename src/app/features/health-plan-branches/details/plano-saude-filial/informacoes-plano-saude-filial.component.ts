@@ -14,10 +14,11 @@ import { Valid } from 'src/app/core/models/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
+import { FormPlanoSaudeFilialComponent } from 'src/app/features/health-plan-branches/shared/components/forms/plano-saude-filial/form-plano-saude-filial.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormPlanoSaudeFilialComponent],
   selector: 'app-informacoes-plano-saude-filial',
   templateUrl: './informacoes-plano-saude-filial.component.html',
   styleUrls: ['./informacoes-plano-saude-filial.component.css']

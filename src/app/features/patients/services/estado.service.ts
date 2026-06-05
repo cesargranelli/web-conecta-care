@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
-import { Estado } from "../../models/estado.class";
+import { Estado } from 'src/app/core/models/estado.class';
 
 @Injectable({
   providedIn: 'root'

@@ -10,15 +10,17 @@ import { Router } from '@angular/router';
 import { HomeCare } from 'src/app/features/homecares/models/homecare.model';
 import { HomecareService } from 'src/app/features/homecares/services/homecare.service';
 import { CadastroHomeCaresService } from 'src/app/core/services/cadastro-homecares.service';
-import { DocumentoService } from 'src/app/core/services/document.service';
+import { DocumentService } from 'src/app/core/services/document.service';
 import { Valid } from 'src/app/core/models/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
 
+import { FormHomeCareComponent } from 'src/app/features/homecares/shared/components/forms/homecare/form-homecare.component';
+
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormHomeCareComponent],
   selector: 'app-cadastro-homecare',
   templateUrl: './cadastro-homecare.component.html',
   styleUrls: ['./cadastro-homecare.component.css']
@@ -35,14 +37,14 @@ export class CadastroHomeCareComponent implements OnInit {
     private _validService: SharedValidService,
     private _loading: SharedLoadingService,
     private _service: HomecareService,
-    private _serviceDocumento: DocumentoService,
+    private _serviceDocumento: DocumentService,
     private _router: Router,
     private _cadastro: CadastroHomeCaresService
   ) {
     this._loading.emitChange(true);
     this.valid = this._validService.getValid();
     this._serviceDocumento.pesquisar(this.valid?.id).subscribe(response => {
-      this._cadastro.homeCare.cnpj = response.body.documento;
+      this._cadastro.homeCare.cnpj = response.body.numero;
     },
     (errorResponse: HttpErrorResponse) => {
       if (errorResponse.status === 404) {

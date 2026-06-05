@@ -9,14 +9,15 @@ import { Router } from '@angular/router';
 import { Modulo } from 'src/app/core/enums/modulo.enum';
 import { Valid } from 'src/app/core/models/Valid';
 import Swal from 'sweetalert2';
-import { SharedLoadingService } from '../../../shared/services/shared-loading.service';
-import { SharedValidService } from '../../../shared/services/shared-valid.service';
-import { ContatoPaciente } from 'src/app/core/models/contato-paciente.model';
+import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
+import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
+import { ContatoPaciente } from 'src/app/features/patients/models/contato-paciente.model';
 import { ContatoService } from '../../services/contato.service';
+import { FormContatoComponent } from 'src/app/features/patients/shared/components/forms/contact/form-contato.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormContatoComponent],
   selector: 'app-contato',
   templateUrl: './contato.component.html',
   styleUrls: ['./contato.component.css']

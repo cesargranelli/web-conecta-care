@@ -6,14 +6,16 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { AtendimentoGrupo } from 'src/app/features/homecares/models/atendimento-grupo.model';
 import { AtendimentoModelo } from 'src/app/features/homecares/models/atendimento-modelo.model';
-import { AtendimentoDetalhes } from 'src/app/core/models/atendimento-detalhes.model';
+import { AtendimentoDetalhes } from 'src/app/features/homecares/models/atendimento-detalhes.model';
 import { AtendimentoService } from '../../../../services/atendimento.service';
 
 declare var jQuery: any;
 
+import { NgxLoadingModule } from 'ngx-loading';
+
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, NgxLoadingModule],
   selector: 'app-modal-detalhe-atendimento',
   templateUrl: './modal-detalhe-atendimento.component.html',
   styleUrls: ['./modal-detalhe-atendimento.component.css']

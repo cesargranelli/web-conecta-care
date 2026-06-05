@@ -1,4 +1,4 @@
-import {Genero} from 'src/app/core/models/genero.model';
+import {Genero} from 'src/app/core/models/genero.class';
 import {ContatoPaciente} from './contato-paciente.model';
 import {Parentesco} from './parentesco.model';
 

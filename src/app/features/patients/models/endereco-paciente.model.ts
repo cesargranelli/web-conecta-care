@@ -1,5 +1,5 @@
 import { Pais } from 'src/app/core/models/pais.class';
-import { Estado } from "../../models/estado.class";
+import { Estado } from 'src/app/core/models/estado.class';
 
 export class EnderecoPaciente {
   idPaciente: number;

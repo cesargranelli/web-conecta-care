@@ -10,12 +10,14 @@ import { Valid } from 'src/app/core/models/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
-import { HistoricoMedicoPaciente } from 'src/app/core/models/historico-medico-paciente.model';
+import { HistoricoMedicoPaciente } from 'src/app/features/patients/models/historico-medico-paciente.model';
 import { HistoricoMedicoService } from '../../services/historico-medico.service';
+
+import { FormHistoricoMedicoComponent } from 'src/app/features/patients/shared/components/forms/medical-history/form-historico-medico.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormHistoricoMedicoComponent],
   selector: 'app-historico-medico',
   templateUrl: './cadastro-historico-medico.component.html',
   styleUrls: ['./cadastro-historico-medico.component.css']

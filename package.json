@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^21.0.0",
-    "@angular/cli": "^21.0.0",
+    "@angular/cli": "^22.0.0",
     "@angular/compiler-cli": "^21.0.0",
     "@types/crypto-js": "^4.2.0",
     "@types/node": "^22.0.0",

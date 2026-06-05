@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { HistoricoMedicoPaciente } from 'src/app/core/models/historico-medico-paciente.model';
+import { HistoricoMedicoPaciente } from 'src/app/features/patients/models/historico-medico-paciente.model';
 
 @Injectable({
   providedIn: 'root'

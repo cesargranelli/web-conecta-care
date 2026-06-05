@@ -9,19 +9,24 @@ import { StatusTratamento } from 'src/app/core/enums/status-tratamento.enum';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
-import { ProfissionalAtendimento } from 'src/app/core/models/profissional-atendimento.model';
-import { SituacaoTratamento } from 'src/app/core/models/situacao-tratamento.model';
-import { TratamentoAberto } from 'src/app/core/models/tratamento-aberto.model';
-import { TratamentoEncerrar } from 'src/app/core/models/tratamento-encerrar.model';
+import { ProfissionalAtendimento } from 'src/app/features/homecares/models/profissional-atendimento.model';
+import { SituacaoTratamento } from 'src/app/features/homecares/models/situacao-tratamento.model';
+import { TratamentoAberto } from 'src/app/features/homecares/models/tratamento-aberto.model';
+import { TratamentoEncerrar } from 'src/app/features/homecares/models/tratamento-encerrar.model';
 import { TratamentoService } from '../services/tratamento.service';
 import { TratamentoStorageService } from '../services/tratamento-storage.service';
 
 declare var jQuery: any;
 
+import { TratamentoPacienteComponent } from 'src/app/features/homecares/treatment/components/patient/tratamento-paciente.component';
+import { TratamentoEnderecoComponent } from 'src/app/features/homecares/treatment/components/address/tratamento-endereco.component';
+import { TratamentoAcompanhanteComponent } from 'src/app/features/homecares/treatment/components/acompanhante/tratamento-acompanhante.component';
+import { TratamentoProfissionalComponent } from 'src/app/features/homecares/treatment/components/professional/tratamento-profissional.component';
+import { TratamentoListaAtendimentosComponent } from 'src/app/features/homecares/treatment/attendance/lista-atendimentos/tratamento-lista-atendimentos.component';
+
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
-  selector: 'app-tratamento',
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, TratamentoPacienteComponent, TratamentoEnderecoComponent, TratamentoAcompanhanteComponent, TratamentoProfissionalComponent, TratamentoListaAtendimentosComponent],
   templateUrl: './tratamento.component.html',
   styleUrls: ['./tratamento.component.css']
 })

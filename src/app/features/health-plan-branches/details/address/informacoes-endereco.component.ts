@@ -14,10 +14,11 @@ import { Valid } from 'src/app/core/models/Valid';
 import { SharedLoadingService } from 'src/app/shared/services/shared-loading.service';
 import { SharedValidService } from 'src/app/shared/services/shared-valid.service';
 import Swal from 'sweetalert2';
+import { FormEnderecoComponent } from 'src/app/features/health-plans/shared/components/forms/address/form-endereco.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, FormEnderecoComponent],
   selector: 'app-informacoes-endereco',
   templateUrl: './informacoes-endereco.component.html',
   styleUrls: ['./informacoes-endereco.component.css']

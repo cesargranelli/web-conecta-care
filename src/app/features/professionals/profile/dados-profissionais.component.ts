@@ -11,8 +11,8 @@ declare var jQuery: any;
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, NgxMaskDirective, NgxMaskPipe, CardVerDadosComponent],
   selector: 'app-dados-profissionais',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  templateUrl: './dados-profissionais.component.html',
+  styleUrls: ['./dados-profissionais.component.css']
 })
 export class DadosProfissionaisComponent implements OnInit {
 
